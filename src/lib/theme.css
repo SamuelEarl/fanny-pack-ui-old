@@ -1,0 +1,111 @@
+/* Many of the variables in this file are reference throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary` because `var(--primary)` is referenced throughout the components. However, you can change the *values* of any of these variables. You can also add any other variables to this file and then reference those custom variables in any other variable in this file using the `var()` function. There is a place below where you can add your custom variables. It is recommended to keep any custom variables separate from the other variables in this file so you don't accidentally alter the name of or remove a variable that is referenced throughout the component library.  */
+
+/* TODO: I would like to see if there is a way to give users more control over the editing of the components. Is there a way to allow users to specify what colors get passed to the different parts of each component? Maybe I could create a lot of CSS variables to allow users more fine-grained customizability for their components. For example, I could do something like the following, which would keep the styles consistent across all the components and would help to maintain the same theme across the entire website:
+
+NOTE: Look at how Foundation handles their global styles that can be customized (I think Bootstrap uses a similar concept):
+* Documentation: https://get.foundation/sites/docs/global.html
+* settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
+
+--blue: #000080;
+--purple: #800080;
+--red: #008000;
+--orange: #ffa500;
+--yellow: #ffff00;
+--green: #228b22;
+--white: #ffffff;
+
+--success: var(--green);
+--warning: var(--yellow);
+--alert: var(--red);
+
+--button-primary-background: var(--blue);
+--button-primary-border-color: var(--blue);
+--button-primary-text-color: var(--white);
+--button-secondary-background: var(--white);
+--button-secondary-border-color: var(--blue);
+--button-secondary-text-color: var(--blue);
+--button-tertiary-background: var(--red);
+--button-tertiary-border-color: var(--red);
+--button-tertiary-text-color: var(--white);
+--button-padding-small: 2px 4px;
+--button-padding-medium: 4px 8px;
+--button-padding-large: 5px 10px;
+
+--thin-border: 1px;
+--border-line: solid;
+--border-width: var(--thin-border);
+--border-style: var(solid);
+--border-color: var(--gray-light);
+--link-underline: 1px dotted var(--blue);
+...
+*/
+
+
+/* Your Custom Variables. */
+/* Uncomment the following `:root {}` definition and add your own custom variables here. */
+/* :root {
+  
+} */
+
+/* Colors */
+:root {
+  --red-light: #c40000;
+  --red: #9d0000;
+  --red-dark: #760000;
+  --yellow-light: #ffff00;
+  --yellow: #d8d800;
+  --yellow-dark: #b1b100;
+  --blue-light: #0000a7;
+  --blue: #000080;
+  --blue-dark: #000059;  
+  --gray-extra-light: #eee;
+  --gray-light: #d3d3d3;
+  --gray-medium: #676767;
+  --gray-dark: #333;
+  --black: #000;
+  --white: #fff;
+
+  --primary-light: var(--blue-light);
+  --primary: var(--blue);
+  --primary-dark: var(--blue-dark);
+  --secondary-light: var(--red-light);
+  --secondary: var(--red);
+  --secondary-dark: var(--red-dark);
+  --tertiary-light: var(--yellow-light);
+  --tertiary: var(--yellow);
+  --tertiary-dark: var(--yellow-dark);
+}
+
+/* Typography */
+:root {
+  --sm-font-size: 12px;
+  --base-font-size: 16px;
+  --lg-font-size: 20px;
+  --serif-font-stack: "Times New Roman", sans-serif;
+  --sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --script-font-stack: script;
+  --mono-font-stack: mono;
+  font-family: var(--sans-serif-font-stack);
+  --font-weight-light: 100;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+}
+
+/* Buttons */
+:root {
+  --btn-font-weight: var(--font-weight-normal);
+  --btn-text-color-disabled: var(--gray-light);
+  --btn-background-color-disabled: var(--black);
+  --btn-icon-space-right: 7px;
+  /* --btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
+  --btn-icon-disabled-spin-speed: 1.5s;
+}
+
+/* h1, h2, h3, h4, h5, h6 {
+  font-family: var(--serif-font-stack);
+} */
+
+/* Miscellaneous */
+:root {
+  --radius: 3px;
+}
