@@ -41,7 +41,7 @@ const config = {
 		adapter: adapter(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
-		target: "#svelte",
+		// target: "#svelte",
 
 		vite: () => ({
 			// Aliases: https://dev.to/danawoodman/how-to-add-module-import-aliases-in-sveltekit-2ck

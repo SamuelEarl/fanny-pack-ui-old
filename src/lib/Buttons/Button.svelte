@@ -1,26 +1,32 @@
+<!-- TODOS:
+  * Should I refactor this component to use Svelte's --style-props feature? See https://svelte.dev/docs#style_props and you can reference the Select.svelte component, which already uses the --style-props feature. I like the flexibility with --style-props, but I need to find out if I can pass CSS variables as prop values? If not, then I might not refactor this component to use --style-props.
+  * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
+-->
+
 <!-- The `on:click` is Svelte's "event forwarding" feature. -->
 
 <button
   type="button"
-  class="{`scl-btn ${color} ${size} ${width}-width`}"
-  class:outline={outline}
+  class="{`jacl-btn ${bgColor} ${size} ${width}-width`}"
+  class:inverse={inverse}
   disabled={disabled}
   on:click
 >
-  {#if btnIcon || btnIconDisabled}
+  {#if btnIcon && btnIconDisabled}
     {#if disabled}
-      {#if spinDisabledIcon}  
-        <span>
-          <Icon icon="{btnIconDisabled}" class="btn-icon spin"/>
+      {#if btnIconDisabledShouldSpin}
+        <!-- You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times. -->
+        <span class="{`btn-icon-${btnIconSide}`}" >
+          <Icon icon="{btnIconDisabled}" class="spin" />
         </span>
       {:else}
-        <span>
-          <Icon icon="{btnIconDisabled}" class="btn-icon"/>
+        <span class="{`btn-icon-${btnIconSide}`}" >
+          <Icon icon="{btnIconDisabled}" />
         </span>
       {/if}
     {:else}
-      <span>
-        <Icon icon="{btnIcon}" class="btn-icon" />
+      <span class="{`btn-icon-${btnIconSide}`}" >
+        <Icon icon="{btnIcon}" />
       </span>
     {/if}
   {/if}
@@ -34,26 +40,27 @@
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/static/theme.js";
+  import { theme } from "$/theme";
 
-  export let color = "primary";
+  export let bgColor = "primary";
   export let size = "md";
   export let width = "auto";
-  export let outline = false;
+  export let inverse = false;
   export let disabled = false;
   export let btnIcon = theme.btnIcon;
   export let btnIconDisabled = theme.btnIconDisabled;
-  export let spinDisabledIcon = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
+  export let btnIconSide = "left";
+  export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
 </script>
 
 
 <style>
-  .scl-btn {
+  .jacl-btn {
     font-family: var(--body-font-stack);
     font-weight: var(--btn-font-weight);
     outline: none;
     border: 0;
-    border-radius: 3px;
+    border-radius: var(--btn-radius);
     cursor: pointer;
     display: inline-block;
     line-height: 1rem;
@@ -62,78 +69,83 @@
     justify-content: center;
   }
 
-  :global(.scl-btn .btn-icon) {
-    margin-right: var(--btn-icon-space-right);
+  :global(.jacl-btn .btn-icon-left) {
+    order: 0;
+    margin-right: var(--btn-icon-margin);
+  }
+  :global(.jacl-btn .btn-icon-right) {
+    order: 1;
+    margin-left: var(--btn-icon-margin);
   }
 
   .primary {
-    color: white;
     background-color: var(--primary);
+    color: var(--btn-text-color-primary);
   }
   .primary:hover {
-    color: white;
     background-color: var(--primary-dark);
+    color: var(--btn-text-color-primary);
   }
-  .primary.outline {
+  .primary.inverse {
+    background-color: var(--btn-text-color-primary);
     color: var(--primary);
-    background-color: white;
     box-shadow: 0px 0px 0px 2px var(--primary) inset;
   }
-  .primary.outline:hover {
+  .primary.inverse:hover {
+    background-color: var(--btn-text-color-primary);
     color: var(--primary-dark);
-    background-color: white;
     box-shadow: 0px 0px 0px 3px var(--primary-dark) inset;
   }
 
   .secondary {
-    color: white;
     background-color: var(--secondary);
+    color: var(--btn-text-color-secondary);
   }
   .secondary:hover {
-    color: white;
     background-color: var(--secondary-dark);
+    color: var(--btn-text-color-secondary);
   }
-  .secondary.outline {
+  .secondary.inverse {
+    background-color: var(--btn-text-color-secondary);
     color: var(--secondary);
-    background-color: white;
     box-shadow: 0px 0px 0px 2px var(--secondary) inset;
   }
-  .secondary.outline:hover {
+  .secondary.inverse:hover {
+    background-color: var(--btn-text-color-secondary);
     color: var(--secondary-dark);
-    background-color: white;
     box-shadow: 0px 0px 0px 3px var(--secondary-dark) inset;
   }
 
   .tertiary {
-    color: white;
     background-color: var(--tertiary);
+    color: var(--btn-text-color-tertiary);
   }
   .tertiary:hover {
-    color: white;
     background-color: var(--tertiary-dark);
+    color: var(--btn-text-color-tertiary);
   }
-  .tertiary.outline {
+  .tertiary.inverse {
+    background-color: var(--btn-text-color-tertiary);
     color: var(--tertiary);
-    background-color: white;
     box-shadow: 0px 0px 0px 2px var(--tertiary) inset;
   }
-  .tertiary.outline:hover {
+  .tertiary.inverse:hover {
+    background-color: var(--btn-text-color-tertiary);
     color: var(--tertiary-dark);
-    background-color: white;
     box-shadow: 0px 0px 0px 3px var(--tertiary-dark) inset;
   }
 
   .sm {
     font-size: var(--sm-font-size);
-    padding: 10px 16px;
+    padding: var(--btn-sm-padding);
   }
   .md {
     font-size: var(--base-font-size);
-    padding: 11px 20px;
+    padding: var(--btn-md-padding);
   }
   .lg {
     font-size: var(--lg-font-size);
-    padding: 12px 24px;
+    padding: var(--btn-lg-padding);
   }
 
   .auto-width {
@@ -143,14 +155,11 @@
     width: 100%;
   }
 
-  :disabled {
-    color: var(--btn-text-color-disabled);
-    background-color: var(--btn-background-color-disabled);
+  .jacl-btn:disabled {
+    color: var(--disabled-text-color);
+    background-color: var(--disabled-background-color);
+    box-shadow: none;
     cursor: default;
-  }
-  :disabled:hover {
-    color: var(--btn-text-color-disabled);
-    background-color: var(--btn-background-color-disabled);
   }
 
   :global(.spin) {

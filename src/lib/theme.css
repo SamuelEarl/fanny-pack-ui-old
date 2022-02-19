@@ -78,6 +78,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Typography */
 :root {
+  --global-text-color: var(--gray-dark);
   --sm-font-size: 12px;
   --base-font-size: 16px;
   --lg-font-size: 20px;
@@ -91,21 +92,36 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --font-weight-bold: 700;
 }
 
-/* Buttons */
-:root {
-  --btn-font-weight: var(--font-weight-normal);
-  --btn-text-color-disabled: var(--gray-light);
-  --btn-background-color-disabled: var(--black);
-  --btn-icon-space-right: 7px;
-  /* --btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
-  --btn-icon-disabled-spin-speed: 1.5s;
-}
-
 /* h1, h2, h3, h4, h5, h6 {
   font-family: var(--serif-font-stack);
 } */
 
+/* Buttons */
+:root {
+  --btn-font-weight: var(--font-weight-normal);
+  --btn-text-color-primary: var(--white);
+  --btn-text-color-secondary: var(--white);
+  --btn-text-color-tertiary: var(--gray-dark);
+  --btn-icon-margin: 10px;
+  /* --btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
+  --btn-icon-disabled-spin-speed: 1.5s;
+  --btn-sm-padding: 10px 16px;
+  --btn-md-padding: 11px 20px;
+  --btn-lg-padding: 12px 24px;
+  --btn-radius: 20px;
+}
+
+/* Inputs */
+:root {
+  --input-padding: 10px 12px;
+  --input-background-color: var(--gray-extra-light);
+  --label-font-size: 0.8rem;
+  --label-margin: 0 0 5px 5px;
+}
+
 /* Miscellaneous */
 :root {
-  --radius: 3px;
+  --disabled-text-color: var(--gray-light);
+  --disabled-background-color: var(--black);
+  --global-radius: 3px;
 }

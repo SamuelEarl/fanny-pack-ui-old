@@ -1,5 +1,5 @@
 <nav>
-  <a href="/">SvelteKit Components Home</a>
+  <a href="/">JACL Home</a>
   <br><br>
   <div>Components</div>
   <a href="/buttons">Buttons</a>

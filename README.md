@@ -1,6 +1,6 @@
-# SvelteKit Component Library (SCL)
-* Start here and follow these setup instructions: [Integrating Storybook with SvelteKit](https://codingcat.dev/tutorial/integrating-storybook-with-sveltekit)
-* Read this to learn more about Storybook and how to use it with Svelte: [Build your own component library with SvelteKit](https://blog.logrocket.com/build-your-own-component-library-svelte/)
+# Just Another Component Library (JACL) - Components Built with and for SvelteKit
+**NOTE: Webpack throws errors with import statements that use aliases like `$`. So I don't think I can use Storybook. Oh, well. I will just create my own interactive documentation using MDSVEX. Webpack is pretty slow and I don't love using apps like Storybook because of the limitations that you run into sometimes, so I prefer to create my own interactive documentation.**
+
 
 Other helpful guides for building component libraries:
 * [The Ultimate Guide to Building a UI Component Library](https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-1-plan)
@@ -10,39 +10,90 @@ Other helpful guides for building component libraries:
 ---
 
 # How to develop new components or edit existing components
-I should create the components first inside the `/src/lib` directory (which is where a component library would need to be created) and then try those components on a page in the `/src/routes` directory to make sure that the components work properly in a regular Svelte app. (Storybook doesn't support everything that Svelte does right now, so I want to make sure that the reusable components that are created will actually work properly in a Svelte app.) Then, for documentation purposes and to give other developers the ability to try out different variations of the components, I will create Storybook stories in the `/src/stories` directory.
-
----
-
-# TODOS
-* How to customize/edit fonts after the component library has been installed. This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work.
-
----
-
-# How to publish and share your components in Storybook
-See https://storybook.js.org/docs/svelte/sharing/publish-storybook
+1. I should create the component first inside the `/src/lib` directory (which is where a component library would need to be created).
+2. Then test that component out on a page in the `/src/routes` directory to make sure that the component works properly in a regular SvelteKit app.
+3. Write comprehensive tests for the component.
+4. Then, for documentation purposes and to give other developers the ability to try out different variations of each component, I will create interactive documentation with controls (similar to what Storybook does) for each component in the `/src/routes` directory.
 
 ---
 
 # How to enable the theme for the components and customize it
 
-## CSS Variables
-When you install and import the SCL components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components. This is one way:
+## Create an alias for the `src` directory
+In your `svelte.config.js` file add this code:
 
-Create a `/static/theme.css` file and copy all the code from the `scl` package's `theme.css` file into the `/static/theme.css` file. Then import the `/static/theme.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
+```js
+// __dirname is not available in ES modules: https://nodejs.org/api/esm.html#esm_no_filename_or_dirname
+// This issue has a fix: https://github.com/nodejs/help/issues/2907
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+...
+
+const config = {
+  ...
+
+  kit: {
+    ...
+
+    vite: {
+      resolve: {
+        alias: {
+          $: path.resolve(__dirname, "/src"),
+        },
+      },
+    },
+  }
+}
+```
+
+And in your `tsconfig.json` file add this path to the `"paths"` property:
+
+```json
+"paths": {
+  "$/*": ["src/*"],
+  ...
+}
+```
+
+For more information about aliases, see https://dev.to/danawoodman/how-to-add-module-import-aliases-in-sveltekit-2ck.
+
+
+## CSS Variables & Utility Classes
+When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components. These are a few different ways to add the `theme.css` and `utils.css` files to your app, this is my preferred way:
+
+Create the following files inside a `/src/assets/styles` directory:
+
+* `main.css`
+* `theme.css`
+* `utils.css`
+
+Copy all the code from the package's `theme.css` file into the `/src/assets/styles/theme.css` file. Do the same thing with this package's `utils.css` file and the `/src/assets/styles/utils.css` file. Then import all of your CSS files from your `/src/assets/styles` folder into the `/src/assets/styles/main.css` file. That might look something like this:
+
+```css
+@import "normalize.css";
+@import "fonts.css";
+@import "theme.css";
+@import "base.css";
+@import "utils.css";
+```
+
+Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
 
 ```html
 <style>
-  @import "/static/theme.css";
+  @import "/src/assets/styles/main.css";
 </style>
 ```
 
-The default theme should now be enabled when you start your app. Now you can edit the variables to create the theme you want. Read the notes at the top of the `theme.css` file for details.
+The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `theme.css` file for details.
+
 
 ## JavaScript Variables
-Create a `/static/theme.js` file and copy all the code from the `scl` package's `theme.js` file into the `/static/theme.js` file. The components are already referencing the `/static/theme.js` file, so you should be ready to go.
+Create a `/src/theme.ts` file and copy all the code from the `jacl` package's `theme.ts` file into the `/src/theme.ts` file. The components are already referencing the `/src/theme.ts` file using the alias `$/theme`, so you should be ready to go.
 
-You can now edit any of the variables in the `/static/theme.js` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". The value in that field is what you will copy and paste into your `theme.js` values. 
+You can now edit any of the variables in the `/src/theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". The value in that field is what you will copy and paste into your `theme.ts` values. 
 
 NOTE: After selecting your icon, if you scroll down you will see a code example like this:
 ```html
@@ -51,21 +102,6 @@ NOTE: After selecting your icon, if you scroll down you will see a code example 
 The "Selected icon" field should also match the `data-icon` property of that code example.
 
 TODO: Test this in a separate app to find out if this will work without installing the `@iconify/svelte` package or if the user needs to install that package also.
-
----
-
-# How to get Storybook to use the project's CSS variables
-You can import a CSS file at the top of the `.storybook/preview.js` file:
-
-```js
-import "../src/lib/theme.css";
-
-// ... rest of the settings
-```
-
-This way it will be available across all pages in your Storybook.
-
-*https://stackoverflow.com/a/70203687*
 
 ---
 
@@ -120,10 +156,10 @@ NOTE: You have to make sure that the package name and package version combinatio
 
 
 # Step 4: When necessary, update to the latest version from the global npm registry
-If you have installed this SvelteKit component library from the global npm registry, then all you need to do to get the latest version is run the following inside the directory that contains your `package.json` file:
+If you have installed JACL from the global npm registry, then all you need to do to get the latest version is run the following inside the directory that contains your `package.json` file:
 
 ```
-npm update "scl"
+npm update "jacl"
 ```
 
 * *https://docs.npmjs.com/updating-packages-downloaded-from-the-registry*
@@ -180,20 +216,95 @@ When you use `npm install` you almost always want to install npm packages from t
 
 However, npm can also install local packages (aka a directory on your local machine that has a `package.json` file in it), and you can do so by passing npm a path to the directory to install. So in this case, `npm install --save-dev ./package` tells npm to install the package in the `package` directory in your demo app.
 
-If you open your demo application's `package.json` file, you'll see a new `devDependency` for "scl" that looks like this:
+If you open your demo application's `package.json` file, you'll see a new `devDependency` for "jacl" that looks like this:
 
 ```
-"scl": "file:package",
+"jacl": "file:package",
 ```
 
 This is a link that gives you the ability to use your components in your example app. This is how you would import a component into a `.svelte` file in the example app:
 
 ```
-import { Button } from "scl";
+import { Button } from "jacl";
 ```
 
 *https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment*
 
 
 ## Step 4: Develop and edit components and update to the latest version from your local `package` directory
-Since you have already installed the local `scl` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `scl` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
+Since you have already installed the local `jacl` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `jacl` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
+
+---
+
+# How to add `postcss-preset-env` (for native CSS nesting) and `mdsvex` (for Markdown documentation)
+* The `postcss-preset-env` config and notes are below.
+* Use `svelte-add` to install `mdsvex`, which will configure everything for you: https://github.com/svelte-add/mdsvex. Then you can create `.svelte.md` files and start creating regular Svelte components with Markdown syntax sprinkled throughout. I like to use Markdown to document code blocks in between opening and closing triple backticks. 
+    * NOTE: I think `mdsvex` conflicts with Storybook's MDX installation and throws silent errors, so if you want to install `mdsvex` alongside Storybook then you might run into problems. I would just use the default MDX installation.
+
+```js
+// svelte.config.js
+
+import { mdsvex } from "mdsvex";
+import mdsvexConfig from "./mdsvex.config.js";
+import adapter from "@sveltejs/adapter-auto";
+import preprocess from "svelte-preprocess";
+import postcssPresetEnv from "postcss-preset-env";
+// __dirname is not available in ES modules: https://nodejs.org/api/esm.html#esm_no_filename_or_dirname
+// This issue has a fix: https://github.com/nodejs/help/issues/2907
+import path from "path";
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+/** @type {import("@sveltejs/kit").Config} */
+const config = {
+	extensions: [".svelte", ...mdsvexConfig.extensions],
+
+	// Consult https://github.com/sveltejs/svelte-preprocess
+	// for more information about preprocessors
+	preprocess: [
+		preprocess({
+			postcss: {
+				plugins: [
+					// * How to configure the postcssPresetEnv plugin:
+					// https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md
+					// * Disable "Svelte plugin CSS diagnostics" and install the "PostCSS Language Support" extension in VS Code to prevent false error highlighting:
+					// https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting
+					postcssPresetEnv({
+						stage: 0,
+						features: {
+							"nesting-rules": true
+						},
+						browsers: "last 2 versions"
+					})
+				]
+			}
+		}),
+		mdsvex(mdsvexConfig)
+	],
+
+	kit: {
+		adapter: adapter(),
+
+		// hydrate the <div id="svelte"> element in src/app.html
+		target: "#svelte",
+
+		vite: () => ({
+			// Aliases: https://dev.to/danawoodman/how-to-add-module-import-aliases-in-sveltekit-2ck
+			resolve: {
+				alias: {
+					$: path.resolve(__dirname, "/src")
+				}
+			},
+
+			server: {
+				fs: {
+					allow: ["package"]
+				}
+			}
+		})
+	}
+};
+
+export default config;
+```

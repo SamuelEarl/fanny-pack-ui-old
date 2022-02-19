@@ -1,49 +1,64 @@
-<h1>Buttons</h1>
+# Buttons
 
-<hr>
+---
 
-<h2>Example button that explicitly fills all slots and props</h2>
+## Import
+```svelte
+<script>
+  import { Button } from "jacl";
+</script>
+```
 
-<Button
-  color="secondary"
-  size="lg"
-  width="auto"
-  outline={false}
-  disabled={creatingAccount}
-  btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
-  spinDisabledIcon={true}
-  on:click={handleCreateAccount}
->
-  <span slot="btnText">Create Account</span>
-  <span slot="btnTextDisabled">Creating Account...</span>
-</Button>
+---
+
+## Props & Slots
+You can pass any of these props or slots:
 
 ```svelte
 <Button
-  color="secondary"
-  size="lg"
+  bgColor="primary"
+  size="md"
   width="auto"
-  outline={false}
+  inverse={false}
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="bi:gear-wide-connected"
-  spinDisabledIcon={true}
+  btnIconSide="left"
+  btnIconDisabledShouldSpin={true}
+  on:click={handlerFunc}
+>
+  <span slot="btnText">Create Account</span>
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+```
+
+<Button
+  bgColor={selectedBgColor}
+  size="md"
+  width="auto"
+  inverse={false}
+  disabled={creatingAccount}
+  btnIcon="bi:person-plus-fill"
+  btnIconDisabled="bi:gear-wide-connected"
+  btnIconSide="left"
+  btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
 >
   <span slot="btnText">Create Account</span>
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
 
-<script>
-  import { Button } from "scl";
+<br>
 
-  function handleCreateAccount() {
-    creatingAccount = true;
-    setTimeout(() => creatingAccount = false, 3000);
-  }
-</script>
-```
+<Select
+  optionsArray={bgColors}  
+  bind:selectedOption={selectedBgColor}
+  emptyValueDisplayText="-- Select the background color --"
+  defaultValue="primary"
+  --background-color="--black"
+/>
+
+---
 
 <table>
   <thead>
@@ -127,10 +142,6 @@
   </tbody>
 </table>
 
-<hr>
-
-<h2>Minimal Button</h2>
-
 <Button on:click={showAlert}>
   <span slot="btnText">Click to show alert</span>
 </Button>
@@ -141,10 +152,55 @@
 </Button>
 
 <script>
-  import { Button } from "scl";
+  import { Button } from "jacl";
   
   function showAlert() {
     alert("You clicked a button");
+  }
+</script>
+```
+
+<hr>
+
+<h2>Example button that explicitly fills all slots and props</h2>
+
+<Button
+  color="secondary"
+  size="lg"
+  width="auto"
+  outline={false}
+  disabled={creatingAccount}
+  btnIcon="bi:person-plus-fill"
+  btnIconDisabled="bi:gear-wide-connected"
+  spinDisabledIcon={true}
+  on:click={handleCreateAccount}
+>
+  <span slot="btnText">Create Account</span>
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+
+```svelte
+<Button
+  color="secondary"
+  size="lg"
+  width="auto"
+  outline={false}
+  disabled={creatingAccount}
+  btnIcon="bi:person-plus-fill"
+  btnIconDisabled="bi:gear-wide-connected"
+  spinDisabledIcon={true}
+  on:click={handleCreateAccount}
+>
+  <span slot="btnText">Create Account</span>
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+
+<script>
+  import { Button } from "jacl";
+
+  function handleCreateAccount() {
+    creatingAccount = true;
+    setTimeout(() => creatingAccount = false, 3000);
   }
 </script>
 ```
@@ -185,7 +241,7 @@
 </Button>
 
 <script lang="ts">
-  import { Button } from "scl";
+  import { Button } from "jacl";
 
   let loading = true;
 </script>
@@ -197,15 +253,17 @@
 <Button disabled={true}>Disabled Button</Button>
 
 <script lang="ts">
-  import { Button } from "scl";
+  import { Button } from "jacl";
 </script>
 ```
 
 <script lang="ts">
-  import { Button } from "$/lib";
+  import { Button, Select } from "$/lib";
 
   let creatingAccount = false;
   let loading = false;
+  let bgColors = ["primary", "secondary", "tertiary"];
+  let selectedBgColor = "";
 
   function showAlert() {
     alert("You clicked a button");

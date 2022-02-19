@@ -12,10 +12,8 @@
 </script>
 
 <style>
-  /* @import "/src/assets/styles/main.css"; */
-  @import "/src/assets/styles/normalize.css";
-  @import "/static/theme.css";
-
+  @import "/src/assets/styles/main.css";
+  
   .layout {
     height: 100vh;
     display: flex;

@@ -1,17 +1,8 @@
-<h1>SvelteKit Component Library</h1>
+# Just Another Component Library (JACL)
 
-<p>Components made for SvelteKit</p>
+Components built with and for SvelteKit
 
-<Button on:click={handleClick}>My Button</Button>
+## View Docs
+A live docs website on GitHub pages...
 
-```svelte
-<h1>Buttons</h1>
-```
-
-<script lang="ts">
-  import { Button } from "$/lib";
-
-  function handleClick() {
-    alert("Svelte components inside Markdown files");
-  }
-</script>
+In a local dev environment, run `npm run dev` and visit `http://localhost:3000`.
