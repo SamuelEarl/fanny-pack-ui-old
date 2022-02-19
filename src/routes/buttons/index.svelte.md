@@ -32,6 +32,8 @@ You can pass any of these props or slots:
 </Button>
 ```
 
+<!-- Should I also allow users to pass in style-props? See the comments at the top of the Button.svelte component. -->
+<!-- --background-color="yellow" -->
 <Button
   bgColor={selectedBgColor}
   size="md"

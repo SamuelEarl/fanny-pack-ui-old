@@ -1,5 +1,7 @@
 <!-- TODOS:
   * Should I refactor this component to use Svelte's --style-props feature? See https://svelte.dev/docs#style_props and you can reference the Select.svelte component, which already uses the --style-props feature. I like the flexibility with --style-props, but I need to find out if I can pass CSS variables as prop values? If not, then I might not refactor this component to use --style-props.
+    * Or maybe I could refactor this component to accept either a custom color (that is not in theme.css) or a predefined color that is in theme.css. I have already done this with the --background-color by setting class="default-styles" as the default class to handle the background color. The .default-styles style rules accept a --style-prop color value. If a user passes a --background-color="somecolor" style-prop to this component, then it will accept that color. However, if a user passes bgColor="primary" (or one of the other predefined theme values in this component), then the button will take on that color.
+    * If I decide to allow users to pass in style-props, then I need to finish the TODO item in the CSS. Otherwise I need to set bgColor back to "primary" as the default value and remove all references to "default-styles".
   * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
 -->
 
@@ -42,7 +44,7 @@
   import Icon from "@iconify/svelte";
   import { theme } from "$/theme";
 
-  export let bgColor = "primary";
+  export let bgColor = "default-styles";
   export let size = "md";
   export let width = "auto";
   export let inverse = false;
@@ -76,6 +78,14 @@
   :global(.jacl-btn .btn-icon-right) {
     order: 1;
     margin-left: var(--btn-icon-margin);
+  }
+
+  .default-styles {
+    background-color: var(--background-color, var(--primary));
+    color: var(--text-color, var(--btn-text-color-primary));
+    &:hover {
+      /* TODO: Add hover and inverse styles to this CSS rule. */
+    }
   }
 
   .primary {
