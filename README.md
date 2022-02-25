@@ -15,6 +15,16 @@ Other helpful guides for building component libraries:
 3. Write comprehensive tests for the component.
 4. Then, for documentation purposes and to give other developers the ability to try out different variations of each component, I will create interactive documentation with controls (similar to what Storybook does) for each component in the `/src/routes` directory.
 
+
+## Documentation Ideas and Organization
+I am referencing https://carbon-components-svelte.onrender.com/ for ideas on how to create this documentation.
+
+
+## Should I use Svelte's --style-props?
+No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `jacl-theme.css` file. The purpose of the `jacl-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `jacl-theme.css` file is supposed to provide.
+
+Any components that use style props should be refactored to accept regular props. See the `Button.svelte` component for an example of a component that accepts on regular props.
+
 ---
 
 # How to enable the theme for the components and customize it
@@ -61,22 +71,24 @@ For more information about aliases, see https://dev.to/danawoodman/how-to-add-mo
 
 
 ## CSS Variables & Utility Classes
-When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components. These are a few different ways to add the `theme.css` and `utils.css` files to your app, this is my preferred way:
+When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components. These are a few different ways to add the `jacl-theme.css` and `jacl-utils.css` files to your app, this is my preferred way:
 
 Create the following files inside a `/src/assets/styles` directory:
 
 * `main.css`
-* `theme.css`
-* `utils.css`
+* `jacl-theme.css`
+* `jacl-utils.css`
 
-Copy all the code from the package's `theme.css` file into the `/src/assets/styles/theme.css` file. Do the same thing with this package's `utils.css` file and the `/src/assets/styles/utils.css` file. Then import all of your CSS files from your `/src/assets/styles` folder into the `/src/assets/styles/main.css` file. That might look something like this:
+Copy all the code from this package's `jacl-theme.css` file into the `/src/assets/styles/jacl-theme.css` file. Do the same thing with this package's `jacl-utils.css` file and the `/src/assets/styles/jacl-utils.css` file. Then import all of your CSS files from your `/src/assets/styles` folder into the `/src/assets/styles/main.css` file. That might look something like this:
 
 ```css
 @import "normalize.css";
 @import "fonts.css";
 @import "theme.css";
+@import "jacl-theme.css";
 @import "base.css";
 @import "utils.css";
+@import "jacl-utils.css";
 ```
 
 Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
@@ -87,7 +99,7 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 </style>
 ```
 
-The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `theme.css` file for details.
+The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `jacl-theme.css` file for details.
 
 
 ## JavaScript Variables

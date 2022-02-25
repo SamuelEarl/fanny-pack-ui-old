@@ -2,18 +2,7 @@
 
 ---
 
-## Import
-```svelte
-<script>
-  import { Button } from "jacl";
-</script>
-```
-
----
-
-## Props & Slots
-You can pass any of these props or slots:
-
+## Example Usage
 ```svelte
 <Button
   bgColor="primary"
@@ -30,10 +19,14 @@ You can pass any of these props or slots:
   <span slot="btnText">Create Account</span>
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
+
+<script>
+  import { Button } from "jacl";
+</script>
 ```
 
-<!-- Should I also allow users to pass in style-props? See the comments at the top of the Button.svelte component. -->
-<!-- --background-color="yellow" -->
+---
+
 <Button
   bgColor={selectedBgColor}
   size="md"
@@ -42,7 +35,7 @@ You can pass any of these props or slots:
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="bi:gear-wide-connected"
-  btnIconSide="left"
+  btnIconSide="right"
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
 >
@@ -61,6 +54,8 @@ You can pass any of these props or slots:
 />
 
 ---
+
+## Props and Slots
 
 <table>
   <thead>

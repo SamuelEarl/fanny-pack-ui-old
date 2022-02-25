@@ -1,3 +1,59 @@
-/* NOTE: This file imports the `theme.css` file from "/src/lib/theme.css" so if any of the variables in the "/src/lib/theme.css" are changed, then they will be automatically updated in the example app. */
+/* This file will contain CSS variables that apply to the documentation, but not the component library. */
 
-@import "/src/lib/theme.css";
+/* Colors */
+:root {
+  /*
+  Main Colors
+  Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
+  */
+  --light-green: #99b433;
+  --green: #00a300;
+  --dark-green: #1e7145;
+  --magenta: #ff0097;
+  --light-purple: #9f00a7;
+  --purple: #7e3878;
+  --dark-purple: #603cba;
+  --teal: #00aba9;
+  --light-blue: #eff4ff;
+  --blue: #2d89ef;
+  --dark-blue: #2b5797;
+  --yellow: #ffc40d;
+  --orange: #e3a21a;
+  --dark-orange: #da532c;
+  --red: #ee1111;
+  --dark-red: #b91d47;
+
+  /*
+  Neutral Colors
+  Taken from "https://developer.microsoft.com/en-us/fabric#/styles/web/colors/products" > "Skype" > (scroll down) "Default theme neutrals"
+  */
+  --white: #ffffff;
+  --black: #000000;
+  --gray20: #f3f2f1;
+  --gray40: #e1dfdd;
+  --gray60: #c8c6c4;
+  --gray80: #b3b0ad;
+  --gray100: #979593;
+  --gray110: #8a8886;
+  --gray130: #605e5c;
+  --gray140: #484644;
+  --gray180: #252423;
+
+  --primary: var(--gray180);
+  --secondary: var(--dark-purple);
+  --tertiary: var(--gray20);
+
+  --success: var(--green);
+  --warning: var(--yellow);
+  --alert: var(--red);
+}
+
+/* Typography */
+:root {
+  --mono-font-stack: mono;
+}
+
+/* Miscellaneous */
+:root {
+  --global-radius: 3px;
+}

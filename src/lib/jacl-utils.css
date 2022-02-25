@@ -1,18 +1,18 @@
 /*
  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. 
- * This file contains utility classes that are used throughout the component library. For example the .spin class is used to spin icons during loading states.
+ * This file contains utility classes that are used throughout the component library. For example the .jacl-spin class is used to spin icons during loading states.
  * These utility classes can be added to a component's HTML to provide some CSS functionality while avoiding duplicated CSS style rule definitions.
 */
 
 /***************************************************
-Begin .spin class
-Add a class="spin" to an icon or any other element to make is spin.
+Begin .jacl-spin class
+Add a class="jacl-spin" to an icon (or any other element) to make it spin.
 ***************************************************/
-.spin {
-  animation: spin var(--btn-icon-disabled-spin-speed) infinite linear;
+.jacl-spin {
+  animation: jacl-spin var(--jacl-btn-icon-disabled-spin-speed) infinite linear;
 }
 
-@keyframes spin {
+@keyframes jacl-spin {
   from {
     transform: rotate(0deg);
   }
@@ -21,5 +21,5 @@ Add a class="spin" to an icon or any other element to make is spin.
   }
 }
 /***************************************************
-End .spin class
+End .jacl-spin class
 ***************************************************/

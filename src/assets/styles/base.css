@@ -1,0 +1,84 @@
+ /* General HTML element styles go in this file. These form the base styles that can be modified in your .svelte files. */
+
+ html, body {
+  font-family: var(--body-font-stack);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--headline-font-stack);
+  font-weight: normal;
+}
+
+
+/* a {
+  text-decoration: none;
+  color: var(--text-color);
+  border-bottom: none;
+  &.underline {
+    border-bottom: 1px dotted var(--text-color);
+    &:hover {
+      border-bottom: none;
+    }
+    &.primary {
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+  }
+} */
+
+/* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
+a {
+  text-decoration: none;
+  color: var(--text-color);
+  border-bottom: none;
+}
+a.underline {
+  border-bottom: 1px dotted var(--text-color);
+}
+a.underline:hover {
+  border-bottom: none;
+}
+a.underline.primary {
+  color: var(--primary);
+  border-color: var(--primary);
+}
+a.underline.secondary {
+  color: var(--secondary);
+  border-color: var(--secondary);
+}
+
+
+table {
+  border-collapse: collapse;
+}
+tbody {
+  font-family: var(--mono-font-stack);
+}
+th, td {
+  padding: 10px 15px;
+}
+th {
+  border: 1px solid var(--gray40);
+  background-color: var(--gray20);
+}
+td {
+  border: 1px solid var(--gray40);
+}
+
+pre {
+  padding: 10px;
+  border-radius: var(--global-radius);
+  background-color: var(--gray40);
+}
+code {
+  padding: 0 3px;
+  border-radius: var(--global-radius);
+  background-color: var(--gray40);
+}
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid var(--gray-dark);
+}
