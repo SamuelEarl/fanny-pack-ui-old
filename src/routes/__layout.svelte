@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Just Another Component Library (JACL) | Components built with and for SvelteKit</title>
+</svelte:head>
+
 <div class="layout">
   <div class="sidebar">
     <Sidebar />

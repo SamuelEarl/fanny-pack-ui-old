@@ -38,7 +38,7 @@
   import { theme } from "$/theme";
 
   export let bgColor = "primary";
-  export let size = "md";
+  export let size = "medium";
   export let width = "auto";
   export let inverse = false;
   export let disabled = false;
@@ -130,17 +130,17 @@
     box-shadow: 0px 0px 0px 3px var(--jacl-tertiary-dark) inset;
   }
 
-  .sm {
-    font-size: var(--jacl-sm-font-size);
-    padding: var(--jacl-btn-sm-padding);
+  .small {
+    font-size: var(--jacl-small-font-size);
+    padding: var(--jacl-btn-small-padding);
   }
-  .md {
+  .medium {
     font-size: var(--jacl-base-font-size);
-    padding: var(--jacl-btn-md-padding);
+    padding: var(--jacl-btn-medium-padding);
   }
-  .lg {
-    font-size: var(--jacl-lg-font-size);
-    padding: var(--jacl-btn-lg-padding);
+  .large {
+    font-size: var(--jacl-large-font-size);
+    padding: var(--jacl-btn-large-padding);
   }
 
   .auto-width {

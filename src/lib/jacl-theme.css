@@ -58,9 +58,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Typography */
 :root {
   --jacl-global-text-color: var(--jacl-gray140);
-  --jacl-sm-font-size: 12px;
+  --jacl-small-font-size: 12px;
   --jacl-base-font-size: 16px;
-  --jacl-lg-font-size: 20px;
+  --jacl-large-font-size: 20px;
   --jacl-serif-font-stack: "Times New Roman", sans-serif;
   --jacl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --jacl-script-font-stack: script;
@@ -80,9 +80,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --jacl-btn-icon-margin: 10px;
   /* --jacl-btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
   --jacl-btn-icon-disabled-spin-speed: 1.5s;
-  --jacl-btn-sm-padding: 10px 16px;
-  --jacl-btn-md-padding: 11px 20px;
-  --jacl-btn-lg-padding: 12px 24px;
+  --jacl-btn-small-padding: 10px 16px;
+  --jacl-btn-medium-padding: 11px 20px;
+  --jacl-btn-large-padding: 12px 24px;
   --jacl-btn-radius: 20px;
 }
 
@@ -92,6 +92,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --jacl-input-background-color: var(--jacl-gray20);
   --jacl-label-font-size: 0.8rem;
   --jacl-label-margin: 0 0 5px 5px;
+}
+
+/* Select Boxes */
+:root {
+  --jacl-select-small-padding: 5px;
+  --jacl-select-medium-padding: 10px;
+  --jacl-select-large-padding: 15px;
 }
 
 /* Miscellaneous */

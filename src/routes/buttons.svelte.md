@@ -6,7 +6,7 @@
 ```svelte
 <Button
   bgColor="primary"
-  size="md"
+  size="medium"
   width="auto"
   inverse={false}
   disabled={creatingAccount}
@@ -29,7 +29,7 @@
 
 <Button
   bgColor={selectedBgColor}
-  size="md"
+  size="medium"
   width="auto"
   inverse={false}
   disabled={creatingAccount}
@@ -97,8 +97,8 @@
     <tr>
       <td>size</td>
       <td>string</td>
-      <td>"sm", "md", "lg"</td>
-      <td>Default: "md"</td>
+      <td>"small", "medium", "large"</td>
+      <td>Default: "medium"</td>
     </tr>
     <tr>
       <td>width</td>
@@ -163,7 +163,7 @@
 
 <Button
   color="secondary"
-  size="lg"
+  size="large"
   width="auto"
   outline={false}
   disabled={creatingAccount}
@@ -179,7 +179,7 @@
 ```svelte
 <Button
   color="secondary"
-  size="lg"
+  size="large"
   width="auto"
   outline={false}
   disabled={creatingAccount}

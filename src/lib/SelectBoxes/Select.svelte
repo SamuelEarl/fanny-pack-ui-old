@@ -5,12 +5,8 @@
     optionsArray={columnHeaders}  
     arrayType="string"
     bind:selectedOption={selectedColumn}
-    emptyValueDisplayText="-- Select a column from your dataset --"
     defaultValue="avg"
     on:change={() => eventHandler(arg1, arg2, arg3)}
-    --width="90%"
-    --padding-vertical="5px"
-    --padding-horizontal="15px"
     --padding-arrow="40px"
     --border-color="blue"
     --background-color="white"
@@ -27,23 +23,15 @@
   1. optionsArray: This should be an array of strings or objects. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the <option> elements in the select box.
 
   2. arrayType: If the data that this select box is displaying is an array of strings, then set this to "string". If it is an array of objects, then set this to "object". The default is "string". NOTE: Each object inside the object array should have this structure:
-    [{ value: "valueToBePassedToTheBackend", label: "Label displayed in the select box" }]
+    [{ value: "valueToBePassedToTheBackend", text: "Text displayed in the select box" }]
 
   3. bind:selectedOption={stringVariable}: The option that the user selects in the UI will be bound to the <select> element and then passed to the backend when the form is submitted. You need to have a string variable defined in the component where this <Select> component is imported and that string variable needs to be bound to the <Select> component with `bind:selectedOption={stringVariable}`.
 
-  4. emptyValueDisplayText (optional): This prop allows you to set the text that is displayed in this component's "empty value" option. If you do not pass set this prop, then no "empty value" option will be displayed.
+  4. `label` (optional): The text for the `<label>` element.
 
   5. defaultValue (optional): This is the value (from the array that is assigned to `optionsArray`) that you want to set as the default value for the select box. For "object" arrays, this should be the value of the `value` property. If you don't set this prop then it defaults to the empty string option.
 
   6. on:change (optional): If you want to call an event handler when the change event is fired, then you can add this prop and call your event handler.
-
-  7. --width="90%" (options): This uses Svelte's --style-props feature. See https://svelte.dev/docs#style_props. Default is auto, which will fill the full width of it's parent element.
-
-  8. --padding-vertical="5px" (optional): See number 7. Set a larger vertical padding. Defaults to 7px.
-   
-  9. --padding-horizontal="15px" (optional): See number 7. Set a larger horizontal padding. Defaults to 10px.
-  
-  10. --padding-arrow="40px" (optional): See number 7. Give the drop-down arrow more space away from the options text. Defaults to 30px.
 
   11. --border-color="blue" (optional): See number 7. This style prop will change the color of the border. Default is --gray-medium.
 
@@ -53,12 +41,13 @@
 -->
 
 
-<div class="select-wrapper">
+<label for={label}>{label}</label>
+<div class="{`jacl-select-container ${size}`}">
   <!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
-  <select bind:value={selectedOption} on:change>
-    {#if emptyValueDisplayText}
-      <option value="">{emptyValueDisplayText}</option>
-    {/if}
+  <select
+    id={label}
+    class="{`jacl-select ${size}`}"
+    bind:value={selectedOption} on:change>
     {#if arrayType === "string" || arrayType === "number"}
       {#each optionsArray as item}
         <option value={item}>{item}</option>
@@ -66,25 +55,29 @@
     {/if}
     {#if arrayType === "object"}
       {#each optionsArray as obj}
-        <option value={obj.value}>{obj.label}</option>
+        <option value={obj.value}>{obj.text}</option>
       {/each}
     {/if}
   </select>
 </div>
 
 <script lang="ts">
+  export let label = "";
   export let optionsArray;
   export let arrayType = "string";
   export let selectedOption;
-  export let emptyValueDisplayText = "";
-  export let defaultValue = "";
+  export let size = "medium";
+  // export let selectedOption = optionsArray[0];
+  // export let defaultValue = optionsArray[0];
 
   // When working with plain HTML <select> elements, you set the default value with the `selected` attribute. In Svelte you set the default value by setting the `selectedOption` variable (in `<select bind:value={selectedOption}>`) to equal the value from the `optionsArray` that you want to be the default value.
+  
+  // TODO: I need to verify that the follow 2 paragraphs are accurate with the refactors that I have made to this component.
   // The default value of this <Select> component is an empty string. However, if the user sets the `defaultValue` prop to a value other than the empty string, then the `selectedOption` needs to be set as that `defaultValue` so the `defaultValue` will be displayed in the UI.
   // Also, if a user has previously selected an option and saved it to the database, then that selected option will be passed into this component as the `selectedOption` prop and that `selectedOption` prop will set the value that is displayed in the UI. So, if the `selectedOption` has already been set by the user (which means that it will get passed into this component), then do not set the `selectedOption` prop/variable to the `defaultValue`.
-  if (!selectedOption) {
-    selectedOption = defaultValue;
-  }
+  // if (!selectedOption) {
+  //   selectedOption = defaultValue;
+  // }
 </script>
 
 <style>
@@ -93,8 +86,8 @@
    * Resets: https://moderncss.dev/custom-select-styles-with-pure-css/
    * Styles: https://stackoverflow.com/questions/31531865/css-change-dropdown-arrow-to-unicode-triangle
   **************************************************/
-  .select-wrapper {
-    width: var(--width, auto);
+  .jacl-select-container {
+    /* width: var(--width, auto); */
     overflow: hidden;
     position: relative;
     border-radius: var(--global-radius);
@@ -103,23 +96,12 @@
     &:after {
       /* The HTML entity in the content rule uses the "&rsaquo;" entity.
       https://dev.w3.org/html5/html-author/charref */
-      /* content: "›";
-      transform: rotate(90deg);
-      font-size: 2rem;
-      height: 100%;
-      position: absolute;
-      right: 0;
-      top: 0;
-      color: var(--color, black);
-      pointer-events: none; */
 
       content: "›";
       transform: rotate(90deg);
       font-size: 1.5rem;
       height: 100%;
       position: absolute;
-      /* Give a 10px padding after the dropdown arrow icon. */
-      right: 10px;
       bottom: 0;
       color: var(--color, black);
       pointer-events: none;
@@ -132,16 +114,35 @@
       height: 0;
       border: 6px solid transparent;
       border-color: var(--color, black) transparent transparent transparent; */
+
+      /* Give some padding around the dropdown arrow icon. */
+      &.small {
+        right: var(--jacl-select-small-padding);
+        padding-left: var(--jacl-select-small-padding);
+        padding-right: var(--jacl-select-small-padding);
+      }
+
+      &.medium {
+        right: var(--jacl-select-medium-padding);
+        padding-left: var(--jacl-select-medium-padding);
+        padding-right: var(--jacl-select-medium-padding);
+      }
+
+      &.large {
+        right: var(--jacl-select-large-padding);
+        padding-left: var(--jacl-select-large-padding);
+        padding-right: var(--jacl-select-large-padding);
+      }
     }
 
-    & select {
+    & .jacl-select {
       /* Reset the styles, including removing the default dropdown arrow */
       appearance: none;
       min-width: 100%;
       margin: 0;
-      padding: var(--padding-vertical, 7px) var(--padding-horizontal, 10px);
       /* This padding-right pushes the down arrow out enough so no text will overlap with it. */
-      padding-right: var(--padding-arrow, 30px);
+      /* padding-right: 30px; */
+      /* margin-right: 20px; */
       border: none;
       outline: none;
       font-family: inherit;
@@ -150,6 +151,21 @@
       background-color: var(--background-color, white);
       color: var(--color, black);
       cursor: pointer;
+
+      &.small {
+        padding: var(--jacl-select-small-padding);
+        /* padding-right: var(--padding-arrow, 30px); */
+      }
+
+      &.medium {
+        padding: var(--jacl-select-medium-padding);
+        /* padding-right: var(--padding-arrow, 30px); */
+      }
+
+      &.large {
+        padding: var(--jacl-select-large-padding);
+        /* padding-right: var(--padding-arrow, 30px); */
+      }
 
       & option {
         background-color: var(--background-color, white);
