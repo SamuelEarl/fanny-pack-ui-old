@@ -12,3 +12,4 @@
 ## Select Component
 * I need to parameterize as many styles as necessary (e.g. colors, padding). I am refactoring this component and removing all style props. Right now there are some `var()` functions that were being used with style props, but I need to remove those and create classes that are based off of props values.
 * Test that text does not overlap with the dropdown arrow. However, if it does, that is probably not a problem. The select boxes are 100% width by default. So if the text overlaps with the dropdown arrow, then that is probably more of an issue with the size of the select box's parent element or with the length of the text in the select options. Hmmm.
+* Clean up old code and documentation that no longer applies or that is commented out.

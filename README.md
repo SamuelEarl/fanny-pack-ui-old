@@ -101,6 +101,8 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 
 The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `jacl-theme.css` file for details.
 
+IMPORTANT: If you change any settings that are set in pixels (e.g. `--jacl-select-small-padding: 0px;`), then remember to keep the `px` suffix because some CSS rules use the `calc()` function and they expect a `px` suffix. For example, this will work: `--jacl-select-small-padding: 0px;`, but this will break your style setting: `--jacl-select-small-padding: 0;`.
+
 
 ## JavaScript Variables
 Create a `/src/theme.ts` file and copy all the code from the `jacl` package's `theme.ts` file into the `/src/theme.ts` file. The components are already referencing the `/src/theme.ts` file using the alias `$/theme`, so you should be ready to go.

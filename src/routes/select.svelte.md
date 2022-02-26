@@ -3,29 +3,24 @@
 ---
 
 <Select
+  label="Select an option"
   optionsArray={arrayOfValues}  
   arrayType="string"
   bind:selectedOption={selectedValue}
-  size="large"
-  bgColor="primary"
-  --border-color="blue"
-  --color="blue"
+  size="medium"
 />
 
 ---
 
-# Example Usage:
+## Example Usage:
 
 ```svelte
 <Select
-  optionsArray={arrayOfValues}
+  label="Select an option"
+  optionsArray={arrayOfValues}  
   arrayType="string"
   bind:selectedOption={selectedValue}
-  label="Select an option"
-  defaultValue="avg"
-  --border-color="blue"
-  --background-color="white"
-  --color="blue"
+  size="medium"
 />
 
 <script>
@@ -33,15 +28,12 @@
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
-
-  function handleChange() {
-    alert(`Select option was changed to "${selectedValue}"`);
-  }
 </script>
 ```
 
+---
 
-# Props:
+## Props:
 1. `label` (optional): The text for the `<label>` element.
     1. Data Type: `string`
     2. Possible Values: NA
@@ -74,12 +66,23 @@
     2. Possible Values: `string`, `number`, `object`
     3. Default Value: There is no default value for this prop. However, you should set `bind:selectedOption` to equal a value from the array that you pass to the `optionsArray` prop. The value that `bind:selectedOption` is equal to will be the default value displayed in the select box.
 
+5. `size`: This prop will set more or less padding for your select box to give the appearance of a larger or small select box. Note that the text size will remain the same for all sizes.
+    1. Data Type: `string`
+    2. Possible Values: `small`, `medium`, `large`
+    3. Default Value: `medium`
 
-11. --border-color="blue" (optional): See number 7. This style prop will change the color of the border. Default is --gray-medium.
+---
 
-12. --background-color="white" (optional): See number 7. This style prop will change the background color of the select element. Default is white.
+## Styles
+In the `jacl-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
 
-13. --color="blue" (optional): See number 7. This style prop will change the text color in the select box (including the down arrow) and the color in the select box drop-down. Default is black.
+The following padding variables will change the sizes that correspond with the `size` prop:
+
+```css
+--jacl-select-small-padding: 5px;
+--jacl-select-medium-padding: 10px;
+--jacl-select-large-padding: 15px;
+```
 
 
 <script lang="ts">
@@ -87,10 +90,4 @@
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
-
-  // $: handleChange(selectedValue);
-
-  // function handleChange(changedValue) {
-  //   alert(`Select option was changed to "${changedValue}"`);
-  // }
 </script>

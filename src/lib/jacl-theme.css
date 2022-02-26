@@ -55,9 +55,16 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --jacl-alert: var(--jacl-red);
 }
 
-/* Typography */
+/* Global Styles */
 :root {
   --jacl-global-text-color: var(--jacl-gray140);
+  --jacl-global-radius: 3px;
+  --jacl-global-border-width: 1px;
+  --jacl-global-border-color: var(--gray60);
+}
+
+/* Typography */
+:root {
   --jacl-small-font-size: 12px;
   --jacl-base-font-size: 16px;
   --jacl-large-font-size: 20px;
@@ -96,15 +103,20 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Select Boxes */
 :root {
-  --jacl-select-small-padding: 0px;
-  --jacl-select-medium-padding: 5px;
-  --jacl-select-large-padding: 10px;
+  /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
+  --jacl-select-small-padding: 5px;
+  --jacl-select-medium-padding: 10px;
+  --jacl-select-large-padding: 15px;
+
+  --jacl-select-border: var(--jacl-global-border-width) solid var(--jacl-global-border-color);
+  --jacl-select-background-color: var(--white);
+  --jacl-select-text-color: var(--jacl-global-text-color);
   --jacl-select-option-hover-background-color: var(--gray40);
+  --jacl-select-option-hover-text-color: var(--jacl-global-text-color);
 }
 
 /* Miscellaneous */
 :root {
   --jacl-disabled-text-color: var(--jacl-gray40);
   --jacl-disabled-background-color: var(--jacl-black);
-  --jacl-global-radius: 3px;
 }

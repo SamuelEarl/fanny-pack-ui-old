@@ -60,30 +60,35 @@
   </select>
 </div> -->
 
-<!-- I think I want to display the dropdown menu over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. -->
-<label>{label}</label>
-{#if !showSelectMenu}
-  <div class="{`jacl-select-btn ${size}`}" on:click={() => showSelectMenu = true}>
+
+<div class="jacl-select-label-container">
+  <label class="jacl-select-label">{label}</label>
+</div>
+<div class="jacl-select">
+  <div class="{`jacl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
     <span class="jacl-select-btn-text">{selectedOption}</span>
     <span class="jacl-select-btn-arrow">›</span>
   </div>
-{:else}
-  <div class="{`jacl-select-menu ${size}`}">
-    {#if arrayType === "string" || arrayType === "number"}
-      {#each optionsArray as item}
-        <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
-      {/each}
-    {/if}
-    {#if arrayType === "object"}
-      {#each optionsArray as obj}
-        <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
-      {/each}
-    {/if}
-  </div>
-{/if}
+  {#if showSelectMenu}
+    <div class="{`jacl-select-menu ${size}`}" in:slide out:blur>
+      {#if arrayType === "string" || arrayType === "number"}
+        {#each optionsArray as item}
+          <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
+        {/each}
+      {/if}
+      {#if arrayType === "object"}
+        {#each optionsArray as obj}
+          <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+        {/each}
+      {/if}
+    </div>
+  {/if}
+</div>
 
 
 <script lang="ts">
+  import { fade, blur, fly, slide, scale, draw, crossfade } from "svelte/transition";
+
   export let label = "";
   export let optionsArray;
   export let arrayType = "string";
@@ -111,59 +116,94 @@
 
 
 <style>
-  .jacl-select-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border: 1px solid var(--border-color, var(--gray-medium));
-    border-radius: var(--global-radius);
+  .jacl-select-label-container {
+    margin-bottom: 5px;
 
-    /*
-      Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
-    */
-    &.small {
-      padding: var(--jacl-select-small-padding) calc(var(--jacl-select-small-padding) + 5px);
-    }
-    &.medium {
-      padding: var(--jacl-select-medium-padding) calc(var(--jacl-select-medium-padding) + 5px);
-    }
-    &.large {
-      padding: var(--jacl-select-large-padding) calc(var(--jacl-select-large-padding) + 5px);
-    }
-
-    & .jacl-select-btn-arrow {
-      transform: rotate(90deg);
-      font-size: 1.5rem;
+    & .jacl-select-label {
+      font-size: 0.85rem;
+      color: var(--gray140);
     }
   }
 
-  .jacl-select-menu {
-    border: 1px solid var(--border-color, var(--gray-medium));
-    border-radius: var(--global-radius);
-    /* Add top and bottom padding that is equal to the --global-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --global-radius value. */
-    padding: var(--global-radius) 0;
+  .jacl-select {
+    position: relative;
 
+    & .jacl-select-btn {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: var(--jacl-select-border);
+      border-radius: var(--global-radius);
+      background-color: var(--jacl-select-background-color);
+      color: var(--jacl-select-text-color);
+      cursor: pointer;
 
-    & .jacl-select-option {
-
-      &:hover {
-        background-color: var(--jacl-select-option-hover-background-color);
-        cursor: pointer;
-      }
-
-      /* Add top and bottom padding that is equal to the size of the select box that the user set + 5px (just to give a little more whitespace). Also, add left and right padding that is equal to the size of the select box that the user set + 5px + the --global-radius so the menu options will get in from the sides enough so they won't get cut off if a user sets a high --global-radius value. */
+      /*
+        Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
+      */
       &.small {
-        padding: calc(var(--jacl-select-small-padding) + 5px) calc(var(--jacl-select-small-padding) + 5px + var(--global-radius));
+        padding: var(--jacl-select-small-padding);
       }
       &.medium {
-        padding: calc(var(--jacl-select-medium-padding) + 5px) calc(var(--jacl-select-medium-padding) + 5px + var(--global-radius));
+        padding: var(--jacl-select-medium-padding);
       }
       &.large {
-        padding: calc(var(--jacl-select-large-padding) + 5px) calc(var(--jacl-select-large-padding) + 5px + var(--global-radius));
+        padding: var(--jacl-select-large-padding);
+      }
+
+      & .jacl-select-btn-text {
+        line-height: 1rem;
+      }
+
+      & .jacl-select-btn-arrow {
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+        line-height: 1rem;
+      }
+    }
+
+    & .jacl-select-menu {
+      position: absolute;
+      /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
+      top: 0px;
+      width: 100%;
+      /* Add top and bottom padding that is equal to the --global-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --global-radius value. */
+      padding: var(--global-radius) 0;
+      border: var(--jacl-select-border);
+      border-radius: var(--global-radius);
+      overflow-y: auto;
+      background-color: var(--jacl-select-background-color);
+      color: var(--jacl-select-text-color);
+      z-index: 100;
+
+
+      & .jacl-select-option {
+
+        &:hover {
+          background-color: var(--jacl-select-option-hover-background-color);
+          color: var(--jacl-select-option-hover-text-color);
+          cursor: pointer;
+        }
+
+        /* 
+        * Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--jacl-select-large-padding)). 
+        * Also, add left and right padding that is equal to the size of the select box that the user set + the --global-radius so the menu options will get in from the sides enough so they won't get cut off if a user sets a high --global-radius value. */
+        &.small {
+          padding: var(--jacl-select-small-padding) calc(var(--jacl-select-small-padding) + var(--global-radius));
+        }
+        &.medium {
+          padding: var(--jacl-select-medium-padding) calc(var(--jacl-select-medium-padding) + var(--global-radius));
+        }
+        &.large {
+          padding: var(--jacl-select-large-padding) calc(var(--jacl-select-large-padding) + var(--global-radius));
+        }
       }
     }
   }
 
+
+  /* TODO: Remove all the following styles once I have refactored this component because these styles are no longer being used. */
 
   /**************************************************
    * Select Element Styles
