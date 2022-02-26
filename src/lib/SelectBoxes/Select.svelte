@@ -61,9 +61,11 @@
 </div> -->
 
 
-<div class="jacl-select-label-container">
-  <label class="jacl-select-label">{label}</label>
-</div>
+{#if label}
+  <div class="jacl-select-label-container">
+    <label class="jacl-select-label">{label}</label>
+  </div>
+{/if}
 <div class="jacl-select">
   <div class="{`jacl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
     <span class="jacl-select-btn-text">{selectedOption}</span>
@@ -89,7 +91,7 @@
 <script lang="ts">
   import { fade, blur, fly, slide, scale, draw, crossfade } from "svelte/transition";
 
-  export let label = "";
+  export let label;
   export let optionsArray;
   export let arrayType = "string";
   export let selectedOption;
