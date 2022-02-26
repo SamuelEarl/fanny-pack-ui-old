@@ -96,9 +96,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Select Boxes */
 :root {
-  --jacl-select-small-padding: 5px;
-  --jacl-select-medium-padding: 10px;
-  --jacl-select-large-padding: 15px;
+  --jacl-select-small-padding: 0px;
+  --jacl-select-medium-padding: 5px;
+  --jacl-select-large-padding: 10px;
+  --jacl-select-option-hover-background-color: var(--gray40);
 }
 
 /* Miscellaneous */

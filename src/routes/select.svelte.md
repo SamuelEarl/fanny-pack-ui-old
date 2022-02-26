@@ -6,7 +6,6 @@
   optionsArray={arrayOfValues}  
   arrayType="string"
   bind:selectedOption={selectedValue}
-  on:change={handleChange}
   size="large"
   bgColor="primary"
   --border-color="blue"
@@ -24,7 +23,6 @@
   bind:selectedOption={selectedValue}
   label="Select an option"
   defaultValue="avg"
-  on:change={handleChange}
   --border-color="blue"
   --background-color="white"
   --color="blue"
@@ -76,7 +74,6 @@
     2. Possible Values: `string`, `number`, `object`
     3. Default Value: There is no default value for this prop. However, you should set `bind:selectedOption` to equal a value from the array that you pass to the `optionsArray` prop. The value that `bind:selectedOption` is equal to will be the default value displayed in the select box.
 
-5. `on:change` (optional): If you want to call an event handler when the change event is fired, then you can add this prop and call your event handler.
 
 11. --border-color="blue" (optional): See number 7. This style prop will change the color of the border. Default is --gray-medium.
 
@@ -91,7 +88,9 @@
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
 
-  function handleChange() {
-    alert(`Select option was changed to "${selectedValue}"`);
-  }
+  // $: handleChange(selectedValue);
+
+  // function handleChange(changedValue) {
+  //   alert(`Select option was changed to "${changedValue}"`);
+  // }
 </script>

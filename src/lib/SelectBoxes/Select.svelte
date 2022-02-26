@@ -40,10 +40,9 @@
   13. --color="blue" (optional): See number 7. This style prop will change the text color in the select box (including the down arrow) and the color in the select box drop-down. Default is black.
 -->
 
-
-<label for={label}>{label}</label>
-<div class="{`jacl-select-container ${size}`}">
-  <!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
+<!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
+<!-- <label for={label}>{label}</label>
+<div id="jacl-select-container" class="{`jacl-select-container ${size}`}">
   <select
     id={label}
     class="{`jacl-select ${size}`}"
@@ -59,7 +58,30 @@
       {/each}
     {/if}
   </select>
-</div>
+</div> -->
+
+<!-- I think I want to display the dropdown menu over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. -->
+<label>{label}</label>
+{#if !showSelectMenu}
+  <div class="{`jacl-select-btn ${size}`}" on:click={() => showSelectMenu = true}>
+    <span class="jacl-select-btn-text">{selectedOption}</span>
+    <span class="jacl-select-btn-arrow">›</span>
+  </div>
+{:else}
+  <div class="{`jacl-select-menu ${size}`}">
+    {#if arrayType === "string" || arrayType === "number"}
+      {#each optionsArray as item}
+        <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
+      {/each}
+    {/if}
+    {#if arrayType === "object"}
+      {#each optionsArray as obj}
+        <div class="{`jacl-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+      {/each}
+    {/if}
+  </div>
+{/if}
+
 
 <script lang="ts">
   export let label = "";
@@ -70,6 +92,8 @@
   // export let selectedOption = optionsArray[0];
   // export let defaultValue = optionsArray[0];
 
+  let showSelectMenu = false;
+
   // When working with plain HTML <select> elements, you set the default value with the `selected` attribute. In Svelte you set the default value by setting the `selectedOption` variable (in `<select bind:value={selectedOption}>`) to equal the value from the `optionsArray` that you want to be the default value.
   
   // TODO: I need to verify that the follow 2 paragraphs are accurate with the refactors that I have made to this component.
@@ -78,25 +102,82 @@
   // if (!selectedOption) {
   //   selectedOption = defaultValue;
   // }
+
+  function setSelectedOption(option) {
+    selectedOption = option;
+    showSelectMenu = false;
+  }
 </script>
 
+
 <style>
+  .jacl-select-btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color, var(--gray-medium));
+    border-radius: var(--global-radius);
+
+    /*
+      Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
+    */
+    &.small {
+      padding: var(--jacl-select-small-padding) calc(var(--jacl-select-small-padding) + 5px);
+    }
+    &.medium {
+      padding: var(--jacl-select-medium-padding) calc(var(--jacl-select-medium-padding) + 5px);
+    }
+    &.large {
+      padding: var(--jacl-select-large-padding) calc(var(--jacl-select-large-padding) + 5px);
+    }
+
+    & .jacl-select-btn-arrow {
+      transform: rotate(90deg);
+      font-size: 1.5rem;
+    }
+  }
+
+  .jacl-select-menu {
+    border: 1px solid var(--border-color, var(--gray-medium));
+    border-radius: var(--global-radius);
+    /* Add top and bottom padding that is equal to the --global-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --global-radius value. */
+    padding: var(--global-radius) 0;
+
+
+    & .jacl-select-option {
+
+      &:hover {
+        background-color: var(--jacl-select-option-hover-background-color);
+        cursor: pointer;
+      }
+
+      /* Add top and bottom padding that is equal to the size of the select box that the user set + 5px (just to give a little more whitespace). Also, add left and right padding that is equal to the size of the select box that the user set + 5px + the --global-radius so the menu options will get in from the sides enough so they won't get cut off if a user sets a high --global-radius value. */
+      &.small {
+        padding: calc(var(--jacl-select-small-padding) + 5px) calc(var(--jacl-select-small-padding) + 5px + var(--global-radius));
+      }
+      &.medium {
+        padding: calc(var(--jacl-select-medium-padding) + 5px) calc(var(--jacl-select-medium-padding) + 5px + var(--global-radius));
+      }
+      &.large {
+        padding: calc(var(--jacl-select-large-padding) + 5px) calc(var(--jacl-select-large-padding) + 5px + var(--global-radius));
+      }
+    }
+  }
+
+
   /**************************************************
    * Select Element Styles
    * Resets: https://moderncss.dev/custom-select-styles-with-pure-css/
    * Styles: https://stackoverflow.com/questions/31531865/css-change-dropdown-arrow-to-unicode-triangle
   **************************************************/
   .jacl-select-container {
-    /* width: var(--width, auto); */
     overflow: hidden;
     position: relative;
     border-radius: var(--global-radius);
     border: 1px solid var(--border-color, var(--gray-medium));
-    /* box-shadow: 1px 1px 1px var(--gray-medium); */
     &:after {
       /* The HTML entity in the content rule uses the "&rsaquo;" entity.
       https://dev.w3.org/html5/html-author/charref */
-
       content: "›";
       transform: rotate(90deg);
       font-size: 1.5rem;
@@ -106,16 +187,9 @@
       color: var(--color, black);
       pointer-events: none;
 
-      /* position: absolute;
-      content: "";
-      top: 14px;
-      right: 10px;
-      width: 0;
-      height: 0;
-      border: 6px solid transparent;
-      border-color: var(--color, black) transparent transparent transparent; */
-
-      /* Give some padding around the dropdown arrow icon. */
+      /*
+        Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
+      */
       &.small {
         right: var(--jacl-select-small-padding);
         padding-left: var(--jacl-select-small-padding);
@@ -140,9 +214,6 @@
       appearance: none;
       min-width: 100%;
       margin: 0;
-      /* This padding-right pushes the down arrow out enough so no text will overlap with it. */
-      /* padding-right: 30px; */
-      /* margin-right: 20px; */
       border: none;
       outline: none;
       font-family: inherit;
@@ -154,17 +225,14 @@
 
       &.small {
         padding: var(--jacl-select-small-padding);
-        /* padding-right: var(--padding-arrow, 30px); */
       }
 
       &.medium {
         padding: var(--jacl-select-medium-padding);
-        /* padding-right: var(--padding-arrow, 30px); */
       }
 
       &.large {
         padding: var(--jacl-select-large-padding);
-        /* padding-right: var(--padding-arrow, 30px); */
       }
 
       & option {

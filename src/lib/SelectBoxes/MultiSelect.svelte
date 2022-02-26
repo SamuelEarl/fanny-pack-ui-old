@@ -270,7 +270,7 @@
    * This function for adding a "clickoutside" event is taken from this REPL post:
    * https://svelte.dev/repl/0ace7a508bd843b798ae599940a91783?version=3.16.7
    * 
-   * NOTE: Could I use a negative tabindex (e.g. tabindex="-1") on the .multi-select-drop-down element and call `focus()` on the .multi-select-drop-down element when a user clicks on the .multi-select-btn and then use `on:blur={() => showDropDown = false}` on the .multi-select-drop-down element? Would that fix the issue that occurs where this MultiSelect component does not close right away when the user clicks on a select element?
+   * NOTE: Could I use a negative tabindex (e.g. tabindex="-1") on the .multi-select-drop-down element and call `focus()` on the .multi-select-drop-down element when a user clicks on the .multi-select-btn and then use `on:blur={() => showDropDown = false}` on the .multi-select-drop-down element? Would that fix the issue that occurs where this MultiSelect component does not close right away when the user clicks on a select element? Note that the custom select box that is created here https://www.w3schools.com/howto/howto_custom_select.asp is also created by creating <div> elements and using a "click outside" event. That select box also has the same issue when you open it and then click on the regular select box next to it.
    * See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex.
    */
   function clickOutsideDropDown(node) {
