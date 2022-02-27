@@ -3,8 +3,10 @@
 
 ---
 
-# Kit Fox Component Library (kitfox) - Components Built with and for SvelteKit
-Why the name Kit Fox? The word svelte means small and light. Kit foxes are also small and light. The name seems to fit, especially since this is a component library built with and for Svelte*Kit*.
+# Fanny Pack UI Kit (fpui)
+A collection of random junk that can be themed and used for your UI theme and components.
+
+Default styling based on Semantic UI (or should I use Foundation as my base?). Components built with and for SvelteKit.
 
 ---
 

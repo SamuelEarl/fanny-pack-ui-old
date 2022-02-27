@@ -1,9 +1,12 @@
 # TODOS
+NOTE: Maybe I could look at how to theme the Carbon components rather than create my own UI kit. But the Carbon components are just a component library instead of a full UI kit, like Foundation.
+
 1. Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
 2. I need to package this up as an npm package and see if I can import it into Tremain Academy to make sure that these components work and that I am creating them correctly.
     1. Test this in a separate app to find out if this will work without installing the `@iconify/svelte` package or if the user needs to install that package also.
 3. Finish organizing the theme variables in the `/lib/kitfox-theme.css` file.
 4. Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
+5. I need to test if the instructions to configure a `$` alias in the README file is necessary or not. My guess is that it is not, so I can remove that step.
 
 * Figure out how to customize/edit fonts after the component library has been installed. This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `kitfox-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 
