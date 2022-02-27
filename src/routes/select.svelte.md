@@ -2,6 +2,24 @@
 
 ---
 
+<header>
+  <Select
+    label=""
+    optionsArray={months}
+    arrayType="string"
+    bind:selectedOption={selectedMonth}
+  />
+
+  <Select
+    label=""
+    optionsArray={years}
+    arrayType="number"
+    bind:selectedOption={selectedYear}
+  />
+</header>
+
+---
+
 <Select
   label="Select an option"
   optionsArray={arrayOfValues}  
@@ -90,4 +108,36 @@ The following padding variables will change the sizes that correspond with the `
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
+
+  let months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+  ];
+  let selectedMonth = "March";
+
+  let years = [ 2021, 2022 ];
+  let selectedYear = 2022;
 </script>
+
+
+<style>
+  header {
+    display: flex;
+    justify-content: space-around;
+
+    /* & .select-container {
+      flex: 1;
+      margin-right: 10px;
+    } */
+  }
+</style>
