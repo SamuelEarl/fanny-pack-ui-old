@@ -166,7 +166,7 @@
     }
 
     & .kitfox-select-menu {
-      min-width: fit-content;
+      /* min-width: fit-content; Should I use this property or just set the select box width to a reasonable width? See my TODOs. */
       position: absolute;
       /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
       top: 0px;
