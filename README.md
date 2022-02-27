@@ -10,6 +10,14 @@ Why the name Kit Fox? The word svelte means small and light. Kit foxes are also 
 
 # How to enable the theme for the components and customize it
 
+## Install @iconify/svelte
+Some of the components use icons from Iconify's Svelte package, so you will need to install Iconify:
+
+```
+npm install --save-dev @iconify/svelte
+```
+
+
 ## Create an alias for the `src` directory
 In your `svelte.config.js` file add this code:
 
