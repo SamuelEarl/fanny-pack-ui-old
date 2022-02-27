@@ -24,7 +24,7 @@
 />
 
 <script>
-  import { Select } from "jacl";
+  import { Select } from "kitfox";
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
@@ -74,14 +74,14 @@
 ---
 
 ## Styles
-In the `jacl-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
+In the `kitfox-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
 
 The following padding variables will change the sizes that correspond with the `size` prop:
 
 ```css
---jacl-select-small-padding: 5px;
---jacl-select-medium-padding: 10px;
---jacl-select-large-padding: 15px;
+--kitfox-select-small-padding: 5px;
+--kitfox-select-medium-padding: 10px;
+--kitfox-select-large-padding: 15px;
 ```
 
 

@@ -1,4 +1,4 @@
-# Just Another Component Library (JACL)
+# Kit Fox Component Library (kitfox)
 
 Components built with and for SvelteKit
 

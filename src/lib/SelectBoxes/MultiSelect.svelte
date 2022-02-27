@@ -305,20 +305,19 @@
   }
 </script>
 
-<style lang="scss">
-  @import "src/assets/styles/_variables.scss";
-
+<style>
   .multi-select {
     position: relative;
 
-    .selected-values-container {
+    & .selected-values-container {
       width: 100%;
-      min-height: 33px; // This is the height of the .selected-values-container when an option has been selected.
+      /* This is the height of the .selected-values-container when an option has been selected. */
+      min-height: 33px;
       display: flex;
       flex-wrap: wrap;
       align-items: flex-end;
 
-      .value {
+      & .value {
         margin-bottom: 5px;
         margin-right: 5px;
         padding: 0 5px 3px 10px;
@@ -326,17 +325,17 @@
         background-color: $kemper-blue;
         color: white;
 
-        .delete {
+        & .delete {
           padding: 0 5px;
           cursor: pointer;
         }
       }
     }
 
-    .multi-select-btn {
+    &.multi-select-btn {
       width: 100%;
       padding: 7px 10px;
-      // This padding-right pushes the down arrow out enough so no text will overlap with it.
+      /* This padding-right pushes the down arrow out enough so no text will overlap with it. */
       padding-right: 25px;
       overflow: hidden;
       position: relative;
@@ -345,8 +344,10 @@
       border: 1px solid darken($geyser-gray, 10%);
       cursor: pointer;
       &:after {
-        // The HTML entity in the content rule us the "&rsaquo;" entity.
-        // https://dev.w3.org/html5/html-author/charref
+        /*
+          The HTML entity in the content rule us the "&rsaquo;" entity.
+          https://dev.w3.org/html5/html-author/charref
+        */
         content: "›";
         transform: rotate(90deg);
         font-size: 1.5rem;
@@ -358,7 +359,7 @@
       }
     }
     
-    .multi-select-drop-down {
+    & .multi-select-drop-down {
       position: absolute;
       width: 100%;
       overflow-y: auto;
@@ -376,51 +377,53 @@
         border-bottom: none;
       }
 
-      .drop-down-display-text {
+      & .drop-down-display-text {
         margin: -5px 0 15px 0;
       }
 
-      .select-all-btn {
+      & .select-all-btn {
         margin-bottom: 15px;
       }
 
-      // ---------------------------
-      // Custom Checkbox Styles (https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
-      // ---------------------------
-      // Customize the label (the container).
-      .container {
+      /* 
+        ---------------------------
+        Custom Checkbox Styles (https://www.w3schools.com/howto/howto_css_custom_checkbox.asp)
+        ---------------------------
+        Customize the label (the container).
+      */
+      & .container {
         display: block;
         position: relative;
         padding-left: 35px;
         margin-bottom: 12px;
         cursor: pointer;
         user-select: none;
-        // On mouse-over, add a grey background color.
+        /* On mouse-over, add a grey background color. */
         &:hover input ~ .checkmark {
           background-color: $geyser-gray;
         }
 
-        // Hide the browser's default checkbox.
-        input {
+        /* Hide the browser's default checkbox. */
+        & input {
           position: absolute;
           opacity: 0;
           cursor: pointer;
           height: 0;
           width: 0;
-          // When the checkbox is checked, make the border blue, add a blue background, and remove the box-shadow.
+          /* When the checkbox is checked, make the border blue, add a blue background, and remove the box-shadow. */
           &:checked ~ .checkmark {
             border-color: $kemper-blue;
             background-color: $kemper-blue;
             box-shadow: none;
-            // Show the checkmark when checked.
+            /* Show the checkmark when checked. */
             &:after {
               display: block;
             }
           }
         }
 
-        // Create a custom checkbox.
-        .checkmark {
+        /* Create a custom checkbox. */
+        & .checkmark {
           position: absolute;
           top: -3px;
           left: 0;
@@ -430,11 +433,11 @@
           box-shadow: 1px 1px 1px darken($geyser-gray, 10%);
           background-color: white;
           &:after {
-            // Create the checkmark/indicator (hidden when not checked).
+            /* Create the checkmark/indicator (hidden when not checked). */
             content: "";
             position: absolute;
             display: none;
-            // Style the checkmark/indicator.
+            /* Style the checkmark/indicator. */
             left: 7px;
             top: -1px;
             width: 10px;

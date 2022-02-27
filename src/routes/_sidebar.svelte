@@ -1,6 +1,6 @@
 <nav>
   <div id="home-link-wrapper">
-    <a href="/">JACL Home</a>
+    <a href="/">Kit Fox Home</a>
   </div>
   <br>
 

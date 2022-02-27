@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Just Another Component Library (JACL) | Components built with and for SvelteKit</title>
+	<title>Kit Fox Component Library (kitfox) | Components built with and for SvelteKit</title>
 </svelte:head>
 
 <div class="layout">
