@@ -60,7 +60,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-global-text-color: var(--fpcl-gray140);
   --fpcl-global-radius: 3px;
   --fpcl-global-border-width: 1px;
+  --fpcl-global-border-style: solid;
   --fpcl-global-border-color: var(--gray60);
+  --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color)
 }
 
 /* Typography */

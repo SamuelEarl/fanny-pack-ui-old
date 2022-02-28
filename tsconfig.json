@@ -23,7 +23,6 @@
 		"allowJs": true,
 		"checkJs": true,
 		"paths": {
-			"$/": ["src/*"],
 			"$lib/*": ["src/lib/*"]
 		}
 	},

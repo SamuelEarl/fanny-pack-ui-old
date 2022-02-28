@@ -50,27 +50,25 @@ a.underline.secondary {
 
 
 table {
+  width: 100%;
   border-collapse: collapse;
 }
-tbody {
-  font-family: var(--mono-font-stack);
+tr {
+  border-bottom: var(--fpcl-global-border);
 }
 th, td {
-  padding: 10px 15px;
-}
-th {
-  border: 1px solid var(--gray40);
-  background-color: var(--gray20);
-}
-td {
-  border: 1px solid var(--gray40);
+  padding: 10px 25px;
+  text-align: left;
+  vertical-align: top;
 }
 
+/* <pre> or triple backticks */
 pre {
   padding: 10px;
   border-radius: var(--global-radius);
   background-color: var(--gray40);
 }
+/* <code> or single backticks */
 code {
   padding: 0 3px;
   border-radius: var(--global-radius);
@@ -80,5 +78,5 @@ code {
 hr {
   margin: 30px 0;
   border: none;
-  border-top: 1px solid var(--gray40);
+  border-top: var(--fpcl-global-border);
 }

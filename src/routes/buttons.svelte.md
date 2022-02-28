@@ -255,7 +255,7 @@
 ```
 
 <script lang="ts">
-  import { Button, Select } from "$/lib";
+  import { Button, Select } from "/src/lib";
 
   let creatingAccount = false;
   let loading = false;

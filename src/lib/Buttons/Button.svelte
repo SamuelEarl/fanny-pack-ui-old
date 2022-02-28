@@ -35,7 +35,7 @@
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "$/theme";
+  import { theme } from "/src/theme";
 
   export let bgColor = "primary";
   export let size = "medium";

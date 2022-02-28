@@ -44,13 +44,6 @@ const config = {
 		// target: "#svelte",
 
 		vite: () => ({
-			// Aliases: https://dev.to/danawoodman/how-to-add-module-import-aliases-in-sveltekit-2ck
-			resolve: {
-				alias: {
-					$: path.resolve(__dirname, "/src")
-				}
-			},
-
 			server: {
 				fs: {
 					allow: ["package"]

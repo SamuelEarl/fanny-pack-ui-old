@@ -48,7 +48,11 @@ To see an example of this component exporting and re-exporting, look at the `car
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 2: Turn your component library into an npm package
+## Step 2: Bump up the version number
+You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number before you continue.
+
+
+## Step 3: Turn your component library into an npm package
 Install the `svelte2tsx` package:
 
 ```
@@ -77,20 +81,7 @@ In order to distribute this package to other developers and allow them to instal
 npm publish ./package
 ```
 
-NOTE: You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm.
-
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
-
-
-# Step 5: When necessary, update to the latest version from the global npm registry
-If you have installed fpcl from the global npm registry, then all you need to do to get the latest version is run the following inside the directory that contains your `package.json` file:
-
-```
-npm update "fpcl"
-```
-
-* *https://docs.npmjs.com/updating-packages-downloaded-from-the-registry*
-* *https://docs.npmjs.com/cli/v8/commands/npm-update*
 
 ---
 

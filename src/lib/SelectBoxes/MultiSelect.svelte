@@ -154,7 +154,7 @@
   import { v4 as uuidv4 } from "uuid";
   import Icon from "@iconify/svelte";
   // import isEqual from "lodash.isequal";
-  import tooltip from "$/components/ui/tooltip.js";
+  import tooltip from "/src/components/ui/tooltip.js";
   // import Checkbox from "./Checkbox.svelte";
 
   export let optionsArray;
