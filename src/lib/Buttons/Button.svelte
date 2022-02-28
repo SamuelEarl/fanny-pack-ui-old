@@ -2,7 +2,7 @@
 
 <button
   type="button"
-  class="{`kitfox-btn ${bgColor} ${size} ${width}-width`}"
+  class="{`fpcl-btn ${bgColor} ${size} ${width}-width`}"
   class:inverse={inverse}
   disabled={disabled}
   on:click
@@ -12,7 +12,7 @@
       {#if btnIconDisabledShouldSpin}
         <!-- You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times. -->
         <span class="{`btn-icon-${btnIconSide}`}" >
-          <Icon icon="{btnIconDisabled}" class="kitfox-spin" />
+          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
         </span>
       {:else}
         <span class="{`btn-icon-${btnIconSide}`}" >
@@ -50,12 +50,12 @@
 
 
 <style>
-  .kitfox-btn {
-    font-family: var(--kitfox-body-font-stack);
-    font-weight: var(--kitfox-btn-font-weight);
+  .fpcl-btn {
+    font-family: var(--fpcl-body-font-stack);
+    font-weight: var(--fpcl-btn-font-weight);
     outline: none;
     border: 0;
-    border-radius: var(--kitfox-btn-radius);
+    border-radius: var(--fpcl-btn-radius);
     cursor: pointer;
     display: inline-block;
     line-height: 1rem;
@@ -64,83 +64,83 @@
     justify-content: center;
   }
 
-  .kitfox-btn .btn-icon-left {
+  .fpcl-btn .btn-icon-left {
     order: 0;
-    margin-right: var(--kitfox-btn-icon-margin);
+    margin-right: var(--fpcl-btn-icon-margin);
   }
-  .kitfox-btn .btn-icon-right {
+  .fpcl-btn .btn-icon-right {
     order: 1;
-    margin-left: var(--kitfox-btn-icon-margin);
+    margin-left: var(--fpcl-btn-icon-margin);
   }
 
   .primary {
-    background-color: var(--kitfox-primary);
-    color: var(--kitfox-btn-text-color-primary);
+    background-color: var(--fpcl-primary);
+    color: var(--fpcl-btn-text-color-primary);
   }
   .primary:hover {
-    background-color: var(--kitfox-primary-dark);
-    color: var(--kitfox-btn-text-color-primary);
+    background-color: var(--fpcl-primary-dark);
+    color: var(--fpcl-btn-text-color-primary);
   }
   .primary.inverse {
-    background-color: var(--kitfox-btn-text-color-primary);
-    color: var(--kitfox-primary);
-    box-shadow: 0px 0px 0px 2px var(--kitfox-primary) inset;
+    background-color: var(--fpcl-btn-text-color-primary);
+    color: var(--fpcl-primary);
+    box-shadow: 0px 0px 0px 2px var(--fpcl-primary) inset;
   }
   .primary.inverse:hover {
-    background-color: var(--kitfox-btn-text-color-primary);
-    color: var(--kitfox-primary-dark);
-    box-shadow: 0px 0px 0px 3px var(--kitfox-primary-dark) inset;
+    background-color: var(--fpcl-btn-text-color-primary);
+    color: var(--fpcl-primary-dark);
+    box-shadow: 0px 0px 0px 3px var(--fpcl-primary-dark) inset;
   }
 
   .secondary {
-    background-color: var(--kitfox-secondary);
-    color: var(--kitfox-btn-text-color-secondary);
+    background-color: var(--fpcl-secondary);
+    color: var(--fpcl-btn-text-color-secondary);
   }
   .secondary:hover {
-    background-color: var(--kitfox-secondary-dark);
-    color: var(--kitfox-btn-text-color-secondary);
+    background-color: var(--fpcl-secondary-dark);
+    color: var(--fpcl-btn-text-color-secondary);
   }
   .secondary.inverse {
-    background-color: var(--kitfox-btn-text-color-secondary);
-    color: var(--kitfox-secondary);
-    box-shadow: 0px 0px 0px 2px var(--kitfox-secondary) inset;
+    background-color: var(--fpcl-btn-text-color-secondary);
+    color: var(--fpcl-secondary);
+    box-shadow: 0px 0px 0px 2px var(--fpcl-secondary) inset;
   }
   .secondary.inverse:hover {
-    background-color: var(--kitfox-btn-text-color-secondary);
-    color: var(--kitfox-secondary-dark);
-    box-shadow: 0px 0px 0px 3px var(--kitfox-secondary-dark) inset;
+    background-color: var(--fpcl-btn-text-color-secondary);
+    color: var(--fpcl-secondary-dark);
+    box-shadow: 0px 0px 0px 3px var(--fpcl-secondary-dark) inset;
   }
 
   .tertiary {
-    background-color: var(--kitfox-tertiary);
-    color: var(--kitfox-btn-text-color-tertiary);
+    background-color: var(--fpcl-tertiary);
+    color: var(--fpcl-btn-text-color-tertiary);
   }
   .tertiary:hover {
-    background-color: var(--kitfox-tertiary-dark);
-    color: var(--kitfox-btn-text-color-tertiary);
+    background-color: var(--fpcl-tertiary-dark);
+    color: var(--fpcl-btn-text-color-tertiary);
   }
   .tertiary.inverse {
-    background-color: var(--kitfox-btn-text-color-tertiary);
-    color: var(--kitfox-tertiary);
-    box-shadow: 0px 0px 0px 2px var(--kitfox-tertiary) inset;
+    background-color: var(--fpcl-btn-text-color-tertiary);
+    color: var(--fpcl-tertiary);
+    box-shadow: 0px 0px 0px 2px var(--fpcl-tertiary) inset;
   }
   .tertiary.inverse:hover {
-    background-color: var(--kitfox-btn-text-color-tertiary);
-    color: var(--kitfox-tertiary-dark);
-    box-shadow: 0px 0px 0px 3px var(--kitfox-tertiary-dark) inset;
+    background-color: var(--fpcl-btn-text-color-tertiary);
+    color: var(--fpcl-tertiary-dark);
+    box-shadow: 0px 0px 0px 3px var(--fpcl-tertiary-dark) inset;
   }
 
   .small {
-    font-size: var(--kitfox-small-font-size);
-    padding: var(--kitfox-btn-small-padding);
+    font-size: var(--fpcl-small-font-size);
+    padding: var(--fpcl-btn-small-padding);
   }
   .medium {
-    font-size: var(--kitfox-base-font-size);
-    padding: var(--kitfox-btn-medium-padding);
+    font-size: var(--fpcl-base-font-size);
+    padding: var(--fpcl-btn-medium-padding);
   }
   .large {
-    font-size: var(--kitfox-large-font-size);
-    padding: var(--kitfox-btn-large-padding);
+    font-size: var(--fpcl-large-font-size);
+    padding: var(--fpcl-btn-large-padding);
   }
 
   .auto-width {
@@ -150,9 +150,9 @@
     width: 100%;
   }
 
-  .kitfox-btn:disabled {
-    color: var(--kitfox-disabled-text-color);
-    background-color: var(--kitfox-disabled-background-color);
+  .fpcl-btn:disabled {
+    color: var(--fpcl-disabled-text-color);
+    background-color: var(--fpcl-disabled-background-color);
     box-shadow: none;
     cursor: default;
   }

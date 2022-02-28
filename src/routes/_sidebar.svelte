@@ -1,6 +1,6 @@
 <nav>
   <div id="home-link-wrapper">
-    <a href="/">Kit Fox Home</a>
+    <a href="/">Fanny Pack Home</a>
   </div>
   <br>
 

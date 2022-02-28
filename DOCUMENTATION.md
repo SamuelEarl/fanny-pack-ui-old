@@ -1,4 +1,4 @@
-# Kit Fox Component Library (kitfox) - Components Built with and for SvelteKit
+# Fanny Pack Component Library (fpcl) - Components Built with and for SvelteKit
 **NOTE: Webpack throws errors with import statements that use aliases like `$`. So I don't think I can use Storybook. Oh, well. I will just create my own interactive documentation using MDSVEX. Webpack is pretty slow and I don't love using apps like Storybook because of the limitations that you run into sometimes, so I prefer to create my own interactive documentation.**
 
 
@@ -21,7 +21,7 @@ I am referencing https://carbon-components-svelte.onrender.com/ for ideas on how
 
 
 ## Should I use Svelte's --style-props?
-No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `kitfox-theme.css` file. The purpose of the `kitfox-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `kitfox-theme.css` file is supposed to provide.
+No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `fpcl-theme.css` file. The purpose of the `fpcl-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `fpcl-theme.css` file is supposed to provide.
 
 Any components that use style props should be refactored to accept regular props. See the `Button.svelte` component for an example of a component that accepts on regular props.
 
@@ -83,10 +83,10 @@ NOTE: You have to make sure that the package name and package version combinatio
 
 
 # Step 5: When necessary, update to the latest version from the global npm registry
-If you have installed kitfox from the global npm registry, then all you need to do to get the latest version is run the following inside the directory that contains your `package.json` file:
+If you have installed fpcl from the global npm registry, then all you need to do to get the latest version is run the following inside the directory that contains your `package.json` file:
 
 ```
-npm update "kitfox"
+npm update "fpcl"
 ```
 
 * *https://docs.npmjs.com/updating-packages-downloaded-from-the-registry*
@@ -144,23 +144,23 @@ When you use `npm install` you almost always want to install npm packages from t
 
 However, npm can also install local packages (aka a directory on your local machine that has a `package.json` file in it), and you can do so by passing npm a path to the directory to install. So in this case, `npm install --save-dev ./package` tells npm to install the package in the `package` directory in your demo app.
 
-If you open your demo application's `package.json` file, you'll see a new `devDependency` for "kitfox" that looks like this:
+If you open your demo application's `package.json` file, you'll see a new `devDependency` for "fpcl" that looks like this:
 
 ```
-"kitfox": "file:package",
+"fpcl": "file:package",
 ```
 
 This is a link that gives you the ability to use your components in your example app. This is how you would import a component into a `.svelte` file in the example app:
 
 ```
-import { Button } from "kitfox";
+import { Button } from "fpcl";
 ```
 
 *https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment*
 
 
 ## Step 4: Develop and edit components and update to the latest version from your local `package` directory
-Since you have already installed the local `kitfox` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `kitfox` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
+Since you have already installed the local `fpcl` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `fpcl` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
 
 ---
 

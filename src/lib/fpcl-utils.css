@@ -1,18 +1,18 @@
 /*
  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. 
- * This file contains utility classes that are used throughout the component library. For example the .kitfox-spin class is used to spin icons during loading states.
+ * This file contains utility classes that are used throughout the component library. For example the .fpcl-spin class is used to spin icons during loading states.
  * These utility classes can be added to a component's HTML to provide some CSS functionality while avoiding duplicated CSS style rule definitions.
 */
 
 /***************************************************
-Begin .kitfox-spin class
-Add a class="kitfox-spin" to an icon (or any other element) to make it spin.
+Begin .fpcl-spin class
+Add a class="fpcl-spin" to an icon (or any other element) to make it spin.
 ***************************************************/
-.kitfox-spin {
-  animation: kitfox-spin var(--kitfox-btn-icon-disabled-spin-speed) infinite linear;
+.fpcl-spin {
+  animation: fpcl-spin var(--fpcl-btn-icon-disabled-spin-speed) infinite linear;
 }
 
-@keyframes kitfox-spin {
+@keyframes fpcl-spin {
   from {
     transform: rotate(0deg);
   }
@@ -21,5 +21,5 @@ Add a class="kitfox-spin" to an icon (or any other element) to make it spin.
   }
 }
 /***************************************************
-End .kitfox-spin class
+End .fpcl-spin class
 ***************************************************/

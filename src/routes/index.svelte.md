@@ -1,4 +1,4 @@
-# Kit Fox Component Library (kitfox)
+# Fanny Pack Component Library (fpcl)
 
 Components built with and for SvelteKit
 

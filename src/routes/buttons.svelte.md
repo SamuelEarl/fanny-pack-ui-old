@@ -21,7 +21,7 @@
 </Button>
 
 <script>
-  import { Button } from "kitfox";
+  import { Button } from "fpcl";
 </script>
 ```
 
@@ -149,7 +149,7 @@
 </Button>
 
 <script>
-  import { Button } from "kitfox";
+  import { Button } from "fpcl";
   
   function showAlert() {
     alert("You clicked a button");
@@ -193,7 +193,7 @@
 </Button>
 
 <script>
-  import { Button } from "kitfox";
+  import { Button } from "fpcl";
 
   function handleCreateAccount() {
     creatingAccount = true;
@@ -238,7 +238,7 @@
 </Button>
 
 <script lang="ts">
-  import { Button } from "kitfox";
+  import { Button } from "fpcl";
 
   let loading = true;
 </script>
@@ -250,7 +250,7 @@
 <Button disabled={true}>Disabled Button</Button>
 
 <script lang="ts">
-  import { Button } from "kitfox";
+  import { Button } from "fpcl";
 </script>
 ```
 

@@ -42,10 +42,10 @@
 
 <!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
 <!-- <label for={label}>{label}</label>
-<div id="kitfox-select-container" class="{`kitfox-select-container ${size}`}">
+<div id="fpcl-select-container" class="{`fpcl-select-container ${size}`}">
   <select
     id={label}
-    class="{`kitfox-select ${size}`}"
+    class="{`fpcl-select ${size}`}"
     bind:value={selectedOption} on:change>
     {#if arrayType === "string" || arrayType === "number"}
       {#each optionsArray as item}
@@ -62,25 +62,25 @@
 
 
 {#if label}
-  <div class="kitfox-select-label-container">
-    <label class="kitfox-select-label">{label}</label>
+  <div class="fpcl-select-label-container">
+    <label class="fpcl-select-label">{label}</label>
   </div>
 {/if}
-<div class="kitfox-select">
-  <div class="{`kitfox-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
-    <span class="kitfox-select-btn-text">{selectedOption}</span>
-    <span class="kitfox-select-btn-arrow">›</span>
+<div class="fpcl-select">
+  <div class="{`fpcl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
+    <span class="fpcl-select-btn-text">{selectedOption}</span>
+    <span class="fpcl-select-btn-arrow">›</span>
   </div>
   {#if showSelectMenu}
-    <div class="{`kitfox-select-menu ${size}`}" in:slide out:blur>
+    <div class="{`fpcl-select-menu ${size}`}" in:slide out:blur>
       {#if arrayType === "string" || arrayType === "number"}
         {#each optionsArray as item}
-          <div class="{`kitfox-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
+          <div class="{`fpcl-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
         {/each}
       {/if}
       {#if arrayType === "object"}
         {#each optionsArray as obj}
-          <div class="{`kitfox-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+          <div class="{`fpcl-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
         {/each}
       {/if}
     </div>
@@ -118,54 +118,54 @@
 
 
 <style>
-  .kitfox-select-label-container {
+  .fpcl-select-label-container {
     margin-bottom: 5px;
 
-    & .kitfox-select-label {
+    & .fpcl-select-label {
       font-size: 0.85rem;
       color: var(--gray140);
     }
   }
 
-  .kitfox-select {
+  .fpcl-select {
     position: relative;
 
-    & .kitfox-select-btn {
+    & .fpcl-select-btn {
       position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: var(--kitfox-select-border);
+      border: var(--fpcl-select-border);
       border-radius: var(--global-radius);
-      background-color: var(--kitfox-select-background-color);
-      color: var(--kitfox-select-text-color);
+      background-color: var(--fpcl-select-background-color);
+      color: var(--fpcl-select-text-color);
       cursor: pointer;
 
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.small {
-        padding: var(--kitfox-select-small-padding);
+        padding: var(--fpcl-select-small-padding);
       }
       &.medium {
-        padding: var(--kitfox-select-medium-padding);
+        padding: var(--fpcl-select-medium-padding);
       }
       &.large {
-        padding: var(--kitfox-select-large-padding);
+        padding: var(--fpcl-select-large-padding);
       }
 
-      & .kitfox-select-btn-text {
+      & .fpcl-select-btn-text {
         line-height: 1rem;
       }
 
-      & .kitfox-select-btn-arrow {
+      & .fpcl-select-btn-arrow {
         transform: rotate(90deg);
         font-size: 1.5rem;
         line-height: 1rem;
       }
     }
 
-    & .kitfox-select-menu {
+    & .fpcl-select-menu {
       /* min-width: fit-content; Should I use this property or just set the select box width to a reasonable width? See my TODOs. */
       position: absolute;
       /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
@@ -173,33 +173,33 @@
       width: 100%;
       /* Add top and bottom padding that is equal to the --global-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --global-radius value. */
       padding: var(--global-radius) 0;
-      border: var(--kitfox-select-border);
+      border: var(--fpcl-select-border);
       border-radius: var(--global-radius);
       overflow-y: auto;
-      background-color: var(--kitfox-select-background-color);
-      color: var(--kitfox-select-text-color);
+      background-color: var(--fpcl-select-background-color);
+      color: var(--fpcl-select-text-color);
       z-index: 100;
 
 
-      & .kitfox-select-option {
+      & .fpcl-select-option {
 
         &:hover {
-          background-color: var(--kitfox-select-option-hover-background-color);
-          color: var(--kitfox-select-option-hover-text-color);
+          background-color: var(--fpcl-select-option-hover-background-color);
+          color: var(--fpcl-select-option-hover-text-color);
           cursor: pointer;
         }
 
         /* 
-        * Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--kitfox-select-large-padding)). 
+        * Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-large-padding)). 
         * Also, add left and right padding that is equal to the size of the select box that the user set + the --global-radius so the menu options will get in from the sides enough so they won't get cut off if a user sets a high --global-radius value. */
         &.small {
-          padding: var(--kitfox-select-small-padding) calc(var(--kitfox-select-small-padding) + var(--global-radius));
+          padding: var(--fpcl-select-small-padding) calc(var(--fpcl-select-small-padding) + var(--global-radius));
         }
         &.medium {
-          padding: var(--kitfox-select-medium-padding) calc(var(--kitfox-select-medium-padding) + var(--global-radius));
+          padding: var(--fpcl-select-medium-padding) calc(var(--fpcl-select-medium-padding) + var(--global-radius));
         }
         &.large {
-          padding: var(--kitfox-select-large-padding) calc(var(--kitfox-select-large-padding) + var(--global-radius));
+          padding: var(--fpcl-select-large-padding) calc(var(--fpcl-select-large-padding) + var(--global-radius));
         }
       }
     }
@@ -213,7 +213,7 @@
    * Resets: https://moderncss.dev/custom-select-styles-with-pure-css/
    * Styles: https://stackoverflow.com/questions/31531865/css-change-dropdown-arrow-to-unicode-triangle
   **************************************************/
-  .kitfox-select-container {
+  .fpcl-select-container {
     overflow: hidden;
     position: relative;
     border-radius: var(--global-radius);
@@ -234,25 +234,25 @@
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.small {
-        right: var(--kitfox-select-small-padding);
-        padding-left: var(--kitfox-select-small-padding);
-        padding-right: var(--kitfox-select-small-padding);
+        right: var(--fpcl-select-small-padding);
+        padding-left: var(--fpcl-select-small-padding);
+        padding-right: var(--fpcl-select-small-padding);
       }
 
       &.medium {
-        right: var(--kitfox-select-medium-padding);
-        padding-left: var(--kitfox-select-medium-padding);
-        padding-right: var(--kitfox-select-medium-padding);
+        right: var(--fpcl-select-medium-padding);
+        padding-left: var(--fpcl-select-medium-padding);
+        padding-right: var(--fpcl-select-medium-padding);
       }
 
       &.large {
-        right: var(--kitfox-select-large-padding);
-        padding-left: var(--kitfox-select-large-padding);
-        padding-right: var(--kitfox-select-large-padding);
+        right: var(--fpcl-select-large-padding);
+        padding-left: var(--fpcl-select-large-padding);
+        padding-right: var(--fpcl-select-large-padding);
       }
     }
 
-    & .kitfox-select {
+    & .fpcl-select {
       /* Reset the styles, including removing the default dropdown arrow */
       appearance: none;
       min-width: 100%;
@@ -267,15 +267,15 @@
       cursor: pointer;
 
       &.small {
-        padding: var(--kitfox-select-small-padding);
+        padding: var(--fpcl-select-small-padding);
       }
 
       &.medium {
-        padding: var(--kitfox-select-medium-padding);
+        padding: var(--fpcl-select-medium-padding);
       }
 
       &.large {
-        padding: var(--kitfox-select-large-padding);
+        padding: var(--fpcl-select-large-padding);
       }
 
       & option {

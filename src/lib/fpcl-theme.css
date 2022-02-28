@@ -1,0 +1,122 @@
+/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--fpcl-primary` because `var(--fpcl-primary)` is referenced throughout the components. However, you can change the *values* of any of these variables. You can create a `theme.css` file and add any other variables to that file and then reference those variables in any of the `var()` functions in this file. It is recommended to keep any custom variables separate from the variables in this file so you don't accidentally alter the name of or remove a variable that is referenced throughout the component library.  */
+
+/* TODO: I would like to see if there is a way to give users more control over the editing of the components. Is there a way to allow users to specify what colors get passed to the different parts of each component? Maybe I could create a lot of CSS variables to allow users more fine-grained customizability for their components. For example, I could do something like the following, which would keep the styles consistent across all the components and would help to maintain the same theme across the entire website:
+
+NOTE: Look at how Foundation handles their global styles that can be customized (I think Bootstrap uses a similar concept):
+* Documentation: https://get.foundation/sites/docs/global.html
+* settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
+
+
+/* Colors */
+:root {
+  /*
+  Main Colors
+  Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
+  */
+  --fpcl-light-green: #99b433;
+  --fpcl-green: #00a300;
+  --fpcl-dark-green: #1e7145;
+  --fpcl-magenta: #ff0097;
+  --fpcl-light-purple: #9f00a7;
+  --fpcl-purple: #7e3878;
+  --fpcl-dark-purple: #603cba;
+  --fpcl-teal: #00aba9;
+  --fpcl-light-blue: #eff4ff;
+  --fpcl-blue: #2d89ef;
+  --fpcl-dark-blue: #2b5797;
+  --fpcl-yellow: #ffc40d;
+  --fpcl-orange: #e3a21a;
+  --fpcl-dark-orange: #da532c;
+  --fpcl-red: #ee1111;
+  --fpcl-dark-red: #b91d47;
+
+  /*
+  Neutral Colors
+  Taken from "https://developer.microsoft.com/en-us/fabric#/styles/web/colors/products" > "Skype" > (scroll down) "Default theme neutrals"
+  */
+  --fpcl-white: #ffffff;
+  --fpcl-black: #000000;
+  --fpcl-gray20: #f3f2f1;
+  --fpcl-gray40: #e1dfdd;
+  --fpcl-gray60: #c8c6c4;
+  --fpcl-gray80: #b3b0ad;
+  --fpcl-gray100: #979593;
+  --fpcl-gray110: #8a8886;
+  --fpcl-gray130: #605e5c;
+  --fpcl-gray140: #484644;
+  --fpcl-gray180: #252423;
+
+  --fpcl-primary: var(--fpcl-blue);
+  --fpcl-secondary: var(--fpcl-light-green);
+  --fpcl-tertiary: var(--fpcl-yellow);
+
+  --fpcl-success: var(--fpcl-green);
+  --fpcl-warning: var(--fpcl-yellow);
+  --fpcl-alert: var(--fpcl-red);
+}
+
+/* Global Styles */
+:root {
+  --fpcl-global-text-color: var(--fpcl-gray140);
+  --fpcl-global-radius: 3px;
+  --fpcl-global-border-width: 1px;
+  --fpcl-global-border-color: var(--gray60);
+}
+
+/* Typography */
+:root {
+  --fpcl-small-font-size: 12px;
+  --fpcl-base-font-size: 16px;
+  --fpcl-large-font-size: 20px;
+  --fpcl-serif-font-stack: "Times New Roman", sans-serif;
+  --fpcl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --fpcl-script-font-stack: script;
+  --fpcl-mono-font-stack: mono;
+  font-family: var(--fpcl-sans-serif-font-stack);
+  --fpcl-font-weight-light: 100;
+  --fpcl-font-weight-normal: 400;
+  --fpcl-font-weight-bold: 700;
+}
+
+/* Buttons */
+:root {
+  --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
+  --fpcl-btn-text-color-primary: var(--fpcl-white);
+  --fpcl-btn-text-color-secondary: var(--fpcl-white);
+  --fpcl-btn-text-color-tertiary: var(--fpcl-white);
+  --fpcl-btn-icon-margin: 10px;
+  /* --fpcl-btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
+  --fpcl-btn-icon-disabled-spin-speed: 1.5s;
+  --fpcl-btn-small-padding: 10px 16px;
+  --fpcl-btn-medium-padding: 11px 20px;
+  --fpcl-btn-large-padding: 12px 24px;
+  --fpcl-btn-radius: 20px;
+}
+
+/* Inputs */
+:root {
+  --fpcl-input-padding: 10px 12px;
+  --fpcl-input-background-color: var(--fpcl-gray20);
+  --fpcl-label-font-size: 0.8rem;
+  --fpcl-label-margin: 0 0 5px 5px;
+}
+
+/* Select Boxes */
+:root {
+  /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
+  --fpcl-select-small-padding: 5px;
+  --fpcl-select-medium-padding: 10px;
+  --fpcl-select-large-padding: 15px;
+
+  --fpcl-select-border: var(--fpcl-global-border-width) solid var(--fpcl-global-border-color);
+  --fpcl-select-background-color: var(--white);
+  --fpcl-select-text-color: var(--fpcl-global-text-color);
+  --fpcl-select-option-hover-background-color: var(--gray40);
+  --fpcl-select-option-hover-text-color: var(--fpcl-global-text-color);
+}
+
+/* Miscellaneous */
+:root {
+  --fpcl-disabled-text-color: var(--fpcl-gray40);
+  --fpcl-disabled-background-color: var(--fpcl-black);
+}

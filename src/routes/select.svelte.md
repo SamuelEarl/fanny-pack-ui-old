@@ -42,7 +42,7 @@
 />
 
 <script>
-  import { Select } from "kitfox";
+  import { Select } from "fpcl";
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
@@ -92,14 +92,14 @@
 ---
 
 ## Styles
-In the `kitfox-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
+In the `fpcl-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
 
 The following padding variables will change the sizes that correspond with the `size` prop:
 
 ```css
---kitfox-select-small-padding: 5px;
---kitfox-select-medium-padding: 10px;
---kitfox-select-large-padding: 15px;
+--fpcl-select-small-padding: 5px;
+--fpcl-select-medium-padding: 10px;
+--fpcl-select-large-padding: 15px;
 ```
 
 
