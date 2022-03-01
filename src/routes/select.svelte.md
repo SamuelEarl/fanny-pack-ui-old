@@ -2,13 +2,27 @@
 
 ---
 
-<header>
+<div style="width: 300px">
   <Select
     label=""
-    optionsArray={months}
+    optionsArray={longText}
     arrayType="string"
-    bind:selectedOption={selectedMonth}
+    bind:selectedOption={selectedText}
+    size="small"
   />
+</div>
+
+---
+
+<header style="display: flex; justify-content: space-around;">
+  <div style="width: 200px">
+    <Select
+      label=""
+      optionsArray={months}
+      arrayType="string"
+      bind:selectedOption={selectedMonth}
+    />
+  </div>
 
   <Select
     label=""
@@ -73,7 +87,7 @@ The following padding variables will change the sizes that correspond with the `
 ---
 
 ## Additional Notes
-This component will fill the width of its parent container. So if you want it to be narrower, then you will have to set its parent container to be narrower.
+This component will fill the width of its parent element. So if you want a `<Select />` component to be narrower, then you will have to set its parent element to be narrower. It is recommended to set the width of this component's parent element to a reasonable width to fit the text of the menu items (i.e. the options). If the text for any of the options is too long, then it will be cut off. But the user can still hover over the option and the entire text will be displayed in a popup tooltip.
 
 
 <script lang="ts">
@@ -81,6 +95,12 @@ This component will fill the width of its parent container. So if you want it to
 
   let arrayOfValues = ["First", "Second", "Third"];
   let selectedValue = "Second";
+
+  let longText = [
+    "This is a really long option that I am testing for testing sake",
+    "This is short"
+  ]
+  let selectedText = "This is short";
 
   let months = [
     "January",
@@ -101,16 +121,3 @@ This component will fill the width of its parent container. So if you want it to
   let years = [ 2021, 2022 ];
   let selectedYear = 2022;
 </script>
-
-
-<style>
-  header {
-    display: flex;
-    justify-content: space-around;
-
-    /* & .select-container {
-      flex: 1;
-      margin-right: 10px;
-    } */
-  }
-</style>

@@ -58,7 +58,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Global Styles */
 :root {
   --fpcl-global-text-color: var(--fpcl-gray140);
-  --fpcl-global-radius: 3px;
+  --fpcl-global-radius: 20px;
   --fpcl-global-border-width: 1px;
   --fpcl-global-border-style: solid;
   --fpcl-global-border-color: var(--gray60);
@@ -92,7 +92,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-small-padding: 10px 16px;
   --fpcl-btn-medium-padding: 11px 20px;
   --fpcl-btn-large-padding: 12px 24px;
-  --fpcl-btn-radius: 20px;
+  --fpcl-btn-radius: var(--fpcl-global-radius);
 }
 
 /* Inputs */
@@ -110,7 +110,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-select-medium-padding: 10px;
   --fpcl-select-large-padding: 15px;
 
-  --fpcl-select-border: var(--fpcl-global-border-width) solid var(--fpcl-global-border-color);
+  --fpcl-select-border: var(--fpcl-global-border);
+  --fpcl-select-radius: var(--fpcl-global-radius);
   --fpcl-select-background-color: var(--white);
   --fpcl-select-text-color: var(--fpcl-global-text-color);
   --fpcl-select-option-hover-background-color: var(--gray40);

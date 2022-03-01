@@ -1,46 +1,3 @@
-<!--
-  Example Usage:
-
-  <Select
-    optionsArray={columnHeaders}  
-    arrayType="string"
-    bind:selectedOption={selectedColumn}
-    defaultValue="avg"
-    on:change={() => eventHandler(arg1, arg2, arg3)}
-    --padding-arrow="40px"
-    --border-color="blue"
-    --background-color="white"
-    --color="blue"
-  />
-
-  <script>
-    let columnHeaders = [];
-    let selectedColumn = "";
-  </script>
-
-
-  Documentation about props:
-  1. optionsArray: This should be an array of strings or objects. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the <option> elements in the select box.
-
-  2. arrayType: If the data that this select box is displaying is an array of strings, then set this to "string". If it is an array of objects, then set this to "object". The default is "string". NOTE: Each object inside the object array should have this structure:
-    [{ value: "valueToBePassedToTheBackend", text: "Text displayed in the select box" }]
-
-  3. bind:selectedOption={stringVariable}: The option that the user selects in the UI will be bound to the <select> element and then passed to the backend when the form is submitted. You need to have a string variable defined in the component where this <Select> component is imported and that string variable needs to be bound to the <Select> component with `bind:selectedOption={stringVariable}`.
-
-  4. `label` (optional): The text for the `<label>` element.
-
-  5. defaultValue (optional): This is the value (from the array that is assigned to `optionsArray`) that you want to set as the default value for the select box. For "object" arrays, this should be the value of the `value` property. If you don't set this prop then it defaults to the empty string option.
-
-  6. on:change (optional): If you want to call an event handler when the change event is fired, then you can add this prop and call your event handler.
-
-  11. --border-color="blue" (optional): See number 7. This style prop will change the color of the border. Default is --gray-medium.
-
-  12. --background-color="white" (optional): See number 7. This style prop will change the background color of the select element. Default is white.
-
-  13. --color="blue" (optional): See number 7. This style prop will change the text color in the select box (including the down arrow) and the color in the select box drop-down. Default is black.
--->
-
-<!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
 <!-- <label for={label}>{label}</label>
 <div id="fpcl-select-container" class="{`fpcl-select-container ${size}`}">
   <select
@@ -60,6 +17,7 @@
   </select>
 </div> -->
 
+<!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
 
 {#if label}
   <div class="fpcl-select-label-container">
@@ -68,19 +26,19 @@
 {/if}
 <div class="fpcl-select">
   <div class="{`fpcl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
-    <span class="fpcl-select-btn-text">{selectedOption}</span>
+    <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
     <span class="fpcl-select-btn-arrow">›</span>
   </div>
   {#if showSelectMenu}
     <div class="{`fpcl-select-menu ${size}`}" in:slide out:blur>
       {#if arrayType === "string" || arrayType === "number"}
         {#each optionsArray as item}
-          <div class="{`fpcl-select-option ${size}`}" on:click={() => setSelectedOption(item)}>{item}</div>
+          <div class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(item)}>{item}</div>
         {/each}
       {/if}
       {#if arrayType === "object"}
         {#each optionsArray as obj}
-          <div class="{`fpcl-select-option ${size}`}" on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+          <div class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
         {/each}
       {/if}
     </div>
@@ -136,7 +94,7 @@
       justify-content: space-between;
       align-items: center;
       border: var(--fpcl-select-border);
-      border-radius: var(--global-radius);
+      border-radius: var(--fpcl-select-radius);
       background-color: var(--fpcl-select-background-color);
       color: var(--fpcl-select-text-color);
       cursor: pointer;
@@ -156,9 +114,17 @@
 
       & .fpcl-select-btn-text {
         line-height: 1rem;
+        /*
+          Cut off any text that overflows the space provided for this Select component:
+          https://www.w3schools.com/cssref/css3_pr_text-overflow.asp
+        */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       & .fpcl-select-btn-arrow {
+        margin-left: 10px;
         transform: rotate(90deg);
         font-size: 1.5rem;
         line-height: 1rem;
@@ -171,10 +137,10 @@
       /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
       top: 0px;
       width: 100%;
-      /* Add top and bottom padding that is equal to the --global-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --global-radius value. */
-      padding: var(--global-radius) 0;
+      /* Add top and bottom padding that is equal to half of the --fpcl-select-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-radius value. */
+      padding: calc(var(--fpcl-select-radius) / 2) 0;
       border: var(--fpcl-select-border);
-      border-radius: var(--global-radius);
+      border-radius: var(--fpcl-select-radius);
       overflow-y: auto;
       background-color: var(--fpcl-select-background-color);
       color: var(--fpcl-select-text-color);
@@ -182,6 +148,13 @@
 
 
       & .fpcl-select-option {
+        /*
+          Cut off any text that overflows the space provided for this Select component:
+          https://www.w3schools.com/cssref/css3_pr_text-overflow.asp
+        */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
         &:hover {
           background-color: var(--fpcl-select-option-hover-background-color);
@@ -190,101 +163,18 @@
         }
 
         /* 
-        * Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-large-padding)). 
-        * Also, add left and right padding that is equal to the size of the select box that the user set + the --global-radius so the menu options will get in from the sides enough so they won't get cut off if a user sets a high --global-radius value. */
+          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-large-padding)).
+        */
         &.small {
-          padding: var(--fpcl-select-small-padding) calc(var(--fpcl-select-small-padding) + var(--global-radius));
+          padding: var(--fpcl-select-small-padding);
         }
         &.medium {
-          padding: var(--fpcl-select-medium-padding) calc(var(--fpcl-select-medium-padding) + var(--global-radius));
+          padding: var(--fpcl-select-medium-padding);
         }
         &.large {
-          padding: var(--fpcl-select-large-padding) calc(var(--fpcl-select-large-padding) + var(--global-radius));
+          padding: var(--fpcl-select-large-padding);
         }
       }
     }
   }
-
-
-  /* TODO: Remove all the following styles once I have refactored this component because these styles are no longer being used. */
-
-  /**************************************************
-   * Select Element Styles
-   * Resets: https://moderncss.dev/custom-select-styles-with-pure-css/
-   * Styles: https://stackoverflow.com/questions/31531865/css-change-dropdown-arrow-to-unicode-triangle
-  **************************************************/
-  .fpcl-select-container {
-    overflow: hidden;
-    position: relative;
-    border-radius: var(--global-radius);
-    border: 1px solid var(--border-color, var(--gray-medium));
-    &:after {
-      /* The HTML entity in the content rule uses the "&rsaquo;" entity.
-      https://dev.w3.org/html5/html-author/charref */
-      content: "›";
-      transform: rotate(90deg);
-      font-size: 1.5rem;
-      height: 100%;
-      position: absolute;
-      bottom: 0;
-      color: var(--color, black);
-      pointer-events: none;
-
-      /*
-        Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
-      */
-      &.small {
-        right: var(--fpcl-select-small-padding);
-        padding-left: var(--fpcl-select-small-padding);
-        padding-right: var(--fpcl-select-small-padding);
-      }
-
-      &.medium {
-        right: var(--fpcl-select-medium-padding);
-        padding-left: var(--fpcl-select-medium-padding);
-        padding-right: var(--fpcl-select-medium-padding);
-      }
-
-      &.large {
-        right: var(--fpcl-select-large-padding);
-        padding-left: var(--fpcl-select-large-padding);
-        padding-right: var(--fpcl-select-large-padding);
-      }
-    }
-
-    & .fpcl-select {
-      /* Reset the styles, including removing the default dropdown arrow */
-      appearance: none;
-      min-width: 100%;
-      margin: 0;
-      border: none;
-      outline: none;
-      font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
-      background-color: var(--background-color, white);
-      color: var(--color, black);
-      cursor: pointer;
-
-      &.small {
-        padding: var(--fpcl-select-small-padding);
-      }
-
-      &.medium {
-        padding: var(--fpcl-select-medium-padding);
-      }
-
-      &.large {
-        padding: var(--fpcl-select-large-padding);
-      }
-
-      & option {
-        background-color: var(--background-color, white);
-        color: var(--color, black);
-      }
-    }
-  }
-  /**************************************************
-  End Select Element Styles
-  **************************************************/
 </style>
