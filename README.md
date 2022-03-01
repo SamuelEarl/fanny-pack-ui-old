@@ -10,7 +10,7 @@
 ---
 
 # Fanny Pack Component Library (fpcl)
-Themable component library designed for responsiveness. The components are built with and for SvelteKit. 
+Themable component library designed for responsiveness and with accessibility in mind (following the guidelines from W3.org's [ARIA in HTML](https://www.w3.org/TR/html-aria/#docconformance) page). The components are built with and for SvelteKit. 
 
 This is not a UI kit or UI framework because we do not provide layout elements. Instead, we let you layout your pages the way you want and then you can throw whatever components you need into your pages.
 

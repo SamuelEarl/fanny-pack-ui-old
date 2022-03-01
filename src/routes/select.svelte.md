@@ -2,6 +2,13 @@
 
 ---
 
+<select role=select bind:value={selectedMonth}>
+  {#each months as month}
+    <option value={month} aria-selected={selectedMonth === month}>{month}</option>
+  {/each}
+</select>
+<br><br>
+
 <div style="width: 300px">
   <Select
     label=""

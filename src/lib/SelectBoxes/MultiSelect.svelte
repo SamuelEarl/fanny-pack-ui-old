@@ -1,6 +1,16 @@
 <!--
-  Because of the different ways of selecting options (depending on the browser), and because you have to inform the user that multiple selection is available, it is more user-friendly to use checkboxes instead.
-  See https://www.w3schools.com/tags/att_select_multiple.asp
+  Component and Accessibility Notes:
+  * This component aims to providing the usability of checkboxes instead of the default multi-select elements that are generated in HTML, as suggested by W3Schools.com:
+      * Because of the different ways of selecting options (depending on the browser), and because you have to inform the user that multiple selection is available, it is more user-friendly to use checkboxes instead. See https://www.w3schools.com/tags/att_select_multiple.asp
+  * This component uses WAI-ARIA attributes to replicate the accessibility of a multi-select element:
+      * <div> elements may use any ARIA role. (https://www.w3.org/TR/html-aria/#dfn-any-role)
+      * <select> elements with the `multiple` attribute are used to create multi-select elements. Multi-select elements have an implicit `listbox` ARIA role, so the <div> in this component that is used as the select button uses a `listbox` role. (https://www.w3.org/TR/html-aria/)
+          * If more than one element is selectable at a time, then include `aria-multiselectable="true"` on the element that has the `listbox` role. (https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)
+      * <option> element within a multi-select element:
+          * Each of the <option> elements within a multi-select element should use an `option` ARIA role for accessibility.  (https://www.w3.org/TR/html-aria/)
+          * `input type=checkbox` elements can use the `option` role. (https://www.w3.org/TR/html-aria/)
+          * For elements that use the `option` role, the `aria-selected` attribute should be used to indicate the current "selected" state. Include `aria-selected` only on the selectable options (i.e. the selectable elements that have an `option` role). (https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-selected)
+          * Authors SHOULD NOT use the `aria-checked` attribute on `input type=checkbox` elements. The HTML `checked` attribute can be used instead of the `aria-checked` attribute for `menuitemcheckbox`, `option` or `switch` roles when used on `type=checkbox`. (https://www.w3.org/TR/html-aria/)
 -->
 
 <!--
@@ -67,7 +77,7 @@
 
   {#if !showDropDown}
     <!-- The <div class="multi-select-btn"> element is the drop-down button that the user will click to show the selectable options. -->
-    <div id={`multi-select-btn-${uuid}`} class="multi-select-btn" on:click={() => {
+    <div role="listbox" aria-multiselectable="true" id={`multi-select-btn-${uuid}`} class="multi-select-btn" on:click={() => {
       // The drop-down element has be be present in the DOM before you can calculated its dimensions.
       // The `showDropDown = true` option need to be left out of the `calculateDropDownHeight()` function. If it is included at the beginning of that function, then there will be strange errors.
       showDropDown = true;
@@ -84,7 +94,7 @@
   {:else}
     <!-- The "click" event from the .multi-select-btn button and the "clickoutside" event from the .multi-select-drop-down box conflict with each other because they are both click events. When I click on the .multi-select-btn element it wants to show the drop-down box. When I click outside of the .multi-select-drop-down box it wants to hide the drop-down box. But if I click on the .multi-select-btn button, which is also outside of the .multi-select-drop-down box, then the drop-down box stays open rather than closing. Even if I change the function in the .multi-select-btn to toggle the drop-down box, the events still conflict with each other and the drop-down box stays open. -->
     <!-- The only way that I have been able to fix this issue so that a user can click on the .multi-select-btn to also hide the drop-down box is to duplicate the .multi-select-btn element but leave the click event out. Then I show the .multi-select-btn element with the click event when the drop-down box is hidden and I show the .multi-select-btn element without the click event when the drop-down box is showing. That way a user can click anywhere outside of the drop-down box, including the .multi-select-btn, and it will close the drop-down box. That is a better user experience. -->
-    <div id={`multi-select-btn-${uuid}`} class="multi-select-btn">
+    <div role="listbox" aria-multiselectable="true" id={`multi-select-btn-${uuid}`} class="multi-select-btn">
       {#if selectedOptions && selectedOptions.length > 0}
         <span>{selectedOptions.length} value{#if selectedOptions.length > 1}s{/if} selected</span>
       {:else}
@@ -129,7 +139,7 @@
           -->
           <!-- <Checkbox bind:group={selectedOptions} value={item} label={item} on:change /> -->
           <label class="container">
-            <input type="checkbox" bind:group={selectedOptions} value={item}> {item}
+            <input role="option" aria-selected={selectedOptions.includes(item)} checked={selectedOptions.includes(item)} type="checkbox" bind:group={selectedOptions} value={item}> {item}
             <span class="checkmark"></span>
           </label>
         {/each}
@@ -139,7 +149,7 @@
         {#each optionsArray as obj}
           <!-- <Checkbox bind:group={selectedOptions} value={obj.value} label={obj.label} /> -->
           <label class="container">
-            <input type="checkbox" bind:group={selectedOptions} value={obj.value}> {obj.label}
+            <input role="option" aria-selected={selectedOptions.includes(obj.value)} checked={selectedOptions.includes(obj.value)} type="checkbox" bind:group={selectedOptions} value={obj.value}> {obj.label}
             <span class="checkmark"></span>
           </label>
         {/each}

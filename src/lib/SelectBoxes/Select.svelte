@@ -21,28 +21,27 @@
 
 {#if label}
   <div class="fpcl-select-label-container">
-    <label class="fpcl-select-label">{label}</label>
+    <label for={id} class="fpcl-select-label">{label}</label>
   </div>
 {/if}
 <div class="fpcl-select">
-  <div class="{`fpcl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
+  <div role="combobox" id={id} class="{`fpcl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
     <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
     <span class="fpcl-select-btn-arrow">›</span>
   </div>
-  {#if showSelectMenu}
-    <div class="{`fpcl-select-menu ${size}`}" in:slide out:blur>
-      {#if arrayType === "string" || arrayType === "number"}
-        {#each optionsArray as item}
-          <div class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(item)}>{item}</div>
-        {/each}
-      {/if}
-      {#if arrayType === "object"}
-        {#each optionsArray as obj}
-          <div class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
-        {/each}
-      {/if}
-    </div>
-  {/if}
+  <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
+  <div class="{`fpcl-select-menu ${size}`}" class:show={showSelectMenu}>
+    {#if arrayType === "string" || arrayType === "number"}
+      {#each optionsArray as item}
+        <div role="option" aria-selected={selectedOption === item} class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(item)}>{item}</div>
+      {/each}
+    {/if}
+    {#if arrayType === "object"}
+      {#each optionsArray as obj}
+        <div role="option" aria-selected={selectedOption === obj.item} class="{`fpcl-select-option ${size}`}" title={obj.item} on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+      {/each}
+    {/if}
+  </div>
 </div>
 
 
@@ -57,6 +56,8 @@
   // export let selectedOption = optionsArray[0];
   // export let defaultValue = optionsArray[0];
 
+  // Set an id for <label> and <select> elements.
+  let id = `ccs-${Math.random().toString(36)}`;
   let showSelectMenu = false;
 
   // When working with plain HTML <select> elements, you set the default value with the `selected` attribute. In Svelte you set the default value by setting the `selectedOption` variable (in `<select bind:value={selectedOption}>`) to equal the value from the `optionsArray` that you want to be the default value.
@@ -132,7 +133,7 @@
     }
 
     & .fpcl-select-menu {
-      /* min-width: fit-content; Should I use this property or just set the select box width to a reasonable width? See my TODOs. */
+      display: none;
       position: absolute;
       /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
       top: 0px;
@@ -145,6 +146,10 @@
       background-color: var(--fpcl-select-background-color);
       color: var(--fpcl-select-text-color);
       z-index: 100;
+
+      &.show {
+        display: block;
+      }
 
 
       & .fpcl-select-option {
