@@ -37,7 +37,7 @@
         <div
           role="option"
           aria-selected={selectedOption === item}
-          class="{`fpcl-select-option fpcl-select-option-${id} ${size}`}"
+          class="{`fpcl-select-option ${size}`}"
           class:selected={highlightedOption === item}
           title={item}
           on:mouseenter={() => {
@@ -57,7 +57,18 @@
     {#if arrayType === "object"}
       {#each optionsArray as obj}
         <!-- The following code references `obj` in all instances of the current object in this each loop except for when the text needs to be displayed to the user. In those cases this code references `obj.text`. -->
-        <div role="option" aria-selected={selectedOption === obj} class="{`fpcl-select-option ${size}`}" class:selected={selectedOption === obj} title={obj.text} on:click={() => setSelectedOption(obj)}>{obj.text}</div>
+        <div
+          role="option"
+          aria-selected={selectedOption === obj}
+          class="{`fpcl-select-option ${size}`}"
+          class:selected={highlightedOption === obj}
+          title={obj.text}
+          on:mouseenter={() => highlightedOption = null }
+          on:mouseleave={() => highlightedOption = obj }
+          on:click={() => setSelectedOption(obj)}
+        >
+          {obj.text}
+        </div>
       {/each}
     {/if}
   </div>
