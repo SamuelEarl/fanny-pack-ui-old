@@ -24,8 +24,8 @@
   nav {
     height: 100%;
     padding-top: 20px;
-    background-color: var(--primary);
-    color: var(--tertiary);
+    background-color: var(--fpcl-secondary);
+    color: var(--fpcl-tertiary);
 
     & #home-link-wrapper {
       display: flex;
@@ -38,13 +38,14 @@
         padding-left: 15px;
         font-size: 1.1rem;
         font-weight: bold;
+        color: var(--fpcl-tertiary);
 
         &:hover {
-          background-color: var(--secondary);
+          background-color: var(--fpcl-primary);
         }
 
         &.active {
-          background-color: var(--secondary);
+          background-color: var(--fpcl-primary);
         }
       }
     }
@@ -63,13 +64,14 @@
       & a {
         padding: 10px;
         padding-left: 30px;
+        color: var(--fpcl-tertiary);
 
         &:hover {
-          background-color: var(--secondary);
+          background-color: var(--fpcl-primary);
         }
 
         &.active {
-          background-color: var(--secondary);
+          background-color: var(--fpcl-primary);
         }
       }
     }

@@ -1,28 +1,28 @@
  /* General HTML element styles go in this file. These form the base styles that can be modified in your .svelte files. */
 
  html, body {
-  font-family: var(--body-font-stack);
-  color: var(--text-color);
+  font-family: var(--fpcl-body-font-stack);
+  color: var(--fpcl-global-text-color);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--headline-font-stack);
+  /* font-family: var(--fpcl-headline-font-stack); */
   font-weight: normal;
 }
 
 
 /* a {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--fpcl-global-text-color);
   border-bottom: none;
   &.underline {
-    border-bottom: 1px dotted var(--text-color);
+    border-bottom: 1px dotted var(--fpcl-global-text-color);
     &:hover {
       border-bottom: none;
     }
     &.primary {
-      color: var(--primary);
-      border-color: var(--primary);
+      color: var(--fpcl-primary);
+      border-color: var(--fpcl-primary);
     }
   }
 } */
@@ -30,22 +30,22 @@ h1, h2, h3, h4, h5, h6 {
 /* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
 a {
   text-decoration: none;
-  color: var(--text-color);
+  color: var(--fpcl-global-text-color);
   border-bottom: none;
 }
 a.underline {
-  border-bottom: 1px dotted var(--text-color);
+  border-bottom: 1px dotted var(--fpcl-global-text-color);
 }
 a.underline:hover {
   border-bottom: none;
 }
 a.underline.primary {
-  color: var(--primary);
-  border-color: var(--primary);
+  color: var(--fpcl-primary);
+  border-color: var(--fpcl-primary);
 }
 a.underline.secondary {
-  color: var(--secondary);
-  border-color: var(--secondary);
+  color: var(--fpcl-secondary);
+  border-color: var(--fpcl-secondary);
 }
 
 
@@ -62,17 +62,22 @@ th, td {
   vertical-align: top;
 }
 
+li {
+  margin-bottom: 7px;
+  line-height: 1.5rem;
+}
+
 /* <pre> or triple backticks */
 pre {
   padding: 10px;
-  border-radius: var(--global-radius);
-  background-color: var(--gray40);
+  border-radius: var(--fpcl-global-radius);
+  background-color: var(--fpcl-very-light-gray);
 }
 /* <code> or single backticks */
 code {
   padding: 0 3px;
-  border-radius: var(--global-radius);
-  background-color: var(--gray40);
+  border-radius: var(--fpcl-global-radius);
+  background-color: var(--fpcl-very-light-gray);
 }
 
 hr {

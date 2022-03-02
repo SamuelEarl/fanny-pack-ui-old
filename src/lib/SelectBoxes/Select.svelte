@@ -1,28 +1,63 @@
-<!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
-
 {#if label}
   <div class="fpcl-select-label-container">
     <label for={`fpcl-select-btn-${id}`} class="fpcl-select-label">{label}</label>
   </div>
 {/if}
 <div class="fpcl-select">
-  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" on:click={() => {
-    showSelectMenu = !showSelectMenu;
+  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" on:click={async () => {
+    showSelectMenu = true;
     calculateMenuHeight(id, showSelectMenu, tick, window, document);
+    let menu = document.getElementById(`fpcl-select-menu-${id}`);
+    // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
+    await tick();
+    menu.focus();
   }}>
-    <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
+    {#if arrayType === "string" || arrayType === "number" || arrayType === "boolean"}
+      <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
+    {/if} 
+    {#if arrayType === "object"}
+      <span class="fpcl-select-btn-text" title={selectedOption.text}>{selectedOption.text}</span>
+    {/if}
     <span class="fpcl-select-btn-arrow">›</span>
   </div>
   <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
-  <div id="{`fpcl-select-menu-${id}`}" class="{`fpcl-select-menu ${size}`}" class:show={showSelectMenu} use:clickOutsideSelectMenu on:clickoutside={() => showSelectMenu = false}>
-    {#if arrayType === "string" || arrayType === "number"}
+  <div
+    id="{`fpcl-select-menu-${id}`}"
+    class="{`fpcl-select-menu ${size}`}"
+    class:show={showSelectMenu}
+    tabindex="-1"
+    on:blur={() => {
+      showSelectMenu = false;
+      // If the user moused over the select menu options but didn't select an option before clicking outside of the menu, then reset the option that should be highlighted (when the user clicks the select box again) to the option that was previously selected.
+      highlightedOption = selectedOption;
+    }}
+  >
+    {#if arrayType === "string" || arrayType === "number" || arrayType === "boolean"}
       {#each optionsArray as item}
-        <div role="option" aria-selected={selectedOption === item} class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(item)}>{item}</div>
+        <div
+          role="option"
+          aria-selected={selectedOption === item}
+          class="{`fpcl-select-option fpcl-select-option-${id} ${size}`}"
+          class:selected={highlightedOption === item}
+          title={item}
+          on:mouseenter={() => {
+            // Without this function the option that was already selected will be highlighted AND the option that is being hovered over will also be highlighted. This function will remove the highlighting from the previously selected option so only the option that is currently being hovered over will be highlighted.
+            highlightedOption = null;
+          }}
+          on:mouseleave={() => {
+            // When a user hovers outside of the select menu, this function will set the last menu option that was hovered over to be the option that is highlighted.
+            highlightedOption = item;
+          }}
+          on:click={() => setSelectedOption(item)}
+        >
+          {item}
+        </div>
       {/each}
     {/if}
     {#if arrayType === "object"}
       {#each optionsArray as obj}
-        <div role="option" aria-selected={selectedOption === obj.item} class="{`fpcl-select-option ${size}`}" title={obj.item} on:click={() => setSelectedOption(obj.item)}>{obj.item}</div>
+        <!-- The following code references `obj` in all instances of the current object in this each loop except for when the text needs to be displayed to the user. In those cases this code references `obj.text`. -->
+        <div role="option" aria-selected={selectedOption === obj} class="{`fpcl-select-option ${size}`}" class:selected={selectedOption === obj} title={obj.text} on:click={() => setSelectedOption(obj)}>{obj.text}</div>
       {/each}
     {/if}
   </div>
@@ -42,8 +77,7 @@
   // Set an id value for the <label> and role="combobox" elements.
   let id = `ccs-${Math.random().toString(36)}`;
   let showSelectMenu = false;
-
-  // When working with plain HTML <select> elements, you set the default value with the `selected` attribute. In Svelte you set the default value by setting the `selectedOption` variable (in `<select bind:value={selectedOption}>`) to equal the value from the `optionsArray` that you want to be the default value.
+  let highlightedOption = selectedOption;
   
   // TODO: I need to verify that the follow 2 paragraphs are accurate with the refactors that I have made to this component.
   // The default value of this <Select> component is an empty string. However, if the user sets the `defaultValue` prop to a value other than the empty string, then the `selectedOption` needs to be set as that `defaultValue` so the `defaultValue` will be displayed in the UI.
@@ -54,6 +88,7 @@
 
   function setSelectedOption(option) {
     selectedOption = option;
+    highlightedOption = selectedOption;
     showSelectMenu = false;
   }
 </script>
@@ -65,7 +100,7 @@
 
     & .fpcl-select-label {
       font-size: 0.85rem;
-      color: var(--gray140);
+      color: var(--fpcl-dark-gray);
     }
   }
 
@@ -78,7 +113,7 @@
       justify-content: space-between;
       align-items: center;
       border: var(--fpcl-select-border);
-      border-radius: var(--fpcl-select-radius);
+      border-radius: var(--fpcl-select-border-radius);
       background-color: var(--fpcl-select-background-color);
       color: var(--fpcl-select-text-color);
       cursor: pointer;
@@ -87,13 +122,13 @@
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.small {
-        padding: var(--fpcl-select-small-padding);
+        padding: var(--fpcl-select-sm-padding);
       }
       &.medium {
-        padding: var(--fpcl-select-medium-padding);
+        padding: var(--fpcl-select-md-padding);
       }
       &.large {
-        padding: var(--fpcl-select-large-padding);
+        padding: var(--fpcl-select-lg-padding);
       }
 
       & .fpcl-select-btn-text {
@@ -119,10 +154,11 @@
       display: none;
       position: absolute;
       width: 100%;
-      /* Add top and bottom padding that is equal to half of the --fpcl-select-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-radius value. */
-      padding: calc(var(--fpcl-select-radius) / 2) 0;
+      /* Add top and bottom padding that is equal to half of the --fpcl-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-border-radius value. */
+      padding: calc(var(--fpcl-select-border-radius) / 2) 0;
       border: var(--fpcl-select-border);
-      border-radius: var(--fpcl-select-radius);
+      border-radius: var(--fpcl-select-border-radius);
+      box-shadow: var(--fpcl-select-box-shadow);
       overflow-y: auto;
       background-color: var(--fpcl-select-background-color);
       color: var(--fpcl-select-text-color);
@@ -132,10 +168,10 @@
         display: block;
       }
 
-      &.display-below {
-        /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
+      /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
+      /* &.display-below {
         top: 0px;
-      }
+      } */
 
       & .fpcl-select-option {
         /*
@@ -145,6 +181,11 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        border-top: var(--fpcl-select-option-border);
+        
+        &:last-child {
+          border-bottom: var(--fpcl-select-option-border);
+        }
 
         &:hover {
           background-color: var(--fpcl-select-option-hover-background-color);
@@ -152,17 +193,22 @@
           cursor: pointer;
         }
 
+        &.selected {
+          background-color: var(--fpcl-select-option-hover-background-color);
+          color: var(--fpcl-select-option-hover-text-color);
+        }
+
         /* 
-          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-large-padding)).
+          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-lg-padding)).
         */
         &.small {
-          padding: var(--fpcl-select-small-padding);
+          padding: var(--fpcl-select-sm-padding);
         }
         &.medium {
-          padding: var(--fpcl-select-medium-padding);
+          padding: var(--fpcl-select-md-padding);
         }
         &.large {
-          padding: var(--fpcl-select-large-padding);
+          padding: var(--fpcl-select-lg-padding);
         }
       }
     }

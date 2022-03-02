@@ -1,5 +1,3 @@
-<!-- The `on:click` is Svelte's "event forwarding" feature. -->
-
 <button
   type="button"
   class="{`fpcl-btn ${bgColor} ${size} ${width}-width`}"
@@ -38,9 +36,9 @@
   import { theme } from "/src/theme";
 
   export let bgColor = "primary";
-  export let size = "medium";
-  export let width = "auto";
   export let inverse = false;
+  export let size = "md";
+  export let width = "auto";
   export let disabled = false;
   export let btnIcon = theme.btnIcon;
   export let btnIconDisabled = theme.btnIconDisabled;
@@ -51,17 +49,20 @@
 
 <style>
   .fpcl-btn {
-    font-family: var(--fpcl-body-font-stack);
-    font-weight: var(--fpcl-btn-font-weight);
     outline: none;
-    border: 0;
-    border-radius: var(--fpcl-btn-radius);
+    border: none;
+    border-radius: var(--fpcl-btn-border-radius);
     cursor: pointer;
     display: inline-block;
     line-height: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: var(--fpcl-btn-box-shadow);
+
+    &:hover {
+      box-shadow: var(--fpcl-btn-hover-box-shadow);;
+    }
   }
 
   .fpcl-btn .btn-icon-left {
@@ -75,72 +76,51 @@
 
   .primary {
     background-color: var(--fpcl-primary);
-    color: var(--fpcl-btn-text-color-primary);
-  }
-  .primary:hover {
-    background-color: var(--fpcl-primary-dark);
-    color: var(--fpcl-btn-text-color-primary);
-  }
-  .primary.inverse {
-    background-color: var(--fpcl-btn-text-color-primary);
-    color: var(--fpcl-primary);
-    box-shadow: 0px 0px 0px 2px var(--fpcl-primary) inset;
-  }
-  .primary.inverse:hover {
-    background-color: var(--fpcl-btn-text-color-primary);
-    color: var(--fpcl-primary-dark);
-    box-shadow: 0px 0px 0px 3px var(--fpcl-primary-dark) inset;
+    color: var(--fpcl-btn-primary-text-color);
+    border: var(--fpcl-btn-primary-border);
+
+    &.inverse {
+      background-color: var(--fpcl-btn-primary-text-color);
+      color: var(--fpcl-primary);
+      /* box-shadow: 0px 0px 0px 2px var(--fpcl-primary) inset; */
+    }
   }
 
   .secondary {
     background-color: var(--fpcl-secondary);
-    color: var(--fpcl-btn-text-color-secondary);
-  }
-  .secondary:hover {
-    background-color: var(--fpcl-secondary-dark);
-    color: var(--fpcl-btn-text-color-secondary);
-  }
-  .secondary.inverse {
-    background-color: var(--fpcl-btn-text-color-secondary);
-    color: var(--fpcl-secondary);
-    box-shadow: 0px 0px 0px 2px var(--fpcl-secondary) inset;
-  }
-  .secondary.inverse:hover {
-    background-color: var(--fpcl-btn-text-color-secondary);
-    color: var(--fpcl-secondary-dark);
-    box-shadow: 0px 0px 0px 3px var(--fpcl-secondary-dark) inset;
+    color: var(--fpcl-btn-secondary-text-color);
+    border: var(--fpcl-btn-secondary-border);
+
+    &.inverse {
+      background-color: var(--fpcl-btn-secondary-text-color);
+      color: var(--fpcl-secondary);
+      /* box-shadow: 0px 0px 0px 2px var(--fpcl-secondary) inset; */
+    }
   }
 
   .tertiary {
     background-color: var(--fpcl-tertiary);
-    color: var(--fpcl-btn-text-color-tertiary);
-  }
-  .tertiary:hover {
-    background-color: var(--fpcl-tertiary-dark);
-    color: var(--fpcl-btn-text-color-tertiary);
-  }
-  .tertiary.inverse {
-    background-color: var(--fpcl-btn-text-color-tertiary);
-    color: var(--fpcl-tertiary);
-    box-shadow: 0px 0px 0px 2px var(--fpcl-tertiary) inset;
-  }
-  .tertiary.inverse:hover {
-    background-color: var(--fpcl-btn-text-color-tertiary);
-    color: var(--fpcl-tertiary-dark);
-    box-shadow: 0px 0px 0px 3px var(--fpcl-tertiary-dark) inset;
+    color: var(--fpcl-btn-tertiary-text-color);
+    border: var(--fpcl-btn-tertiary-border);
+
+    &.inverse {
+      background-color: var(--fpcl-btn-tertiary-text-color);
+      color: var(--fpcl-tertiary);
+      /* box-shadow: 0px 0px 0px 2px var(--fpcl-tertiary) inset; */
+    }
   }
 
-  .small {
-    font-size: var(--fpcl-small-font-size);
-    padding: var(--fpcl-btn-small-padding);
+  .sm {
+    font-size: var(--fpcl-sm-font-size);
+    padding: var(--fpcl-btn-sm-padding);
   }
-  .medium {
+  .md {
     font-size: var(--fpcl-base-font-size);
-    padding: var(--fpcl-btn-medium-padding);
+    padding: var(--fpcl-btn-md-padding);
   }
-  .large {
-    font-size: var(--fpcl-large-font-size);
-    padding: var(--fpcl-btn-large-padding);
+  .lg {
+    font-size: var(--fpcl-lg-font-size);
+    padding: var(--fpcl-btn-lg-padding);
   }
 
   .auto-width {

@@ -26,11 +26,11 @@
 <style>
   input {
     outline: none;
-    padding: var(--input-padding);
+    padding: var(--fpcl-input-padding);
     border: none;
-    border-bottom: 2px solid var(--gray-light);
-    /* border-radius: var(--global-radius) var(--global-radius) 0 0; */
-    background-color: var(--input-background-color);
+    border-bottom: 2px solid var(--fpcl-light-gray);
+    border-radius: var(--fpcl-global-radius);
+    background-color: var(--fpcl-input-background-color);
   }
 
   input.full-width {
@@ -41,16 +41,16 @@
   }
 
   input:disabled {
-    color: var(--disabled-text-color);
-    background-color: var(--disabled-background-color);
+    color: var(--fpcl-disabled-text-color);
+    background-color: var(--fpcl-disabled-background-color);
     cursor: default;
   }
 
   .label-wrapper {
-    margin: var(--label-margin);
+    margin: var(--fpcl-label-margin);
   }
   label {
-    font-size: var(--label-font-size);
-    color: var(--global-text-color);
+    font-size: var(--fpcl-label-font-size);
+    color: var(--fpcl-global-text-color);
   }
 </style>

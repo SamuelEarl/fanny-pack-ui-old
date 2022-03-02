@@ -14,8 +14,6 @@ Themable component library designed for responsiveness and with accessibility in
 
 This is not a UI kit or UI framework because we do not provide layout elements. Instead, we let you layout your pages the way you want and then you can throw whatever components you need into your pages.
 
-The default styling is based on Semantic UI.
-
 ---
 
 # Install
@@ -67,7 +65,7 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 
 The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpcl-theme.css` file for details.
 
-IMPORTANT: If you change any settings that are set in pixels (e.g. `--fpcl-select-small-padding: 0px;`), then remember to keep the `px` suffix because some CSS rules use the `calc()` function and they expect a `px` suffix. For example, this will work: `--fpcl-select-small-padding: 0px;`, but this will break your style setting: `--fpcl-select-small-padding: 0;`.
+IMPORTANT: If you change any settings that are set in pixels (e.g. `--fpcl-select-sm-padding: 0px;`), then remember to keep the `px` suffix because some CSS rules use the `calc()` function and they expect a `px` suffix. For example, this will work: `--fpcl-select-sm-padding: 0px;`, but this will break your style setting: `--fpcl-select-sm-padding: 0;`.
 
 
 ## Step 4: Enable JavaScript Variables

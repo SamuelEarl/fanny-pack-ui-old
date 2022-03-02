@@ -10,8 +10,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Colors */
 :root {
   /*
-  Main Colors
-  Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
+    Main Colors
+    Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
   */
   --fpcl-light-green: #99b433;
   --fpcl-green: #00a300;
@@ -31,24 +31,20 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-dark-red: #b91d47;
 
   /*
-  Neutral Colors
-  Taken from "https://developer.microsoft.com/en-us/fabric#/styles/web/colors/products" > "Skype" > (scroll down) "Default theme neutrals"
+    Neutral Colors
+    These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
   */
   --fpcl-white: #ffffff;
   --fpcl-black: #000000;
-  --fpcl-gray20: #f3f2f1;
-  --fpcl-gray40: #e1dfdd;
-  --fpcl-gray60: #c8c6c4;
-  --fpcl-gray80: #b3b0ad;
-  --fpcl-gray100: #979593;
-  --fpcl-gray110: #8a8886;
-  --fpcl-gray130: #605e5c;
-  --fpcl-gray140: #484644;
-  --fpcl-gray180: #252423;
+  --fpcl-very-light-gray: #eee;
+  --fpcl-light-gray: #c7c7c7;
+  --fpcl-gray: #a0a0a0;
+  --fpcl-dark-gray: #797979;
+  --fpcl-very-dark-gray: #343434;
 
-  --fpcl-primary: var(--fpcl-blue);
-  --fpcl-secondary: var(--fpcl-light-green);
-  --fpcl-tertiary: var(--fpcl-yellow);
+  --fpcl-primary: var(--fpcl-dark-purple);
+  --fpcl-secondary: var(--fpcl-very-dark-gray);
+  --fpcl-tertiary: var(--fpcl-white);
 
   --fpcl-success: var(--fpcl-green);
   --fpcl-warning: var(--fpcl-yellow);
@@ -57,24 +53,31 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Global Styles */
 :root {
-  --fpcl-global-text-color: var(--fpcl-gray140);
-  --fpcl-global-radius: 20px;
+  --fpcl-depth-low: 1px;
+  --fpcl-depth-md: 2px;
+  --fpcl-depth-high: 3px;
+  --fpcl-global-text-color: var(--fpcl-very-dark-gray);
+  --fpcl-global-radius: 5px;
   --fpcl-global-border-width: 1px;
   --fpcl-global-border-style: solid;
-  --fpcl-global-border-color: var(--gray60);
-  --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color)
+  --fpcl-global-border-color: var(--fpcl-light-gray);
+  --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color);
+  --fpcl-box-shadow-low: var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-light-gray);
+  --fpcl-box-shadow-md: var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-light-gray);
+  --fpcl-box-shadow-high: var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-light-gray);
 }
 
 /* Typography */
 :root {
-  --fpcl-small-font-size: 12px;
+  --fpcl-sm-font-size: 12px;
   --fpcl-base-font-size: 16px;
-  --fpcl-large-font-size: 20px;
+  --fpcl-lg-font-size: 20px;
   --fpcl-serif-font-stack: "Times New Roman", sans-serif;
   --fpcl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --fpcl-script-font-stack: script;
   --fpcl-mono-font-stack: mono;
-  font-family: var(--fpcl-sans-serif-font-stack);
+  --fpcl-body-font-stack: var(--fpcl-sans-serif-font-stack);
+  --fpcl-headline-font-stack: var(--fpcl-serif-font-stack);
   --fpcl-font-weight-light: 100;
   --fpcl-font-weight-normal: 400;
   --fpcl-font-weight-bold: 700;
@@ -83,22 +86,31 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Buttons */
 :root {
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
-  --fpcl-btn-text-color-primary: var(--fpcl-white);
-  --fpcl-btn-text-color-secondary: var(--fpcl-white);
-  --fpcl-btn-text-color-tertiary: var(--fpcl-white);
+  /* Primary Buttons */
+  --fpcl-btn-primary-text-color: var(--fpcl-white);
+  --fpcl-btn-primary-border: 1px solid var(--fpcl-primary);
+  /* Secondary Buttons */
+  --fpcl-btn-secondary-text-color: var(--fpcl-white);
+  --fpcl-btn-secondary-border: 1px solid var(--fpcl-secondary);
+  /* Tertiary Buttons */
+  --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
+  --fpcl-btn-tertiary-border: 1px solid var(--fpcl-light-gray);
+
   --fpcl-btn-icon-margin: 10px;
+  --fpcl-btn-box-shadow: none;
+  --fpcl-btn-hover-box-shadow: 0px 0px 3px 3px var(--fpcl-light-gray);
   /* --fpcl-btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
-  --fpcl-btn-small-padding: 10px 16px;
-  --fpcl-btn-medium-padding: 11px 20px;
-  --fpcl-btn-large-padding: 12px 24px;
-  --fpcl-btn-radius: var(--fpcl-global-radius);
+  --fpcl-btn-sm-padding: 10px 16px;
+  --fpcl-btn-md-padding: 11px 20px;
+  --fpcl-btn-lg-padding: 12px 24px;
+  --fpcl-btn-border-radius: var(--fpcl-global-radius);
 }
 
 /* Inputs */
 :root {
   --fpcl-input-padding: 10px 12px;
-  --fpcl-input-background-color: var(--fpcl-gray20);
+  --fpcl-input-background-color: var(--fpcl-very-light-gray);
   --fpcl-label-font-size: 0.8rem;
   --fpcl-label-margin: 0 0 5px 5px;
 }
@@ -106,20 +118,22 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Select Boxes */
 :root {
   /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
-  --fpcl-select-small-padding: 5px;
-  --fpcl-select-medium-padding: 10px;
-  --fpcl-select-large-padding: 15px;
+  --fpcl-select-sm-padding: 5px;
+  --fpcl-select-md-padding: 10px;
+  --fpcl-select-lg-padding: 15px;
 
   --fpcl-select-border: var(--fpcl-global-border);
-  --fpcl-select-radius: var(--fpcl-global-radius);
-  --fpcl-select-background-color: var(--white);
+  --fpcl-select-border-radius: var(--fpcl-global-radius);
+  --fpcl-select-box-shadow: var(--fpcl-box-shadow-low);
+  --fpcl-select-background-color: var(--fpcl-white);
   --fpcl-select-text-color: var(--fpcl-global-text-color);
-  --fpcl-select-option-hover-background-color: var(--gray40);
+  --fpcl-select-option-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-very-light-gray);
+  --fpcl-select-option-hover-background-color: var(--fpcl-very-light-gray);
   --fpcl-select-option-hover-text-color: var(--fpcl-global-text-color);
 }
 
 /* Miscellaneous */
 :root {
-  --fpcl-disabled-text-color: var(--fpcl-gray40);
+  --fpcl-disabled-text-color: var(--fpcl-very-light-gray);
   --fpcl-disabled-background-color: var(--fpcl-black);
 }
