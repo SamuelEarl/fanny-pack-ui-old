@@ -1,6 +1,8 @@
 <nav>
   <div id="home-link-wrapper">
-    <a href="/" class:active={currentPath === "/"}>Fanny Pack Home</a>
+    <a href="/" class:active={currentPath === "/"}>
+      <Icon icon="mdi:home" />&nbsp;Fanny Pack
+    </a>
   </div>
   <div class="title">Components</div>
   <div id="component-links">
@@ -12,6 +14,7 @@
 
 <script lang="ts">
   import { page } from "$app/stores";
+  import Icon from "@iconify/svelte";
 
   $: currentPath = $page.url.pathname;
 </script>
@@ -28,6 +31,8 @@
       display: flex;
       
       & a {
+        display: flex;
+        align-items: center;
         width: 100%;
         padding: 10px;
         padding-left: 15px;
