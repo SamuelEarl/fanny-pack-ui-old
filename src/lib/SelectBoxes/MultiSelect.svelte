@@ -79,7 +79,7 @@
     <!-- The <div class="multi-select-btn"> element is the drop-down button that the user will click to show the selectable options. -->
     <div role="listbox" aria-multiselectable="true" id={`multi-select-btn-${uuid}`} class="multi-select-btn" on:click={() => {
       // The drop-down element has be be present in the DOM before you can calculated its dimensions.
-      // The `showDropDown = true` option need to be left out of the `calculateDropDownHeight()` function. If it is included at the beginning of that function, then there will be strange errors.
+      // The `showDropDown = true` option needs to be left out of the `calculateDropDownHeight()` function. If it is included at the beginning of that function, then there will be strange errors.
       showDropDown = true;
       calculateDropDownHeight(null);
     }}>
@@ -186,7 +186,7 @@
     // Only calculate the height of the drop-down if it is showing in the DOM.
     // A user can remove elements from the `selectedOptions` array while the drop-down is not showing by clicking the `x` on the `.selected-values-container` buttons. So in that case I do not want to run this function unnecessarily.
     if (showDropDown) {
-      // Wait for the drop-down element to exist in the DOM before getting the `dropDownContainer` element.
+      // Wait for the drop-down element to exist in the DOM before getting the `multi-select-drop-down-${uuid}` element by ID.
       // This will also wait for the buttons to update in the DOM (inside the `.selected-values-container` element) before running this function.
       await tick();
 

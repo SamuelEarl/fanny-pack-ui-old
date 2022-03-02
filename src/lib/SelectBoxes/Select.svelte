@@ -1,36 +1,20 @@
-<!-- <label for={label}>{label}</label>
-<div id="fpcl-select-container" class="{`fpcl-select-container ${size}`}">
-  <select
-    id={label}
-    class="{`fpcl-select ${size}`}"
-    bind:value={selectedOption} on:change>
-    {#if arrayType === "string" || arrayType === "number"}
-      {#each optionsArray as item}
-        <option value={item}>{item}</option>
-      {/each}
-    {/if}
-    {#if arrayType === "object"}
-      {#each optionsArray as obj}
-        <option value={obj.value}>{obj.text}</option>
-      {/each}
-    {/if}
-  </select>
-</div> -->
-
 <!-- The `on:change` attribute is called "event forwarding" in Svelte. This will pass all change events to the <Select> components and then you can do whatever you need to when the change event happens. -->
 
 {#if label}
   <div class="fpcl-select-label-container">
-    <label for={id} class="fpcl-select-label">{label}</label>
+    <label for={`fpcl-select-btn-${id}`} class="fpcl-select-label">{label}</label>
   </div>
 {/if}
 <div class="fpcl-select">
-  <div role="combobox" id={id} class="{`fpcl-select-btn ${size}`}" on:click={() => showSelectMenu = !showSelectMenu}>
+  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" on:click={() => {
+    showSelectMenu = !showSelectMenu;
+    calculateMenuHeight(id, showSelectMenu, tick, window, document);
+  }}>
     <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
     <span class="fpcl-select-btn-arrow">›</span>
   </div>
   <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
-  <div class="{`fpcl-select-menu ${size}`}" class:show={showSelectMenu}>
+  <div id="{`fpcl-select-menu-${id}`}" class="{`fpcl-select-menu ${size}`}" class:show={showSelectMenu} use:clickOutsideSelectMenu on:clickoutside={() => showSelectMenu = false}>
     {#if arrayType === "string" || arrayType === "number"}
       {#each optionsArray as item}
         <div role="option" aria-selected={selectedOption === item} class="{`fpcl-select-option ${size}`}" title={item} on:click={() => setSelectedOption(item)}>{item}</div>
@@ -46,17 +30,16 @@
 
 
 <script lang="ts">
-  import { fade, blur, fly, slide, scale, draw, crossfade } from "svelte/transition";
+  import { tick } from "svelte";
+  import { calculateMenuHeight, clickOutsideSelectMenu } from "../utils";
 
   export let label;
   export let optionsArray;
   export let arrayType = "string";
   export let selectedOption;
   export let size = "medium";
-  // export let selectedOption = optionsArray[0];
-  // export let defaultValue = optionsArray[0];
 
-  // Set an id for <label> and <select> elements.
+  // Set an id value for the <label> and role="combobox" elements.
   let id = `ccs-${Math.random().toString(36)}`;
   let showSelectMenu = false;
 
@@ -135,8 +118,6 @@
     & .fpcl-select-menu {
       display: none;
       position: absolute;
-      /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
-      top: 0px;
       width: 100%;
       /* Add top and bottom padding that is equal to half of the --fpcl-select-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-radius value. */
       padding: calc(var(--fpcl-select-radius) / 2) 0;
@@ -151,6 +132,10 @@
         display: block;
       }
 
+      &.display-below {
+        /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
+        top: 0px;
+      }
 
       & .fpcl-select-option {
         /*

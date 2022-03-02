@@ -1,9 +1,7 @@
 <nav>
   <div id="home-link-wrapper">
-    <a href="/">Fanny Pack Home</a>
+    <a href="/" class:active={currentPath === "/"}>Fanny Pack Home</a>
   </div>
-  <br>
-
   <div class="title">Components</div>
   <div id="component-links">
     <a href="/buttons" class:active={currentPath === "/buttons"}>Buttons</a>
@@ -27,34 +25,47 @@
     color: var(--tertiary);
 
     & #home-link-wrapper {
-      width: 100%;
       display: flex;
       
       & a {
         width: 100%;
+        padding: 10px;
+        padding-left: 15px;
+        font-size: 1.1rem;
+        font-weight: bold;
+
+        &:hover {
+          background-color: var(--secondary);
+        }
+
+        &.active {
+          background-color: var(--secondary);
+        }
       }
     }
 
     & .title {
-      padding: 15px 10px;
-      border-top: 1px solid var(--secondary);
-      border-bottom: 1px solid var(--secondary);
+      padding: 10px;
+      padding-left: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
     }
 
     & #component-links {
       display: flex;
       flex-direction: column;
-    }
 
-    & a {
-      padding: 10px 25px;
+      & a {
+        padding: 10px;
+        padding-left: 30px;
 
-      &:hover {
-        background-color: var(--secondary);
-      }
+        &:hover {
+          background-color: var(--secondary);
+        }
 
-      &.active {
-        background-color: var(--secondary);
+        &.active {
+          background-color: var(--secondary);
+        }
       }
     }
   }
