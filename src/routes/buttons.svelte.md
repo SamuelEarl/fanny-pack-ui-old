@@ -3,9 +3,10 @@
 ---
 
 ## Example Usage
+
 <Button
   bgColor="primary"
-  inverse={false}
+  inverted={false}
   size="md"
   width="auto"
   disabled={creatingAccount}
@@ -22,7 +23,7 @@
 ```svelte
 <Button
   bgColor="primary"
-  inverse={false}
+  inverted={false}
   size="md"
   width="auto"
   disabled={creatingAccount}
@@ -50,17 +51,11 @@
 
 ---
 
-<select>
-  <option value="Sam">Sam</option>
-  <option value="John">John</option>
-  <option value="Steve">Steve</option>
-</select>
-
 ## Interactive Example
 
 <Button
   bgColor={selectedBgColor}
-  inverse={isInverse}
+  inverted={isInverted}
   size={btnSize}
   width={btnWidth}
   disabled={creatingAccount}
@@ -77,7 +72,7 @@
 <br>
 
 <Select
-  label="Background color"
+  label="Background color (primary = purple; secondary = dark gray; tertiary = white)"
   optionsArray={bgColors}
   arrayType="string"
   bind:selectedOption={selectedBgColor}
@@ -86,10 +81,10 @@
 <br>
 
 <Select
-  label="Inverse"
+  label="Inverted"
   optionsArray={[false,true]}
   arrayType="boolean"
-  bind:selectedOption={isInverse}
+  bind:selectedOption={isInverted}
 />
 
 <br>
@@ -115,11 +110,11 @@
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `bgColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | |
-| `inverse` | `boolean` | `true`, `false` | `false` |  |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | |
-| `width` | `string` | `auto`, `full` | `auto` | |
-| `disabled` | `boolean` | `true`, `false` | `false` | |
+| `bgColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The background color of the button. |
+| `inverted` | `boolean` | `true`, `false` | `false` | Invert the background color and text color of the button. |
+| `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
+| `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the README file for instructions on how to set the default value. There is a link on the home page. <br><br> You can pass an empty string to remove the button icon. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
@@ -148,7 +143,7 @@
   let creatingAccount = false;
   let bgColors = ["primary", "secondary", "tertiary"];
   let selectedBgColor = "primary";
-  let isInverse = false;
+  let isInverted = false;
   let btnSize = "md";
   let btnWidth = "auto";
 

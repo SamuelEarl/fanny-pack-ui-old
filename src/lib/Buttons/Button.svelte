@@ -1,7 +1,7 @@
 <button
   type="button"
   class="{`fpcl-btn ${bgColor} ${size} ${width}-width`}"
-  class:inverse={inverse}
+  class:inverted={inverted}
   disabled={disabled}
   on:click
 >
@@ -36,7 +36,7 @@
   import { theme } from "/src/theme";
 
   export let bgColor = "primary";
-  export let inverse = false;
+  export let inverted = false;
   export let size = "md";
   export let width = "auto";
   export let disabled = false;
@@ -58,11 +58,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: var(--fpcl-btn-box-shadow);
-
-    &:hover {
-      box-shadow: var(--fpcl-btn-hover-box-shadow);;
-    }
   }
 
   .fpcl-btn .btn-icon-left {
@@ -75,52 +70,61 @@
   }
 
   .primary {
+    border: 2px solid var(--fpcl-primary);
     background-color: var(--fpcl-primary);
     color: var(--fpcl-btn-primary-text-color);
-    border: var(--fpcl-btn-primary-border);
+    
+    &:hover {
+      box-shadow: 0px 0px 0px 1px var(--fpcl-primary);
+    }
 
-    &.inverse {
+    &.inverted {
       background-color: var(--fpcl-btn-primary-text-color);
       color: var(--fpcl-primary);
-      /* box-shadow: 0px 0px 0px 2px var(--fpcl-primary) inset; */
     }
   }
 
   .secondary {
+    border: 2px solid var(--fpcl-secondary);
     background-color: var(--fpcl-secondary);
     color: var(--fpcl-btn-secondary-text-color);
-    border: var(--fpcl-btn-secondary-border);
 
-    &.inverse {
+    &:hover {
+      box-shadow: 0px 0px 0px 1px var(--fpcl-secondary);
+    }
+
+    &.inverted {
       background-color: var(--fpcl-btn-secondary-text-color);
       color: var(--fpcl-secondary);
-      /* box-shadow: 0px 0px 0px 2px var(--fpcl-secondary) inset; */
     }
   }
 
   .tertiary {
+    border: 2px solid var(--fpcl-tertiary);
     background-color: var(--fpcl-tertiary);
     color: var(--fpcl-btn-tertiary-text-color);
-    border: var(--fpcl-btn-tertiary-border);
 
-    &.inverse {
+    &:hover {
+      box-shadow: 0px 0px 0px 1px var(--fpcl-tertiary);
+    }
+
+    &.inverted {
       background-color: var(--fpcl-btn-tertiary-text-color);
       color: var(--fpcl-tertiary);
-      /* box-shadow: 0px 0px 0px 2px var(--fpcl-tertiary) inset; */
     }
   }
 
   .sm {
     font-size: var(--fpcl-sm-font-size);
-    padding: var(--fpcl-btn-sm-padding);
+    padding: var(--fpcl-btn-sm-padding-v) var(--fpcl-btn-sm-padding-h);
   }
   .md {
     font-size: var(--fpcl-base-font-size);
-    padding: var(--fpcl-btn-md-padding);
+    padding: var(--fpcl-btn-md-padding-v) var(--fpcl-btn-md-padding-h);
   }
   .lg {
     font-size: var(--fpcl-lg-font-size);
-    padding: var(--fpcl-btn-lg-padding);
+    padding: var(--fpcl-btn-lg-padding-v) var(--fpcl-btn-lg-padding-h);
   }
 
   .auto-width {
@@ -131,6 +135,7 @@
   }
 
   .fpcl-btn:disabled {
+    border-color: var(--fpcl-disabled-background-color);
     color: var(--fpcl-disabled-text-color);
     background-color: var(--fpcl-disabled-background-color);
     box-shadow: none;

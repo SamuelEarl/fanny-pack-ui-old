@@ -28,24 +28,13 @@ export async function calculateMenuHeight(id, showSelectMenu, tick, window, docu
     let menuElement = document.getElementById(`fpcl-select-menu-${id}`);
 
     // If the space between the bottom of the select button and the bottom of the widow is less than 200px and if there is more space between the top of the select button and the top of the window, then position the menuElement above the selectBtn.
-    if (spaceBelowBtn < 200 && spaceAboveBtn > spaceBelowBtn) {
-      // // Remove the .display-below class, if it exists, otherwise it will cause conflicts.
-      // menuElement.classList.remove("display-below");
-      
+    if (spaceBelowBtn < 200 && spaceAboveBtn > spaceBelowBtn) {      
       // Set the max-height property. See the comment about this in the `else` block below.
       menuElement.style.maxHeight = spaceAboveBtn + "px";
       // The menuElement already has a property of `position: absolute` set in the CSS. The following line will set the `bottom` property (i.e. the bottom edge) of the menuElement to be even with the top of the dropDownBtn.
       menuElement.style.bottom = selectBtn.height + "px";
-
-      // // Set the max-height property. See the comment about this in the `else` block below.
-      // menuElement.style.maxHeight = spaceAboveBtn + "px";
-      // // The menuElement already has a property of `position: absolute` set in the CSS. The following line will set the `bottom` property (i.e. the bottom edge) of the menuElement to be even with the bottom of the selectBtn.
-      // menuElement.style.bottom = "0px";
     }
     else {
-      // // Add .display-below class.
-      // menuElement.classList.add("display-below");
-
       // Set the max-height of the menuElement to be the remaining space between the top of the select button (selectBtnTop) and the bottom of the window (windowHeight).
       // The `maxHeight` property will ensure that the menu element will not be taller than the list of options that it contains (i.e. the height of the menu element will fit the height of its content rather than extend below the list of options).
       menuElement.style.maxHeight = spaceBelowBtn + "px";

@@ -57,7 +57,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-depth-md: 2px;
   --fpcl-depth-high: 3px;
   --fpcl-global-text-color: var(--fpcl-very-dark-gray);
-  --fpcl-global-radius: 5px;
+  --fpcl-global-radius: 3px;
   --fpcl-global-border-width: 1px;
   --fpcl-global-border-style: solid;
   --fpcl-global-border-color: var(--fpcl-light-gray);
@@ -85,25 +85,20 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Buttons */
 :root {
-  --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
-  /* Primary Buttons */
   --fpcl-btn-primary-text-color: var(--fpcl-white);
-  --fpcl-btn-primary-border: 1px solid var(--fpcl-primary);
-  /* Secondary Buttons */
   --fpcl-btn-secondary-text-color: var(--fpcl-white);
-  --fpcl-btn-secondary-border: 1px solid var(--fpcl-secondary);
-  /* Tertiary Buttons */
   --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
-  --fpcl-btn-tertiary-border: 1px solid var(--fpcl-light-gray);
-
+  /* v = vertical; h = horizontal */
+  --fpcl-btn-sm-padding-v: 8px;
+  --fpcl-btn-sm-padding-h: 14px;
+  --fpcl-btn-md-padding-v: 9px;
+  --fpcl-btn-md-padding-h: 18px;
+  --fpcl-btn-lg-padding-v: 10px;
+  --fpcl-btn-lg-padding-h: 22px;
+  --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 10px;
-  --fpcl-btn-box-shadow: none;
-  --fpcl-btn-hover-box-shadow: 0px 0px 3px 3px var(--fpcl-light-gray);
-  /* --fpcl-btn-icon-spin-speed: The speed at which elements, like icons, will spin when a button has a loading/disabled state. */
+  /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
-  --fpcl-btn-sm-padding: 10px 16px;
-  --fpcl-btn-md-padding: 11px 20px;
-  --fpcl-btn-lg-padding: 12px 24px;
   --fpcl-btn-border-radius: var(--fpcl-global-radius);
 }
 

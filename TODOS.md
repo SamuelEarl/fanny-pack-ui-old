@@ -10,7 +10,11 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Figure out how to customize/edit fonts after the component library has been installed. This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpcl-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 
 ## Button Component
-* For hover states, I was using lighter and darker shades of the primary, secondary, and tertiary colors. However, not all apps have lighter and darker variations of their colors. So I need to refactor the button component to use depth (i.e. box-shadows) instead of shades for hover states. Depth will probably be the easiest way to handle hover states.
+* Write more tests.
+* Read over the documentation to make sure that I have covered everything.
+
+## Input Component
+* Start working on this component next.
 
 ## Select Component
 * Write tests. I will be able to verify if the roles work with the `getByRole()` selector.

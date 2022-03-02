@@ -4,13 +4,16 @@
   </div>
 {/if}
 <div class="fpcl-select">
-  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" on:click={async () => {
-    showSelectMenu = true;
-    calculateMenuHeight(id, showSelectMenu, tick, window, document);
-    let menu = document.getElementById(`fpcl-select-menu-${id}`);
-    // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
-    await tick();
-    menu.focus();
+  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" tabindex="-1" on:click={async () => {
+    showSelectMenu = !showSelectMenu;
+    // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
+    if (showSelectMenu)  {
+      calculateMenuHeight(id, showSelectMenu, tick, window, document);
+      let menu = document.getElementById(`fpcl-select-menu-${id}`);
+      // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
+      await tick();
+      menu.focus();
+    }
   }}>
     {#if arrayType === "string" || arrayType === "number" || arrayType === "boolean"}
       <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
@@ -26,8 +29,13 @@
     class="{`fpcl-select-menu ${size}`}"
     class:show={showSelectMenu}
     tabindex="-1"
-    on:blur={() => {
-      showSelectMenu = false;
+    on:blur={(event) => {
+      // In a blur event, the "event.target" is the element that has lost focus. When a "blur" event occurs, how can I find out which element received the focus? Use "event.relatedTarget": https://stackoverflow.com/a/33325953.
+      // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `.fpcl-select-btn` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) If the user did click on the `.fpcl-select-btn` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `.fpcl-select-btn` will set `showSelectMenu = false`. If the user did NOT click on the `.fpcl-select-btn` element, then set `showSelectMenu = false`.
+      // If the event and the event.relatedTarget exist, then continue to check if the event.relatedTarget does NOT match the `.fpcl-select-btn` element. If all those checks return true, then hide the select menu.
+      if (event && event.relatedTarget && !event.relatedTarget.matches(`.fpcl-select-btn`)) {
+        showSelectMenu = false;
+      }
       // If the user moused over the select menu options but didn't select an option before clicking outside of the menu, then reset the option that should be highlighted (when the user clicks the select box again) to the option that was previously selected.
       highlightedOption = selectedOption;
     }}
@@ -77,7 +85,7 @@
 
 <script lang="ts">
   import { tick } from "svelte";
-  import { calculateMenuHeight, clickOutsideSelectMenu } from "../utils";
+  import { calculateMenuHeight } from "../utils";
 
   export let label;
   export let optionsArray;
@@ -86,7 +94,7 @@
   export let size = "medium";
 
   // Set an id value for the <label> and role="combobox" elements.
-  let id = `ccs-${Math.random().toString(36)}`;
+  let id = `${Math.random().toString(36)}`;
   let showSelectMenu = false;
   let highlightedOption = selectedOption;
   
@@ -178,11 +186,6 @@
       &.show {
         display: block;
       }
-
-      /* This "top: 0px;" rule will cause the dropdown menu to display over the top of the select button. This will simplify this element and give a bit more space for the dropdown menu. Also, if a border-radius is applied, then it will make it much easier to simply cover up the select button with the dropdown menu and the dropdown menu can have the same border-radius. */
-      /* &.display-below {
-        top: 0px;
-      } */
 
       & .fpcl-select-option {
         /*
