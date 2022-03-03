@@ -1,3 +1,18 @@
+<script lang="ts">
+  import { Select } from "/src/lib";
+
+  let arrayOfValues = ["First", "Second", "Third"];
+  let selectedValue = "Second";
+
+  let arrayOfObjects = [
+    { text: "CEO", value: "Jane" },
+    { text: "CFO", value: "Steve" },
+    { text: "COO", value: "Mary" }
+  ];
+  let selectedObject = arrayOfObjects[2];
+</script>
+
+
 # Select
 
 ---
@@ -14,6 +29,13 @@
 />
 
 ```svelte
+<script>
+  import { Select } from "fpcl";
+
+  let arrayOfValues = ["First", "Second", "Third"];
+  let selectedValue = "Second";
+</script>
+
 <Select
   label="Select an option"
   optionsArray={arrayOfValues}  
@@ -21,13 +43,6 @@
   bind:selectedOption={selectedValue}
   size="medium"
 />
-
-<script>
-  import { Select } from "fpcl";
-
-  let arrayOfValues = ["First", "Second", "Third"];
-  let selectedValue = "Second";
-</script>
 ```
 
 <br>
@@ -45,14 +60,6 @@
 Value of `selectedObject`: <code>{JSON.stringify(selectedObject)}</code>
 
 ```svelte
-<Select
-  label="Select a position"
-  optionsArray={arrayOfObjects}
-  arrayType="object"
-  bind:selectedOption={selectedObject}
-  size="large"
-/>
-
 <script>
   import { Select } from "fpcl";
 
@@ -63,6 +70,14 @@ Value of `selectedObject`: <code>{JSON.stringify(selectedObject)}</code>
   ];
   let selectedObject = arrayOfObjects[2];
 </script>
+
+<Select
+  label="Select a position"
+  optionsArray={arrayOfObjects}
+  arrayType="object"
+  bind:selectedOption={selectedObject}
+  size="large"
+/>
 ```
 
 Note that if you pass an array of objects through the the `optionsArray` prop, then each object inside the array should have `text` and `value` properties.
@@ -103,19 +118,3 @@ The following padding variables will change the sizes that correspond with the `
 --fpcl-select-md-padding: 10px;
 --fpcl-select-lg-padding: 15px;
 ```
-
----
-
-<script lang="ts">
-  import { Select } from "/src/lib";
-
-  let arrayOfValues = ["First", "Second", "Third"];
-  let selectedValue = "Second";
-
-  let arrayOfObjects = [
-    { text: "CEO", value: "Jane" },
-    { text: "CFO", value: "Steve" },
-    { text: "COO", value: "Mary" }
-  ];
-  let selectedObject = arrayOfObjects[2];
-</script>

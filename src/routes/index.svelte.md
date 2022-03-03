@@ -1,3 +1,8 @@
+<script lang="ts">
+  import Logo from "/static/fanny-pack.svg";
+</script>
+
+
 <div id="home">
   <div id="img-container">
     <img src={Logo} alt="Fanny Pack Logo" />
@@ -9,13 +14,7 @@
   A live docs website on GitHub pages...
 
   In a local dev environment, run `npm run dev` and visit `http://localhost:3000`.
-
 </div>
-
-
-<script lang="ts">
-  import Logo from "/static/fanny-pack.svg";
-</script>
 
 
 <style>

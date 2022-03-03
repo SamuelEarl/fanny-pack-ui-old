@@ -1,15 +1,41 @@
-{#if label}
-  <div class="fpcl-select-label-container">
-    <label for={`fpcl-select-btn-${id}`} class="fpcl-select-label">{label}</label>
-  </div>
-{/if}
+<script lang="ts">
+  import { tick } from "svelte";
+  import Label from "../Labels/Label.svelte";
+  import { createId, calculateMenuHeight } from "../utils";
+
+  export let label;
+  export let optionsArray;
+  export let arrayType = "string";
+  export let selectedOption;
+  export let size = "medium";
+
+  let componentId = createId();
+  let showSelectMenu = false;
+  let highlightedOption = selectedOption;
+  
+  // TODO: I need to verify that the follow 2 paragraphs are accurate with the refactors that I have made to this component.
+  // The default value of this <Select> component is an empty string. However, if the user sets the `defaultValue` prop to a value other than the empty string, then the `selectedOption` needs to be set as that `defaultValue` so the `defaultValue` will be displayed in the UI.
+  // Also, if a user has previously selected an option and saved it to the database, then that selected option will be passed into this component as the `selectedOption` prop and that `selectedOption` prop will set the value that is displayed in the UI. So, if the `selectedOption` has already been set by the user (which means that it will get passed into this component), then do not set the `selectedOption` prop/variable to the `defaultValue`.
+  // if (!selectedOption) {
+  //   selectedOption = defaultValue;
+  // }
+
+  function setSelectedOption(option) {
+    selectedOption = option;
+    highlightedOption = selectedOption;
+    showSelectMenu = false;
+  }
+</script>
+
+
+<Label {label} forId={`fpcl-select-btn-${componentId}`} />
 <div class="fpcl-select">
-  <div role="combobox" id={`fpcl-select-btn-${id}`} class="{`fpcl-select-btn ${size}`}" tabindex="-1" on:click={async () => {
+  <div role="combobox" id={`fpcl-select-btn-${componentId}`} class="{`fpcl-select-btn ${size}`}" tabindex="-1" on:click={async () => {
     showSelectMenu = !showSelectMenu;
     // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
     if (showSelectMenu)  {
-      calculateMenuHeight(id, showSelectMenu, tick, window, document);
-      let menu = document.getElementById(`fpcl-select-menu-${id}`);
+      calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
+      let menu = document.getElementById(`fpcl-select-menu-${componentId}`);
       // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
       await tick();
       menu.focus();
@@ -25,7 +51,7 @@
   </div>
   <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
   <div
-    id="{`fpcl-select-menu-${id}`}"
+    id="{`fpcl-select-menu-${componentId}`}"
     class="{`fpcl-select-menu ${size}`}"
     class:show={showSelectMenu}
     tabindex="-1"
@@ -83,46 +109,7 @@
 </div>
 
 
-<script lang="ts">
-  import { tick } from "svelte";
-  import { calculateMenuHeight } from "../utils";
-
-  export let label;
-  export let optionsArray;
-  export let arrayType = "string";
-  export let selectedOption;
-  export let size = "medium";
-
-  // Set an id value for the <label> and role="combobox" elements.
-  let id = `${Math.random().toString(36)}`;
-  let showSelectMenu = false;
-  let highlightedOption = selectedOption;
-  
-  // TODO: I need to verify that the follow 2 paragraphs are accurate with the refactors that I have made to this component.
-  // The default value of this <Select> component is an empty string. However, if the user sets the `defaultValue` prop to a value other than the empty string, then the `selectedOption` needs to be set as that `defaultValue` so the `defaultValue` will be displayed in the UI.
-  // Also, if a user has previously selected an option and saved it to the database, then that selected option will be passed into this component as the `selectedOption` prop and that `selectedOption` prop will set the value that is displayed in the UI. So, if the `selectedOption` has already been set by the user (which means that it will get passed into this component), then do not set the `selectedOption` prop/variable to the `defaultValue`.
-  // if (!selectedOption) {
-  //   selectedOption = defaultValue;
-  // }
-
-  function setSelectedOption(option) {
-    selectedOption = option;
-    highlightedOption = selectedOption;
-    showSelectMenu = false;
-  }
-</script>
-
-
 <style>
-  .fpcl-select-label-container {
-    margin-bottom: 5px;
-
-    & .fpcl-select-label {
-      font-size: 0.85rem;
-      color: var(--fpcl-dark-gray);
-    }
-  }
-
   .fpcl-select {
     position: relative;
 
@@ -133,9 +120,13 @@
       align-items: center;
       border: var(--fpcl-select-border);
       border-radius: var(--fpcl-select-border-radius);
-      background-color: var(--fpcl-select-background-color);
+      background-color: var(--fpcl-select-bg-color);
       color: var(--fpcl-select-text-color);
       cursor: pointer;
+
+      &:hover {
+        box-shadow: var(--fpcl-select-box-shadow);
+      }
 
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
@@ -177,11 +168,14 @@
       padding: calc(var(--fpcl-select-border-radius) / 2) 0;
       border: var(--fpcl-select-border);
       border-radius: var(--fpcl-select-border-radius);
-      box-shadow: var(--fpcl-select-box-shadow);
       overflow-y: auto;
-      background-color: var(--fpcl-select-background-color);
+      background-color: var(--fpcl-select-bg-color);
       color: var(--fpcl-select-text-color);
       z-index: 100;
+
+      &:focus {
+        box-shadow: var(--fpcl-select-box-shadow);
+      }
 
       &.show {
         display: block;
@@ -202,13 +196,13 @@
         }
 
         &:hover {
-          background-color: var(--fpcl-select-option-hover-background-color);
+          background-color: var(--fpcl-select-option-hover-bg-color);
           color: var(--fpcl-select-option-hover-text-color);
           cursor: pointer;
         }
 
         &.selected {
-          background-color: var(--fpcl-select-option-hover-background-color);
+          background-color: var(--fpcl-select-option-hover-bg-color);
           color: var(--fpcl-select-option-hover-text-color);
         }
 

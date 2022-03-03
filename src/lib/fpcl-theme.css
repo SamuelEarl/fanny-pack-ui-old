@@ -62,9 +62,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-global-border-style: solid;
   --fpcl-global-border-color: var(--fpcl-light-gray);
   --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color);
-  --fpcl-box-shadow-low: var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-light-gray);
-  --fpcl-box-shadow-md: var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-light-gray);
-  --fpcl-box-shadow-high: var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-light-gray);
+  
+  /* Box shadows */
+  --fpcl-box-shadow-low: 0 0 var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-very-light-gray);
+  --fpcl-box-shadow-md: 0 0 var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-very-light-gray);
+  --fpcl-box-shadow-high: 0 0 var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-very-light-gray);
 }
 
 /* Typography */
@@ -106,9 +108,17 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Inputs */
 :root {
   --fpcl-input-padding: 10px 12px;
-  --fpcl-input-background-color: var(--fpcl-very-light-gray);
+  --fpcl-input-border: var(--fpcl-global-border);
+  --fpcl-input-bg-color: none;
+  --fpcl-input-placeholder-text-color: var(--fpcl-gray);
+  --fpcl-input-box-shadow: var(--fpcl-box-shadow-md);
+}
+
+/* Labels */
+:root {
   --fpcl-label-font-size: 0.8rem;
-  --fpcl-label-margin: 0 0 5px 5px;
+  --fpcl-label-margin-bottom: 5px;
+  --fpcl-label-text-color: var(--fpcl-dark-gray);
 }
 
 /* Select Boxes */
@@ -120,16 +130,16 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
   --fpcl-select-border: var(--fpcl-global-border);
   --fpcl-select-border-radius: var(--fpcl-global-radius);
-  --fpcl-select-box-shadow: var(--fpcl-box-shadow-low);
-  --fpcl-select-background-color: var(--fpcl-white);
+  --fpcl-select-box-shadow: var(--fpcl-box-shadow-md);
+  --fpcl-select-bg-color: var(--fpcl-white);
   --fpcl-select-text-color: var(--fpcl-global-text-color);
   --fpcl-select-option-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-very-light-gray);
-  --fpcl-select-option-hover-background-color: var(--fpcl-very-light-gray);
+  --fpcl-select-option-hover-bg-color: var(--fpcl-very-light-gray);
   --fpcl-select-option-hover-text-color: var(--fpcl-global-text-color);
 }
 
 /* Miscellaneous */
 :root {
   --fpcl-disabled-text-color: var(--fpcl-very-light-gray);
-  --fpcl-disabled-background-color: var(--fpcl-black);
+  --fpcl-disabled-bg-color: var(--fpcl-black);
 }

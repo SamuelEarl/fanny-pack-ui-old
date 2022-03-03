@@ -1,3 +1,11 @@
+/**
+ * This function returns an ID that will be used in the <label> `for` attributes and the `id` attributes of form elements like <input> and <select>.
+ */
+export function createId() {
+  return `fpcl-${Math.random().toString(36)}`;
+}
+
+
 // ==========================
 // <Select/>, <MultiSelect/>
 // ==========================

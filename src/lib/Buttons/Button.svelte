@@ -1,3 +1,19 @@
+<script lang="ts">
+  import Icon from "@iconify/svelte";
+  import { theme } from "/src/theme";
+
+  export let btnColor = "primary";
+  export let inverted = false;
+  export let size = "md";
+  export let width = "auto";
+  export let disabled = false;
+  export let btnIcon = theme.btnIcon;
+  export let btnIconDisabled = theme.btnIconDisabled;
+  export let btnIconSide = "left";
+  export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
+</script>
+
+
 <button
   type="button"
   class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
@@ -29,22 +45,6 @@
     <slot name="btnText">Button Text</slot>
   {/if}
 </button>
-
-
-<script lang="ts">
-  import Icon from "@iconify/svelte";
-  import { theme } from "/src/theme";
-
-  export let btnColor = "primary";
-  export let inverted = false;
-  export let size = "md";
-  export let width = "auto";
-  export let disabled = false;
-  export let btnIcon = theme.btnIcon;
-  export let btnIconDisabled = theme.btnIconDisabled;
-  export let btnIconSide = "left";
-  export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
-</script>
 
 
 <style>
@@ -136,9 +136,9 @@
   }
 
   .fpcl-btn:disabled {
-    border-color: var(--fpcl-disabled-background-color);
+    border-color: var(--fpcl-disabled-bg-color);
     color: var(--fpcl-disabled-text-color);
-    background-color: var(--fpcl-disabled-background-color);
+    background-color: var(--fpcl-disabled-bg-color);
     box-shadow: none;
     cursor: default;
   }

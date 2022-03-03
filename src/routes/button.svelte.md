@@ -1,3 +1,20 @@
+<script lang="ts">
+  import { Button, Select } from "/src/lib";
+
+  let creatingAccount = false;
+  let btnColors = ["primary", "secondary", "tertiary"];
+  let selectedBtnColor = "primary";
+  let isInverted = false;
+  let btnSize = "md";
+  let btnWidth = "auto";
+
+  function handleCreateAccount() {
+    creatingAccount = true;
+    setTimeout(() => creatingAccount = false, 3000);
+  }
+</script>
+
+
 # Buttons
 
 ---
@@ -21,6 +38,17 @@
 </Button>
 
 ```svelte
+<script>
+  import { Button } from "fpcl";
+
+  let creatingAccount = false;
+
+  function handleCreateAccount() {
+    creatingAccount = true;
+    setTimeout(() => creatingAccount = false, 3000);
+  }
+</script>
+
 <Button
   btnColor="primary"
   inverted={false}
@@ -36,17 +64,6 @@
   <span slot="btnText">Create Account</span>
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
-
-<script>
-  import { Button } from "fpcl";
-
-  let creatingAccount = false;
-
-  function handleCreateAccount() {
-    creatingAccount = true;
-    setTimeout(() => creatingAccount = false, 3000);
-  }
-</script>
 ```
 
 ---
@@ -156,25 +173,6 @@
 | --------- | ------------- | ----------- |
 | `btnText` |	`Button Text` | |
 | `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text from the `btnText` slot will be used if/when the button is disabled. |
-
-<br><br>
-
-
-<script lang="ts">
-  import { Button, Select } from "/src/lib";
-
-  let creatingAccount = false;
-  let btnColors = ["primary", "secondary", "tertiary"];
-  let selectedBtnColor = "primary";
-  let isInverted = false;
-  let btnSize = "md";
-  let btnWidth = "auto";
-
-  function handleCreateAccount() {
-    creatingAccount = true;
-    setTimeout(() => creatingAccount = false, 3000);
-  }
-</script>
 
 
 <style>
