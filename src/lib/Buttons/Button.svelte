@@ -1,6 +1,6 @@
 <button
   type="button"
-  class="{`fpcl-btn ${bgColor} ${size} ${width}-width`}"
+  class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
   class:inverted={inverted}
   disabled={disabled}
   on:click
@@ -35,7 +35,7 @@
   import Icon from "@iconify/svelte";
   import { theme } from "/src/theme";
 
-  export let bgColor = "primary";
+  export let btnColor = "primary";
   export let inverted = false;
   export let size = "md";
   export let width = "auto";
@@ -72,14 +72,13 @@
   .primary {
     border: 2px solid var(--fpcl-primary);
     background-color: var(--fpcl-primary);
-    color: var(--fpcl-btn-primary-text-color);
+    color: var(--fpcl-btn-regular-primary-text-color);
     
     &:hover {
       box-shadow: 0px 0px 0px 1px var(--fpcl-primary);
     }
 
     &.inverted {
-      background-color: var(--fpcl-btn-primary-text-color);
       color: var(--fpcl-primary);
     }
   }
@@ -87,14 +86,13 @@
   .secondary {
     border: 2px solid var(--fpcl-secondary);
     background-color: var(--fpcl-secondary);
-    color: var(--fpcl-btn-secondary-text-color);
+    color: var(--fpcl-btn-regular-secondary-text-color);
 
     &:hover {
       box-shadow: 0px 0px 0px 1px var(--fpcl-secondary);
     }
 
     &.inverted {
-      background-color: var(--fpcl-btn-secondary-text-color);
       color: var(--fpcl-secondary);
     }
   }
@@ -102,16 +100,19 @@
   .tertiary {
     border: 2px solid var(--fpcl-tertiary);
     background-color: var(--fpcl-tertiary);
-    color: var(--fpcl-btn-tertiary-text-color);
+    color: var(--fpcl-btn-regular-tertiary-text-color);
 
     &:hover {
       box-shadow: 0px 0px 0px 1px var(--fpcl-tertiary);
     }
 
     &.inverted {
-      background-color: var(--fpcl-btn-tertiary-text-color);
       color: var(--fpcl-tertiary);
     }
+  }
+
+  .inverted {
+    background-color: transparent;
   }
 
   .sm {

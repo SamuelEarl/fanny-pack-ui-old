@@ -5,7 +5,7 @@
 ## Example Usage
 
 <Button
-  bgColor="primary"
+  btnColor="primary"
   inverted={false}
   size="md"
   width="auto"
@@ -22,7 +22,7 @@
 
 ```svelte
 <Button
-  bgColor="primary"
+  btnColor="primary"
   inverted={false}
   size="md"
   width="auto"
@@ -53,29 +53,51 @@
 
 ## Interactive Example
 
-<Button
-  bgColor={selectedBgColor}
-  inverted={isInverted}
-  size={btnSize}
-  width={btnWidth}
-  disabled={creatingAccount}
-  btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
-  btnIconSide="right"
-  btnIconDisabledShouldSpin={true}
-  on:click={handleCreateAccount}
->
-  <span slot="btnText">Create Account</span>
-  <span slot="btnTextDisabled">Creating Account...</span>
-</Button>
+<div class="interactive">
+  <div class="light-bg">
+    <Button
+      btnColor={selectedBtnColor}
+      inverted={isInverted}
+      size={btnSize}
+      width={btnWidth}
+      disabled={creatingAccount}
+      btnIcon="bi:person-plus-fill"
+      btnIconDisabled="bi:gear-wide-connected"
+      btnIconSide="right"
+      btnIconDisabledShouldSpin={true}
+      on:click={handleCreateAccount}
+    >
+      <span slot="btnText">Create Account</span>
+      <span slot="btnTextDisabled">Creating Account...</span>
+    </Button>
+  </div>
+
+  <div class="dark-bg">
+    <Button
+      btnColor={selectedBtnColor}
+      inverted={isInverted}
+      size={btnSize}
+      width={btnWidth}
+      disabled={creatingAccount}
+      btnIcon="bi:person-plus-fill"
+      btnIconDisabled="bi:gear-wide-connected"
+      btnIconSide="right"
+      btnIconDisabledShouldSpin={true}
+      on:click={handleCreateAccount}
+    >
+      <span slot="btnText">Create Account</span>
+      <span slot="btnTextDisabled">Creating Account...</span>
+    </Button>
+  </div>
+</div>
 
 <br>
 
 <Select
-  label="Background color (primary = purple; secondary = dark gray; tertiary = white)"
-  optionsArray={bgColors}
+  label="Button color (primary = purple; secondary = dark gray; tertiary = white)"
+  optionsArray={btnColors}
   arrayType="string"
-  bind:selectedOption={selectedBgColor}
+  bind:selectedOption={selectedBtnColor}
 />
 
 <br>
@@ -110,7 +132,7 @@
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `bgColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The background color of the button. |
+| `btnColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The main button color. For regular buttons, this is the background color. For inverted buttons this is the border and text color. |
 | `inverted` | `boolean` | `true`, `false` | `false` | Invert the background color and text color of the button. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
@@ -137,12 +159,13 @@
 
 <br><br>
 
+
 <script lang="ts">
   import { Button, Select } from "/src/lib";
 
   let creatingAccount = false;
-  let bgColors = ["primary", "secondary", "tertiary"];
-  let selectedBgColor = "primary";
+  let btnColors = ["primary", "secondary", "tertiary"];
+  let selectedBtnColor = "primary";
   let isInverted = false;
   let btnSize = "md";
   let btnWidth = "auto";
@@ -152,3 +175,29 @@
     setTimeout(() => creatingAccount = false, 3000);
   }
 </script>
+
+
+<style>
+  .interactive {
+    display: flex;
+
+    & .light-bg, & .dark-bg {
+      flex: 1;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px;
+    }
+
+    & .light-bg {
+      background-color: var(--fpcl-very-light-gray);
+      border-radius: var(--fpcl-global-radius) 0 0 var(--fpcl-global-radius);
+    }
+
+    & .dark-bg {
+      background-color: var(--fpcl-black);
+      border-radius: 0 var(--fpcl-global-radius) var(--fpcl-global-radius) 0;
+    }
+  }
+</style>

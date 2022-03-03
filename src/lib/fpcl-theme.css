@@ -85,9 +85,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Buttons */
 :root {
-  --fpcl-btn-primary-text-color: var(--fpcl-white);
-  --fpcl-btn-secondary-text-color: var(--fpcl-white);
-  --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
+  /* Inverted buttons use the primary, secondary, and tertiary colors for both the border and text colors. However, regular, non-inverted buttons use the primary, secondary, and tertiary colors for the background and border colors. You can set the text colors for the regular buttons here. */
+  --fpcl-btn-regular-primary-text-color: var(--fpcl-white);
+  --fpcl-btn-regular-secondary-text-color: var(--fpcl-white);
+  --fpcl-btn-regular-tertiary-text-color: var(--fpcl-primary);
   /* v = vertical; h = horizontal */
   --fpcl-btn-sm-padding-v: 8px;
   --fpcl-btn-sm-padding-h: 14px;
