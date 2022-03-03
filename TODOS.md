@@ -6,6 +6,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 2. Finish organizing the theme variables in the `/lib/fpcl-theme.css` file.
 3. Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
 4. Figure out how to bundle dependencies, like `@iconify/svelte` along with this project when I run `npm run package`. Right now users of this package have to install `@iconify/svelte` separately.
+5. Create fallback colors for each CSS variable in the components.
 
 * Figure out how to customize/edit fonts after the component library has been installed. This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpcl-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 

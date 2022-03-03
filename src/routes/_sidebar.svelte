@@ -7,7 +7,7 @@
   <div class="title">Components</div>
   <div id="component-links">
     <a href="/button" class:active={currentPath === "/button"}>Button</a>
-    <a href="/input-date" class:active={currentPath === "/input-date"}>Input (Date)</a>
+    <a href="/date-picker" class:active={currentPath === "/date-picker"}>Date Picker</a>
     <a href="/input-text" class:active={currentPath === "/input-text"}>Input (Text)</a>
     <a href="/select" class:active={currentPath === "/select"}>Select</a>
   </div>

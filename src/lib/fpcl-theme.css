@@ -105,6 +105,38 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-border-radius: var(--fpcl-global-radius);
 }
 
+/* Date Picker */
+:root {
+  /* The following padding variables will change the sizes that correspond with the <DateInput /> component's `size` prop: */
+  /* TODO: Implement the size props and the classes for these variables. */
+  --fpcl-date-picker-sm-padding: 5px;
+  --fpcl-date-picker-md-padding: 10px;
+  --fpcl-date-picker-lg-padding: 15px;
+
+  --fpcl-date-picker-box-shadow: var(--fpcl-box-shadow-md);
+
+  /* Text and line colors for the input and calendar. */
+  /* --date-picker-foreground: black; */
+
+  /* Background color for the calendar. */
+  /* --date-picker-background: white; */
+  
+  /* Border around datepicker input and the selected date. */
+  --date-picker-highlight-border: var(--fpcl-primary);
+  
+  /* Box-shadow color around datepicker input. */
+  --date-picker-highlight-shadow: var(--fpcl-primary);
+  
+  /* Text color of the selected date. */
+  /* --date-picker-selected-color: black; */
+  
+  /* Background color of the selected date. */
+  --date-picker-selected-background: var(--fpcl-very-light-gray);
+  
+  /* Width of the datepicker input field. */
+  --date-input-width: auto;
+}
+
 /* Inputs */
 :root {
   --fpcl-input-padding: 10px 12px;
