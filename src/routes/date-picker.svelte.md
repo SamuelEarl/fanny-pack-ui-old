@@ -2,8 +2,6 @@
   import { Calendar, DateInput } from "/src/lib";
 
   let date = new Date();
-  let valid = false;
-  $: console.log("VALID:", valid);
 </script>
 
 
@@ -21,7 +19,6 @@ NOTE: I have borrowed the code from this really great <a href="https://github.co
   size="md"
   closeOnSelection={true}
   placeholder="Click to select date"
-  bind:valid={valid}
 />
 
 
@@ -30,7 +27,6 @@ NOTE: I have borrowed the code from this really great <a href="https://github.co
   import { DateInput } from "fpcl";
 
   let date = new Date();
-  let valid = false;
 </script>
 
 <DateInput
@@ -38,25 +34,13 @@ NOTE: I have borrowed the code from this really great <a href="https://github.co
   format="yyyy-MM-dd"
   closeOnSelection={true}
   placeholder="Click to select date"
-  bind:valid={valid}
 />
 ```
 
-TODO: I need to verify that these props are accurate:
+TODO: I need to verify that the props for this are accurate:
 <Calendar
   bind:value={date}
   format="yyyy-MM-dd"
   closeOnSelection={true}
   placeholder="Click to select date"
-  bind:valid={valid}
 />
-
-
-<style>
-  .date-time-field {
-
-    & input {
-      padding: 10px;
-    }
-  }
-</style>

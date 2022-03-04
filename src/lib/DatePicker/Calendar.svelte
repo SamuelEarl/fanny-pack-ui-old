@@ -215,7 +215,7 @@
   }
 </script>
 
-<div class="date-time-picker" on:focusout tabindex="0" on:keydown={keydown}>
+<div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
   <div class="tab-container" tabindex="-1">
     <div class="top">
       <div class="page-button" tabindex="-1" on:click={() => setMonth(month - 1)}>
@@ -302,23 +302,21 @@
 </div>
 
 <style>
-  .date-time-picker {
+  .calendar-container {
     display: inline-block;
-    color: var(--date-picker-foreground, #000000);
-    background: var(--date-picker-background, #ffffff);
+    color: var(--fpcl-date-picker-text-color, #000000);
+    background: var(--fpcl-date-picker-background-color, #ffffff);
     user-select: none;
     -webkit-user-select: none;
     padding: 0.5rem;
     cursor: default;
     font-size: 0.75rem;
-    border: 1px solid rgba(103, 113, 137, 0.3);
-    border-radius: 3px;
-    box-shadow: 0px 2px 6px rgba(#000000,0.08), 0px 2px 6px rgba(#000000,0.11);
+    border: var(--fpcl-calendar-border, 1px solid #c7c7c7);
+    border-radius: var(--fpcl-calendar-border-radius, 3px);
     outline: none;
     transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
 
-    &:focus {
-      border-color: var(--date-picker-highlight-border, #0269f7);
+    &:hover {
       box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
     }
   }
@@ -361,7 +359,7 @@
 
   svg {
     display: block;
-    fill: var(--date-picker-foreground, #000000);
+    fill: var(--fpcl-date-picker-text-color, #000000);
     opacity: 0.75;
     outline: none;
   }
@@ -370,7 +368,6 @@
     width: 1.5rem;
     height: 1.5rem;
     flex-shrink: 0;
-    border-radius: 5px;
     box-sizing: border-box;
     border: 1px solid transparent;
     display: flex;
@@ -380,6 +377,7 @@
     &:hover {
       background-color: rgba(#808080, 0.08);
       border: 1px solid rgba(#808080, 0.08);
+      cursor: pointer;
     }
 
     & svg {
@@ -393,14 +391,13 @@
     width: 100%;
     pointer-events: none;
     outline: none;
-    color: var(--date-picker-foreground, #000000);
-    background-color: var(--date-picker-background, #ffffff);
-    border-radius: 3px;
+    color: var(--fpcl-date-picker-text-color, #000000);
+    background-color: var(--fpcl-date-picker-background-color, #ffffff);
+    border-radius: var(--fpcl-calendar-border-radius, 3px);
   }
   
   select:focus + select.dummy-select {
-    border-color: var(--date-picker-highlight-border, #0269f7);
-    box-shadow: 0px 0px 0px 2px var(--date-picker-highlight-shadow, rgba(#0269f7, 0.4));
+    border-color: var(--fpcl-calendar-selected-date-border, #0269f7);
   }
 
   select:not(.dummy-select) {
@@ -408,19 +405,24 @@
   }
 
   select {
+    height: 1.5rem;
+    padding: 0rem 0.35rem;
+    padding-right: 1.3rem;
+    border: var(--fpcl-calendar-border, 1px solid #c7c7c7);
+    border-radius: var(--fpcl-calendar-border-radius, 3px);
+    margin: 0px;
+    outline: none;
     font-size: inherit;
     font-family: inherit;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     flex-grow: 1;
-    padding: 0rem 0.35rem;
-    height: 1.5rem;
-    padding-right: 1.3rem;
-    margin: 0px;
-    border: 1px solid rgba(108, 120, 147, 0.3);
-    outline: none;
     transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .header {
@@ -446,13 +448,14 @@
     width: 2rem;
     height: 1.94rem;
     flex-grow: 1;
-    border-radius: 5px;
+    border-radius: var(--fpcl-calendar-border-radius, 3px);
     box-sizing: border-box;
     border: 2px solid transparent;
 
     &:hover {
       border: 1px solid rgba(#808080, 0.08);
       background-color: rgba(#808080, 0.08);
+      cursor: pointer;
     }
 
     &.disabled {
@@ -469,9 +472,9 @@
     }
 
     &.selected {
-      color: var(--date-picker-selected-color, inherit);
-      background: var(--date-picker-selected-background, rgba(2, 105, 247, 0.2));
-      border: 2px solid var(--date-picker-highlight-border, #0269f7);
+      color: var(--fpcl-calendar-selected-date-text-color, inherit);
+      background: var(--fpcl-calendar-selected-date-bg-color, #eee);
+      border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
     }
   }
 </style>

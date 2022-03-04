@@ -30,17 +30,23 @@
 
 <Label {label} forId={`fpcl-select-btn-${componentId}`} />
 <div class="fpcl-select">
-  <div role="combobox" id={`fpcl-select-btn-${componentId}`} class="{`fpcl-select-btn ${size}`}" tabindex="-1" on:click={async () => {
-    showSelectMenu = !showSelectMenu;
-    // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
-    if (showSelectMenu)  {
-      calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
-      let menu = document.getElementById(`fpcl-select-menu-${componentId}`);
-      // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
-      await tick();
-      menu.focus();
-    }
-  }}>
+  <div
+    role="combobox"
+    id={`fpcl-select-btn-${componentId}`}
+    class="{`fpcl-select-btn ${size}`}"
+    tabindex="-1"
+    on:click={async () => {
+      showSelectMenu = !showSelectMenu;
+      // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
+      if (showSelectMenu)  {
+        calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
+        let menu = document.getElementById(`fpcl-select-menu-${componentId}`);
+        // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
+        await tick();
+        menu.focus();
+      }
+    }}
+  >
     {#if arrayType === "string" || arrayType === "number" || arrayType === "boolean"}
       <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
     {/if} 

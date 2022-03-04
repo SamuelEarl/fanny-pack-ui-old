@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, tick } from "svelte";
   import { fly } from "svelte/transition";
   import { cubicInOut } from "svelte/easing";
   import { Writable, writable } from "svelte/store";
@@ -14,7 +14,8 @@
   export let size = "md";
   export let dateInputIcon = theme.dateInputIcon;
 
-  const dispatch = createEventDispatcher<{ select: undefined }>()
+  const dispatch = createEventDispatcher<{ select: undefined }>();
+
 
   /** Default date to display in input before value is assigned */
   const defaultDate = new Date();
@@ -42,16 +43,16 @@
   $: store.set(value)
 
   /** The earliest value the user can select */
-  export let min = new Date(defaultDate.getFullYear() - 20, 0, 1)
+  export let min = new Date(defaultDate.getFullYear() - 20, 0, 1);
   /** The latest value the user can select */
-  export let max = new Date(defaultDate.getFullYear(), 11, 31, 23, 59, 59, 999)
+  export let max = new Date(defaultDate.getFullYear(), 11, 31, 23, 59, 59, 999);
   /** Placeholder text to show when input field is empty */
-  export let placeholder = '2020-12-31 23:00:00'
+  export let placeholder = "2020-12-31 23:00:00";
   /** Whether the text is valid */
-  export let valid = true
+  export let valid = true;
 
   /** Format string */
-  export let format = 'yyyy-MM-dd HH:mm:ss'
+  export let format = "yyyy-MM-dd HH:mm:ss"
   let formatTokens = createFormat(format)
   $: formatTokens = createFormat(format)
 
@@ -90,53 +91,55 @@
   function handleInput(e: unknown) {
     if (
       e instanceof InputEvent &&
-      e.inputType === 'insertText' &&
-      typeof e.data === 'string' &&
+      e.inputType === "insertText" &&
+      typeof e.data === "string" &&
       text === textHistory[0] + e.data
     ) {
       // check for missing punctuation, and add if there is any
-      let result = parse(textHistory[0], formatTokens, $store)
-      if (result.missingPunctuation !== '' && !result.missingPunctuation.startsWith(e.data)) {
-        text = textHistory[0] + result.missingPunctuation + e.data
+      let result = parse(textHistory[0], formatTokens, $store);
+      if (result.missingPunctuation !== "" && !result.missingPunctuation.startsWith(e.data)) {
+        text = textHistory[0] + result.missingPunctuation + e.data;
       }
     }
   }
 
   /** Whether the date popup is visible */
-  export let visible = false
+  export let visible = false;
   /** Close the date popup when a date is selected */
-  export let closeOnSelection = false
+  export let closeOnSelection = false;
 
   // handle on:focusout for parent element. If the parent element loses
   // focus (e.g input element), visible is set to false
-  function onFocusOut(e: FocusEvent) {
+  function hideCalendar(e: FocusEvent) {
     if (
       e?.currentTarget instanceof HTMLElement &&
       e.relatedTarget &&
       e.relatedTarget instanceof Node &&
       e.currentTarget.contains(e.relatedTarget)
     ) {
-      return
-    } else {
-      visible = false
+      return;
+    } 
+    else {
+      visible = false;
     }
   }
+
   function keydown(e: KeyboardEvent) {
-    if (e.key === 'Escape' && visible) {
+    if (e.key === "Escape" && visible) {
       visible = false
       e.preventDefault()
-      // When the calendar is open, we prevent 'Escape' from propagating,
+      // When the calendar is open, we prevent "Escape" from propagating,
       // so for example a parent modal won't be closed
       e.stopPropagation()
     } 
-    else if (e.key === 'Enter') {
+    else if (e.key === "Enter") {
       visible = !visible
       e.preventDefault()
     }
   }
 
-  function onSelect(e: CustomEvent<undefined>) {
-    dispatch('select', e.detail)
+  function handleSelection(e: CustomEvent<undefined>) {
+    dispatch("select", e.detail)
     if (closeOnSelection) {
       visible = false
     }
@@ -144,7 +147,7 @@
 </script>
 
 
-<div class="date-time-field" on:focusout={onFocusOut} on:keydown={keydown}>
+<div class="date-picker-container" on:focusout={hideCalendar} on:keydown={keydown}>
   <div class="{`date-input-container ${size}`}">
     <input
       class="{`date-input ${size}`}"
@@ -156,19 +159,24 @@
       on:mousedown={() => (visible = true)}
       on:input={handleInput}
     />
+    <!--
+      You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `hideCalendar`.
+    -->
     <div
       class="{`date-input-btn ${size}`}"
-      on:click={() => (visible = !visible)}
+      tabindex="-1"
+      on:click={() => visible = !visible}
     >
-      <!-- Place strict width and height values to prevent the icon from throwing pushing the button outside of the input field. -->
+      <!-- Place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
       <Icon icon="{dateInputIcon}" width="20" height="20" />
     </div>
   </div>
   {#if visible}
-    <div class="calendar" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+    <div class="calendar-container" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+
       <Calendar
-        on:focusout={onFocusOut}
-        on:select={onSelect}
+        on:focusout={hideCalendar}
+        on:select={handleSelection}
         bind:value={$store}
         {min}
         {max}
@@ -179,11 +187,11 @@
 </div>
 
 <style>
-  .date-time-field {
+  .date-picker-container {
     position: relative;
 
     & .date-input-container {
-      width: var(--fpcl-date-input-width, 250px);
+      width: var(--fpcl-date-input-width, 148px);
       display: flex;
       align-items: center;
       border: var(--fpcl-date-input-border);
@@ -264,7 +272,7 @@
     }
   }
 
-  .calendar {
+  .calendar-container {
     display: none;
     position: absolute;
     margin-top: 1px;

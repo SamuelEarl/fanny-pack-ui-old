@@ -26,4 +26,4 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
 * Look at the `date-picker.svelte.md` page for any TODOS that are there.
 * Remove validation. That will be handled by a validation library, like Yup. I think I will comment out the validation code and maybe even remove it completely.
-* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. 
+* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. That is the formatting of a native date input. This should make it easier to store the retrieve and work with the date value.
