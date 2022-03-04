@@ -198,11 +198,11 @@
       border-radius: var(--fpcl-date-input-radius);
 
       &:hover {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e4e4e4);
       }
 
       &:focus {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e4e4e4);
       }
 
       /* This min-width style will prevent the input field styles from breaking. */
@@ -246,7 +246,7 @@
         align-items: center;
         border-left: var(--fpcl-date-input-border);
         border-radius: 0 var(--fpcl-date-input-radius) var(--fpcl-date-input-radius) 0;
-        background: var(--fpcl-date-input-btn-background-color, #eee);
+        background: var(--fpcl-date-input-btn-background-color, #e4e4e4);
         cursor: pointer;
 
         &.sm {
