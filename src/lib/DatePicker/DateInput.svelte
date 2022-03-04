@@ -1,18 +1,23 @@
 <script lang="ts">
-  import { fly } from 'svelte/transition'
-  import { cubicInOut } from 'svelte/easing'
-  import { toText } from './date-utils'
-  import type { Locale } from './locale'
-  import { parse, createFormat } from './parse'
-  import type { FormatToken } from './parse'
-  import DateTimePicker from './Calendar.svelte'
-  import { Writable, writable } from 'svelte/store'
-  import { createEventDispatcher } from 'svelte'
+  import { createEventDispatcher } from "svelte";
+  import { fly } from "svelte/transition";
+  import { cubicInOut } from "svelte/easing";
+  import { Writable, writable } from "svelte/store";
+  import Icon from "@iconify/svelte";
+  import { toText } from "./date-utils";
+  import type { Locale } from "./locale";
+  import { parse, createFormat } from "./parse";
+  import type { FormatToken } from "./parse";
+  import Calendar from "./Calendar.svelte";
+  import { theme } from "/src/theme";
+
+  export let size = "md";
+  export let dateInputIcon = theme.dateInputIcon;
 
   const dispatch = createEventDispatcher<{ select: undefined }>()
 
-  /** Default date to display in picker before value is assigned */
-  const defaultDate = new Date()
+  /** Default date to display in input before value is assigned */
+  const defaultDate = new Date();
 
   // inner date value store for preventing value updates (and also
   // text updates as a result) when date is unchanged
@@ -82,7 +87,7 @@
   }
   $: textUpdate(text, formatTokens)
 
-  function input(e: unknown) {
+  function handleInput(e: unknown) {
     if (
       e instanceof InputEvent &&
       e.inputType === 'insertText' &&
@@ -120,10 +125,11 @@
     if (e.key === 'Escape' && visible) {
       visible = false
       e.preventDefault()
-      // When the date picker is open, we prevent 'Escape' from propagating,
+      // When the calendar is open, we prevent 'Escape' from propagating,
       // so for example a parent modal won't be closed
       e.stopPropagation()
-    } else if (e.key === 'Enter') {
+    } 
+    else if (e.key === 'Enter') {
       visible = !visible
       e.preventDefault()
     }
@@ -137,20 +143,30 @@
   }
 </script>
 
+
 <div class="date-time-field" on:focusout={onFocusOut} on:keydown={keydown}>
-  <input
-    class="fpcl-date-picker"
-    class:invalid={!valid}
-    type="text"
-    bind:value={text}
-    {placeholder}
-    on:focus={() => (visible = true)}
-    on:mousedown={() => (visible = true)}
-    on:input={input}
-  />
+  <div class="{`date-input-container ${size}`}">
+    <input
+      class="{`date-input ${size}`}"
+      class:invalid={!valid}
+      type="text"
+      bind:value={text}
+      {placeholder}
+      on:focus={() => (visible = true)}
+      on:mousedown={() => (visible = true)}
+      on:input={handleInput}
+    />
+    <div
+      class="{`date-input-btn ${size}`}"
+      on:click={() => (visible = !visible)}
+    >
+      <!-- Place strict width and height values to prevent the icon from throwing pushing the button outside of the input field. -->
+      <Icon icon="{dateInputIcon}" width="20" height="20" />
+    </div>
+  </div>
   {#if visible}
-    <div class="picker" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
-      <DateTimePicker
+    <div class="calendar" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+      <Calendar
         on:focusout={onFocusOut}
         on:select={onSelect}
         bind:value={$store}
@@ -165,27 +181,76 @@
 <style>
   .date-time-field {
     position: relative;
-  }
 
-  input {
-    color: var(--date-picker-foreground, #000000);
-    background: var(--date-picker-background, #ffffff);
-    min-width: 0px;
-    box-sizing: border-box;
-    padding: var(--fpcl-date-picker-padding, 10px);
-    margin: 0px;
-    border: 1px solid rgba(103, 113, 137, 0.3);
-    border-radius: 3px;
-    width: var(--date-input-width, 150px);
-    outline: none;
-    transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
-    
-    &:hover {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
-    }
+    & .date-input-container {
+      width: var(--fpcl-date-input-width, 250px);
+      display: flex;
+      align-items: center;
+      border: var(--fpcl-date-input-border);
+      border-radius: var(--fpcl-date-input-radius);
 
-    &:focus {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
+      &:hover {
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
+      }
+
+      &:focus {
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #eee);
+      }
+
+      /* This min-width style will prevent the input field styles from breaking. */
+      /* 85px is the width of the date text (which should be wide enough to fit any properly formatted date entry). The padding is multiplied by 4 because the input field and the button each have padding applied to each of their sides. 20px is the width of the icon. 3px is the width of the 3 borders. */
+      &.sm {
+        min-width: calc(85px + (var(--fpcl-date-input-sm-padding, 5px) * 4) + 20px + 3px);
+      }
+      &.md {
+        min-width: calc(85px + (var(--fpcl-date-input-md-padding, 10px) * 4) + 20px + 3px);
+      }
+      &.lg {
+        min-width: calc(85px + (var(--fpcl-date-input-lg-padding, 15px) * 4) + 20px + 3px);
+      }
+
+      & .date-input {
+        flex: 1;
+        /* The .date-input field's min-width is the same as the first variable in the calc() function above. */
+        min-width: 85px;
+        border: none;
+        margin: 0px;
+        outline: none;
+        background-color: transparent;
+        color: var(--fpcl-date-picker-foreground, #000000);
+        /* min-width: 0px; */
+        /* box-sizing: border-box; */
+        transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
+
+        &.sm {
+          padding: var(--fpcl-date-input-sm-padding, 5px);
+        }
+        &.md {
+          padding: var(--fpcl-date-input-md-padding, 10px);
+        }
+        &.lg {
+          padding: var(--fpcl-date-input-lg-padding, 15px);
+        }
+      }
+
+      & .date-input-btn {
+        display: flex;
+        align-items: center;
+        border-left: var(--fpcl-date-input-border);
+        border-radius: 0 var(--fpcl-date-input-radius) var(--fpcl-date-input-radius) 0;
+        background: var(--fpcl-date-input-btn-background-color, #eee);
+        cursor: pointer;
+
+        &.sm {
+          padding: var(--fpcl-date-input-sm-padding, 5px);
+        }
+        &.md {
+          padding: var(--fpcl-date-input-md-padding, 10px);
+        }
+        &.lg {
+          padding: var(--fpcl-date-input-lg-padding, 15px);
+        }
+      }
     }
   }
 
@@ -199,7 +264,7 @@
     }
   }
 
-  .picker {
+  .calendar {
     display: none;
     position: absolute;
     margin-top: 1px;

@@ -3,6 +3,7 @@
 
   let date = new Date();
   let valid = false;
+  $: console.log("VALID:", valid);
 </script>
 
 
@@ -17,6 +18,7 @@ NOTE: I have borrowed the code from this really great <a href="https://github.co
 <DateInput
   bind:value={date}
   format="yyyy-MM-dd"
+  size="md"
   closeOnSelection={true}
   placeholder="Click to select date"
   bind:valid={valid}

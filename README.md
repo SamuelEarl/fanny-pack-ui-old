@@ -65,7 +65,7 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 
 The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpcl-theme.css` file for details.
 
-IMPORTANT: If you change any settings that are set in pixels (e.g. `--fpcl-select-sm-padding: 0px;`), then remember to keep the `px` suffix because some CSS rules use the `calc()` function and they expect a `px` suffix. For example, this will work: `--fpcl-select-sm-padding: 0px;`, but this will break your style setting: `--fpcl-select-sm-padding: 0;`.
+IMPORTANT: If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-select-sm-padding: 0px;`, but this will break your style setting: `--fpcl-select-sm-padding: 0;`.
 
 
 ## Step 4: Enable JavaScript Variables

@@ -21,3 +21,9 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Write tests. I will be able to verify if the roles work with the `getByRole()` selector.
 * Clean up old code and documentation that no longer applies or that is commented out.
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
+
+## Date Picker
+* NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
+* Look at the `date-picker.svelte.md` page for any TODOS that are there.
+* Remove validation. That will be handled by a validation library, like Yup. I think I will comment out the validation code and maybe even remove it completely.
+* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. 
