@@ -317,7 +317,7 @@
     transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
 
     &:hover {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e4e4e4);
+      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
     }
   }
 
@@ -473,7 +473,7 @@
 
     &.selected {
       color: var(--fpcl-calendar-selected-date-text-color, inherit);
-      background: var(--fpcl-calendar-selected-date-bg-color, #e4e4e4);
+      background: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
       border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
     }
   }
