@@ -1,0 +1,56 @@
+/* Colors */
+:root {
+  /*
+    Main Colors
+    Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
+  */
+  --light-green: #99b433;
+  --green: #00a300;
+  --dark-green: #1e7145;
+  --magenta: #ff0097;
+  --light-purple: #9f00a7;
+  --purple: #7e3878;
+  --dark-purple: #603cba;
+  --teal: #00aba9;
+  --light-blue: #eff4ff;
+  --blue: #2d89ef;
+  --dark-blue: #2b5797;
+  --yellow: #ffc40d;
+  --orange: #e3a21a;
+  --dark-orange: #da532c;
+  --red: #ee1111;
+  --dark-red: #b91d47;
+
+  /*
+    Neutral Colors
+    These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
+  */
+  --white: #ffffff;
+  --black: #000000;
+  --very-light-gray: #e5e5e5;
+  --light-gray: #c7c7c7;
+  --gray: #a0a0a0;
+  --dark-gray: #797979;
+  --very-dark-gray: #343434;
+
+  /* Primary, Secondary, Tertiary colors, etc. */
+  --primary: var(--dark-blue);
+  --secondary: var(--yellow);
+  /* --tertiary */
+  --text-color: var(--very-dark-gray);
+}
+
+/* Typography */
+:root {
+  --serif-font-stack: "Merriweather", serif;
+  --sans-serif-font-stack: "Roboto", sans-serif;
+  --cursive-font-stack: "Shadows Into Light", cursive;
+  --mono-font-stack: "Source Code Pro", monospace;
+  --headline-font-stack: var(--serif-font-stack);
+  --body-font-stack: var(--sans-serif-font-stack);
+}
+
+/* Miscellaneous */
+:root {
+  --global-radius: 3px;
+}

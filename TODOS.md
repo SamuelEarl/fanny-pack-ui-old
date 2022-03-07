@@ -1,14 +1,16 @@
 # TODOS
 NOTE: Maybe I could look at how to theme the Carbon components rather than create my own component library. Actually, I don't think I could contribute themable components to that project because that project is based on the Carbon Design System and I want to create components that can be themed to fit other design systems. But maybe I could base my components off of the Carbon components for Svelte, so I could see how they create their components and use some of their ideas.
 
-1. Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
-    1. UPDATE: Mimic the docs from Carbon Components Svelte (https://carbon-components-svelte.onrender.com/) and maybe from Semantic UI.
-2. Finish organizing the theme variables in the `/lib/fpcl-theme.css` file.
-3. Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
-4. Figure out how to bundle dependencies, like `@iconify/svelte` along with this project when I run `npm run package`. Right now users of this package have to install `@iconify/svelte` separately.
-5. Create fallback colors for each CSS variable in the components.
-
-* Figure out how to customize/edit fonts after the component library has been installed. This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpcl-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
+* I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
+* Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
+    * UPDATE: Mimic the docs from Carbon Components Svelte (https://carbon-components-svelte.onrender.com/) and maybe from Semantic UI.
+* Finish organizing the theme variables in the `/lib/fpcl-theme.css` file.
+* Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
+* Figure out how to bundle dependencies, like `@iconify/svelte` along with this project when I run `npm run package`. Right now users of this package have to install `@iconify/svelte` separately.
+* Create fallback colors for each CSS variable in the components.
+* Figure out how to customize/edit fonts after the component library has been installed.
+    * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined. See the `example-theme.css` file for an example.
+    * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpcl-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 
 ## Button Component
 * Write more tests.
@@ -26,4 +28,6 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
 * Look at the `date-picker.svelte.md` page for any TODOS that are there.
 * Remove validation. That will be handled by a validation library, like Yup. I think I will comment out the validation code and maybe even remove it completely.
-* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. That is the formatting of a native date input. This should make it easier to store the retrieve and work with the date value.
+* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. That is the formatting of a native date input. But would that make it easier or harder to store and retrieve and work with the date value?
+* Add the <Label> component.
+* Finish styling and parameterizing the styles of the components for the date picker.

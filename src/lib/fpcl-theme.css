@@ -41,11 +41,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-gray: #a0a0a0;
   --fpcl-dark-gray: #797979;
   --fpcl-very-dark-gray: #343434;
+}
 
+/* Primary, Secondary, Tertiary colors, etc. */
+:root {
   --fpcl-primary: var(--fpcl-dark-purple);
   --fpcl-secondary: var(--fpcl-very-dark-gray);
   --fpcl-tertiary: var(--fpcl-white);
-
   --fpcl-success: var(--fpcl-green);
   --fpcl-warning: var(--fpcl-yellow);
   --fpcl-alert: var(--fpcl-red);
@@ -53,9 +55,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Global Styles */
 :root {
-  --fpcl-depth-low: 1px;
-  --fpcl-depth-md: 2px;
-  --fpcl-depth-high: 3px;
+  /* Depth (used with box shadows) */
+  --fpcl-global-depth-low: 1px;
+  --fpcl-global-depth-md: 2px;
+  --fpcl-global-depth-high: 3px;
+
   --fpcl-global-text-color: var(--fpcl-very-dark-gray);
   --fpcl-global-radius: 3px;
   --fpcl-global-padding-sm: 5px;
@@ -67,9 +71,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color);
   
   /* Box shadows */
-  --fpcl-box-shadow-low: 0 0 var(--fpcl-depth-low) var(--fpcl-depth-low) var(--fpcl-very-light-gray);
-  --fpcl-box-shadow-md: 0 0 var(--fpcl-depth-md) var(--fpcl-depth-md) var(--fpcl-very-light-gray);
-  --fpcl-box-shadow-high: 0 0 var(--fpcl-depth-high) var(--fpcl-depth-high) var(--fpcl-very-light-gray);
+  --fpcl-global-box-shadow-low: 0 0 var(--fpcl-global-depth-low) var(--fpcl-global-depth-low) var(--fpcl-very-light-gray);
+  --fpcl-global-box-shadow-md: 0 0 var(--fpcl-global-depth-md) var(--fpcl-global-depth-md) var(--fpcl-very-light-gray);
+  --fpcl-global-box-shadow-high: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-very-light-gray);
 }
 
 /* Typography */
@@ -103,6 +107,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-lg-padding-h: 22px;
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 10px;
+  /* Hover state */
+  --fpcl-btn-primary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
+  --fpcl-btn-secondary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
+  --fpcl-btn-tertiary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
   --fpcl-btn-border-radius: var(--fpcl-global-radius);
@@ -110,17 +118,17 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Date Picker */
 :root {
+  --fpcl-date-picker-box-shadow: var(--fpcl-global-box-shadow-md);
+  --fpcl-date-picker-text-color: var(--fpcl-global-text-color);
+  --fpcl-date-picker-bg-color: var(--fpcl-white);
   /* The following padding variables will change the sizes that correspond with the <DateInput /> component's `size` prop: */
-  /* TODO: Implement the size props and the classes for these variables. */
   --fpcl-date-input-sm-padding: var(--fpcl-global-padding-sm);
   --fpcl-date-input-md-padding: var(--fpcl-global-padding-md);
   --fpcl-date-input-lg-padding: var(--fpcl-global-padding-lg);
   --fpcl-date-input-border: var(--fpcl-global-border);
   --fpcl-date-input-radius: var(--fpcl-global-radius);
-  --fpcl-date-picker-box-shadow: var(--fpcl-box-shadow-md);
-  --fpcl-date-input-btn-background-color: var(--fpcl-very-light-gray);
-  --fpcl-date-picker-text-color: var(--fpcl-global-text-color);
-  --fpcl-date-picker-background-color: var(--fpcl-white);
+  --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
+  --fpcl-date-input-btn-icon-color: inherit;
   --fpcl-calendar-border: var(--fpcl-global-border);
   --fpcl-calendar-border-radius: var(--global-radius);
   --fpcl-calendar-selected-date-border: var(--fpcl-global-border);
@@ -141,7 +149,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-border: var(--fpcl-global-border);
   --fpcl-input-bg-color: none;
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
-  --fpcl-input-box-shadow: var(--fpcl-box-shadow-md);
+  --fpcl-input-box-shadow: var(--fpcl-global-box-shadow-md);
 }
 
 /* Labels */
@@ -160,7 +168,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
   --fpcl-select-border: var(--fpcl-global-border);
   --fpcl-select-border-radius: var(--fpcl-global-radius);
-  --fpcl-select-box-shadow: var(--fpcl-box-shadow-md);
+  --fpcl-select-box-shadow: var(--fpcl-global-box-shadow-md);
   --fpcl-select-bg-color: var(--fpcl-white);
   --fpcl-select-text-color: var(--fpcl-global-text-color);
   --fpcl-select-option-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-very-light-gray);

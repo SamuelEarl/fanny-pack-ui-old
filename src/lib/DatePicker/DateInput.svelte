@@ -245,8 +245,9 @@
         display: flex;
         align-items: center;
         border-left: var(--fpcl-date-input-border);
-        border-radius: 0 var(--fpcl-date-input-radius) var(--fpcl-date-input-radius) 0;
-        background: var(--fpcl-date-input-btn-background-color, #e5e5e5);
+        border-radius: 0 calc(var(--fpcl-date-input-radius) - 3px) calc(var(--fpcl-date-input-radius) - 3px) 0;
+        background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
+        color: var(--fpcl-date-input-btn-icon-color, inherit);
         cursor: pointer;
 
         &.sm {

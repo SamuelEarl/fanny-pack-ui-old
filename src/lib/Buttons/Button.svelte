@@ -75,7 +75,7 @@
     color: var(--fpcl-btn-regular-primary-text-color);
     
     &:hover {
-      box-shadow: 0px 0px 0px 1px var(--fpcl-primary);
+      box-shadow: var(--fpcl-btn-primary-hover-box-shadow, 0 0 0 1px var(--fpcl-primary));
     }
 
     &.inverted {
@@ -89,7 +89,7 @@
     color: var(--fpcl-btn-regular-secondary-text-color);
 
     &:hover {
-      box-shadow: 0px 0px 0px 1px var(--fpcl-secondary);
+      box-shadow: var(--fpcl-btn-secondary-hover-box-shadow, 0 0 0 1px var(--fpcl-secondary));
     }
 
     &.inverted {
@@ -103,7 +103,7 @@
     color: var(--fpcl-btn-regular-tertiary-text-color);
 
     &:hover {
-      box-shadow: 0px 0px 0px 1px var(--fpcl-tertiary);
+      box-shadow: var(--fpcl-btn-tertiary-hover-box-shadow, 0 0 0 1px var(--fpcl-tertiary));
     }
 
     &.inverted {

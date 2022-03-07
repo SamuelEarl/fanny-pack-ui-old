@@ -305,7 +305,7 @@
   .calendar-container {
     display: inline-block;
     color: var(--fpcl-date-picker-text-color, #000000);
-    background: var(--fpcl-date-picker-background-color, #ffffff);
+    background: var(--fpcl-date-picker-bg-color, #ffffff);
     user-select: none;
     -webkit-user-select: none;
     padding: 0.5rem;
@@ -392,7 +392,7 @@
     pointer-events: none;
     outline: none;
     color: var(--fpcl-date-picker-text-color, #000000);
-    background-color: var(--fpcl-date-picker-background-color, #ffffff);
+    background-color: var(--fpcl-date-picker-bg-color, #ffffff);
     border-radius: var(--fpcl-calendar-border-radius, 3px);
   }
   
