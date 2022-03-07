@@ -26,8 +26,9 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 
 ## Date Picker
 * NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
-* Look at the `date-picker.svelte.md` page for any TODOS that are there.
-* Remove validation. That will be handled by a validation library, like Yup. I think I will comment out the validation code and maybe even remove it completely.
-* Right now the `value` of this date picker is a JavaScript Date object, but I only want this to be a date picker. So I want the `value` to be the date only in this format: YYYY-MM-DD. That is the formatting of a native date input. But would that make it easier or harder to store and retrieve and work with the date value?
-* Add the <Label> component.
+* I have removed the validation CSS styles and allowed the user to reference a `valid` prop from the component. However, I might want to run all validations through a validation library, like Yup.
+* COMPLETE: Right now the `value` of this date picker is a JavaScript Date object that includes hours, minutes, and seconds. But I only want this to be a date picker, so I want to remove the `format` prop and all time properties from the date object. Working with a date object would make it easier to work with the date value if I need to do any other formatting.
+    * UPDATE: I have removed the hours, minutes, and seconds from the Date object in the `parse.ts` file. I think I will keep it like this because I think it will be easier to work with a date object rather than a date string. 
+    * NOTE: The formatting of a native date input is a string in this format: YYYY-MM-DD. But it would probably be easier to work with a Date object than a string if I need to do anything else with the date.
 * Finish styling and parameterizing the styles of the components for the date picker.
+* I haven't been able to figure out how to get the `locale` prop to work.

@@ -127,6 +127,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-date-input-lg-padding: var(--fpcl-global-padding-lg);
   --fpcl-date-input-border: var(--fpcl-global-border);
   --fpcl-date-input-radius: var(--fpcl-global-radius);
+  --fpcl-date-input-bg-color: var(--fpcl-white);
+  --fpcl-date-input-text-color: var(--fpcl-global-text-color);
   --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
   --fpcl-date-input-btn-icon-color: inherit;
   --fpcl-calendar-border: var(--fpcl-global-border);

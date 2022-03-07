@@ -4,86 +4,102 @@
   import { getInnerLocale } from "./locale";
   import type { Locale } from "./locale";
   import { createEventDispatcher } from "svelte";
+  import Label from "../Labels/Label.svelte";
+  import { createId } from "../utils";
 
-  const dispatch = createEventDispatcher<{ select: undefined }>()
+  export let label;
+
+  const dispatch = createEventDispatcher<{ select: undefined }>();
+  let componentId = createId();
 
   /** Date value. It's `null` if no date is selected */
-  export let value: Date | null = null
+  export let value: Date | null = null;
+
   function setValue(d: Date) {
     if (d.getTime() !== value?.getTime()) {
-      value = d
+      value = d;
     }
   }
+
   function updateValue(updater: (date: Date) => Date) {
-    const newValue = updater(new Date(shownDate.getTime()))
-    setValue(newValue)
+    const newValue = updater(new Date(shownDate.getTime()));
+    setValue(newValue);
   }
 
   /** Default Date to use */
-  const defaultDate = new Date()
+  const defaultDate = new Date();
 
   /** The date shown in the popup, for when `value` is null */
-  let shownDate = value ?? defaultDate
-  $: if (value) shownDate = value
+  let shownDate = value ?? defaultDate;
+  $: if (value) shownDate = value;
 
   /** Update the shownDate. The date is only selected if a date is already selected */
   function updateShownDate(updater: (date: Date) => Date) {
-    shownDate = updater(new Date(shownDate.getTime()))
+    shownDate = updater(new Date(shownDate.getTime()));
     if (value && shownDate.getTime() !== value.getTime()) {
-      setValue(shownDate)
+      setValue(shownDate);
     }
   }
 
   /** The earliest year the user can select */
-  export let min = new Date(defaultDate.getFullYear() - 20, 0, 1)
+  let min = new Date(defaultDate.getFullYear() - 100, 0, 1);
   /** The latest year the user can select */
-  export let max = new Date(defaultDate.getFullYear(), 11, 31, 23, 59, 59, 999)
-  let years = getYears(min, max)
-  $: years = getYears(min, max)
+  let max = new Date(defaultDate.getFullYear() + 100, 11, 31, 23, 59, 59, 999);
+  
+  let years = getYears(min, max);
+  $: years = getYears(min, max);
+
   function getYears(min: Date, max: Date) {
-    let years = []
+    let years = [];
     for (let i = min.getFullYear(); i <= max.getFullYear(); i++) {
-      years.push(i)
+      years.push(i);
     }
-    return years
+    return years;
   }
 
   $: if (shownDate > max) {
-    updateShownDate(() => max)
-  } else if (shownDate < min) {
-    updateShownDate(() => min)
+    updateShownDate(() => max);
+  }
+  else if (shownDate < min) {
+    updateShownDate(() => min);
   }
 
   /** Locale object for internationalization */
-  export let locale: Locale = {}
-  $: iLocale = getInnerLocale(locale)
+  export let locale: Locale = {};
 
-  let year = shownDate.getFullYear()
-  const getYear = (tmpPickerDate: Date) => (year = tmpPickerDate.getFullYear())
+  $: iLocale = getInnerLocale(locale);
+
+  let year = shownDate.getFullYear();
+  const getYear = (tmpPickerDate: Date) => (year = tmpPickerDate.getFullYear());
+
   function setYear(year: number) {
     updateShownDate((tmpPickerDate) => {
-      tmpPickerDate.setFullYear(year)
-      return tmpPickerDate
-    })
+      tmpPickerDate.setFullYear(year);
+      return tmpPickerDate;
+    });
   }
-  $: getYear(shownDate)
-  $: setYear(year)
 
-  let month = shownDate.getMonth()
-  const getMonth = (tmpPickerDate: Date) => (month = tmpPickerDate.getMonth())
+  $: getYear(shownDate);
+  $: setYear(year);
+
+  let month = shownDate.getMonth();
+  const getMonth = (tmpPickerDate: Date) => (month = tmpPickerDate.getMonth());
+
   function setMonth(month: number) {
-    let newYear = year
-    let newMonth = month
+    let newYear = year;
+    let newMonth = month;
     if (month === 12) {
-      newMonth = 0
-      newYear++
-    } else if (month === -1) {
-      newMonth = 11
-      newYear--
+      newMonth = 0;
+      newYear++;
+    }
+    else if (month === -1) {
+      newMonth = 11;
+      newYear--;
     }
 
-    const maxDate = getMonthLength(newYear, newMonth)
-    const newDate = Math.min(shownDate.getDate(), maxDate)
+    const maxDate = getMonthLength(newYear, newMonth);
+    const newDate = Math.min(shownDate.getDate(), maxDate);
+
     updateShownDate((date) => {
       return new Date(
         newYear,
@@ -93,128 +109,155 @@
         date.getMinutes(),
         date.getSeconds(),
         date.getMilliseconds()
-      )
-    })
+      );
+    });
   }
-  $: getMonth(shownDate)
-  $: setMonth(month)
+  $: getMonth(shownDate);
+  $: setMonth(month);
 
-  let dayOfMonth = value?.getDate() || null
-  $: dayOfMonth = value?.getDate() || null
+  let dayOfMonth = value?.getDate() || null;
+  $: dayOfMonth = value?.getDate() || null;
 
-  $: calendarDays = getCalendarDays(shownDate, iLocale.weekStartsOn)
+  $: calendarDays = getCalendarDays(shownDate, iLocale.weekStartsOn);
 
   function setDay(calendarDay: CalendarDay) {
     if (dayIsInRange(calendarDay, min, max)) {
       updateValue((value) => {
-        value.setFullYear(0)
-        value.setMonth(0)
-        value.setDate(1)
-        value.setFullYear(calendarDay.year)
-        value.setMonth(calendarDay.month)
-        value.setDate(calendarDay.number)
-        return value
-      })
+        value.setFullYear(0);
+        value.setMonth(0);
+        value.setDate(1);
+        value.setFullYear(calendarDay.year);
+        value.setMonth(calendarDay.month);
+        value.setDate(calendarDay.number);
+        return value;
+      });
     }
   }
+
   function selectDay(calendarDay: CalendarDay) {
-    setDay(calendarDay)
-    dispatch('select')
+    setDay(calendarDay);
+    dispatch("select");
   }
+  
   function dayIsInRange(calendarDay: CalendarDay, min: Date, max: Date) {
-    const date = new Date(calendarDay.year, calendarDay.month, calendarDay.number)
-    const minDate = new Date(min.getFullYear(), min.getMonth(), min.getDate())
-    const maxDate = new Date(max.getFullYear(), max.getMonth(), max.getDate())
-    return date >= minDate && date <= maxDate
+    const date = new Date(calendarDay.year, calendarDay.month, calendarDay.number);
+    const minDate = new Date(min.getFullYear(), min.getMonth(), min.getDate());
+    const maxDate = new Date(max.getFullYear(), max.getMonth(), max.getDate());
+    return date >= minDate && date <= maxDate;
   }
+
   function shiftKeydown(e: KeyboardEvent) {
-    if (e.shiftKey && e.key === 'ArrowUp') {
-      setYear(year - 1)
-    } else if (e.shiftKey && e.key === 'ArrowDown') {
-      setYear(year + 1)
-    } else if (e.shiftKey && e.key === 'ArrowLeft') {
-      setMonth(month - 1)
-    } else if (e.shiftKey && e.key === 'ArrowRight') {
-      setMonth(month + 1)
-    } else {
-      return false
+    if (e.shiftKey && e.key === "ArrowUp") {
+      setYear(year - 1);
     }
-    e.preventDefault()
-    return true
+    else if (e.shiftKey && e.key === "ArrowDown") {
+      setYear(year + 1);
+    }
+    else if (e.shiftKey && e.key === "ArrowLeft") {
+      setMonth(month - 1);
+    }
+    else if (e.shiftKey && e.key === "ArrowRight") {
+      setMonth(month + 1);
+    } 
+    else {
+      return false;
+    }
+    e.preventDefault();
+    return true;
   }
+
   function yearKeydown(e: KeyboardEvent) {
-    let shift = e.shiftKey || e.altKey
+    let shift = e.shiftKey || e.altKey;
     if (shift) {
-      shiftKeydown(e)
-      return
-    } else if (e.key === 'ArrowUp') {
-      setYear(year - 1)
-    } else if (e.key === 'ArrowDown') {
-      setYear(year + 1)
-    } else if (e.key === 'ArrowLeft') {
-      setMonth(month - 1)
-    } else if (e.key === 'ArrowRight') {
-      setMonth(month + 1)
-    } else {
-      shiftKeydown(e)
-      return
+      shiftKeydown(e);
+      return;
+    } 
+    else if (e.key === "ArrowUp") {
+      setYear(year - 1);
+    } 
+    else if (e.key === "ArrowDown") {
+      setYear(year + 1);
+    } 
+    else if (e.key === "ArrowLeft") {
+      setMonth(month - 1);
+    } 
+    else if (e.key === "ArrowRight") {
+      setMonth(month + 1);
+    } 
+    else {
+      shiftKeydown(e);
+      return;
     }
-    e.preventDefault()
+    e.preventDefault();
   }
+
   function monthKeydown(e: KeyboardEvent) {
-    let shift = e.shiftKey || e.altKey
+    let shift = e.shiftKey || e.altKey;
     if (shift) {
-      shiftKeydown(e)
-      return
-    } else if (e.key === 'ArrowUp') {
-      setMonth(month - 1)
-    } else if (e.key === 'ArrowDown') {
-      setMonth(month + 1)
-    } else if (e.key === 'ArrowLeft') {
-      setMonth(month - 1)
-    } else if (e.key === 'ArrowRight') {
-      setMonth(month + 1)
-    } else {
-      shiftKeydown(e)
-      return
+      shiftKeydown(e);
+      return;
+    } 
+    else if (e.key === "ArrowUp") {
+      setMonth(month - 1);
+    } 
+    else if (e.key === "ArrowDown") {
+      setMonth(month + 1);
+    } 
+    else if (e.key === "ArrowLeft") {
+      setMonth(month - 1);
+    } 
+    else if (e.key === "ArrowRight") {
+      setMonth(month + 1);
+    } 
+    else {
+      shiftKeydown(e);
+      return;
     }
-    e.preventDefault()
+    e.preventDefault();
   }
+
   function keydown(e: KeyboardEvent) {
-    let shift = e.shiftKey || e.altKey
-    if ((e.target as HTMLElement)?.tagName === 'SELECT') {
-      return
+    let shift = e.shiftKey || e.altKey;
+    if ((e.target as HTMLElement)?.tagName === "SELECT") {
+      return;
     }
     if (shift) {
-      shiftKeydown(e)
-      return
-    } else if (e.key === 'ArrowUp') {
+      shiftKeydown(e);
+      return;
+    } 
+    else if (e.key === "ArrowUp") {
       updateValue((value) => {
-        value.setDate(value.getDate() - 7)
-        return value
-      })
-    } else if (e.key === 'ArrowDown') {
+        value.setDate(value.getDate() - 7);
+        return value;
+      });
+    } 
+    else if (e.key === "ArrowDown") {
       updateValue((value) => {
-        value.setDate(value.getDate() + 7)
-        return value
-      })
-    } else if (e.key === 'ArrowLeft') {
+        value.setDate(value.getDate() + 7);
+        return value;
+      });
+    } 
+    else if (e.key === "ArrowLeft") {
       updateValue((value) => {
-        value.setDate(value.getDate() - 1)
-        return value
-      })
-    } else if (e.key === 'ArrowRight') {
+        value.setDate(value.getDate() - 1);
+        return value;
+      });
+    } 
+    else if (e.key === "ArrowRight") {
       updateValue((value) => {
-        value.setDate(value.getDate() + 1)
-        return value
-      })
-    } else {
-      return
+        value.setDate(value.getDate() + 1);
+        return value;
+      });
+    } 
+    else {
+      return;
     }
-    e.preventDefault()
+    e.preventDefault();
   }
 </script>
 
+
+<Label {label} forId={`fpcl-calendar-${componentId}`} />
 <div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
   <div class="tab-container" tabindex="-1">
     <div class="top">

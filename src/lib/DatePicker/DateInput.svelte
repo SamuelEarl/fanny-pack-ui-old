@@ -9,12 +9,16 @@
   import { parse, createFormat } from "./parse";
   import type { FormatToken } from "./parse";
   import Calendar from "./Calendar.svelte";
+  import Label from "../Labels/Label.svelte";
+  import { createId } from "../utils";
   import { theme } from "/src/theme";
 
+  export let label;
   export let size = "md";
   export let dateInputIcon = theme.dateInputIcon;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
+  let componentId = createId();
 
 
   /** Default date to display in input before value is assigned */
@@ -30,7 +34,8 @@
         if (d === null) {
           innerStore.set(null)
           value = d
-        } else if (d.getTime() !== $innerStore?.getTime()) {
+        } 
+        else if (d.getTime() !== $innerStore?.getTime()) {
           innerStore.set(d)
           value = d
         }
@@ -43,16 +48,17 @@
   $: store.set(value)
 
   /** The earliest value the user can select */
-  export let min = new Date(defaultDate.getFullYear() - 20, 0, 1);
+  let min = new Date(defaultDate.getFullYear() - 100, 0, 1);
   /** The latest value the user can select */
-  export let max = new Date(defaultDate.getFullYear(), 11, 31, 23, 59, 59, 999);
+  let max = new Date(defaultDate.getFullYear() + 100, 11, 31, 23, 59, 59, 999);
   /** Placeholder text to show when input field is empty */
-  export let placeholder = "2020-12-31 23:00:00";
+  export let placeholder = `${defaultDate} 23:00:00`;
   /** Whether the text is valid */
   export let valid = true;
 
   /** Format string */
-  export let format = "yyyy-MM-dd HH:mm:ss"
+  // export let format = "yyyy-MM-dd HH:mm:ss"
+  let format = "yyyy-MM-dd"
   let formatTokens = createFormat(format)
   $: formatTokens = createFormat(format)
 
@@ -64,9 +70,9 @@
   }
   $: valueUpdate($store, formatTokens)
 
-  export let text = toText($store, formatTokens)
-  let textHistory = [text, text]
-  $: textHistory = [textHistory[1], text]
+  export let text = toText($store, formatTokens);
+  let textHistory = [text, text];
+  $: textHistory = [textHistory[1], text];
 
   function textUpdate(text: string, formatTokens: FormatToken[]) {
     if (text.length) {
@@ -147,11 +153,12 @@
 </script>
 
 
+<Label {label} forId={`fpcl-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={hideCalendar} on:keydown={keydown}>
   <div class="{`date-input-container ${size}`}">
     <input
+      id={`fpcl-date-input-${componentId}`}
       class="{`date-input ${size}`}"
-      class:invalid={!valid}
       type="text"
       bind:value={text}
       {placeholder}
@@ -173,7 +180,6 @@
   </div>
   {#if visible}
     <div class="calendar-container" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
-
       <Calendar
         on:focusout={hideCalendar}
         on:select={handleSelection}
@@ -224,8 +230,8 @@
         border: none;
         margin: 0px;
         outline: none;
-        background-color: transparent;
-        color: var(--fpcl-date-picker-foreground, #000000);
+        background-color: var(--fpcl-date-input-bg-color, white);
+        color: var(--fpcl-date-input-text-color, inherit);
         /* min-width: 0px; */
         /* box-sizing: border-box; */
         transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -260,16 +266,6 @@
           padding: var(--fpcl-date-input-lg-padding, 15px);
         }
       }
-    }
-  }
-
-  .invalid {
-    border: 1px solid rgba(#f92f72, 0.5);
-    background-color: rgba(#f92f72, 0.1);
-
-    &:focus {
-      border-color: #f92f72;
-      box-shadow: 0px 0px 0px 2px rgba(#f92f72, 0.5);
     }
   }
 

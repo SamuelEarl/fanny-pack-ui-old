@@ -8,8 +8,9 @@
   <div id="component-links">
     <a href="/button" class:active={currentPath === "/button"}>Button</a>
     <a href="/date-picker" class:active={currentPath === "/date-picker"}>Date Picker</a>
-    <a href="/input-text" class:active={currentPath === "/input-text"}>Input (Text)</a>
-    <a href="/select" class:active={currentPath === "/select"}>Select</a>
+    <a href="/input-text" class:active={currentPath === "/input-text"}>Input (text)</a>
+    <a href="/select-multi" class:active={currentPath === "/select-multi"}>Select (multi)</a>
+    <a href="/select-single" class:active={currentPath === "/select-single"}>Select (single)</a>
   </div>
 </nav>
 

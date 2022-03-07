@@ -25,7 +25,7 @@ export function getLocaleDefaults(): InnerLocale {
       'November',
       'December',
     ],
-    weekStartsOn: 1,
+    weekStartsOn: 0,
   }
 }
 export function getInnerLocale(locale: Locale = {}): InnerLocale {
