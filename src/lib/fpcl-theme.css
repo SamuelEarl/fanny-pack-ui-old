@@ -136,11 +136,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-calendar-selected-date-border: var(--fpcl-global-border);
   --fpcl-calendar-selected-date-text-color: var(--fpcl-global-text-color);
   --fpcl-calendar-selected-date-bg-color: var(--fpcl-very-light-gray);
-  
   /* 
    * Width of the datepicker input field.
    * If you want the input field to span the entire width of its parent element, then you can set this value to auto (or "auto").
-   * Note that a minimum width constraint is placed on the date input field to keep the styling from breaking. So if you set this width to be less than 148px, then width will stay at 148px.
+   * Note that a minimum width constraint is placed on the date input field to keep the styling from breaking. So if you set this width to be less than 148px, then the width will stay at 148px.
   */
   --fpcl-date-input-width: 148px;
 }

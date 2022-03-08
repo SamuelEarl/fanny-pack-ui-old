@@ -154,7 +154,7 @@
 | `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
-| `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the README file for instructions on how to set the default value. There is a link on the home page. <br><br> You can pass an empty string to remove the button icon. |
+| `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. <br><br> You can pass an empty string to remove the button icon. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |

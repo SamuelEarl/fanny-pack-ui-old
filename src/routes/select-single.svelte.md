@@ -25,7 +25,7 @@
   optionsArray={arrayOfValues}  
   arrayType="string"
   bind:selectedOption={selectedValue}
-  size="medium"
+  size="md"
 />
 
 ```svelte
@@ -41,7 +41,7 @@
   optionsArray={arrayOfValues}  
   arrayType="string"
   bind:selectedOption={selectedValue}
-  size="medium"
+  size="md"
 />
 ```
 
@@ -54,7 +54,7 @@
   optionsArray={arrayOfObjects}
   arrayType="object"
   bind:selectedOption={selectedObject}
-  size="large"
+  size="lg"
 />
 
 Value of `selectedObject`: <code>{JSON.stringify(selectedObject)}</code>
@@ -76,7 +76,7 @@ Value of `selectedObject`: <code>{JSON.stringify(selectedObject)}</code>
   optionsArray={arrayOfObjects}
   arrayType="object"
   bind:selectedOption={selectedObject}
-  size="large"
+  size="lg"
 />
 ```
 
@@ -97,7 +97,7 @@ Note that if you pass an array of objects through the the `optionsArray` prop, t
 | `optionsArray` | `Array` | any array | NA | This should be an array of strings, numbers, or objects. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the `<option>` elements in the select box. |
 | `arrayType` | `string` | `string`, `number`, `boolean`, `object` | `string` | This prop indicates the data type of the array that is used in the select box. |
 | `bind:selectedOption` | `string`, `number`, `object` | any string, number, boolean, or object | NA<br><br>There is no default value for this prop. However, you should set `bind:selectedOption` to equal a value from the array that you pass to the `optionsArray` prop. The value that `bind:selectedOption` is equal to will be the default value displayed in the select box. | The option that the user selects from the select box will be bound to the `<select>` element and then passed to the backend when the form is submitted. You need to have a variable defined in the same component where this `<Select>` component is imported and that variable needs to be bound to the `<Select>` component with `bind:selectedOption={nameOfVariable}`.
-| `size` | `string` | `small`, `medium`, `large` | `medium` | This prop will set more or less padding for your select box to give the appearance of a larger or small select box. Note that the text size will remain the same for all sizes. |
+| `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for your select box to give the appearance of a larger or smaller select box. Note that the text size will remain the same for all sizes. |
 
 <br><br>
 

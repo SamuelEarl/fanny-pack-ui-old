@@ -7,7 +7,7 @@
   export let optionsArray;
   export let arrayType = "string";
   export let selectedOption;
-  export let size = "medium";
+  export let size = "md";
 
   let componentId = createId();
   let showSelectMenu = false;
@@ -137,13 +137,13 @@
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
-      &.small {
+      &.sm {
         padding: var(--fpcl-select-sm-padding);
       }
-      &.medium {
+      &.md {
         padding: var(--fpcl-select-md-padding);
       }
-      &.large {
+      &.lg {
         padding: var(--fpcl-select-lg-padding);
       }
 
@@ -215,13 +215,13 @@
         /* 
           Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-lg-padding)).
         */
-        &.small {
+        &.sm {
           padding: var(--fpcl-select-sm-padding);
         }
-        &.medium {
+        &.md {
           padding: var(--fpcl-select-md-padding);
         }
-        &.large {
+        &.lg {
           padding: var(--fpcl-select-lg-padding);
         }
       }

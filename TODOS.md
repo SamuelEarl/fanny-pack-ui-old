@@ -31,4 +31,4 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * UPDATE: I have removed the hours, minutes, and seconds from the Date object in the `parse.ts` file. I think I will keep it like this because I think it will be easier to work with a date object rather than a date string. 
     * NOTE: The formatting of a native date input is a string in this format: YYYY-MM-DD. But it would probably be easier to work with a Date object than a string if I need to do anything else with the date.
 * Finish styling and parameterizing the styles of the components for the date picker.
-* I haven't been able to figure out how to get the `locale` prop to work.
+* I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation.

@@ -52,7 +52,7 @@
   /** The latest value the user can select */
   let max = new Date(defaultDate.getFullYear() + 100, 11, 31, 23, 59, 59, 999);
   /** Placeholder text to show when input field is empty */
-  export let placeholder = `${defaultDate} 23:00:00`;
+  export let placeholder = "YYYY-MM-DD";
   /** Whether the text is valid */
   export let valid = true;
 
@@ -109,14 +109,14 @@
     }
   }
 
-  /** Whether the date popup is visible */
-  export let visible = false;
+  /** Show or hide the calendar */
+  export let showCalendar = false;
   /** Close the date popup when a date is selected */
-  export let closeOnSelection = false;
+  export let closeOnSelection = true;
 
   // handle on:focusout for parent element. If the parent element loses
-  // focus (e.g input element), visible is set to false
-  function hideCalendar(e: FocusEvent) {
+  // focus (e.g input element), showCalendar is set to false
+  function handleHideCalendar(e: FocusEvent) {
     if (
       e?.currentTarget instanceof HTMLElement &&
       e.relatedTarget &&
@@ -126,35 +126,35 @@
       return;
     } 
     else {
-      visible = false;
+      showCalendar = false;
     }
   }
 
   function keydown(e: KeyboardEvent) {
-    if (e.key === "Escape" && visible) {
-      visible = false
-      e.preventDefault()
+    if (e.key === "Escape" && showCalendar) {
+      showCalendar = false;
+      e.preventDefault();
       // When the calendar is open, we prevent "Escape" from propagating,
       // so for example a parent modal won't be closed
-      e.stopPropagation()
+      e.stopPropagation();
     } 
     else if (e.key === "Enter") {
-      visible = !visible
-      e.preventDefault()
+      showCalendar = !showCalendar;
+      e.preventDefault();
     }
   }
 
   function handleSelection(e: CustomEvent<undefined>) {
     dispatch("select", e.detail)
     if (closeOnSelection) {
-      visible = false
+      showCalendar = false;
     }
   }
 </script>
 
 
 <Label {label} forId={`fpcl-date-input-${componentId}`} />
-<div class="date-picker-container" on:focusout={hideCalendar} on:keydown={keydown}>
+<div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
   <div class="{`date-input-container ${size}`}">
     <input
       id={`fpcl-date-input-${componentId}`}
@@ -162,26 +162,26 @@
       type="text"
       bind:value={text}
       {placeholder}
-      on:focus={() => (visible = true)}
-      on:mousedown={() => (visible = true)}
+      on:focus={() => (showCalendar = true)}
+      on:mousedown={() => (showCalendar = true)}
       on:input={handleInput}
     />
     <!--
-      You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `hideCalendar`.
+      You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `handleHideCalendar`.
     -->
     <div
       class="{`date-input-btn ${size}`}"
       tabindex="-1"
-      on:click={() => visible = !visible}
+      on:click={() => showCalendar = !showCalendar}
     >
       <!-- Place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
       <Icon icon="{dateInputIcon}" width="20" height="20" />
     </div>
   </div>
-  {#if visible}
-    <div class="calendar-container" class:visible transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+  {#if showCalendar}
+    <div class="calendar-container" class:showCalendar transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
       <Calendar
-        on:focusout={hideCalendar}
+        on:focusout={handleHideCalendar}
         on:select={handleSelection}
         bind:value={$store}
         {min}
@@ -275,7 +275,7 @@
     margin-top: 1px;
     z-index: 10;
 
-    &.visible {
+    &.showCalendar {
       display: block;
     }
   }
