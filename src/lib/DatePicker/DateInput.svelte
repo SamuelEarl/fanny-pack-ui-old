@@ -205,6 +205,7 @@
       align-items: center;
       border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
       border-radius: var(--fpcl-date-picker-border-radius, 3px);
+      overflow: hidden;
 
       &:hover {
         box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
@@ -231,11 +232,11 @@
         /* The .date-input field's min-width is the same as the first variable in the calc() function above. */
         min-width: 85px;
         border: none;
-        border-radius: calc(var(--fpcl-date-picker-border-radius) - 1px) 0 0 calc(var(--fpcl-date-picker-border-radius) - 1px);
-        margin: 0px;
+        /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
+        border-radius: calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px);
         outline: none;
-        background-color: var(--fpcl-date-input-bg-color, white);
-        color: var(--fpcl-date-input-text-color, inherit);
+        background-color: var(--fpcl-date-picker-bg-color, white);
+        color: var(--fpcl-date-picker-text-color, inherit);
 
         &.sm {
           padding: var(--fpcl-date-input-sm-padding, 5px);
@@ -252,19 +253,19 @@
         display: flex;
         align-items: center;
         border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
-        border-radius: 0 calc(var(--fpcl-date-picker-border-radius) - 1px) calc(var(--fpcl-date-picker-border-radius) - 1px) 0;
+        border-radius: 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0;
         background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
         color: var(--fpcl-date-input-btn-icon-color, inherit);
         cursor: pointer;
 
         &.sm {
-          padding: var(--fpcl-date-input-sm-padding, 5px);
+          padding: calc(var(--fpcl-date-input-sm-padding, 5px) - 1px);
         }
         &.md {
-          padding: var(--fpcl-date-input-md-padding, 10px);
+          padding: calc(var(--fpcl-date-input-md-padding, 10px) - 1px);
         }
         &.lg {
-          padding: var(--fpcl-date-input-lg-padding, 15px);
+          padding: calc(var(--fpcl-date-input-lg-padding, 15px) - 1px);
         }
       }
     }

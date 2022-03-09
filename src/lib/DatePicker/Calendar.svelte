@@ -260,15 +260,14 @@
 <Label {label} forId={`fpcl-calendar-${componentId}`} />
 <div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
   <div class="top">
-    <button class="month-btn" tabindex="-1" on:click={() => setMonth(month - 1)}>
+    <button class="change-month-btn" tabindex="-1" on:click={() => setMonth(month - 1)}>
       &ltrif;
     </button>
     <div class="select-container month">
       <select bind:value={month} on:keydown={monthKeydown}>
         {#each iLocale.months as monthName, i}
           <option
-            disabled={new Date(year, i, getMonthLength(year, i), 23, 59, 59, 999) < min ||
-              new Date(year, i) > max}
+            disabled={new Date(year, i, getMonthLength(year, i)) < min || new Date(year, i) > max}
             value={i}>{monthName}</option
           >
         {/each}
@@ -281,7 +280,7 @@
         {/each}
       </select>
     </div>
-    <button class="month-btn" tabindex="-1" on:click={() => setMonth(month + 1)}>
+    <button class="change-month-btn" tabindex="-1" on:click={() => setMonth(month + 1)}>
       &rtrif;
     </button>
   </div>
@@ -334,9 +333,10 @@
       align-items: center;
       padding-bottom: 0.5rem;
 
-      & .month-btn {
-        outline: none;
+      & .change-month-btn {
+        padding: 2px 7px;
         border: none;
+        outline: none;
         background-color: transparent;
         font-size: 1.25rem;
         color: var(--fpcl-date-picker-text-color, inherit);
@@ -360,7 +360,6 @@
           /* Additional resets for further consistency */
           margin: 0;
           font-family: inherit;
-          font-size: inherit;
           outline: none;
 
           /* Add custom styles */
@@ -368,7 +367,7 @@
           padding: 0.35rem 0.5rem;
           border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
           border-radius: var(--fpcl-date-picker-border-radius, 3px);
-          line-height: 1.1;
+          font-size: 0.85rem;
           background-color: var(--fpcl-date-picker-bg-color, white);
           color: var(--fpcl-date-picker-text-color, inherit);
           cursor: pointer;
@@ -384,7 +383,7 @@
   .weekdays-header {
     display: flex;
     font-weight: 600;
-    padding-bottom: 2px;
+    padding-bottom: 3px;
 
     & .weekdays-header-cell {
       width: 1.875rem;
@@ -403,23 +402,25 @@
       width: 2rem;
       height: 1.94rem;
       flex-grow: 1;
+      border-width: var(--fpcl-global-border-width, 1px);
+      border-style: var(--fpcl-global-border-style, solid);
+      border-color: transparent;
       border-radius: var(--fpcl-date-picker-border-radius, 3px);
       box-sizing: border-box;
-      border: 2px solid transparent;
 
       &:hover {
-        border: 1px solid rgba(#808080, 0.08);
-        background-color: rgba(#808080, 0.08);
+        border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
         cursor: pointer;
       }
 
       &.disabled {
         visibility: hidden;
-      }
+        cursor: default;
 
-      &.disabled:hover {
-        border: none;
-        background-color: transparent;
+        &:hover {
+          border: none;
+          background-color: transparent;
+        }
       }
 
       &.other-month span {
@@ -427,9 +428,9 @@
       }
 
       &.selected {
-        color: var(--fpcl-calendar-selected-date-text-color, inherit);
-        background: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
         border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
+        color: var(--fpcl-calendar-selected-date-text-color, inherit);
+        background-color: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
       }
     }
   }

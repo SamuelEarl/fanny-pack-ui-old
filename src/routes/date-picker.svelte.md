@@ -27,8 +27,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
   label="Set a date"
   size="md"
   showCalendar={false}
-  min={new Date(2021, 0, 1)}
-  max={new Date(2023, 11, 31)}
+  min={new Date(2022, 2, 5)}
+  max={new Date(2023, 4, 15)}
   closeOnSelection={true}
   placeholder="Enter a date"
   dateInputIcon="mdi:calendar"
@@ -53,8 +53,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
   label="Set a date"
   size="md"
   showCalendar={false}
-  min={new Date(2021, 0, 1)}
-  max={new Date(2023, 11, 31)}
+  min={new Date(2022, 2, 5)}
+  max={new Date(2023, 4, 15)}
   closeOnSelection={true}
   placeholder="Enter a date"
   dateInputIcon="mdi:calendar"
@@ -80,8 +80,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
 <Calendar
   bind:value={date}
   label="Select a date"
-  min={new Date(2021, 0, 1)}
-  max={new Date(2023, 11, 31)}
+  min={new Date(2022, 2, 5)}
+  max={new Date(2023, 4, 15)}
 />
 
 ```svelte
@@ -94,8 +94,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
 <Calendar
   bind:value={date}
   label="Select a date"
-  min={new Date(2021, 0, 1)}
-  max={new Date(2023, 11, 31)}
+  min={new Date(2022, 2, 5)}
+  max={new Date(2023, 4, 15)}
 />
 ```
 
@@ -105,7 +105,7 @@ NOTE: The code for this component was taken from this great <a href="https://git
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `value` | `Date` or `null` (`null` if the input field is empty) | any date | You can define `let date = new Date();` and today's date will be the default value. | The selected date. |
-| `valid`<br>(`<DateInput />` only, optional) | `boolean` | `true`, `false` | `false` | This prop indicates whether the text that has been entered into the input field is a valid date and/or is formatted correctly. |
+| `valid`<br>(`<DateInput />` only, optional) | `boolean` | `true`, `false` | `false` | This prop indicates whether the text that has been entered into the input field is a valid date and/or is formatted correctly.<br><br>It would probably be preferable to run all your validations through a validation library, like Yup. |
 | `label`<br>(optional) | `string` | any string | NA | The text for the `<label>` element. If this prop is not provided, then no label will be displayed. |
 | `size`<br>(`<DateInput />` only) | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. Note that the text size will remain the same for all sizes. |
 | `showCalendar`<br>(`<DateInput />` only) | `boolean` | `true`, `false` | `false` | This prop will allow you to either show or hide the calendar. If you are using the `<DateInput />` component, then clicking the button will toggle the calendar to be shown or hidden. |

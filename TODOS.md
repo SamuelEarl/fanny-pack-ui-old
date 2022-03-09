@@ -25,15 +25,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
 
 ## Date Picker
-* NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
-* I have removed the validation CSS styles and allowed the user to reference a `valid` prop from the component. However, I might want to run all validations through a validation library, like Yup.
-* COMPLETE: Right now the `value` of this date picker is a JavaScript Date object that includes hours, minutes, and seconds. But I only want this to be a date picker, so I want to remove the `format` prop and all time properties from the date object. Working with a date object would make it easier to work with the date value if I need to do any other formatting.
-    * UPDATE: I have removed the hours, minutes, and seconds from the Date object in the `parse.ts` file. I think I will keep it like this because I think it will be easier to work with a date object rather than a date string. 
-    * NOTE: The formatting of a native date input is a string in this format: YYYY-MM-DD. But it would probably be easier to work with a Date object than a string if I need to do anything else with the date.
-* Finish styling and parameterizing the styles of the components for the date picker.
-    * The DateInput component is done. Now I need to finish the Calendar component.
-        * Work through the CSS in the Calendar component and make sure that the things that can be parameterized are.
-        * The HTML in this component looks like it was over-engineered. I have cleaned up a lot of the HTML, but I still need to remove dead CSS styles.
-        * Test that the CSS variables have been correctly applied by changing the values in the `fpcl-theme.css` file and checking how those styles get changed.
+* Write tests.
+    * NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
 * Look at https://fluent-svelte.vercel.app/docs/components/calendarview from some other feature ideas.
-* I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation.
+* I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation after I get it figured out.
