@@ -47,7 +47,7 @@
 
     & #title-wrapper {
       padding: 15px;
-      border-bottom: 1px solid var(--fpcl-gray);
+      border-bottom: 1px solid var(--fpcl-black);
       margin-bottom: 15px;
       font-size: 1.2rem;
       line-height: 1.5;
