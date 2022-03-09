@@ -1,5 +1,5 @@
 <svelte:head>
-	<title>Fanny Pack Component Library (fpcl) | Components built with and for SvelteKit</title>
+	<title>Fanny Pack Component Library | Components built with and for SvelteKit</title>
 </svelte:head>
 
 <div class="layout">

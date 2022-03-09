@@ -42,14 +42,15 @@
 <style>
   nav {
     height: 100%;
-    padding-top: 20px;
     background-color: var(--fpcl-secondary);
     color: var(--fpcl-tertiary);
 
     & #title-wrapper {
       padding: 15px;
-      padding-top: 0;
+      border-bottom: 1px solid var(--fpcl-gray);
+      margin-bottom: 15px;
       font-size: 1.2rem;
+      line-height: 1.5;
       font-weight: bold;
     }
 
