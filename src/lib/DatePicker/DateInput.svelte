@@ -231,6 +231,7 @@
         /* The .date-input field's min-width is the same as the first variable in the calc() function above. */
         min-width: 85px;
         border: none;
+        border-radius: calc(var(--fpcl-date-picker-border-radius) - 1px) 0 0 calc(var(--fpcl-date-picker-border-radius) - 1px);
         margin: 0px;
         outline: none;
         background-color: var(--fpcl-date-input-bg-color, white);
@@ -251,7 +252,7 @@
         display: flex;
         align-items: center;
         border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
-        border-radius: 0 calc(var(--fpcl-date-picker-border-radius) - 3px) calc(var(--fpcl-date-picker-border-radius) - 3px) 0;
+        border-radius: 0 calc(var(--fpcl-date-picker-border-radius) - 1px) calc(var(--fpcl-date-picker-border-radius) - 1px) 0;
         background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
         color: var(--fpcl-date-input-btn-icon-color, inherit);
         cursor: pointer;
@@ -284,7 +285,8 @@
       border-top: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
       border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
       border-radius: 4px 0 0 0;
-      margin: 0 0 -5px 10px;
+      /* Center the triangle along the top of the calendar. This is necessary  */
+      margin: 0 auto -5px auto;
       background-color: var(--fpcl-date-picker-bg-color, white);
       transform: rotate(45deg);
       z-index: 100;
