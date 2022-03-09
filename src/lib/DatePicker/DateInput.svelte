@@ -26,26 +26,26 @@
 
   // inner date value store for preventing value updates (and also
   // text updates as a result) when date is unchanged
-  const innerStore: Writable<Date | null> = writable(null)
+  const innerStore: Writable<Date | null> = writable(null);
   const store = (() => {
     return {
       subscribe: innerStore.subscribe,
       set: (d: Date | null) => {
         if (d === null) {
-          innerStore.set(null)
-          value = d
+          innerStore.set(null);
+          value = d;
         } 
         else if (d.getTime() !== $innerStore?.getTime()) {
-          innerStore.set(d)
-          value = d
+          innerStore.set(d);
+          value = d;
         }
       },
     }
-  })()
+  })();
 
   /** Date value */
-  export let value: Date | null = null
-  $: store.set(value)
+  export let value: Date | null = null;
+  $: store.set(value);
 
   /** The earliest value the user can select */
   let min = new Date(defaultDate.getFullYear() - 100, 0, 1);
@@ -54,21 +54,21 @@
   /** Placeholder text to show when input field is empty */
   export let placeholder = "YYYY-MM-DD";
   /** Whether the text is valid */
-  export let valid = true;
+  export let valid = false;
 
   /** Format string */
-  // export let format = "yyyy-MM-dd HH:mm:ss"
-  let format = "yyyy-MM-dd"
-  let formatTokens = createFormat(format)
-  $: formatTokens = createFormat(format)
+  // export let format = "yyyy-MM-dd HH:mm:ss";
+  let format = "yyyy-MM-dd";
+  let formatTokens = createFormat(format);
+  $: formatTokens = createFormat(format);
 
   /** Locale object for internationalization */
-  export let locale: Locale = {}
+  export let locale: Locale = {};
 
   function valueUpdate(value: Date | null, formatTokens: FormatToken[]) {
-    text = toText(value, formatTokens)
+    text = toText(value, formatTokens);
   }
-  $: valueUpdate($store, formatTokens)
+  $: valueUpdate($store, formatTokens);
 
   export let text = toText($store, formatTokens);
   let textHistory = [text, text];
@@ -76,23 +76,25 @@
 
   function textUpdate(text: string, formatTokens: FormatToken[]) {
     if (text.length) {
-      const result = parse(text, formatTokens, $store)
+      const result = parse(text, formatTokens, $store);
       if (result.date !== null) {
-        valid = true
-        store.set(result.date)
-      } else {
-        valid = false
+        valid = true;
+        store.set(result.date);
+      } 
+      else {
+        valid = false;
       }
-    } else {
-      valid = true // <-- empty string is always valid
+    } 
+    else {
+      valid = true; // <-- empty string is always valid
       // value resets to null if you clear the field
       if (value) {
-        value = null
-        store.set(null)
+        value = null;
+        store.set(null);
       }
     }
   }
-  $: textUpdate(text, formatTokens)
+  $: textUpdate(text, formatTokens);
 
   function handleInput(e: unknown) {
     if (
@@ -180,6 +182,7 @@
   </div>
   {#if showCalendar}
     <div class="calendar-container" class:showCalendar transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+      <div class="triangle-up"></div>
       <Calendar
         on:focusout={handleHideCalendar}
         on:select={handleSelection}
@@ -200,8 +203,8 @@
       width: var(--fpcl-date-input-width, 148px);
       display: flex;
       align-items: center;
-      border: var(--fpcl-date-input-border);
-      border-radius: var(--fpcl-date-input-radius);
+      border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+      border-radius: var(--fpcl-date-picker-border-radius, 3px);
 
       &:hover {
         box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
@@ -232,9 +235,6 @@
         outline: none;
         background-color: var(--fpcl-date-input-bg-color, white);
         color: var(--fpcl-date-input-text-color, inherit);
-        /* min-width: 0px; */
-        /* box-sizing: border-box; */
-        transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
 
         &.sm {
           padding: var(--fpcl-date-input-sm-padding, 5px);
@@ -250,8 +250,8 @@
       & .date-input-btn {
         display: flex;
         align-items: center;
-        border-left: var(--fpcl-date-input-border);
-        border-radius: 0 calc(var(--fpcl-date-input-radius) - 3px) calc(var(--fpcl-date-input-radius) - 3px) 0;
+        border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+        border-radius: 0 calc(var(--fpcl-date-picker-border-radius) - 3px) calc(var(--fpcl-date-picker-border-radius) - 3px) 0;
         background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
         color: var(--fpcl-date-input-btn-icon-color, inherit);
         cursor: pointer;
@@ -270,13 +270,24 @@
   }
 
   .calendar-container {
-    display: none;
     position: absolute;
-    margin-top: 1px;
+    margin-top: 2px;
     z-index: 10;
 
     &.showCalendar {
       display: block;
+    }
+
+    & .triangle-up {
+      width: 10px;
+      height: 10px;
+      border-top: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+      border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+      border-radius: 4px 0 0 0;
+      margin: 0 0 -5px 10px;
+      background-color: var(--fpcl-date-picker-bg-color, white);
+      transform: rotate(45deg);
+      z-index: 100;
     }
   }
 </style>

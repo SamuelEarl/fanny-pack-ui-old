@@ -259,265 +259,178 @@
 
 <Label {label} forId={`fpcl-calendar-${componentId}`} />
 <div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
-  <div class="tab-container" tabindex="-1">
-    <div class="top">
-      <div class="page-button" tabindex="-1" on:click={() => setMonth(month - 1)}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          ><path
-            d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z"
-            transform="rotate(180, 12, 12)"
-          /></svg
-        >
-      </div>
-      <div class="dropdown month">
-        <select bind:value={month} on:keydown={monthKeydown}>
-          {#each iLocale.months as monthName, i}
-            <option
-              disabled={new Date(year, i, getMonthLength(year, i), 23, 59, 59, 999) < min ||
-                new Date(year, i) > max}
-              value={i}>{monthName}</option
-            >
-          {/each}
-        </select>
-        <!--
-          Here we have use `select.dummy-select` for showing just the <select> button. This
-          is to style the <select> button without affecting the menu popup
-          - `option { color: initial }` causes invisible menu in dark mode on Firefox
-          - `option { color: initial; background-color: initial }` causes invisible menu in Chrome
-          - `select { background-color: $bg; color: $text }` causes white scrollbar in dark mode on Firefox
-        -->
-        <select class="dummy-select" tabindex="-1">
-          {#each iLocale.months as monthName, i}
-            <option value={i} selected={i === month}>{monthName}</option>
-          {/each}
-        </select>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          ><path d="M6 0l12 12-12 12z" transform="rotate(90, 12, 12)" /></svg
-        >
-      </div>
-      <div class="dropdown year">
-        <select bind:value={year} on:keydown={yearKeydown}>
-          {#each years as v}
-            <option value={v}>{v}</option>
-          {/each}
-        </select>
-        <!-- style <select> button without affecting menu popup -->
-        <select class="dummy-select" tabindex="-1">
-          {#each years as v}
-            <option value={v} selected={v === year}>{v}</option>
-          {/each}
-        </select>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          ><path d="M6 0l12 12-12 12z" transform="rotate(90, 12, 12)" /></svg
-        >
-      </div>
-      <div class="page-button" tabindex="-1" on:click={() => setMonth(month + 1)}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-          ><path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" /></svg
-        >
-      </div>
-    </div>
-    <div class="header">
-      {#each Array(7) as _, i}
-        {#if i + iLocale.weekStartsOn < 7}
-          <div class="header-cell">{iLocale.weekdays[iLocale.weekStartsOn + i]}</div>
-        {:else}
-          <div class="header-cell">{iLocale.weekdays[iLocale.weekStartsOn + i - 7]}</div>
-        {/if}
-      {/each}
-    </div>
-    {#each Array(6) as _, weekIndex}
-      <div class="week">
-        {#each calendarDays.slice(weekIndex * 7, weekIndex * 7 + 7) as calendarDay}
-          <div
-            class="cell"
-            on:click={() => selectDay(calendarDay)}
-            class:disabled={!dayIsInRange(calendarDay, min, max)}
-            class:selected={calendarDay.month === month && calendarDay.number === dayOfMonth}
-            class:other-month={calendarDay.month !== month}
+  <div class="top">
+    <button class="month-btn" tabindex="-1" on:click={() => setMonth(month - 1)}>
+      &ltrif;
+    </button>
+    <div class="select-container month">
+      <select bind:value={month} on:keydown={monthKeydown}>
+        {#each iLocale.months as monthName, i}
+          <option
+            disabled={new Date(year, i, getMonthLength(year, i), 23, 59, 59, 999) < min ||
+              new Date(year, i) > max}
+            value={i}>{monthName}</option
           >
-            <span>{calendarDay.number}</span>
-          </div>
         {/each}
-      </div>
+      </select>
+    </div>
+    <div class="select-container year">
+      <select bind:value={year} on:keydown={yearKeydown}>
+        {#each years as v}
+          <option value={v}>{v}</option>
+        {/each}
+      </select>
+    </div>
+    <button class="month-btn" tabindex="-1" on:click={() => setMonth(month + 1)}>
+      &rtrif;
+    </button>
+  </div>
+  <div class="weekdays-header">
+    {#each Array(7) as _, i}
+      {#if i + iLocale.weekStartsOn < 7}
+        <div class="weekdays-header-cell">{iLocale.weekdays[iLocale.weekStartsOn + i]}</div>
+      {:else}
+        <div class="weekdays-header-cell">{iLocale.weekdays[iLocale.weekStartsOn + i - 7]}</div>
+      {/if}
     {/each}
   </div>
+  {#each Array(6) as _, weekIndex}
+    <div class="week">
+      {#each calendarDays.slice(weekIndex * 7, weekIndex * 7 + 7) as calendarDay}
+        <div
+          class="date"
+          on:click={() => selectDay(calendarDay)}
+          class:disabled={!dayIsInRange(calendarDay, min, max)}
+          class:selected={calendarDay.month === month && calendarDay.number === dayOfMonth}
+          class:other-month={calendarDay.month !== month}
+        >
+          <span>{calendarDay.number}</span>
+        </div>
+      {/each}
+    </div>
+  {/each}
 </div>
 
 <style>
   .calendar-container {
     display: inline-block;
-    color: var(--fpcl-date-picker-text-color, #000000);
-    background: var(--fpcl-date-picker-bg-color, #ffffff);
+    padding: 5px;
+    border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+    border-radius: var(--fpcl-date-picker-border-radius, 3px);
+    background: var(--fpcl-date-picker-bg-color, white);
+    color: var(--fpcl-date-picker-text-color, inherit);
     user-select: none;
     -webkit-user-select: none;
-    padding: 0.5rem;
     cursor: default;
     font-size: 0.75rem;
-    border: var(--fpcl-calendar-border, 1px solid #c7c7c7);
-    border-radius: var(--fpcl-calendar-border-radius, 3px);
-    outline: none;
-    transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
 
     &:hover {
       box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
     }
-  }
 
-  .tab-container {
-    outline: none;
-  }
+    & .top {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: 0.5rem;
 
-  .top {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 0.5rem;
-  }
+      & .month-btn {
+        outline: none;
+        border: none;
+        background-color: transparent;
+        font-size: 1.25rem;
+        color: var(--fpcl-date-picker-text-color, inherit);
+        flex-shrink: 0;
+        box-sizing: border-box;
+        cursor: pointer;
+      }
 
-  .dropdown {
-    margin-left: 0.25rem;
-    margin-right: 0.25rem;
-    position: relative;
-    display: flex;
+      /* 
+        Customize select element styles:
+        * https://www.w3schools.com/howto/howto_custom_select.asp
+        * https://moderncss.dev/custom-select-styles-with-pure-css/
+      */
+      & .select-container {
+        position: relative;
+        margin: 0 4px;
 
-    & svg {
-      position: absolute;
-      right: 0px;
-      top: 0px;
-      height: 100%;
-      width: 8px;
-      padding: 0rem 0.5rem;
-      pointer-events: none;
+        & select {
+          /* A reset of styles, including removing the default dropdown arrow */
+          appearance: none;
+          /* Additional resets for further consistency */
+          margin: 0;
+          font-family: inherit;
+          font-size: inherit;
+          outline: none;
+
+          /* Add custom styles */
+          width: 100%;
+          padding: 0.35rem 0.5rem;
+          border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+          border-radius: var(--fpcl-date-picker-border-radius, 3px);
+          line-height: 1.1;
+          background-color: var(--fpcl-date-picker-bg-color, white);
+          color: var(--fpcl-date-picker-text-color, inherit);
+          cursor: pointer;
+        }
+
+        &.month, &.year {
+          flex-grow: 1;
+        }
+      }
     }
   }
 
-  .month {
-    flex-grow: 1;
-  }
-
-  .year {
-    flex-grow: 1;
-  }
-
-  svg {
-    display: block;
-    fill: var(--fpcl-date-picker-text-color, #000000);
-    opacity: 0.75;
-    outline: none;
-  }
-
-  .page-button {
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    box-sizing: border-box;
-    border: 1px solid transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    &:hover {
-      background-color: rgba(#808080, 0.08);
-      border: 1px solid rgba(#808080, 0.08);
-      cursor: pointer;
-    }
-
-    & svg {
-      width: 0.68rem;
-      height: 0.68rem;
-    }
-  }
-
-  select.dummy-select {
-    position: absolute;
-    width: 100%;
-    pointer-events: none;
-    outline: none;
-    color: var(--fpcl-date-picker-text-color, #000000);
-    background-color: var(--fpcl-date-picker-bg-color, #ffffff);
-    border-radius: var(--fpcl-calendar-border-radius, 3px);
-  }
-  
-  select:focus + select.dummy-select {
-    border-color: var(--fpcl-calendar-selected-date-border, #0269f7);
-  }
-
-  select:not(.dummy-select) {
-    border-radius: 100px;
-  }
-
-  select {
-    height: 1.5rem;
-    padding: 0rem 0.35rem;
-    padding-right: 1.3rem;
-    border: var(--fpcl-calendar-border, 1px solid #c7c7c7);
-    border-radius: var(--fpcl-calendar-border-radius, 3px);
-    margin: 0px;
-    outline: none;
-    font-size: inherit;
-    font-family: inherit;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    flex-grow: 1;
-    transition: all 80ms cubic-bezier(0.4, 0.0, 0.2, 1);
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .header {
+  .weekdays-header {
     display: flex;
     font-weight: 600;
     padding-bottom: 2px;
-  }
 
-  .header-cell {
-    width: 1.875rem;
-    text-align: center;
-    flex-grow: 1;
+    & .weekdays-header-cell {
+      width: 1.875rem;
+      text-align: center;
+      flex-grow: 1;
+    }
   }
 
   .week {
     display: flex;
-  }
 
-  .cell {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2rem;
-    height: 1.94rem;
-    flex-grow: 1;
-    border-radius: var(--fpcl-calendar-border-radius, 3px);
-    box-sizing: border-box;
-    border: 2px solid transparent;
+    & .date {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 1.94rem;
+      flex-grow: 1;
+      border-radius: var(--fpcl-date-picker-border-radius, 3px);
+      box-sizing: border-box;
+      border: 2px solid transparent;
 
-    &:hover {
-      border: 1px solid rgba(#808080, 0.08);
-      background-color: rgba(#808080, 0.08);
-      cursor: pointer;
-    }
+      &:hover {
+        border: 1px solid rgba(#808080, 0.08);
+        background-color: rgba(#808080, 0.08);
+        cursor: pointer;
+      }
 
-    &.disabled {
-      visibility: hidden;
-    }
+      &.disabled {
+        visibility: hidden;
+      }
 
-    &.disabled:hover {
-      border: none;
-      background-color: transparent;
-    }
+      &.disabled:hover {
+        border: none;
+        background-color: transparent;
+      }
 
-    &.other-month span {
-      opacity: 0.4;
-    }
+      &.other-month span {
+        opacity: 0.4;
+      }
 
-    &.selected {
-      color: var(--fpcl-calendar-selected-date-text-color, inherit);
-      background: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
-      border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
+      &.selected {
+        color: var(--fpcl-calendar-selected-date-text-color, inherit);
+        background: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
+        border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
+      }
     }
   }
 </style>

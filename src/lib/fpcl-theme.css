@@ -118,6 +118,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Date Picker */
 :root {
+  --fpcl-date-picker-border: var(--fpcl-global-border);
+  --fpcl-date-picker-border-radius: var(--fpcl-global-radius);
   --fpcl-date-picker-box-shadow: var(--fpcl-global-box-shadow-md);
   --fpcl-date-picker-text-color: var(--fpcl-global-text-color);
   --fpcl-date-picker-bg-color: var(--fpcl-white);
@@ -125,14 +127,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-date-input-sm-padding: var(--fpcl-global-padding-sm);
   --fpcl-date-input-md-padding: var(--fpcl-global-padding-md);
   --fpcl-date-input-lg-padding: var(--fpcl-global-padding-lg);
-  --fpcl-date-input-border: var(--fpcl-global-border);
-  --fpcl-date-input-radius: var(--fpcl-global-radius);
   --fpcl-date-input-bg-color: var(--fpcl-white);
   --fpcl-date-input-text-color: var(--fpcl-global-text-color);
   --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
   --fpcl-date-input-btn-icon-color: inherit;
-  --fpcl-calendar-border: var(--fpcl-global-border);
-  --fpcl-calendar-border-radius: var(--global-radius);
   --fpcl-calendar-selected-date-border: var(--fpcl-global-border);
   --fpcl-calendar-selected-date-text-color: var(--fpcl-global-text-color);
   --fpcl-calendar-selected-date-bg-color: var(--fpcl-very-light-gray);
