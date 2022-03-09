@@ -27,6 +27,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
   label="Set a date"
   size="md"
   showCalendar={false}
+  min={new Date(2021, 0, 1)}
+  max={new Date(2023, 11, 31)}
   closeOnSelection={true}
   placeholder="Enter a date"
   dateInputIcon="mdi:calendar"
@@ -51,6 +53,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
   label="Set a date"
   size="md"
   showCalendar={false}
+  min={new Date(2021, 0, 1)}
+  max={new Date(2023, 11, 31)}
   closeOnSelection={true}
   placeholder="Enter a date"
   dateInputIcon="mdi:calendar"
@@ -76,6 +80,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
 <Calendar
   bind:value={date}
   label="Select a date"
+  min={new Date(2021, 0, 1)}
+  max={new Date(2023, 11, 31)}
 />
 
 ```svelte
@@ -88,6 +94,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
 <Calendar
   bind:value={date}
   label="Select a date"
+  min={new Date(2021, 0, 1)}
+  max={new Date(2023, 11, 31)}
 />
 ```
 
@@ -101,6 +109,8 @@ NOTE: The code for this component was taken from this great <a href="https://git
 | `label`<br>(optional) | `string` | any string | NA | The text for the `<label>` element. If this prop is not provided, then no label will be displayed. |
 | `size`<br>(`<DateInput />` only) | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. Note that the text size will remain the same for all sizes. |
 | `showCalendar`<br>(`<DateInput />` only) | `boolean` | `true`, `false` | `false` | This prop will allow you to either show or hide the calendar. If you are using the `<DateInput />` component, then clicking the button will toggle the calendar to be shown or hidden. |
+| `min` | `Date` | any Date with `year`, `month`, and `day` arguments | 01 Jan, 10 years before the current year. | This prop defines the earliest date that a user can select. |
+| `max` | `Date` | any Date with `year`, `month`, and `day` arguments | 31 Dec, 10 years after the current year. | This prop defines the latest date that a user can select. |
 | `closeOnSelection`<br>(`<DateInput />` only) | `boolean` | `true`, `false` | `true` | Close the calendar when a date is selected. |
 | `locale`<br>(optional) | | | | See the docs for <a href="https://date-picker-svelte.kasper.space/docs" class="underline primary">date-picker-svelte</a>.<br><br>NOTE: The `weekStartsOn` property represents the day that the week starts on. `0` = Sunday. The default value in this component is `0`. |
 | `placeholder`<br>(`<DateInput />` only) | `string` | any string | `YYYY-MM-DD` | This prop will act as the placeholder when the date value is null (i.e. when the input field is empty). | 

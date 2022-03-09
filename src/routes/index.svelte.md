@@ -6,15 +6,15 @@
 <div id="home">
   <div id="img-container">
     <img src={Logo} alt="Fanny Pack Logo" />
-
-    **Components built with and for SvelteKit**
   </div>
-
-  ## View Docs
-  A live docs website on GitHub pages...
-
-  In a local dev environment, run `npm run dev` and visit `http://localhost:3000`.
 </div>
+
+---
+
+# Fanny Pack Component Library (fpcl)
+Themable component library for SvelteKit designed for responsiveness and with accessibility in mind (following the guidelines from W3.org's <a href="https://www.w3.org/TR/html-aria/#docconformance" class="underline primary">ARIA in HTML</a> page).
+
+This is not a UI kit or UI framework because we do not provide layout elements. Instead, we let you layout your pages the way you want and then you can throw whatever components you need into your pages.
 
 
 <style>

@@ -22,7 +22,7 @@
 
 
   /** Default date to display in input before value is assigned */
-  const defaultDate = new Date();
+  const currentDate = new Date();
 
   // inner date value store for preventing value updates (and also
   // text updates as a result) when date is unchanged
@@ -48,9 +48,9 @@
   $: store.set(value);
 
   /** The earliest value the user can select */
-  let min = new Date(defaultDate.getFullYear() - 100, 0, 1);
+  export let min = new Date(currentDate.getFullYear() - 10, 0, 1);
   /** The latest value the user can select */
-  let max = new Date(defaultDate.getFullYear() + 100, 11, 31, 23, 59, 59, 999);
+  export let max = new Date(currentDate.getFullYear() + 10, 11, 31);
   /** Placeholder text to show when input field is empty */
   export let placeholder = "YYYY-MM-DD";
   /** Whether the text is valid */

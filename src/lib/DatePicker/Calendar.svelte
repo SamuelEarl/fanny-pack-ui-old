@@ -7,7 +7,7 @@
   import Label from "../Labels/Label.svelte";
   import { createId } from "../utils";
 
-  export let label;
+  export let label = "";
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
   let componentId = createId();
@@ -42,9 +42,9 @@
   }
 
   /** The earliest year the user can select */
-  let min = new Date(defaultDate.getFullYear() - 100, 0, 1);
+  export let min = new Date(defaultDate.getFullYear() - 10, 0, 1);
   /** The latest year the user can select */
-  let max = new Date(defaultDate.getFullYear() + 100, 11, 31, 23, 59, 59, 999);
+  export let max = new Date(defaultDate.getFullYear() + 10, 11, 31);
   
   let years = getYears(min, max);
   $: years = getYears(min, max);

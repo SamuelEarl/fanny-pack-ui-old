@@ -35,4 +35,5 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
         * Work through the CSS in the Calendar component and make sure that the things that can be parameterized are.
         * The HTML in this component looks like it was over-engineered. I have cleaned up a lot of the HTML, but I still need to remove dead CSS styles.
         * Test that the CSS variables have been correctly applied by changing the values in the `fpcl-theme.css` file and checking how those styles get changed.
+* Look at https://fluent-svelte.vercel.app/docs/components/calendarview from some other feature ideas.
 * I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation.
