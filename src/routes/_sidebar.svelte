@@ -12,20 +12,26 @@
   </div>
   <div class="section-heading">Components</div>
   <div class="nav-links">
-    <a href="/button" class:active={currentPath === "/button"}>
+    <a href="/components/button" class:active={currentPath === "/button"}>
       <Icon icon="ic:outline-rectangle" /> &nbsp; Button
     </a>
-    <a href="/date-picker" class:active={currentPath === "/date-picker"}>
+    <a href="/components/date-picker" class:active={currentPath === "/date-picker"}>
       <Icon icon="mdi:calendar" /> &nbsp; Date Picker
     </a>
-    <a href="/input-text" class:active={currentPath === "/input-text"}>
+    <a href="/components/input-text" class:active={currentPath === "/input-text"}>
       <Icon icon="iconoir:input-field" /> &nbsp; Input (text)
     </a>
-    <a href="/select-multi" class:active={currentPath === "/select-multi"}>
+    <a href="/components/select-multi" class:active={currentPath === "/select-multi"}>
       <Icon icon="icon-park-outline:list-checkbox" /> &nbsp; Select (multi)
     </a>
-    <a href="/select-single" class:active={currentPath === "/select-single"}>
+    <a href="/components/select-single" class:active={currentPath === "/select-single"}>
       <Icon icon="mdi:form-select" /> &nbsp; Select (single)
+    </a>
+  </div>
+  <div class="section-heading">Data Viz</div>
+  <div class="nav-links">
+    <a href="/data-viz/bar-chart" class:active={currentPath === "/data-viz/bar-chart"}>
+      <Icon icon="bi:bar-chart" /> &nbsp; Bar Chart
     </a>
   </div>
 </nav>
