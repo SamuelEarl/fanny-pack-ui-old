@@ -2,6 +2,7 @@
   import { createId } from "../utils";
   import Label from "../Labels/Label.svelte";
 
+  export let value = "";
   export let label = "";
   export let width = "full";
   export let placeholder = "";
@@ -14,6 +15,7 @@
 <Label {label} forId={`fpcl-input-${componentId}`} />
 <input
   type="text"
+  bind:value={value}
   id={`fpcl-input-${componentId}`}
   class="{`${width}-width`}"
   placeholder={placeholder}
