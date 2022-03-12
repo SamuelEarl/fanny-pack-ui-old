@@ -21,6 +21,9 @@
     <a href="/components/input-text" class:active={currentPath === "/input-text"}>
       <Icon icon="iconoir:input-field" /> &nbsp; Input (text)
     </a>
+    <a href="/components/input-currency" class:active={currentPath === "/input-currency"}>
+      <Icon icon="mdi:currency-usd" /> &nbsp; Input (currency)
+    </a>
     <a href="/components/select-multi" class:active={currentPath === "/select-multi"}>
       <Icon icon="icon-park-outline:list-checkbox" /> &nbsp; Select (multi)
     </a>
