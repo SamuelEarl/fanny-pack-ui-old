@@ -39,7 +39,7 @@
    */
   async function unfocus(event) {
     // NOTE: `event.keyCode` is deprecated. Use `event.key` instead. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key.
-    if (event.type === "blur" || event.key === "Enter" || event.key === "Escape") {
+    if (event.type === "blur" || event.key === "Enter" || event.key === "Escape" || event.key === "Tab") {
       // If a user deletes the number in the "number" input field and does not enter another number in its place, then `value` will be `null`. The `formatValue()` function will format `null` to be `$0.00`, so it will appear to be a valid value to the user. However, since `value` is actually `null` there could be negative consequences when `value` gets passed to another part of the app or saved to the database. To prevent any possible problems, the following `if` statement will set any values that are either `null` or `undefined` back to their default value of 0.
       // Also, if a user enters a negative value, then the following `if` statement will reset `value` to its default value of 0.
       if (value === null || value === undefined || value < 0) {

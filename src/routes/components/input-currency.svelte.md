@@ -2,6 +2,9 @@
   import { CurrencyInput } from "/src/lib";
 
   let amount = 0;
+  let amount1 = 0;
+  let amount2 = 0;
+  $: total = amount1 + amount2;
 </script>
 
 
@@ -11,13 +14,33 @@
 
 ## Example Usage
 
-<p>Amount: {amount}</p>
+<!-- <p>Amount: {amount}</p> -->
 
 <CurrencyInput
-  bind:value={amount}
+  bind:value={amount1}
   locale="en-US"
   currency="USD"
-  label="Enter a dollar amount"
+  label="Enter the first amount"
+  placeholder="Type right here"
+  width="full"
+  disabled={false}
+/>
+
+<CurrencyInput
+  bind:value={amount2}
+  locale="en-US"
+  currency="USD"
+  label="Enter the second amount"
+  placeholder="Type right here"
+  width="full"
+  disabled={false}
+/>
+
+<CurrencyInput
+  bind:value={total}
+  locale="en-US"
+  currency="USD"
+  label="Total"
   placeholder="Type right here"
   width="full"
   disabled={false}

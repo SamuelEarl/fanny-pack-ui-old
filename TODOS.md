@@ -17,7 +17,12 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Write more tests.
 * Read over the documentation to make sure that I have covered everything.
 
-## Input Component
+## Input Currency
+* On the currency input docs page when I tab from the first input to the second (whether I have entered a value into the first input or not), then I can enter a value into the second input field, but that value does not added into the "Total" calculation nor does that value get formatted when the second input field loses focus. I tried changing the `on:click` event to `on:focus` to see if it was simply a matter of the second input not receiving focus because it wasn't clicked on, but that didn't work.
+    * It seems like the variable that is bound to the `value` prop is not getting updated. If click in the first one and enter a value and then click in the second one and enter a value, then everything works. Then if I click back into the first (and don't enter a value) and then tab to the second and enter a value, then the value does not get updated in the second.
+    * I should inspect the values of the variables that are bound to the `value` props being passed to the input fields and see if those are getting updated. If those variables are getting updated, then there is an issue with the internals of the component (maybe the number input is not getting focus or something).
+
+## Input Text
 * Start working on this component next.
 
 ## Select Component
