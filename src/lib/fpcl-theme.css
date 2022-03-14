@@ -81,7 +81,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-font-weight-bold: 700;
 }
 
-/* Buttons */
+/* Button */
 :root {
   --fpcl-btn-primary-text-color: var(--fpcl-white);
   --fpcl-btn-secondary-text-color: var(--fpcl-white);
@@ -127,7 +127,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-calendar-selected-date-border-color: var(--fpcl-border-color);
 }
 
-/* Inputs */
+/* Input (currency, text) */
 :root {
   --fpcl-input-padding-sm: var(--fpcl-padding-sm);
   --fpcl-input-padding-md: var(--fpcl-padding-md);
@@ -135,19 +135,12 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-border-width: var(--fpcl-border-width);
   --fpcl-input-border-style: var(--fpcl-border-style);
   --fpcl-input-border-color: var(--fpcl-border-color);
-  --fpcl-input-bg-color: none;
+  --fpcl-input-bg-color: var(--fpcl-white);
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
   --fpcl-input-box-shadow: var(--fpcl-box-shadow);
 }
 
-/* Labels */
-:root {
-  --fpcl-label-font-size: 0.8rem;
-  --fpcl-label-margin-bottom: 5px;
-  --fpcl-label-text-color: var(--fpcl-dark-gray);
-}
-
-/* Select Boxes */
+/* Select (single) */
 :root {
   /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
   --fpcl-select-padding-sm: var(--fpcl-padding-sm);
@@ -167,6 +160,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Miscellaneous */
 :root {
+  /* Disabled States */
   --fpcl-disabled-text-color: var(--fpcl-very-light-gray);
   --fpcl-disabled-bg-color: var(--fpcl-black);
+  /* Labels */
+  --fpcl-label-font-size: 0.8rem;
+  --fpcl-label-margin-bottom: 5px;
+  --fpcl-label-text-color: var(--fpcl-dark-gray);
 }

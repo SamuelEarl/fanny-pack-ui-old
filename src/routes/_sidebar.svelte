@@ -4,31 +4,50 @@
   </div>
   <div class="nav-links">
     <a href="/" class:active={currentPath === "/"}>
-      <Icon icon="mdi:home-outline" /> &nbsp; Overview
+      <Icon icon="carbon:home" /> &nbsp; Overview
     </a>
     <a href="/get-started" class:active={currentPath === "/get-started"}>
-      <Icon icon="codicon:debug-start" /> &nbsp; Get Started
+      <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
   </div>
   <div class="section-heading">Components</div>
   <div class="nav-links">
     <a href="/components/button" class:active={currentPath === "/button"}>
-      <Icon icon="ic:outline-rectangle" /> &nbsp; Button
+      <Icon icon="carbon:button-centered" /> &nbsp; Button
+    </a>
+    <a href="/components/checkbox" class:active={currentPath === "/checkbox"}>
+      <Icon icon="carbon:checkbox-checked" /> &nbsp; Checkbox
     </a>
     <a href="/components/date-picker" class:active={currentPath === "/date-picker"}>
-      <Icon icon="mdi:calendar" /> &nbsp; Date Picker
-    </a>
-    <a href="/components/input-text" class:active={currentPath === "/input-text"}>
-      <Icon icon="iconoir:input-field" /> &nbsp; Input (text)
+      <Icon icon="carbon:calendar" /> &nbsp; Date Picker
     </a>
     <a href="/components/input-currency" class:active={currentPath === "/input-currency"}>
-      <Icon icon="mdi:currency-usd" /> &nbsp; Input (currency)
+      <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
+    </a>
+    <a href="/components/input-text" class:active={currentPath === "/input-text"}>
+      <Icon icon="radix-icons:input" /> &nbsp; Input (text)
+    </a>
+    <a href="/components/modal" class:active={currentPath === "/modal"}>
+      <Icon icon="carbon:popup" /> &nbsp; Modal (popup window)
+    </a>
+    <a href="/components/radio-button" class:active={currentPath === "/radio-button"}>
+      <Icon icon="carbon:radio-button-checked" /> &nbsp; Radio Button
     </a>
     <a href="/components/select-multi" class:active={currentPath === "/select-multi"}>
-      <Icon icon="icon-park-outline:list-checkbox" /> &nbsp; Select (multi)
+      <Icon icon="carbon:list-boxes" /> &nbsp; Select (multi)
     </a>
     <a href="/components/select-single" class:active={currentPath === "/select-single"}>
-      <Icon icon="mdi:form-select" /> &nbsp; Select (single)
+      <!-- <Icon icon="carbon:open-panel-filled-top" /> &nbsp; Select (single) -->
+      <Icon icon="carbon:account" /> &nbsp; Select (single)
+    </a>
+    <a href="/components/tabs" class:active={currentPath === "/tabs"}>
+      <Icon icon="ic:outline-tab" /> &nbsp; Tabs (tabbed content)
+    </a>
+    <a href="/components/toast" class:active={currentPath === "/toast"}>
+      <Icon icon="carbon:information-square" /> &nbsp; Toast (notification pane)
+    </a>
+    <a href="/components/tooltip" class:active={currentPath === "/tooltip"}>
+      <Icon icon="carbon:chat" /> &nbsp; Tooltip
     </a>
   </div>
   <div class="section-heading">Data Viz</div>
