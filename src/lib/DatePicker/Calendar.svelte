@@ -314,7 +314,9 @@
   .calendar-container {
     display: inline-block;
     padding: 5px;
-    border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+    border-width: var(--fpcl-date-picker-border-width, 1px);
+    border-style: var(--fpcl-date-picker-border-style, solid);
+    border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
     border-radius: var(--fpcl-date-picker-border-radius, 3px);
     background: var(--fpcl-date-picker-bg-color, white);
     color: var(--fpcl-date-picker-text-color, inherit);
@@ -324,7 +326,7 @@
     font-size: 0.75rem;
 
     &:hover {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
+      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
     }
 
     & .top {
@@ -365,7 +367,9 @@
           /* Add custom styles */
           width: 100%;
           padding: 0.35rem 0.5rem;
-          border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+          border-width: var(--fpcl-date-picker-border-width, 1px);
+          border-style: var(--fpcl-date-picker-border-style, solid);
+          border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
           border-radius: var(--fpcl-date-picker-border-radius, 3px);
           font-size: 0.85rem;
           background-color: var(--fpcl-date-picker-bg-color, white);
@@ -402,14 +406,16 @@
       width: 2rem;
       height: 1.94rem;
       flex-grow: 1;
-      border-width: var(--fpcl-global-border-width, 1px);
-      border-style: var(--fpcl-global-border-style, solid);
+      border-width: var(--fpcl-date-picker-border-width, 1px);
+      border-style: var(--fpcl-date-picker-border-style, solid);
       border-color: transparent;
       border-radius: var(--fpcl-date-picker-border-radius, 3px);
       box-sizing: border-box;
 
       &:hover {
-        border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
+        border-width: var(--fpcl-date-picker-border-width, 1px);
+        border-style: var(--fpcl-date-picker-border-style, solid);
+        border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
         cursor: pointer;
       }
 
@@ -428,7 +434,9 @@
       }
 
       &.selected {
-        border: var(--fpcl-calendar-selected-date-border, 1px solid #c7c7c7);
+        border-width: var(--fpcl-date-picker-border-width, 1px);
+        border-style: var(--fpcl-date-picker-border-style, solid);
+        border-color: var(--fpcl-calendar-selected-date-border-color, #c7c7c7);
         color: var(--fpcl-calendar-selected-date-text-color, inherit);
         background-color: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);
       }

@@ -1,9 +1,6 @@
-/* Colors */
+/* Color Palette */
 :root {
-  /*
-    Main Colors
-    Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
-  */
+  /* Main Colors */
   --light-green: #99b433;
   --green: #00a300;
   --dark-green: #1e7145;
@@ -21,17 +18,14 @@
   --red: #ee1111;
   --dark-red: #b91d47;
 
-  /*
-    Neutral Colors
-    These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
-  */
-  --white: #ffffff;
+  /* Neutral Colors */
   --black: #000000;
-  --very-light-gray: #e5e5e5;
-  --light-gray: #c7c7c7;
-  --gray: #a0a0a0;
-  --dark-gray: #797979;
   --very-dark-gray: #343434;
+  --dark-gray: #797979;
+  --gray: #a0a0a0;
+  --light-gray: #c7c7c7;
+  --very-light-gray: #e5e5e5;
+  --white: #ffffff;
 
   /* Primary, Secondary, Tertiary colors, etc. */
   --primary: var(--dark-blue);
@@ -46,8 +40,8 @@
   --sans-serif-font-stack: "Roboto", sans-serif;
   --cursive-font-stack: "Shadows Into Light", cursive;
   --mono-font-stack: "Source Code Pro", monospace;
-  --headline-font-stack: var(--serif-font-stack);
   --body-font-stack: var(--sans-serif-font-stack);
+  --headline-font-stack: var(--serif-font-stack);
 }
 
 /* Miscellaneous */

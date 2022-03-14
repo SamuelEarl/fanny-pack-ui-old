@@ -14,6 +14,7 @@
   import { theme } from "/src/theme";
 
   export let label;
+  // export let width = "full";
   export let size = "md";
   export let dateInputIcon = theme.dateInputIcon;
 
@@ -176,7 +177,7 @@
       tabindex="-1"
       on:click={() => showCalendar = !showCalendar}
     >
-      <!-- Place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
+      <!-- The user might choose a custom icon that is larger than the one used in the demos, so it is necessary to place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
       <Icon icon="{dateInputIcon}" width="20" height="20" />
     </div>
   </div>
@@ -200,37 +201,24 @@
     position: relative;
 
     & .date-input-container {
-      width: var(--fpcl-date-input-width, 148px);
       display: flex;
       align-items: center;
-      border: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+      border-width: var(--fpcl-date-picker-border-width, 1px);
+      border-style: var(--fpcl-date-picker-border-style, solid);
+      border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
       border-radius: var(--fpcl-date-picker-border-radius, 3px);
       overflow: hidden;
 
       &:hover {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
       }
 
       &:focus {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 2px 2px #e5e5e5);
-      }
-
-      /* This min-width style will prevent the input field styles from breaking. */
-      /* 85px is the width of the date text (which should be wide enough to fit any properly formatted date entry). The padding is multiplied by 4 because the input field and the button each have padding applied to each of their sides. 20px is the width of the icon. 3px is the width of the 3 borders. */
-      &.sm {
-        min-width: calc(85px + (var(--fpcl-date-input-sm-padding, 5px) * 4) + 20px + 3px);
-      }
-      &.md {
-        min-width: calc(85px + (var(--fpcl-date-input-md-padding, 10px) * 4) + 20px + 3px);
-      }
-      &.lg {
-        min-width: calc(85px + (var(--fpcl-date-input-lg-padding, 15px) * 4) + 20px + 3px);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
       }
 
       & .date-input {
         flex: 1;
-        /* The .date-input field's min-width is the same as the first variable in the calc() function above. */
-        min-width: 85px;
         border: none;
         /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px);
@@ -238,34 +226,46 @@
         background-color: var(--fpcl-date-picker-bg-color, white);
         color: var(--fpcl-date-picker-text-color, inherit);
 
+        /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
+        /* 
+         * 100% is used to cause the input field to span the width of the parent element.
+         * The `--fpcl-date-input-padding-x` is multiplied by 4 because the input field and the button each have padding applied to each of their sides. 
+         * 20px is the width of the icon. 
+         * The `var(--fpcl-date-picker-border-width)` is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
+         */
         &.sm {
-          padding: var(--fpcl-date-input-sm-padding, 5px);
+          width: calc(100% - ((var(--fpcl-date-input-padding-sm, 5px) * 4) - 20px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          padding: var(--fpcl-date-input-padding-sm, 5px);
         }
         &.md {
-          padding: var(--fpcl-date-input-md-padding, 10px);
+          width: calc(100% - ((var(--fpcl-date-input-padding-md, 10px) * 4) - 20px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          padding: var(--fpcl-date-input-padding-md, 10px);
         }
         &.lg {
-          padding: var(--fpcl-date-input-lg-padding, 15px);
+          width: calc(100% - ((var(--fpcl-date-input-padding-lg, 15px) * 4) - 20px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          padding: var(--fpcl-date-input-padding-lg, 15px);
         }
       }
 
       & .date-input-btn {
         display: flex;
         align-items: center;
-        border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+        border-left-width: var(--fpcl-date-picker-border-width, 1px);
+        border-left-style: var(--fpcl-date-picker-border-style, solid);
+        border-left-color: var(--fpcl-date-picker-border-color, #c7c7c7);
         border-radius: 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0;
         background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
         color: var(--fpcl-date-input-btn-icon-color, inherit);
         cursor: pointer;
 
         &.sm {
-          padding: calc(var(--fpcl-date-input-sm-padding, 5px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-sm, 5px) - 1px);
         }
         &.md {
-          padding: calc(var(--fpcl-date-input-md-padding, 10px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-md, 10px) - 1px);
         }
         &.lg {
-          padding: calc(var(--fpcl-date-input-lg-padding, 15px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-lg, 15px) - 1px);
         }
       }
     }
@@ -283,11 +283,14 @@
     & .triangle-up {
       width: 10px;
       height: 10px;
-      border-top: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
-      border-left: var(--fpcl-date-picker-border, 1px solid #c7c7c7);
+      border-width: var(--fpcl-date-picker-border-width, 1px);
+      border-style: var(--fpcl-date-picker-border-style, solid);
+      border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
+      border-bottom: none;
+      border-right: none;
       border-radius: 4px 0 0 0;
-      /* Center the triangle along the top of the calendar. This is necessary  */
-      margin: 0 auto -5px auto;
+      /* Move the triangle down by 5px and over from the left by (border-radius + 10px). */
+      margin: 0 auto -5px calc(var(--fpcl-date-picker-border-radius, 3px) + 10px);
       background-color: var(--fpcl-date-picker-bg-color, white);
       transform: rotate(45deg);
       z-index: 100;

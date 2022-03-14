@@ -16,8 +16,8 @@
 <TextInput
   bind:value={textValue}
   label="Enter some text"
+  size="md"
   placeholder="Type right here"
-  width="full"
   disabled={false}
 />
 
@@ -31,8 +31,8 @@
 <TextInput
   bind:value={textValue}
   label="Enter some text"
+  size="md"
   placeholder="Type right here"
-  width="full"
   disabled={false}
 />
 ```

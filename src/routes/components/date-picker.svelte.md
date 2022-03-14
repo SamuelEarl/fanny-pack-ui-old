@@ -16,23 +16,26 @@ NOTE: The code for this component was taken from this great <a href="https://git
 
 ### Date input field with calendar
 
-{#if !valid}
-  <div class="invalid-wrapper">
-    <span class="invalid">Invalid Date</span>
-  </div>
-{/if}
-<DateInput
-  bind:value={date}
-  bind:valid={valid}
-  label="Set a date"
-  size="md"
-  showCalendar={false}
-  min={new Date(2022, 2, 5)}
-  max={new Date(2023, 4, 15)}
-  closeOnSelection={true}
-  placeholder="Enter a date"
-  dateInputIcon="mdi:calendar"
-/>
+<div class="date-wrapper">
+  {#if !valid}
+    <div class="invalid-wrapper">
+      <span class="invalid">Invalid Date</span>
+    </div>
+  {/if}
+  <DateInput
+    bind:value={date}
+    bind:valid={valid}
+    label="Set a date"
+    width="full"
+    size="md"
+    showCalendar={false}
+    min={new Date(2022, 2, 5)}
+    max={new Date(2023, 4, 15)}
+    closeOnSelection={true}
+    placeholder="Enter a date"
+    dateInputIcon="mdi:calendar"
+  />
+</div>
 
 ```svelte
 <script>
@@ -72,6 +75,11 @@ NOTE: The code for this component was taken from this great <a href="https://git
   }
 </style>
 ```
+
+<br>
+
+### NOTE
+The `<DateInput />` component is designed to fill the entire width of its parent element.
 
 <br>
 
@@ -117,6 +125,10 @@ NOTE: The code for this component was taken from this great <a href="https://git
 | `dateInputIcon`<br>(`<DateInput />` only) | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. |
 
 <style>
+  .date-wrapper {
+    width: 250px;
+  }
+
   .invalid-wrapper {
     margin-bottom: 5px;
   }

@@ -15,7 +15,7 @@
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
-  export let width = "full";
+  export let size = "md";
   export let placeholder = "";
   export let disabled = false;
 
@@ -24,10 +24,11 @@
   let showNumberInput = false;
   let numberInput;
 
-  async function handleClickTextInput() {
+  async function handleTextInputFocus() {
     showNumberInput = true;
     await tick();
     // Place the focus inside the number input field.
+    // NOTE: This `focus()` method is unnecessary for browsers, but it might be necessary to explicitly set the focus on the `numberInput` in order to bring up a virtual keyboard on mobile devices. TODO: I will need to test this, though.
     numberInput.focus();
     // Highlight the value.
     numberInput.select();
@@ -39,7 +40,7 @@
    */
   async function unfocus(event) {
     // NOTE: `event.keyCode` is deprecated. Use `event.key` instead. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key.
-    if (event.type === "blur" || event.key === "Enter" || event.key === "Escape" || event.key === "Tab") {
+    if (event.type === "blur" || event.key === "Enter" || event.key === "Escape") {
       // If a user deletes the number in the "number" input field and does not enter another number in its place, then `value` will be `null`. The `formatValue()` function will format `null` to be `$0.00`, so it will appear to be a valid value to the user. However, since `value` is actually `null` there could be negative consequences when `value` gets passed to another part of the app or saved to the database. To prevent any possible problems, the following `if` statement will set any values that are either `null` or `undefined` back to their default value of 0.
       // Also, if a user enters a negative value, then the following `if` statement will reset `value` to its default value of 0.
       if (value === null || value === undefined || value < 0) {
@@ -69,7 +70,7 @@
   <input
     type="number"
     id={`fpcl-input-${componentId}`}
-    class="{`${width}-width`}"
+    class="{`${size}`}"
     step="0.01"
     min="0.00"
     placeholder={placeholder}
@@ -83,28 +84,34 @@
   <input
     type="text"
     id={`fpcl-input-${componentId}`}
-    class="{`${width}-width`}"
+    class="{`${size}`}"
     placeholder={placeholder}
     disabled={disabled}
     bind:value={formattedValue}
-    on:click={handleClickTextInput}
+    on:focus={handleTextInputFocus}
   />
 {/if}
 
 
 <style>
   input {
+    width: 100%;
     outline: none;
     padding: var(--fpcl-input-padding);
-    border: var(--fpcl-input-border);
-    border-radius: var(--fpcl-global-radius);
+    border-width: var(--fpcl-input-border-width, 1px);
+    border-style: var(--fpcl-input-border-style, solid);
+    border-color: var(--fpcl-input-border-color, #c7c7c7);
+    border-radius: var(--fpcl-border-radius);
     background-color: var(--fpcl-input-bg-color);
 
-    &.full-width {
-      width: 100%;
+    &.sm {
+      padding: var(--fpcl-input-padding-sm);
     }
-    &.auto-width {
-      width: auto;
+    &.md {
+      padding: var(--fpcl-input-padding-md);
+    }
+    &.lg {
+      padding: var(--fpcl-input-padding-lg);
     }
 
     &::placeholder {
@@ -112,7 +119,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: var(--fpcl-input-box-shadow);
+      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px black);
     }
 
     &:disabled {

@@ -114,7 +114,7 @@ In the `fpcl-theme.css` file, you can edit any of the style variables under the 
 The following padding variables will change the sizes that correspond with the `size` prop:
 
 ```css
---fpcl-select-sm-padding: 5px;
---fpcl-select-md-padding: 10px;
---fpcl-select-lg-padding: 15px;
+--fpcl-select-padding-sm: 5px;
+--fpcl-select-padding-md: 10px;
+--fpcl-select-padding-lg: 15px;
 ```

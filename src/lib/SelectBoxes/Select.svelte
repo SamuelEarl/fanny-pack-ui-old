@@ -124,27 +124,29 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border: var(--fpcl-select-border);
+      border-width: var(--fpcl-select-border-width, 1px);
+      border-style: var(--fpcl-select-border-style, solid);
+      border-color: var(--fpcl-select-border-color, #c7c7c7);
       border-radius: var(--fpcl-select-border-radius);
       background-color: var(--fpcl-select-bg-color);
       color: var(--fpcl-select-text-color);
       cursor: pointer;
 
       &:hover {
-        box-shadow: var(--fpcl-select-box-shadow);
+        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px black);
       }
 
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.sm {
-        padding: var(--fpcl-select-sm-padding);
+        padding: var(--fpcl-select-padding-sm);
       }
       &.md {
-        padding: var(--fpcl-select-md-padding);
+        padding: var(--fpcl-select-padding-md);
       }
       &.lg {
-        padding: var(--fpcl-select-lg-padding);
+        padding: var(--fpcl-select-padding-lg);
       }
 
       & .fpcl-select-btn-text {
@@ -172,15 +174,17 @@
       width: 100%;
       /* Add top and bottom padding that is equal to half of the --fpcl-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-border-radius value. */
       padding: calc(var(--fpcl-select-border-radius) / 2) 0;
-      border: var(--fpcl-select-border);
-      border-radius: var(--fpcl-select-border-radius);
+      border-width: var(--fpcl-select-border-width, 1px);
+      border-style: var(--fpcl-select-border-style, solid);
+      border-color: var(--fpcl-select-border-color, #c7c7c7);
+      border-radius: var(--fpcl-select-border-radius, 3px);
       overflow-y: auto;
       background-color: var(--fpcl-select-bg-color);
       color: var(--fpcl-select-text-color);
       z-index: 100;
 
       &:focus {
-        box-shadow: var(--fpcl-select-box-shadow);
+        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px black);
       }
 
       &.show {
@@ -195,11 +199,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        border-top: var(--fpcl-select-option-border);
-        
-        &:last-child {
-          border-bottom: var(--fpcl-select-option-border);
-        }
 
         &:hover {
           background-color: var(--fpcl-select-option-hover-bg-color);
@@ -213,16 +212,16 @@
         }
 
         /* 
-          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-lg-padding)).
+          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-padding-lg)).
         */
         &.sm {
-          padding: var(--fpcl-select-sm-padding);
+          padding: var(--fpcl-select-padding-sm);
         }
         &.md {
-          padding: var(--fpcl-select-md-padding);
+          padding: var(--fpcl-select-padding-md);
         }
         &.lg {
-          padding: var(--fpcl-select-lg-padding);
+          padding: var(--fpcl-select-padding-lg);
         }
       }
     }

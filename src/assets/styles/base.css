@@ -2,7 +2,7 @@
 
  html, body {
   font-family: var(--fpcl-body-font-stack);
-  color: var(--fpcl-global-text-color);
+  color: var(--fpcl-text-color);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -13,10 +13,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* a {
   text-decoration: none;
-  color: var(--fpcl-global-text-color);
+  color: var(--fpcl-text-color);
   border-bottom: none;
   &.underline {
-    border-bottom: 1px dotted var(--fpcl-global-text-color);
+    border-bottom: 1px dotted var(--fpcl-text-color);
     &:hover {
       border-bottom: none;
     }
@@ -30,11 +30,11 @@ h1, h2, h3, h4, h5, h6 {
 /* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
 a {
   text-decoration: none;
-  color: var(--fpcl-global-text-color);
+  color: var(--fpcl-text-color);
   border-bottom: none;
 }
 a.underline {
-  border-bottom: 1px dotted var(--fpcl-global-text-color);
+  border-bottom: 1px dotted var(--fpcl-text-color);
 }
 a.underline:hover {
   border-bottom: none;
@@ -54,7 +54,9 @@ table {
   border-collapse: collapse;
 }
 tr {
-  border-bottom: var(--fpcl-global-border);
+  border-bottom-width: var(--fpcl-border-width, 1px);
+  border-bottom-style: var(--fpcl-border-style, solid);
+  border-bottom-color: var(--fpcl-border-color, #c7c7c7);
 }
 th, td {
   padding: 10px 25px;
@@ -70,18 +72,20 @@ li {
 /* <pre> or triple backticks */
 pre {
   padding: 10px;
-  border-radius: var(--fpcl-global-radius);
+  border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);
 }
 /* <code> or single backticks */
 code {
   padding: 0 3px;
-  border-radius: var(--fpcl-global-radius);
+  border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);
 }
 
 hr {
   margin: 30px 0;
   border: none;
-  border-top: var(--fpcl-global-border);
+  border-top-width: var(--fpcl-border-width, 1px);
+  border-top-style: var(--fpcl-border-style, solid);
+  border-top-color: var(--fpcl-border-color, #c7c7c7);
 }

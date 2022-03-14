@@ -72,10 +72,10 @@
   .primary {
     border: 2px solid var(--fpcl-primary);
     background-color: var(--fpcl-primary);
-    color: var(--fpcl-btn-regular-primary-text-color);
+    color: var(--fpcl-btn-primary-text-color);
     
     &:hover {
-      box-shadow: var(--fpcl-btn-primary-hover-box-shadow, 0 0 0 1px var(--fpcl-primary));
+      box-shadow: var(--fpcl-btn-primary-box-shadow, 0 0 0 1px black);
     }
 
     &.inverted {
@@ -86,10 +86,10 @@
   .secondary {
     border: 2px solid var(--fpcl-secondary);
     background-color: var(--fpcl-secondary);
-    color: var(--fpcl-btn-regular-secondary-text-color);
+    color: var(--fpcl-btn-secondary-text-color);
 
     &:hover {
-      box-shadow: var(--fpcl-btn-secondary-hover-box-shadow, 0 0 0 1px var(--fpcl-secondary));
+      box-shadow: var(--fpcl-btn-secondary-box-shadow, 0 0 0 1px black);
     }
 
     &.inverted {
@@ -100,10 +100,10 @@
   .tertiary {
     border: 2px solid var(--fpcl-tertiary);
     background-color: var(--fpcl-tertiary);
-    color: var(--fpcl-btn-regular-tertiary-text-color);
+    color: var(--fpcl-btn-tertiary-text-color);
 
     &:hover {
-      box-shadow: var(--fpcl-btn-tertiary-hover-box-shadow, 0 0 0 1px var(--fpcl-tertiary));
+      box-shadow: var(--fpcl-btn-tertiary-box-shadow, 0 0 0 1px black);
     }
 
     &.inverted {
@@ -116,16 +116,16 @@
   }
 
   .sm {
-    font-size: var(--fpcl-sm-font-size);
-    padding: var(--fpcl-btn-sm-padding-v) var(--fpcl-btn-sm-padding-h);
+    font-size: var(--fpcl-font-size-sm);
+    padding: var(--fpcl-btn-padding-v-sm) var(--fpcl-btn-padding-h-sm);
   }
   .md {
-    font-size: var(--fpcl-base-font-size);
-    padding: var(--fpcl-btn-md-padding-v) var(--fpcl-btn-md-padding-h);
+    font-size: var(--fpcl-font-size-base);
+    padding: var(--fpcl-btn-padding-v-md) var(--fpcl-btn-padding-h-md);
   }
   .lg {
-    font-size: var(--fpcl-lg-font-size);
-    padding: var(--fpcl-btn-lg-padding-v) var(--fpcl-btn-lg-padding-h);
+    font-size: var(--fpcl-font-size-lg);
+    padding: var(--fpcl-btn-padding-v-lg) var(--fpcl-btn-padding-h-lg);
   }
 
   .auto-width {

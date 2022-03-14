@@ -4,7 +4,7 @@
 
   export let value = "";
   export let label = "";
-  export let width = "full";
+  export let size = "md";
   export let placeholder = "";
   export let disabled = false;
 
@@ -17,7 +17,7 @@
   type="text"
   bind:value={value}
   id={`fpcl-input-${componentId}`}
-  class="{`${width}-width`}"
+  class="{`${size}`}"
   placeholder={placeholder}
   disabled={disabled}
   on:input
@@ -27,17 +27,22 @@
 
 <style>
   input {
+    width: 100%;
     outline: none;
-    padding: var(--fpcl-input-padding);
-    border: var(--fpcl-input-border);
-    border-radius: var(--fpcl-global-radius);
+    border-width: var(--fpcl-input-border-width, 1px);
+    border-style: var(--fpcl-input-border-style, solid);
+    border-color: var(--fpcl-input-border-color, #c7c7c7);
+    border-radius: var(--fpcl-border-radius);
     background-color: var(--fpcl-input-bg-color);
 
-    &.full-width {
-      width: 100%;
+    &.sm {
+      padding: var(--fpcl-input-padding-sm);
     }
-    &.auto-width {
-      width: auto;
+    &.md {
+      padding: var(--fpcl-input-padding-md);
+    }
+    &.lg {
+      padding: var(--fpcl-input-padding-lg);
     }
 
     &::placeholder {
@@ -45,7 +50,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: var(--fpcl-input-box-shadow);
+      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px black);
     }
 
     &:disabled {

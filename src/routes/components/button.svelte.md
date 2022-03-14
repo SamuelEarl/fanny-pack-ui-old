@@ -190,12 +190,12 @@
 
     & .light-bg {
       background-color: var(--fpcl-very-light-gray);
-      border-radius: var(--fpcl-global-radius) 0 0 var(--fpcl-global-radius);
+      border-radius: var(--fpcl-border-radius) 0 0 var(--fpcl-border-radius);
     }
 
     & .dark-bg {
       background-color: var(--fpcl-black);
-      border-radius: 0 var(--fpcl-global-radius) var(--fpcl-global-radius) 0;
+      border-radius: 0 var(--fpcl-border-radius) var(--fpcl-border-radius) 0;
     }
   }
 </style>

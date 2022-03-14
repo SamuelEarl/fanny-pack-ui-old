@@ -7,12 +7,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 * settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
 
 
-/* Colors */
+/*
+  Color Palette
+  These colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp.
+*/
 :root {
-  /*
-    Main Colors
-    Taken from https://www.w3schools.com/w3css/w3css_color_metro.asp
-  */
   --fpcl-light-green: #99b433;
   --fpcl-green: #00a300;
   --fpcl-dark-green: #1e7145;
@@ -29,64 +28,54 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-dark-orange: #da532c;
   --fpcl-red: #ee1111;
   --fpcl-dark-red: #b91d47;
-
-  /*
-    Neutral Colors
-    These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
-  */
-  --fpcl-white: #ffffff;
-  --fpcl-black: #000000;
-  --fpcl-very-light-gray: #e5e5e5;
-  --fpcl-light-gray: #c7c7c7;
-  --fpcl-gray: #a0a0a0;
-  --fpcl-dark-gray: #797979;
-  --fpcl-very-dark-gray: #343434;
 }
 
-/* Primary, Secondary, Tertiary colors, etc. */
+/* Global Component Styles */
 :root {
+  /* Main Colors */
   --fpcl-primary: var(--fpcl-dark-purple);
   --fpcl-secondary: var(--fpcl-very-dark-gray);
   --fpcl-tertiary: var(--fpcl-white);
+  /*
+    Neutral Colors
+    * These colors are used for text colors, border colors, box shadows, etc.
+    * NOTE: These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
+  */
+  --fpcl-black: #000000;
+  --fpcl-very-dark-gray: #343434;
+  --fpcl-dark-gray: #797979;
+  --fpcl-gray: #a0a0a0;
+  --fpcl-light-gray: #c7c7c7;
+  --fpcl-very-light-gray: #e5e5e5;
+  --fpcl-white: #ffffff;
+  /* Notification Colors */
   --fpcl-success: var(--fpcl-green);
   --fpcl-warning: var(--fpcl-yellow);
   --fpcl-alert: var(--fpcl-red);
-}
-
-/* Global Styles */
-:root {
-  /* Depth (used with box shadows) */
-  --fpcl-global-depth-low: 1px;
-  --fpcl-global-depth-md: 2px;
-  --fpcl-global-depth-high: 3px;
-
-  --fpcl-global-text-color: var(--fpcl-very-dark-gray);
-  --fpcl-global-radius: 3px;
-  --fpcl-global-padding-sm: 5px;
-  --fpcl-global-padding-md: 10px;
-  --fpcl-global-padding-lg: 15px;
-  --fpcl-global-border-width: 1px;
-  --fpcl-global-border-style: solid;
-  --fpcl-global-border-color: var(--fpcl-light-gray);
-  --fpcl-global-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-global-border-color);
-  
+  /* Padding */
+  --fpcl-padding-sm: 5px;
+  --fpcl-padding-md: 10px;
+  --fpcl-padding-lg: 15px;
+  /* Borders */
+  --fpcl-border-width: 1px;
+  --fpcl-border-style: solid;
+  --fpcl-border-color: var(--fpcl-light-gray);
+  --fpcl-border-radius: 3px;
   /* Box shadows */
-  --fpcl-global-box-shadow-low: 0 0 var(--fpcl-global-depth-low) var(--fpcl-global-depth-low) var(--fpcl-very-light-gray);
-  --fpcl-global-box-shadow-md: 0 0 var(--fpcl-global-depth-md) var(--fpcl-global-depth-md) var(--fpcl-very-light-gray);
-  --fpcl-global-box-shadow-high: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-very-light-gray);
-}
-
-/* Typography */
-:root {
-  --fpcl-sm-font-size: 12px;
-  --fpcl-base-font-size: 16px;
-  --fpcl-lg-font-size: 20px;
+  --fpcl-box-shadow-spread: 1px;
+  --fpcl-box-shadow-color: var(--fpcl-border-color);
+  --fpcl-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-box-shadow-color);
+  /* Font stacks */
   --fpcl-serif-font-stack: "Times New Roman", sans-serif;
   --fpcl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --fpcl-script-font-stack: script;
-  --fpcl-mono-font-stack: mono;
+  --fpcl-mono-font-stack: "Source Code Pro", mono;
   --fpcl-body-font-stack: var(--fpcl-sans-serif-font-stack);
   --fpcl-headline-font-stack: var(--fpcl-serif-font-stack);
+  /* Font styles */
+  --fpcl-text-color: var(--fpcl-very-dark-gray);
+  --fpcl-font-size-sm: 12px;
+  --fpcl-font-size-base: 16px;
+  --fpcl-font-size-lg: 20px;
   --fpcl-font-weight-light: 100;
   --fpcl-font-weight-normal: 400;
   --fpcl-font-weight-bold: 700;
@@ -94,62 +83,61 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Buttons */
 :root {
-  /* Inverted buttons use the primary, secondary, and tertiary colors for both the border and text colors. However, regular, non-inverted buttons use the primary, secondary, and tertiary colors for the background and border colors. You can set the text colors for the regular buttons here. */
-  --fpcl-btn-regular-primary-text-color: var(--fpcl-white);
-  --fpcl-btn-regular-secondary-text-color: var(--fpcl-white);
-  --fpcl-btn-regular-tertiary-text-color: var(--fpcl-primary);
+  --fpcl-btn-primary-text-color: var(--fpcl-white);
+  --fpcl-btn-secondary-text-color: var(--fpcl-white);
+  --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
   /* v = vertical; h = horizontal */
-  --fpcl-btn-sm-padding-v: 8px;
-  --fpcl-btn-sm-padding-h: 14px;
-  --fpcl-btn-md-padding-v: 9px;
-  --fpcl-btn-md-padding-h: 18px;
-  --fpcl-btn-lg-padding-v: 10px;
-  --fpcl-btn-lg-padding-h: 22px;
+  --fpcl-btn-padding-v-sm: var(--fpcl-padding-sm);
+  --fpcl-btn-padding-h-sm: calc(var(--fpcl-padding-sm) + var(--fpcl-padding-sm));
+  --fpcl-btn-padding-v-md: var(--fpcl-padding-md);
+  --fpcl-btn-padding-h-md: calc(var(--fpcl-padding-md) + var(--fpcl-padding-md));
+  --fpcl-btn-padding-v-lg: var(--fpcl-padding-lg);
+  --fpcl-btn-padding-h-lg: calc(var(--fpcl-padding-lg) + var(--fpcl-padding-lg));
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 10px;
   /* Hover state */
-  --fpcl-btn-primary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
-  --fpcl-btn-secondary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
-  --fpcl-btn-tertiary-hover-box-shadow: 0 0 var(--fpcl-global-depth-high) var(--fpcl-global-depth-high) var(--fpcl-light-gray);
+  --fpcl-btn-primary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-primary);
+  --fpcl-btn-secondary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-secondary);
+  --fpcl-btn-tertiary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-tertiary);
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
-  --fpcl-btn-border-radius: var(--fpcl-global-radius);
+  --fpcl-btn-border-radius: var(--fpcl-border-radius);
 }
 
 /* Date Picker */
 :root {
   /* These variables apply to both the date input field and calendar components. */
-  --fpcl-date-picker-border: var(--fpcl-global-border);
-  --fpcl-date-picker-border-radius: var(--fpcl-global-radius);
-  --fpcl-date-picker-box-shadow: var(--fpcl-global-box-shadow-md);
-  --fpcl-date-picker-text-color: var(--fpcl-global-text-color);
+  --fpcl-date-picker-border-width: var(--fpcl-border-width);
+  --fpcl-date-picker-border-style: var(--fpcl-border-style);
+  --fpcl-date-picker-border-color: var(--fpcl-border-color);
+  --fpcl-date-picker-border-radius: var(--fpcl-border-radius);
+  --fpcl-date-picker-box-shadow: var(--fpcl-box-shadow);
+  --fpcl-date-picker-text-color: var(--fpcl-text-color);
   --fpcl-date-picker-bg-color: var(--fpcl-white);
   /* These variables apply to only the date input field component. */
   /* The following padding variables will change the sizes that correspond with the <DateInput /> component's `size` prop: */
-  --fpcl-date-input-sm-padding: var(--fpcl-global-padding-sm);
-  --fpcl-date-input-md-padding: var(--fpcl-global-padding-md);
-  --fpcl-date-input-lg-padding: var(--fpcl-global-padding-lg);
+  --fpcl-date-input-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-date-input-padding-md: var(--fpcl-padding-md);
+  --fpcl-date-input-padding-lg: var(--fpcl-padding-lg);
   --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
   --fpcl-date-input-btn-icon-color: inherit;
   /* These variables apply to only the calendar component. */
-  --fpcl-calendar-selected-date-border: var(--fpcl-global-border);
   --fpcl-calendar-selected-date-bg-color: var(--fpcl-very-light-gray);
-  --fpcl-calendar-selected-date-text-color: var(--fpcl-global-text-color);
-  /* 
-   * Width of the datepicker input field.
-   * If you want the input field to span the entire width of its parent element, then you can set this value to auto (or "auto").
-   * Note that a minimum width constraint is placed on the date input field to keep the styling from breaking. So if you set this width to be less than 148px, then the width will stay at 148px.
-  */
-  --fpcl-date-input-width: 148px;
+  --fpcl-calendar-selected-date-text-color: var(--fpcl-text-color);
+  --fpcl-calendar-selected-date-border-color: var(--fpcl-border-color);
 }
 
 /* Inputs */
 :root {
-  --fpcl-input-padding: 10px 12px;
-  --fpcl-input-border: var(--fpcl-global-border);
+  --fpcl-input-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-input-padding-md: var(--fpcl-padding-md);
+  --fpcl-input-padding-lg: var(--fpcl-padding-lg);
+  --fpcl-input-border-width: var(--fpcl-border-width);
+  --fpcl-input-border-style: var(--fpcl-border-style);
+  --fpcl-input-border-color: var(--fpcl-border-color);
   --fpcl-input-bg-color: none;
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
-  --fpcl-input-box-shadow: var(--fpcl-global-box-shadow-md);
+  --fpcl-input-box-shadow: var(--fpcl-box-shadow);
 }
 
 /* Labels */
@@ -162,18 +150,19 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Select Boxes */
 :root {
   /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
-  --fpcl-select-sm-padding: var(--fpcl-global-padding-sm);
-  --fpcl-select-md-padding: var(--fpcl-global-padding-md);
-  --fpcl-select-lg-padding: var(--fpcl-global-padding-lg);
-
-  --fpcl-select-border: var(--fpcl-global-border);
-  --fpcl-select-border-radius: var(--fpcl-global-radius);
-  --fpcl-select-box-shadow: var(--fpcl-global-box-shadow-md);
+  --fpcl-select-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-select-padding-md: var(--fpcl-padding-md);
+  --fpcl-select-padding-lg: var(--fpcl-padding-lg);
+  --fpcl-select-border-width: var(--fpcl-border-width);
+  --fpcl-select-border-style: var(--fpcl-border-style);
+  --fpcl-select-border-color: var(--fpcl-border-color);
+  --fpcl-select-border-radius: var(--fpcl-border-radius);
+  --fpcl-select-box-shadow: var(--fpcl-box-shadow);
   --fpcl-select-bg-color: var(--fpcl-white);
-  --fpcl-select-text-color: var(--fpcl-global-text-color);
-  --fpcl-select-option-border: var(--fpcl-global-border-width) var(--fpcl-global-border-style) var(--fpcl-very-light-gray);
+  --fpcl-select-text-color: var(--fpcl-text-color);
+  /* Styles for the dropdown menu of the select box. */
   --fpcl-select-option-hover-bg-color: var(--fpcl-very-light-gray);
-  --fpcl-select-option-hover-text-color: var(--fpcl-global-text-color);
+  --fpcl-select-option-hover-text-color: var(--fpcl-text-color);
 }
 
 /* Miscellaneous */
