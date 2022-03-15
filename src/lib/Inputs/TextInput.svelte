@@ -37,12 +37,15 @@
 
     &.sm {
       padding: var(--fpcl-input-padding-sm);
+      font-size: var(--fpcl-font-size-sm, 12px);
     }
     &.md {
       padding: var(--fpcl-input-padding-md);
+      font-size: var(--fpcl-font-size-md, 16px);
     }
     &.lg {
       padding: var(--fpcl-input-padding-lg);
+      font-size: var(--fpcl-font-size-lg, 20px);
     }
 
     &::placeholder {

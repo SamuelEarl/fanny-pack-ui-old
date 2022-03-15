@@ -35,3 +35,4 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * NOTE: The `input type=date` element does not have any ARIA roles (see https://www.w3.org/TR/html-aria/#docconformance), so there is no reason to try to stick with a native date input element.
 * Look at https://fluent-svelte.vercel.app/docs/components/calendarview from some other feature ideas.
 * I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation after I get it figured out.
+* Implement the `size` prop in the `Calendar` component and increase or decrease the font sizes based on the `size` prop.

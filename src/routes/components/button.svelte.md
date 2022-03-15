@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, Select } from "/src/lib";
+  import { Button, SelectSingle } from "/src/lib";
 
   let creatingAccount = false;
   let btnColors = ["primary", "secondary", "tertiary"];
@@ -110,7 +110,7 @@
 
 <br>
 
-<Select
+<SelectSingle
   label="Button color (primary = purple; secondary = dark gray; tertiary = white)"
   optionsArray={btnColors}
   arrayType="string"
@@ -119,7 +119,7 @@
 
 <br>
 
-<Select
+<SelectSingle
   label="Inverted"
   optionsArray={[false,true]}
   arrayType="boolean"
@@ -128,7 +128,7 @@
 
 <br>
 
-<Select
+<SelectSingle
   label="Size"
   optionsArray={["sm","md","lg"]}
   arrayType="string"
@@ -137,7 +137,7 @@
 
 <br>
 
-<Select
+<SelectSingle
   label="Width"
   optionsArray={["auto","full"]}
   arrayType="string"

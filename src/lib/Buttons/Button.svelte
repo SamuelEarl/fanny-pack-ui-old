@@ -116,16 +116,16 @@
   }
 
   .sm {
-    font-size: var(--fpcl-font-size-sm);
     padding: var(--fpcl-btn-padding-v-sm) var(--fpcl-btn-padding-h-sm);
+    font-size: var(--fpcl-font-size-sm, 12px);
   }
   .md {
-    font-size: var(--fpcl-font-size-base);
     padding: var(--fpcl-btn-padding-v-md) var(--fpcl-btn-padding-h-md);
+    font-size: var(--fpcl-font-size-base, 16px);
   }
   .lg {
-    font-size: var(--fpcl-font-size-lg);
     padding: var(--fpcl-btn-padding-v-lg) var(--fpcl-btn-padding-h-lg);
+    font-size: var(--fpcl-font-size-lg, 20px);
   }
 
   .auto-width {

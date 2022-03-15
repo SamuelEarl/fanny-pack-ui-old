@@ -141,12 +141,15 @@
       */
       &.sm {
         padding: var(--fpcl-select-padding-sm);
+        font-size: var(--fpcl-font-size-sm, 12px);
       }
       &.md {
         padding: var(--fpcl-select-padding-md);
+        font-size: var(--fpcl-font-size-base, 16px);
       }
       &.lg {
         padding: var(--fpcl-select-padding-lg);
+        font-size: var(--fpcl-font-size-lg, 20px);
       }
 
       & .fpcl-select-btn-text {
@@ -216,12 +219,15 @@
         */
         &.sm {
           padding: var(--fpcl-select-padding-sm);
+          font-size: var(--fpcl-font-size-sm, 12px);
         }
         &.md {
           padding: var(--fpcl-select-padding-md);
+          font-size: var(--fpcl-font-size-base, 16px);
         }
         &.lg {
           padding: var(--fpcl-select-padding-lg);
+          font-size: var(--fpcl-font-size-lg, 20px);
         }
       }
     }

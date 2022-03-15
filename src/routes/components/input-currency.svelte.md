@@ -36,8 +36,8 @@
   disabled={false}
 />
 
-<p><strong>TOTAL: {total}</strong> <em>(value that is returned and that can be saved in a database - number format)</em></p>
-<p><strong>TOTAL: {new Intl.NumberFormat(locale, {style: "currency", currency: currency}).format(total)}</strong> <em>(value that is displayed in the browser - currency format)</em></p>
+<p><strong>TOTAL: {total}</strong> <em>(value that is returned and that can be saved in a database - number)</em></p>
+<p><strong>TOTAL: {new Intl.NumberFormat(locale, {style: "currency", currency: currency}).format(total)}</strong> <em>(value that is displayed in the browser - string)</em></p>
 
 
 ```svelte
