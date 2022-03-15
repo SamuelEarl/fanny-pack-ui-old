@@ -179,8 +179,8 @@
       <!-- The user might choose a custom icon that is larger than the one used in the demos, so it is necessary to place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
       <Icon
         icon="{dateInputIcon}"
-        width={size === "sm" ? "16" : size === "md" ? "20" : size === "lg" ? "25" : "20"} 
-        height={size === "sm" ? "16" : size === "md" ? "20" : size === "lg" ? "25" : "20"} 
+        width={size === "sm" ? "12" : size === "md" ? "16" : size === "lg" ? "21" : "16"} 
+        height={size === "sm" ? "12" : size === "md" ? "16" : size === "lg" ? "21" : "16"} 
       />
     </div>
   </div>
@@ -233,21 +233,21 @@
         /* 
          * 100% is used to cause the input field to span the width of the parent element.
          * The `--fpcl-date-input-padding-x` is multiplied by 4 because the input field and the button each have padding applied to each of their sides. 
-         * 16px, 20px, and 25px are the width of the icon, depending on the `size` prop. 
+         * 12px, 16px, and 21px are the width of the icon, depending on the `size` prop. 
          * The `var(--fpcl-date-picker-border-width)` is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
          */
         &.sm {
-          width: calc(100% - ((var(--fpcl-date-input-padding-sm, 5px) * 4) - 16px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          width: calc(100% - ((var(--fpcl-date-input-padding-sm, 5px) * 4) - 12px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
           padding: var(--fpcl-date-input-padding-sm, 5px);
           font-size: var(--fpcl-font-size-sm, 12px);
         }
         &.md {
-          width: calc(100% - ((var(--fpcl-date-input-padding-md, 10px) * 4) - 20px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          width: calc(100% - ((var(--fpcl-date-input-padding-md, 10px) * 4) - 16px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
           padding: var(--fpcl-date-input-padding-md, 10px);
           font-size: var(--fpcl-font-size-base, 16px);
         }
         &.lg {
-          width: calc(100% - ((var(--fpcl-date-input-padding-lg, 15px) * 4) - 25px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          width: calc(100% - ((var(--fpcl-date-input-padding-lg, 15px) * 4) - 21px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
           padding: var(--fpcl-date-input-padding-lg, 15px);
           font-size: var(--fpcl-font-size-lg, 20px);
         }
@@ -265,13 +265,13 @@
         cursor: pointer;
 
         &.sm {
-          padding: calc(var(--fpcl-date-input-padding-sm, 5px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-sm, 5px) + 1px);
         }
         &.md {
-          padding: calc(var(--fpcl-date-input-padding-md, 10px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-md, 10px) + 1px);
         }
         &.lg {
-          padding: calc(var(--fpcl-date-input-padding-lg, 15px) - 1px);
+          padding: calc(var(--fpcl-date-input-padding-lg, 15px) + 1px);
         }
       }
     }
