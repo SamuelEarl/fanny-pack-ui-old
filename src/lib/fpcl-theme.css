@@ -72,6 +72,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-body-font-stack: var(--fpcl-sans-serif-font-stack);
   --fpcl-headline-font-stack: var(--fpcl-serif-font-stack);
   /* Font styles */
+  /* (Changing the --fpcl-font-size-* variables could break some styles for a few components, like the DatePicker. So test your components before you use them in production if you change those values.) */
   --fpcl-text-color: var(--fpcl-very-dark-gray);
   --fpcl-font-size-sm: 12px;
   --fpcl-font-size-base: 16px;
