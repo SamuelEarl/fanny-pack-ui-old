@@ -25,16 +25,16 @@
     {#if disabled}
       {#if btnIconDisabledShouldSpin}
         <!-- You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times. -->
-        <span class="{`btn-icon-${btnIconSide}`}" >
+        <span class="{`btn-icon-${btnIconSide}`}">
           <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
         </span>
       {:else}
-        <span class="{`btn-icon-${btnIconSide}`}" >
+        <span class="{`btn-icon-${btnIconSide}`}">
           <Icon icon="{btnIconDisabled}" />
         </span>
       {/if}
     {:else}
-      <span class="{`btn-icon-${btnIconSide}`}" >
+      <span class="{`btn-icon-${btnIconSide}`}">
         <Icon icon="{btnIcon}" />
       </span>
     {/if}
