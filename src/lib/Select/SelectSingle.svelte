@@ -10,6 +10,7 @@
   export let size = "md";
 
   let componentId = createId();
+  let selectMenu;
   let showSelectMenu = false;
   let highlightedOption = selectedOption;
   
@@ -40,10 +41,9 @@
       // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
       if (showSelectMenu)  {
         calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
-        let menu = document.getElementById(`fpcl-select-menu-${componentId}`);
         // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
         await tick();
-        menu.focus();
+        selectMenu.focus();
       }
     }}
   >
@@ -61,11 +61,13 @@
     class="{`fpcl-select-menu ${size}`}"
     class:show={showSelectMenu}
     tabindex="-1"
+    bind:this={selectMenu}
     on:blur={(event) => {
       // In a blur event, the "event.target" is the element that has lost focus. When a "blur" event occurs, how can I find out which element received the focus? Use "event.relatedTarget": https://stackoverflow.com/a/33325953.
-      // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `.fpcl-select-btn` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) If the user did click on the `.fpcl-select-btn` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `.fpcl-select-btn` will set `showSelectMenu = false`. If the user did NOT click on the `.fpcl-select-btn` element, then set `showSelectMenu = false`.
-      // If the event and the event.relatedTarget exist, then continue to check if the event.relatedTarget does NOT match the `.fpcl-select-btn` element. If all those checks return true, then hide the select menu.
-      if (event && event.relatedTarget && !event.relatedTarget.matches(`.fpcl-select-btn`)) {
+      // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpcl-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
+      // **If the user did click on the `#fpcl-select-btn-${componentId}` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `#fpcl-select-btn-${componentId}` will set `showSelectMenu = false`. If the user did NOT click on the `#fpcl-select-btn-${componentId}` element, then set `showSelectMenu = false`.**
+      // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fpcl-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
+      if (event && event.relatedTarget && event.relatedTarget.id !== `fpcl-select-btn-${componentId}`) {
         showSelectMenu = false;
       }
       // If the user moused over the select menu options but didn't select an option before clicking outside of the menu, then reset the option that should be highlighted (when the user clicks the select box again) to the option that was previously selected.
