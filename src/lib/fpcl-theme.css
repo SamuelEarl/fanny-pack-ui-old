@@ -105,6 +105,17 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-border-radius: var(--fpcl-border-radius);
 }
 
+/* Checkbox */
+:root {
+  --fpcl-checkbox-border-width: var(--fpcl-border-width);
+  --fpcl-checkbox-border-style: var(--fpcl-border-style);
+  --fpcl-checkbox-border-color: var(--fpcl-border-color);
+  --fpcl-checkbox-box-shadow: var(--fpcl-box-shadow);
+  --fpcl-checkbox-bg-color: var(--fpcl-white);
+  --fpcl-checkbox-checked-bg-color: var(--fpcl-primary);
+  --fpcl-checkbox-margin-bottom: 20px;
+}
+
 /* Date Picker */
 :root {
   /* These variables apply to both the date input field and calendar components. */

@@ -122,7 +122,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px black);
+      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px gray);
     }
 
     &:disabled {

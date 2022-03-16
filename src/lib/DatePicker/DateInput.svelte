@@ -213,11 +213,11 @@
       overflow: hidden;
 
       &:hover {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
       }
 
       &:focus {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
+        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
       }
 
       & .date-input {

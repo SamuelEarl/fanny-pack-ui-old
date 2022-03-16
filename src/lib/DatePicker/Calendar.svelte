@@ -326,7 +326,7 @@
     font-size: 0.75rem;
 
     &:hover {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px black);
+      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
     }
 
     & .top {
@@ -375,6 +375,10 @@
           background-color: var(--fpcl-date-picker-bg-color, white);
           color: var(--fpcl-date-picker-text-color, inherit);
           cursor: pointer;
+
+          &:hover {
+            box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
+          }
         }
 
         &.month, &.year {

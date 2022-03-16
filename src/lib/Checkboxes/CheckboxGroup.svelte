@@ -1,17 +1,39 @@
 <script lang="ts">
   import { createId } from "../utils";
 
-  export let checked;
-  export let label;
+  export let arrayType = "string";
+  export let checkboxGroupValues;
+  export let group;
 
   let componentId = createId();
 </script>
 
 
-<label for={`fpcl-checkbox-${componentId}`} class="container">
-  <input type="checkbox" id={`fpcl-checkbox-${componentId}`} bind:checked={checked} on:change> {label}
-  <span class="checkmark"></span>
-</label>
+{#if arrayType === "string" || arrayType === "number"}
+  {#each checkboxGroupValues as item}
+    <!--
+      IMPORTANT NOTE: 
+      `bind:group` does not work with nested components: https://github.com/sveltejs/svelte/issues/2308
+      So I have just copied and pasted the code from the Checkbox.svelte component into this component.
+    -->
+    <!-- In Svelte you would use the `bind:group` property if you want to include all the values from a group of checkboxes into a single array of values that would then get sent to the backend for processing. So if the <Checkbox> component is used as part of a group of checkboxes, then use `bind:group` to bind to the `group` prop that is passed into this component. Otherwise, if this is a single checkbox (i.e. not part of a group of checkboxes), then do not use the `bind:group` property. -->
+    <!-- <Checkbox bind:group={group} value={item} label={item} on:change /> -->
+    <label class="container">
+      <input type="checkbox" bind:group={group} value={item} on:change> {item}
+      <span class="checkmark"></span>
+    </label>
+  {/each}
+{/if}
+
+{#if arrayType === "objects"}
+  {#each checkboxGroupValues as obj}
+    <!-- <Checkbox bind:group={group} value={obj.value} label={obj.label} /> -->
+    <label class="container">
+      <input type="checkbox" bind:group={group} value={obj.value} on:change> {obj.label}
+      <span class="checkmark"></span>
+    </label>
+  {/each}
+{/if}
 
 
 <style>

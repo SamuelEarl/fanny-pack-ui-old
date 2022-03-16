@@ -124,16 +124,6 @@ The `<DateInput />` component is designed to fill the entire width of its parent
 | `placeholder`<br>(`<DateInput />` only) | `string` | any string | `YYYY-MM-DD` | This prop will act as the placeholder when the date value is null (i.e. when the input field is empty). | 
 | `dateInputIcon`<br>(`<DateInput />` only) | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. |
 
-<br><br>
-
-## Styles
-Be aware that if you override any of the following `font-size` variables, then it could break the styles of the input field or the input button for this `DatePicker` component. So test any font size changes to make sure that they will work before you use this component in production.
-```css
---fpcl-font-size-sm: 12px;
---fpcl-font-size-base: 16px;
---fpcl-font-size-lg: 20px;
-```
-
 
 <style>
   .date-wrapper {

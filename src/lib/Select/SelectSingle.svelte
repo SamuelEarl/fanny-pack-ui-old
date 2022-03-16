@@ -135,7 +135,7 @@
       cursor: pointer;
 
       &:hover {
-        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px black);
+        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px gray);
       }
 
       /*
@@ -188,8 +188,8 @@
       color: var(--fpcl-select-text-color);
       z-index: 100;
 
-      &:focus {
-        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px black);
+      &:hover {
+        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px gray);
       }
 
       &.show {

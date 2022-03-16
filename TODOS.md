@@ -18,6 +18,10 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Write more tests.
 * Read over the documentation to make sure that I have covered everything.
 
+## Checkbox
+* Work on the CheckboxGroup component. This might be as complete as I can make it, so I might need to move on.
+* Create documentation.
+
 ## Currency Input
 * Write tests.
 
