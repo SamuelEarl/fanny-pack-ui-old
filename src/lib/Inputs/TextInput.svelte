@@ -12,7 +12,7 @@
 </script>
 
 
-<Label {label} forId={`fpcl-input-${componentId}`} />
+<Label {label} forVal={`fpcl-input-${componentId}`} />
 <input
   type="text"
   bind:value={value}
@@ -53,7 +53,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-input-border-color, gray);
     }
 
     &:disabled {

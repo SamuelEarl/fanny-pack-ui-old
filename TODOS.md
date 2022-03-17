@@ -1,10 +1,6 @@
 # TODOS
 NOTE: Maybe I could look at how to theme the Carbon components rather than create my own component library. Actually, I don't think I could contribute themable components to that project because that project is based on the Carbon Design System and I want to create components that can be themed to fit other design systems. But maybe I could base my components off of the Carbon components for Svelte, so I could see how they create their components and use some of their ideas.
 
-REFACTOR ALL BOX SHADOWS TO BE LIKE THE ONES IN CHECKBOX.CSS WHERE I CREATE BOX SHADOWS LIKE THIS: 
-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-checkbox-unchecked-border-color, gray);
-* I WANT TO REMOVE ANY BOX-SHADOW VARIABLES FROM THE  fpcl-theme.css FILE.
-
 * After I launch this site on Vercel, add the URL to the README file.
 * Convert these components to TypeScript.
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 

@@ -155,7 +155,7 @@
 </script>
 
 
-<Label {label} forId={`fpcl-date-input-${componentId}`} />
+<Label {label} forVal={`fpcl-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
   <div class="{`date-input-container ${size}`}">
     <input
@@ -213,11 +213,11 @@
       overflow: hidden;
 
       &:hover {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
+        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
       }
 
       &:focus {
-        box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
+        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
       }
 
       & .date-input {

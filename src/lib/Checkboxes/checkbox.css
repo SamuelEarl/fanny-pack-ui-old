@@ -2,7 +2,7 @@
 /* The <Checkbox> and <CheckboxGroup> components use the same exact styles, so this file is simply imported into both components. */
 
 /* Customize the label (the container). */
-.container {
+.fpcl-checkbox-label-wrapper {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -11,12 +11,12 @@
   user-select: none;
 }
 /* On mouse-over of an unchecked checkbox, add a box-shadow to the checkbox that matches the border color. */
-.container:hover input ~ .checkmark {
+.fpcl-checkbox-label-wrapper:hover .fpcl-checkbox-input ~ .fpcl-checkbox-checkmark {
   box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-checkbox-unchecked-border-color, gray);
 }
 
 /* Hide the browser's default checkbox. */
-input {
+.fpcl-checkbox-input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -24,21 +24,21 @@ input {
   width: 0;
 }
 /* When the checkbox is checked, add a background color and change the border color to match the background color. */
-input:checked ~ .checkmark {
+.fpcl-checkbox-input:checked ~ .fpcl-checkbox-checkmark {
   border-color: var(--fpcl-checkbox-checked-bg-color, #c7c7c7);
   background-color: var(--fpcl-checkbox-checked-bg-color, #c7c7c7);
 }
 /* Show the checkmark when checked. */
-input:checked ~ .checkmark:after {
+.fpcl-checkbox-input:checked ~ .fpcl-checkbox-checkmark:after {
   display: block;
 }
 /* On mouse-over of a checked checkbox, add a box-shadow to the checkbox that matches the background color. */
-.container:hover input:checked ~ .checkmark {
+.fpcl-checkbox-label-wrapper:hover .fpcl-checkbox-input:checked ~ .fpcl-checkbox-checkmark {
   box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-checkbox-checked-bg-color, gray);
 }
 
 /* Create a custom checkbox. */
-.checkmark {
+.fpcl-checkbox-checkmark {
   position: absolute;
   top: -3px;
   left: 0;
@@ -50,7 +50,7 @@ input:checked ~ .checkmark:after {
   border-radius: var(--fpcl-checkbox-unchecked-border-radius, 3px);
   background-color: var(--fpcl-checkbox-unchecked-bg-color, white);
 }
-.checkmark:after {
+.fpcl-checkbox-checkmark:after {
   /* Create the checkmark/indicator (hidden when not checked). */
   content: "";
   position: absolute;

@@ -62,9 +62,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-border-color: var(--fpcl-light-gray);
   --fpcl-border-radius: 3px;
   /* Box shadows */
+  /* (The --fpcl-box-shadow-spread variable is used for hover states. When a user hovers over a component then an extra border will be displayed around the hovered component. That extra border gives the component a highlighted look. 1px will display a thin border. If you want it thicker, then you can increase this value.) */
   --fpcl-box-shadow-spread: 1px;
-  --fpcl-box-shadow-color: var(--fpcl-border-color);
-  --fpcl-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-box-shadow-color);
   /* Font stacks */
   --fpcl-serif-font-stack: "Times New Roman", sans-serif;
   --fpcl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -96,10 +95,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-padding-h-lg: calc(var(--fpcl-padding-lg) + var(--fpcl-padding-lg));
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 10px;
-  /* Hover state */
-  --fpcl-btn-primary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-primary);
-  --fpcl-btn-secondary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-secondary);
-  --fpcl-btn-tertiary-box-shadow: 0 0 0 var(--fpcl-box-shadow-spread) var(--fpcl-tertiary);
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
   --fpcl-btn-border-radius: var(--fpcl-border-radius);
@@ -123,7 +118,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-date-picker-border-style: var(--fpcl-border-style);
   --fpcl-date-picker-border-color: var(--fpcl-border-color);
   --fpcl-date-picker-border-radius: var(--fpcl-border-radius);
-  --fpcl-date-picker-box-shadow: var(--fpcl-box-shadow);
   --fpcl-date-picker-text-color: var(--fpcl-text-color);
   --fpcl-date-picker-bg-color: var(--fpcl-white);
   /* These variables apply to only the date input field component. */
@@ -149,7 +143,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-border-color: var(--fpcl-border-color);
   --fpcl-input-bg-color: var(--fpcl-white);
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
-  --fpcl-input-box-shadow: var(--fpcl-box-shadow);
 }
 
 /* Select (single) */
@@ -162,7 +155,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-select-border-style: var(--fpcl-border-style);
   --fpcl-select-border-color: var(--fpcl-border-color);
   --fpcl-select-border-radius: var(--fpcl-border-radius);
-  --fpcl-select-box-shadow: var(--fpcl-box-shadow);
   --fpcl-select-bg-color: var(--fpcl-white);
   --fpcl-select-text-color: var(--fpcl-text-color);
   /* Styles for the dropdown menu of the select box. */

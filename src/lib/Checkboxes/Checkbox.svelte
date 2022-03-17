@@ -1,16 +1,17 @@
 <script lang="ts">
-  import { createId } from "../utils";
-
   export let checked;
   export let label;
-
-  let componentId = createId();
 </script>
 
 
-<label for={`fpcl-checkbox-${componentId}`} class="container">
-  <input type="checkbox" id={`fpcl-checkbox-${componentId}`} bind:checked={checked} on:change> {label}
-  <span class="checkmark"></span>
+<label class="fpcl-checkbox-label-wrapper">
+  <input
+    type="checkbox"
+    class="fpcl-checkbox-input"
+    bind:checked={checked}
+    on:change
+  > {label}
+  <span class="fpcl-checkbox-checkmark"></span>
 </label>
 
 

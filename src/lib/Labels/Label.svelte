@@ -1,12 +1,12 @@
 <script lang="ts">
   export let label;
-  export let forId;
+  export let forVal;
 </script>
 
 
-{#if label && forId}
+{#if label && forVal}
   <div class="fpcl-label-container">
-    <label for={forId} class="fpcl-label">{label}</label>
+    <label for={forVal} class="fpcl-label">{label}</label>
   </div>
 {/if}
 

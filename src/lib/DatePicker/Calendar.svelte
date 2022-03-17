@@ -257,7 +257,7 @@
 </script>
 
 
-<Label {label} forId={`fpcl-calendar-${componentId}`} />
+<Label {label} forVal={`fpcl-calendar-${componentId}`} />
 <div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
   <div class="top">
     <button class="change-month-btn" tabindex="-1" on:click={() => setMonth(month - 1)}>
@@ -326,7 +326,7 @@
     font-size: 0.75rem;
 
     &:hover {
-      box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
     }
 
     & .top {
@@ -377,7 +377,7 @@
           cursor: pointer;
 
           &:hover {
-            box-shadow: var(--fpcl-date-picker-box-shadow, 0 0 0 1px gray);
+            box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
           }
         }
 

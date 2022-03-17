@@ -29,7 +29,7 @@
 </script>
 
 
-<Label {label} forId={`fpcl-select-btn-${componentId}`} />
+<Label {label} forVal={`fpcl-select-btn-${componentId}`} />
 <div class="fpcl-select">
   <div
     role="combobox"
@@ -135,7 +135,7 @@
       cursor: pointer;
 
       &:hover {
-        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px gray);
+        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-select-border-color, gray);
       }
 
       /*
@@ -189,7 +189,7 @@
       z-index: 100;
 
       &:hover {
-        box-shadow: var(--fpcl-select-box-shadow, 0 0 0 1px gray);
+        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-select-border-color, gray);
       }
 
       &.show {

@@ -75,7 +75,7 @@
     color: var(--fpcl-btn-primary-text-color);
     
     &:hover {
-      box-shadow: var(--fpcl-btn-primary-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-primary, gray);
     }
 
     &.inverted {
@@ -89,7 +89,7 @@
     color: var(--fpcl-btn-secondary-text-color);
 
     &:hover {
-      box-shadow: var(--fpcl-btn-secondary-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-secondary, gray);
     }
 
     &.inverted {
@@ -103,7 +103,7 @@
     color: var(--fpcl-btn-tertiary-text-color);
 
     &:hover {
-      box-shadow: var(--fpcl-btn-tertiary-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-tertiary, gray);
     }
 
     &.inverted {

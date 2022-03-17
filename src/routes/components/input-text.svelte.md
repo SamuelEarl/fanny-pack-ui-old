@@ -21,6 +21,8 @@
   disabled={false}
 />
 
+<input type="text" placeholder="This is not showing up" />
+
 ```svelte
 <script>
   import { TextInput } from "fpcl";

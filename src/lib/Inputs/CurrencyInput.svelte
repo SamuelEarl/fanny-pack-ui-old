@@ -64,7 +64,7 @@
 </script>
 
 
-<Label {label} forId={`fpcl-input-${componentId}`} />
+<Label {label} forVal={`fpcl-input-${componentId}`} />
 {#if showNumberInput}
   <!-- Using a "number" input here will allow a user's device to display a numeric virtual keyboard when the user clicks inside this input field. -->
   <input
@@ -122,7 +122,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: var(--fpcl-input-box-shadow, 0 0 0 1px gray);
+      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-input-border-color, gray);
     }
 
     &:disabled {
