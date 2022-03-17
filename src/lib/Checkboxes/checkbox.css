@@ -1,0 +1,66 @@
+/* Custom Checkbox Styles (https://www.w3schools.com/howto/howto_css_custom_checkbox.asp) */
+/* The <Checkbox> and <CheckboxGroup> components use the same exact styles, so this file is simply imported into both components. */
+
+/* Customize the label (the container). */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: var(--fpcl-checkbox-margin-bottom, 20px);
+  cursor: pointer;
+  user-select: none;
+}
+/* On mouse-over of an unchecked checkbox, add a box-shadow to the checkbox that matches the border color. */
+.container:hover input ~ .checkmark {
+  box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-checkbox-unchecked-border-color, gray);
+}
+
+/* Hide the browser's default checkbox. */
+input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* When the checkbox is checked, add a background color and change the border color to match the background color. */
+input:checked ~ .checkmark {
+  border-color: var(--fpcl-checkbox-checked-bg-color, #c7c7c7);
+  background-color: var(--fpcl-checkbox-checked-bg-color, #c7c7c7);
+}
+/* Show the checkmark when checked. */
+input:checked ~ .checkmark:after {
+  display: block;
+}
+/* On mouse-over of a checked checkbox, add a box-shadow to the checkbox that matches the background color. */
+.container:hover input:checked ~ .checkmark {
+  box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-checkbox-checked-bg-color, gray);
+}
+
+/* Create a custom checkbox. */
+.checkmark {
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  border-width: var(--fpcl-checkbox-unchecked-border-width, 1px);
+  border-style: var(--fpcl-checkbox-unchecked-border-style, solid);
+  border-color: var(--fpcl-checkbox-unchecked-border-color, #c7c7c7);
+  border-radius: var(--fpcl-checkbox-unchecked-border-radius, 3px);
+  background-color: var(--fpcl-checkbox-unchecked-bg-color, white);
+}
+.checkmark:after {
+  /* Create the checkmark/indicator (hidden when not checked). */
+  content: "";
+  position: absolute;
+  display: none;
+  /* Style the checkmark/indicator. */
+  left: 7px;
+  top: -1px;
+  width: 10px;
+  height: 20px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}

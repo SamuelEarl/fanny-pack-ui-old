@@ -2,7 +2,7 @@
   import { Checkbox, CheckboxGroup } from "/src/lib";
 
   let pto = false;
-  let ptoLabel = "Are you taking PTO today?";
+  let ptoLabel = "Would you like fries with that?";
 
   let toppingOptions = ["pepperoni", "bacon", "sausage", "olives", "green peppers"];
   let selectedToppings = [];
@@ -20,7 +20,7 @@
   label={ptoLabel}
 />
 
-<p>Taking PTO? {pto}</p>
+<p>Your selection: <strong>{pto}</strong></p>
 
 <br>
 
@@ -45,7 +45,11 @@ In a group of checkboxes the selected values will populate an array that could t
 
 <p>Your selected toppings:</p>
 <ul>
-  {#each selectedToppings as topping}
-    <li>{topping}</li>
-  {/each}
+  {#if selectedToppings.length === 0}
+    <li>No toppings have been selected</li>
+  {:else}
+    {#each selectedToppings as topping}
+      <li>{topping}</li>
+    {/each}
+  {/if}
 </ul>
