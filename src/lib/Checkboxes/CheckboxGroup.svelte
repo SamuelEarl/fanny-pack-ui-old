@@ -27,7 +27,7 @@
   {/each}
 {/if}
 
-{#if arrayType === "objects"}
+{#if arrayType === "object"}
   {#each checkboxGroupValues as obj}
     <label class="fpcl-checkbox-label-wrapper">
       <input

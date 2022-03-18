@@ -83,7 +83,7 @@ The "Selected icon" field should also match the `data-icon` property of that cod
 
 ---
 
-## Update `fpcl` to the latest version in your app
+## How to update `fpcl` to the latest version in your app
 If you have installed `fpcl` from the global npm registry, then you can do the following (inside the directory that contains your `package.json` file) to get the latest version in your app:
 
 ### See which packages are outdated:

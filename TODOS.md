@@ -30,6 +30,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Implement the `size` prop in the `Calendar` component and increase or decrease the font sizes based on the `size` prop. The fonts will probably be smaller than 1rem, but I do want to increase or decrease the font-sizes in relation the the `size` prop.
 
 ## Input (currency)
+* Write documentation.
 * Write tests.
 
 ## Input (text)

@@ -1,8 +1,17 @@
 <script lang="ts">
-  import { CheckboxGroup } from "/src/lib";
+  import { Checkbox, CheckboxGroup } from "/src/lib";
 
   let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
   let selectedSuvOptions = [];
+
+  let suvOptionsObjects = [
+    { label: "Oversized Wheels", value: "oversizedWheels" },
+    { label: "Mud Tires", value: "mudTires" },
+    { label: "Mud Guards", value: "mudGuards" },
+    { label: "Trail Running Boards", value: "trailRunningBoards" },
+    { label: "Roof Rack", value: "roofRack" },
+  ];
+  let selectedSuvOptionsObjects = [];
 </script>
 
 # Checkbox Group
@@ -16,23 +25,17 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 
 ## Example Usage
 
-Select any of the following options for your SUV:
+### "string" (or "number") arrayType
+
+<p>Select any of the following options for your SUV:</p>
 <CheckboxGroup
   arrayType="string"
   checkboxGroupValues={suvOptions}
   bind:selectedValues={selectedSuvOptions}
 />
 
-<div>Your selected options:</div>
-{#if selectedSuvOptions.length === 0}
-  <p><em>No options have been selected</em></p>
-{:else}
-  <ul>
-    {#each selectedSuvOptions as option}
-      <li>{option}</li>
-    {/each}
-  </ul>
-{/if}
+<div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
+
 
 ```svelte
 <script>
@@ -42,23 +45,54 @@ Select any of the following options for your SUV:
   let selectedSuvOptions = [];
 </script>
 
+<p>Select any of the following options for your SUV:</p>
 <CheckboxGroup
   arrayType="string"
   checkboxGroupValues={suvOptions}
   bind:selectedValues={selectedSuvOptions}
 />
 
-<div>Your selected options:</div>
-{#if selectedSuvOptions.length === 0}
-  <p><em>No options have been selected</em></p>
-{:else}
-  <ul>
-    {#each selectedSuvOptions as option}
-      <li>{option}</li>
-    {/each}
-  </ul>
-{/if}
+<div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
 ```
+
+<br>
+
+### "object" arrayType
+
+<p>Select any of the following options for your SUV:</p>
+<CheckboxGroup
+  arrayType="object"
+  checkboxGroupValues={suvOptionsObjects}
+  bind:selectedValues={selectedSuvOptionsObjects}
+/>
+
+<div>Value of <code>selectedSuvOptionsObjects</code>: <code>{JSON.stringify(selectedSuvOptionsObjects)}</code></div>
+
+```svelte
+<script>
+  import { CheckboxGroup } from "fpcl";
+
+  let suvOptionsObjects = [
+    { label: "Oversized Wheels", value: "oversizedWheels" },
+    { label: "Mud Tires", value: "mudTires" },
+    { label: "Mud Guards", value: "mudGuards" },
+    { label: "Trail Running Boards", value: "trailRunningBoards" },
+    { label: "Roof Rack", value: "roofRack" },
+  ];
+  let selectedSuvOptionsObjects = [];
+</script>
+
+<p>Select any of the following options for your SUV:</p>
+<CheckboxGroup
+  arrayType="object"
+  checkboxGroupValues={suvOptionsObjects}
+  bind:selectedValues={selectedSuvOptionsObjects}
+/>
+
+<div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
+```
+
+Note that if you pass an array of objects to the `optionsArray` prop, then each object inside the array should have `label` and `value` properties.
 
 <hr>
 
@@ -77,6 +111,7 @@ Select any of the following options for your SUV:
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user checks this `<Checkbox>` component. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler when a user checks this `<Checkbox>` component. You would setup and use the `input` event the same way you would setup and use the `change` event. |
 
+<br>
 
 ## Plain HTML vs Svelte Checkboxes
 
@@ -115,17 +150,34 @@ In Svelte, you can also create individual checkboxes, similar to how you would i
 So the `bind:group` option for Svelte checkboxes is a nice add-on feature that does not exist in plain HTML and you could use regular checkboxes instead of "grouped" checkboxes.
 
 ### Could I loop over a regular `<Checkbox>` component to create a group of checkboxes?
-When creating "grouped" checkboxes, you cannot create them inside an `{#each}` loop like this:
+When creating "grouped" checkboxes, you cannot create them inside an `{#each}` loop. That would look something like this:
 
 ```svelte
+<script>
+  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
+  let selectedSuvOptions = [];
+</script>
+
+<p>Select any of the following options for your SUV:</p>
 {#each suvOptions as option}
-  <Checkbox checked={option} label={option} />
+  <Checkbox bind:checked={option} label={option} />
 {/each}
+<div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
 ```
+
+But this is how the above code would actually work:
+
+<p>Select any of the following options for your SUV:</p>
+{#each suvOptions as option}
+  <Checkbox bind:checked={option} label={option} />
+{/each}
+<div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
+
+<br>
 
 At least one reason why this approach would not work is because you would have to work with two different arrays:
 1. One array that could be looped over to provide all the checkbox values and labels.
-2. Another array that you would have to bind the selected values to. But there is no easy way to bind the individually selected values to a second array.
+2. Another array that could be used to bind the selected values to. But there is no easy way to bind the individually selected values to a second array.
 
 So using two different arrays with a regular `<Checkbox>` component becomes very difficult (if not impossible) and the API would not be very user friendly. (You can read more information about this issue here: https://github.com/sveltejs/svelte/issues/2308.)
 

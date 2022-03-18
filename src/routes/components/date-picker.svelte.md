@@ -15,6 +15,8 @@ The code for this component was taken from this great [date picker component](ht
 ## Example Usage
 
 ### Date input field with calendar
+* You can directly enter a date value into the input field or select a date from the calendar that pops up. 
+* If a user enters a date into the input field that does not match the `YYYY-MM-DD` format, then a validation error is triggered.
 
 <div class="date-wrapper">
   {#if !valid}

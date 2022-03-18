@@ -3,10 +3,6 @@
 
   let haveRead = false;
   let checkboxLabel = "I have read the terms and conditions.";
-
-  function handleChange() {
-    alert("Checkbox has been changed");
-  }
 </script>
 
 # Checkbox
@@ -19,7 +15,6 @@ This component will create a single checkbox. If you want to create multiple che
 <Checkbox
   bind:checked={haveRead}
   label={checkboxLabel}
-  on:change={handleChange}
 />
 
 <p>Your selection: <strong>{haveRead}</strong></p>
@@ -30,6 +25,21 @@ This component will create a single checkbox. If you want to create multiple che
 
   let haveRead = false;
   let checkboxLabel = "I have read the terms and conditions.";
+</script>
+
+<Checkbox
+  bind:checked={haveRead}
+  label={checkboxLabel}
+/>
+
+<p>Your selection: <strong>{haveRead}</strong></p>
+```
+
+You can use the `on:change` or `on:input` event like this:
+
+```svelte
+<script>
+  ...
 
   function handleChange() {
     alert("Checkbox has been changed");
@@ -41,8 +51,6 @@ This component will create a single checkbox. If you want to create multiple che
   label={checkboxLabel}
   on:change={handleChange}
 />
-
-<p>Your selection: <strong>{haveRead}</strong></p>
 ```
 
 <hr>

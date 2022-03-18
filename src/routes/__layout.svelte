@@ -2,32 +2,43 @@
 	<title>Fanny Pack Component Library | Components built with and for SvelteKit</title>
 </svelte:head>
 
-<div class="layout">
-  <div class="sidebar">
+<div id="layout">
+  <div id="sidebar">
     <Sidebar />
   </div>
-  <main>
+  <main id="main">
     <slot />
   </main>
 </div>
 
 <script lang="ts">
+  import { afterNavigate } from "$app/navigation";
+
   import Sidebar from "./_sidebar.svelte";
+
+  /**
+   * Reset the page scroll position to the top on navigation.
+   * The following GitHub issue explains that using `height:100vh` along with `overflow:auto` creates a scenario in the CSS that prevents the page from setting the page scroll position to the top when a user navigates to a new page: https://github.com/sveltejs/kit/issues/2733
+   * One of the comments in that issue mentioned using the `afterNavigate` (https://kit.svelte.dev/docs/modules#$app-navigation-afternavigate) hook to reset the scroll position. Since the layout that I am using requires the scroll position in the <main> element to be reset, then I am referencing the <main> element in the `afterNavigate` hook and setting its scroll position to 0.
+   */
+  afterNavigate(() => {
+    document.getElementById("main").scrollTop = 0;
+  });
 </script>
 
 <style>
   @import "/src/assets/styles/main.css";
   
-  .layout {
+  #layout {
     height: 100vh;
     display: flex;
 
-    & .sidebar {
+    & #sidebar {
       width: 20%;
       overflow-y: auto;
     }
 
-    & main {
+    & #main {
       flex: 1;
       padding: 0 20px 100px 20px;
       overflow-y: auto;
