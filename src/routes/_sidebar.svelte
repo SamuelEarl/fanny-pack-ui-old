@@ -55,7 +55,22 @@
   <div class="section-heading">Data Viz</div>
   <div class="nav-links">
     <a href="/data-viz/bar-chart" class:active={currentPath === "/data-viz/bar-chart"}>
-      <Icon icon="bi:bar-chart" /> &nbsp; Bar Chart
+      <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart
+    </a>
+    <a href="/data-viz/bubble-chart" class:active={currentPath === "/data-viz/bubble-chart"}>
+      <Icon icon="carbon:chart-bubble" /> &nbsp; Bubble Chart
+    </a>
+    <a href="/data-viz/column-chart" class:active={currentPath === "/data-viz/column-chart"}>
+      <Icon icon="bi:bar-chart" /> &nbsp; Column Chart
+    </a>
+    <a href="/data-viz/histogram" class:active={currentPath === "/data-viz/histogram"}>
+      <Icon icon="fluent:data-histogram-24-regular" /> &nbsp; Histogram
+    </a>
+    <a href="/data-viz/line-chart" class:active={currentPath === "/data-viz/line-chart"}>
+      <Icon icon="mdi:chart-line-variant" /> &nbsp; Line Chart
+    </a>
+    <a href="/data-viz/scatterplot" class:active={currentPath === "/data-viz/scatterplot"}>
+      <Icon icon="carbon:chart-scatter" /> &nbsp; Scatterplot
     </a>
   </div>
 </nav>
@@ -71,7 +86,8 @@
 
 <style>
   nav {
-    height: 100%;
+    min-height: 100%;
+    padding-bottom: 50px;
     background-color: var(--fpcl-secondary);
     color: var(--fpcl-tertiary);
 
