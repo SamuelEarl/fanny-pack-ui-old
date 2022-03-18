@@ -1,53 +1,34 @@
- /* General HTML element styles go in this file. These form the base styles that can be modified in your .svelte files. */
+/* General HTML element styles go in this file. These form the base styles that can be modified in your .svelte files. */
+/* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
 
- html, body {
+html, body {
+  font-size: var(--fpcl-font-size-base, 16px);
   font-family: var(--fpcl-body-font-stack);
   color: var(--fpcl-text-color);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  /* font-family: var(--fpcl-headline-font-stack); */
+  font-family: var(--fpcl-headline-font-stack);
   font-weight: normal;
 }
 
+p {
+  line-height: 1.5rem;
+}
 
-/* a {
-  text-decoration: none;
-  color: var(--fpcl-text-color);
-  border-bottom: none;
-  &.underline {
-    border-bottom: 1px dotted var(--fpcl-text-color);
-    &:hover {
-      border-bottom: none;
-    }
-    &.primary {
-      color: var(--fpcl-primary);
-      border-color: var(--fpcl-primary);
-    }
-  }
-} */
+li {
+  margin-bottom: 7px;
+  line-height: 1.5rem;
+}
 
-/* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
 a {
   text-decoration: none;
-  color: var(--fpcl-text-color);
-  border-bottom: none;
-}
-a.underline {
-  border-bottom: 1px dotted var(--fpcl-text-color);
-}
-a.underline:hover {
-  border-bottom: none;
-}
-a.underline.primary {
   color: var(--fpcl-primary);
-  border-color: var(--fpcl-primary);
+  border-bottom: 1px dotted var(--fpcl-primary);
 }
-a.underline.secondary {
-  color: var(--fpcl-secondary);
-  border-color: var(--fpcl-secondary);
+a:hover {
+  border-bottom: none;
 }
-
 
 table {
   width: 100%;
@@ -64,19 +45,16 @@ th, td {
   vertical-align: top;
 }
 
-li {
-  margin-bottom: 7px;
-  line-height: 1.5rem;
-}
-
 /* <pre> or triple backticks */
 pre {
+  font-family: var(--fpcl-code-font-stack);
   padding: 10px;
   border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);
 }
 /* <code> or single backticks */
 code {
+  font-family: var(--fpcl-code-font-stack);
   padding: 0 3px;
   border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);

@@ -10,6 +10,7 @@
     class="fpcl-checkbox-input"
     bind:checked={checked}
     on:change
+    on:input
   > {label}
   <span class="fpcl-checkbox-checkmark"></span>
 </label>

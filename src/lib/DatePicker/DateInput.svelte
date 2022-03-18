@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createEventDispatcher, tick } from "svelte";
+  import { onMount, createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import { cubicInOut } from "svelte/easing";
   import { Writable, writable } from "svelte/store";
@@ -19,7 +19,11 @@
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
   let componentId = createId();
+  let inputFontSize;
 
+  onMount(() => {
+    setIconFontSize();
+  })
 
   /** Default date to display in input before value is assigned */
   const currentDate = new Date();
@@ -152,6 +156,16 @@
       showCalendar = false;
     }
   }
+
+  /**
+   * Get the input field's font-size, even if that size is set in a stylesheet:
+   * https://stackoverflow.com/a/15195345/9453009
+   */
+  function setIconFontSize() {
+    let dateInputField = document.getElementById(`fpcl-date-input-${componentId}`);
+    let style = window.getComputedStyle(dateInputField, null).getPropertyValue("font-size");
+    inputFontSize = parseFloat(style);
+  }
 </script>
 
 
@@ -176,12 +190,8 @@
       tabindex="-1"
       on:click={() => showCalendar = !showCalendar}
     >
-      <!-- The user might choose a custom icon that is larger than the one used in the demos, so it is necessary to place strict width and height values to prevent the icon from pushing the button outside of the input container. -->
-      <Icon
-        icon="{dateInputIcon}"
-        width={size === "sm" ? "12" : size === "md" ? "16" : size === "lg" ? "21" : "16"} 
-        height={size === "sm" ? "12" : size === "md" ? "16" : size === "lg" ? "21" : "16"} 
-      />
+      <!-- This <Icon/> element does not inherit the font-size property of its parent component, so I am setting it programmatically. -->
+      <Icon icon="{dateInputIcon}" width="{inputFontSize}" />
     </div>
   </div>
   {#if showCalendar}
@@ -205,7 +215,7 @@
 
     & .date-input-container {
       display: flex;
-      align-items: center;
+      /* align-items: stretch; */
       border-width: var(--fpcl-date-picker-border-width, 1px);
       border-style: var(--fpcl-date-picker-border-style, solid);
       border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
@@ -233,7 +243,7 @@
         /* 
          * 100% is used to cause the input field to span the width of the parent element.
          * The `--fpcl-date-input-padding-x` is multiplied by 4 because the input field and the button each have padding applied to each of their sides. 
-         * 12px, 16px, and 21px are the width of the icon, depending on the `size` prop. 
+         * 12px, 16px, and 20px are the width of the icon, depending on the `size` prop. 
          * The `var(--fpcl-date-picker-border-width)` is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
          */
         &.sm {
@@ -247,7 +257,7 @@
           font-size: var(--fpcl-font-size-base, 16px);
         }
         &.lg {
-          width: calc(100% - ((var(--fpcl-date-input-padding-lg, 15px) * 4) - 21px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
+          width: calc(100% - ((var(--fpcl-date-input-padding-lg, 15px) * 4) - 20px - (var(--fpcl-date-picker-border-width, 1px) * 3)));
           padding: var(--fpcl-date-input-padding-lg, 15px);
           font-size: var(--fpcl-font-size-lg, 20px);
         }
@@ -265,13 +275,13 @@
         cursor: pointer;
 
         &.sm {
-          padding: calc(var(--fpcl-date-input-padding-sm, 5px) + 1px);
+          padding: var(--fpcl-date-input-padding-sm, 5px);
         }
         &.md {
-          padding: calc(var(--fpcl-date-input-padding-md, 10px) + 1px);
+          padding: var(--fpcl-date-input-padding-md, 10px);
         }
         &.lg {
-          padding: calc(var(--fpcl-date-input-padding-lg, 15px) + 1px);
+          padding: var(--fpcl-date-input-padding-lg, 15px);
         }
       }
     }

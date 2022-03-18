@@ -65,13 +65,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* (The --fpcl-box-shadow-spread variable is used for hover states. When a user hovers over a component then an extra border will be displayed around the hovered component. That extra border gives the component a highlighted look. 1px will display a thin border. If you want it thicker, then you can increase this value.) */
   --fpcl-box-shadow-spread: 1px;
   /* Font stacks */
-  --fpcl-serif-font-stack: "Times New Roman", sans-serif;
-  --fpcl-sans-serif-font-stack: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --fpcl-cursive-font-stack: "Audiowide", cursive;
+  --fpcl-sans-serif-font-stack: "Montserrat", sans-serif;
   --fpcl-mono-font-stack: "Source Code Pro", mono;
+  --fpcl-headline-font-stack: var(--fpcl-cursive-font-stack);
   --fpcl-body-font-stack: var(--fpcl-sans-serif-font-stack);
-  --fpcl-headline-font-stack: var(--fpcl-serif-font-stack);
+  --fpcl-code-font-stack: var(--fpcl-mono-font-stack);
   /* Font styles */
-  /* (Changing the --fpcl-font-size-* variables could break some styles for a few components, like the DatePicker. So test your components before you use them in production if you change those values.) */
   --fpcl-text-color: var(--fpcl-very-dark-gray);
   --fpcl-font-size-sm: 12px;
   --fpcl-font-size-base: 16px;

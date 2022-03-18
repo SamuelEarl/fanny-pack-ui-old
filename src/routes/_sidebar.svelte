@@ -18,6 +18,9 @@
     <a href="/components/checkbox" class:active={currentPath === "/components/checkbox"}>
       <Icon icon="carbon:checkbox-checked" /> &nbsp; Checkbox
     </a>
+    <a href="/components/checkbox-group" class:active={currentPath === "/components/checkbox-group"}>
+      <Icon icon="carbon:list-checked" /> &nbsp; Checkbox Group
+    </a>
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
     </a>
@@ -73,6 +76,7 @@
     color: var(--fpcl-tertiary);
 
     & #title-wrapper {
+      font-family: var(--fpcl-headline-font-stack);
       padding: 15px;
       border-bottom: 1px solid var(--fpcl-black);
       margin-bottom: 15px;
@@ -96,6 +100,7 @@
         display: flex;
         padding: 10px;
         padding-left: 30px;
+        border-bottom: none;
         color: var(--fpcl-tertiary);
 
         &:hover {

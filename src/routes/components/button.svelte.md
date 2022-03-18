@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Button, SelectSingle } from "/src/lib";
+  import { Button, Select } from "/src/lib";
 
   let creatingAccount = false;
   let btnColors = ["primary", "secondary", "tertiary"];
@@ -110,7 +110,7 @@
 
 <br>
 
-<SelectSingle
+<Select
   label="Button color (primary = purple; secondary = dark gray; tertiary = white)"
   optionsArray={btnColors}
   arrayType="string"
@@ -119,7 +119,7 @@
 
 <br>
 
-<SelectSingle
+<Select
   label="Inverted"
   optionsArray={[false,true]}
   arrayType="boolean"
@@ -128,7 +128,7 @@
 
 <br>
 
-<SelectSingle
+<Select
   label="Size"
   optionsArray={["sm","md","lg"]}
   arrayType="string"
@@ -137,7 +137,7 @@
 
 <br>
 
-<SelectSingle
+<Select
   label="Width"
   optionsArray={["auto","full"]}
   arrayType="string"
@@ -150,7 +150,7 @@
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `btnColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The main button color. For regular buttons, this is the background color. For inverted buttons this is the border and text color. |
-| `inverted` | `boolean` | `true`, `false` | `false` | Invert the background color and text color of the button. |
+| `inverted` | `boolean` | `true`, `false` | `false` | Inverted buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
@@ -161,18 +161,29 @@
 
 <br><br>
 
-## Event Forwarding
-| Event | Description |
-| ----- | ----------- |
-| `on:click` | This component forwards the click event, so you can call an event handler when a user clicks this `<Button>` component just like you would with any other `<button>` element in Svelte. |
-
-<br><br>
-
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
 | `btnText` |	`Button Text` | |
 | `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text from the `btnText` slot will be used if/when the button is disabled. |
+
+<br><br>
+
+## Event Forwarding
+| Event | Description |
+| ----- | ----------- |
+| `on:click` | This component forwards the `click` event, so you can call an event handler when a user clicks this `<Button>` component. |
+
+<br><br>
+
+## Style Notes
+Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to override the values for the button text colors in your `fpcl-theme-overrides.css` file. These are the default button text colors:
+
+```css
+--fpcl-btn-primary-text-color: var(--fpcl-white);
+--fpcl-btn-secondary-text-color: var(--fpcl-white);
+--fpcl-btn-tertiary-text-color: var(--fpcl-primary);
+```
 
 
 <style>
