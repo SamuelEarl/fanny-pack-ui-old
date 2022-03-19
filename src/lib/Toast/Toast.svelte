@@ -1,4 +1,4 @@
-{#if $toastMsg}
+<!-- {#if $toastMsg}
   <div id="toast">{$toastMsg}</div>
 {/if}
 
@@ -6,20 +6,16 @@
   import { toastMsg } from "$/stores/user-feedback.js";
 </script>
 
-<style lang="scss">
-  @import "src/assets/styles/_variables.scss";
-
-  @media #{$xs-up} {
-    #toast {
-      position: fixed;
-      left: 0;
-      bottom: 0;
-      width: 100%;
-      height: 50px;
-      padding: 15px;
-      background-color: $kemper-red;
-      color: white;
-      z-index: 100;
-    }
+<style>
+  #toast {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+    background-color: var(--fpcl-light-gray);
+    color: white;
+    z-index: 100;
   }
-</style>
+</style> -->
