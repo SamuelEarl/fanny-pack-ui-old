@@ -65,7 +65,7 @@ Then run the following from the root of the project:
 npm run package
 ```
 
-This command will take all the files that are under the `src/lib` folder and make them available as a package. This command generates a new directory called `package` at the root of your project, and inside this, you will notice that there is a new `package.json` file. This file consists of an attribute called `exports`, which consists of all the paths or entry points to the individual components that we have developed.
+This command will take all the files that are under the `src/lib` folder and make them available as a package. This command generates a new directory called `package` at the root of your project. Inside of that `package` directory you will notice that there is a new `package.json` file. This file consists of an attribute called `exports`, which consists of all the paths or entry points to the individual components that we have developed.
 
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
