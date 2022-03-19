@@ -87,7 +87,7 @@ npm publish ./package
 
 
 # How to import the components into the "example" app in this repo
-NOTE: This is old information and I am not using it anymore. However, I am keeping this information here for now in case I need to access any of this information.
+**NOTE: This is old information and I am not using it anymore. However, I am keeping this information here for now in case I need to access any of this information.**
 
 ## Step 1: Turn your component library into a package
 Follow steps 1 and 2 under the heading "How to package and publish this component library to npm".
