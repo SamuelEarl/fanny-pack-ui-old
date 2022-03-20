@@ -25,6 +25,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 
 ## Checkbox
 * Add disabled state.
+* Remove the border when a checkbox is checked and add one pixel of extra padding. If a user sets the border-radius to 20px, for example, then I want the checkmark to not be cut off by a border. I would rather the checkmark appear to spill outside of the checkbox than have it cut off by a border.
 * Create documentation.
 
 ## Date Picker
