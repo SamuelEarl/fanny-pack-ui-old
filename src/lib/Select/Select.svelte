@@ -155,7 +155,6 @@
       }
 
       & .fpcl-select-btn-text {
-        line-height: 1rem;
         /*
           Cut off any text that overflows the space provided for this Select component:
           https://www.w3schools.com/cssref/css3_pr_text-overflow.asp

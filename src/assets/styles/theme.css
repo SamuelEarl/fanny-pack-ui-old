@@ -1,6 +1,10 @@
 /* This file will contain CSS variables that apply to the documentation, but not the component library. */
 :root {
   --cursive-font-stack: "Audiowide", cursive;
+  
+  /* The "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
+  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
+
   --sans-serif-font-stack: "Montserrat", sans-serif;
   --mono-font-stack: "Source Code Pro", mono;
 }

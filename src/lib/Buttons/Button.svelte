@@ -54,7 +54,6 @@
     border-radius: var(--fpcl-btn-border-radius);
     cursor: pointer;
     display: inline-block;
-    line-height: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -116,15 +115,15 @@
   }
 
   .sm {
-    padding: var(--fpcl-btn-padding-v-sm) var(--fpcl-btn-padding-h-sm);
+    padding: calc(var(--fpcl-btn-padding-v-sm) - 1px) calc(var(--fpcl-btn-padding-h-sm) - 1px);
     font-size: var(--fpcl-font-size-sm, 12px);
   }
   .md {
-    padding: var(--fpcl-btn-padding-v-md) var(--fpcl-btn-padding-h-md);
+    padding: calc(var(--fpcl-btn-padding-v-md) - 1px) calc(var(--fpcl-btn-padding-h-md) - 1px);
     font-size: var(--fpcl-font-size-base, 16px);
   }
   .lg {
-    padding: var(--fpcl-btn-padding-v-lg) var(--fpcl-btn-padding-h-lg);
+    padding: calc(var(--fpcl-btn-padding-v-lg) - 1px) calc(var(--fpcl-btn-padding-h-lg) - 1px);
     font-size: var(--fpcl-font-size-lg, 20px);
   }
 

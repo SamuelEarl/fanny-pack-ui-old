@@ -33,7 +33,7 @@
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
 >
-  <span slot="btnText">Create Account</span>
+  <span slot="btnText">Create Account July</span>
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
 

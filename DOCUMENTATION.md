@@ -48,7 +48,7 @@ To see an example of this component exporting and re-exporting, look at the `car
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 2: Bump up the version number
+## Step 2: Bump the version number up
 You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number in the main `package.json` file before you continue.
 
 
