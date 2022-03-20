@@ -1,15 +1,24 @@
 <script lang="ts">
   import { Select } from "/src/lib";
 
-  let arrayOfValues = ["First", "Second", "Third"];
-  let selectedValue = "Second";
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let selectedMonth = "July";
 
-  let arrayOfObjects = [
-    { text: "CEO", value: "Jane" },
-    { text: "CFO", value: "Steve" },
-    { text: "COO", value: "Mary" }
+  let monthObjects = [
+    { text: "JAN", value: "january" },
+    { text: "FEB", value: "february" },
+    { text: "MAR", value: "march" },
+    { text: "APR", value: "april" },
+    { text: "MAY", value: "may" },
+    { text: "JUN", value: "june" },
+    { text: "JUL", value: "july" },
+    { text: "AUG", value: "august" },
+    { text: "SEP", value: "september" },
+    { text: "OCT", value: "october" },
+    { text: "NOV", value: "november" },
+    { text: "DEC", value: "december" },
   ];
-  let selectedObject = arrayOfObjects[2];
+  let selectedMonthObject = monthObjects[2];
 </script>
 
 
@@ -22,9 +31,9 @@
 ### "string" (or "number" or "boolean") arrayType
 <Select
   label="Select an option"
-  optionsArray={arrayOfValues}  
+  optionsArray={months}  
   arrayType="string"
-  bind:selectedOption={selectedValue}
+  bind:selectedOption={selectedMonth}
   size="md"
 />
 
@@ -32,15 +41,15 @@
 <script>
   import { Select } from "fpcl";
 
-  let arrayOfValues = ["First", "Second", "Third"];
-  let selectedValue = "Second";
+  let months = ["First", "Second", "Third"];
+  let selectedMonth = "Second";
 </script>
 
 <Select
   label="Select an option"
-  optionsArray={arrayOfValues}  
+  optionsArray={months}  
   arrayType="string"
-  bind:selectedOption={selectedValue}
+  bind:selectedOption={selectedMonth}
   size="md"
 />
 ```
@@ -51,32 +60,41 @@
 
 <Select
   label="Select a position"
-  optionsArray={arrayOfObjects}
+  optionsArray={monthObjects}
   arrayType="object"
-  bind:selectedOption={selectedObject}
-  size="lg"
+  bind:selectedOption={selectedMonthObject}
+  size="sm"
 />
 
-Value of `selectedObject`: <code>{JSON.stringify(selectedObject)}</code>
+Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</code>
 
 ```svelte
 <script>
   import { Select } from "fpcl";
 
-  let arrayOfObjects = [
-    { text: "CEO", value: "Jane" },
-    { text: "CFO", value: "Steve" },
-    { text: "COO", value: "Mary" }
+  let monthObjects = [
+    { text: "JAN", value: "january" },
+    { text: "FEB", value: "february" },
+    { text: "MAR", value: "march" },
+    { text: "APR", value: "april" },
+    { text: "MAY", value: "may" },
+    { text: "JUN", value: "june" },
+    { text: "JUL", value: "july" },
+    { text: "AUG", value: "august" },
+    { text: "SEP", value: "september" },
+    { text: "OCT", value: "october" },
+    { text: "NOV", value: "november" },
+    { text: "DEC", value: "december" },
   ];
-  let selectedObject = arrayOfObjects[2];
+  let selectedMonthObject = monthObjects[2];
 </script>
 
 <Select
   label="Select a position"
-  optionsArray={arrayOfObjects}
+  optionsArray={monthObjects}
   arrayType="object"
-  bind:selectedOption={selectedObject}
-  size="lg"
+  bind:selectedOption={selectedMonthObject}
+  size="sm"
 />
 ```
 
