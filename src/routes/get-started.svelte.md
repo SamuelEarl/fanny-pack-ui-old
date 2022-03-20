@@ -26,12 +26,13 @@ When you install and import the components into your app, the components will no
 Create the following files inside a `/src/assets/styles` directory:
 
 * `main.css`
+* `fpcl-constants.css`
 * `theme.css`
 * `fpcl-theme.css`
 * `fpcl-theme-overrides.css`
 * `fpcl-utils.css`
 
-Copy all the code from this package's `fpcl-theme.css` file into the `/src/assets/styles/fpcl-theme.css` file. Do the same thing with this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
+Copy all the code from this package's `fpcl-constants.css` file into the `/src/assets/styles/fpcl-constants.css` file. Do the same thing with this packages's `fpcl-theme.css` file and the `/src/assets/styles/fpcl-theme.css` file as well as this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
 
 
 **TODOS:**
@@ -42,7 +43,7 @@ Copy all the code from this package's `fpcl-theme.css` file into the `/src/asset
     * I should probably also provide a simple tutorial that shows how to install and use fonts.
 
 
-You can customize the theme for the Fanny Pack components in the `fpcl-theme-overrides.css` file. 
+You can customize the theme for the Fanny Pack components in the `fpcl-theme-overrides.css` file.
 1. Create your own custom theme in the `theme.css` file. You can refer to the `example-theme.css` file in the `fpcl` package's folder for some ideas.
 2. In the `fpcl-theme.css` file, copy the `Global Component Styles` block and paste it into the `fpcl-theme-overrides.css` file. 
     1. Now take the variables from your `theme.css` file and transfer any applicable variables into your `fpcl-theme-overrides.css` file so your components will use the same values for things like primary, secondary, and tertiary colors; the border radius value, etc. Transferring those variables should handle most of your theme customizations.
@@ -55,6 +56,7 @@ Then open your `/src/assets/styles/main.css` file and import all of your CSS fil
 ```css
 @import "normalize.css";
 @import "fonts.css";
+@import "fpcl-constants.css";
 @import "theme.css";
 @import "fpcl-theme.css";
 @import "fpcl-theme-overrides.css";

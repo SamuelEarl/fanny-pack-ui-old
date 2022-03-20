@@ -53,9 +53,7 @@
     border: none;
     border-radius: var(--fpcl-btn-border-radius);
     cursor: pointer;
-    display: inline-block;
     display: flex;
-    align-items: center;
     justify-content: center;
   }
 

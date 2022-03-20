@@ -52,18 +52,12 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-success: var(--fpcl-green);
   --fpcl-warning: var(--fpcl-yellow);
   --fpcl-alert: var(--fpcl-red);
-  /* Padding */
-  --fpcl-padding-sm: 5px;
-  --fpcl-padding-md: 10px;
-  --fpcl-padding-lg: 15px;
+
   /* Borders */
   --fpcl-border-width: 1px;
   --fpcl-border-style: solid;
   --fpcl-border-color: var(--fpcl-light-gray);
   --fpcl-border-radius: 3px;
-  /* Box shadows */
-  /* (The --fpcl-box-shadow-spread variable is used for hover states. When a user hovers over a component then an extra border will be displayed around the hovered component. That extra border gives the component a highlighted look. 1px will display a thin border. If you want it thicker, then you can increase this value.) */
-  --fpcl-box-shadow-spread: 1px;
   /* Font styles */
   --fpcl-text-color: var(--fpcl-very-dark-gray);
   --fpcl-font-size-sm: 12px;
