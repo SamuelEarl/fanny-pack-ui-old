@@ -64,13 +64,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* Box shadows */
   /* (The --fpcl-box-shadow-spread variable is used for hover states. When a user hovers over a component then an extra border will be displayed around the hovered component. That extra border gives the component a highlighted look. 1px will display a thin border. If you want it thicker, then you can increase this value.) */
   --fpcl-box-shadow-spread: 1px;
-  /* Font stacks */
-  --fpcl-cursive-font-stack: "Audiowide", cursive;
-  --fpcl-sans-serif-font-stack: "Montserrat", sans-serif;
-  --fpcl-mono-font-stack: "Source Code Pro", mono;
-  --fpcl-headline-font-stack: var(--fpcl-cursive-font-stack);
-  --fpcl-body-font-stack: var(--fpcl-sans-serif-font-stack);
-  --fpcl-code-font-stack: var(--fpcl-mono-font-stack);
   /* Font styles */
   --fpcl-text-color: var(--fpcl-very-dark-gray);
   --fpcl-font-size-sm: 12px;

@@ -92,7 +92,7 @@
     color: var(--fpcl-tertiary);
 
     & #title-wrapper {
-      font-family: var(--fpcl-headline-font-stack);
+      font-family: var(--cursive-font-stack);
       padding: 15px;
       border-bottom: 1px solid var(--fpcl-black);
       margin-bottom: 15px;

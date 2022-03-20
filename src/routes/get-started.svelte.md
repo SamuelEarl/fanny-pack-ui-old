@@ -33,11 +33,19 @@ Create the following files inside a `/src/assets/styles` directory:
 
 Copy all the code from this package's `fpcl-theme.css` file into the `/src/assets/styles/fpcl-theme.css` file. Do the same thing with this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
 
+
+**TODOS:**
+* I need to improve the following instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
+* I think the `font-stack` instructions should be this: "The components in this library will inherit the fonts that you define for your app." 
+    * However, I need to test this to make sure that these components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts).
+* I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `theme.css` file to the `fpcl-theme-overrides.css` file so the components will also have the same theme.
+    * I should probably also provide a simple tutorial that shows how to install and use fonts.
+
+
 You can customize the theme for the Fanny Pack components in the `fpcl-theme-overrides.css` file. 
 1. Create your own custom theme in the `theme.css` file. You can refer to the `example-theme.css` file in the `fpcl` package's folder for some ideas.
 2. In the `fpcl-theme.css` file, copy the `Global Component Styles` block and paste it into the `fpcl-theme-overrides.css` file. 
-    1. Adjust the values of the component styles to match the theme that you created in the `theme.css` file. Adjusting those styles should handle most of your theme customizations.
-    2. NOTE: Make sure to install the fonts that are referenced in your font stacks in order for those fonts to be available in your components and the rest of your app.
+    1. Now take the variables from your `theme.css` file and transfer any applicable variables into your `fpcl-theme-overrides.css` file so your components will use the same values for things like primary, secondary, and tertiary colors; the border radius value, etc. Transferring those variables should handle most of your theme customizations.
 3. If you want to customize individual components, then copy the component style blocks that you want to customize from the `fpcl-theme.css` file and paste them into your `fpcl-theme-overrides.css` file and adjust the values to match your theme.
     1. WARNING: If you customize any of the individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
     2. The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.

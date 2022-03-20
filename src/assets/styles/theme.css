@@ -1,1 +1,6 @@
 /* This file will contain CSS variables that apply to the documentation, but not the component library. */
+:root {
+  --cursive-font-stack: "Audiowide", cursive;
+  --sans-serif-font-stack: "Montserrat", sans-serif;
+  --mono-font-stack: "Source Code Pro", mono;
+}

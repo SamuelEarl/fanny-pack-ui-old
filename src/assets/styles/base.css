@@ -3,12 +3,12 @@
 
 html, body {
   font-size: var(--fpcl-font-size-base, 16px);
-  font-family: var(--fpcl-body-font-stack);
+  font-family: var(--sans-serif-font-stack);
   color: var(--fpcl-text-color);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--fpcl-headline-font-stack);
+  font-family: var(--cursive-font-stack);
   font-weight: normal;
 }
 
@@ -47,14 +47,14 @@ th, td {
 
 /* <pre> or triple backticks */
 pre {
-  font-family: var(--fpcl-code-font-stack);
+  font-family: var(--mono-font-stack);
   padding: 10px;
   border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);
 }
 /* <code> or single backticks */
 code {
-  font-family: var(--fpcl-code-font-stack);
+  font-family: var(--mono-font-stack);
   padding: 0 3px;
   border-radius: var(--fpcl-border-radius, 3px);
   background-color: var(--fpcl-very-light-gray);
