@@ -63,3 +63,16 @@
   border-width: 0 3px 3px 0;
   transform: rotate(45deg);
 }
+
+/* Disabled state */
+.fpcl-checkbox-input:disabled ~ .fpcl-checkbox-checkmark {
+  border-color: var(--fpcl-disabled-bg-color);
+  background-color: var(--fpcl-disabled-bg-color);
+  cursor: default;
+}
+.fpcl-checkbox-label-wrapper .fpcl-checkbox-input:disabled ~ .fpcl-checkbox-checkmark {
+  box-shadow: none;
+}
+.fpcl-checkbox-label-wrapper.disabled {
+  cursor: default;
+}

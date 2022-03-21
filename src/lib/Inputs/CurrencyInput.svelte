@@ -53,6 +53,7 @@
     }
   }
 
+  // See the `unfocus()` function above for some background about this `formatValue()` function.
   function formatValue(value) {
     if (value > 0) {
       return new Intl.NumberFormat(locale, {style: "currency", currency: currency}).format(value);
@@ -79,6 +80,8 @@
     bind:this={numberInput}
     on:keyup={unfocus}
     on:blur={unfocus}
+    on:change
+    on:input
   />
 {:else}
   <input
@@ -94,12 +97,25 @@
 
 
 <style>
+  /* Remove Arrows/Spinners */
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
   input {
     width: 100%;
     outline: none;
     border: 1px solid;
     border-color: var(--fpcl-input-border-color, #c7c7c7);
     border-radius: var(--fpcl-border-radius);
+    text-align: right;
     background-color: var(--fpcl-input-bg-color);
     color: var(--fpcl-input-text-color);
 
@@ -125,6 +141,8 @@
     }
 
     &:disabled {
+      border-color: var(--fpcl-disabled-bg-color);
+      box-shadow: none;
       color: var(--fpcl-disabled-text-color);
       background-color: var(--fpcl-disabled-bg-color);
       cursor: default;

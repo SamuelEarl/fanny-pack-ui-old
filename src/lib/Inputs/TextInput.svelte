@@ -57,6 +57,8 @@
     }
 
     &:disabled {
+      border-color: var(--fpcl-disabled-bg-color);
+      box-shadow: none;
       color: var(--fpcl-disabled-text-color);
       background-color: var(--fpcl-disabled-bg-color);
       cursor: default;

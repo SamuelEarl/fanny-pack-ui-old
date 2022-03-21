@@ -15,6 +15,7 @@ This component will create a single checkbox. If you want to create multiple che
 <Checkbox
   bind:checked={haveRead}
   label={checkboxLabel}
+  disabled={false}
 />
 
 <p>Your selection: <strong>{haveRead}</strong></p>
@@ -30,6 +31,7 @@ This component will create a single checkbox. If you want to create multiple che
 <Checkbox
   bind:checked={haveRead}
   label={checkboxLabel}
+  disabled={false}
 />
 
 <p>Your selection: <strong>{haveRead}</strong></p>
@@ -49,6 +51,7 @@ You can use the `on:change` or `on:input` event like this:
 <Checkbox
   bind:checked={haveRead}
   label={checkboxLabel}
+  disabled={false}
   on:change={handleChange}
 />
 ```
@@ -59,7 +62,8 @@ You can use the `on:change` or `on:input` event like this:
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `bind:checked` | `boolean` | `true`, `false` | NA | In order for the checkbox to be checked and unchecked, this component's `checked` property needs to be bound to a `boolean` variable. |
-| `label` | `string` | any string | NA | This is the text that will be displayed next to the checkbox. |
+| `label` | `string` | Any string | NA | This is the text that will be displayed next to the checkbox. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This will disable the checkbox. |
 
 <br>
 

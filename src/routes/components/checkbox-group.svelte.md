@@ -32,6 +32,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
   arrayType="string"
   checkboxGroupValues={suvOptions}
   bind:selectedValues={selectedSuvOptions}
+  disabled={false}
 />
 
 <div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
@@ -64,6 +65,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
   arrayType="object"
   checkboxGroupValues={suvOptionsObjects}
   bind:selectedValues={selectedSuvOptionsObjects}
+  disabled={false}
 />
 
 <div>Value of <code>selectedSuvOptionsObjects</code>: <code>{JSON.stringify(selectedSuvOptionsObjects)}</code></div>
@@ -102,6 +104,7 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | `arrayType` | `string` | `string`, `number`, `object` | `string` | This prop tells what type of data is in the `checkboxGroupValues` array that is passed to this component. |
 | `checkboxGroupValues` | `array` | any array | NA | The array that is passed to this prop is the array of values that will be looped over to create the checkboxes. |
 | `selectedValues` | `array` | any array | `[]` (an empty array) | The array that is passed to this prop will hold the values that the user will select. This array will usually be an empty array, but if you want any values to be pre-selected, then you could include any of the values from the `checkboxGroupValues` array. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This will disable all the checkboxes in the group. |
 
 <br>
 
