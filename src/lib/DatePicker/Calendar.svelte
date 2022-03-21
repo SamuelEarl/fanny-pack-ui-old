@@ -5,7 +5,7 @@
   import type { Locale } from "./locale";
   import { createEventDispatcher } from "svelte";
   import Label from "../Labels/Label.svelte";
-  import { createId } from "../utils";
+  import { createId } from "../fpcl-utils";
 
   export let label = "";
 
@@ -314,8 +314,7 @@
   .calendar-container {
     display: inline-block;
     padding: 5px;
-    border-width: var(--fpcl-date-picker-border-width, 1px);
-    border-style: var(--fpcl-date-picker-border-style, solid);
+    border: 1px solid;
     border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
     border-radius: var(--fpcl-date-picker-border-radius, 3px);
     background: var(--fpcl-date-picker-bg-color, white);
@@ -326,7 +325,7 @@
     font-size: 0.75rem;
 
     &:hover {
-      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
+      box-shadow: 0 0 0 1px var(--fpcl-date-picker-border-color, gray);
     }
 
     & .top {
@@ -367,8 +366,7 @@
           /* Add custom styles */
           width: 100%;
           padding: 0.35rem 0.5rem;
-          border-width: var(--fpcl-date-picker-border-width, 1px);
-          border-style: var(--fpcl-date-picker-border-style, solid);
+          border: 1px solid;
           border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
           border-radius: var(--fpcl-date-picker-border-radius, 3px);
           font-size: 0.85rem;
@@ -377,7 +375,7 @@
           cursor: pointer;
 
           &:hover {
-            box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-date-picker-border-color, gray);
+            box-shadow: 0 0 0 1px var(--fpcl-date-picker-border-color, gray);
           }
         }
 
@@ -410,15 +408,13 @@
       width: 2rem;
       height: 1.94rem;
       flex-grow: 1;
-      border-width: var(--fpcl-date-picker-border-width, 1px);
-      border-style: var(--fpcl-date-picker-border-style, solid);
+      border: 1px solid;
       border-color: transparent;
       border-radius: var(--fpcl-date-picker-border-radius, 3px);
       box-sizing: border-box;
 
       &:hover {
-        border-width: var(--fpcl-date-picker-border-width, 1px);
-        border-style: var(--fpcl-date-picker-border-style, solid);
+        border: 1px solid;
         border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
         cursor: pointer;
       }
@@ -438,8 +434,7 @@
       }
 
       &.selected {
-        border-width: var(--fpcl-date-picker-border-width, 1px);
-        border-style: var(--fpcl-date-picker-border-style, solid);
+        border: 1px solid;
         border-color: var(--fpcl-calendar-selected-date-border-color, #c7c7c7);
         color: var(--fpcl-calendar-selected-date-text-color, inherit);
         background-color: var(--fpcl-calendar-selected-date-bg-color, #e5e5e5);

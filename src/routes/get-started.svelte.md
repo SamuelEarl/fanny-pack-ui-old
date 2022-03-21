@@ -26,13 +26,12 @@ When you install and import the components into your app, the components will no
 Create the following files inside a `/src/assets/styles` directory:
 
 * `main.css`
-* `fpcl-constants.css`
 * `theme.css`
 * `fpcl-theme.css`
 * `fpcl-theme-overrides.css`
 * `fpcl-utils.css`
 
-Copy all the code from this package's `fpcl-constants.css` file into the `/src/assets/styles/fpcl-constants.css` file. Do the same thing with this packages's `fpcl-theme.css` file and the `/src/assets/styles/fpcl-theme.css` file as well as this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
+Copy all the code from this package's `fpcl-theme.css` file into the `/src/assets/styles/fpcl-theme.css` file. Do the same thing with this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
 
 
 **TODOS:**
@@ -56,7 +55,6 @@ Then open your `/src/assets/styles/main.css` file and import all of your CSS fil
 ```css
 @import "normalize.css";
 @import "fonts.css";
-@import "fpcl-constants.css";
 @import "theme.css";
 @import "fpcl-theme.css";
 @import "fpcl-theme-overrides.css";
@@ -77,13 +75,13 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 
 The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpcl-theme.css` file for details.
 
-IMPORTANT: If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-select-padding-sm: 0px;`, but this will break your style setting: `--fpcl-select-padding-sm: 0;`.
+IMPORTANT: If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-border-radius: 5px;`, but this could break some styles: `--fpcl-border-radius: 0;`.
 
 
 ## Step 4: Enable JavaScript Variables
-Create a `/src/theme.ts` file and copy all the code from the `fpcl` package's `theme.js` file into your `/src/theme.ts` file. The components are already referencing the `/src/theme.ts` file, so you should be ready to go.
+Create a `/src/fpcl-theme.ts` file and copy all the code from the `fpcl` package's `fpcl-theme.js` file into your `/src/fpcl-theme.ts` file. The components are already referencing the `/src/fpcl-theme.ts` file, so you should be ready to go.
 
-You can now edit any of the variables in the `/src/theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/theme.ts` file.
+You can now edit any of the variables in the `/src/fpcl-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpcl-theme.ts` file.
 
 NOTE: After selecting your icon, if you scroll down you will see a code example like this:
 ```html

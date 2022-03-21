@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   import Label from "../Labels/Label.svelte";
-  import { createId, calculateMenuHeight } from "../utils";
+  import { createId, calculateMenuHeight } from "../fpcl-utils";
 
   export let label;
   export let optionsArray;
@@ -126,8 +126,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-width: var(--fpcl-select-border-width, 1px);
-      border-style: var(--fpcl-select-border-style, solid);
+      border: 1px solid;
       border-color: var(--fpcl-select-border-color, #c7c7c7);
       border-radius: var(--fpcl-select-border-radius);
       background-color: var(--fpcl-select-bg-color);
@@ -135,22 +134,22 @@
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
       }
 
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.sm {
-        padding: var(--fpcl-select-padding-sm);
+        padding: 5px;
         font-size: var(--fpcl-font-size-sm, 12px);
       }
       &.md {
-        padding: var(--fpcl-select-padding-md);
+        padding: 10px;
         font-size: var(--fpcl-font-size-base, 16px);
       }
       &.lg {
-        padding: var(--fpcl-select-padding-lg);
+        padding: 15px;
         font-size: var(--fpcl-font-size-lg, 20px);
       }
 
@@ -178,8 +177,7 @@
       width: 100%;
       /* Add top and bottom padding that is equal to half of the --fpcl-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-border-radius value. */
       padding: calc(var(--fpcl-select-border-radius) / 2) 0;
-      border-width: var(--fpcl-select-border-width, 1px);
-      border-style: var(--fpcl-select-border-style, solid);
+      border: 1px solid;
       border-color: var(--fpcl-select-border-color, #c7c7c7);
       border-radius: var(--fpcl-select-border-radius, 3px);
       overflow-y: auto;
@@ -188,7 +186,7 @@
       z-index: 100;
 
       &:hover {
-        box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
       }
 
       &.show {
@@ -215,19 +213,16 @@
           color: var(--fpcl-select-option-hover-text-color);
         }
 
-        /* 
-          Add top and bottom padding that is equal to the size of the select box that the user set (e.g. var(--fpcl-select-padding-lg)).
-        */
         &.sm {
-          padding: var(--fpcl-select-padding-sm);
+          padding: 5px;
           font-size: var(--fpcl-font-size-sm, 12px);
         }
         &.md {
-          padding: var(--fpcl-select-padding-md);
+          padding: 10px;
           font-size: var(--fpcl-font-size-base, 16px);
         }
         &.lg {
-          padding: var(--fpcl-select-padding-lg);
+          padding: 15px;
           font-size: var(--fpcl-font-size-lg, 20px);
         }
       }

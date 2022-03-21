@@ -1,10 +1,63 @@
 /* This file will contain CSS variables that apply to the documentation, but not the component library. */
-:root {
-  --cursive-font-stack: "Audiowide", cursive;
-  
-  /* The "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
-  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
 
+/* Color Palette */
+:root {
+  /* The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+  --light-green: #99b433;
+  --green: #00a300;
+  --dark-green: #1e7145;
+  --magenta: #ff0097;
+  --light-purple: #9f00a7;
+  --purple: #7e3878;
+  --dark-purple: #603cba;
+  --teal: #00aba9;
+  --light-blue: #eff4ff;
+  --blue: #2d89ef;
+  --dark-blue: #2b5797;
+  --yellow: #ffc40d;
+  --orange: #e3a21a;
+  --dark-orange: #da532c;
+  --red: #ee1111;
+  --dark-red: #b91d47;
+  /* Neutral Colors. NOTE: These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
+  --black: #000000;
+  --very-dark-gray: #343434;
+  --dark-gray: #797979;
+  --gray: #a0a0a0;
+  --light-gray: #c7c7c7;
+  --very-light-gray: #e5e5e5;
+  --white: #ffffff;
+  /* Notification Colors */
+  --success: var(--green);
+  --warning: var(--yellow);
+  --alert: var(--red);
+  /* Main Colors */
+  --primary: var(--dark-purple);
+  --secondary: var(--very-dark-gray);
+  --tertiary: var(--white);
+}
+
+/* Fonts */
+:root {
+  /* Font Stacks */
+  --cursive-font-stack: "Audiowide", cursive;
   --sans-serif-font-stack: "Montserrat", sans-serif;
   --mono-font-stack: "Source Code Pro", mono;
+  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
+  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
+
+  /* Font styles */
+  --font-size-sm: 12px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-weight-light: 100;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --text-color: var(--very-dark-gray);
+}
+
+/* Borders */
+:root {
+  --border: 1px solid var(--light-gray);
+  --border-radius: 3px;
 }

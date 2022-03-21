@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/theme";
+  import { theme } from "/src/fpcl-theme";
 
   export let btnColor = "primary";
   export let inverted = false;
@@ -72,7 +72,7 @@
     color: var(--fpcl-btn-primary-text-color);
     
     &:hover {
-      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-primary, gray);
+      box-shadow: 0 0 0 1px var(--fpcl-primary, gray);
     }
 
     &.inverted {
@@ -86,7 +86,7 @@
     color: var(--fpcl-btn-secondary-text-color);
 
     &:hover {
-      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-secondary, gray);
+      box-shadow: 0 0 0 1px var(--fpcl-secondary, gray);
     }
 
     &.inverted {
@@ -100,7 +100,7 @@
     color: var(--fpcl-btn-tertiary-text-color);
 
     &:hover {
-      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-tertiary, gray);
+      box-shadow: 0 0 0 1px var(--fpcl-tertiary, gray);
     }
 
     &.inverted {
@@ -113,15 +113,15 @@
   }
 
   .sm {
-    padding: calc(var(--fpcl-btn-padding-v-sm) - 1px) calc(var(--fpcl-btn-padding-h-sm) - 1px);
+    padding: 4px 9px;
     font-size: var(--fpcl-font-size-sm, 12px);
   }
   .md {
-    padding: calc(var(--fpcl-btn-padding-v-md) - 1px) calc(var(--fpcl-btn-padding-h-md) - 1px);
+    padding: 9px 19px;
     font-size: var(--fpcl-font-size-base, 16px);
   }
   .lg {
-    padding: calc(var(--fpcl-btn-padding-v-lg) - 1px) calc(var(--fpcl-btn-padding-h-lg) - 1px);
+    padding: 14px 29px;
     font-size: var(--fpcl-font-size-lg, 20px);
   }
 

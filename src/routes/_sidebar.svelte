@@ -88,13 +88,13 @@
   nav {
     min-height: 100%;
     padding-bottom: 50px;
-    background-color: var(--fpcl-secondary);
-    color: var(--fpcl-tertiary);
+    background-color: var(--secondary);
+    color: var(--tertiary);
 
     & #title-wrapper {
       font-family: var(--cursive-font-stack);
       padding: 15px;
-      border-bottom: 1px solid var(--fpcl-black);
+      border-bottom: 1px solid var(--black);
       margin-bottom: 15px;
       font-size: 1.2rem;
       line-height: 1.5;
@@ -117,14 +117,14 @@
         padding: 10px;
         padding-left: 30px;
         border-bottom: none;
-        color: var(--fpcl-tertiary);
+        color: var(--tertiary);
 
         &:hover {
-          background-color: var(--fpcl-primary);
+          background-color: var(--primary);
         }
 
         &.active {
-          background-color: var(--fpcl-primary);
+          background-color: var(--primary);
         }
       }
     }

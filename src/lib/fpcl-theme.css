@@ -7,35 +7,12 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 * settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
 
 
-/*
-  Color Palette
-  These colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp.
-*/
-:root {
-  --fpcl-light-green: #99b433;
-  --fpcl-green: #00a300;
-  --fpcl-dark-green: #1e7145;
-  --fpcl-magenta: #ff0097;
-  --fpcl-light-purple: #9f00a7;
-  --fpcl-purple: #7e3878;
-  --fpcl-dark-purple: #603cba;
-  --fpcl-teal: #00aba9;
-  --fpcl-light-blue: #eff4ff;
-  --fpcl-blue: #2d89ef;
-  --fpcl-dark-blue: #2b5797;
-  --fpcl-yellow: #ffc40d;
-  --fpcl-orange: #e3a21a;
-  --fpcl-dark-orange: #da532c;
-  --fpcl-red: #ee1111;
-  --fpcl-dark-red: #b91d47;
-}
-
 /* Global Component Styles */
 :root {
   /* Main Colors */
-  --fpcl-primary: var(--fpcl-dark-purple);
-  --fpcl-secondary: var(--fpcl-very-dark-gray);
-  --fpcl-tertiary: var(--fpcl-white);
+  --fpcl-primary: #603cba; /* dark purple */
+  --fpcl-secondary: #343434; /* very dark gray */
+  --fpcl-tertiary: #ffffff; /* white */
   /*
     Neutral Colors
     * These colors are used for text colors, border colors, box shadows, etc.
@@ -49,23 +26,20 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-very-light-gray: #e5e5e5;
   --fpcl-white: #ffffff;
   /* Notification Colors */
-  --fpcl-success: var(--fpcl-green);
-  --fpcl-warning: var(--fpcl-yellow);
-  --fpcl-alert: var(--fpcl-red);
-
+  --fpcl-success: #00a300; /* green */
+  --fpcl-warning: #ffc40d; /* yellow */
+  --fpcl-alert: #ee1111; /* red */
   /* Borders */
-  --fpcl-border-width: 1px;
-  --fpcl-border-style: solid;
   --fpcl-border-color: var(--fpcl-light-gray);
   --fpcl-border-radius: 3px;
   /* Font styles */
-  --fpcl-text-color: var(--fpcl-very-dark-gray);
   --fpcl-font-size-sm: 12px;
   --fpcl-font-size-base: 16px;
   --fpcl-font-size-lg: 20px;
   --fpcl-font-weight-light: 100;
   --fpcl-font-weight-normal: 400;
   --fpcl-font-weight-bold: 700;
+  --fpcl-text-color: var(--fpcl-very-dark-gray);
 }
 
 /* Button */
@@ -73,13 +47,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-primary-text-color: var(--fpcl-white);
   --fpcl-btn-secondary-text-color: var(--fpcl-white);
   --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
-  /* v = vertical; h = horizontal */
-  --fpcl-btn-padding-v-sm: var(--fpcl-padding-sm);
-  --fpcl-btn-padding-h-sm: calc(var(--fpcl-padding-sm) + var(--fpcl-padding-sm));
-  --fpcl-btn-padding-v-md: var(--fpcl-padding-md);
-  --fpcl-btn-padding-h-md: calc(var(--fpcl-padding-md) + var(--fpcl-padding-md));
-  --fpcl-btn-padding-v-lg: var(--fpcl-padding-lg);
-  --fpcl-btn-padding-h-lg: calc(var(--fpcl-padding-lg) + var(--fpcl-padding-lg));
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 10px;
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
@@ -89,8 +56,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Checkbox */
 :root {
-  --fpcl-checkbox-unchecked-border-width: var(--fpcl-border-width);
-  --fpcl-checkbox-unchecked-border-style: var(--fpcl-border-style);
   --fpcl-checkbox-unchecked-border-color: var(--fpcl-border-color);
   --fpcl-checkbox-unchecked-border-radius: var(--fpcl-border-radius);
   --fpcl-checkbox-unchecked-bg-color: var(--fpcl-white);
@@ -101,17 +66,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Date Picker */
 :root {
   /* These variables apply to both the date input field and calendar components. */
-  --fpcl-date-picker-border-width: var(--fpcl-border-width);
-  --fpcl-date-picker-border-style: var(--fpcl-border-style);
   --fpcl-date-picker-border-color: var(--fpcl-border-color);
   --fpcl-date-picker-border-radius: var(--fpcl-border-radius);
   --fpcl-date-picker-text-color: var(--fpcl-text-color);
   --fpcl-date-picker-bg-color: var(--fpcl-white);
   /* These variables apply to only the date input field component. */
-  /* The following padding variables will change the sizes that correspond with the <DateInput /> component's `size` prop: */
-  --fpcl-date-input-padding-sm: var(--fpcl-padding-sm);
-  --fpcl-date-input-padding-md: var(--fpcl-padding-md);
-  --fpcl-date-input-padding-lg: var(--fpcl-padding-lg);
   --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
   --fpcl-date-input-btn-icon-color: inherit;
   /* These variables apply to only the calendar component. */
@@ -122,24 +81,14 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Input (currency, text) */
 :root {
-  --fpcl-input-padding-sm: var(--fpcl-padding-sm);
-  --fpcl-input-padding-md: var(--fpcl-padding-md);
-  --fpcl-input-padding-lg: var(--fpcl-padding-lg);
-  --fpcl-input-border-width: var(--fpcl-border-width);
-  --fpcl-input-border-style: var(--fpcl-border-style);
   --fpcl-input-border-color: var(--fpcl-border-color);
   --fpcl-input-bg-color: var(--fpcl-white);
+  --fpcl-input-text-color: var(--fpcl-text-color);
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
 }
 
 /* Select (single) */
 :root {
-  /* The following padding variables will change the sizes that correspond with the <Select /> component's `size` prop: */
-  --fpcl-select-padding-sm: var(--fpcl-padding-sm);
-  --fpcl-select-padding-md: var(--fpcl-padding-md);
-  --fpcl-select-padding-lg: var(--fpcl-padding-lg);
-  --fpcl-select-border-width: var(--fpcl-border-width);
-  --fpcl-select-border-style: var(--fpcl-border-style);
   --fpcl-select-border-color: var(--fpcl-border-color);
   --fpcl-select-border-radius: var(--fpcl-border-radius);
   --fpcl-select-bg-color: var(--fpcl-white);

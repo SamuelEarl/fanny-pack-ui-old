@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createId } from "../utils";
+  import { createId } from "../fpcl-utils";
   import Label from "../Labels/Label.svelte";
 
   export let value = "";
@@ -29,22 +29,22 @@
   input {
     width: 100%;
     outline: none;
-    border-width: var(--fpcl-input-border-width, 1px);
-    border-style: var(--fpcl-input-border-style, solid);
+    border: 1px solid;
     border-color: var(--fpcl-input-border-color, #c7c7c7);
-    border-radius: var(--fpcl-border-radius);
+    border-radius: var(--fpcl-border-radius, 3px);
     background-color: var(--fpcl-input-bg-color);
+    color: var(--fpcl-input-text-color);
 
     &.sm {
-      padding: var(--fpcl-input-padding-sm);
+      padding: 5px;
       font-size: var(--fpcl-font-size-sm, 12px);
     }
     &.md {
-      padding: var(--fpcl-input-padding-md);
+      padding: 10px;
       font-size: var(--fpcl-font-size-md, 16px);
     }
     &.lg {
-      padding: var(--fpcl-input-padding-lg);
+      padding: 15px;
       font-size: var(--fpcl-font-size-lg, 20px);
     }
 
@@ -53,7 +53,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 var(--fpcl-box-shadow-spread, 1px) var(--fpcl-input-border-color, gray);
+      box-shadow: 0 0 0 1px var(--fpcl-input-border-color, gray);
     }
 
     &:disabled {

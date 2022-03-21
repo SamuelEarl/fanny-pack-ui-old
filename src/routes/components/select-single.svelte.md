@@ -123,16 +123,3 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | Event | Description |
 | ----- | ----------- |
 | None | Normally a `<select>` element could forward the `on:change` event, but this `<Select>` component is not created with a `<select>` element due to the inability to customize styles and behaviors of the `<option>`s in a `<select>` element. However, if you want to respond to an `on:change` event, then you could use a reactive statement that watches the variable that is bound to `bind:selectedOption`. Whenever that variable changes you could call an event handler. |
-
-<br><br>
-
-## Style Notes
-In the `fpcl-theme.css` file, you can edit any of the style variables under the "Select Boxes" section.
-
-The following padding variables will change the sizes that correspond with the `size` prop:
-
-```css
---fpcl-select-padding-sm: 5px;
---fpcl-select-padding-md: 10px;
---fpcl-select-padding-lg: 15px;
-```
