@@ -102,7 +102,7 @@ NOTE: The **Return Value** example above shows the value that is returned from t
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the input field. |
 
----
+<br>
 
 ## Event Forwarding
 | Event | Description |

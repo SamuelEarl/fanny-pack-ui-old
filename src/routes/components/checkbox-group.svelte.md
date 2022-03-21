@@ -139,7 +139,7 @@ In plain HTML, checkboxes are typically defined with `name`/`value` pairs inside
 </form>
 ```
 
-Notice that each checkbox is independent of the others---there is no `group` attribute or option.
+Notice that each checkbox is independent of the others. In other words, there is no `group` attribute or option.
 
 When the form is submitted, the request will include the `name`/`value` pairs in the `request body`, which would look like this (assuming the first two checkboxes were checked):
 
@@ -150,10 +150,10 @@ oversized wheels=true&mud tires=true
 ### Svelte Checkboxes
 In Svelte, you can also create individual checkboxes, similar to how you would in plain HTML. (The [`<Checkbox>`](/components/checkbox) component is an example of this.) But Svelte also gives you a `bind:group` option. The `bind:group` option allows you to group a set of checkboxes together and the selected values from those checkboxes will populate a single array that could then be sent to the backend for storage or processing. So instead of a set of `name`/`value` pairs for each checkbox, the request `body` would include an array that contains the values from all the checkboxes that the user selected.
 
-So the `bind:group` option for Svelte checkboxes is a nice add-on feature that does not exist in plain HTML and you could use regular checkboxes instead of "grouped" checkboxes.
+So the `bind:group` option for Svelte checkboxes is a nice add-on feature that does not exist in plain HTML. So when working with Svelte checkboxes, you could use either regular checkboxes or "grouped" checkboxes.
 
 ### Could I loop over a regular `<Checkbox>` component to create a group of checkboxes?
-When creating "grouped" checkboxes, you cannot create them inside an `{#each}` loop. That would look something like this:
+When creating "grouped" checkboxes, you could create them using regular `<Checkbox>` components inside an `{#each}` loop, but you might not get the results you want. This is one example of what that might look like in code:
 
 ```svelte
 <script>
@@ -162,8 +162,8 @@ When creating "grouped" checkboxes, you cannot create them inside an `{#each}` l
 </script>
 
 <p>Select any of the following options for your SUV:</p>
-{#each suvOptions as option}
-  <Checkbox bind:checked={option} label={option} />
+{#each suvOptions as option, index}
+  <Checkbox bind:checked={selectedSuvOptions[index]} label={option} />
 {/each}
 <div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
 ```
@@ -171,17 +171,13 @@ When creating "grouped" checkboxes, you cannot create them inside an `{#each}` l
 But this is how the above code would actually work:
 
 <p>Select any of the following options for your SUV:</p>
-{#each suvOptions as option}
-  <Checkbox bind:checked={option} label={option} />
+{#each suvOptions as option, index}
+  <Checkbox bind:checked={selectedSuvOptions[index]} label={option} />
 {/each}
 <div>Value of <code>selectedSuvOptions</code>: <code>{JSON.stringify(selectedSuvOptions)}</code></div>
 
 <br>
 
-At least one reason why this approach would not work is because you would have to work with two different arrays:
-1. One array that could be looped over to provide all the checkbox values and labels.
-2. Another array that could be used to bind the selected values to. But there is no easy way to bind the individually selected values to a second array.
+You can see that the `selectedSuvOptions` array gets populated, but it gets populated with `true`, `false`, and `null` values instead of the value of the checkbox that was selected. This may or may not work for your situation. There are other ways to work with "grouped" checkboxes and you can read more about this issue here: https://github.com/sveltejs/svelte/issues/2308.)
 
-So using two different arrays with a regular `<Checkbox>` component becomes very difficult (if not impossible) and the API would not be very user friendly. (You can read more information about this issue here: https://github.com/sveltejs/svelte/issues/2308.)
-
-So it would be best to either create a series of regular `<Checkbox>` components and bind each one to its own variable or use this `<CheckboxGroup>` component, which will bind the checkbox values to an array.
+In most cases it would probably be best to either create a series of regular `<Checkbox>` components and bind each one to its own variable or use this `<CheckboxGroup>` component, which will bind the checkbox values to an array.
