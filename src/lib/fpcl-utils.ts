@@ -24,7 +24,6 @@ export async function calculateMenuHeight(id, showSelectMenu, tick, window, docu
     let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
     // Get the selectBtn element.
     let selectBtn = document.getElementById(`fpcl-select-btn-${id}`).getBoundingClientRect();
-    console.log("Select Button:", selectBtn);
     // Get the y-position of the top of the selectBtn element.
     let selectBtnTop = selectBtn.top;
     // Get the y-position of the bottom of the selectBtn element.
@@ -35,7 +34,6 @@ export async function calculateMenuHeight(id, showSelectMenu, tick, window, docu
     let spaceAboveBtn = selectBtnTop;
     // Get the menu element.
     let menuElement = document.getElementById(`fpcl-select-menu-${id}`);
-    console.log("Menu Element:", menuElement);
 
     // If the space between the bottom of the select button and the bottom of the widow is less than 200px and if there is more space between the top of the select button and the top of the window, then position the menuElement above the selectBtn.
     if (spaceBelowBtn < 200 && spaceAboveBtn > spaceBelowBtn) {      

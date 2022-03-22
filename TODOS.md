@@ -39,6 +39,9 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 ## Input (text)
 * Start working on this component next.
 
+## Label
+* Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
+
 ## Select (multi)
 * Test the tooltip to see if it works (i.e. got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
 

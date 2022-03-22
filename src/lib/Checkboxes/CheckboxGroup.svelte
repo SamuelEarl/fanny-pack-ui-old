@@ -1,6 +1,8 @@
 <script lang="ts">
-  export let arrayType = "string";
+  // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
+  export let componentId = "";
   export let checkboxGroupValues;
+  export let arrayType = "string";
   export let selectedValues = [];
   export let disabled = false;
 </script>
@@ -17,6 +19,7 @@
     <label class="fpcl-checkbox-label-wrapper" class:disabled={disabled}>
       <input
         type="checkbox"
+        id={`fpcl-checkbox-input-${componentId}`}
         class="fpcl-checkbox-input"
         bind:group={selectedValues}
         value={item}
@@ -34,9 +37,10 @@
     <label class="fpcl-checkbox-label-wrapper" class:disabled={disabled}>
       <input
         type="checkbox" 
+        id={`fpcl-checkbox-input-${componentId}`}
         class="fpcl-checkbox-input"
         bind:group={selectedValues} 
-        value={obj.value}
+        value={obj}
         disabled={disabled}
         on:change
         on:input

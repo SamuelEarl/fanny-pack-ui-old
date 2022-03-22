@@ -63,6 +63,7 @@
     tabindex="-1"
     bind:this={selectMenu}
     on:blur={(event) => {
+      // This is basically saying if the user clicks on the select-btn, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
       // In a blur event, the "event.target" is the element that has lost focus. When a "blur" event occurs, how can I find out which element received the focus? Use "event.relatedTarget": https://stackoverflow.com/a/33325953.
       // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpcl-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
       // **If the user did click on the `#fpcl-select-btn-${componentId}` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `#fpcl-select-btn-${componentId}` will set `showSelectMenu = false`. If the user did NOT click on the `#fpcl-select-btn-${componentId}` element, then set `showSelectMenu = false`.**

@@ -30,6 +30,9 @@
     <a href="/components/input-text" class:active={currentPath === "/components/input-text"}>
       <Icon icon="radix-icons:input" /> &nbsp; Input (text)
     </a>
+    <a href="/components/label" class:active={currentPath === "/components/label"}>
+      <Icon icon="carbon:label" /> &nbsp; Label
+    </a>
     <a href="/components/modal" class:active={currentPath === "/components/modal"}>
       <Icon icon="carbon:popup" /> &nbsp; Modal (popup window)
     </a>

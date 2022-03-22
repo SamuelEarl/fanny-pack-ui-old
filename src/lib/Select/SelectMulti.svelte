@@ -13,45 +13,12 @@
           * Authors SHOULD NOT use the `aria-checked` attribute on `input type=checkbox` elements. The HTML `checked` attribute can be used instead of the `aria-checked` attribute for `menuitemcheckbox`, `option` or `switch` roles when used on `type=checkbox`. (https://www.w3.org/TR/html-aria/)
 -->
 
-<!--
-  Example Usage:
-
-  <MultiSelect
-    valuesArray={columnHeaders}
-    arrayType="string"
-    bind:selectedValues={fields.axes.y}
-    tooltipText="Tooltip goes here."
-  />
-
-  <script>
-    let columnHeaders = [];
-    let fields = {
-      axes: {
-        x: "",
-        y: []
-      }
-    };
-  </script>
-
-
-  Documentation about props:
-  1. valuesArray: This should be an array of strings or objects. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the selectable options in the select box.
-
-  2. arrayType: If the data that this select box is displaying is an array of strings, then set this to "string". If it is an array of objects, then set this to "objects". NOTE: Each object inside the object array should have this structure:
-    [{ value: "valueToBePassedToTheBackend", label: "Label displayed in the select box" }]
-
-  3. bind:selectedValues={arrayVariable}: The options that the user selects in the UI will be bound to the array variable that is assigned to the `bind:selectedValues` prop. This array will be passed to the backend when the form is submitted. You need to have an array variable defined in the component where this <MultiSelect> component is imported and that array variable needs to be bound to the <MultiSelect> component with `bind:selectedValues={arrayVariable}`.
-
-  5. tooltipText (optional): This MultiSelect component has a tooltip that can be used to provide some instructions or information. If you pass text to this prop, then the tooltip will be displayed. If you do not pass text to this prop, then the tooltip will be hidden.
--->
-
 
 <script lang="ts">
   import { tick } from "svelte";
   import { createId, calculateMenuHeight } from "../fpcl-utils";
-  import Icon from "@iconify/svelte";
   // import isEqual from "lodash.isequal";
-  import { Button, CheckboxGroup, Label, Tooltip } from "/src/lib";
+  import { Button, CheckboxGroup, Label } from "/src/lib";
 
   export let label = "";
   export let tooltipText = "";
@@ -62,63 +29,11 @@
   export let disabled = false;
 
   let componentId = createId();
+  let selectMenu;
 
   $: arraySortedBySelectionOrder([ ...selectedValues ]);
   let showSelectMenu = false;
   let previousArray = [ ...selectedValues ];
-  // $: calculateDropDownHeight(selectedValues);
-  // $: calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
-
-  // /**
-  //  * This function will set the height of the drop-down menu to be less-than or equal to the available space on the screen.
-  //  */
-  // async function calculateDropDownHeight(unusedParam) {
-  //   // Only calculate the height of the drop-down if it is showing in the DOM.
-  //   // A user can remove elements from the `selectedValues` array while the drop-down is not showing by clicking the `x` on the `.selected-values-container` buttons. So in that case I do not want to run this function unnecessarily.
-  //   if (showSelectMenu) {
-  //     // Wait for the drop-down element to exist in the DOM before getting the `fpcl-select-menu-${componentId}` element by ID.
-  //     // This will also wait for the buttons to update in the DOM (inside the `.selected-values-container` element) before running this function.
-  //     await tick();
-
-  //     // Get window height: https://stackoverflow.com/questions/3437786/get-the-size-of-the-screen-current-web-page-and-browser-window
-  //     let windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-  //     // Get the dropDownBtn element.
-  //     let dropDownBtn = document.getElementById(`fpcl-select-btn-${componentId}`).getBoundingClientRect();
-  //     // Get the y-position of the bottom of the dropDownBtn element.
-  //     let dropDownBtnBottom = dropDownBtn.bottom;
-  //     // Get the y-position of the top of the dropDownBtn element.
-  //     let dropDownBtnTop = dropDownBtn.top;
-  //     // Calculate the amount of space below the dropDownBtn.
-  //     let spaceBelowBtn = windowHeight - dropDownBtnBottom;
-  //     // The amount of space above the dropDownBtn equals the y-position of the top of the dropDownBtn.
-  //     let spaceAboveBtn = dropDownBtnTop;
-  //     // Get the drop-down element.
-  //     let dropDownElement = document.getElementById(`fpcl-select-menu-${componentId}`);
-
-  //     // If the space between the bottom of the drop-down button and the bottom of the widow is less than 200px and if there is more space between the top of the drop-down button and the top of the window, then position the dropDownElement above the drop-down button.
-  //     if (spaceBelowBtn < 200 && spaceAboveBtn > spaceBelowBtn) {
-  //       // Remove the .display-below-btn class, if it exists, otherwise the two classes will conflict.
-  //       dropDownElement.classList.remove("display-below-btn");
-  //       // Add .display-above-btn class.
-  //       dropDownElement.classList.add("display-above-btn");
-  //       // Set the max-height property. See the comment about this in the `else` block below.
-  //       dropDownElement.style.maxHeight = spaceAboveBtn + "px";
-  //       // The dropDownElement already has a property of `position: absolute` set in the CSS. The following line will set the `bottom` property (i.e. the bottom edge) of the dropDownElement to be even with the top of the dropDownBtn.
-  //       dropDownElement.style.bottom = dropDownBtn.height + "px";
-  //     }
-  //     else {
-  //       // Remove the .display-above-btn class, if it exists, otherwise the two classes will conflict.
-  //       dropDownElement.classList.remove("display-above-btn");
-  //       // Add .display-below-btn class.
-  //       dropDownElement.classList.add("display-below-btn");
-  //       // Set the max-height of the dropDownElement to be the remaining space between the bottom of the drop-down button (dropDownElementTop) and the bottom of the window (windowHeight).
-  //       // The `maxHeight` property will ensure that the drop-down element will not be taller than the list of options that it contains (i.e. the height of the drop-down element will fit the height of its content).
-  //       dropDownElement.style.maxHeight = spaceBelowBtn + "px";
-  //       // The dropDownElement already has a property of `position: absolute` set in the CSS. The following line will set the `bottom` property (i.e. the bottom edge) of the dropDownElement back to its default value of "auto" when the dropDownElement gets displayed below the dropDownBtn.
-  //       dropDownElement.style.bottom = "auto";
-  //     }
-  //   }
-  // }
 
   /**
    * As a user selects values in this MultiSelect component, those values are added to the `selectedValues` array in the order in which they appear in the `valuesArray` that is passed to this component. This function will sort the values that are added to the `selectedValues` array in the order in which the user selects those values.
@@ -166,39 +81,6 @@
     }
   }
 
-  /**
-   * This function for adding a "clickoutside" event is taken from this REPL post:
-   * https://svelte.dev/repl/0ace7a508bd843b798ae599940a91783?version=3.16.7
-   * 
-   * NOTE: Could I use a negative tabindex (e.g. tabindex="-1") on the .fpcl-select-menu element and call `focus()` on the .fpcl-select-menu element when a user clicks on the .multi-select-btn and then use `on:blur={() => showSelectMenu = false}` on the .fpcl-select-menu element? Would that fix the issue that occurs where this MultiSelect component does not close right away when the user clicks on a select element? Note that the custom select box that is created here https://www.w3schools.com/howto/howto_custom_select.asp is also created by creating <div> elements and using a "click outside" event. That select box also has the same issue when you open it and then click on the regular select box next to it.
-   * See https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex.
-   */
-  function clickOutsideDropDown(node) {
-    // When a click event is triggered, this `handleClick` function will be executed.
-    let handleClick = event => {
-      // When a click event is triggered, then the following if statement will look to see if...
-      // (1) ...the `<div class="fpcl-select-menu">` node exists in the DOM.
-      // (2) ...the node does not contain the element that was clicked on.
-      // (3) ...the `event.preventDefault()` method was not used to cancel the event.
-      // If all those checkout, then fire the custom "clickoutside" event. When the "clickoutside" event is fired, then `showSelectMenu` will be set to `false`.
-      if (node && !node.contains(event.target) && !event.defaultPrevented) {
-        node.dispatchEvent(
-          new CustomEvent("clickoutside", node)
-        )
-      }
-    }
-
-    // Add the "click" event to the document when the .fpcl-select-menu element is added to the DOM.
-    document.addEventListener("click", handleClick, true);
-    
-    return {
-      destroy() {
-        // Remove the "click" event from the document when the .fpcl-select-menu element is removed from the DOM.
-        document.removeEventListener("click", handleClick, true);
-      }
-    }
-  }
-
   function removeValue(index) {
     selectedValues.splice(index, 1);
     selectedValues = selectedValues;
@@ -208,18 +90,20 @@
 
 <Label {label} forVal={`fpcl-select-btn-${componentId}`} {tooltipText} />
 <div class="fpcl-multi-select"> 
-  <!-- The <div class="fpcl-select-btn"> element is the drop-down button that the user will click to show the selectable options. -->
   <div
     role="listbox" 
     aria-multiselectable="true" 
     id={`fpcl-select-btn-${componentId}`} 
-    class={`multi-select-btn ${size}`}
+    class={`fpcl-select-btn ${size}`}
     tabindex="-1"
     on:click={async () => {
       showSelectMenu = !showSelectMenu;
       // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
       if (showSelectMenu)  {
         calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
+        // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
+        await tick();
+        selectMenu.focus();
       }
     }}
   >
@@ -233,7 +117,7 @@
             <span class="value"><span class="value-text">{item}</span> <span class="remove-value" on:click={() => removeValue(index)}>&times;</span></span>
           {/each}
         {/if}
-        {#if arrayType === "objects"}
+        {#if arrayType === "object"}
           {#each selectedValues as obj, index}
             <span class="value"><span class="value-text">{obj.label}</span> <span class="remove-value" on:click={() => removeValue(index)}>&times;</span></span>
           {/each}
@@ -242,96 +126,96 @@
     </div>
     <span class="fpcl-select-btn-arrow">›</span>
   </div>
-  <!-- {:else}
-    The "click" event from the .multi-select-btn button and the "clickoutside" event from the .fpcl-select-menu box conflict with each other because they are both click events. When I click on the .multi-select-btn element it wants to show the drop-down box. When I click outside of the .fpcl-select-menu box it wants to hide the drop-down box. But if I click on the .multi-select-btn button, which is also outside of the .fpcl-select-menu box, then the drop-down box stays open rather than closing. Even if I change the function in the .multi-select-btn to toggle the drop-down box, the events still conflict with each other and the drop-down box stays open.
-    The only way that I have been able to fix this issue so that a user can click on the .multi-select-btn to also hide the drop-down box is to duplicate the .multi-select-btn element but leave the click event out. Then I show the .multi-select-btn element with the click event when the drop-down box is hidden and I show the .multi-select-btn element without the click event when the drop-down box is showing. That way a user can click anywhere outside of the drop-down box, including the .multi-select-btn, and it will close the drop-down box. That is a better user experience.
-    <div
-      role="listbox" 
-      aria-multiselectable="true" 
-      id={`fpcl-select-btn-${componentId}`} 
-      class="multi-select-btn"
-    >
-      {#if selectedValues && selectedValues.length > 0}
-        <span>{selectedValues.length} value{#if selectedValues.length > 1}s{/if} selected</span>
-      {:else}
-        {dropDownDisplayText}
-      {/if}
-    </div> -->
 
-    <!-- When this element is created in the DOM, then execute the `clickOutsideDropDown()` function. -->
-  {#if showSelectMenu}
-    <div
-      id={`fpcl-select-menu-${componentId}`} 
-      class="fpcl-select-menu" 
-      use:clickOutsideDropDown 
-      on:clickoutside={() => showSelectMenu = false}
-    >
-      <!-- NOTE: If I use `{#if !isEqual(valuesArray, selectedValues)}`, then (for some strange reason) the "Select all" button is displayed if the two arrays have the same elements, but in different orders. My guess is that the `isEqual` function is reading old data because if you click "Select all" again, then the `selectedValues` array will be updated in the UI to match the order of the `valuesArray`. In this case, it is probably fine to use `{#if valuesArray.length !== selectedValues.length}` because if the two arrays are the same length, then they will also have the same elements in them. -->
-      {#if valuesArray.length !== selectedValues.length}
-        <!-- If the user has at least one option selected, but fewer than the total number of options selected, then show the "Select all remaining" button. -->
-        {#if selectedValues.length > 0 && selectedValues.length < valuesArray.length}
-          <div class="select-all-btn">
-            <Button
-              size="sm"
-              btnIcon=""
-              on:click={() => selectedValues = [...valuesArray]}
-            >Select all remaining</Button>
-          </div>
-        <!-- If the user has no options selected, then show the "Select all" button. -->
-        {:else}
-          <div class="select-all-btn">
-            <Button
-              size="sm"
-              btnIcon=""
-              on:click={() => selectedValues = [...valuesArray]}
-            >Select all</Button>
-          </div>
-        {/if}
-      <!-- If the user has all of the options selected, then show the "Deselect all" button. -->
+  <div
+    id={`fpcl-select-menu-${componentId}`} 
+    class="fpcl-select-menu"
+    class:show={showSelectMenu}
+    tabindex="-1"
+    bind:this={selectMenu}
+    on:blur={(event) => {
+      // If a user clicks a button or a checkbox inside the selectMenu, then the the selectMenu will lose the focus. So it is necessary for the selectMenu to receive focus again so it will close when a user clicks outside of it.
+      selectMenu.focus();
+      let elementId = (event && event.relatedTarget && event.relatedTarget.id) ? event.relatedTarget.id : null;
+      // See this function in the `<Select>` component for an explanation of how this if statement works.
+      // This is basically saying if the user clicks on the select-btn or the one of the select-all-btns or a checkbox, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
+      if (
+        elementId !== `fpcl-select-btn-${componentId}` && 
+        elementId !== `fpcl-select-all-btn-${componentId}` && 
+        elementId !== `fpcl-checkbox-input-${componentId}`
+      ) {
+        showSelectMenu = false;
+      }
+    }}
+  >
+    <!-- NOTE: If I use `{#if !isEqual(valuesArray, selectedValues)}`, then (for some strange reason) the "Select all" button is displayed if the two arrays have the same elements, but in different orders. My guess is that the `isEqual` function is reading old data because if you click "Select all" again, then the `selectedValues` array will be updated in the UI to match the order of the `valuesArray`. In this case, it is probably fine to use `{#if valuesArray.length !== selectedValues.length}` because if the two arrays are the same length, then they will also have the same elements in them. -->
+    {#if valuesArray.length !== selectedValues.length}
+      <!-- If the user has at least one option selected, but fewer than the total number of options selected, then show the "Select all remaining" button. -->
+      {#if selectedValues.length > 0 && selectedValues.length < valuesArray.length}
+        <div class="select-all-btn">
+          <Button
+            id={`fpcl-select-all-btn-${componentId}`}
+            size="sm"
+            btnIcon=""
+            on:click={() => selectedValues = [...valuesArray]}
+          >Select all remaining</Button>
+        </div>
+      <!-- If the user has no options selected, then show the "Select all" button. -->
       {:else}
         <div class="select-all-btn">
           <Button
+            id={`fpcl-select-all-btn-${componentId}`}
             size="sm"
             btnIcon=""
-            on:click={() => selectedValues.length = 0}
-          >Deselect all</Button>
+            on:click={() => selectedValues = [...valuesArray]}
+          >Select all</Button>
         </div>
       {/if}
+    <!-- If the user has all of the options selected, then show the "Deselect all" button. -->
+    {:else}
+      <div class="select-all-btn">
+        <Button
+          id={`fpcl-select-all-btn-${componentId}`}
+          size="sm"
+          btnIcon=""
+          on:click={() => selectedValues.length = 0}
+        >Deselect all</Button>
+      </div>
+    {/if}
 
-      <!-- 
-        The following commented code has usability attributes in it, so I don't want to remove this commented code until I have had a chance to create tests and see if the usability attributes work.
-      -->
-      <!-- {#if arrayType === "string" || arrayType === "number"}
-        {#each valuesArray as item}          
-          <label class="container">
-            <input role="option" aria-selected={selectedValues.includes(item)} checked={selectedValues.includes(item)} type="checkbox" bind:group={selectedValues} value={item}> {item}
-            <span class="checkmark"></span>
-          </label>
-        {/each}
-      {/if}
+    <!-- 
+      The following commented code has usability attributes in it, so I don't want to remove this commented code until I have had a chance to create tests and see if the usability attributes work.
+    -->
+    <!-- {#if arrayType === "string" || arrayType === "number"}
+      {#each valuesArray as item}          
+        <label class="container">
+          <input role="option" aria-selected={selectedValues.includes(item)} checked={selectedValues.includes(item)} type="checkbox" bind:group={selectedValues} value={item}> {item}
+          <span class="checkmark"></span>
+        </label>
+      {/each}
+    {/if}
 
-      {#if arrayType === "objects"}
-        {#each valuesArray as obj}
-          <label class="container">
-            <input role="option" aria-selected={selectedValues.includes(obj.value)} checked={selectedValues.includes(obj.value)} type="checkbox" bind:group={selectedValues} value={obj.value}> {obj.label}
-            <span class="checkmark"></span>
-          </label>
-        {/each}
-      {/if} -->
+    {#if arrayType === "objects"}
+      {#each valuesArray as obj}
+        <label class="container">
+          <input role="option" aria-selected={selectedValues.includes(obj.value)} checked={selectedValues.includes(obj.value)} type="checkbox" bind:group={selectedValues} value={obj.value}> {obj.label}
+          <span class="checkmark"></span>
+        </label>
+      {/each}
+    {/if} -->
 
-      <!--
-        IMPORTANT NOTE:
-        Since the <CheckboxGroup> component works perfectly for the options in the select menu of this component, I am simply using that component here.
-      -->
-      <CheckboxGroup
-        {arrayType}
-        checkboxGroupValues={valuesArray}
-        bind:selectedValues={selectedValues}
-        {disabled}
-      />
-
-    </div>
-  {/if}
+    <!--
+      IMPORTANT NOTE:
+      Since the <CheckboxGroup> component works perfectly for the options in the select menu of this component, I am simply using that component here.
+    -->
+    <CheckboxGroup
+      {componentId}
+      {arrayType}
+      checkboxGroupValues={valuesArray}
+      bind:selectedValues={selectedValues}
+      {disabled}
+    />
+  </div>
 </div>
 
 
@@ -339,7 +223,7 @@
   .fpcl-multi-select {
     position: relative;
 
-    & .multi-select-btn {
+    & .fpcl-select-btn {
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -404,6 +288,7 @@
     }
     
     & .fpcl-select-menu {
+      display: none;
       position: absolute;
       width: 100%;
       overflow-y: auto;
@@ -414,16 +299,12 @@
       background-color: white;
       z-index: 100;
 
-      &:global(.display-below-btn) {
-        border-top: none;
+      &:hover {
+        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
       }
 
-      &:global(.display-above-btn) {
-        border-bottom: none;
-      }
-
-      & .drop-down-display-text {
-        margin: -5px 0 15px 0;
+      &.show {
+        display: block;
       }
 
       & .select-all-btn {

@@ -118,3 +118,7 @@ The package version in your `node_modules` folder should now be updated.
 
 
 ***Source: [Update all the Node.js dependencies to their latest version](https://nodejs.dev/learn/update-all-the-nodejs-dependencies-to-their-latest-version)***
+
+
+<h2 id="install-fonts">How to install fonts</h2>
+TODO: Provide a step-by-step tutorial for how to install fonts, use them in your CSS styles, and make sure those fonts are inherited by these components.

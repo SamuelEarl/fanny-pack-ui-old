@@ -87,6 +87,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
 }
 
+/* Labels */
+:root {
+  --fpcl-label-font-size: 0.8rem;
+  --fpcl-label-margin-bottom: 5px;
+  --fpcl-label-text-color: var(--fpcl-dark-gray);
+}
+
 /* Select (single, multi) */
 :root {
   --fpcl-select-border-color: var(--fpcl-border-color);
@@ -110,8 +117,4 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* Disabled States */
   --fpcl-disabled-text-color: var(--fpcl-very-light-gray);
   --fpcl-disabled-bg-color: var(--fpcl-black);
-  /* Labels */
-  --fpcl-label-font-size: 0.8rem;
-  --fpcl-label-margin-bottom: 5px;
-  --fpcl-label-text-color: var(--fpcl-dark-gray);
 }

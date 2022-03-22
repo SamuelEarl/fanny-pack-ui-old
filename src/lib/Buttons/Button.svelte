@@ -2,6 +2,7 @@
   import Icon from "@iconify/svelte";
   import { theme } from "/src/fpcl-theme";
 
+  export let id = "";
   export let btnColor = "primary";
   export let inverted = false;
   export let size = "md";
@@ -16,6 +17,7 @@
 
 <button
   type="button"
+  {id}
   class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
   class:inverted={inverted}
   disabled={disabled}

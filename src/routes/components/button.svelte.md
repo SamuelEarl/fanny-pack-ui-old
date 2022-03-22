@@ -153,6 +153,7 @@
 | `inverted` | `boolean` | `true`, `false` | `false` | Inverted buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
+| `id` | `string` | Any string | NA (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpcl-theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. <br><br> You can pass an empty string to remove the button icon. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |

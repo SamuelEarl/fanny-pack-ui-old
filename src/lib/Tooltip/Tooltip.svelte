@@ -4,7 +4,6 @@
   export let tip = "";
 </script>
 
-
 <span class="tooltip-wrapper" use:tooltip={{ content: tip }}>
   <slot />
 </span>
