@@ -18,9 +18,11 @@
 
 <CurrencyInput
   bind:value={amount1}
+  valAlign="right"
   locale={locale}
   currency={currency}
   label="Enter a dollar amount"
+  labelAlign="right"
   size="md"
   placeholder="Type right here"
   disabled={false}
@@ -36,9 +38,11 @@
 
 <CurrencyInput
   bind:value={amount}
+  valAlign="right"
   locale="en-US"
   currency="USD"
   label="Enter a dollar amount"
+  labelAlign="right"
   size="md"
   placeholder="Type right here"
   disabled={false}
@@ -95,9 +99,11 @@ NOTE: The **Return Value** example above shows the value that is returned from t
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `bind:value` | `number` | any number | `0` | In order for the input field to be updated with a `number` value, this component's `value` property needs to be bound to a `number` variable.<br><br>It is important to understand that the data type of `value` is `number` (not `string`). So if you want to store the `value`, then it will be a JavaScript `number`. Also, the `toFixed(2)` method is applied to all `value`s and then those `value`s are converted back to a `number` using `Number()`. So any insignificant trailing zeros will be cut off from `value`. So `value` could have 0, 1, or 2 decimal places depending on the number that is entered by a user. So it might be important to know that the value could be an integer or a floating point value when storing these values in a database.<br><br> The number is simply formatted as a string using the [Internationalization API](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat) before it is displayed in the browser. |
-| `locale` | `string` | Any locale identifier string. See [Intl.Locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) for more details. | `"en-US"` | This prop is the locale identifier string that will format the currency value to the correct format. |
-| `currency` | `string` | Any acceptable currency string. See [Intl.NumberFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details. | `"USD"` | This prop is the currency to use in currency formatting. |
-| `label` | `string` | Any string | NA | This prop will provide a label for the input field.<br><br>NOTE: If you want to align the `label` to the right, then you can wrap a `<CurrencyInput>` component in a `<div>` and specify `text-align: right` on that `<div>`. |
+| `valAlign` | `string` | `left`, `right` | `right` | This prop will align the value in the input field either to left or the right side of the input field. |
+| `locale` | `string` | Any locale identifier string. See [Intl.Locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) for more details. | `en-US` | This prop is the locale identifier string that will format the currency value to the correct format. |
+| `currency` | `string` | Any acceptable currency string. See [Intl.NumberFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details. | `USD` | This prop is the currency to use in currency formatting. |
+| `label` | `string` | Any string | NA | This prop will provide a label for the input field. |
+| `labelAlign` | `string` | `left`, `right` | `right` | This prop will align the label for the input field either to left or the right side of the input field. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. The text size will also increase or decrease based on this `size` prop. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |

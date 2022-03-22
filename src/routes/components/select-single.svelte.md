@@ -18,7 +18,7 @@
     { text: "NOV", value: "november" },
     { text: "DEC", value: "december" },
   ];
-  let selectedMonthObject = monthObjects[2];
+  let selectedMonthObject = monthObjects[6];
 </script>
 
 
@@ -37,12 +37,27 @@
   size="md"
 />
 
+Value of `selectedMonth`: <code>{selectedMonth}</code>
+
 ```svelte
 <script>
   import { Select } from "fpcl";
 
-  let months = ["First", "Second", "Third"];
-  let selectedMonth = "Second";
+  let months = [
+    "January", 
+    "February", 
+    "March", 
+    "April", 
+    "May", 
+    "June", 
+    "July", 
+    "August", 
+    "September", 
+    "October", 
+    "November", 
+    "December"
+  ];
+  let selectedMonth = "July";
 </script>
 
 <Select
@@ -86,7 +101,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
     { text: "NOV", value: "november" },
     { text: "DEC", value: "december" },
   ];
-  let selectedMonthObject = monthObjects[2];
+  let selectedMonthObject = monthObjects[6];
 </script>
 
 <Select

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tick } from "svelte";
-  import Label from "../Labels/Label.svelte";
+  import { Label } from "/src/lib";
   import { createId, calculateMenuHeight } from "../fpcl-utils";
 
   export let label;

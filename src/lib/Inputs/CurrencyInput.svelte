@@ -9,12 +9,14 @@
 <script lang="ts">
   import { tick } from "svelte";
   import { createId } from "../fpcl-utils";
-  import Label from "../Labels/Label.svelte";
+  import { Label } from "/src/lib";
 
   export let value = 0;
+  export let valAlign = "right";
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
+  export let labelAlign = "right";
   export let size = "md";
   export let placeholder = "";
   export let disabled = false;
@@ -65,13 +67,13 @@
 </script>
 
 
-<Label {label} forVal={`fpcl-input-${componentId}`} />
+<Label {label} forVal={`fpcl-input-${componentId}`} {labelAlign} />
 {#if showNumberInput}
   <!-- Using a "number" input here will allow a user's device to display a numeric virtual keyboard when the user clicks inside this input field. -->
   <input
     type="number"
     id={`fpcl-input-${componentId}`}
-    class="{`${size}`}"
+    class="{`${size} ${valAlign}`}"
     step="0.01"
     min="0.00"
     placeholder={placeholder}
@@ -87,7 +89,7 @@
   <input
     type="text"
     id={`fpcl-input-${componentId}`}
-    class="{`${size}`}"
+    class="{`${size} ${valAlign}`}"
     placeholder={placeholder}
     disabled={disabled}
     bind:value={formattedValue}
@@ -115,9 +117,15 @@
     border: 1px solid;
     border-color: var(--fpcl-input-border-color, #c7c7c7);
     border-radius: var(--fpcl-border-radius);
-    text-align: right;
     background-color: var(--fpcl-input-bg-color);
     color: var(--fpcl-input-text-color);
+
+    &.left {
+      text-align: left;
+    }
+    &.right {
+      text-align: right;
+    }
 
     &.sm {
       padding: 5px;

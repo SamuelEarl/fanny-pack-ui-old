@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createId } from "../fpcl-utils";
-  import Label from "../Labels/Label.svelte";
+  import { Label } from "/src/lib";
 
   export let value = "";
   export let label = "";

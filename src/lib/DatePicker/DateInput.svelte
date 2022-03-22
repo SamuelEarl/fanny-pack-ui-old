@@ -9,7 +9,7 @@
   import { parse, createFormat } from "./parse";
   import type { FormatToken } from "./parse";
   import Calendar from "./Calendar.svelte";
-  import Label from "../Labels/Label.svelte";
+  import { Label } from "/src/lib";
   import { createId } from "../fpcl-utils";
   import { theme } from "/src/fpcl-theme";
 

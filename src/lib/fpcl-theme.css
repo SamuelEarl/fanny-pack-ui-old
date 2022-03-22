@@ -87,7 +87,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-placeholder-text-color: var(--fpcl-gray);
 }
 
-/* Select (single) */
+/* Select (single, multi) */
 :root {
   --fpcl-select-border-color: var(--fpcl-border-color);
   --fpcl-select-border-radius: var(--fpcl-border-radius);

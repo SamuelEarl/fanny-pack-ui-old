@@ -20,8 +20,11 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Read over the documentation to make sure that I have covered everything.
 
 ## Checkbox
-* Add disabled state.
+* Add usability attributes and features. See the `<SelectMulti>` component for some notes and possible attributes that I could use.
 * Create documentation.
+
+## Checkbox Group
+* Add usability attributes and features. See the `<SelectMulti>` component for some notes and possible attributes that I could use.
 
 ## Date Picker
 * Write tests.
@@ -31,13 +34,15 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Implement the `size` prop in the `Calendar` component and increase or decrease the font sizes based on the `size` prop. The fonts will probably be smaller than 1rem, but I do want to increase or decrease the font-sizes in relation the the `size` prop.
 
 ## Input (currency)
-* Write documentation.
 * Write tests.
 
 ## Input (text)
 * Start working on this component next.
 
-## Select Component
+## Select (multi)
+* Test the tooltip to see if it works (i.e. got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
+
+## Select (single)
 * Write tests. I will be able to verify if the roles work with the `getByRole()` selector.
 * On the "Button" doc page, there are multiple select boxes. If I click on one, it will open up. Then if I click on another without explicitly closing the first, then they will both stay open. So I need to figure out how to close the first select box in that scenario.
 * Clean up old code and documentation that no longer applies or that is commented out.
