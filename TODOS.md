@@ -44,5 +44,5 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
 
 ## Tooltip
-* Make the tooltips adjust to the edges of the screen. If there is not enough space to display the tooltip, then it needs to move to a place where there is space.
-* Auto adjust the width of the tooltip container to fit the text, but do not grow too wide.
+* Remove the old code that is not related to the Tippy.js version of the tooltip.
+* Manually test this component and write automated tests.
