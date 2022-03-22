@@ -6,19 +6,57 @@
 
 # Tooltip
 
+This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create tooltips.
+
 ---
 
-Hover over the tooltip at the end of this sentence. <Tooltip tip="{`This is how you \n\n can create a tooltip \n\n with multi-line content`}"><Icon icon="entypo:info-with-circle" /></Tooltip>
+## Example Usage
 
-<Tooltip tip="{`This is a tooltip \n\n over a button`}">
+<p>Hover over the icon at the end of this sentence to see the tooltip.
+  <Tooltip tip="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
+    <Icon icon="entypo:info-with-circle" />
+  </Tooltip>
+</p>
+
+<Tooltip tip="This button displays a tooltip">
   <Button>
     Hover over this button
   </Button>
 </Tooltip>
 
+```svelte
+<script lang="ts">
+  import Icon from "@iconify/svelte";
+  import { Tooltip } from "fpcl";
+  import { Button } from "fpcl";
+</script>
 
-<Tooltip tip="{`This is a tooltip \n\n over a button`}">
-  <button style="padding: 10px">
+<p>Hover over the icon at the end of this sentence to see the tooltip.
+  <Tooltip tip="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
+    <Icon icon="entypo:info-with-circle" />
+  </Tooltip>
+</p>
+
+<Tooltip tip="This button displays a tooltip">
+  <Button>
     Hover over this button
-  </button>
+  </Button>
 </Tooltip>
+```
+
+You can wrap a `<Tooltip>` component around any DOM element or any other component you want. All you need to do is pass the tooltip text that you want to appear when a user hovers over the tooltip.
+
+
+---
+
+## Props
+| Prop name | Type | Possible values | Default value | Description |
+| --------- | ---- | --------------- | ------------- | ----------- |
+| `tip` | `string` | Any string | NA | This prop accepts a string argument that will act as the tooltip text when a user hovers over the tooltip element. Multi-line strings can be created with newline characters (`\n`). |
+
+<br>
+
+## Slots
+| Slot name | Default value | Description |
+| --------- | ------------- | ----------- |
+| Default slot | NA | This slot is the DOM element or component that you will wrap with the `<Tooltip>` opening and closing tags. |

@@ -35,9 +35,13 @@
 </script>
 
 
-<span use:tooltip={{ content: tip }}>
+<div class="tooltip-wrapper" use:tooltip={{ content: tip }}>
   <slot />
-</span>
+</div>
+
+<!-- <span use:tooltip={{ content: tip }}>
+  <slot />
+</span> -->
 
 <!-- <span class="tooltip" on:mouseenter={setTipElement}>
   <span class="tip-text" bind:this={tipElement}>{tip}</span>
@@ -46,8 +50,16 @@
 
 
 <style>
+  .tooltip-wrapper {
+    display: inline-block;
+  }
+
   /* This will preserve any line breaks in the Tippy content. */
   :global(.tippy-content) {
+    padding: 10px;
+    border-radius: var(--fpcl-tooltip-border-radius);
+    background-color: var(--fpcl-tooltip-bg-color);
+    color: var(--fpcl-tooltip-text-color);
     white-space: pre-line;
   }
 

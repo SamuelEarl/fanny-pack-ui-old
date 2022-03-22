@@ -164,6 +164,7 @@
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
+| default slot | `Button Text` | The button text that will be displayed. |
 | `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
 
 <br><br>
