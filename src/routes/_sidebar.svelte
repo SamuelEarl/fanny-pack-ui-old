@@ -99,9 +99,9 @@
       padding: 15px;
       border-bottom: 1px solid var(--black);
       margin-bottom: 15px;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       line-height: 1.5;
-      font-weight: bold;
+      text-align: center;
     }
 
     & .section-heading {

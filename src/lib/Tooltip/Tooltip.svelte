@@ -1,10 +1,10 @@
 <script lang="ts">
   import tooltip from "./tooltip";
 
-  export let tip = "";
+  export let tooltipText = "";
 </script>
 
-<span class="tooltip-wrapper" use:tooltip={{ content: tip }}>
+<span class="tooltip-wrapper" use:tooltip={{ content: tooltipText }}>
   <slot />
 </span>
 

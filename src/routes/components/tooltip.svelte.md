@@ -13,12 +13,12 @@ This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create too
 ## Example Usage
 
 <p>Hover over the icon at the end of this sentence to see the tooltip.
-  <Tooltip tip="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
+  <Tooltip tooltipText="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
     <Icon icon="entypo:info-with-circle" />
   </Tooltip>
 </p>
 
-<Tooltip tip="This button displays a tooltip">
+<Tooltip tooltipText="This button displays a tooltip">
   <Button>
     Hover over this button
   </Button>
@@ -32,12 +32,12 @@ This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create too
 </script>
 
 <p>Hover over the icon at the end of this sentence to see the tooltip.
-  <Tooltip tip="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
+  <Tooltip tooltipText="{`You can easily create \n\n tooltips that have \n\n multi-line content.`}">
     <Icon icon="entypo:info-with-circle" />
   </Tooltip>
 </p>
 
-<Tooltip tip="This button displays a tooltip">
+<Tooltip tooltipText="This button displays a tooltip">
   <Button>
     Hover over this button
   </Button>
@@ -52,7 +52,7 @@ You can wrap a `<Tooltip>` component around any DOM element or any other compone
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `tip` | `string` | Any string | NA | This prop accepts a string argument that will act as the tooltip text when a user hovers over the tooltip element. Multi-line strings can be created with newline characters that are inside of backticks, which are inside of curly braces. See the code examples above. |
+| `tooltipText` | `string` | Any string | NA | This prop accepts a string argument that will act as the tooltip text when a user hovers over the tooltip element. Multi-line strings can be created with newline characters that are inside of backticks, which are inside of curly braces. See the code examples above. |
 
 <br>
 
