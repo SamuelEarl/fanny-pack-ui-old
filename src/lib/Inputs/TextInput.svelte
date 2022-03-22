@@ -20,8 +20,8 @@
   class="{`${size}`}"
   placeholder={placeholder}
   disabled={disabled}
-  on:input
   on:change
+  on:input
 />
 
 

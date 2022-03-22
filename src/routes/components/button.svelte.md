@@ -33,7 +33,7 @@
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
 >
-  <span slot="btnText">Create Account</span>
+  Create Account
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
 
@@ -61,7 +61,7 @@
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
 >
-  <span slot="btnText">Create Account</span>
+  Create Account
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
 ```
@@ -84,7 +84,7 @@
       btnIconDisabledShouldSpin={true}
       on:click={handleCreateAccount}
     >
-      <span slot="btnText">Create Account</span>
+      Create Account
       <span slot="btnTextDisabled">Creating Account...</span>
     </Button>
   </div>
@@ -102,7 +102,7 @@
       btnIconDisabledShouldSpin={true}
       on:click={handleCreateAccount}
     >
-      <span slot="btnText">Create Account</span>
+      Create Account
       <span slot="btnTextDisabled">Creating Account...</span>
     </Button>
   </div>
@@ -164,8 +164,7 @@
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
-| `btnText` |	`Button Text` | |
-| `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text from the `btnText` slot will be used if/when the button is disabled. |
+| `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
 
 <br><br>
 

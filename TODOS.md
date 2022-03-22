@@ -42,3 +42,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * On the "Button" doc page, there are multiple select boxes. If I click on one, it will open up. Then if I click on another without explicitly closing the first, then they will both stay open. So I need to figure out how to close the first select box in that scenario.
 * Clean up old code and documentation that no longer applies or that is commented out.
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
+
+## Tooltip
+* Make the tooltips adjust to the edges of the screen. If there is not enough space to display the tooltip, then it needs to move to a place where there is space.
+* Auto adjust the width of the tooltip container to fit the text, but do not grow too wide.

@@ -42,7 +42,7 @@
   {#if $$slots.btnTextDisabled && disabled}
     <slot name="btnTextDisabled">Disabled Button Text</slot>
   {:else}
-    <slot name="btnText">Button Text</slot>
+    <slot>Button Text</slot>
   {/if}
 </button>
 
@@ -53,16 +53,18 @@
     border: none;
     border-radius: var(--fpcl-btn-border-radius);
     cursor: pointer;
-    display: flex;
-    justify-content: center;
+
+    & :global(.iconify) {
+      margin-bottom: -2px;
+    }
   }
 
   .fpcl-btn .btn-icon-left {
-    order: 0;
+    float: left;
     margin-right: var(--fpcl-btn-icon-margin);
   }
   .fpcl-btn .btn-icon-right {
-    order: 1;
+    float: right;
     margin-left: var(--fpcl-btn-icon-margin);
   }
 
