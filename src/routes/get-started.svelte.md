@@ -22,7 +22,6 @@ Create the following files inside a `/src/assets/styles` directory:
 * `main.css`
 * `theme.css`
 * `fpcl-theme.css`
-* `fpcl-theme-overrides.css`
 * `fpcl-utils.css`
 
 Copy all the code from this package's `fpcl-theme.css` file into the `/src/assets/styles/fpcl-theme.css` file. Do the same thing with this package's `fpcl-utils.css` file and the `/src/assets/styles/fpcl-utils.css` file.
@@ -32,15 +31,14 @@ Copy all the code from this package's `fpcl-theme.css` file into the `/src/asset
 * I need to improve the following instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
 * The `font-stack` instructions should go in their own section below and I think they should include this: "The components in this library will inherit the fonts that you define for your app." 
     * However, I need to test this to make sure that these components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts).
-* I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `theme.css` file to the `fpcl-theme-overrides.css` file so the components will also have the same theme.
+* I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `theme.css` file to the `fpcl-theme.css` file so the components will also have the same theme.
     * I should probably also provide a simple tutorial that shows how to install and use fonts.
 
 
-You can customize the theme for the Fanny Pack components in the `fpcl-theme-overrides.css` file.
+You can customize the theme for the Fanny Pack components in the `fpcl-theme.css` file.
 1. Create your own custom theme in the `theme.css` file. You can refer to the `example-theme.css` file in the `fpcl` package's folder for some ideas.
-2. In the `fpcl-theme.css` file, copy the `Global Component Styles` block and paste it into the `fpcl-theme-overrides.css` file. 
-    1. Now take the variables from your `theme.css` file and transfer any applicable variables into your `fpcl-theme-overrides.css` file so your components will use the same values for things like primary, secondary, and tertiary colors; the border radius value, etc. Transferring those variables should handle most of your theme customizations.
-3. If you want to customize individual components, then copy the component style blocks that you want to customize from the `fpcl-theme.css` file and paste them into your `fpcl-theme-overrides.css` file and adjust the values to match your theme.
+2. In the `fpcl-theme.css` file, change the variable **values** (not the variable names) of any of the variables in the `Global Component Styles` block to match the theme in your `theme.css` file. This will cause your components to use the same values that your `theme.css` file has for things like colors (i.e. primary, secondary, tertiary colors), border radius, etc. Updating those variables should handle most of your theme customizations.
+3. If you want to customize individual components, then change the variable **values** for any component style blocks that you want to customize.
     1. WARNING: If you customize any of the individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
     2. The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
 
@@ -51,13 +49,12 @@ Then open your `/src/assets/styles/main.css` file and import all of your CSS fil
 @import "fonts.css";
 @import "theme.css";
 @import "fpcl-theme.css";
-@import "fpcl-theme-overrides.css";
 @import "base.css";
 @import "utils.css";
 @import "fpcl-utils.css";
 ```
 
-NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters. So make sure that `fpcl-theme-overrides.css` is imported after `fpcl-theme.css` and that `fpcl-utils.css` is imported last.
+NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters.
 
 Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
 
