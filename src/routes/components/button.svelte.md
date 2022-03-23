@@ -178,11 +178,11 @@
 <br><br>
 
 ## Style Notes
-Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to override the values for the button text colors in your `fpcl-theme-overrides.css` file. These are the default button text colors:
+Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `fpcl-theme.css` file. These are the default button text colors:
 
 ```css
---fpcl-btn-primary-text-color: var(--fpcl-white);
---fpcl-btn-secondary-text-color: var(--fpcl-white);
+--fpcl-btn-primary-text-color: white;
+--fpcl-btn-secondary-text-color: white;
 --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
 ```
 
@@ -201,12 +201,12 @@ Depending on the colors that you use as your `primary`, `secondary`, and `tertia
     }
 
     & .light-bg {
-      background-color: var(--fpcl-very-light-gray);
+      background-color: #e5e5e5;
       border-radius: var(--fpcl-border-radius) 0 0 var(--fpcl-border-radius);
     }
 
     & .dark-bg {
-      background-color: var(--fpcl-black);
+      background-color: #000;
       border-radius: 0 var(--fpcl-border-radius) var(--fpcl-border-radius) 0;
     }
   }

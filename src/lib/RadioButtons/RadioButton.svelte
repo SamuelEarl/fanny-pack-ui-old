@@ -29,7 +29,7 @@
     
     /* On mouse-over, add a grey background color. */
     &:hover input ~ .checkmark {
-      background-color: var(--fpcl-light-gray);
+      background-color: #c7c7c7;
     }
   
     /* Hide the browser's default radio button. */
@@ -60,8 +60,8 @@
       left: 0;
       height: 25px;
       width: 25px;
-      border: 1px solid var(--fpcl-light-gray);
-      box-shadow: 1px 1px 1px var(--fpcl-light-gray);
+      border: 1px solid #c7c7c7;
+      box-shadow: 1px 1px 1px #c7c7c7;
       border-radius: 50%;
       background-color: white;
 

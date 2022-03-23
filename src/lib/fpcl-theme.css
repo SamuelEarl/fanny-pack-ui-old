@@ -9,28 +9,16 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Global Component Styles */
 :root {
-  /* Commonly Used Colors */
+  /* Main Colors */
   --fpcl-primary: #603cba; /* dark purple */
   --fpcl-secondary: #343434; /* very dark gray */
   --fpcl-tertiary: #ffffff; /* white */
-  /*
-    Neutral Colors
-    * These colors are used for text colors, border colors, box shadows, etc.
-    * NOTE: These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
-  */
-  --fpcl-black: #000000;
-  --fpcl-very-dark-gray: #343434;
-  --fpcl-dark-gray: #797979;
-  --fpcl-gray: #a0a0a0;
-  --fpcl-light-gray: #c7c7c7;
-  --fpcl-very-light-gray: #e5e5e5;
-  --fpcl-white: #ffffff;
   /* Notification Colors */
   --fpcl-success: #00a300; /* green */
   --fpcl-warning: #ffc40d; /* yellow */
   --fpcl-alert: #ee1111; /* red */
   /* Borders */
-  --fpcl-border-color: var(--fpcl-light-gray);
+  --fpcl-border-color: #c7c7c7;
   --fpcl-border-radius: 3px;
   /* Font styles */
   --fpcl-font-size-sm: 12px;
@@ -39,13 +27,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-font-weight-light: 100;
   --fpcl-font-weight-normal: 400;
   --fpcl-font-weight-bold: 700;
-  --fpcl-text-color: var(--fpcl-very-dark-gray);
+  --fpcl-text-color: #343434;
 }
 
 /* Button */
 :root {
-  --fpcl-btn-primary-text-color: var(--fpcl-white);
-  --fpcl-btn-secondary-text-color: var(--fpcl-white);
+  --fpcl-btn-primary-text-color: white;
+  --fpcl-btn-secondary-text-color: white;
   --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   --fpcl-btn-icon-margin: 12px;
@@ -58,7 +46,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 :root {
   --fpcl-checkbox-unchecked-border-color: var(--fpcl-border-color);
   --fpcl-checkbox-unchecked-border-radius: var(--fpcl-border-radius);
-  --fpcl-checkbox-unchecked-bg-color: var(--fpcl-white);
+  --fpcl-checkbox-unchecked-bg-color: white;
   --fpcl-checkbox-checked-bg-color: var(--fpcl-primary);
   --fpcl-checkbox-margin-bottom: 20px;
 }
@@ -69,12 +57,12 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-date-picker-border-color: var(--fpcl-border-color);
   --fpcl-date-picker-border-radius: var(--fpcl-border-radius);
   --fpcl-date-picker-text-color: var(--fpcl-text-color);
-  --fpcl-date-picker-bg-color: var(--fpcl-white);
+  --fpcl-date-picker-bg-color: white;
   /* These variables apply to only the date input field component. */
-  --fpcl-date-input-btn-bg-color: var(--fpcl-very-light-gray);
+  --fpcl-date-input-btn-bg-color: #e5e5e5;
   --fpcl-date-input-btn-icon-color: inherit;
   /* These variables apply to only the calendar component. */
-  --fpcl-calendar-selected-date-bg-color: var(--fpcl-very-light-gray);
+  --fpcl-calendar-selected-date-bg-color: #e5e5e5;
   --fpcl-calendar-selected-date-text-color: var(--fpcl-text-color);
   --fpcl-calendar-selected-date-border-color: var(--fpcl-border-color);
 }
@@ -82,39 +70,39 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Input (currency, text) */
 :root {
   --fpcl-input-border-color: var(--fpcl-border-color);
-  --fpcl-input-bg-color: var(--fpcl-white);
+  --fpcl-input-bg-color: white;
   --fpcl-input-text-color: var(--fpcl-text-color);
-  --fpcl-input-placeholder-text-color: var(--fpcl-gray);
+  --fpcl-input-placeholder-text-color: #a0a0a0;
 }
 
 /* Labels */
 :root {
   --fpcl-label-font-size: 0.8rem;
   --fpcl-label-margin-bottom: 5px;
-  --fpcl-label-text-color: var(--fpcl-dark-gray);
+  --fpcl-label-text-color: #797979;
 }
 
 /* Select (single, multi) */
 :root {
   --fpcl-select-border-color: var(--fpcl-border-color);
   --fpcl-select-border-radius: var(--fpcl-border-radius);
-  --fpcl-select-bg-color: var(--fpcl-white);
+  --fpcl-select-bg-color: white;
   --fpcl-select-text-color: var(--fpcl-text-color);
   /* Styles for the dropdown menu of the select box. */
-  --fpcl-select-option-hover-bg-color: var(--fpcl-very-light-gray);
+  --fpcl-select-option-hover-bg-color: #e5e5e5;
   --fpcl-select-option-hover-text-color: var(--fpcl-text-color);
 }
 
 /* Tooltip */
 :root {
-  --fpcl-tooltip-bg-color: var(--fpcl-very-dark-gray);
-  --fpcl-tooltip-text-color: var(--fpcl-white);
+  --fpcl-tooltip-bg-color: #343434;
+  --fpcl-tooltip-text-color: white;
   --fpcl-tooltip-border-radius: var(--fpcl-border-radius);
 }
 
 /* Miscellaneous */
 :root {
   /* Disabled States */
-  --fpcl-disabled-text-color: var(--fpcl-very-light-gray);
-  --fpcl-disabled-bg-color: var(--fpcl-black);
+  --fpcl-disabled-text-color: #e5e5e5;
+  --fpcl-disabled-bg-color: #000;
 }

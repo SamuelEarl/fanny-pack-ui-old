@@ -14,7 +14,7 @@
     width: 100%;
     height: 50px;
     padding: 15px;
-    background-color: var(--fpcl-light-gray);
+    background-color: #c7c7c7;
     color: white;
     z-index: 100;
   }
