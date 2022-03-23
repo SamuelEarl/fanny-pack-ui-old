@@ -30,11 +30,7 @@ Any components that use style props should be refactored to accept regular props
 # How to package and publish the component library to npm
 Source: https://blog.logrocket.com/build-your-own-component-library-svelte/
 
-## Step 1: Push your updates to GitHub
-Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub before you continue.
-
-
-## Step 2: Organize your components so they can be imported easily
+## Step 1: Organize your components so they can be imported easily
 Inside of the `src/lib` folder, create a folder for each component. Inside of each of those folders create an `index.js` file that exports the component, like this:
 
 ```
@@ -52,8 +48,12 @@ To see an example of this component exporting and re-exporting, look at the `car
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 3: Bump the version number up
+## Step 2: Bump the version number up
 You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number in the main `package.json` file before you continue.
+
+
+## Step 3: Push your updates to GitHub
+Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub before you continue.
 
 
 ## Step 4: Turn your component library into an npm package
