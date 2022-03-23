@@ -48,15 +48,21 @@ To see an example of this component exporting and re-exporting, look at the `car
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 2: Bump the version number up
+## Step 2: Required dependencies should be in the `dependencies` object
+npm will automatically bundle any dependencies inside your `dependencies` object when it creates the tarball during the `npm publish` command. So make sure that any dependencies that are required for your package to work properly are installed as `dependencies` instead of `devDependencies`.
+
+See https://stackoverflow.com/questions/31215356/npm-does-not-publish-dependencies
+
+
+## Step 3: Bump the version number up
 You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number in the main `package.json` file before you continue.
 
 
-## Step 3: Push your updates to GitHub
+## Step 4: Push your updates to GitHub
 Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub before you continue.
 
 
-## Step 4: Turn your component library into an npm package
+## Step 5: Turn your component library into an npm package
 Install the `svelte2tsx` package:
 
 ```
@@ -74,11 +80,11 @@ This command will take all the files that are under the `src/lib` folder and mak
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 5: Login to npm
+## Step 6: Login to npm
 Read how to do login here: http://npm.github.io/installation-setup-docs/installing/logging-in-and-out.html
 
 
-## Step 6: Publish to npm
+## Step 7: Publish to npm
 In order to distribute this package to other developers and allow them to install it as an npm package you need to publish it to npm. To publish this as an npm module run the following command from inside the directory that contains your `package.json` file:
 
 ```

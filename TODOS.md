@@ -9,7 +9,6 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * UPDATE: Mimic the docs from Carbon Components Svelte (https://carbon-components-svelte.onrender.com/) and maybe from Semantic UI.
 * Finish organizing the theme variables in the `/lib/fpcl-theme.css` file.
 * Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
-* Figure out how to bundle dependencies, like `@iconify/svelte` or `Tippy.js` along with this project when I run `npm run package`. Right now users of this package have to install `@iconify/svelte` separately.
 * Create fallback colors for each CSS variable in the components.
 * Figure out how to customize/edit fonts after the component library has been installed.
     * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined. See the `example-theme.css` file for an example.

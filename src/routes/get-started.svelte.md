@@ -11,16 +11,10 @@ These instructions will show you how to install Fanny Pack and configure it to u
 npm install --save-dev fpcl
 ```
 
-
-## Step 2: Install @iconify/svelte
-Some of the components use icons from Iconify's Svelte package, so you will need to install Iconify:
-
-```
-npm install --save-dev @iconify/svelte
-```
+NOTE: This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details.
 
 
-## Step 3: Enable CSS Variables & Utility Classes
+## Step 2: Enable CSS Variables & Utility Classes
 When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
 
 Create the following files inside a `/src/assets/styles` directory:
@@ -78,7 +72,7 @@ The default theme should now be enabled when you start your app and you should h
 **IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-border-radius: 5px;`, but this could break some styles: `--fpcl-border-radius: 0;`.
 
 
-## Step 4: Enable JavaScript Variables
+## Step 3: Enable JavaScript Variables
 Create a `/src/fpcl-theme.ts` file and copy all the code from the `fpcl` package's `fpcl-theme.js` file into your `/src/fpcl-theme.ts` file. NOTE: The components are already referencing the `/src/fpcl-theme.ts` file, so you should be ready to go.
 
 You can now edit any of the variables in the `/src/fpcl-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpcl-theme.ts` file.
