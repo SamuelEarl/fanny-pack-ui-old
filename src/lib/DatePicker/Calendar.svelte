@@ -4,7 +4,7 @@
   import { getInnerLocale } from "./locale";
   import type { Locale } from "./locale";
   import { createEventDispatcher } from "svelte";
-  import { Label } from "/src/lib";
+  import { Label } from "../Labels";
   import { createId } from "../fpcl-utils";
 
   export let label = "";

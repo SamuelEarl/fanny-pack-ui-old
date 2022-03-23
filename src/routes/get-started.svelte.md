@@ -36,7 +36,7 @@ Copy all the code from this package's `fpcl-theme.css` file into the `/src/asset
 
 **TODOS:**
 * I need to improve the following instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
-* I think the `font-stack` instructions should be this: "The components in this library will inherit the fonts that you define for your app." 
+* The `font-stack` instructions should go in their own section below and I think they should include this: "The components in this library will inherit the fonts that you define for your app." 
     * However, I need to test this to make sure that these components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts).
 * I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `theme.css` file to the `fpcl-theme-overrides.css` file so the components will also have the same theme.
     * I should probably also provide a simple tutorial that shows how to install and use fonts.
@@ -75,11 +75,11 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 
 The default theme should now be enabled when you start your app and you should have some utility functions available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpcl-theme.css` file for details.
 
-IMPORTANT: If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-border-radius: 5px;`, but this could break some styles: `--fpcl-border-radius: 0;`.
+**IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-border-radius: 5px;`, but this could break some styles: `--fpcl-border-radius: 0;`.
 
 
 ## Step 4: Enable JavaScript Variables
-Create a `/src/fpcl-theme.ts` file and copy all the code from the `fpcl` package's `fpcl-theme.js` file into your `/src/fpcl-theme.ts` file. The components are already referencing the `/src/fpcl-theme.ts` file, so you should be ready to go.
+Create a `/src/fpcl-theme.ts` file and copy all the code from the `fpcl` package's `fpcl-theme.js` file into your `/src/fpcl-theme.ts` file. NOTE: The components are already referencing the `/src/fpcl-theme.ts` file, so you should be ready to go.
 
 You can now edit any of the variables in the `/src/fpcl-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpcl-theme.ts` file.
 

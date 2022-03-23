@@ -27,7 +27,7 @@
   --very-light-gray: #e5e5e5;
   --white: #ffffff;
 
-  /* Primary, Secondary, Tertiary colors, etc. */
+  /* Commonly Used Colors */
   --primary: var(--dark-blue);
   --secondary: var(--yellow);
   /* --tertiary */

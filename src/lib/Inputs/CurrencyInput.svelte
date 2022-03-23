@@ -9,7 +9,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   import { createId } from "../fpcl-utils";
-  import { Label } from "/src/lib";
+  import { Label } from "../Labels";
 
   export let value = 0;
   export let valAlign = "right";

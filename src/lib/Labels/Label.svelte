@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { Tooltip } from "/src/lib";
+  import { Tooltip } from "../Tooltips";
   import { theme } from "/src/fpcl-theme";
 
   export let label;

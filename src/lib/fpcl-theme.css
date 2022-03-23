@@ -9,7 +9,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Global Component Styles */
 :root {
-  /* Main Colors */
+  /* Commonly Used Colors */
   --fpcl-primary: #603cba; /* dark purple */
   --fpcl-secondary: #343434; /* very dark gray */
   --fpcl-tertiary: #ffffff; /* white */

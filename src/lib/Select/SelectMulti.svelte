@@ -18,7 +18,9 @@
   import { tick } from "svelte";
   import { createId, calculateMenuHeight } from "../fpcl-utils";
   // import isEqual from "lodash.isequal";
-  import { Button, CheckboxGroup, Label } from "/src/lib";
+  import { Button } from "../Buttons";
+  import { CheckboxGroup } from "../Checkboxes";
+  import { Label } from "../Labels";
 
   export let label = "";
   export let tooltipText = "";

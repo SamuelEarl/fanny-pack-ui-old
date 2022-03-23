@@ -2,7 +2,7 @@
 
 /* Color Palette */
 :root {
-  /* The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
   --light-green: #99b433;
   --green: #00a300;
   --dark-green: #1e7145;
@@ -31,7 +31,7 @@
   --success: var(--green);
   --warning: var(--yellow);
   --alert: var(--red);
-  /* Main Colors */
+  /* Commonly Used Colors */
   --primary: var(--dark-purple);
   --secondary: var(--very-dark-gray);
   --tertiary: var(--white);

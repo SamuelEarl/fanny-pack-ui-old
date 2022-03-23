@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createId } from "../fpcl-utils";
-  import { Label } from "/src/lib";
+  import { Label } from "../Labels";
 
   export let value = "";
   export let label = "";
