@@ -155,7 +155,7 @@
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `id` | `string` | Any string | NA (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
-| `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpcl-theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. <br><br> You can pass an empty string to remove the button icon. |
+| `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpcl-theme.ts` file. | See the heading [Enable JavaScript Variables](/get-started#enable-js-vars) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
@@ -165,8 +165,8 @@
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
-| default slot | `Button Text` | The button text that will be displayed. |
-| `btnTextDisabled` (optional) | `Disabled Button Text` | If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
+| Default slot | `Button Text` | The text that will be displayed in the button. |
+| `btnTextDisabled` (optional) | `Disabled Button Text` | This is the text that will appear when the button is in a disabled state. If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
 
 <br><br>
 

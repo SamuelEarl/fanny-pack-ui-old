@@ -36,7 +36,6 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-secondary-text-color: white;
   --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
-  --fpcl-btn-icon-margin: 12px;
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
   --fpcl-btn-border-radius: var(--fpcl-border-radius);

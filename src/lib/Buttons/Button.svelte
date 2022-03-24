@@ -15,7 +15,8 @@
 </script>
 
 
-<button
+<!-- Using flexbox styles on this button component messes up the tooltip component if a user wraps a <Button> in a <Tooltip>. So I can't use flexbox to move the icon around. -->
+<!-- <button
   type="button"
   {id}
   class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
@@ -26,7 +27,7 @@
   {#if btnIcon && btnIconDisabled}
     {#if disabled}
       {#if btnIconDisabledShouldSpin}
-        <!-- You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times. -->
+        You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times.
         <span class="{`btn-icon-${btnIconSide}`}">
           <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
         </span>
@@ -46,6 +47,64 @@
   {:else}
     <slot>Button Text</slot>
   {/if}
+</button> -->
+
+
+<button
+  type="button"
+  {id}
+  class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
+  class:inverted={inverted}
+  disabled={disabled}
+  on:click
+>
+  <!-- If the btnIcon exists, and the btnIconDisabled exists, and the btnIcon should be on the left side, then display an icon on the left. If either the btnIcon or btnIconDisabled is an empty string, then no icons will be displayed with the button. See the docs for details. -->
+  {#if btnIcon && btnIconDisabled && btnIconSide === "left"}
+    <!-- If the button is disabled, then... -->
+    {#if disabled}
+      <!-- ...show a spinning disabled icon. -->
+      {#if btnIconDisabledShouldSpin}
+        <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpcl-spin" class and once without. -->
+        <span class={`btn-icon-left icon-margin-${size}`}>
+          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
+        </span>
+      <!-- ...or show a non-spinning disabled icon. -->
+      {:else}
+        <span class={`btn-icon-left icon-margin-${size}`}>
+          <Icon icon="{btnIconDisabled}" />
+        </span>
+      {/if}
+    <!-- If the button is not disabled, then show the btnIcon. -->
+    {:else}
+      <span class={`btn-icon-left icon-margin-${size}`}>
+        <Icon icon="{btnIcon}" />
+      </span>
+    {/if}
+  {/if}
+
+  {#if $$slots.btnTextDisabled && disabled}
+    <slot name="btnTextDisabled">Disabled Button Text</slot>
+  {:else}
+    <slot>Button Text</slot>
+  {/if}
+  
+  {#if btnIcon && btnIconDisabled && btnIconSide === "right"}
+    {#if disabled}
+      {#if btnIconDisabledShouldSpin}
+        <span class={`btn-icon-right icon-margin-${size}`}>
+          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
+        </span>
+      {:else}
+        <span class={`btn-icon-right icon-margin-${size}`}>
+          <Icon icon="{btnIconDisabled}" />
+        </span>
+      {/if}
+    {:else}
+      <span class={`btn-icon-right icon-margin-${size}`}>
+        <Icon icon="{btnIcon}" />
+      </span>
+    {/if}
+  {/if}
 </button>
 
 
@@ -62,12 +121,28 @@
   }
 
   .fpcl-btn .btn-icon-left {
-    float: left;
-    margin-right: var(--fpcl-btn-icon-margin);
+
+    &.icon-margin-sm {
+      margin-right: 5px;
+    }
+    &.icon-margin-md {
+      margin-right: 10px;
+    }
+    &.icon-margin-lg {
+      margin-right: 15px;
+    }
   }
   .fpcl-btn .btn-icon-right {
-    float: right;
-    margin-left: var(--fpcl-btn-icon-margin);
+
+    &.icon-margin-sm {
+      margin-left: 5px;
+    }
+    &.icon-margin-md {
+      margin-left: 10px;
+    }
+    &.icon-margin-lg {
+      margin-left: 15px;
+    }
   }
 
   .primary {

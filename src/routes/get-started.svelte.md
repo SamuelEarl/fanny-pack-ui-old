@@ -74,7 +74,7 @@ The default theme should now be enabled when you start your app and you should h
 **IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpcl-border-radius: 5px;`, but this could break some styles: `--fpcl-border-radius: 0;`.
 
 
-## Step 4: Enable JavaScript Variables
+<h2 id="enable-js-vars">Step 4: Enable JavaScript Variables</h2>
 Create a `/src/fpcl-theme.ts` file and copy all the code from the `fpcl` package's `fpcl-theme.js` file into your `/src/fpcl-theme.ts` file. NOTE: The components are already referencing the `/src/fpcl-theme.ts` file, so you should be ready to go.
 
 You can now edit any of the variables in the `/src/fpcl-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpcl-theme.ts` file.
