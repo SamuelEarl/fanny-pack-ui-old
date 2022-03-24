@@ -26,16 +26,11 @@
   --light-gray: #c7c7c7;
   --very-light-gray: #e5e5e5;
   --white: #ffffff;
-
-  /* Commonly Used Colors */
-  --primary: var(--dark-blue);
-  --secondary: var(--yellow);
-  /* --tertiary */
-  --text-color: var(--very-dark-gray);
 }
 
 /* This is the same as the "Global Component Styles" in the `fpcl-theme.css` file. */
-/* I was thinking that users could copy this entire file and create their theme using many of the same variables that are defined in the `fpcl-theme.css` file. That way users could use the same theme throughout their entire app and then reference those variables in the `fpcl-theme.css` file so everything would have the same theme. */
+/* I was thinking that users could copy this entire example-theme.css file and use it as a template to create their own theme.css file. All the variables in this "Global Component Styles" object will define the variables for the fpcl components. This way users could use the same theme throughout their entire app and the variables in this file are also referenced by the variables in the `fpcl-theme.css` file, so everything would have the same theme. */
+/* Global Component Styles */
 :root {
   /* Main Colors */
   --primary: var(--dark-purple);
@@ -47,7 +42,7 @@
   --alert: #ee1111; /* red */
   /* Borders */
   --border-color: var(--border-color);
-  --border-radius: var(--border-radius);
+  --border-radius: 3px;
   /* Font styles */
   --font-size-sm: 12px;
   --font-size-base: 16px;
@@ -64,11 +59,4 @@
   --sans-serif-font-stack: "Roboto", sans-serif;
   --cursive-font-stack: "Shadows Into Light", cursive;
   --mono-font-stack: "Source Code Pro", monospace;
-  --body-font-stack: var(--sans-serif-font-stack);
-  --headline-font-stack: var(--serif-font-stack);
-}
-
-/* Miscellaneous */
-:root {
-  --global-radius: 3px;
 }
