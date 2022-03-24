@@ -34,6 +34,30 @@
   --text-color: var(--very-dark-gray);
 }
 
+/* This is the same as the "Global Component Styles" in the `fpcl-theme.css` file. */
+/* I was thinking that users could copy this entire file and create their theme using many of the same variables that are defined in the `fpcl-theme.css` file. That way users could use the same theme throughout their entire app and then reference those variables in the `fpcl-theme.css` file so everything would have the same theme. */
+:root {
+  /* Main Colors */
+  --primary: var(--dark-purple);
+  --secondary: var(--very-dark-gray);
+  --tertiary: var(--white);
+  /* Notification Colors */
+  --success: #00a300; /* green */
+  --warning: #ffc40d; /* yellow */
+  --alert: #ee1111; /* red */
+  /* Borders */
+  --border-color: var(--border-color);
+  --border-radius: var(--border-radius);
+  /* Font styles */
+  --font-size-sm: 12px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-weight-light: 100;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --text-color: #343434;
+}
+
 /* Typography */
 :root {
   --serif-font-stack: "Merriweather", serif;
