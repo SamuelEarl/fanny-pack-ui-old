@@ -1,6 +1,6 @@
 import { mdsvex } from "mdsvex";
 import mdsvexConfig from "./mdsvex.config.js";
-import adapter from "@sveltejs/adapter-auto";
+import adapterAuto from "@sveltejs/adapter-auto";
 import preprocess from "svelte-preprocess";
 import postcssPresetEnv from "postcss-preset-env";
 // __dirname is not available in ES modules: https://nodejs.org/api/esm.html#esm_no_filename_or_dirname
@@ -38,7 +38,7 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapter(),
+		adapter: adapterAuto(),
 
 		// hydrate the <div id="svelte"> element in src/app.html
 		// target: "#svelte",

@@ -36,15 +36,15 @@
     color: var(--fpcl-input-text-color);
 
     &.sm {
-      padding: 5px;
+      padding: var(--fpcl-input-padding-sm, 5px);
       font-size: var(--fpcl-font-size-sm, 12px);
     }
     &.md {
-      padding: 10px;
+      padding: var(--fpcl-input-padding-md, 10px);
       font-size: var(--fpcl-font-size-md, 16px);
     }
     &.lg {
-      padding: 15px;
+      padding: var(--fpcl-input-padding-lg, 15px);
       font-size: var(--fpcl-font-size-lg, 20px);
     }
 

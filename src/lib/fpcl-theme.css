@@ -100,9 +100,15 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-select-border-radius: var(--fpcl-border-radius);
   --fpcl-select-bg-color: white;
   --fpcl-select-text-color: var(--fpcl-text-color);
+  --fpcl-select-btn-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-select-btn-padding-md: var(--fpcl-padding-md);
+  --fpcl-select-btn-padding-lg: var(--fpcl-padding-lg);
   /* Styles for the dropdown menu of the select box. */
   --fpcl-select-option-hover-bg-color: #e5e5e5;
   --fpcl-select-option-hover-text-color: var(--fpcl-text-color);
+  --fpcl-select-option-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-select-option-padding-md: var(--fpcl-padding-md);
+  --fpcl-select-option-padding-lg: var(--fpcl-padding-lg);
 }
 
 /* Tooltip */
