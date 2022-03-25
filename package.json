@@ -1,6 +1,6 @@
 {
 	"name": "fpcl",
-	"version": "0.0.9",
+	"version": "0.0.10",
 	"scripts": {
 		"dev": "svelte-kit dev",
 		"build": "svelte-kit build",
@@ -51,5 +51,5 @@
     "type": "git",
     "url": "https://github.com/SamuelEarl/fanny-pack-component-library.git"
   },
-  "homepage": "https://url-goes-here"
+  "homepage": "https://fanny-pack-component-library.pages.dev/"
 }
