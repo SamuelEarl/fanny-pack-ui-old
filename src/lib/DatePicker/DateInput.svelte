@@ -241,23 +241,23 @@
         /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
         /* 
          * 100% is used to cause the input field to span the width of the parent element.
-         * The padding values (5px, 10px, 15px) are multiplied by 4 because the input field and the button each have padding applied to each of their left and right sides.
+         * The padding values (5px, 10px, 15px) are multiplied by 4 because the input field and the button each have padding applied to each of their left and right sides. NOTE: I don't know if these style calculations actually do anything anymore after I refactored this component. It looks like a simple `width: 100%` will also work. TODO: I need to test these calculations to see if they actually do anything anymore or if I can change them to `width: 100%`.
          * 12px, 16px, and 20px are the width of the icon, depending on the `size` prop. 
          * The border-width value (1px) is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
          */
         &.sm {
-          width: calc(100% - (5px * 4) - 12px - (1px * 3));
-          padding: 5px;
+          width: calc(100% - (var(--fpcl-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
+          padding: var(--fpcl-date-input-btn-padding-sm, 5px);
           font-size: var(--fpcl-font-size-sm, 12px);
         }
         &.md {
-          width: calc(100% - (10px * 4) - 16px - (1px * 3));
-          padding: 10px;
+          width: calc(100% - (var(--fpcl-date-input-btn-padding-md, 10px) * 4) - 16px - (1px * 3));
+          padding: var(--fpcl-date-input-btn-padding-md, 10px);
           font-size: var(--fpcl-font-size-base, 16px);
         }
         &.lg {
-          width: calc(100% - (15px * 4) - 20px - (1px * 3));
-          padding: 15px;
+          width: calc(100% - (var(--fpcl-date-input-btn-padding-lg, 15px) * 4) - 20px - (1px * 3));
+          padding: var(--fpcl-date-input-btn-padding-lg, 15px);
           font-size: var(--fpcl-font-size-lg, 20px);
         }
       }
@@ -273,13 +273,13 @@
         cursor: pointer;
 
         &.sm {
-          padding: 5px;
+          padding: var(--fpcl-date-input-btn-padding-sm, 5px);
         }
         &.md {
-          padding: 10px;
+          padding: var(--fpcl-date-input-btn-padding-md, 10px);
         }
         &.lg {
-          padding: 15px;
+          padding: var(--fpcl-date-input-btn-padding-lg, 15px);
         }
       }
     }

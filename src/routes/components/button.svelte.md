@@ -146,6 +146,60 @@
 
 ---
 
+## Custom Buttons
+There are situations where you might want to tweak (or even completely overhaul) the look of a button. For example, you might need uniquely styled buttons when creating a login page that has buttons for different authentication providers or maybe you want to tweak the styles of your buttons for your header or footer.
+
+With a custom button, you can set custom `--padding`, `--border-width`, `--border-style`, `--border-color`, `--background-color`, `--color`, `--font-size`, `--font-weight`, `--icon-space`, and `--box-shadow` values. Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave those props out of your buttons.
+<Button
+  --padding="7px 14px"
+  --border-width="5px"
+  --border-style="solid"
+  --border-color="palevioletred"
+  --background-color="white"
+  --color="palevioletred"
+  --font-size="20px"
+  --font-weight="bold"
+  --icon-space="25px"
+  --box-shadow="0 0 0 2px palevioletred"
+  width="auto"
+  disabled={creatingAccount}
+  btnIcon="bi:person-plus-fill"
+  btnIconDisabled="bi:gear-wide-connected"
+  btnIconSide="right"
+  btnIconDisabledShouldSpin={true}
+  on:click={handleCreateAccount}
+>
+  Create Account
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+
+```svelte
+<Button
+  --padding="7px 14px"
+  --border-width="5px"
+  --border-style="solid"
+  --border-color="palevioletred"
+  --background-color="white"
+  --color="palevioletred"
+  --font-size="20px"
+  --font-weight="bold"
+  --icon-space="25px"
+  --box-shadow="0 0 0 2px palevioletred"
+  width="auto"
+  disabled={creatingAccount}
+  btnIcon="bi:person-plus-fill"
+  btnIconDisabled="bi:gear-wide-connected"
+  btnIconSide="right"
+  btnIconDisabledShouldSpin={true}
+  on:click={handleCreateAccount}
+>
+  Create Account
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+```
+
+---
+
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |

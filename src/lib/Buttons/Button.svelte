@@ -15,40 +15,7 @@
 </script>
 
 
-<!-- Using flexbox styles on this button component messes up the tooltip component if a user wraps a <Button> in a <Tooltip>. So I can't use flexbox to move the icon around. -->
-<!-- <button
-  type="button"
-  {id}
-  class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
-  class:inverted={inverted}
-  disabled={disabled}
-  on:click
->
-  {#if btnIcon && btnIconDisabled}
-    {#if disabled}
-      {#if btnIconDisabledShouldSpin}
-        You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times.
-        <span class="{`btn-icon-${btnIconSide}`}">
-          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
-        </span>
-      {:else}
-        <span class="{`btn-icon-${btnIconSide}`}">
-          <Icon icon="{btnIconDisabled}" />
-        </span>
-      {/if}
-    {:else}
-      <span class="{`btn-icon-${btnIconSide}`}">
-        <Icon icon="{btnIcon}" />
-      </span>
-    {/if}
-  {/if}
-  {#if $$slots.btnTextDisabled && disabled}
-    <slot name="btnTextDisabled">Disabled Button Text</slot>
-  {:else}
-    <slot>Button Text</slot>
-  {/if}
-</button> -->
-
+<!-- NOTE: Using flexbox styles on this button component messes up the tooltip component if a user wraps a <Button> in a <Tooltip>. So I can't use flexbox to move the icon around. -->
 
 <button
   type="button"
@@ -111,97 +78,99 @@
 <style>
   .fpcl-btn {
     outline: none;
-    border: none;
+    border-width: var(--border-width, 2px);
+    border-style: var(--border-style, solid);
     border-radius: var(--fpcl-btn-border-radius);
     cursor: pointer;
+    font-weight: var(--font-weight, var(--fpcl-btn-font-weight, 400));
 
     & :global(.iconify) {
       margin-bottom: -2px;
     }
-  }
 
-  .fpcl-btn .btn-icon-left {
+    &.sm {
+      padding: var(--padding, calc(var(--fpcl-btn-padding-sm) - 1px) calc((var(--fpcl-btn-padding-sm) * 2) - 1px));
+      font-size: var(--font-size, var(--fpcl-font-size-sm, 12px));
+    }
+    &.md {
+      padding: var(--padding, calc(var(--fpcl-btn-padding-md) - 1px) calc((var(--fpcl-btn-padding-md) * 2) - 1px));
+      font-size: var(--font-size, var(--fpcl-font-size-base, 16px));
+    }
+    &.lg {
+      padding: var(--padding, calc(var(--fpcl-btn-padding-lg) - 1px) calc((var(--fpcl-btn-padding-lg) * 2) - 1px));
+      font-size: var(--font-size, var(--fpcl-font-size-lg, 20px));
+    }
 
-    &.icon-margin-sm {
-      margin-right: 5px;
-    }
-    &.icon-margin-md {
-      margin-right: 10px;
-    }
-    &.icon-margin-lg {
-      margin-right: 15px;
-    }
-  }
-  .fpcl-btn .btn-icon-right {
+    & .btn-icon-left {
 
-    &.icon-margin-sm {
-      margin-left: 5px;
+      &.icon-margin-sm {
+        margin-right: var(--icon-space, 5px);
+      }
+      &.icon-margin-md {
+        margin-right: var(--icon-space, 10px);
+      }
+      &.icon-margin-lg {
+        margin-right: var(--icon-space, 15px);
+      }
     }
-    &.icon-margin-md {
-      margin-left: 10px;
-    }
-    &.icon-margin-lg {
-      margin-left: 15px;
+    & .btn-icon-right {
+
+      &.icon-margin-sm {
+        margin-left: var(--icon-space, 5px);
+      }
+      &.icon-margin-md {
+        margin-left: var(--icon-space, 10px);
+      }
+      &.icon-margin-lg {
+        margin-left: var(--icon-space, 15px);
+      }
     }
   }
 
   .primary {
-    border: 2px solid var(--fpcl-primary);
-    background-color: var(--fpcl-primary);
-    color: var(--fpcl-btn-primary-text-color);
+    border-color: var(--border-color, var(--fpcl-primary, #333));
+    background-color: var(--background-color, var(--fpcl-primary, #333));
+    color: var(--color, var(--fpcl-btn-primary-text-color, white));
     
     &:hover {
-      box-shadow: 0 0 0 1px var(--fpcl-primary, gray);
+      box-shadow: var(--box-shadow, 0 0 0 1px var(--fpcl-primary, gray));
     }
 
     &.inverted {
-      color: var(--fpcl-primary);
+      color: var(--color, var(--fpcl-primary, #333));
     }
   }
 
   .secondary {
-    border: 2px solid var(--fpcl-secondary);
-    background-color: var(--fpcl-secondary);
-    color: var(--fpcl-btn-secondary-text-color);
+    border-color: var(--border-color, var(--fpcl-secondary, #333));
+    background-color: var(--background-color, var(--fpcl-secondary, #333));
+    color: var(--color, var(--fpcl-btn-secondary-text-color, white));
 
     &:hover {
-      box-shadow: 0 0 0 1px var(--fpcl-secondary, gray);
+      box-shadow: var(--box-shadow, 0 0 0 1px var(--fpcl-secondary, gray));
     }
 
     &.inverted {
-      color: var(--fpcl-secondary);
+      color: var(--color, var(--fpcl-secondary, #333));
     }
   }
 
   .tertiary {
-    border: 2px solid var(--fpcl-tertiary);
-    background-color: var(--fpcl-tertiary);
-    color: var(--fpcl-btn-tertiary-text-color);
+    border-color: var(--border-color, var(--fpcl-tertiary, #333));
+    background-color: var(--background-color, var(--fpcl-tertiary, #333));
+    color: var(--color, var(--fpcl-btn-tertiary-text-color, white));
 
     &:hover {
-      box-shadow: 0 0 0 1px var(--fpcl-tertiary, gray);
+      box-shadow: var(--box-shadow, 0 0 0 1px var(--fpcl-tertiary, gray));
     }
 
     &.inverted {
-      color: var(--fpcl-tertiary);
+      color: var(--color, var(--fpcl-tertiary, #333));
     }
   }
 
   .inverted {
     background-color: transparent;
-  }
-
-  .sm {
-    padding: 4px 9px;
-    font-size: var(--fpcl-font-size-sm, 12px);
-  }
-  .md {
-    padding: 9px 19px;
-    font-size: var(--fpcl-font-size-base, 16px);
-  }
-  .lg {
-    padding: 14px 29px;
-    font-size: var(--fpcl-font-size-lg, 20px);
   }
 
   .auto-width {
@@ -212,10 +181,10 @@
   }
 
   .fpcl-btn:disabled {
-    border-color: var(--fpcl-disabled-bg-color);
+    border-color: var(--fpcl-disabled-bg-color, black);
     box-shadow: none;
-    color: var(--fpcl-disabled-text-color);
-    background-color: var(--fpcl-disabled-bg-color);
+    color: var(--fpcl-disabled-text-color, lightgray);
+    background-color: var(--fpcl-disabled-bg-color, black);
     cursor: default;
   }
 </style>

@@ -17,6 +17,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-success: #00a300; /* green */
   --fpcl-warning: #ffc40d; /* yellow */
   --fpcl-alert: #ee1111; /* red */
+  /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
+  --fpcl-padding-sm: 5px;
+  --fpcl-padding-md: 10px;
+  --fpcl-padding-lg: 15px;
   /* Borders */
   --fpcl-border-color: #c7c7c7;
   --fpcl-border-radius: 3px;
@@ -35,6 +39,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-btn-primary-text-color: white;
   --fpcl-btn-secondary-text-color: white;
   --fpcl-btn-tertiary-text-color: var(--fpcl-primary);
+  --fpcl-btn-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-btn-padding-md: var(--fpcl-padding-md);
+  --fpcl-btn-padding-lg: var(--fpcl-padding-lg);
   --fpcl-btn-font-weight: var(--fpcl-font-weight-normal);
   /* --fpcl-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpcl-btn-icon-disabled-spin-speed: 1.5s;
@@ -60,6 +67,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* These variables apply to only the date input field component. */
   --fpcl-date-input-btn-bg-color: #e5e5e5;
   --fpcl-date-input-btn-icon-color: inherit;
+  --fpcl-date-input-btn-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-date-input-btn-padding-md: var(--fpcl-padding-md);
+  --fpcl-date-input-btn-padding-lg: var(--fpcl-padding-lg);
   /* These variables apply to only the calendar component. */
   --fpcl-calendar-selected-date-bg-color: #e5e5e5;
   --fpcl-calendar-selected-date-text-color: var(--fpcl-text-color);
@@ -72,6 +82,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-input-bg-color: white;
   --fpcl-input-text-color: var(--fpcl-text-color);
   --fpcl-input-placeholder-text-color: #a0a0a0;
+  --fpcl-input-padding-sm: var(--fpcl-padding-sm);
+  --fpcl-input-padding-md: var(--fpcl-padding-md);
+  --fpcl-input-padding-lg: var(--fpcl-padding-lg);
 }
 
 /* Labels */
