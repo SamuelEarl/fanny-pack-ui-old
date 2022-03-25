@@ -149,18 +149,21 @@
 ## Custom Buttons
 There are situations where you might want to tweak (or even completely overhaul) the look of a button. For example, you might need uniquely styled buttons when creating a login page that has buttons for different authentication providers or maybe you want to make some minor modifications to the styles of buttons in your header or footer.
 
-With a custom button, you can set custom `--padding`, `--border-width`, `--border-style`, `--border-color`, `--background-color`, `--color`, `--font-size`, `--font-weight`, `--icon-space`, and `--box-shadow` values. Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave those props out of your buttons.
+With a custom button, you can set custom `--custom-btn-padding`, `--custom-btn-border-width`, `--custom-btn-border-style`, `--custom-btn-border-color`, `--custom-btn-border-radius`, `--custom-btn-background-color`, `--custom-btn-text-color`, `--custom-btn-font-size`, `--custom-btn-font-weight`, `--custom-btn-icon-space`, and `--custom-btn-box-shadow` values.
+
+NOTE: Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave the `size` and `inverted` props out of your buttons, but you will have to try different style and prop combinations to see what works best for your needs.
 <Button
-  --padding="7px 14px"
-  --border-width="5px"
-  --border-style="solid"
-  --border-color="palevioletred"
-  --background-color="white"
-  --color="palevioletred"
-  --font-size="20px"
-  --font-weight="bold"
-  --icon-space="25px"
-  --box-shadow="0 0 0 2px palevioletred"
+  --custom-btn-padding="7px 14px"
+  --custom-btn-border-width="5px"
+  --custom-btn-border-style="solid"
+  --custom-btn-border-color="palevioletred"
+  --custom-btn-border-radius="25px"
+  --custom-btn-background-color="white"
+  --custom-btn-text-color="palevioletred"
+  --custom-btn-font-size="20px"
+  --custom-btn-font-weight="bold"
+  --custom-btn-icon-space="25px"
+  --custom-btn-box-shadow="0 0 0 2px palevioletred"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -175,16 +178,17 @@ With a custom button, you can set custom `--padding`, `--border-width`, `--borde
 
 ```svelte
 <Button
-  --padding="7px 14px"
-  --border-width="5px"
-  --border-style="solid"
-  --border-color="palevioletred"
-  --background-color="white"
-  --color="palevioletred"
-  --font-size="20px"
-  --font-weight="bold"
-  --icon-space="25px"
-  --box-shadow="0 0 0 2px palevioletred"
+  --custom-btn-padding="7px 14px"
+  --custom-btn-border-width="5px"
+  --custom-btn-border-style="solid"
+  --custom-btn-border-color="palevioletred"
+  --custom-btn-border-radius="25px"
+  --custom-btn-background-color="white"
+  --custom-btn-text-color="palevioletred"
+  --custom-btn-font-size="20px"
+  --custom-btn-font-weight="bold"
+  --custom-btn-icon-space="25px"
+  --custom-btn-box-shadow="0 0 0 2px palevioletred"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
