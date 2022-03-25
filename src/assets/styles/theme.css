@@ -27,25 +27,25 @@
   --light-gray: #c7c7c7;
   --very-light-gray: #e5e5e5;
   --white: #ffffff;
+}
+
+/* Global Component Styles */
+:root {
+  /* Main Colors */
+  --primary: var(--dark-purple);
+  --secondary: var(--very-dark-gray);
+  --tertiary: var(--white);
   /* Notification Colors */
   --success: var(--green);
   --warning: var(--yellow);
   --alert: var(--red);
-  /* Commonly Used Colors */
-  --primary: var(--dark-purple);
-  --secondary: var(--very-dark-gray);
-  --tertiary: var(--white);
-}
-
-/* Fonts */
-:root {
-  /* Font Stacks */
-  --cursive-font-stack: "Audiowide", cursive;
-  --sans-serif-font-stack: "Montserrat", sans-serif;
-  --mono-font-stack: "Source Code Pro", mono;
-  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
-  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
-
+  /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
+  --padding-sm: 5px;
+  --padding-md: 10px;
+  --padding-lg: 15px;
+  /* Borders */
+  --border-color: var(--light-gray);
+  --border-radius: 3px;
   /* Font styles */
   --font-size-sm: 12px;
   --font-size-base: 16px;
@@ -56,8 +56,16 @@
   --text-color: var(--very-dark-gray);
 }
 
+/* Typography */
+:root {
+  --cursive-font-stack: "Audiowide", cursive;
+  --sans-serif-font-stack: "Montserrat", sans-serif;
+  --mono-font-stack: "Source Code Pro", mono;
+  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
+  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
+}
+
 /* Borders */
 :root {
-  --border: 1px solid var(--light-gray);
-  --border-radius: 3px;
+  --border: 1px solid var(--border-color);
 }

@@ -40,6 +40,10 @@
   --success: #00a300; /* green */
   --warning: #ffc40d; /* yellow */
   --alert: #ee1111; /* red */
+  /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
+  --padding-sm: 5px;
+  --padding-md: 10px;
+  --padding-lg: 15px;
   /* Borders */
   --border-color: var(--border-color);
   --border-radius: 3px;
