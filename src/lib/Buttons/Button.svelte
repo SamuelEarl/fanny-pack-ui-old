@@ -89,15 +89,15 @@
     }
 
     &.sm {
-      padding: var(--padding, calc(var(--fpcl-btn-padding-sm) - 1px) calc((var(--fpcl-btn-padding-sm) * 2) - 1px));
+      padding: var(--padding, calc(var(--fpcl-btn-padding-sm, 5px) - 1px) calc((var(--fpcl-btn-padding-sm, 5px) * 2) - 1px));
       font-size: var(--font-size, var(--fpcl-font-size-sm, 12px));
     }
     &.md {
-      padding: var(--padding, calc(var(--fpcl-btn-padding-md) - 1px) calc((var(--fpcl-btn-padding-md) * 2) - 1px));
+      padding: var(--padding, calc(var(--fpcl-btn-padding-md, 10px) - 1px) calc((var(--fpcl-btn-padding-md, 10px) * 2) - 1px));
       font-size: var(--font-size, var(--fpcl-font-size-base, 16px));
     }
     &.lg {
-      padding: var(--padding, calc(var(--fpcl-btn-padding-lg) - 1px) calc((var(--fpcl-btn-padding-lg) * 2) - 1px));
+      padding: var(--padding, calc(var(--fpcl-btn-padding-lg, 10px) - 1px) calc((var(--fpcl-btn-padding-lg, 10px) * 2) - 1px));
       font-size: var(--font-size, var(--fpcl-font-size-lg, 20px));
     }
 

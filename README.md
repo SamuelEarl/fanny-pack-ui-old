@@ -9,6 +9,4 @@
 
 ---
 
-See the documentation website: URL goes here...
-
-TODO: Add URL
+See the documentation website: https://fanny-pack-component-library.pages.dev/
