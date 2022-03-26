@@ -10,28 +10,31 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Global Component Styles */
 :root {
   /* Main Colors */
-  --fpcl-primary: #603cba; /* dark purple */
-  --fpcl-secondary: #343434; /* very dark gray */
-  --fpcl-tertiary: #ffffff; /* white */
+  --fpcl-primary: var(--primary);
+  --fpcl-secondary: var(--secondary);
+  --fpcl-tertiary: var(--tertiary);
   /* Notification Colors */
-  --fpcl-success: #00a300; /* green */
-  --fpcl-warning: #ffc40d; /* yellow */
-  --fpcl-alert: #ee1111; /* red */
+  --fpcl-success: var(--success);
+  --fpcl-warning: var(--warning);
+  --fpcl-alert: var(--alert);
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
-  --fpcl-padding-sm: 5px;
-  --fpcl-padding-md: 10px;
-  --fpcl-padding-lg: 15px;
+  --fpcl-padding-sm: var(--padding-sm);
+  --fpcl-padding-md: var(--padding-md);
+  --fpcl-padding-lg: var(--padding-lg);
   /* Borders */
-  --fpcl-border-color: #c7c7c7;
-  --fpcl-border-radius: 3px;
+  --fpcl-border-color: var(--border-color);
+  --fpcl-border-radius: var(--border-radius);
   /* Font styles */
-  --fpcl-font-size-sm: 12px;
-  --fpcl-font-size-base: 16px;
-  --fpcl-font-size-lg: 20px;
-  --fpcl-font-weight-light: 100;
-  --fpcl-font-weight-normal: 400;
-  --fpcl-font-weight-bold: 700;
-  --fpcl-text-color: #343434;
+  --fpcl-font-size-sm: var(--font-size-sm);
+  --fpcl-font-size-base: var(--font-size-base);
+  --fpcl-font-size-lg: var(--font-size-lg);
+  --fpcl-font-weight-light: var(--font-weight-light);
+  --fpcl-font-weight-normal: var(--font-weight-normal);
+  --fpcl-font-weight-bold: var(--font-weight-bold);
+  --fpcl-text-color: var(--text-color);
+  /* Disabled States */
+  --fpcl-disabled-text-color: var(--disabled-text-color);
+  --fpcl-disabled-bg-color: var(--disabled-bg-color);
 }
 
 /* Button */
@@ -116,11 +119,4 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-tooltip-bg-color: #343434;
   --fpcl-tooltip-text-color: white;
   --fpcl-tooltip-border-radius: var(--fpcl-border-radius);
-}
-
-/* Miscellaneous */
-:root {
-  /* Disabled States */
-  --fpcl-disabled-text-color: #e5e5e5;
-  --fpcl-disabled-bg-color: #000;
 }

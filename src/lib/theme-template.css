@@ -33,9 +33,9 @@
 /* Global Component Styles */
 :root {
   /* Main Colors */
-  --primary: var(--dark-purple);
-  --secondary: var(--very-dark-gray);
-  --tertiary: var(--white);
+  --primary: #603cba; /* dark purple */
+  --secondary: #e5e5e5; /* very dark gray */
+  --tertiary: #fff; /* white */
   /* Notification Colors */
   --success: #00a300; /* green */
   --warning: #ffc40d; /* yellow */
@@ -45,7 +45,7 @@
   --padding-md: 10px;
   --padding-lg: 15px;
   /* Borders */
-  --border-color: var(--border-color);
+  --border-color: #c7c7c7; /* light gray */
   --border-radius: 3px;
   /* Font styles */
   --font-size-sm: 12px;
@@ -54,7 +54,10 @@
   --font-weight-light: 100;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
-  --text-color: var(--very-dark-gray);
+  --text-color: #343434; /* very dark gray */
+  /* Disabled States */
+  --fpcl-disabled-text-color: #e5e5e5; /* very light gray */
+  --fpcl-disabled-bg-color: #000; /* black */
 }
 
 /* Typography */
