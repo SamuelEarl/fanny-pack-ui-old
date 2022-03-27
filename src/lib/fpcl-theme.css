@@ -99,8 +99,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Modal */
 :root {
-  --fpcl-modal-header-footer-border-color: var(--fpcl-border-color);
   --fpcl-modal-border-radius: var(--fpcl-border-radius);
+  --fpcl-modal-header-footer-border-color: var(--fpcl-border-color);
   --fpcl-modal-header-footer-bg-color: white;
   --fpcl-modal-header-footer-text-color: #343434;
 }
