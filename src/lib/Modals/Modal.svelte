@@ -61,7 +61,6 @@
   import { Button } from "../Buttons";
 
   export let title;
-  // This should disable or hide any close buttons so the user could not close the modal until after the close buttons are no longer disabled. The close buttons might need to be disable for scenarios when edits are being saved and you don't want users to be able to close the modal until after the edits have been saved to a database.
   export let disabled;
 
   const dispatch = createEventDispatcher();
@@ -74,9 +73,10 @@
       id="close"
       btnIcon="la:times"
       size="lg"
+      --custom-btn-padding="10px 0"
       --custom-btn-background-color="transparent" 
       --custom-btn-border-width="0"
-      --custom-btn-font-size="40px"
+      --custom-btn-font-size="35px"
       --custom-btn-box-shadow="none"
       --custom-btn-disabled-bg-color="transparent"
       --custom-btn-disabled-text-color="white"
@@ -131,18 +131,24 @@
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
     & #close-btn-container {
+      position: relative;
+      width: var(--custom-modal-width, 50%);
+      margin: auto;
+      margin-top: 20px;
       display: flex;
       justify-content: flex-end;
+      animation-name: animatetop;
+      animation-duration: 0.4s;
     }
 
     /* Modal Content/Box */
     & #modal-content {    
       position: relative;
-      background-color: white;
-      margin: 50px auto; /* 50px from the top. */
+      width: var(--custom-modal-width, 50%); /* Could be more or less, depending on screen size */
       padding: 0;
+      margin: auto;
       border-radius: var(--border-radius);
-      width: 50%; /* Could be more or less, depending on screen size */
+      background-color: white;
       box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
       animation-name: animatetop;
       animation-duration: 0.4s;
@@ -172,11 +178,10 @@
         border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
         background-color: var(--fpcl-modal-header-footer-bg-color, #e5e5e5);
 
-        & #modal-footer-left {
+        & #modal-footer-left, & #modal-footer-right {
 
-          & :global(div) {
+          & :global(div) { /* This :global(div) modalFooterLeft and modalFooterRight slots */
             display: flex;
-            justify-content: flex-start;
 
             & :global(button) {
               margin-right: 10px;
@@ -188,18 +193,17 @@
           }
         }
 
-        & #modal-footer-right {
-          & :global(div) {
-            display: flex;
-            justify-content: flex-end;
+        & #modal-footer-left {
 
-            & :global(button) {
-              margin-right: 10px;
-            }
-              
-            & :global(button:last-child) {
-              margin-right: 0;
-            }
+          & :global(div) {
+            justify-content: flex-start;
+          }
+        }
+
+        & #modal-footer-right {
+
+          & :global(div) {
+            justify-content: flex-end;
           }
         }
       }

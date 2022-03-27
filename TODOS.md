@@ -41,6 +41,12 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 ## Label
 * Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
 
+## Modal
+* Add responsive designs for small and large viewports.
+* Look at https://semantic-ui.com/modules/modal.html for some additional features that I should add.
+    * Add scrolling content.
+* Add more custom style options.
+
 ## Select (multi)
 * Test the tooltip to see if it works (i.e. got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
 
