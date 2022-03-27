@@ -27,8 +27,8 @@
     <a href="/components/input-currency" class:active={currentPath === "/components/input-currency"}>
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
-    <a href="/components/input-text" class:active={currentPath === "/components/input-text"}>
-      <Icon icon="radix-icons:input" /> &nbsp; Input (text)
+    <a href="/components/input" class:active={currentPath === "/components/input"}>
+      <Icon icon="radix-icons:input" /> &nbsp; Input (text, email)
     </a>
     <a href="/components/label" class:active={currentPath === "/components/label"}>
       <Icon icon="carbon:label" /> &nbsp; Label

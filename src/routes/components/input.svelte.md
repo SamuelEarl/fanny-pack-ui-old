@@ -1,17 +1,21 @@
 <script lang="ts">
-  import { TextInput } from "/src/lib";
+  import { Input } from "/src/lib";
 
   let textValue = "Change this text";
+  let email = ""
 </script>
 
 
-# Text Input
+# Input (text, email)
 
 ---
 
 ## Example Usage
 
-<TextInput
+### Text Input
+
+<Input
+  type="text"
   bind:value={textValue}
   label="Enter some text"
   size="md"
@@ -23,16 +27,47 @@
 
 ```svelte
 <script>
-  import { TextInput } from "fpcl";
+  import { Input } from "fpcl";
 
   let textValue = "Change this text";
 </script>
 
-<TextInput
+<Input
+  type="text"
   bind:value={textValue}
   label="Enter some text"
   size="md"
   placeholder="Type right here"
+  disabled={false}
+/>
+```
+
+### Email Input
+
+<Input
+  type="email"
+  bind:value={email}
+  label="Enter an email address"
+  size="md"
+  placeholder="Type email here"
+  disabled={false}
+/>
+
+<p>Entered Email: {email}</p>
+
+```svelte
+<script>
+  import { Input } from "fpcl";
+
+  let email = "";
+</script>
+
+<Input
+  type="email"
+  bind:value={email}
+  label="Enter an email address"
+  size="md"
+  placeholder="Type email here"
   disabled={false}
 />
 ```

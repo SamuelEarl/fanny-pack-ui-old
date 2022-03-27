@@ -2,6 +2,7 @@
   import { createId } from "../fpcl-utils";
   import { Label } from "../Labels";
 
+  export let type = "text";
   export let value = "";
   export let label = "";
   export let size = "md";
@@ -13,16 +14,29 @@
 
 
 <Label {label} forVal={`fpcl-input-${componentId}`} />
-<input
-  type="text"
-  bind:value={value}
-  id={`fpcl-input-${componentId}`}
-  class="{`${size}`}"
-  placeholder={placeholder}
-  disabled={disabled}
-  on:change
-  on:input
-/>
+{#if type === "text"}
+  <input
+    type="text"
+    bind:value={value}
+    id={`fpcl-input-${componentId}`}
+    class="{`${size}`}"
+    placeholder={placeholder}
+    disabled={disabled}
+    on:change
+    on:input
+  />
+{:else if type === "email"}
+  <input
+    type="email"
+    bind:value={value}
+    id={`fpcl-input-${componentId}`}
+    class="{`${size}`}"
+    placeholder={placeholder}
+    disabled={disabled}
+    on:change
+    on:input
+  />
+{/if}
 
 
 <style>

@@ -35,8 +35,8 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 ## Input (currency)
 * Write tests.
 
-## Input (text)
-* Start working on this component next.
+## Input (email, text)
+* Add documentation for the email input.
 
 ## Label
 * Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
