@@ -55,7 +55,7 @@
   --font-weight-bold: 700;
   --text-color: var(--very-dark-gray);
   /* Disabled States */
-  --fpcl-disabled-text-color: var(--very-dark-gray);
+  --fpcl-disabled-text-color: var(--light-gray);
   --fpcl-disabled-bg-color: var(--black);
 }
 

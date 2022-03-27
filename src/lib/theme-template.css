@@ -34,7 +34,7 @@
 :root {
   /* Main Colors */
   --primary: #603cba; /* dark purple */
-  --secondary: #e5e5e5; /* very dark gray */
+  --secondary: #343434; /* very dark gray */
   --tertiary: #fff; /* white */
   /* Notification Colors */
   --success: #00a300; /* green */
@@ -56,7 +56,7 @@
   --font-weight-bold: 700;
   --text-color: #343434; /* very dark gray */
   /* Disabled States */
-  --fpcl-disabled-text-color: #e5e5e5; /* very light gray */
+  --fpcl-disabled-text-color: #c7c7c7; /* light gray */
   --fpcl-disabled-bg-color: #000; /* black */
 }
 
