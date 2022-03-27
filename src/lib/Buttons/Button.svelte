@@ -12,6 +12,9 @@
   export let btnIconDisabled = theme.btnIconDisabled;
   export let btnIconSide = "left";
   export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
+
+  let btnTextSlotsExist = Object.keys($$slots).length !== 0;
+  console.log("btnTextSlotsExist", btnTextSlotsExist);
 </script>
 
 
@@ -31,19 +34,20 @@
     {#if disabled}
       <!-- ...show a spinning disabled icon. -->
       {#if btnIconDisabledShouldSpin}
-        <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpcl-spin" class and once without. -->
-        <span class={`btn-icon-left icon-margin-${size}`}>
+        <!-- If no slots (i.e. button text) are passed to this component, then `btnTextSlotsExist` will be false and no icon margin will be set. -->
+        <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
+          <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpcl-spin" class and once without. -->
           <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
         </span>
       <!-- ...or show a non-spinning disabled icon. -->
       {:else}
-        <span class={`btn-icon-left icon-margin-${size}`}>
+        <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
           <Icon icon="{btnIconDisabled}" />
         </span>
       {/if}
     <!-- If the button is not disabled, then show the btnIcon. -->
     {:else}
-      <span class={`btn-icon-left icon-margin-${size}`}>
+      <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
         <Icon icon="{btnIcon}" />
       </span>
     {/if}
@@ -51,23 +55,23 @@
 
   {#if $$slots.btnTextDisabled && disabled}
     <slot name="btnTextDisabled">Disabled Button Text</slot>
-  {:else}
+  {:else if $$slots.default}
     <slot>Button Text</slot>
   {/if}
   
   {#if btnIcon && btnIconDisabled && btnIconSide === "right"}
     {#if disabled}
       {#if btnIconDisabledShouldSpin}
-        <span class={`btn-icon-right icon-margin-${size}`}>
+        <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
           <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
         </span>
       {:else}
-        <span class={`btn-icon-right icon-margin-${size}`}>
+        <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
           <Icon icon="{btnIconDisabled}" />
         </span>
       {/if}
     {:else}
-      <span class={`btn-icon-right icon-margin-${size}`}>
+      <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
         <Icon icon="{btnIcon}" />
       </span>
     {/if}
@@ -181,10 +185,10 @@
   }
 
   .fpcl-btn:disabled {
-    border-color: var(--fpcl-disabled-bg-color, black);
+    border-color: var(--custom-btn-disabled-bg-color, var(--fpcl-disabled-bg-color, black));
     box-shadow: none;
-    color: var(--fpcl-disabled-text-color, lightgray);
-    background-color: var(--fpcl-disabled-bg-color, black);
+    color: var(--custom-btn-disabled-text-color, var(--fpcl-disabled-text-color, #c7c7c7));
+    background-color: var(--custom-btn-disabled-bg-color, var(--fpcl-disabled-bg-color, black));
     cursor: default;
   }
 </style>

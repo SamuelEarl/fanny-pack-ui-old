@@ -1,86 +1,208 @@
-<div id="popup-modal">
-  <div id="popup-modal-content">
-    <div id="popup-modal-header">
-      <span id="close" on:click={() => dispatch("closePopupModal")}>&times;</span>
-      <h3><slot name="popup-modal-header"></slot></h3>
+<!-- 
+  Example Usage:
+
+  <Modal>
+    <h3 slot="modalTitle">Edit Image</h3>
+    <button slot="modalHeaderCloseBtn" class="btn" on:click={handleCloseImageEditModal} disabled={savingEdits}>&times;</button>
+    <div slot="modalBody">
+      <div>Modal body text goes here...</div>
     </div>
-    <div id="popup-modal-body">
-      <slot name="popup-modal-body"></slot>
+    <div slot="modalFooterLeft">
+      {#if savingEdits}
+        <button class="btn md" disabled>
+          <Icon icon="bi:gear-wide-connected" class="icon-space-right spin" />
+          Saving User Roles...
+        </button>
+      {:else}
+        <button class="btn md primary" on:click={updateUserRoles}>
+          <Icon icon="ion:save-sharp" class="icon-space-right" />
+          Save User Roles
+        </button>
+      {/if}
     </div>
-  </div>
-</div>
+  </Modal>
+
+  <script lang="ts">
+    /**
+     * When the `closeImageEditModal` event gets dispatched it will set `showImageEditModal = false` in the parent component ([chapterId].edit.svelte), which will hide this ImageEditModal component.
+     */
+    function handleCloseImageEditModal() {
+      // If the edits in the modal are being saved, then return early so the user cannot close the modal.
+      if (savingEdits) return;
+
+      dispatch("closeImageEditModal");
+    }
+  </script>
+
+  -------------------------------------------
+
+  NOTE: This note is for documentation purposes in case I want to do something like this with another component.
+  
+  I could create the header like this:
+  
+  <header id="modal-header">
+    <h3><slot name="modalTitle"></slot></h3>
+    <div><button id="close" on:click={() => dispatch("closeModal")}>&times;</button></div>
+  </header>
+
+  ...and then when I instantiate the <Modal> component I would simply add an `on:closeModal` listener like this:
+
+  <Modal on:closeModal={handleCloseModal}>
+
+  function handleCloseModal() {
+    dispatch("closeModalWindow");
+  }
+
+  This would simplify the close button (and its functionality) in the <Modal> component, but I wouldn't be able to disable the close button when edits are being saved. That is why I am passing a close button to the <Modal> components through the `modalHeaderCloseBtn` slot.
+-->
 
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
+  import { Button } from "../Buttons";
+
+  export let title;
+  // This should disable or hide any close buttons so the user could not close the modal until after the close buttons are no longer disabled. The close buttons might need to be disable for scenarios when edits are being saved and you don't want users to be able to close the modal until after the edits have been saved to a database.
+  export let disabled;
 
   const dispatch = createEventDispatcher();
 </script>
 
+
+<div id="modal">
+  <div id="close-btn-container">
+    <Button
+      id="close"
+      btnIcon="la:times"
+      size="lg"
+      --custom-btn-background-color="transparent" 
+      --custom-btn-border-width="0"
+      --custom-btn-font-size="40px"
+      --custom-btn-box-shadow="none"
+      --custom-btn-disabled-bg-color="transparent"
+      --custom-btn-disabled-text-color="white"
+      {disabled}
+      on:click={() => dispatch("closeModal")}
+    ></Button>
+  </div>
+  <div id="modal-content">
+    {#if title}
+      <header id="modal-header">{title}</header>      
+    {/if}
+    <div id="modal-body">
+      <slot name="modalBody"></slot>
+    </div>
+    {#if $$slots.modalFooterLeft || $$slots.modalFooterRight}
+      <footer id="modal-footer">
+        <div id="modal-footer-left">
+          <slot name="modalFooterLeft"></slot>
+        </div>
+        <div id="modal-footer-right">
+          <slot name="modalFooterRight"></slot>
+        </div>
+      </footer>
+    {/if}
+  </div>
+</div>
+
+
 <style>
-  /* The PopupModal (background) */
-  #popup-modal {
-    /* Stay in place */
-    position: fixed;
-    /* Sit on top */
-    z-index: 100;
-    left: 0;
-    top: 0;
-    /* Full width */
-    width: 100%;
-    /* Full height */
-    height: 100%;
-    /* Enable scroll if needed */
-    overflow: auto;
-    /* Fallback color */
-    background-color: rgb(0,0,0);
-    /* Black w/ opacity */
-    background-color: rgba(0,0,0,0.4);
+  /* Add Animation */
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0
+    }
+    to {
+      top: 0;
+      opacity: 1
+    }
   }
 
-  /* PopupModal Content/Box */
-  #popup-modal-content {    
-    position: relative;
-    background-color: white;
-    /* 50px from the top. */
-    margin: 50px auto;
-    padding: 0;
-    border-radius: var(--fpcl-border-radius);
-    /* Could be more or less, depending on screen size */
-    width: 75%;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    animation-name: animatetop;
-    animation-duration: 0.4s;
+  /* The Modal (background) */
+  #modal {
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
-    /* PopupModal Header */
-    & #popup-modal-header {
-      padding: 2px 20px;
-      border-radius: var(--fpcl-border-radius) var(--fpcl-border-radius) 0 0;
-      background-color: var(--fpcl-primary);
-      color: white;
+    & #close-btn-container {
+      display: flex;
+      justify-content: flex-end;
+    }
 
-      /* The Close Button */
-      & #close {
-        float: right;
-        font-size: 30px;
+    /* Modal Content/Box */
+    & #modal-content {    
+      position: relative;
+      background-color: white;
+      margin: 50px auto; /* 50px from the top. */
+      padding: 0;
+      border-radius: var(--border-radius);
+      width: 50%; /* Could be more or less, depending on screen size */
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+      animation-name: animatetop;
+      animation-duration: 0.4s;
+
+      /* Modal Header */
+      & #modal-header {
+        padding: 20px;
+        border-bottom: 1px solid var(--fpcl-modal-header-footer-border-color, #c7c7c7);
+        border-radius: var(--border-radius, 3px) var(--border-radius, 3px) 0 0;
+        background-color: var(--fpcl-modal-header-footer-bg-color, #e5e5e5);
+        color: var(--fpcl-modal-header-footer-text-color, #343434);
+        font-size: 1.25rem;
         font-weight: bold;
-        color: white;
+      }
 
-        &:hover {
-          color: black;
-          cursor: pointer;
+      /* Modal Body */
+      & #modal-body {
+        padding: var(--custom-modal-body-padding, 20px);
+      }
+
+      /* Modal Footer */
+      & #modal-footer {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-top: 1px solid var(--fpcl-modal-header-footer-border-color, #c7c7c7);
+        border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
+        background-color: var(--fpcl-modal-header-footer-bg-color, #e5e5e5);
+
+        & #modal-footer-left {
+
+          & :global(div) {
+            display: flex;
+            justify-content: flex-start;
+
+            & :global(button) {
+              margin-right: 10px;
+            }
+
+            & :global(button:last-child) {
+              margin-right: 0;
+            }
+          }
+        }
+
+        & #modal-footer-right {
+          & :global(div) {
+            display: flex;
+            justify-content: flex-end;
+
+            & :global(button) {
+              margin-right: 10px;
+            }
+              
+            & :global(button:last-child) {
+              margin-right: 0;
+            }
+          }
         }
       }
     }
-
-    /* PopupModal Body */
-    & #popup-modal-body {
-      padding: 20px;
-    }
-  }
-
-  /* Add Animation */
-  @keyframes animatetop {
-    from {top: -300px; opacity: 0}
-    to {top: 0; opacity: 1}
   }
 </style>

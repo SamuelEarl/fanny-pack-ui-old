@@ -2,6 +2,7 @@
   import { Button, Select } from "/src/lib";
 
   let creatingAccount = false;
+  let savingData = false;
   let btnColors = ["primary", "secondary", "tertiary"];
   let selectedBtnColor = "primary";
   let isInverted = false;
@@ -11,6 +12,11 @@
   function handleCreateAccount() {
     creatingAccount = true;
     setTimeout(() => creatingAccount = false, 3000);
+  }
+
+  function handleSaveData() {
+    savingData = true;
+    setTimeout(() => savingData = false, 3000);
   }
 </script>
 
@@ -28,7 +34,7 @@
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
+  btnIconDisabled="icomoon-free:spinner2"
   btnIconSide="right"
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
@@ -56,7 +62,7 @@
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
+  btnIconDisabled="icomoon-free:spinner2"
   btnIconSide="right"
   btnIconDisabledShouldSpin={true}
   on:click={handleCreateAccount}
@@ -146,10 +152,42 @@
 
 ---
 
-## Custom Buttons
+## Icon Buttons
+You can create buttons that have only icons (i.e. no text). Do not pass any slots in between the opening `<Button>` and closing `</Button>` tags and provide the `btnIcon` and/or `btnIconDisabled` props.
+
+<Button
+  btnIcon="ion:save-sharp" 
+  size="lg" 
+  disabled={savingData} 
+  --custom-btn-padding="7px 10px"
+  on:click={handleSaveData}
+></Button>
+
+```svelte
+<script>
+  let savingData = false;
+
+  function handleSaveData() {
+    savingData = true;
+    setTimeout(() => savingData = false, 3000);
+  }
+</script>
+
+<Button
+  btnIcon="ion:save-sharp" 
+  size="lg" 
+  disabled={savingData} 
+  --custom-btn-padding="7px 10px"
+  on:click={handleSaveData}
+></Button>
+```
+
+---
+
+## Custom Button Styles
 There are situations where you might want to tweak (or even completely overhaul) the look of a button. For example, you might need uniquely styled buttons when creating a login page that has buttons for different authentication providers or maybe you want to make some minor modifications to the styles of buttons in your header or footer.
 
-With a custom button, you can set custom `--custom-btn-padding`, `--custom-btn-border-width`, `--custom-btn-border-style`, `--custom-btn-border-color`, `--custom-btn-border-radius`, `--custom-btn-background-color`, `--custom-btn-text-color`, `--custom-btn-font-size`, `--custom-btn-font-weight`, `--custom-btn-icon-space`, and `--custom-btn-box-shadow` values.
+With a custom button, you can set custom `--custom-btn-padding`, `--custom-btn-border-width`, `--custom-btn-border-style`, `--custom-btn-border-color`, `--custom-btn-border-radius`, `--custom-btn-background-color`, `--custom-btn-text-color`, `--custom-btn-font-size`, `--custom-btn-font-weight`, `--custom-btn-icon-space`, `--custom-btn-box-shadow`, `--custom-btn-disabled-bg-color`, and `--custom-btn-disabled-text-color` values.
 
 NOTE: Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave the `size` and `inverted` props out of your buttons, but you will have to try different style and prop combinations to see what works best for your needs.
 <Button
@@ -164,6 +202,8 @@ NOTE: Your custom styles can conflict with the `size` and `inverted` props. So i
   --custom-btn-font-weight="bold"
   --custom-btn-icon-space="25px"
   --custom-btn-box-shadow="0 0 0 2px palevioletred"
+  --custom-btn-disabled-bg-color="gray"
+  --custom-btn-disabled-text-color="white"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -189,6 +229,8 @@ NOTE: Your custom styles can conflict with the `size` and `inverted` props. So i
   --custom-btn-font-weight="bold"
   --custom-btn-icon-space="25px"
   --custom-btn-box-shadow="0 0 0 2px palevioletred"
+  --custom-btn-disabled-bg-color="gray"
+  --custom-btn-disabled-text-color="white"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -223,7 +265,7 @@ NOTE: Your custom styles can conflict with the `size` and `inverted` props. So i
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
-| Default slot | `Button Text` | The text that will be displayed in the button. |
+| Default slot (optional) | `Button Text` | The text that will be displayed in the button. |
 | `btnTextDisabled` (optional) | `Disabled Button Text` | This is the text that will appear when the button is in a disabled state. If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
 
 <br><br>

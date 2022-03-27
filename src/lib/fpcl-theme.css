@@ -97,6 +97,14 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpcl-label-text-color: #797979;
 }
 
+/* Modal */
+:root {
+  --fpcl-modal-header-footer-border-color: var(--fpcl-border-color);
+  --fpcl-modal-border-radius: var(--fpcl-border-radius);
+  --fpcl-modal-header-footer-bg-color: white;
+  --fpcl-modal-header-footer-text-color: #343434;
+}
+
 /* Select (single, multi) */
 :root {
   --fpcl-select-border-color: var(--fpcl-border-color);
