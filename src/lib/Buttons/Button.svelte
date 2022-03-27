@@ -14,7 +14,6 @@
   export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
 
   let btnTextSlotsExist = Object.keys($$slots).length !== 0;
-  console.log("btnTextSlotsExist", btnTextSlotsExist);
 </script>
 
 
