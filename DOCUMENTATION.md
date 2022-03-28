@@ -84,14 +84,16 @@ This command will take all the files that are under the `src/lib` folder and mak
 Read how to do login here: http://npm.github.io/installation-setup-docs/installing/logging-in-and-out.html
 
 
-## Step 7: Publish to npm
+## Step 7: Publish to npm with a scoped package
 In order to distribute this package to other developers and allow them to install it as an npm package you need to publish it to npm. To publish this as an npm module run the following command from inside the directory that contains your `package.json` file:
 
 ```
-npm publish ./package
+npm publish ./package --access=public
 ```
 
-*https://blog.logrocket.com/build-your-own-component-library-svelte/*
+Sources:
+  * *https://blog.logrocket.com/build-your-own-component-library-svelte/*
+  * *https://www.youtube.com/watch?v=J4b_T-qH3BY*
 
 ---
 

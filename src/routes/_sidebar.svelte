@@ -1,6 +1,6 @@
 <nav>
   <div id="title-wrapper">
-    Fanny Pack<br>Component Library
+    Fanny Pack<br>UI Components
   </div>
   <div class="nav-links">
     <a href="/" class:active={currentPath === "/"}>
