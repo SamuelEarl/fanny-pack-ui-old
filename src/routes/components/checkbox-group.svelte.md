@@ -40,7 +40,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 
 ```svelte
 <script>
-  import { CheckboxGroup } from "fpcl";
+  import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
   let selectedSuvOptions = [];
@@ -73,7 +73,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 
 ```svelte
 <script>
-  import { CheckboxGroup } from "fpcl";
+  import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptionsObjects = [
     { label: "Oversized Wheels", value: "oversizedWheels" },

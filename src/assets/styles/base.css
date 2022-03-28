@@ -23,8 +23,8 @@ li {
 
 a {
   text-decoration: none;
-  color: var(--primary);
-  border-bottom: 1px dotted var(--primary);
+  color: var(--primary-color);
+  border-bottom: 1px dotted var(--primary-color);
 }
 a:hover {
   border-bottom: none;

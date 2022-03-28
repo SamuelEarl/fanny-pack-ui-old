@@ -27,8 +27,7 @@ This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create too
 ```svelte
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { Tooltip } from "fpcl";
-  import { Button } from "fpcl";
+  import { Button, Tooltip } from "@fanny-pack-ui/svelte-kit";
 </script>
 
 <p>Hover over the icon at the end of this sentence to see the tooltip.

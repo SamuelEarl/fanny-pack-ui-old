@@ -47,7 +47,7 @@
 
 ```svelte
 <script>
-  import { Button, Modal } from "fpcl";
+  import { Button, Modal } from "@fanny-pack-ui/svelte-kit";
 
   let showModal = false;
   let savingEdits = false;
@@ -120,7 +120,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 
 ```svelte
 <script>
-  import { Button, Modal } from "fpcl";
+  import { Button, Modal } from "@fanny-pack-ui/svelte-kit";
 
   let showModalBody = false;
 </script>

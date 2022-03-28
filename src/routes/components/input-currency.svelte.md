@@ -31,7 +31,7 @@
 
 ```svelte
 <script>
-  import { CurrencyInput } from "fpcl";
+  import { CurrencyInput } from "@fanny-pack-ui/svelte-kit";
 
   let amount = 0;
 </script>

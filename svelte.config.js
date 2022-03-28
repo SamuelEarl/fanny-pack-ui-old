@@ -40,9 +40,6 @@ const config = {
 	kit: {
 		adapter: adapterAuto(),
 
-		// hydrate the <div id="svelte"> element in src/app.html
-		// target: "#svelte",
-
 		vite: () => ({
 			server: {
 				fs: {

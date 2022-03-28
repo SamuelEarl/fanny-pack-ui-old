@@ -7,12 +7,12 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
     * UPDATE: Mimic the docs from Carbon Components Svelte (https://carbon-components-svelte.onrender.com/) and maybe from Semantic UI.
-* Finish organizing the theme variables in the `/lib/fpcl-theme.css` file.
+* Finish organizing the theme variables in the `/lib/fpui-theme.css` file.
 * Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
 * Create fallback colors for each CSS variable in the components.
 * Figure out how to customize/edit fonts after the component library has been installed.
     * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined. See the `example-theme.css` file for an example.
-    * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpcl-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
+    * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpui-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 
 ## Button Component
 * Write more tests.

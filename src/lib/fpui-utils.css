@@ -1,18 +1,18 @@
 /*
  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. 
- * This file contains utility classes that are used throughout the component library. For example the .fpcl-spin class is used to spin icons during loading states.
+ * This file contains utility classes that are used throughout the component library. For example the .fpui-spin class is used to spin icons during loading states.
  * These utility classes can be added to a component's HTML to provide some CSS functionality while avoiding duplicated CSS style rule definitions.
 */
 
 /***************************************************
-Begin .fpcl-spin class
-Add a class="fpcl-spin" to an icon (or any other element) to make it spin.
+Begin .fpui-spin class
+Add a class="fpui-spin" to an icon (or any other element) to make it spin.
 ***************************************************/
-.fpcl-spin {
-  animation: fpcl-spin var(--fpcl-btn-icon-disabled-spin-speed) infinite linear;
+.fpui-spin {
+  animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
 }
 
-@keyframes fpcl-spin {
+@keyframes fpui-spin {
   from {
     transform: rotate(0deg);
   }
@@ -21,5 +21,5 @@ Add a class="fpcl-spin" to an icon (or any other element) to make it spin.
   }
 }
 /***************************************************
-End .fpcl-spin class
+End .fpui-spin class
 ***************************************************/

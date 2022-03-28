@@ -1,6 +1,6 @@
 <nav>
   <div id="title-wrapper">
-    Fanny Pack<br>UI Components
+    Fanny Pack UI
   </div>
   <div class="nav-links">
     <a href="/" class:active={currentPath === "/"}>
@@ -91,8 +91,8 @@
   nav {
     min-height: 100%;
     padding-bottom: 50px;
-    background-color: var(--secondary);
-    color: var(--tertiary);
+    background-color: var(--secondary-color);
+    color: var(--tertiaryary-color);
 
     & #title-wrapper {
       font-family: var(--cursive-font-stack);
@@ -120,14 +120,14 @@
         padding: 10px;
         padding-left: 30px;
         border-bottom: none;
-        color: var(--tertiary);
+        color: var(--tertiaryary-color);
 
         &:hover {
-          background-color: var(--primary);
+          background-color: var(--primary-color);
         }
 
         &.active {
-          background-color: var(--primary);
+          background-color: var(--primary-color);
         }
       }
     }

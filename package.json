@@ -49,7 +49,7 @@
 	"type": "module",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SamuelEarl/fanny-pack-component-library.git"
+    "url": "https://github.com/SamuelEarl/fanny-pack-ui.git"
   },
-  "homepage": "https://fanny-pack-component-library.pages.dev/"
+  "homepage": "https://fanny-pack-ui.pages.dev/"
 }

@@ -27,7 +27,7 @@
 
 ```svelte
 <script>
-  import { Input } from "fpcl";
+  import { Input } from "@fanny-pack-ui/svelte-kit";
 
   let textValue = "Change this text";
 </script>
@@ -57,7 +57,7 @@
 
 ```svelte
 <script>
-  import { Input } from "fpcl";
+  import { Input } from "@fanny-pack-ui/svelte-kit";
 
   let email = "";
 </script>

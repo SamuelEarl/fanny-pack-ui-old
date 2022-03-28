@@ -28,14 +28,14 @@
   --white: #ffffff;
 }
 
-/* This is the same as the "Global Component Styles" in the `fpcl-theme.css` file. */
-/* I was thinking that users could copy this entire example-theme.css file and use it as a template to create their own theme.css file. All the variables in this "Global Component Styles" object will define the variables for the fpcl components. This way users could use the same theme throughout their entire app and the variables in this file are also referenced by the variables in the `fpcl-theme.css` file, so everything would have the same theme. */
+/* This is the same as the "Global Component Styles" in the `fpui-theme.css` file. */
+/* I was thinking that users could copy this entire example-theme.css file and use it as a template to create their own theme.css file. All the variables in this "Global Component Styles" object will define the variables for the fpui components. This way users could use the same theme throughout their entire app and the variables in this file are also referenced by the variables in the `fpui-theme.css` file, so everything would have the same theme. */
 /* Global Component Styles */
 :root {
   /* Main Colors */
-  --primary: #603cba; /* dark purple */
-  --secondary: #343434; /* very dark gray */
-  --tertiary: #fff; /* white */
+  --primary-color: #603cba; /* dark purple */
+  --secondary-color: #343434; /* very dark gray */
+  --tertiaryary-color: #fff; /* white */
   /* Notification Colors */
   --success: #00a300; /* green */
   --warning: #ffc40d; /* yellow */
@@ -56,8 +56,8 @@
   --font-weight-bold: 700;
   --text-color: #343434; /* very dark gray */
   /* Disabled States */
-  --fpcl-disabled-text-color: #c7c7c7; /* light gray */
-  --fpcl-disabled-bg-color: #000; /* black */
+  --disabled-text-color: #c7c7c7; /* light gray */
+  --disabled-bg-color: #000; /* black */
 }
 
 /* Typography */

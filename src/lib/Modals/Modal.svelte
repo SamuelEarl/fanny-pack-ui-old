@@ -156,10 +156,10 @@
       /* Modal Header */
       & #modal-header {
         padding: 20px;
-        border-bottom: 1px solid var(--fpcl-modal-header-footer-border-color, #c7c7c7);
+        border-bottom: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
         border-radius: var(--border-radius, 3px) var(--border-radius, 3px) 0 0;
-        background-color: var(--fpcl-modal-header-footer-bg-color, #e5e5e5);
-        color: var(--fpcl-modal-header-footer-text-color, #343434);
+        background-color: var(--fpui-modal-header-footer-bg-color, #e5e5e5);
+        color: var(--fpui-modal-header-footer-text-color, #343434);
         font-size: 1.25rem;
         font-weight: bold;
       }
@@ -174,9 +174,9 @@
         display: flex;
         justify-content: space-between;
         padding: 10px 20px;
-        border-top: 1px solid var(--fpcl-modal-header-footer-border-color, #c7c7c7);
+        border-top: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
         border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
-        background-color: var(--fpcl-modal-header-footer-bg-color, #e5e5e5);
+        background-color: var(--fpui-modal-header-footer-bg-color, #e5e5e5);
 
         & #modal-footer-left, & #modal-footer-right {
 

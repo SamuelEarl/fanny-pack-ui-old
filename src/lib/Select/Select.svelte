@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick } from "svelte";
   import { Label } from "../Labels";
-  import { createId, calculateMenuHeight } from "../fpcl-utils";
+  import { createId, calculateMenuHeight } from "../fpui-utils";
 
   export let label;
   export let optionsArray;
@@ -29,12 +29,12 @@
 </script>
 
 
-<Label {label} forVal={`fpcl-select-btn-${componentId}`} />
-<div class="fpcl-select">
+<Label {label} forVal={`fpui-select-btn-${componentId}`} />
+<div class="fpui-select">
   <div
     role="combobox"
-    id={`fpcl-select-btn-${componentId}`}
-    class="{`fpcl-select-btn ${size}`}"
+    id={`fpui-select-btn-${componentId}`}
+    class="{`fpui-select-btn ${size}`}"
     tabindex="-1"
     on:click={async () => {
       showSelectMenu = !showSelectMenu;
@@ -48,27 +48,27 @@
     }}
   >
     {#if arrayType === "string" || arrayType === "number" || arrayType === "boolean"}
-      <span class="fpcl-select-btn-text" title={selectedOption}>{selectedOption}</span>
+      <span class="fpui-select-btn-text" title={selectedOption}>{selectedOption}</span>
     {/if} 
     {#if arrayType === "object"}
-      <span class="fpcl-select-btn-text" title={selectedOption.text}>{selectedOption.text}</span>
+      <span class="fpui-select-btn-text" title={selectedOption.text}>{selectedOption.text}</span>
     {/if}
-    <span class="fpcl-select-btn-arrow">›</span>
+    <span class="fpui-select-btn-arrow">›</span>
   </div>
   <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
   <div
-    id="{`fpcl-select-menu-${componentId}`}"
-    class="{`fpcl-select-menu ${size}`}"
+    id="{`fpui-select-menu-${componentId}`}"
+    class="{`fpui-select-menu ${size}`}"
     class:show={showSelectMenu}
     tabindex="-1"
     bind:this={selectMenu}
     on:blur={(event) => {
       // This is basically saying if the user clicks on the select-btn, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
       // In a blur event, the "event.target" is the element that has lost focus. When a "blur" event occurs, how can I find out which element received the focus? Use "event.relatedTarget": https://stackoverflow.com/a/33325953.
-      // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpcl-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
-      // **If the user did click on the `#fpcl-select-btn-${componentId}` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `#fpcl-select-btn-${componentId}` will set `showSelectMenu = false`. If the user did NOT click on the `#fpcl-select-btn-${componentId}` element, then set `showSelectMenu = false`.**
-      // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fpcl-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
-      if (event && event.relatedTarget && event.relatedTarget.id !== `fpcl-select-btn-${componentId}`) {
+      // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpui-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
+      // **If the user did click on the `#fpui-select-btn-${componentId}` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `#fpui-select-btn-${componentId}` will set `showSelectMenu = false`. If the user did NOT click on the `#fpui-select-btn-${componentId}` element, then set `showSelectMenu = false`.**
+      // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fpui-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
+      if (event && event.relatedTarget && event.relatedTarget.id !== `fpui-select-btn-${componentId}`) {
         showSelectMenu = false;
       }
       // If the user moused over the select menu options but didn't select an option before clicking outside of the menu, then reset the option that should be highlighted (when the user clicks the select box again) to the option that was previously selected.
@@ -80,7 +80,7 @@
         <div
           role="option"
           aria-selected={selectedOption === item}
-          class="{`fpcl-select-option ${size}`}"
+          class="{`fpui-select-option ${size}`}"
           class:selected={highlightedOption === item}
           title={item}
           on:mouseenter={() => {
@@ -103,7 +103,7 @@
         <div
           role="option"
           aria-selected={selectedOption === obj}
-          class="{`fpcl-select-option ${size}`}"
+          class="{`fpui-select-option ${size}`}"
           class:selected={highlightedOption === obj}
           title={obj.text}
           on:mouseenter={() => highlightedOption = null }
@@ -119,42 +119,42 @@
 
 
 <style>
-  .fpcl-select {
+  .fpui-select {
     position: relative;
 
-    & .fpcl-select-btn {
+    & .fpui-select-btn {
       position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border: 1px solid;
-      border-color: var(--fpcl-select-border-color, #c7c7c7);
-      border-radius: var(--fpcl-select-border-radius);
-      background-color: var(--fpcl-select-bg-color);
-      color: var(--fpcl-select-text-color);
+      border-color: var(--fpui-select-border-color, #c7c7c7);
+      border-radius: var(--fpui-select-border-radius);
+      background-color: var(--fpui-select-bg-color);
+      color: var(--fpui-select-text-color);
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
       }
 
       /*
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.sm {
-        padding: var(--fpcl-select-btn-padding-sm, 5px);
-        font-size: var(--fpcl-font-size-sm, 12px);
+        padding: var(--fpui-select-btn-padding-sm, 5px);
+        font-size: var(--fpui-font-size-sm, 12px);
       }
       &.md {
-        padding: var(--fpcl-select-btn-padding-md, 10px);
-        font-size: var(--fpcl-font-size-base, 16px);
+        padding: var(--fpui-select-btn-padding-md, 10px);
+        font-size: var(--fpui-font-size-base, 16px);
       }
       &.lg {
-        padding: var(--fpcl-select-btn-padding-lg, 15px);
-        font-size: var(--fpcl-font-size-lg, 20px);
+        padding: var(--fpui-select-btn-padding-lg, 15px);
+        font-size: var(--fpui-font-size-lg, 20px);
       }
 
-      & .fpcl-select-btn-text {
+      & .fpui-select-btn-text {
         /*
           Cut off any text that overflows the space provided for this Select component:
           https://www.w3schools.com/cssref/css3_pr_text-overflow.asp
@@ -164,7 +164,7 @@
         text-overflow: ellipsis;
       }
 
-      & .fpcl-select-btn-arrow {
+      & .fpui-select-btn-arrow {
         margin-left: 10px;
         transform: rotate(90deg);
         font-size: 1.5rem;
@@ -172,29 +172,29 @@
       }
     }
 
-    & .fpcl-select-menu {
+    & .fpui-select-menu {
       display: none;
       position: absolute;
       width: 100%;
-      /* Add top and bottom padding that is equal to half of the --fpcl-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpcl-select-border-radius value. */
-      padding: calc(var(--fpcl-select-border-radius) / 2) 0;
+      /* Add top and bottom padding that is equal to half of the --fpui-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpui-select-border-radius value. */
+      padding: calc(var(--fpui-select-border-radius) / 2) 0;
       border: 1px solid;
-      border-color: var(--fpcl-select-border-color, #c7c7c7);
-      border-radius: var(--fpcl-select-border-radius, 3px);
+      border-color: var(--fpui-select-border-color, #c7c7c7);
+      border-radius: var(--fpui-select-border-radius, 3px);
       overflow-y: auto;
-      background-color: var(--fpcl-select-bg-color);
-      color: var(--fpcl-select-text-color);
+      background-color: var(--fpui-select-bg-color);
+      color: var(--fpui-select-text-color);
       z-index: 100;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
       }
 
       &.show {
         display: block;
       }
 
-      & .fpcl-select-option {
+      & .fpui-select-option {
         /*
           Cut off any text that overflows the space provided for this Select component:
           https://www.w3schools.com/cssref/css3_pr_text-overflow.asp
@@ -204,27 +204,27 @@
         text-overflow: ellipsis;
 
         &:hover {
-          background-color: var(--fpcl-select-option-hover-bg-color);
-          color: var(--fpcl-select-option-hover-text-color);
+          background-color: var(--fpui-select-option-hover-bg-color);
+          color: var(--fpui-select-option-hover-text-color);
           cursor: pointer;
         }
 
         &.selected {
-          background-color: var(--fpcl-select-option-hover-bg-color);
-          color: var(--fpcl-select-option-hover-text-color);
+          background-color: var(--fpui-select-option-hover-bg-color);
+          color: var(--fpui-select-option-hover-text-color);
         }
 
         &.sm {
-          padding: var(--fpcl-select-option-padding-sm, 5px);
-          font-size: var(--fpcl-font-size-sm, 12px);
+          padding: var(--fpui-select-option-padding-sm, 5px);
+          font-size: var(--fpui-font-size-sm, 12px);
         }
         &.md {
-          padding: var(--fpcl-select-option-padding-md, 10px);
-          font-size: var(--fpcl-font-size-base, 16px);
+          padding: var(--fpui-select-option-padding-md, 10px);
+          font-size: var(--fpui-font-size-base, 16px);
         }
         &.lg {
-          padding: var(--fpcl-select-option-padding-lg, 15px);
-          font-size: var(--fpcl-font-size-lg, 20px);
+          padding: var(--fpui-select-option-padding-lg, 15px);
+          font-size: var(--fpui-font-size-lg, 20px);
         }
       }
     }

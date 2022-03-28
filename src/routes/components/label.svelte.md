@@ -15,4 +15,4 @@ For the components that include a `<Label>` by default, if you pass a `string` t
 
 
 NOTES:
-* Mention the `<Tooltip>` component along with the default tooltip icon that can be changed in the `fpcl-theme.ts` file.
+* Mention the `<Tooltip>` component along with the default tooltip icon that can be changed in the `fpui-theme.ts` file.

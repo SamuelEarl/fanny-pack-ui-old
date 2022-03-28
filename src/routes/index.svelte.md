@@ -15,7 +15,7 @@
 
 ---
 
-Fanny Pack Component Library is a collection of random junk that you can throw into your SvelteKit apps and theme to your heart's content.
+Fanny Pack UI is a collection of random junk that you can throw into your SvelteKit apps and theme to your heart's content.
  
 These components do not follow a specific organization's design system (e.g. Material Design, Fluent Design), so you can create apps with these components and customize them to fit your unique style needs. However, these components have been designed with a "flat" theme in mind, which means that there is no appearance of depth in the components (e.g. through the use of box shadows). Instead of using the concept of depth, these components are "highlighted" when a user hovers over them or when a component receives focus.
 

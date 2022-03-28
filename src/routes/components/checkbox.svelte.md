@@ -22,7 +22,7 @@ This component will create a single checkbox. If you want to create multiple che
 
 ```svelte
 <script>
-  import { Checkbox } from "fpcl";
+  import { Checkbox } from "@fanny-pack-ui/svelte-kit";
 
   let haveRead = false;
   let checkboxLabel = "I have read the terms and conditions.";

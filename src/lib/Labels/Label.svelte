@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { Tooltip } from "../Tooltips";
-  import { theme } from "/src/fpcl-theme";
+  import { theme } from "/src/fpui-theme";
 
   export let label;
   export let forVal;
@@ -12,8 +12,8 @@
 
 
 {#if label && forVal}
-  <div class={`fpcl-label-container ${labelAlign}`}>
-    <label for={forVal} class="fpcl-label">{label}</label>
+  <div class={`fpui-label-container ${labelAlign}`}>
+    <label for={forVal} class="fpui-label">{label}</label>
     {#if tooltipText}
       <Tooltip tip={tooltipText}>
         <Icon icon={tooltipIcon} />
@@ -24,8 +24,8 @@
 
 
 <style>
-  .fpcl-label-container {
-    margin-bottom: var(--fpcl-label-margin-bottom);
+  .fpui-label-container {
+    margin-bottom: var(--fpui-label-margin-bottom);
 
     &.left {
       text-align: left;
@@ -34,9 +34,9 @@
       text-align: right;
     }
 
-    & .fpcl-label {
-      font-size: var(--fpcl-label-font-size);
-      color: var(--fpcl-label-text-color);
+    & .fpui-label {
+      font-size: var(--fpui-label-font-size);
+      color: var(--fpui-label-text-color);
     }
   }
 </style>

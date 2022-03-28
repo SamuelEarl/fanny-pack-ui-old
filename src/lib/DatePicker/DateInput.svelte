@@ -10,8 +10,8 @@
   import type { FormatToken } from "./parse";
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
-  import { createId } from "../fpcl-utils";
-  import { theme } from "/src/fpcl-theme";
+  import { createId } from "../fpui-utils";
+  import { theme } from "/src/fpui-theme";
 
   export let label;
   export let size = "md";
@@ -162,18 +162,18 @@
    * https://stackoverflow.com/a/15195345/9453009
    */
   function setIconFontSize() {
-    let dateInputField = document.getElementById(`fpcl-date-input-${componentId}`);
+    let dateInputField = document.getElementById(`fpui-date-input-${componentId}`);
     let style = window.getComputedStyle(dateInputField, null).getPropertyValue("font-size");
     inputFontSize = parseFloat(style);
   }
 </script>
 
 
-<Label {label} forVal={`fpcl-date-input-${componentId}`} />
+<Label {label} forVal={`fpui-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
   <div class="{`date-input-container ${size}`}">
     <input
-      id={`fpcl-date-input-${componentId}`}
+      id={`fpui-date-input-${componentId}`}
       class="{`date-input ${size}`}"
       type="text"
       bind:value={text}
@@ -217,26 +217,26 @@
       display: flex;
       /* align-items: stretch; */
       border: 1px solid;
-      border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
-      border-radius: var(--fpcl-date-picker-border-radius, 3px);
+      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
+      border-radius: var(--fpui-date-picker-border-radius, 3px);
       overflow: hidden;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpcl-date-picker-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
       }
 
       &:focus {
-        box-shadow: 0 0 0 1px var(--fpcl-date-picker-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
       }
 
       & .date-input {
         flex: 1;
         border: none;
         /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
-        border-radius: calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px);
+        border-radius: calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px);
         outline: none;
-        background-color: var(--fpcl-date-picker-bg-color, white);
-        color: var(--fpcl-date-picker-text-color, inherit);
+        background-color: var(--fpui-date-picker-bg-color, white);
+        color: var(--fpui-date-picker-text-color, inherit);
 
         /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
         /* 
@@ -246,19 +246,19 @@
          * The border-width value (1px) is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
          */
         &.sm {
-          width: calc(100% - (var(--fpcl-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
-          padding: var(--fpcl-date-input-btn-padding-sm, 5px);
-          font-size: var(--fpcl-font-size-sm, 12px);
+          width: calc(100% - (var(--fpui-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
+          padding: var(--fpui-date-input-btn-padding-sm, 5px);
+          font-size: var(--fpui-font-size-sm, 12px);
         }
         &.md {
-          width: calc(100% - (var(--fpcl-date-input-btn-padding-md, 10px) * 4) - 16px - (1px * 3));
-          padding: var(--fpcl-date-input-btn-padding-md, 10px);
-          font-size: var(--fpcl-font-size-base, 16px);
+          width: calc(100% - (var(--fpui-date-input-btn-padding-md, 10px) * 4) - 16px - (1px * 3));
+          padding: var(--fpui-date-input-btn-padding-md, 10px);
+          font-size: var(--fpui-font-size-base, 16px);
         }
         &.lg {
-          width: calc(100% - (var(--fpcl-date-input-btn-padding-lg, 15px) * 4) - 20px - (1px * 3));
-          padding: var(--fpcl-date-input-btn-padding-lg, 15px);
-          font-size: var(--fpcl-font-size-lg, 20px);
+          width: calc(100% - (var(--fpui-date-input-btn-padding-lg, 15px) * 4) - 20px - (1px * 3));
+          padding: var(--fpui-date-input-btn-padding-lg, 15px);
+          font-size: var(--fpui-font-size-lg, 20px);
         }
       }
 
@@ -266,20 +266,20 @@
         display: flex;
         align-items: center;
         border-left: 1px solid;
-        border-left-color: var(--fpcl-date-picker-border-color, #c7c7c7);
-        border-radius: 0 calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) calc(var(--fpcl-date-picker-border-radius, 3px) - 10px) 0;
-        background: var(--fpcl-date-input-btn-bg-color, #e5e5e5);
-        color: var(--fpcl-date-input-btn-icon-color, inherit);
+        border-left-color: var(--fpui-date-picker-border-color, #c7c7c7);
+        border-radius: 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px) calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0;
+        background: var(--fpui-date-input-btn-bg-color, #e5e5e5);
+        color: var(--fpui-date-input-btn-icon-color, inherit);
         cursor: pointer;
 
         &.sm {
-          padding: var(--fpcl-date-input-btn-padding-sm, 5px);
+          padding: var(--fpui-date-input-btn-padding-sm, 5px);
         }
         &.md {
-          padding: var(--fpcl-date-input-btn-padding-md, 10px);
+          padding: var(--fpui-date-input-btn-padding-md, 10px);
         }
         &.lg {
-          padding: var(--fpcl-date-input-btn-padding-lg, 15px);
+          padding: var(--fpui-date-input-btn-padding-lg, 15px);
         }
       }
     }
@@ -298,13 +298,13 @@
       width: 10px;
       height: 10px;
       border: 1px solid;
-      border-color: var(--fpcl-date-picker-border-color, #c7c7c7);
+      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
       border-bottom: none;
       border-right: none;
       border-radius: 4px 0 0 0;
       /* Move the triangle down by 5px and over from the left by (border-radius + 10px). */
-      margin: 0 auto -5px calc(var(--fpcl-date-picker-border-radius, 3px) + 10px);
-      background-color: var(--fpcl-date-picker-bg-color, white);
+      margin: 0 auto -5px calc(var(--fpui-date-picker-border-radius, 3px) + 10px);
+      background-color: var(--fpui-date-picker-bg-color, white);
       transform: rotate(45deg);
       z-index: 100;
     }

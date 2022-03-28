@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { createId } from "../fpcl-utils";
+  import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
 
   export let type = "text";
@@ -13,12 +13,12 @@
 </script>
 
 
-<Label {label} forVal={`fpcl-input-${componentId}`} />
+<Label {label} forVal={`fpui-input-${componentId}`} />
 {#if type === "text"}
   <input
     type="text"
     bind:value={value}
-    id={`fpcl-input-${componentId}`}
+    id={`fpui-input-${componentId}`}
     class="{`${size}`}"
     placeholder={placeholder}
     disabled={disabled}
@@ -29,7 +29,7 @@
   <input
     type="email"
     bind:value={value}
-    id={`fpcl-input-${componentId}`}
+    id={`fpui-input-${componentId}`}
     class="{`${size}`}"
     placeholder={placeholder}
     disabled={disabled}
@@ -44,37 +44,37 @@
     width: 100%;
     outline: none;
     border: 1px solid;
-    border-color: var(--fpcl-input-border-color, #c7c7c7);
-    border-radius: var(--fpcl-border-radius, 3px);
-    background-color: var(--fpcl-input-bg-color);
-    color: var(--fpcl-input-text-color);
+    border-color: var(--fpui-input-border-color, #c7c7c7);
+    border-radius: var(--fpui-border-radius, 3px);
+    background-color: var(--fpui-input-bg-color);
+    color: var(--fpui-input-text-color);
 
     &.sm {
-      padding: var(--fpcl-input-padding-sm, 5px);
-      font-size: var(--fpcl-font-size-sm, 12px);
+      padding: var(--fpui-input-padding-sm, 5px);
+      font-size: var(--fpui-font-size-sm, 12px);
     }
     &.md {
-      padding: var(--fpcl-input-padding-md, 10px);
-      font-size: var(--fpcl-font-size-md, 16px);
+      padding: var(--fpui-input-padding-md, 10px);
+      font-size: var(--fpui-font-size-md, 16px);
     }
     &.lg {
-      padding: var(--fpcl-input-padding-lg, 15px);
-      font-size: var(--fpcl-font-size-lg, 20px);
+      padding: var(--fpui-input-padding-lg, 15px);
+      font-size: var(--fpui-font-size-lg, 20px);
     }
 
     &::placeholder {
-      color: var(--fpcl-input-placeholder-text-color);
+      color: var(--fpui-input-placeholder-text-color);
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--fpcl-input-border-color, gray);
+      box-shadow: 0 0 0 1px var(--fpui-input-border-color, gray);
     }
 
     &:disabled {
-      border-color: var(--fpcl-disabled-bg-color);
+      border-color: var(--fpui-disabled-bg-color);
       box-shadow: none;
-      color: var(--fpcl-disabled-text-color);
-      background-color: var(--fpcl-disabled-bg-color);
+      color: var(--fpui-disabled-text-color);
+      background-color: var(--fpui-disabled-bg-color);
       cursor: default;
     }
   }

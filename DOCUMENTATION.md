@@ -1,4 +1,4 @@
-# Fanny Pack Component Library (fpcl) - Components Built with and for SvelteKit
+# Fanny Pack UI - Components Built with and for SvelteKit
 **NOTE: Webpack throws errors with import statements that use aliases like `$`. So I don't think I can use Storybook. Oh, well. I will just create my own interactive documentation using MDSVEX. Webpack is pretty slow and I don't love using apps like Storybook because of the limitations that you run into sometimes, so I prefer to create my own interactive documentation.**
 
 
@@ -21,13 +21,13 @@ I am referencing https://carbon-components-svelte.onrender.com/ for ideas on how
 
 
 ## Should I use Svelte's --style-props?
-No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `fpcl-theme.css` file. The purpose of the `fpcl-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `fpcl-theme.css` file is supposed to provide.
+No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `fpui-theme.css` file. The purpose of the `fpui-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `fpui-theme.css` file is supposed to provide.
 
 Any components that use style props should be refactored to accept regular props. See the `Button.svelte` component for an example of a component that accepts on regular props.
 
 ---
 
-# How to package and publish the component library to npm
+# How to package and publish the Fanny Pack UI to npm
 Source: https://blog.logrocket.com/build-your-own-component-library-svelte/
 
 ## Step 1: Organize your components so they can be imported easily
@@ -93,10 +93,18 @@ npm publish ./package --access=public
 
 Sources:
   * *https://blog.logrocket.com/build-your-own-component-library-svelte/*
-  * *https://www.youtube.com/watch?v=J4b_T-qH3BY*
+  * *[How To Create And Publish Your First NPM Package](https://www.youtube.com/watch?v=J4b_T-qH3BY)*
 
 ---
 
+# Deployment to Cloudflare
+* Follow these instructions for deploying a SvelteKit project: https://developers.cloudflare.com/pages/framework-guides/deploy-a-svelte-site/, but use these settings instead of the ones described in that article:
+    * When creating a new project in your Cloudflare dashboard, use the "Framework preset" for SvelteKit.
+    * IMPORTANT: SvelteKit requires Node.js v14.x or later to build successfully. You must expand the Environment Variables (advanced) section and add a `NODE_VERSION` variable with a value of `14` or greater.
+    * In your `svelte.config.js` file, use the `adapter-auto` that is already installed by default in SvelteKit instead of the `adapter-static` that is mentioned in the Cloudflare guide.
+* Follow these instructions to add custom domains, etc: https://developers.cloudflare.com/pages/get-started/.
+
+---
 
 # How to import the components into the "example" app in this repo
 **NOTE: This is old information and I am not using it anymore. However, I am keeping this information here for now in case I need to access any of this information.**
@@ -148,23 +156,23 @@ When you use `npm install` you almost always want to install npm packages from t
 
 However, npm can also install local packages (aka a directory on your local machine that has a `package.json` file in it), and you can do so by passing npm a path to the directory to install. So in this case, `npm install --save-dev ./package` tells npm to install the package in the `package` directory in your demo app.
 
-If you open your demo application's `package.json` file, you'll see a new `devDependency` for "fpcl" that looks like this:
+If you open your demo application's `package.json` file, you'll see a new `devDependency` for "@fanny-pack-ui/svelte-kit" that looks like this:
 
 ```
-"fpcl": "file:package",
+"@fanny-pack-ui/svelte-kit": "file:package",
 ```
 
 This is a link that gives you the ability to use your components in your example app. This is how you would import a component into a `.svelte` file in the example app:
 
 ```
-import { Button } from "fpcl";
+import { Button } from "@fanny-pack-ui/svelte-kit";
 ```
 
 *https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment*
 
 
 ## Step 4: Develop and edit components and update to the latest version from your local `package` directory
-Since you have already installed the local `fpcl` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `fpcl` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
+Since you have already installed the local `fpui` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `fpui` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
 
 ---
 

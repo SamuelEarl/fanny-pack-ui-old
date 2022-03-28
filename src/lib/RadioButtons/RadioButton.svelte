@@ -42,9 +42,9 @@
 
       /* When the radio button is selected, add a colored background. */
       &:checked ~ .checkmark {
-        border-color: var(--fpcl-primary);
-        background-color: var(--fpcl-primary);
-        box-shadow: 0 0 0 1px var(--fpcl-primary);
+        border-color: var(--fpui-primary-color);
+        background-color: var(--fpui-primary-color);
+        box-shadow: 0 0 0 1px var(--fpui-primary-color);
       }
 
       /* Show the checkmark when checked. */

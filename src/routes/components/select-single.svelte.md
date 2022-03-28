@@ -41,7 +41,7 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
 
 ```svelte
 <script>
-  import { Select } from "fpcl";
+  import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let months = [
     "January", 
@@ -85,7 +85,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 
 ```svelte
 <script>
-  import { Select } from "fpcl";
+  import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let monthObjects = [
     { text: "JAN", value: "january" },

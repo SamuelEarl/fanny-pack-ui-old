@@ -32,9 +32,9 @@
 /* Global Component Styles */
 :root {
   /* Main Colors */
-  --primary: var(--dark-purple);
-  --secondary: var(--very-dark-gray);
-  --tertiary: var(--white);
+  --primary-color: var(--dark-purple);
+  --secondary-color: var(--very-dark-gray);
+  --tertiaryary-color: var(--white);
   /* Notification Colors */
   --success: var(--green);
   --warning: var(--yellow);
@@ -55,8 +55,8 @@
   --font-weight-bold: 700;
   --text-color: var(--very-dark-gray);
   /* Disabled States */
-  --fpcl-disabled-text-color: var(--light-gray);
-  --fpcl-disabled-bg-color: var(--black);
+  --disabled-text-color: var(--light-gray);
+  --disabled-bg-color: var(--black);
 }
 
 /* Typography */

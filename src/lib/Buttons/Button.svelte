@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/fpcl-theme";
+  import { theme } from "/src/fpui-theme";
 
   export let id = "";
   export let btnColor = "primary";
@@ -22,7 +22,7 @@
 <button
   type="button"
   {id}
-  class="{`fpcl-btn ${btnColor} ${size} ${width}-width`}"
+  class="{`fpui-btn ${btnColor} ${size} ${width}-width`}"
   class:inverted={inverted}
   disabled={disabled}
   on:click
@@ -35,8 +35,8 @@
       {#if btnIconDisabledShouldSpin}
         <!-- If no slots (i.e. button text) are passed to this component, then `btnTextSlotsExist` will be false and no icon margin will be set. -->
         <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpcl-spin" class and once without. -->
-          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
+          <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpui-spin" class and once without. -->
+          <Icon icon="{btnIconDisabled}" class="fpui-spin" />
         </span>
       <!-- ...or show a non-spinning disabled icon. -->
       {:else}
@@ -62,7 +62,7 @@
     {#if disabled}
       {#if btnIconDisabledShouldSpin}
         <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon="{btnIconDisabled}" class="fpcl-spin" />
+          <Icon icon="{btnIconDisabled}" class="fpui-spin" />
         </span>
       {:else}
         <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
@@ -79,96 +79,96 @@
 
 
 <style>
-  .fpcl-btn {
+  .fpui-btn {
     outline: none;
     border-width: var(--custom-btn-border-width, 2px);
     border-style: var(--custom-btn-border-style, solid);
-    border-radius: var(--custom-btn-border-radius, var(--fpcl-btn-border-radius, 3px));
+    border-radius: var(--custom-btn-border-radius, var(--fpui-btn-border-radius, 3px));
     cursor: pointer;
-    font-weight: var(--custom-btn-font-weight, var(--fpcl-btn-font-weight, 400));
+    font-weight: var(--custom-btn-font-weight, var(--fpui-btn-font-weight, 400));
 
     & :global(.iconify) {
       margin-bottom: -2px;
     }
 
     &.sm {
-      padding: var(--custom-btn-padding, calc(var(--fpcl-btn-padding-sm, 5px) - 1px) calc((var(--fpcl-btn-padding-sm, 5px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpcl-font-size-sm, 12px));
+      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-sm, 5px) - 1px) calc((var(--fpui-btn-padding-sm, 5px) * 2) - 1px));
+      font-size: var(--custom-btn-font-size, var(--fpui-font-size-sm, 12px));
     }
     &.md {
-      padding: var(--custom-btn-padding, calc(var(--fpcl-btn-padding-md, 10px) - 1px) calc((var(--fpcl-btn-padding-md, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpcl-font-size-base, 16px));
+      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-md, 10px) - 1px) calc((var(--fpui-btn-padding-md, 10px) * 2) - 1px));
+      font-size: var(--custom-btn-font-size, var(--fpui-font-size-base, 16px));
     }
     &.lg {
-      padding: var(--custom-btn-padding, calc(var(--fpcl-btn-padding-lg, 10px) - 1px) calc((var(--fpcl-btn-padding-lg, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpcl-font-size-lg, 20px));
+      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-lg, 10px) - 1px) calc((var(--fpui-btn-padding-lg, 10px) * 2) - 1px));
+      font-size: var(--custom-btn-font-size, var(--fpui-font-size-lg, 20px));
     }
 
     & .btn-icon-left {
 
       &.icon-margin-sm {
-        margin-right: var(--custom-btn-icon-space, var(--fpcl-btn-padding-sm, 5px));
+        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-sm, 5px));
       }
       &.icon-margin-md {
-        margin-right: var(--custom-btn-icon-space, var(--fpcl-btn-padding-md, 10px));
+        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-md, 10px));
       }
       &.icon-margin-lg {
-        margin-right: var(--custom-btn-icon-space, var(--fpcl-btn-padding-lg, 15px));
+        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-lg, 15px));
       }
     }
     & .btn-icon-right {
 
       &.icon-margin-sm {
-        margin-left: var(--custom-btn-icon-space, var(--fpcl-btn-padding-sm, 5px));
+        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-sm, 5px));
       }
       &.icon-margin-md {
-        margin-left: var(--custom-btn-icon-space, var(--fpcl-btn-padding-md, 10px));
+        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-md, 10px));
       }
       &.icon-margin-lg {
-        margin-left: var(--custom-btn-icon-space, var(--fpcl-btn-padding-lg, 15px));
+        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-lg, 15px));
       }
     }
   }
 
   .primary {
-    border-color: var(--custom-btn-border-color, var(--fpcl-primary, #333));
-    background-color: var(--custom-btn-background-color, var(--fpcl-primary, #333));
-    color: var(--custom-btn-text-color, var(--fpcl-btn-primary-text-color, white));
+    border-color: var(--custom-btn-border-color, var(--fpui-primary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--fpui-primary-color, #333));
+    color: var(--custom-btn-text-color, var(--fpui-btn-primary-text-color, white));
     
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpcl-primary, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-primary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpcl-primary, #333));
+      color: var(--custom-btn-text-color, var(--fpui-primary-color, #333));
     }
   }
 
   .secondary {
-    border-color: var(--custom-btn-border-color, var(--fpcl-secondary, #333));
-    background-color: var(--custom-btn-background-color, var(--fpcl-secondary, #333));
-    color: var(--custom-btn-text-color, var(--fpcl-btn-secondary-text-color, white));
+    border-color: var(--custom-btn-border-color, var(--fpui-secondary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--fpui-secondary-color, #333));
+    color: var(--custom-btn-text-color, var(--fpui-btn-secondary-text-color, white));
 
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpcl-secondary, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-secondary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpcl-secondary, #333));
+      color: var(--custom-btn-text-color, var(--fpui-secondary-color, #333));
     }
   }
 
   .tertiary {
-    border-color: var(--custom-btn-border-color, var(--fpcl-tertiary, #333));
-    background-color: var(--custom-btn-background-color, var(--fpcl-tertiary, #333));
-    color: var(--custom-btn-text-color, var(--fpcl-btn-tertiary-text-color, white));
+    border-color: var(--custom-btn-border-color, var(--fpui-tertiary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--fpui-tertiary-color, #333));
+    color: var(--custom-btn-text-color, var(--fpui-btn-tertiary-text-color, white));
 
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpcl-tertiary, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-tertiary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpcl-tertiary, #333));
+      color: var(--custom-btn-text-color, var(--fpui-tertiary-color, #333));
     }
   }
 
@@ -183,11 +183,11 @@
     width: 100%;
   }
 
-  .fpcl-btn:disabled {
-    border-color: var(--custom-btn-disabled-bg-color, var(--fpcl-disabled-bg-color, black));
+  .fpui-btn:disabled {
+    border-color: var(--custom-btn-disabled-bg-color, var(--fpui-disabled-bg-color, black));
     box-shadow: none;
-    color: var(--custom-btn-disabled-text-color, var(--fpcl-disabled-text-color, #c7c7c7));
-    background-color: var(--custom-btn-disabled-bg-color, var(--fpcl-disabled-bg-color, black));
+    color: var(--custom-btn-disabled-text-color, var(--fpui-disabled-text-color, #c7c7c7));
+    background-color: var(--custom-btn-disabled-bg-color, var(--fpui-disabled-bg-color, black));
     cursor: default;
   }
 </style>

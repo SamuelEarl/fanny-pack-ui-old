@@ -8,7 +8,7 @@
 
 <script lang="ts">
   import { tick } from "svelte";
-  import { createId } from "../fpcl-utils";
+  import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
 
   export let value = 0;
@@ -67,12 +67,12 @@
 </script>
 
 
-<Label {label} forVal={`fpcl-input-${componentId}`} {labelAlign} />
+<Label {label} forVal={`fpui-input-${componentId}`} {labelAlign} />
 {#if showNumberInput}
   <!-- Using a "number" input here will allow a user's device to display a numeric virtual keyboard when the user clicks inside this input field. -->
   <input
     type="number"
-    id={`fpcl-input-${componentId}`}
+    id={`fpui-input-${componentId}`}
     class="{`${size} ${valAlign}`}"
     step="0.01"
     min="0.00"
@@ -88,7 +88,7 @@
 {:else}
   <input
     type="text"
-    id={`fpcl-input-${componentId}`}
+    id={`fpui-input-${componentId}`}
     class="{`${size} ${valAlign}`}"
     placeholder={placeholder}
     disabled={disabled}
@@ -115,10 +115,10 @@
     width: 100%;
     outline: none;
     border: 1px solid;
-    border-color: var(--fpcl-input-border-color, #c7c7c7);
-    border-radius: var(--fpcl-border-radius);
-    background-color: var(--fpcl-input-bg-color);
-    color: var(--fpcl-input-text-color);
+    border-color: var(--fpui-input-border-color, #c7c7c7);
+    border-radius: var(--fpui-border-radius);
+    background-color: var(--fpui-input-bg-color);
+    color: var(--fpui-input-text-color);
 
     &.left {
       text-align: left;
@@ -128,31 +128,31 @@
     }
 
     &.sm {
-      padding: var(--fpcl-input-padding-sm, 5px);
-      font-size: var(--fpcl-font-size-sm, 12px);
+      padding: var(--fpui-input-padding-sm, 5px);
+      font-size: var(--fpui-font-size-sm, 12px);
     }
     &.md {
-      padding: var(--fpcl-input-padding-md, 10px);
-      font-size: var(--fpcl-font-size-md, 16px);
+      padding: var(--fpui-input-padding-md, 10px);
+      font-size: var(--fpui-font-size-md, 16px);
     }
     &.lg {
-      padding: var(--fpcl-input-padding-lg, 15px);
-      font-size: var(--fpcl-font-size-lg, 20px);
+      padding: var(--fpui-input-padding-lg, 15px);
+      font-size: var(--fpui-font-size-lg, 20px);
     }
 
     &::placeholder {
-      color: var(--fpcl-input-placeholder-text-color);
+      color: var(--fpui-input-placeholder-text-color);
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--fpcl-input-border-color, gray);
+      box-shadow: 0 0 0 1px var(--fpui-input-border-color, gray);
     }
 
     &:disabled {
-      border-color: var(--fpcl-disabled-bg-color);
+      border-color: var(--fpui-disabled-bg-color);
       box-shadow: none;
-      color: var(--fpcl-disabled-text-color);
-      background-color: var(--fpcl-disabled-bg-color);
+      color: var(--fpui-disabled-text-color);
+      background-color: var(--fpui-disabled-bg-color);
       cursor: default;
     }
   }

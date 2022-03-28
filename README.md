@@ -9,4 +9,4 @@
 
 ---
 
-See the documentation website: https://fanny-pack-component-library.pages.dev/
+See the documentation website: https://fanny-pack-ui.pages.dev/

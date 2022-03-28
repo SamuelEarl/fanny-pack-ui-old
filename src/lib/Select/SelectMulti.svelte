@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { tick } from "svelte";
-  import { createId, calculateMenuHeight } from "../fpcl-utils";
+  import { createId, calculateMenuHeight } from "../fpui-utils";
   // import isEqual from "lodash.isequal";
   import { Button } from "../Buttons";
   import { CheckboxGroup } from "../Checkboxes";
@@ -90,13 +90,13 @@
 </script>
 
 
-<Label {label} forVal={`fpcl-select-btn-${componentId}`} {tooltipText} />
-<div class="fpcl-multi-select"> 
+<Label {label} forVal={`fpui-select-btn-${componentId}`} {tooltipText} />
+<div class="fpui-multi-select"> 
   <div
     role="listbox" 
     aria-multiselectable="true" 
-    id={`fpcl-select-btn-${componentId}`} 
-    class={`fpcl-select-btn ${size}`}
+    id={`fpui-select-btn-${componentId}`} 
+    class={`fpui-select-btn ${size}`}
     tabindex="-1"
     on:click={async () => {
       showSelectMenu = !showSelectMenu;
@@ -126,12 +126,12 @@
         {/if}
       {/if}
     </div>
-    <span class="fpcl-select-btn-arrow">›</span>
+    <span class="fpui-select-btn-arrow">›</span>
   </div>
 
   <div
-    id={`fpcl-select-menu-${componentId}`} 
-    class="fpcl-select-menu"
+    id={`fpui-select-menu-${componentId}`} 
+    class="fpui-select-menu"
     class:show={showSelectMenu}
     tabindex="-1"
     bind:this={selectMenu}
@@ -142,9 +142,9 @@
       // See this function in the `<Select>` component for an explanation of how this if statement works.
       // This is basically saying if the user clicks on the select-btn or the one of the select-all-btns or a checkbox, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
       if (
-        elementId !== `fpcl-select-btn-${componentId}` && 
-        elementId !== `fpcl-select-all-btn-${componentId}` && 
-        elementId !== `fpcl-checkbox-input-${componentId}`
+        elementId !== `fpui-select-btn-${componentId}` && 
+        elementId !== `fpui-select-all-btn-${componentId}` && 
+        elementId !== `fpui-checkbox-input-${componentId}`
       ) {
         showSelectMenu = false;
       }
@@ -156,7 +156,7 @@
       {#if selectedValues.length > 0 && selectedValues.length < valuesArray.length}
         <div class="select-all-btn">
           <Button
-            id={`fpcl-select-all-btn-${componentId}`}
+            id={`fpui-select-all-btn-${componentId}`}
             size="sm"
             btnIcon=""
             on:click={() => selectedValues = [...valuesArray]}
@@ -166,7 +166,7 @@
       {:else}
         <div class="select-all-btn">
           <Button
-            id={`fpcl-select-all-btn-${componentId}`}
+            id={`fpui-select-all-btn-${componentId}`}
             size="sm"
             btnIcon=""
             on:click={() => selectedValues = [...valuesArray]}
@@ -177,7 +177,7 @@
     {:else}
       <div class="select-all-btn">
         <Button
-          id={`fpcl-select-all-btn-${componentId}`}
+          id={`fpui-select-all-btn-${componentId}`}
           size="sm"
           btnIcon=""
           on:click={() => selectedValues.length = 0}
@@ -222,36 +222,36 @@
 
 
 <style>
-  .fpcl-multi-select {
+  .fpui-multi-select {
     position: relative;
 
-    & .fpcl-select-btn {
+    & .fpui-select-btn {
       position: relative;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border: 1px solid;
-      border-color: var(--fpcl-select-border-color, #c7c7c7);
-      border-radius: var(--fpcl-select-border-radius);
-      background-color: var(--fpcl-select-bg-color);
-      color: var(--fpcl-select-text-color);
+      border-color: var(--fpui-select-border-color, #c7c7c7);
+      border-radius: var(--fpui-select-border-radius);
+      background-color: var(--fpui-select-bg-color);
+      color: var(--fpui-select-text-color);
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
       }
 
       &.sm {
         padding: 5px;
-        font-size: var(--fpcl-font-size-sm, 12px);
+        font-size: var(--fpui-font-size-sm, 12px);
       }
       &.md {
         padding: 10px;
-        font-size: var(--fpcl-font-size-base, 16px);
+        font-size: var(--fpui-font-size-base, 16px);
       }
       &.lg {
         padding: 15px;
-        font-size: var(--fpcl-font-size-lg, 20px);
+        font-size: var(--fpui-font-size-lg, 20px);
       }
 
       & .selected-values-container {
@@ -266,8 +266,8 @@
           margin-right: 5px;
           padding: 0px 5px 0px 10px;
           border-radius: 20px;
-          background-color: var(--fpcl-primary);
-          color: var(--fpcl-btn-primary-text-color);
+          background-color: var(--fpui-primary-color);
+          color: var(--fpui-btn-primary-text-color);
 
           & .value-text {
             white-space: nowrap;
@@ -281,7 +281,7 @@
         }
       }
 
-      & .fpcl-select-btn-arrow {
+      & .fpui-select-btn-arrow {
         margin-left: 10px;
         transform: rotate(90deg);
         font-size: 1.5rem;
@@ -289,7 +289,7 @@
       }
     }
     
-    & .fpcl-select-menu {
+    & .fpui-select-menu {
       display: none;
       position: absolute;
       width: 100%;
@@ -297,12 +297,12 @@
       padding: 10px;
       padding-top: 15px;
       border: 1px solid;
-      border-color: var(--fpcl-select-border-color);
+      border-color: var(--fpui-select-border-color);
       background-color: white;
       z-index: 100;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpcl-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
       }
 
       &.show {

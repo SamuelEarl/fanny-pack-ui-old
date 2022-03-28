@@ -5,16 +5,16 @@
 </script>
 
 
-<label class="fpcl-checkbox-label-wrapper" class:disabled={disabled}>
+<label class="fpui-checkbox-label-wrapper" class:disabled={disabled}>
   <input
     type="checkbox"
-    class="fpcl-checkbox-input"
+    class="fpui-checkbox-input"
     bind:checked={checked}
     disabled={disabled}
     on:change
     on:input
   > {label}
-  <span class="fpcl-checkbox-checkmark"></span>
+  <span class="fpui-checkbox-checkmark"></span>
 </label>
 
 

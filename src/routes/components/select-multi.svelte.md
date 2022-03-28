@@ -41,7 +41,7 @@ This component is essentially the [`<CheckboxGroup>`](/components/checkbox-group
 
 ```svelte
 <script>
-  import { SelectMulti } from "fpcl";
+  import { SelectMulti } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack" ];
   let selectedSuvOptions = ["mud tires"];
@@ -77,7 +77,7 @@ NOTE: This component will preserve the order in which a user selects options. Th
 
 ```svelte
 <script>
-  import { SelectMulti } from "fpcl";
+  import { SelectMulti } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptionsObjects = [
     { label: "Oversized Wheels", value: "oversizedWheels" },

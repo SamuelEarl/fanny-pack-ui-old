@@ -17,9 +17,9 @@
   /* Theme the Tippy elements: https://atomiks.github.io/tippyjs/v6/themes/#tippy-elements */
   :global(.tippy-content) {
     padding: 10px;
-    border-radius: var(--fpcl-tooltip-border-radius);
-    background-color: var(--fpcl-tooltip-bg-color);
-    color: var(--fpcl-tooltip-text-color);
+    border-radius: var(--fpui-tooltip-border-radius);
+    background-color: var(--fpui-tooltip-bg-color);
+    color: var(--fpui-tooltip-text-color);
     /* This will preserve any line breaks in the Tippy content. */
     white-space: pre-line;
   }
