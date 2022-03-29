@@ -1,14 +1,15 @@
-import { mdsvex } from "mdsvex";
-import mdsvexConfig from "./mdsvex.config.js";
-import adapterAuto from "@sveltejs/adapter-auto";
-import preprocess from "svelte-preprocess";
-import postcssPresetEnv from "postcss-preset-env";
 // __dirname is not available in ES modules: https://nodejs.org/api/esm.html#esm_no_filename_or_dirname
 // This issue has a fix: https://github.com/nodejs/help/issues/2907
 import path from "path";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+import { mdsvex } from "mdsvex";
+import mdsvexConfig from "./mdsvex.config.js";
+import adapterAuto from "@sveltejs/adapter-auto";
+import preprocess from "svelte-preprocess";
+import postcssPresetEnv from "postcss-preset-env";
 
 /** @type {import("@sveltejs/kit").Config} */
 const config = {
@@ -42,11 +43,18 @@ const config = {
 		adapter: adapterAuto(),
 
 		vite: () => ({
+      // Aliases: https://dev.to/danawoodman/how-to-add-module-import-aliases-in-sveltekit-2ck
+			resolve: {
+				alias: {
+					"$": path.resolve(__dirname, "/src"),
+				}
+			},
+      
 			server: {
 				fs: {
 					allow: ["package"]
 				}
-			}
+			},
 		})
 	}
 };

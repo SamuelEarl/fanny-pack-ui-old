@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/fpui-theme";
+  // import { theme } from "/src/fpui-theme";
+  import { theme } from "$/fpui-theme";
 
   export let id = "";
   export let btnColor = "primary";

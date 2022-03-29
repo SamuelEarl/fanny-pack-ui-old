@@ -12,7 +12,6 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
     * UPDATE: Mimic the docs from Carbon Components Svelte (https://carbon-components-svelte.onrender.com/) and maybe from Semantic UI.
-* Finish organizing the theme variables in the `/lib/fpui-theme.css` file.
 * Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
 * Create fallback colors for each CSS variable in the components.
 * Figure out how to customize/edit fonts after the component library has been installed.

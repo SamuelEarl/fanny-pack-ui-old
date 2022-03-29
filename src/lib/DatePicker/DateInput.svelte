@@ -11,7 +11,8 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fpui-utils";
-  import { theme } from "/src/fpui-theme";
+  // import { theme } from "/src/fpui-theme";
+  import { theme } from "$/fpui-theme";
 
   export let label;
   export let size = "md";
