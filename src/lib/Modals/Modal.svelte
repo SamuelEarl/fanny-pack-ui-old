@@ -1,61 +1,3 @@
-<!-- 
-  Example Usage:
-
-  <Modal>
-    <h3 slot="modalTitle">Edit Image</h3>
-    <button slot="modalHeaderCloseBtn" class="btn" on:click={handleCloseImageEditModal} disabled={savingEdits}>&times;</button>
-    <div slot="modalBody">
-      <div>Modal body text goes here...</div>
-    </div>
-    <div slot="modalFooterLeft">
-      {#if savingEdits}
-        <button class="btn md" disabled>
-          <Icon icon="bi:gear-wide-connected" class="icon-space-right spin" />
-          Saving User Roles...
-        </button>
-      {:else}
-        <button class="btn md primary" on:click={updateUserRoles}>
-          <Icon icon="ion:save-sharp" class="icon-space-right" />
-          Save User Roles
-        </button>
-      {/if}
-    </div>
-  </Modal>
-
-  <script lang="ts">
-    /**
-     * When the `closeImageEditModal` event gets dispatched it will set `showImageEditModal = false` in the parent component ([chapterId].edit.svelte), which will hide this ImageEditModal component.
-     */
-    function handleCloseImageEditModal() {
-      // If the edits in the modal are being saved, then return early so the user cannot close the modal.
-      if (savingEdits) return;
-
-      dispatch("closeImageEditModal");
-    }
-  </script>
-
-  -------------------------------------------
-
-  NOTE: This note is for documentation purposes in case I want to do something like this with another component.
-  
-  I could create the header like this:
-  
-  <header id="modal-header">
-    <h3><slot name="modalTitle"></slot></h3>
-    <div><button id="close" on:click={() => dispatch("closeModal")}>&times;</button></div>
-  </header>
-
-  ...and then when I instantiate the <Modal> component I would simply add an `on:closeModal` listener like this:
-
-  <Modal on:closeModal={handleCloseModal}>
-
-  function handleCloseModal() {
-    dispatch("closeModalWindow");
-  }
-
-  This would simplify the close button (and its functionality) in the <Modal> component, but I wouldn't be able to disable the close button when edits are being saved. That is why I am passing a close button to the <Modal> components through the `modalHeaderCloseBtn` slot.
--->
-
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { Button } from "../Buttons";
@@ -157,7 +99,7 @@
 
       & #modal-content-container {
         position: relative;
-        width: var(--custom-modal-width-xs-up, 100%);
+        width: 100%;
         padding: 10px;
         padding-top: 0;
         margin: auto;

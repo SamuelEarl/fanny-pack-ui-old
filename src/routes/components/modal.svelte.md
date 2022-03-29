@@ -85,8 +85,7 @@
   >
     <div slot="modalBody">
       <div>Modal body text goes here...</div>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      <p>...</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
     </div>
     <div slot="modalFooterLeft">
       <Button
@@ -175,15 +174,33 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 
 ## Custom Modal Styles
 
-You can customize the following styles:
+You can customize the following style props:
 
-* `--custom-modal-width-xs-up`
-* `--custom-modal-width-lg-up`
-* `--custom-modal-header-padding`
-* `--custom-modal-body-padding`
-* `--custom-modal-footer-padding`
+* `--custom-modal-width-lg-up`: On screens that are 1024px wide and wider, the `<Modal>` component will be 950px wide. You can change that width with this custom style prop.
+* `--custom-modal-header-padding`: The default header padding is 20px. You can change that with this custom style prop.
+* `--custom-modal-footer-padding`: The default footer padding is 10px (top and bottom) and 20px (left and right). You can change that with this custom style prop.
+* `--custom-modal-body-padding`: The default body padding is 20px. You can change that with this custom style prop. For example, if you want to have a modal that displays an image, chart, or login form that extends all the way to the edges of the modal, then you can exclude the header and footer (see above) and remove the body padding by setting this style prop to `0`.
 
-# TODO: Show the login modal example here.
+
+```svelte
+<Modal
+  title="Modal Title"
+  --custom-modal-width-lg-up="950px"
+  --custom-modal-header-padding="20px"
+  --custom-modal-footer-padding="10px 20px"
+  --custom-modal-body-padding="0"
+>
+  <div slot="modalBody">
+    <img src="path/to/image" alt="image-alt-tag" />
+  </div>
+  <div slot="modalFooterLeft">
+    <Button>Left Button</Button>
+  </div>
+  <div slot="modalFooterRight">
+    <Button>Right Button</Button>
+  </div>
+</Modal>
+```
 
 ---
 
@@ -199,10 +216,15 @@ You can customize the following styles:
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
+| `modalBody` | NA | The content that is passed to this slot will be displayed in the modal body. You can pass any custom content to this slot. See the example under the "Exclude Modal Header or Footer" heading. |
+| `modalFooterLeft` | NA | The content that is passed to this slot will be displayed in the left side of the modal footer. |
+| `modalFooterRight` | NA | The content that is passed to this slot will be displayed in the right side of the modal footer. |
+
+NOTE: The footer is intended to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.
 
 <br><br>
 
 ## Event Forwarding
 | Event | Description |
 | ----- | ----------- |
-| `on:closeModal` | This component forwards this custom event, which can be used to hide the modal when a user clicks the close button of the modal. |
+| `on:closeModal` | The `<Modal>` component forwards this custom event, which can be used to hide the modal when a user clicks the modal's close button. |
