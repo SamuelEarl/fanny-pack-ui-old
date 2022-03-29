@@ -34,11 +34,11 @@
   /* Main Colors */
   --primary-color: var(--dark-purple);
   --secondary-color: var(--very-dark-gray);
-  --tertiaryary-color: var(--white);
+  --tertiary-color: var(--white);
   /* Notification Colors */
-  --success: var(--green);
-  --warning: var(--yellow);
-  --alert: var(--red);
+  --success-color: var(--green);
+  --warning-color: var(--yellow);
+  --alert-color: var(--red);
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;
   --padding-md: 10px;

@@ -89,7 +89,7 @@
     min-height: 100%;
     padding-bottom: 50px;
     background-color: var(--secondary-color);
-    color: var(--tertiaryary-color);
+    color: var(--tertiary-color);
 
     & #title-wrapper {
       font-family: var(--cursive-font-stack);
@@ -117,7 +117,7 @@
         padding: 10px;
         padding-left: 30px;
         border-bottom: none;
-        color: var(--tertiaryary-color);
+        color: var(--tertiary-color);
 
         &:hover {
           background-color: var(--primary-color);

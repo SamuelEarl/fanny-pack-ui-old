@@ -12,11 +12,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* Main Colors */
   --fpui-primary-color: var(--primary-color);
   --fpui-secondary-color: var(--secondary-color);
-  --fpui-tertiary-color: var(--tertiaryary-color);
+  --fpui-tertiary-color: var(--tertiary-color);
   /* Notification Colors */
-  --fpui-success: var(--success);
-  --fpui-warning: var(--warning);
-  --fpui-alert: var(--alert);
+  --fpui-success-color: var(--success-color);
+  --fpui-warning-color: var(--warning-color);
+  --fpui-alert-color: var(--alert-color);
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --fpui-padding-sm: var(--padding-sm);
   --fpui-padding-md: var(--padding-md);
