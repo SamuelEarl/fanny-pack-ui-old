@@ -1,7 +1,11 @@
 # TODOS
 NOTE: Maybe I could look at how to theme the Carbon components rather than create my own component library. Actually, I don't think I could contribute themable components to that project because that project is based on the Carbon Design System and I want to create components that can be themed to fit other design systems. But maybe I could base my components off of the Carbon components for Svelte, so I could see how they create their components and use some of their ideas.
 
-NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-wreck-sveltekit" and update the CSS files and `<style>` tags with the newly named variables.
+
+
+NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-wreck-sveltekit". Install the new `@fanny-pack-ui/svelte-kit` package. Update the CSS files and `<style>` tags with the newly named variables.
+
+
 
 * Look at my TODOS in the `get-started.svelte.md` file. I need to test the Get Started instructions in a new app and import the components into that new app.
 * Update the logo to match the new name "Fanny Pack UI".
@@ -15,6 +19,8 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 * Figure out how to customize/edit fonts after the component library has been installed.
     * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined. See the `example-theme.css` file for an example.
     * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpui-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
+* Document the media queries and how to use them. The `media-queries.css` file has some examples that I could use in the documentation.
+
 
 ## Button Component
 * Write more tests.

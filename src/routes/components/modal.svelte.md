@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { Button, Modal } from "/src/lib";
+  import { Button, Checkbox, Modal } from "/src/lib";
 
   let showModal = false;
   let showModalBody = false;
   let savingEdits = false;
+  let enableScrollingBody = false;
 
   function handleSaveData() {
     savingEdits = true;
@@ -17,10 +18,13 @@
 ---
 
 <Button btnIcon="" on:click={() => showModal = true}>Click To Show Modal</Button>
+<br><br>
+<Checkbox bind:checked={enableScrollingBody} label="Enable `scrollingBody` prop" />
 
 {#if showModal}
   <Modal
     title="Modal Title"
+    scrollingBody={enableScrollingBody}
     disabled={savingEdits}
     on:closeModal={() => showModal = false}
   >
@@ -56,10 +60,11 @@
 
 ```svelte
 <script>
-  import { Button, Modal } from "@fanny-pack-ui/svelte-kit";
+  import { Button, Checkbox, Modal } from "@fanny-pack-ui/svelte-kit";
 
   let showModal = false;
   let savingEdits = false;
+  let enableScrollingBody = false;
 
   function handleSaveData() {
     savingEdits = true;
@@ -68,15 +73,20 @@
 </script>
 
 <Button btnIcon="" on:click={() => showModal = true}>Click To Show Modal</Button>
+<br><br>
+<Checkbox bind:checked={enableScrollingBody} label="Enable `scrollingBody` prop" />
 
 {#if showModal}
   <Modal
     title="Modal Title"
+    scrollingBody={enableScrollingBody}
     disabled={savingEdits}
     on:closeModal={() => showModal = false}
   >
     <div slot="modalBody">
       <div>Modal body text goes here...</div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+      <p>...</p>
     </div>
     <div slot="modalFooterLeft">
       <Button
@@ -108,6 +118,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 <Button btnIcon="" on:click={() => showModalBody = true}>Click To Show Modal Without Header or Footer</Button>
 
 {#if showModalBody}
+  <!-- No `title` prop -->
   <Modal
     disabled={savingEdits}
     on:closeModal={() => showModalBody = false}
@@ -117,6 +128,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
       <h3>I can put header tags inside this modal</h3>
       <p id="custom-p">I can put any custom styled content inside this modal</p>
     </div>
+    <!-- No modalFooterLeft or modalFooterRight slots -->
   </Modal>
 {/if}
 
@@ -137,6 +149,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 <Button btnIcon="" on:click={() => showModalBody = true}>Click To Show Modal Without Header or Footer</Button>
 
 {#if showModalBody}
+  <!-- No `title` prop -->
   <Modal
     disabled={savingEdits}
     on:closeModal={() => showModalBody = false}
@@ -144,8 +157,9 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
     <div slot="modalBody">
       <div>This modal only has a body (i.e. there is no header or footer included).</div>
       <h3>I can put header tags inside this modal</h3>
-      <p id="custom-p">I can put any custom styled content inside this modal woo wee</p>
+      <p id="custom-p">I can put any custom styled content inside this modal</p>
     </div>
+    <!-- No `modalFooterLeft` or `modalFooterRight` slots -->
   </Modal>
 {/if}
 
@@ -168,6 +182,8 @@ You can customize the following styles:
 * `--custom-modal-header-padding`
 * `--custom-modal-body-padding`
 * `--custom-modal-footer-padding`
+
+# TODO: Show the login modal example here.
 
 ---
 
