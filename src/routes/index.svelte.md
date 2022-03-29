@@ -30,6 +30,7 @@ This is not a UI kit or UI framework because we do not provide layout elements. 
   #home {
     
     & #img-container {
+      margin-top: 40px;
       text-align: center;
 
       & img {
