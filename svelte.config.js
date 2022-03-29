@@ -29,7 +29,8 @@ const config = {
 						features: {
 							"nesting-rules": true
 						},
-						browsers: "last 2 versions"
+						browsers: "last 2 versions",
+            importFrom: "src/assets/styles/media-queries.css",
 					})
 				]
 			}

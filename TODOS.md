@@ -1,8 +1,10 @@
 # TODOS
 NOTE: Maybe I could look at how to theme the Carbon components rather than create my own component library. Actually, I don't think I could contribute themable components to that project because that project is based on the Carbon Design System and I want to create components that can be themed to fit other design systems. But maybe I could base my components off of the Carbon components for Svelte, so I could see how they create their components and use some of their ideas.
 
+NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-wreck-sveltekit" and update the CSS files and `<style>` tags with the newly named variables.
+
 * Look at my TODOS in the `get-started.svelte.md` file. I need to test the Get Started instructions in a new app and import the components into that new app.
-* After I launch this site on Cloudflare, then add the URL to the README file.
+* Update the logo to match the new name "Fanny Pack UI".
 * Convert these components to TypeScript.
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.

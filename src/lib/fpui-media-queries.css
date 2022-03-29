@@ -16,7 +16,7 @@ Usage examples:
   }
 }
 
-@media (--m-up) {
+@media (--md-up) {
   .selector {
     padding: 20px;
   }
@@ -50,26 +50,26 @@ For reference, here are the viewport sizes of some common devices:
 
 /*
 NOTES:
-(1) The preferred way to use media queries when creating style rules in your Svelte components is to use the @custom-media rules that have `up` in the name (e.g. --xs-up, --s-up, etc). The `min` and `max` @custom-media rules are available for situations where you might need to create styles for only one viewport size. For example: @media (--xl-min) and (--xl-max) {...}
+(1) The preferred way to use media queries when creating style rules in your Svelte components is to use the @custom-media rules that have `up` in the name (e.g. --xs-up, --sm-up, etc). The `min` and `max` @custom-media rules are available for situations where you might need to create styles for only one viewport size. For example: @media (--xl-min) and (--xl-max) {...}
 (2) To be explicit with your CSS styles, please use the --xs-up @custom-media rule to define all base styles in your component. Then use the larger breakpoints to change styles for larger viewports, when necessary.
-(3) I usually create styles for the xs, m, and xl breakpoints and then use the other breakpoints for special or unique cases.
+(3) I usually create styles for the xs, md, and xl breakpoints and then use the other breakpoints for special or unique cases.
 */
 
 @custom-media --xs-up (min-width: 0px);
 @custom-media --xs-min (min-width: 0px);
 @custom-media --xs-max (max-width: 639px);
 
-@custom-media --s-up (min-width: 640px);
-@custom-media --s-min (min-width: 640px);
-@custom-media --s-max (max-width: 767px);
+@custom-media --sm-up (min-width: 640px);
+@custom-media --sm-min (min-width: 640px);
+@custom-media --sm-max (max-width: 767px);
 
-@custom-media --m-up (min-width: 768px);
-@custom-media --m-min (min-width: 768px);
-@custom-media --m-max (max-width: 1023px);
+@custom-media --md-up (min-width: 768px);
+@custom-media --md-min (min-width: 768px);
+@custom-media --md-max (max-width: 1023px);
 
-@custom-media --l-up (min-width: 1024px);
-@custom-media --l-min (min-width: 1024px);
-@custom-media --l-max (max-width: 1279px);
+@custom-media --lg-up (min-width: 1024px);
+@custom-media --lg-min (min-width: 1024px);
+@custom-media --lg-max (max-width: 1279px);
 
 @custom-media --xl-up (min-width: 1280px);
 @custom-media --xl-min (min-width: 1280px);

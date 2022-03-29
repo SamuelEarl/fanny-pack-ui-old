@@ -77,13 +77,89 @@ The default theme should now be enabled when you start your app and you should h
 ## Step 4: Configure Media Queries
 * Create a `/src/assets/styles/media-queries.css` file.
 * Copy the code from this package's `fpui-media-queries.css` file and paste it into your `/src/assets/styles/media-queries.css` file.
-* Open your `svelte.config.js` file and ...
+* It is recommended to leave the `@custom-media` variable definitions as they are, but you can change any of the pixel values if you really need to. Just make sure that you change only the pixel values and nothing else otherwise the component styles could break.
+* Install `postcss-preset-env`: `npm install --save-dev postcss-preset-env`
+* Open your `svelte.config.js` file and make the following changes:
+
+Import `postcss-preset-env` at the top of the file:
+
+```js
+import postcssPresetEnv from "postcss-preset-env";
+```
+
+Change the `preprocess` config to this:
+
+```js
+preprocess: [
+  preprocess({
+    postcss: {
+      plugins: [
+        postcssPresetEnv({
+          importFrom: "src/assets/styles/media-queries.css",
+        })
+      ]
+    }
+  }), 
+],
+```
+
+Now you can use media queries like this throughout your app:
+
+```css
+@media (--xs-up) {
+  .selector {
+    padding: 15px;
+  }
+}
+
+@media (--m-up) {
+  .selector {
+    padding: 20px;
+  }
+}
+
+@media (--xl-min) and (--xl-max) {
+  .selector {
+    padding: 25px;
+  }
+}
+```
+
+For more details about `@custom-media` rules see https://github.com/postcss/postcss-custom-media.
+
+FYI: This provides an example of how to configure Svelte preprocess: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md.
 
 
 ## Step 5: Configure Native CSS Nesting Rules (Optional)
+You can use [native CSS nesting](https://kilianvalkhof.com/2021/css-html/css-nesting-specificity-and-you/) by updating the `postcssPresetEnv()` config like this:
+
+```js
+preprocess: [
+  preprocess({
+    postcss: {
+      plugins: [
+        postcssPresetEnv({
+          stage: 0,
+          features: {
+            "nesting-rules": true,
+          },
+          browsers: "last 2 versions",
+          importFrom: "src/assets/styles/media-queries.css",
+        })
+      ]
+    }
+  }), 
+],
+```
+
+If you are using VS Code and would like to configure it to provide syntax highlighting for native CSS nesting rules, then you can read this post: [PostCSS Syntax Highlighting with Svelte in VS Code](https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting)
 
 
-<h2 id="enable-js-vars">Step 5: Enable JavaScript Variables</h2>
+<h2 id="install-fonts">Step 6: Install Fonts</h2>
+TODO: Provide a step-by-step tutorial for how to install fonts, use them in your CSS styles, and make sure those fonts are inherited by these components.
+
+
+<h2 id="enable-js-vars">Step 7: Enable JavaScript Variables</h2>
 Create a `/src/fpui-theme.ts` file and copy all the code from the `fpui` package's `fpui-theme.js` file into your `/src/fpui-theme.ts` file. NOTE: The components are already referencing the `/src/fpui-theme.ts` file, so you should be ready to go.
 
 You can now edit any of the variables in the `/src/fpui-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpui-theme.ts` file.
@@ -97,7 +173,7 @@ The "Selected icon" field should also match the `data-icon` property of that cod
 ---
 
 ## How to update `@fanny-pack-ui/svelte-kit` to the latest version in your app
-If you have installed `fpui` from the global npm registry, then you can do the following (inside the directory that contains your `package.json` file) to get the latest version in your app:
+If you have installed `@fanny-pack-ui/svelte-kit` from the global npm registry, then you can do the following (inside the directory that contains your `package.json` file) to get the latest version in your app:
 
 ### See which packages are outdated:
 ```
@@ -123,8 +199,3 @@ The package version in your `node_modules` folder should now be updated.
 
 
 ***Source: [Update all the Node.js dependencies to their latest version](https://nodejs.dev/learn/update-all-the-nodejs-dependencies-to-their-latest-version)***
-
----
-
-<h2 id="install-fonts">How to install fonts</h2>
-TODO: Provide a step-by-step tutorial for how to install fonts, use them in your CSS styles, and make sure those fonts are inherited by these components.
