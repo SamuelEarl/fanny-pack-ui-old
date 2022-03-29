@@ -15,7 +15,7 @@
   <div class={`fpui-label-container ${labelAlign}`}>
     <label for={forVal} class="fpui-label">{label}</label>
     {#if tooltipText}
-      <Tooltip tip={tooltipText}>
+      <Tooltip tooltipText={tooltipText}>
         <Icon icon={tooltipIcon} />
       </Tooltip>
     {/if}

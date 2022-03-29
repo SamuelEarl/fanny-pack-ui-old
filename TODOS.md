@@ -46,9 +46,6 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 ## Input (email, text)
 * Add documentation for the email input.
 
-## Label
-* Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
-
 ## Modal
 * Add responsive designs for small and large viewports.
 * Look at https://semantic-ui.com/modules/modal.html for some additional features that I should add.
@@ -65,5 +62,7 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
 
 ## Tooltip
+* Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
+    * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `fpui-theme.ts` file.
 * Remove the old code that is not related to the Tippy.js version of the tooltip.
 * Manually test this component and write automated tests.
