@@ -19,12 +19,6 @@ Other helpful guides for building component libraries:
 ## Documentation Ideas and Organization
 I am referencing https://carbon-components-svelte.onrender.com/ for ideas on how to create this documentation.
 
-
-## Should I use Svelte's --style-props?
-No. Enabling the components to accept style props would (1) make the components unnecessarily complex and (2) that would defeat the purpose of the `fpui-theme.css` file. The purpose of the `fpui-theme.css` file is provide a consistent theme throughout the components (and an app) and allowing style props to customize theme settings for a few components would break the theme consistency that the `fpui-theme.css` file is supposed to provide.
-
-Any components that use style props should be refactored to accept regular props. See the `Button.svelte` component for an example of a component that accepts on regular props.
-
 ---
 
 # How to package and publish the Fanny Pack UI to npm

@@ -8,7 +8,6 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 
 
 * Look at my TODOS in the `get-started.svelte.md` file. I need to test the Get Started instructions in a new app and import the components into that new app.
-* Update the logo to match the new name "Fanny Pack UI".
 * Convert these components to TypeScript.
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
