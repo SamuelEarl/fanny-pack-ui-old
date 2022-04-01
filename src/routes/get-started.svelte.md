@@ -22,7 +22,7 @@ NOTE: This will also install the `@iconify/svelte` package. So you can use Iconi
 
 
 ## Step 3: Enable CSS Variables & Utility Classes
-When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created mostly with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
+When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
 
 Create the following files inside a `/src/assets/styles` directory:
 
@@ -50,6 +50,8 @@ You can customize the theme for the Fanny Pack components in the `fpui-theme.css
     1. WARNING: If you customize any of the individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
     2. The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
 
+**IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpui-border-radius: 5px;`, but this could break some styles: `--fpui-border-radius: 0;`.
+
 Then open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. That might look something like this:
 
 ```css
@@ -73,8 +75,6 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 ```
 
 The default theme should now be enabled when you start your app and you should have some utility classes available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpui-theme.css` file for details.
-
-**IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--fpui-border-radius: 5px;`, but this could break some styles: `--fpui-border-radius: 0;`.
 
 
 ## Step 4: Configure Media Queries
@@ -130,7 +130,7 @@ Now you can use media queries like this throughout your app:
 
 For more details about `@custom-media` rules see https://github.com/postcss/postcss-custom-media.
 
-FYI: This provides an example of how to configure Svelte preprocess: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md.
+FYI: This provides an example of how to configure the Svelte `preprocess` config: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md.
 
 
 ## Step 5: Configure Native CSS Nesting Rules (Optional)
@@ -164,7 +164,7 @@ TODO: Provide a step-by-step tutorial for how to install fonts, use them in your
 
 <h2 id="enable-js-vars">Step 7: Enable JavaScript Variables</h2>
 
-Create a `/src/fpui-theme.ts` file and copy all the code from the `fpui` package's `fpui-theme.js` file into your `/src/fpui-theme.ts` file. NOTE: The components are already referencing the `/src/fpui-theme.ts` file, so the values in your `/src/fpui-theme.ts` file should work.
+Create a `/src/fpui-theme.ts` file and copy all the code from the `@fanny-pack-ui/svelte-kit` package's `fpui-theme.js` file into your `/src/fpui-theme.ts` file. NOTE: The components are already referencing the `/src/fpui-theme.ts` file, so the values in your `/src/fpui-theme.ts` file should work without any additional configurations.
 
 You can now edit any of the variables in the `/src/fpui-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpui-theme.ts` file.
 
