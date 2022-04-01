@@ -28,6 +28,8 @@
 ## Example Usage
 
 <Button
+  id="some-id"
+  type="button"
   btnColor="primary"
   inverted={false}
   size="md"
@@ -56,6 +58,8 @@
 </script>
 
 <Button
+  id="some-id"
+  type="button"
   btnColor="primary"
   inverted={false}
   size="md"
@@ -249,11 +253,12 @@ NOTE: Your custom styles can conflict with the `size` and `inverted` props. So i
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `id` (optional) | `string` | Any string | NA (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
+| `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
 | `btnColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The main button color. For regular buttons, this is the background color. For inverted buttons this is the border and text color. |
 | `inverted` | `boolean` | `true`, `false` | `false` | Inverted buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
-| `id` | `string` | Any string | NA (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpui-theme.ts` file. | See the heading [Enable JavaScript Variables](/get-started#enable-js-vars) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |

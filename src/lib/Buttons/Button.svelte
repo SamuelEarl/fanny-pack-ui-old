@@ -3,6 +3,7 @@
   import { theme } from "/src/fpui-theme";
 
   export let id = "";
+  export let type = "button";
   export let btnColor = "primary";
   export let inverted = false;
   export let size = "md";
@@ -20,7 +21,7 @@
 <!-- NOTE: Using flexbox styles on this button component messes up the tooltip component if a user wraps a <Button> in a <Tooltip>. So I can't use flexbox to move the icon around. -->
 
 <button
-  type="button"
+  {type}
   {id}
   class="{`fpui-btn ${btnColor} ${size} ${width}-width`}"
   class:inverted={inverted}
