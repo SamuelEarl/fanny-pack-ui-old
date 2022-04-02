@@ -122,6 +122,17 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-select-option-padding-lg: var(--fpui-padding-lg);
 }
 
+/* Toast */
+:root {
+  --fpui-toast-success-bg-color: var(--fpui-success-color);
+  --fpui-toast-success-text-color: white;
+  --fpui-toast-warning-bg-color: var(--fpui-warning-color);
+  --fpui-toast-warning-text-color: white;
+  --fpui-toast-alert-bg-color: var(--fpui-alert-color);
+  --fpui-toast-alert-text-color: white;
+  
+}
+
 /* Tooltip */
 :root {
   --fpui-tooltip-bg-color: #343434;
