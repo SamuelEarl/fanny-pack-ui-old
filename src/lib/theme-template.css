@@ -37,9 +37,10 @@
   --secondary-color: #343434; /* very dark gray */
   --tertiary-color: #fff; /* white */
   /* Notification Colors */
+  --info-color: #e5e5e5; /* very light gray */
   --success-color: #00a300; /* green */
   --warning-color: #ffc40d; /* yellow */
-  --alert-color: #ee1111; /* red */
+  --error-color: #ee1111; /* red */
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;
   --padding-md: 10px;

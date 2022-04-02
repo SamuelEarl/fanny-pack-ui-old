@@ -14,9 +14,10 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-secondary-color: var(--secondary-color);
   --fpui-tertiary-color: var(--tertiary-color);
   /* Notification Colors */
+  --fpui-info-color: var(--info-color);
   --fpui-success-color: var(--success-color);
   --fpui-warning-color: var(--warning-color);
-  --fpui-alert-color: var(--alert-color);
+  --fpui-error-color: var(--error-color);
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --fpui-padding-sm: var(--padding-sm);
   --fpui-padding-md: var(--padding-md);
@@ -124,12 +125,14 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Toast */
 :root {
+  --fpui-toast-info-bg-color: var(--fpui-info-color);
+  --fpui-toast-info-text-color: #343434;
   --fpui-toast-success-bg-color: var(--fpui-success-color);
   --fpui-toast-success-text-color: white;
   --fpui-toast-warning-bg-color: var(--fpui-warning-color);
   --fpui-toast-warning-text-color: white;
-  --fpui-toast-alert-bg-color: var(--fpui-alert-color);
-  --fpui-toast-alert-text-color: white;
+  --fpui-toast-error-bg-color: var(--fpui-error-color);
+  --fpui-toast-error-text-color: white;
   
 }
 
