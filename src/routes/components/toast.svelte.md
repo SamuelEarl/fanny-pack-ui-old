@@ -153,6 +153,8 @@ In order to display a toast to the user you need to call `ToastContent.set()` an
 }
 ```
 
+<br>
+
 | Property name | Type | Possible values | Default value | Description |
 | ------------- | ---- | --------------- | ------------- | ----------- |
 | `type` | `string` | `info`, `success`, `warning`, `error` | NA | This property defines the type of notification pane that will be displayed to the user. |
