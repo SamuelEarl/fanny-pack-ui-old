@@ -59,6 +59,9 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 * Clean up old code and documentation that no longer applies or that is commented out.
     * There is a TODO in the Select.svelte component that I need to verify. In particular I need to test the part about a user previously selecting an option and saving it to the database.
 
+## Toast
+* Should I make the Toast component handle an array of toasts? I will see how this simple version works first.
+
 ## Tooltip
 * Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
     * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `fpui-theme.ts` file.
