@@ -11,7 +11,7 @@ These instructions will show you how to install Fanny Pack and configure it to u
 npm install @fanny-pack-ui/svelte-kit
 ```
 
-NOTE: This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details.
+*NOTE: This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details.*
 
 
 ## Step 2: Create the theme for your app
@@ -64,7 +64,7 @@ Then open your `/src/assets/styles/main.css` file and import all of your CSS fil
 @import "fpui-utils.css";
 ```
 
-NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters.
+*NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters.*
 
 Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
 
@@ -164,15 +164,17 @@ TODO: Provide a step-by-step tutorial for how to install fonts, use them in your
 
 <h2 id="enable-js-vars">Step 7: Enable JavaScript Variables</h2>
 
-Create a `/src/fpui-theme.ts` file and copy all the code from the `@fanny-pack-ui/svelte-kit` package's `fpui-theme.js` file into your `/src/fpui-theme.ts` file. NOTE: The components are already referencing the `/src/fpui-theme.ts` file, so the values in your `/src/fpui-theme.ts` file should work without any additional configurations.
+Create a `/src/fpui-theme.ts` file and copy all the code from the `@fanny-pack-ui/svelte-kit` package's `fpui-theme.js` file into your `/src/fpui-theme.ts` file. 
+
+*NOTE: The components are already referencing the `/src/fpui-theme.ts` file, so the values in your `/src/fpui-theme.ts` file should work without any additional configurations.*
 
 You can now edit any of the variables in the `/src/fpui-theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/fpui-theme.ts` file.
 
-NOTE: After selecting your icon, if you scroll down you will see a code example like this:
+*NOTE: After selecting your icon, if you scroll down you will see a code example like this:*
 ```html
 <span class="iconify" data-icon="mdi:account"></span>
 ```
-The "Selected icon" field should also match the `data-icon` attribute of that code example.
+*The "Selected icon" field should also match the `data-icon` attribute of that code example.*
 
 ---
 

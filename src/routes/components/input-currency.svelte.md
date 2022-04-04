@@ -91,7 +91,7 @@
 
 <br>
 
-NOTE: The **Return Value** example above shows the value that is returned from this component. This is the value that you would use to run calculations or that you would send to the backend for processing or to store in a database. This value is a `number` data type.
+*NOTE: The **Return Value** example above shows the value that is returned from this component. This is the value that you would use to run calculations or that you would send to the backend for processing or to store in a database. This value is a `number` data type.*
 
 ---
 

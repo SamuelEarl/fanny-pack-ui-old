@@ -77,8 +77,7 @@ The code for this component was taken from this great [date picker component](ht
 </style>
 ```
 
-**NOTE:**
-The `<DateInput />` component is designed to fill the entire width of its parent element.
+*NOTE: The `<DateInput />` component is designed to fill the entire width of its parent element.*
 
 <br>
 
@@ -119,7 +118,7 @@ The `<DateInput />` component is designed to fill the entire width of its parent
 | `min` | `Date` | any Date with `year`, `month`, and `day` arguments | 01 Jan, 10 years before the current year. | This prop defines the earliest date that a user can select. |
 | `max` | `Date` | any Date with `year`, `month`, and `day` arguments | 31 Dec, 10 years after the current year. | This prop defines the latest date that a user can select. |
 | `closeOnSelection`<br>(`<DateInput />` only) | `boolean` | `true`, `false` | `true` | Close the calendar when a date is selected. |
-| `locale`<br>(optional) | | | | See the docs for [date-picker-svelte](https://date-picker-svelte.kasper.space/docs).<br><br>NOTE: The `weekStartsOn` property represents the day that the week starts on. `0` = Sunday. The default value in this component is `0`. |
+| `locale`<br>(optional) | | | | See the docs for [date-picker-svelte](https://date-picker-svelte.kasper.space/docs).<br><br>*NOTE: The `weekStartsOn` property represents the day that the week starts on. `0` = Sunday. The default value in this component is `0`.* |
 | `placeholder`<br>(`<DateInput />` only) | `string` | Any string | `YYYY-MM-DD` | This prop will act as the placeholder when the date value is null (i.e. when the input field is empty). |
 | `dateInputIcon`<br>(`<DateInput />` only) | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpui-theme.ts` file. | See the README file for instructions on how to set the default value. There is a link to the README file on the home page. |
 

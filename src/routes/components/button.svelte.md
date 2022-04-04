@@ -193,7 +193,8 @@ There are situations where you might want to tweak (or even completely overhaul)
 
 With a custom button, you can set custom `--custom-btn-padding`, `--custom-btn-border-width`, `--custom-btn-border-style`, `--custom-btn-border-color`, `--custom-btn-border-radius`, `--custom-btn-background-color`, `--custom-btn-text-color`, `--custom-btn-font-size`, `--custom-btn-font-weight`, `--custom-btn-icon-space`, `--custom-btn-box-shadow`, `--custom-btn-disabled-bg-color`, and `--custom-btn-disabled-text-color` values.
 
-NOTE: Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave the `size` and `inverted` props out of your buttons, but you will have to try different style and prop combinations to see what works best for your needs.
+*NOTE: Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave the `size` and `inverted` props out of your buttons, but you will have to try different style and prop combinations to see what works best for your needs.*
+
 <Button
   --custom-btn-padding="7px 14px"
   --custom-btn-border-width="5px"

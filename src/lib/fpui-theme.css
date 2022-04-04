@@ -126,14 +126,15 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 /* Toast */
 :root {
   --fpui-toast-info-bg-color: var(--fpui-info-color);
-  --fpui-toast-info-text-color: #343434;
+  --fpui-toast-info-text-color: white;
   --fpui-toast-success-bg-color: var(--fpui-success-color);
   --fpui-toast-success-text-color: white;
   --fpui-toast-warning-bg-color: var(--fpui-warning-color);
-  --fpui-toast-warning-text-color: white;
+  --fpui-toast-warning-text-color: black;
   --fpui-toast-error-bg-color: var(--fpui-error-color);
   --fpui-toast-error-text-color: white;
-  
+  --fpui-toast-font-size: 1.15rem;
+  --fpui-toast-font-weight: normal;
 }
 
 /* Tooltip */

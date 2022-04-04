@@ -56,8 +56,7 @@ This component is essentially the [`<CheckboxGroup>`](/components/checkbox-group
 />
 ```
 
-
-NOTE: This component will preserve the order in which a user selects options. This feature can come in handy in certain types of applications and use cases.
+*NOTE: This component will preserve the order in which a user selects options. This feature can come in handy in certain types of applications and use cases.*
 
 <br>
 

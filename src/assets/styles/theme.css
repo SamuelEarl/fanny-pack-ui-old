@@ -36,7 +36,7 @@
   --secondary-color: var(--very-dark-gray);
   --tertiary-color: var(--white);
   /* Notification Colors */
-  --info-color: var(--very-light-gray);
+  --info-color: var(--blue);
   --success-color: var(--green);
   --warning-color: var(--yellow);
   --error-color: var(--red);

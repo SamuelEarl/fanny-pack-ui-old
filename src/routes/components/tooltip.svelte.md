@@ -1,7 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { Tooltip } from "/src/lib";
-  import { Button } from "/src/lib";
+  import { Button, Tooltip } from "/src/lib";
 </script>
 
 # Tooltip

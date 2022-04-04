@@ -5,4 +5,5 @@ export { CurrencyInput, Input } from "./Inputs";
 export { Label } from "./Labels";
 export { Modal } from "./Modals";
 export { Select, SelectMulti } from "./Select";
+export { Toast, ToastContent } from "./Toasts";
 export { Tooltip } from "./Tooltips";
