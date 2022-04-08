@@ -54,14 +54,14 @@
   </div>
   <div class="section-heading">Data Viz</div>
   <div class="nav-links">
-    <a href="/data-viz/bar-chart" class:active={currentPath === "/data-viz/bar-chart"}>
-      <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart
+    <a href="/data-viz/bar-chart-horizontal" class:active={currentPath === "/data-viz/bar-chart-horizontal"}>
+      <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart (Horizontal)
+    </a>
+    <a href="/data-viz/bar-chart-vertical" class:active={currentPath === "/data-viz/bar-chart-vertical"}>
+      <Icon icon="bi:bar-chart" /> &nbsp; Bar Chart (Vertical)
     </a>
     <a href="/data-viz/bubble-chart" class:active={currentPath === "/data-viz/bubble-chart"}>
       <Icon icon="carbon:chart-bubble" /> &nbsp; Bubble Chart
-    </a>
-    <a href="/data-viz/column-chart" class:active={currentPath === "/data-viz/column-chart"}>
-      <Icon icon="bi:bar-chart" /> &nbsp; Column Chart
     </a>
     <a href="/data-viz/histogram" class:active={currentPath === "/data-viz/histogram"}>
       <Icon icon="fluent:data-histogram-24-regular" /> &nbsp; Histogram
