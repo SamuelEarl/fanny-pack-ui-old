@@ -66,8 +66,8 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   /* These variables apply to both the date input field and calendar components. */
   --fpui-date-picker-border-color: var(--fpui-border-color);
   --fpui-date-picker-border-radius: var(--fpui-border-radius);
-  --fpui-date-picker-text-color: var(--fpui-text-color);
   --fpui-date-picker-bg-color: white;
+  --fpui-date-picker-text-color: var(--fpui-text-color);
   /* These variables apply to only the date input field component. */
   --fpui-date-input-btn-bg-color: #e5e5e5;
   --fpui-date-input-btn-icon-color: inherit;
@@ -78,6 +78,15 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-calendar-selected-date-bg-color: #e5e5e5;
   --fpui-calendar-selected-date-text-color: var(--fpui-text-color);
   --fpui-calendar-selected-date-border-color: var(--fpui-border-color);
+}
+
+/* Drop Zone (file upload) */
+:root {
+  --fpui-drop-zone-border-color: #a0a0a0;
+  --fpui-drop-zone-focus-border-color: #343434;
+  --fpui-drop-zone-border-radius: var(--fpui-border-radius);
+  --fpui-drop-zone-bg-color: #e5e5e5;
+  --fpui-drop-zone-text-color: #797979;
 }
 
 /* Input (currency, text) */

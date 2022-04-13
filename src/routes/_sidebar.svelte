@@ -24,6 +24,9 @@
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
     </a>
+    <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
+      <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
+    </a>
     <a href="/components/input-currency" class:active={currentPath === "/components/input-currency"}>
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
@@ -54,6 +57,9 @@
   </div>
   <div class="section-heading">Data Viz</div>
   <div class="nav-links">
+    <a href="/data-viz/area-chart" class:active={currentPath === "/data-viz/area-chart"}>
+      <Icon icon="tabler:chart-area-line" /> &nbsp; Area Chart
+    </a>
     <a href="/data-viz/bar-chart-horizontal" class:active={currentPath === "/data-viz/bar-chart-horizontal"}>
       <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart (Horizontal)
     </a>
