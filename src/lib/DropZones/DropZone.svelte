@@ -4,6 +4,7 @@
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { browser } from "$app/env";
   import Icon from "@iconify/svelte";
+  import { Button } from "../Buttons";
   import { theme } from "/src/fpui-theme";
 
   export let uploadIcon = theme.dropZoneUploadIcon;
@@ -42,16 +43,14 @@
   let uploadProgress = 10;
 
   // let files = [];
-  let files = [{
-    file: {
-      id: "1",
-      name: "really-long-file-name-right-here.csv",
-    }
-  }];
+  let files = [
+    { id: "1", name: "really-long-file-name-right-here.csv", },
+    { id: "2", name: "another-file.csv",},
+    { id: "3", name: "really-long-file-name-right-here.csv", },
+  ];
 
   function addFiles(newFiles) {
 		let newUploadableFiles = [...newFiles].map((file) => new UploadableFile(file)).filter((file) => !fileExists(file.id));
-    console.log("newUploadableFiles:", newUploadableFiles);
 		files = files.concat(newUploadableFiles);
     console.log("FILES:", files);
 	}
@@ -61,13 +60,22 @@
 	}
 
 	function removeFile(file) {
-		const index = files.indexOf(file);
-		if (index > -1) files.splice(index, 1);
+		let index = files.indexOf(file);
+    console.log("index:", index);
+		if (index > -1) {
+      files.splice(index, 1);
+      files = files;
+    }
 	}
 
   class UploadableFile {
     constructor(file) {
-      this.file = file;
+      // this.file = file;
+      this.lastModified = file.lastModified;
+      this.lastModifiedDate = file.lastModifiedDate;
+      this.name = file.name;
+      this.size = file.size;
+      this.type = file.type;
       this.id = `${file.name}-${file.size}-${file.lastModified}-${file.type}`;
       this.url = URL.createObjectURL(file);
       this.status = null;
@@ -107,19 +115,24 @@
   </div>
 
   <div id="upload-progress-container">
-    {#each files as file}
-      <!-- <div class="progress-wrapper">
+    {#each files as file (file.id)}
+      <!-- <div class="progress-item-wrapper">
         <div class="label-wrapper">
-          <label for={file.id}>{file.file.name}</label>
+          <label for={file.id}>{file.name}</label>
         </div>
         <progress id={file.id} max="100" value="50">long-file-name-goes-here.csv</progress>
       </div> -->
-      <div class="progress-wrapper">
+      <div class="progress-item-wrapper">
         <div class="label-wrapper">
-          <label for={file.id}>{file.file.name}</label>
+          <label for={file.id}>{file.name}</label>
         </div>
-        <div id={file.id} class="outer">
-          <div class="inner" style={`width: ${uploadProgress}%`}>&nbsp;&nbsp;{uploadProgress}%&nbsp;&nbsp;</div>
+        <div class="progress-bar-wrapper">
+          <div id={file.id} class="outer">
+            <div class="inner" style={`width: ${uploadProgress}%`}>&nbsp;&nbsp;{uploadProgress}%&nbsp;&nbsp;</div>
+          </div>
+          <div class="remove-file-btn-wrapper">
+            <button class="remove-file-btn" on:click={() => removeFile(file)}>&times</button>
+          </div>
         </div>
         <!-- <div class="checkmark-wrapper">
           <Icon icon="carbon:checkmark-filled" height={progressWrapper.height} />
@@ -144,6 +157,7 @@
 <style>
   #drop-zone {
     padding: 20px;
+    padding-bottom: 5px;
     border: 2px dashed;
     border-color: var(--fpui-drop-zone-border-and-text-color, #797979);
     border-radius: var(--fpui-drop-zone-border-radius, 3px);
@@ -163,7 +177,6 @@
     }
 
     & #file-input-wrapper {
-      margin-top: 10px;
       margin-bottom: 30px;
       pointer-events: none;
 
@@ -213,8 +226,9 @@
 
     & #upload-progress-container {
       margin-top: 10px;
+      margin-bottom: 20px;
       
-      /* & .progress-wrapper {
+      /* & .progress-item-wrapper {
         text-align: left;
       
         & .label-wrapper {
@@ -242,7 +256,7 @@
         }
       } */
 
-      & .progress-wrapper {
+      & .progress-item-wrapper {
         margin-bottom: 10px;
         text-align: left;
 
@@ -250,16 +264,38 @@
           margin-bottom: 5px;
         }
 
-        & .outer {
-          border-radius: 20px;
-          background-color: white;
+        & .progress-bar-wrapper {
+          display: flex;
 
-          & .inner {
+          & .outer {
+            flex: 1;
+            display: flex;
             border-radius: 20px;
-            background-color: #603cba;
-            color: #e5e5e5;
-            text-align: right;
-            line-height: 1.5em;
+            background-color: white;
+
+            & .inner {
+              border-radius: 20px;
+              background-color: #603cba;
+              color: #e5e5e5;
+              text-align: right;
+              line-height: 1.5em;
+            }
+          }
+
+          & .remove-file-btn-wrapper {
+            display: flex;
+            margin-left: 5px;
+
+            & .remove-file-btn {
+              padding: 0;
+              border: none;
+              outline: none;
+              background-color: transparent;
+              font-size: 1.75rem;
+              line-height: 1rem;
+              color: #343434;
+              cursor: pointer;
+            }
           }
         }
       }
