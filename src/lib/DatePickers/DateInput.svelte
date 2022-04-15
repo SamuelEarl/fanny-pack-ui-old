@@ -2,7 +2,8 @@
   import { onMount, createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import { cubicInOut } from "svelte/easing";
-  import { Writable, writable } from "svelte/store";
+  import type { Writable } from "svelte/store";
+  import { writable } from "svelte/store";
   import Icon from "@iconify/svelte";
   import { toText } from "./date-utils";
   import type { Locale } from "./locale";

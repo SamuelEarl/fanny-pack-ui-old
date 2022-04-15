@@ -7,12 +7,15 @@
   import { Button } from "../Buttons";
   import { theme } from "/src/fpui-theme";
 
-  export let uploadIcon = theme.dropZoneUploadIcon;
+  export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
+  export let dropZoneUploadFileBtnIcon = theme.dropZoneUploadFileBtnIcon;
+  export let uploadUrl = "";
 
   const dispatch = createEventDispatcher();
   let events = ["dragenter", "dragover", "dragleave", "drop"];
   let dropZone;
   let active = false;
+  let uploading = false;
 
   onMount(() => {
     events.forEach((eventName) => {
@@ -35,22 +38,22 @@
   function handleDrop(event) {
     active = false;
     console.log("EVENT:", event);
-    dispatch("files-dropped", [...event.dataTransfer.files]);
+    // dispatch("files-dropped", [...event.dataTransfer.files]);
     addFiles(event.dataTransfer.files);
   }
 
   // File List
   let uploadProgress = 10;
 
-  // let files = [];
-  let files = [
-    { id: "1", name: "really-long-file-name-right-here.csv", },
-    { id: "2", name: "another-file.csv",},
-    { id: "3", name: "really-long-file-name-right-here.csv", },
-  ];
+  let files = [];
+  // let files = [
+  //   { id: "1", name: "really-long-file-name-right-here.csv", },
+  //   { id: "2", name: "another-file.csv",},
+  //   { id: "3", name: "really-long-file-name-right-here.csv", },
+  // ];
 
   function addFiles(newFiles) {
-		let newUploadableFiles = [...newFiles].map((file) => new UploadableFile(file)).filter((file) => !fileExists(file.id));
+		let newUploadableFiles = [...newFiles].map((file) => createUploadableFile(file)).filter((file) => !fileExists(file.id));
 		files = files.concat(newUploadableFiles);
     console.log("FILES:", files);
 	}
@@ -68,18 +71,50 @@
     }
 	}
 
-  class UploadableFile {
-    constructor(file) {
-      // this.file = file;
-      this.lastModified = file.lastModified;
-      this.lastModifiedDate = file.lastModifiedDate;
-      this.name = file.name;
-      this.size = file.size;
-      this.type = file.type;
-      this.id = `${file.name}-${file.size}-${file.lastModified}-${file.type}`;
-      this.url = URL.createObjectURL(file);
-      this.status = null;
-    }
+  function createUploadableFile(file) {
+    return {
+      lastModified: file.lastModified,
+      lastModifiedDate: file.lastModifiedDate,
+      name: file.name,
+      size: file.size,
+      type: file.type,
+      id: `${file.name}-${file.size}-${file.lastModified}-${file.type}`,
+      url: URL.createObjectURL(file),
+      status: null,
+    };
+  }
+
+  async function uploadSingleFile(file) {
+    // Set up the request data.
+    let formData = new FormData();
+    formData.append("file", file);
+
+    // for (let entry of formData.entries()) {
+    //   console.log("Form Data Entry:", entry[1].stream());
+    // }
+
+    // Track status and upload file.
+    file.status = "loading";
+    let response = await fetch(uploadUrl, { method: "POST", body: formData });
+
+    // Change status to indicate the success of the upload request.
+    file.status = response.ok;
+
+    // return response;
+
+    let result = await response.json();
+    console.log("single result:", result);
+    return result;
+  }
+
+  function uploadMultipleFiles() {
+    // let promise = Promise.all(files.map((file) => uploadSingleFile(file)));
+    // console.log("promise:", promise);
+
+    // let promise = files.map((file) => uploadSingleFile(file));
+    // console.log("promise:", promise);
+
+    return Promise.all(files.map((file) => uploadSingleFile(file)));
   }
 </script>
 
@@ -100,58 +135,61 @@
       multiple
       accept="*"
       on:change={(event) => {
-        // console.log("CHANGE EVENT:", ...event.target.files);
+        console.log("UPLOAD FILES:", event.target.files);
         addFiles(event.target.files);
         // If a user adds a file via the input, decides to remove it from their file list, then changes their mind and decides to use the input to add that file again, then the file input will not fire the `change` event because the file input has not changed. By resetting `event.target.value` back to null, we ensure the event will always be fired.
         event.target.value = null;
       }}
     >
   </div>
-  <div id="drag-drop-wrapper">
+  <div id="drag-drop-text-wrapper">
     <slot>Or Drag &amp; Drop Files Here</slot>
   </div>
   <div id="icon-wrapper">
-    <Icon icon="{uploadIcon}" width="50" />
+    <Icon icon="{dragAndDropIcon}" width="50" />
   </div>
 
-  <div id="upload-progress-container">
-    {#each files as file (file.id)}
-      <!-- <div class="progress-item-wrapper">
-        <div class="label-wrapper">
-          <label for={file.id}>{file.name}</label>
+  {#if files.length > 0}
+    <div id="upload-progress-container">
+      {#if !uploading}
+        <div id="upload-all-files-btn-wrapper">
+          <Button
+            btnIcon={dropZoneUploadFileBtnIcon}
+            on:click={() => {
+              uploading = true;
+              uploadMultipleFiles();
+            }}
+          >
+            Upload Files
+          </Button>
         </div>
-        <progress id={file.id} max="100" value="50">long-file-name-goes-here.csv</progress>
-      </div> -->
-      <div class="progress-item-wrapper">
-        <div class="label-wrapper">
-          <label for={file.id}>{file.name}</label>
-        </div>
-        <div class="progress-bar-wrapper">
-          <div id={file.id} class="outer">
-            <div class="inner" style={`width: ${uploadProgress}%`}>&nbsp;&nbsp;{uploadProgress}%&nbsp;&nbsp;</div>
+      {/if}
+      {#each files as file (file.id)}
+        <!-- <div class="progress-item-wrapper">
+          <div class="label-wrapper">
+            <label for={file.id}>{file.name}</label>
           </div>
-          <div class="remove-file-btn-wrapper">
-            <button class="remove-file-btn" on:click={() => removeFile(file)}>&times</button>
-          </div>
-        </div>
-        <!-- <div class="checkmark-wrapper">
-          <Icon icon="carbon:checkmark-filled" height={progressWrapper.height} />
-          <div class="checkmark">&check;</div>
+          <progress id={file.id} max="100" value="50">long-file-name-goes-here.csv</progress>
         </div> -->
-      </div>
-    {/each}
-  </div>
+        <div class="progress-item-wrapper">
+          <div class="label-wrapper">
+            {#if !uploading}
+              <button class="remove-file-btn" on:click={() => removeFile(file)}>&times</button>
+            {/if}
+            <label for={file.id}>{file.name}</label>
+          </div>
+          {#if uploading}
+            <div class="progress-bar-wrapper">
+              <div id={file.id} class="outer">
+                <div class="inner" style={`width: ${uploadProgress}%`}>&nbsp;&nbsp;{uploadProgress}%&nbsp;&nbsp;</div>
+              </div>
+            </div>
+          {/if}
+        </div>
+      {/each}
+    </div>
+  {/if}
 </div>
-
-<!-- <br>
-
-<div id="drop-zone" bind:this={dropZone}>
-  <form id="form">
-    <p id="drag-drop-wrapper">Drop files here or click and select files to upload</p>
-    <input type="file" id="file-input" multiple accept="image/*" on:change={() => handleFiles(files)}>
-    <label class="button" for="file-input">Select some files</label>
-  </form>
-</div> -->
 
 
 <style>
@@ -214,19 +252,18 @@
       }
     }
 
-    & #drag-drop-wrapper {
+    & #drag-drop-text-wrapper {
       margin-bottom: 10px;
       pointer-events: none;
     }
 
     & #icon-wrapper {
-      /* margin-bottom: 10px; */
+      margin-bottom: 5px;
       pointer-events: none;
     }
 
     & #upload-progress-container {
-      margin-top: 10px;
-      margin-bottom: 20px;
+      margin: 20px 0;
       
       /* & .progress-item-wrapper {
         text-align: left;
@@ -261,7 +298,20 @@
         text-align: left;
 
         & .label-wrapper {
+          display: flex;
           margin-bottom: 5px;
+
+          & .remove-file-btn {
+            padding: 0;
+            border: none;
+            margin-right: 5px;
+            outline: none;
+            background-color: transparent;
+            font-size: 1.75rem;
+            line-height: 1rem;
+            color: #343434;
+            cursor: pointer;
+          }
         }
 
         & .progress-bar-wrapper {
@@ -279,22 +329,6 @@
               color: #e5e5e5;
               text-align: right;
               line-height: 1.5em;
-            }
-          }
-
-          & .remove-file-btn-wrapper {
-            display: flex;
-            margin-left: 5px;
-
-            & .remove-file-btn {
-              padding: 0;
-              border: none;
-              outline: none;
-              background-color: transparent;
-              font-size: 1.75rem;
-              line-height: 1rem;
-              color: #343434;
-              cursor: pointer;
             }
           }
         }

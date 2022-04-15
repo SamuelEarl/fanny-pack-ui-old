@@ -38,6 +38,9 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 * I haven't been able to figure out how to get the `locale` prop to work. I would like to document that in my documentation after I get it figured out.
 * Implement the `size` prop in the `Calendar` component and increase or decrease the font sizes based on the `size` prop. The fonts will probably be smaller than 1rem, but I do want to increase or decrease the font-sizes in relation the the `size` prop.
 
+## DropZone
+* Add as much accessibility tags as possible.
+
 ## Input (currency)
 * Write tests.
 

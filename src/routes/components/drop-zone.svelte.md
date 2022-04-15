@@ -11,6 +11,6 @@
 
 ## Example Usage
 
-<DropZone>
-  
-</DropZone>
+<DropZone
+  uploadUrl="/api/drop-zone-file-uploads"
+/>
