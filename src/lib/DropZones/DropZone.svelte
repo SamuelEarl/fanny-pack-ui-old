@@ -1,7 +1,5 @@
-<!-- Add a file type filter. See https://www.smashingmagazine.com/2022/03/drag-drop-file-uploader-vuejs-3/ under the heading "Possible Improvements" and research how to do this. Do I need to use the `accept` attribute on the file input? -->
-
 <script lang="ts">
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/env";
   import Icon from "@iconify/svelte";
   import { Button } from "../Buttons";
@@ -9,22 +7,25 @@
 
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
   export let dropZoneUploadFileBtnIcon = theme.dropZoneUploadFileBtnIcon;
-  export let uploadUrl = "";
+  export let uploadFiles;
 
-  const dispatch = createEventDispatcher();
   let events = ["dragenter", "dragover", "dragleave", "drop"];
   let dropZone;
   let active = false;
   let uploading = false;
 
   onMount(() => {
+    // Loop over the list of events and prevent the default behavior for each event on the document body.
+    // If you do not do this, then if a user drops files on your web app, but outside of the drop zone, then the browser's default behavior might download the file through the browser or it might open a new tab in the browser. So preventing these default behaviors will also help to prevent confusion for your users.
     events.forEach((eventName) => {
       document.body.addEventListener(eventName, preventDefaults);
     });
   });
 
   onDestroy(() => {
+    // The onDestroy hook also runs on the server, so `document` will throw an undefined error. You can prevent that by checking if the environment is a browser. See https://github.com/sveltejs/kit/discussions/2741.
     if (browser) {
+      // Remove the event listeners when this component is destroyed.
       events.forEach((eventName) => {
         document.body.removeEventListener(eventName, preventDefaults);
       });
@@ -37,13 +38,8 @@
 
   function handleDrop(event) {
     active = false;
-    console.log("EVENT:", event);
-    // dispatch("files-dropped", [...event.dataTransfer.files]);
     addFiles(event.dataTransfer.files);
   }
-
-  // File List
-  let uploadProgress = 10;
 
   let files = [];
   // let files = [
@@ -55,7 +51,6 @@
   function addFiles(newFiles) {
 		let newUploadableFiles = [...newFiles].map((file) => createUploadableFile(file)).filter((file) => !fileExists(file.id));
 		files = files.concat(newUploadableFiles);
-    console.log("FILES:", files);
 	}
 
 	function fileExists(otherId) {
@@ -64,7 +59,6 @@
 
 	function removeFile(file) {
 		let index = files.indexOf(file);
-    console.log("index:", index);
 		if (index > -1) {
       files.splice(index, 1);
       files = files;
@@ -84,37 +78,17 @@
     };
   }
 
-  async function uploadSingleFile(file) {
-    // Set up the request data.
-    let formData = new FormData();
-    formData.append("file", file);
-
-    // for (let entry of formData.entries()) {
-    //   console.log("Form Data Entry:", entry[1].stream());
-    // }
-
-    // Track status and upload file.
-    file.status = "loading";
-    let response = await fetch(uploadUrl, { method: "POST", body: formData });
-
-    // Change status to indicate the success of the upload request.
-    file.status = response.ok;
-
-    // return response;
-
-    let result = await response.json();
-    console.log("single result:", result);
-    return result;
-  }
-
-  function uploadMultipleFiles() {
-    // let promise = Promise.all(files.map((file) => uploadSingleFile(file)));
-    // console.log("promise:", promise);
-
-    // let promise = files.map((file) => uploadSingleFile(file));
-    // console.log("promise:", promise);
-
-    return Promise.all(files.map((file) => uploadSingleFile(file)));
+  async function handleUpload() {
+    try {
+      uploading = true;
+      await uploadFiles(files);
+      uploading = false;
+      // Clear/reset the files array so the file uploader does not list any more files.
+      files.length = 0;
+    }
+    catch(err) {
+      console.error("handleUpload Error:", err);
+    }
   }
 </script>
 
@@ -135,7 +109,6 @@
       multiple
       accept="*"
       on:change={(event) => {
-        console.log("UPLOAD FILES:", event.target.files);
         addFiles(event.target.files);
         // If a user adds a file via the input, decides to remove it from their file list, then changes their mind and decides to use the input to add that file again, then the file input will not fire the `change` event because the file input has not changed. By resetting `event.target.value` back to null, we ensure the event will always be fired.
         event.target.value = null;
@@ -145,46 +118,25 @@
   <div id="drag-drop-text-wrapper">
     <slot>Or Drag &amp; Drop Files Here</slot>
   </div>
-  <div id="icon-wrapper">
+  <div id="drag-drop-icon-wrapper">
     <Icon icon="{dragAndDropIcon}" width="50" />
   </div>
 
   {#if files.length > 0}
-    <div id="upload-progress-container">
-      {#if !uploading}
-        <div id="upload-all-files-btn-wrapper">
-          <Button
-            btnIcon={dropZoneUploadFileBtnIcon}
-            on:click={() => {
-              uploading = true;
-              uploadMultipleFiles();
-            }}
-          >
-            Upload Files
-          </Button>
-        </div>
-      {/if}
+    <div id="upload-files-container">
+      <div id="upload-all-files-btn-wrapper">
+        <Button
+          btnIcon={dropZoneUploadFileBtnIcon}
+          disabled={uploading}
+          on:click={handleUpload}
+        >
+          Upload Files
+        </Button>
+      </div>
       {#each files as file (file.id)}
-        <!-- <div class="progress-item-wrapper">
-          <div class="label-wrapper">
-            <label for={file.id}>{file.name}</label>
-          </div>
-          <progress id={file.id} max="100" value="50">long-file-name-goes-here.csv</progress>
-        </div> -->
-        <div class="progress-item-wrapper">
-          <div class="label-wrapper">
-            {#if !uploading}
-              <button class="remove-file-btn" on:click={() => removeFile(file)}>&times</button>
-            {/if}
-            <label for={file.id}>{file.name}</label>
-          </div>
-          {#if uploading}
-            <div class="progress-bar-wrapper">
-              <div id={file.id} class="outer">
-                <div class="inner" style={`width: ${uploadProgress}%`}>&nbsp;&nbsp;{uploadProgress}%&nbsp;&nbsp;</div>
-              </div>
-            </div>
-          {/if}
+        <div class="file-wrapper">
+          <div class="file-name">{file.name}</div>
+          <button class="remove-file-btn" on:click={() => removeFile(file)} disabled={uploading}><Icon icon="ri:delete-bin-2-line" width="16" /></button>
         </div>
       {/each}
     </div>
@@ -208,10 +160,6 @@
     &.active {
       border-color: var(--fpui-drop-zone-border-and-text-color-drag-over, #343434);
       color: var(--fpui-drop-zone-border-and-text-color-drag-over, #343434);
-    }
-
-    & #form {
-      margin-bottom: 10px;
     }
 
     & #file-input-wrapper {
@@ -257,79 +205,39 @@
       pointer-events: none;
     }
 
-    & #icon-wrapper {
+    & #drag-drop-icon-wrapper {
       margin-bottom: 5px;
       pointer-events: none;
     }
 
-    & #upload-progress-container {
+    & #upload-files-container {
       margin: 20px 0;
-      
-      /* & .progress-item-wrapper {
-        text-align: left;
-      
-        & .label-wrapper {
-          margin-bottom: 5px;
-        }
 
-        Styling progress bars: https://css-tricks.com/html5-progress-element/
-        & progress[value] {
-          Reset the default appearance
-          -webkit-appearance: none;
-          appearance: none;
-          width: 100%;
-          height: 20px;
-
-          &::-webkit-progress-bar {
-            background-color: white;
-            border-radius: 3px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
-          }
-
-          &::-webkit-progress-value {
-            background-color: #603cba;
-            border-radius: 3px;
-          }
-        }
-      } */
-
-      & .progress-item-wrapper {
-        margin-bottom: 10px;
+      & .file-wrapper {
+        display: flex;
+        margin: 10px 0;
         text-align: left;
 
-        & .label-wrapper {
-          display: flex;
-          margin-bottom: 5px;
-
-          & .remove-file-btn {
-            padding: 0;
-            border: none;
-            margin-right: 5px;
-            outline: none;
-            background-color: transparent;
-            font-size: 1.75rem;
-            line-height: 1rem;
-            color: #343434;
-            cursor: pointer;
-          }
+        & .file-name {
+          flex: 1;
+          padding: 3px;
+          border-radius: 3px;
+          color: #343434;
+          background-color: white;
         }
 
-        & .progress-bar-wrapper {
-          display: flex;
+        & .remove-file-btn {
+          padding: 0;
+          border: none;
+          margin-left: 5px;
+          outline: none;
+          background-color: transparent;
+          color: inherit;
+          cursor: pointer;
 
-          & .outer {
-            flex: 1;
-            display: flex;
-            border-radius: 20px;
-            background-color: white;
-
-            & .inner {
-              border-radius: 20px;
-              background-color: #603cba;
-              color: #e5e5e5;
-              text-align: right;
-              line-height: 1.5em;
-            }
+          &:disabled {
+            color: white;
+            cursor: default;
           }
         }
       }

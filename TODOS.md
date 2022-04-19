@@ -40,6 +40,7 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 
 ## DropZone
 * Add as much accessibility tags as possible.
+* Add a file type filter. See https://www.smashingmagazine.com/2022/03/drag-drop-file-uploader-vuejs-3/ under the heading "Possible Improvements" and research how to do this. Do I need to use the `accept` attribute on the file input?
 
 ## Input (currency)
 * Write tests.

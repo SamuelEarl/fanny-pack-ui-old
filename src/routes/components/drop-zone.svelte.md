@@ -1,7 +1,9 @@
 <script lang="ts">
   import { onMount, tick } from "svelte";
   import { DropZone } from "/src/lib";
+  import { ToastContent } from "/src/lib";
   import { BlobServiceClient } from "@azure/storage-blob";
+  import Icon from "@iconify/svelte";
 
   const { VITE_AZURE_BLOB_SERVICE_SAS_URL } = import.meta.env;
 
@@ -9,216 +11,115 @@
   let status;
   let statusMessages = [];
   let message = "";
-  let containersArray = [];
+  let containersList = [];
   let filesArray = [];
+  let loading = false;
 
   // Create a new BlobServiceClient.
   const blobServiceClient = new BlobServiceClient(VITE_AZURE_BLOB_SERVICE_SAS_URL);
-  // Create a unique name for the container.
-  let containerName = "";
-  // The container from the list will be bound to selectedContainer.
-  let selectedContainer = containersArray[0];
-  let containerClient;
+  // Create a unique name for the container by appending the current time to the file name.
+  // const containerName = "container" + new Date().getTime();
+  const containerName = "acmeco";
+  // Get a container client from the BlobServiceClient.
+  const containerClient = blobServiceClient.getContainerClient(containerName);
 
   onMount(async () => {
-    await listContainers();
-    await setContainerClient();
+    await getContainers();
+    if (!containersList.includes(containerName)) {
+      await createContainer();
+    }
+    await getFiles();
   });
 
-  async function setContainerClient() {
-    console.log("setContainerClient selectedContainer:", selectedContainer);
-    // Get a container client from the BlobServiceClient.
-    containerClient = blobServiceClient.getContainerClient(selectedContainer);
-    // Show the files for the currently selected container.
-    await listFiles();
-  }
-
-  async function reportStatus(newMessage) {
-    statusMessages.push(newMessage);
-    // Use Svelte's reactive assignment to show the updated messages in the DOM.
-    statusMessages = statusMessages;
-    // Wait for the DOM to update before setting the scrollTop position.
-    await tick();
-    // Scroll the status element to the bottom of the content.
-    status.scrollTop = status.scrollHeight;
-  }
-
-  async function createContainer() {
-    try {
-      reportStatus(`Creating container "${containerName}"...`);
-      // Create a new container with the user-entered name.
-      containerClient = blobServiceClient.getContainerClient(containerName);
-      await containerClient.create();
-      // Show the updated list of containers after this new one has been created.
-      await listContainers();
-      // Set the selectedContainer to the newly created one.
-      selectedContainer = containerName;
-      // Reset containerName.
-      containerName = "";
-      reportStatus(`Done.`);
-    } 
-    catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
-    }
-  }
-
-  async function listContainers() {
-    // Reset the containersArray so the DOM will show the current items in the array when this function finishes executing.
-    containersArray.length = 0;
+  async function getContainers() {
+    // Reset the containersList so the DOM will show the current items in the array when this function finishes executing.
+    containersList.length = 0;
 
     try {
       let i = 1;
       let containers = blobServiceClient.listContainers();
+      console.log("List of Containers from getContainers():");
       for await (const container of containers) {
         console.log(`Container ${i++}: ${container.name}`);
-        containersArray.push(container.name);
+        containersList.push(container.name);
       }
-      containersArray = containersArray;
+      containersList = containersList;
     }
     catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
+      console.log("getContainers Error:", err);
     }
   }
 
-  async function deleteContainer() {
+  async function createContainer() {
     try {
-      reportStatus(`Deleting container "${containerName}"...`);
-      await containerClient.delete();
-      // Show the updated list of containers after this one has been deleted.
-      await listContainers();
-      reportStatus(`Done.`);
-    }
+      await containerClient.create();
+    } 
     catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
+      console.error("createContainer Error:", err);
     }
   }
 
   // This code calls the ContainerClient.listBlobsFlat function, then uses an iterator to retrieve the name of each BlobItem returned. For each BlobItem, it updates the Files list with the name property value.
-  async function listFiles() {
-    // Reset the filesArray array so the DOM will show the current items in the array when this function finishes executing.
-    filesArray.length = 0;
+  async function getFiles() {
+    let updatedFilesArray = [];
 
     try {
-      reportStatus("Retrieving file list...");
       let iter = containerClient.listBlobsFlat();
       let blobItem = await iter.next();
       while (!blobItem.done) {
-        filesArray.push(blobItem);
+        updatedFilesArray.push(blobItem);
         blobItem = await iter.next();
       }
       // Use Svelte's reactive assignment to show the current state of filesArray in the DOM.
-      filesArray = filesArray;
-      if (filesArray.length > 0) {
-        reportStatus("Done.");
-      }
-      else {
-        reportStatus("The container does not contain any files.");
-      }
+      filesArray = updatedFilesArray;
+      console.log("FILES ARRAY:", filesArray);
     }
     catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
+      console.error("getFiles Error:", err);
     }
   }
 
-  async function uploadFiles() {
+  // Pass a function named "uploadFiles" to the <DropZone /> component.
+  // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
+  // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+  async function uploadFiles(files) {
     try {
-      reportStatus("Uploading files...");
       const promises = [];
-      for (const file of fileInput.files) {
+      for (const file of files) {
         // Get a blockBlobClient from the containerClient.
+        // NOTE: You might want to add a unique ID to the end of each filename so your users do not accidentally overwrite any files that have the same filename. Or if their is an API setting that does not allow users to overwrite existing files, then you may want to use that.
         const blockBlobClient = containerClient.getBlockBlobClient(file.name);
         promises.push(blockBlobClient.uploadBrowserData(file));
       }
       await Promise.all(promises);
-      reportStatus("Done.");
-      // Show the updated list of files for this container.
-      listFiles();
+      await getFiles();
+      ToastContent.set({ type: "success", msg: "Files have been uploaded." });
     }
     catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
+      console.error("uploadFiles Error:", err);
+      ToastContent.set({ type: "error", msg: err.message });
     }
   }
 
-  async function deleteFiles() {
+  async function deleteFile(file) {
     try {
-      if (filesArray.length > 0) {
-        reportStatus("Deleting files...");
-        for (const file of filesArray) {
-          await containerClient.deleteBlob(file.value.name);
-        }
-        reportStatus("Done.");
-        // Show the updated list of files for this container.
-        listFiles();
-      } 
-      else {
-        reportStatus("No files selected.");
-      }
+      loading = true;
+      await containerClient.deleteBlob(file);
+      await getFiles();
+      loading = false;
     }
     catch(err) {
-      reportStatus(`ERROR: ${err.message}`);
+      console.error("deleteFile Error:", err);
     }
   }
 </script>
 
 
-<br>
-<div>
-  <label for="container-name">Enter the name of the new container that you want to create:</label><br>
-  <input type="text" id="container-name" bind:value={containerName} placeholder="Enter name of container" />
-  <button on:click={createContainer} disabled={!containerName}>Create new container</button>
-</div>
-
-<br>
-
-<div>
-  <label for="container-list">Select the name of the container that you want to manage:</label><br>
-  {#if containersArray.length === 0}
-    <div><em>No containers exist. Please create a container.</em></div>
-  {:else}
-    <select id="container-list" bind:value={selectedContainer} on:change={setContainerClient}>
-      {#each containersArray as container}
-        <option value={container}>{container}</option>
-      {/each}
-    </select>
-  {/if}
-</div>
-
-<br>
-
-<div>
-  <button on:click={() => fileInput.click()} disabled={containersArray.length === 0}>Select and upload files</button>
-  <input type="file" multiple style="display: none;" bind:this={fileInput} on:change={uploadFiles} />
-  <!-- <button on:click={listFiles} disabled={containersArray.length === 0}>List files</button> -->
-  <button on:click={deleteFiles} disabled={containersArray.length === 0}>Delete selected files</button>
-  <!-- <button on:click={listContainers}>List all containers</button> -->
-  <button on:click={deleteContainer} disabled={containersArray.length === 0}>Delete container</button>
-</div>
-
-<br>
-
-<div><b>Status:</b></div>
-<div bind:this={status} style="height: 160px; width: 593px; border: 1px solid black; overflow: scroll;">
-  {#each statusMessages as message}
-  <p>{message}</p>
-  {/each}
-</div>
-
-<br>
-
-<div><b>Files in the <em>{selectedContainer}</em> container:</b></div>
-<select multiple style="height:222px; width: 593px; overflow: scroll;">
-  {#each filesArray as file}
-    <option value={file.value.name}>{file.value.name}</option>
-  {/each}
-</select>
-
----
-
 # Drop Zone (file upload)
 
 ---
 
-<em><strong>Shameless Plug</strong>: <a href="https://uploadcare.com/">Uploadcare</a> is one of my favorite cloud storage services because of how easy it is to use and all the features it has. It is also built on top of the Akamai CDN platform, which is one of the leading CDN platforms, and Uploadcare has a pretty generous free tier. I am not writing a tutorial using Uploadcare because their <a href="https://uploadcare.com/docs/integrations/js-upload-client/">browser API</a> is already pretty simple and they also have a really cool <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget that you can use off-the-shelf and even customize the styles to match your app. I have used Uploadcare's File Uploader widget in a SvelteKit app and it is awesome!</em>
+<em><strong>Shameless Plug</strong>: <a href="https://uploadcare.com/">Uploadcare</a> is one of my favorite cloud storage services because of how easy it is to use and all the features it has. It is also built on top of the Akamai CDN platform, which is one of the leading CDN platforms, and Uploadcare has a pretty generous free tier. I am not writing a tutorial using Uploadcare because their <a href="https://uploadcare.com/docs/integrations/js-upload-client/">browser API</a> is already pretty simple and they also have a really cool <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget that you can use off-the-shelf and even customize the styles to match your app. So a custom file upload component might not be necessary if you are using Uploadcare. I have used Uploadcare's File Uploader widget in a SvelteKit app and it is awesome!</em>
 
 ---
 
@@ -234,17 +135,43 @@ One additional benefit of using your cloud storage service's APIs is that they w
 
 ---
 
+## Example Usage
+
+The only thing you have to do to get this component to work is pass it a function named "uploadFiles". Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to there service is what you will put in this function. Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+
+---
+
 ## Tutorial
 
 This tutorial will show you how to create a custom drop zone component that integrates with Azure Storage. I am following this article: [Quickstart: Manage blobs with JavaScript v12 SDK in a browser](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser)
 
-This will be the final product:
+This will be the final version:
 
-<DropZone
-  uploadUrl="/api/drop-zone-file-uploads"
-/>
+<DropZone {uploadFiles} />
 
----
+<br>
+
+<div><b>Files in the <em>{containerName}</em> container:</b></div>
+{#if filesArray.length > 0}
+  {#each filesArray as file (file.value.name)}
+    <div class="file-wrapper">
+      <div class="file-name">{file.value.name}</div>
+      {#if loading}
+        <button class="remove-file-btn" title="Delete file">
+          <Icon icon="icomoon-free:spinner2" width="16" class="fpui-spin" />
+        </button>
+      {:else}
+        <button class="remove-file-btn" on:click={() => deleteFile(file.value.name)} title="Delete file">
+          <Icon icon="ri:delete-bin-2-line" width="16" />
+        </button>
+      {/if}
+    </div>
+  {/each}
+{:else}
+  <div class="empty-container">Your container does not contain any files.</div>
+{/if}
+
+<br><br>
 
 SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object).
 
@@ -254,3 +181,35 @@ TODOS:
 
 * Containers are like folders.
 * Blob stands for **B**inary **L**arge **Ob**ject, which includes objects such as images and multimedia files. These are known as unstructured data because they don't follow any particular data model. *(Source: [SnapLogic - Azure Blob Storage](https://www.snaplogic.com/glossary/azure-blob-storage#:~:text=Azure%20Blob%20storage%20is%20a,as%20images%20and%20multimedia%20files.))*
+
+
+<style>
+  .file-wrapper {
+    display: flex;
+    border-bottom: 1px dotted #343434;
+    margin: 10px 0;
+    text-align: left;
+
+    & .file-name {
+      flex: 1;
+      padding: 5px;
+      padding-left: 0;
+      color: #343434;
+      background-color: white;
+    }
+
+    & .remove-file-btn {
+      padding: 0;
+      border: none;
+      margin-left: 5px;
+      outline: none;
+      background-color: transparent;
+      color: inherit;
+      cursor: pointer;
+    }
+  }
+
+  .empty-container {
+    margin: 10px 0;
+  }
+</style>

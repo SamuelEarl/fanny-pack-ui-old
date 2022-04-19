@@ -28,8 +28,6 @@ The `<Toast>` component has two parts:
 
 ## Example Usage
 
-<Toast duration={7000} />
-
 <Button btnIcon="" on:click={setInfoToast}>Click to show an "info" notification</Button>
 
 <br>

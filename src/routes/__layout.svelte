@@ -1,19 +1,6 @@
-<svelte:head>
-	<title>Fanny Pack UI Components | Components built with and for SvelteKit</title>
-</svelte:head>
-
-<div id="layout">
-  <div id="sidebar">
-    <Sidebar />
-  </div>
-  <main id="main">
-    <slot />
-  </main>
-</div>
-
 <script lang="ts">
   import { afterNavigate } from "$app/navigation";
-
+  import { Toast } from "/src/lib";
   import Sidebar from "./_sidebar.svelte";
 
   /**
@@ -28,6 +15,23 @@
     }
   });
 </script>
+
+
+<svelte:head>
+	<title>Fanny Pack UI Components | Components built with and for SvelteKit</title>
+</svelte:head>
+
+<Toast duration={7000} />
+
+<div id="layout">
+  <div id="sidebar">
+    <Sidebar />
+  </div>
+  <main id="main">
+    <slot />
+  </main>
+</div>
+
 
 <style>
   @import "/src/assets/styles/main.css";
