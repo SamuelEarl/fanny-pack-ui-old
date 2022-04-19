@@ -69,6 +69,9 @@
     <a href="/data-viz/bubble-chart" class:active={currentPath === "/data-viz/bubble-chart"}>
       <Icon icon="carbon:chart-bubble" /> &nbsp; Bubble Chart
     </a>
+    <a href="/data-viz/geospatial-chart" class:active={currentPath === "/data-viz/geospatial-chart"}>
+      <Icon icon="gis:world-map-alt" /> &nbsp; Geospatial Chart
+    </a>
     <a href="/data-viz/histogram" class:active={currentPath === "/data-viz/histogram"}>
       <Icon icon="fluent:data-histogram-24-regular" /> &nbsp; Histogram
     </a>

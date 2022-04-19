@@ -10,8 +10,24 @@
   export let uploadFiles;
 
   let events = ["dragenter", "dragover", "dragleave", "drop"];
-  let dropZone;
+  let files = [];
+  // let files = [
+  //   { id: "1", name: "really-long-file-name-right-here.csv", },
+  //   { id: "2", name: "another-file.csv",},
+  //   { id: "3", name: "really-long-file-name-right-here.csv", },
+  // ];
+  
   let active = false;
+  // This reactive block will reset `active` to false if the user removes all files to be uploaded.
+  $: {
+    if (files.length > 0) {
+      active = true;
+    }
+    else {
+      active = false;
+    }
+  }
+  
   let uploading = false;
 
   onMount(() => {
@@ -37,16 +53,8 @@
   }
 
   function handleDrop(event) {
-    active = false;
     addFiles(event.dataTransfer.files);
   }
-
-  let files = [];
-  // let files = [
-  //   { id: "1", name: "really-long-file-name-right-here.csv", },
-  //   { id: "2", name: "another-file.csv",},
-  //   { id: "3", name: "really-long-file-name-right-here.csv", },
-  // ];
 
   function addFiles(newFiles) {
 		let newUploadableFiles = [...newFiles].map((file) => createUploadableFile(file)).filter((file) => !fileExists(file.id));
@@ -96,7 +104,6 @@
 <div 
   id="drop-zone"
   class:active
-  bind:this={dropZone} 
   on:drop|preventDefault={handleDrop}
   on:dragenter|preventDefault={() => active = true}
   on:dragover|preventDefault={() => active = true}
@@ -105,7 +112,8 @@
   <div id="file-input-wrapper">
     <input 
       type="file" 
-      id="file-input" 
+      id="file-input-btn" 
+      class:active
       multiple
       accept="*"
       on:change={(event) => {
@@ -158,8 +166,9 @@
     transition: border 0.25s ease-in-out;
 
     &.active {
-      border-color: var(--fpui-drop-zone-border-and-text-color-drag-over, #343434);
-      color: var(--fpui-drop-zone-border-and-text-color-drag-over, #343434);
+      border-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
+      background-color: var(--fpui-drop-zone-bg-color-active, white);
+      color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
     }
 
     & #file-input-wrapper {
@@ -167,7 +176,7 @@
       pointer-events: none;
 
       /* Custom File Input Styling: https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ */
-      & #file-input {
+      & #file-input-btn {
         width: 200px;
         pointer-events: all;
 
@@ -184,7 +193,6 @@
           padding: 10px 20px;
           display: inline-block;
           text-align: center;
-          /* content: "✓ Select Files"; */
           content: "Select Files";
           background-color: var(--fpui-drop-zone-border-and-text-color, #797979);
           color: var(--fpui-drop-zone-button-text-color, white);
@@ -195,7 +203,15 @@
           cursor: pointer;
         }
         &:hover::before {
-          background-color: var(--fpui-drop-zone-border-and-text-color-drag-over, #343434);
+          background-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
+        }
+
+        &.active::before {
+          background-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
+        }
+
+        &.active:hover::before {
+          background-color: var(--fpui-drop-zone-border-and-text-color, #797979);
         }
       }
     }
@@ -220,10 +236,10 @@
 
         & .file-name {
           flex: 1;
-          padding: 3px;
+          padding: 5px;
           border-radius: 3px;
-          color: #343434;
-          background-color: white;
+          background-color: var(--fpui-drop-zone-files-to-upload-bg-color, #e5e5e5);
+          color: var(--fpui-drop-zone-files-to-upload-text-color, #343434);
         }
 
         & .remove-file-btn {
@@ -236,7 +252,7 @@
           cursor: pointer;
 
           &:disabled {
-            color: white;
+            color: #a0a0a0;
             cursor: default;
           }
         }
