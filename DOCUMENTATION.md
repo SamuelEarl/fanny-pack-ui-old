@@ -49,7 +49,7 @@ See https://stackoverflow.com/questions/31215356/npm-does-not-publish-dependenci
 
 
 ## Step 3: Bump the version number up
-You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number in the main `package.json` file before you continue.
+You have to make sure that the package name and package version combination don't exist already; if so, the package will not be published on npm. So you need to bump up the version number in the `package.json` file (that is in the root directory) before you continue.
 
 
 ## Step 4: Push your updates to GitHub
