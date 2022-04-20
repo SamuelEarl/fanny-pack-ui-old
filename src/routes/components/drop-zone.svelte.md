@@ -7,10 +7,6 @@
 
   const { VITE_AZURE_BLOB_SERVICE_SAS_URL } = import.meta.env;
 
-  let fileInput;
-  let status;
-  let statusMessages = [];
-  let message = "";
   let containersList = [];
   let filesArray = [];
   let loading = false;

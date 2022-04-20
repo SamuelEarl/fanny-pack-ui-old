@@ -43,9 +43,14 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-btn-primary-text-color: white;
   --fpui-btn-secondary-text-color: white;
   --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
+  /* The --fpui-btn-padding variables will make the button larger or smaller. */
   --fpui-btn-padding-sm: var(--fpui-padding-sm);
   --fpui-btn-padding-md: var(--fpui-padding-md);
   --fpui-btn-padding-lg: var(--fpui-padding-lg);
+  /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
+  --fpui-btn-icon-margin-sm: var(--fpui-padding-sm);
+  --fpui-btn-icon-margin-md: var(--fpui-padding-md);
+  --fpui-btn-icon-margin-lg: var(--fpui-padding-md);
   --fpui-btn-font-weight: var(--fpui-font-weight-normal);
   /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpui-btn-icon-disabled-spin-speed: 1.5s;
@@ -82,14 +87,12 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Drop Zone (file upload) */
 :root {
-  --fpui-drop-zone-border-and-text-color: #797979;
-  --fpui-drop-zone-border-and-text-color-active: #343434;
+  --fpui-drop-zone-border-and-text-color: #343434;
+  --fpui-drop-zone-bg-color: #e5e5e5;
   --fpui-drop-zone-bg-color-active: white;
   --fpui-drop-zone-border-radius: var(--fpui-border-radius);
-  --fpui-drop-zone-bg-color: #e5e5e5;
-  --fpui-drop-zone-button-text-color: white;
-  --fpui-drop-zone-files-to-upload-bg-color: #e5e5e5;
-  --fpui-drop-zone-files-to-upload-text-color: #343434;
+  --fpui-drop-zone-files-set-for-upload-bg-color: #e5e5e5;
+  --fpui-drop-zone-files-set-for-upload-text-color: #343434;
 }
 
 /* Input (currency, text) */

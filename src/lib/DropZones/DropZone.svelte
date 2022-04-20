@@ -5,17 +5,14 @@
   import { Button } from "../Buttons";
   import { theme } from "/src/fpui-theme";
 
+  export let dropZoneSelectFilesBtnIcon = theme.dropZoneSelectFilesBtnIcon;
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
-  export let dropZoneUploadFileBtnIcon = theme.dropZoneUploadFileBtnIcon;
+  export let dropZoneUploadFilesBtnIcon = theme.dropZoneUploadFilesBtnIcon;
   export let uploadFiles;
 
+  let fileInput;
   let events = ["dragenter", "dragover", "dragleave", "drop"];
   let files = [];
-  // let files = [
-  //   { id: "1", name: "really-long-file-name-right-here.csv", },
-  //   { id: "2", name: "another-file.csv",},
-  //   { id: "3", name: "really-long-file-name-right-here.csv", },
-  // ];
   
   let active = false;
   // This reactive block will reset `active` to false if the user removes all files to be uploaded.
@@ -102,18 +99,21 @@
 
 
 <div 
-  id="drop-zone"
+  class="drop-zone"
   class:active
   on:drop|preventDefault={handleDrop}
   on:dragenter|preventDefault={() => active = true}
   on:dragover|preventDefault={() => active = true}
   on:dragleave|preventDefault={() => active = false}
 >
-  <div id="file-input-wrapper">
-    <input 
+  <div class="file-input-container">
+    <span class="file-input-btn-container">
+      <Button btnIcon={dropZoneSelectFilesBtnIcon} id="file-input-btn" on:click={() => fileInput.click()}>Select Files</Button>
+    </span>
+    <input
+      bind:this={fileInput}
       type="file" 
-      id="file-input-btn" 
-      class:active
+      class="file-input-field" 
       multiple
       accept="*"
       on:change={(event) => {
@@ -123,18 +123,18 @@
       }}
     >
   </div>
-  <div id="drag-drop-text-wrapper">
+  <div class="drag-drop-text-container">
     <slot>Or Drag &amp; Drop Files Here</slot>
   </div>
-  <div id="drag-drop-icon-wrapper">
+  <div class="drag-drop-icon-container">
     <Icon icon="{dragAndDropIcon}" width="50" />
   </div>
 
   {#if files.length > 0}
-    <div id="upload-files-container">
-      <div id="upload-all-files-btn-wrapper">
+    <div class="upload-files-container">
+      <div class="upload-all-files-btn-container">
         <Button
-          btnIcon={dropZoneUploadFileBtnIcon}
+          btnIcon={dropZoneUploadFilesBtnIcon}
           disabled={uploading}
           on:click={handleUpload}
         >
@@ -142,7 +142,7 @@
         </Button>
       </div>
       {#each files as file (file.id)}
-        <div class="file-wrapper">
+        <div class="file-container">
           <div class="file-name">{file.name}</div>
           <button class="remove-file-btn" on:click={() => removeFile(file)} disabled={uploading}><Icon icon="ri:delete-bin-2-line" width="16" /></button>
         </div>
@@ -153,7 +153,7 @@
 
 
 <style>
-  #drop-zone {
+  .drop-zone {
     padding: 20px;
     padding-bottom: 5px;
     border: 2px dashed;
@@ -166,70 +166,41 @@
     transition: border 0.25s ease-in-out;
 
     &.active {
-      border-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
       background-color: var(--fpui-drop-zone-bg-color-active, white);
-      color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
     }
 
-    & #file-input-wrapper {
+    & .file-input-container {
       margin-bottom: 30px;
       pointer-events: none;
 
-      /* Custom File Input Styling: https://css-tricks.com/snippets/css/custom-file-input-styling-webkitblink/ */
-      & #file-input-btn {
-        width: 200px;
+      & .file-input-btn-container {
         pointer-events: all;
+      }
 
-        &::file-selector-button {
-          width: 0;
-        }
-
-        &::-webkit-file-upload-button {
-          visibility: hidden;
-        }
-
-        &::before {
-          width: 100%;
-          padding: 10px 20px;
-          display: inline-block;
-          text-align: center;
-          content: "Select Files";
-          background-color: var(--fpui-drop-zone-border-and-text-color, #797979);
-          color: var(--fpui-drop-zone-button-text-color, white);
-          border-radius: var(--fpui-drop-zone-border-radius, 3px);
-          outline: none;
-          white-space: nowrap;
-          -webkit-user-select: none;
-          cursor: pointer;
-        }
-        &:hover::before {
-          background-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
-        }
-
-        &.active::before {
-          background-color: var(--fpui-drop-zone-border-and-text-color-active, #343434);
-        }
-
-        &.active:hover::before {
-          background-color: var(--fpui-drop-zone-border-and-text-color, #797979);
-        }
+      /* Hide the file input field. */
+      & .file-input-field {
+        display: none;
       }
     }
 
-    & #drag-drop-text-wrapper {
+    & .drag-drop-text-container {
       margin-bottom: 10px;
       pointer-events: none;
     }
 
-    & #drag-drop-icon-wrapper {
+    & .drag-drop-icon-container {
       margin-bottom: 5px;
       pointer-events: none;
     }
 
-    & #upload-files-container {
+    & .upload-files-container {
       margin: 20px 0;
 
-      & .file-wrapper {
+      & .upload-all-files-btn-container {
+        margin-bottom: 20px;
+      }
+
+      & .file-container {
         display: flex;
         margin: 10px 0;
         text-align: left;
@@ -238,8 +209,8 @@
           flex: 1;
           padding: 5px;
           border-radius: 3px;
-          background-color: var(--fpui-drop-zone-files-to-upload-bg-color, #e5e5e5);
-          color: var(--fpui-drop-zone-files-to-upload-text-color, #343434);
+          background-color: var(--fpui-drop-zone-files-set-for-upload-bg-color, #e5e5e5);
+          color: var(--fpui-drop-zone-files-set-for-upload-text-color, #343434);
         }
 
         & .remove-file-btn {

@@ -35,20 +35,20 @@
       <!-- ...show a spinning disabled icon. -->
       {#if btnIconDisabledShouldSpin}
         <!-- If no slots (i.e. button text) are passed to this component, then `btnTextSlotsExist` will be false and no icon margin will be set. -->
-        <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <!-- NOTE: You can't dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpui-spin" class and once without. -->
-          <Icon icon="{btnIconDisabled}" class="fpui-spin" />
+        <span class={`btn-icon left disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
+          <!-- NOTE: You can NOT dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpui-spin" class and once without. -->
+          <Icon icon={btnIconDisabled} class="fpui-spin" />
         </span>
       <!-- ...or show a non-spinning disabled icon. -->
       {:else}
-        <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon="{btnIconDisabled}" />
+        <span class={`btn-icon left disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
+          <Icon icon={btnIconDisabled} />
         </span>
       {/if}
     <!-- If the button is not disabled, then show the btnIcon. -->
     {:else}
-      <span class={`btn-icon-left icon-margin-${btnTextSlotsExist ? size : null}`}>
-        <Icon icon="{btnIcon}" />
+      <span class={`btn-icon left icon-margin-${btnTextSlotsExist ? size : null}`}>
+        <Icon icon={btnIcon} />
       </span>
     {/if}
   {/if}
@@ -62,17 +62,17 @@
   {#if btnIcon && btnIconDisabled && btnIconSide === "right"}
     {#if disabled}
       {#if btnIconDisabledShouldSpin}
-        <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon="{btnIconDisabled}" class="fpui-spin" />
+        <span class={`btn-icon right disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
+          <Icon icon={btnIconDisabled} class="fpui-spin" />
         </span>
       {:else}
-        <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon="{btnIconDisabled}" />
+        <span class={`btn-icon right disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
+          <Icon icon={btnIconDisabled} />
         </span>
       {/if}
     {:else}
-      <span class={`btn-icon-right icon-margin-${btnTextSlotsExist ? size : null}`}>
-        <Icon icon="{btnIcon}" />
+      <span class={`btn-icon right icon-margin-${btnTextSlotsExist ? size : null}`}>
+        <Icon icon={btnIcon} />
       </span>
     {/if}
   {/if}
@@ -105,28 +105,40 @@
       font-size: var(--custom-btn-font-size, var(--fpui-font-size-lg, 20px));
     }
 
-    & .btn-icon-left {
+    & .btn-icon {
+      
+      &.left {
 
-      &.icon-margin-sm {
-        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-sm, 5px));
+        &.icon-margin-sm {
+          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-sm, 5px));
+        }
+        &.icon-margin-md {
+          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-md, 10px));
+        }
+        &.icon-margin-lg {
+          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-lg, 15px));
+        }
       }
-      &.icon-margin-md {
-        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-md, 10px));
-      }
-      &.icon-margin-lg {
-        margin-right: var(--custom-btn-icon-space, var(--fpui-btn-padding-lg, 15px));
-      }
-    }
-    & .btn-icon-right {
 
-      &.icon-margin-sm {
-        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-sm, 5px));
+      &.right {
+
+        &.icon-margin-sm {
+          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-sm, 5px));
+        }
+        &.icon-margin-md {
+          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-md, 10px));
+        }
+        &.icon-margin-lg {
+          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-lg, 15px));
+        }
       }
-      &.icon-margin-md {
-        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-md, 10px));
+
+      & :global(.iconify) {
+        transform: rotate(var(--custom-btn-icon-rotate, 0deg));
       }
-      &.icon-margin-lg {
-        margin-left: var(--custom-btn-icon-space, var(--fpui-btn-padding-lg, 15px));
+
+      &.disabled :global(.iconify) {
+        transform: rotate(var(--custom-btn-icon-disabled-rotate, 0deg));
       }
     }
   }
