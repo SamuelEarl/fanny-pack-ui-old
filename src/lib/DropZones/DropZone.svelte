@@ -72,27 +72,33 @@
 
   function addFiles(newFiles) {
     console.log("New Files:", newFiles);
-    formData = new FormData();
+
+    // If there is no existing formData object, then create a new one.
+    // This will allow new files to be added to the end of the existing list of files.
+    if (!formData) {
+      formData = new FormData();
+    }
 
     for (let i = 0; i < newFiles.length; i++) {
       console.log("File Name:", newFiles[i].name);
       let id = `${newFiles[i].name}-${newFiles[i].size}-${newFiles[i].lastModified}-${newFiles[i].type}`;
-      // Append each file with a unique ID as the key. This key can then be used to remove files.
-      formData.append(id, newFiles[i]);
+      // // Append each file with a unique ID as the key. This key can then be used to remove files.
+      // formData.append(id, newFiles[i]);
 
-      // if (formData) {
-      //   // Use formData.keys() to create an array of formData keys.
-      //   for (let key of formData.keys()) {
-      //     formDataKeys.push(key);
-      //   }
-      //   // If the formDataKeys array does not already include the id of the new file (in this iteration of the loop), then append the new file to formData.
-      //   // This will remove any duplicate files in the formData.
-      //   if (!formDataKeys.includes(id)) {
-      //     formData.append(id, newFiles[i]);
-      //   }
-      // }
-      // // formData.append("files", newFiles[i]);
+// TODO: I need verify that this function is working the way that I think it is. I need to also see if this formDataKeys array is storing the correct keys or if there are duplicates when there should not be.
+      // Use formData.keys() to create an array of formData keys.
+      for (let key of formData.keys()) {
+        formDataKeys.push(key);
+      }
+      console.log("formDataKeys:", formDataKeys);
+      // If the formDataKeys array does not already include the id of the new file (in this iteration of the loop), then append the new file to formData.
+      // This will remove any duplicate files in the formData.
+      if (!formDataKeys.includes(id)) {
+        formData.append(id, newFiles[i]);
+      }
     }
+
+    formData = formData;
 
     // console.log("Added Files:", formData.getAll("files"));
 	}
@@ -117,7 +123,8 @@
   //   }
 	// }
 
-  // TODO: Right now I am using unique keys for each file that gets appended to the formData object so I can remove individual files in the DropZone component. However, that seems unnecessary and causes the code to be a bit complex. Maybe I should use the same "files" key for all of these files and have a "Remove Files" button that will clear out all the files. I think if I can access all the files with a formData.getAll("files") method, then it might be much easier to process and upload the files in the API endpoint.
+  // TODO: UPDATE: I think I have fixed this and kept the same delete file functionality. 
+  // Right now I am using unique keys for each file that gets appended to the formData object so I can remove individual files in the DropZone component. However, that seems unnecessary and causes the code to be a bit complex. Maybe I should use the same "files" key for all of these files and have a "Remove Files" button that will clear out all the files. I think if I can access all the files with a formData.getAll("files") method, then it might be much easier to process and upload the files in the API endpoint.
   function removeFile(fileKey) {
     formData.delete(fileKey);
     formData = formData;
@@ -144,10 +151,22 @@
         console.log("Form Data handleUpload:", `${entry[0]}: ${entry[1]}`);
       }
 
-      await uploadFiles(formData);
+      // Create a new FormData object where each key is "files". This should make it easier to loop over and process and upload the files if they all have the same key. A user can access the files with formData.getAll("files").
+      let reformattedFormData = new FormData();
+      let formDataArray = [...formData.values()];
+      console.log("formDataArray:", formDataArray);
+      for (let i = 0; i < formDataArray.length; i++) {
+        reformattedFormData.append("files", formDataArray[i]);
+      }
+
+      console.log("reformattedFormData:", reformattedFormData.getAll("files"));
+
+      await uploadFiles(reformattedFormData);
       uploading = false;
       // Clear the formData object, which will also clear the list of files in the DropZone.
       formData = null;
+      // Reset the formDataKeys array.
+      formDataKeys.length = 0;
     }
     catch(err) {
       console.error("handleUpload Error:", err);
