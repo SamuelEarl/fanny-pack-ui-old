@@ -153,10 +153,11 @@
 
       // Create a new FormData object where each key is "files". This should make it easier to loop over and process and upload the files if they all have the same key. A user can access the files with formData.getAll("files").
       let reformattedFormData = new FormData();
-      let formDataArray = [...formData.values()];
-      console.log("formDataArray:", formDataArray);
-      for (let i = 0; i < formDataArray.length; i++) {
-        reformattedFormData.append("files", formDataArray[i]);
+      // Get the values from the formData object, which are each File objects.
+      let formDataValuesArray = [...formData.values()];
+      console.log("formDataValuesArray:", formDataValuesArray);
+      for (let i = 0; i < formDataValuesArray.length; i++) {
+        reformattedFormData.append("files", formDataValuesArray[i]);
       }
 
       console.log("reformattedFormData:", reformattedFormData.getAll("files"));
