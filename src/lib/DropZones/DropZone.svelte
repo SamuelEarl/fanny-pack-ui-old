@@ -13,47 +13,21 @@
   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
   let formData;
   let formDataKeys = [];
-  // files is an array of `FormDataEntryValue`s. See https://developer.mozilla.org/en-US/docs/Web/API/FormData/getAll.
-  // $: files = formData.getAll("files");
-  // let files = [];
   let events = ["dragenter", "dragover", "dragleave", "drop"];
   let fileInput;
-  
   let active = false;
-  // // This reactive block will reset `active` to false if the user removes all files to be uploaded.
-  // $: {
-  //   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
-  //   // formData.entries() returns an iterator, but I need to work with an array.
-  //   // The [...formData.entries()] syntax is how you convert an iterable to an array.
-  //   // See https://www.samanthaming.com/tidbits/78-iterables-to-array-using-spread/
-  //   if (formData && [...formData.entries()].length > 0) {
-  //     active = true;
-  //   }
-  //   else {
-  //     active = false;
-  //   }
-  // }
-  // $: {
-  //   if (files.length > 0) {
-  //     active = true;
-  //   }
-  //   else {
-  //     active = false;
-  //   }
-  // }
-  
   let uploading = false;
 
   onMount(() => {
     // Loop over the list of events and prevent the default behavior for each event on the document body.
-    // If you do not do this, then if a user drops files on your web app, but outside of the drop zone, then the browser's default behavior might download the file through the browser or it might open a new tab in the browser. So preventing these default behaviors will also help to prevent confusion for your users.
+    // If you do not do this, then if a user drops files on your web app, but outside of the drop zone, then the browser's default behavior might download the file through the browser or it might open a new tab in the browser or whatever your browser's default behavior is. So preventing these default behaviors will also help to prevent confusion for your users if they accidentally drop files in the wrong place within your app.
     events.forEach((eventName) => {
       document.body.addEventListener(eventName, preventDefaults);
     });
   });
 
   onDestroy(() => {
-    // The onDestroy hook also runs on the server, so `document` will throw an undefined error. You can prevent that by checking if the environment is a browser. See https://github.com/sveltejs/kit/discussions/2741.
+    // The onDestroy hook also runs on the server, so `document` will throw an `undefined` error. You can prevent that by checking if the environment is a `browser`. See https://github.com/sveltejs/kit/discussions/2741.
     if (browser) {
       // Remove the event listeners when this component is destroyed.
       events.forEach((eventName) => {
@@ -96,26 +70,6 @@
     formData = formData;
 	}
 
-  // function addFiles(newFiles) {
-  //   console.log("New Files:", newFiles);
-	// 	let newUploadableFiles = [...newFiles].map((file) => createUploadableFile(file)).filter((file) => !fileExists(file.id));
-	// 	files = files.concat(newUploadableFiles);
-  //   console.log("DropZone Files:", files);
-	// }
-
-	// function fileExists(otherId) {
-	// 	return files.some(({ id }) => id === otherId);
-	// }
-
-	// function removeFile(file) {
-  //   let index = files.indexOf(file);
-	// 	if (index > -1) {
-  //     files.splice(index, 1);
-  //     console.log("Form Data:", files);
-  //     files = files;
-  //   }
-	// }
-
   /**
    * Since each file that is appended to the FormData object has a unique key, 
    * this function can use that key to delete a file from the FormData object. 
@@ -126,19 +80,6 @@
     formData.delete(fileKey);
     formData = formData;
   }
-
-  // function createUploadableFile(file) {
-  //   return {
-  //     lastModified: file.lastModified,
-  //     lastModifiedDate: file.lastModifiedDate,
-  //     name: file.name,
-  //     size: file.size,
-  //     type: file.type,
-  //     id: `${file.name}-${file.size}-${file.lastModified}-${file.type}`,
-  //     url: URL.createObjectURL(file),
-  //     status: null,
-  //   };
-  // }
 
   async function handleUpload() {
     try {
@@ -157,23 +98,14 @@
         reformattedFormData.append("files", formDataValuesArray[i]);
       }
 
-      console.log("reformattedFormData:", reformattedFormData.getAll("files"));
-
-      setTimeout(async () => {
-        await uploadFiles(reformattedFormData);
-        uploading = false;
-        formData = null;
-        formDataKeys.length = 0;
-      }, 10000);
-
-      // // Call the `uploadFiles()` function that is passed in as props to this component and pass it the new reformattedFormData object.
-      // await uploadFiles(reformattedFormData);
-      // // Once execution returns back to this function, set `uploading` back to false to re-enable the buttons in this component.
-      // uploading = false;
-      // // Clear the FormData object, which will also clear the list of files in the DropZone.
-      // formData = null;
-      // // Clear the formDataKeys array so it is reset for a new batch of files to be uploaded.
-      // formDataKeys.length = 0;
+      // Call the `uploadFiles()` function that is passed in as props to this component and pass it the new reformattedFormData object.
+      await uploadFiles(reformattedFormData);
+      // Once execution returns back to this function, set `uploading` back to false to re-enable the buttons in this component.
+      uploading = false;
+      // Clear the FormData object, which will also clear the list of files in the DropZone.
+      formData = null;
+      // Clear the formDataKeys array so it is reset for a new batch of files to be uploaded.
+      formDataKeys.length = 0;
     }
     catch(err) {
       console.error("handleUpload Error:", err);
@@ -211,6 +143,7 @@
   }}
 >
   <div class="file-input-container">
+    <!-- Wrap the #file-input-btn in a span so you can reset the `pointer-events` to `auto` in the CSS. -->
     <span class="file-input-btn-container">
       <Button
         id="file-input-btn" 
@@ -244,7 +177,6 @@
     <Icon icon="{dragAndDropIcon}" width="50" />
   </div>
 
-  <!-- {#if files.length > 0} -->
   {#if formData && [...formData.entries()].length > 0}
     <div class="upload-files-container">
       <div class="upload-all-files-btn-container">
@@ -256,7 +188,6 @@
           Upload Files
         </Button>
       </div>
-      <!-- {#each files as file (file.id)} -->
       {#each [...formData.entries()] as file (file[0])}
         <div class="file-container">
           <div class="file-name" class:active>{file[1].name}</div>
@@ -289,10 +220,14 @@
 
     & .file-input-container {
       margin-bottom: 30px;
+      /* The pointer-events CSS property sets under what circumstances (if any) a particular graphic element can become the target of pointer events. (https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) */
+      /* What does the `pointer-events: none` rule do? The .drop-zone element is configured to change state from inactive to active when a user drags files over the top of it. But the .drop-zone element has child elements nested inside of it. Each time a user drags files over the top of any of those child elements the browser acts as if the user leaves the .drop-zone element and enters the child element for a moment. However, the drag events bubble up from the child elements and are handled by the .drop-zone element. The drag events that the .drop-zone element handles each fire at different times, which causes the active state to switch back and forth causing the UI to flicker. */
+      /* The pointer-events rules provide specific instructions to specific elements telling them which ones can receive pointer events (e.g. hover events) and which ones cannot. Setting some elements to `pointer-events: none` tells them that they cannot receive any pointer events. So pointer events won't fire on those elements when they are being hovered, which eliminates the flickering issue. */
       pointer-events: none;
 
       & .file-input-btn-container {
-        pointer-events: all;
+        /* Pointer events rules trickle down to child elements. So if you have any child elements that need to have pointer events enabled, then you have to specifically state which child elements should have pointer events. */
+        pointer-events: auto;
       }
 
       /* Hide the file input field. */

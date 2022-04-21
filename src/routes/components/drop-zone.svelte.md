@@ -199,7 +199,7 @@ One additional benefit of using your cloud storage service's APIs is that they w
 
 ## Example Usage
 
-<DropZone {uploadFiles} />
+<DropZone {uploadFiles}>File Drop</DropZone>
 
 <br>
 

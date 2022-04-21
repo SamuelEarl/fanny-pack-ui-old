@@ -37,8 +37,8 @@
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="icomoon-free:spinner2"
-  btnIconSide="right"
   btnIconDisabledShouldSpin={true}
+  btnIconSide="right"
   on:click={handleCreateAccount}
 >
   Create Account
@@ -67,8 +67,8 @@
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="icomoon-free:spinner2"
-  btnIconSide="right"
   btnIconDisabledShouldSpin={true}
+  btnIconSide="right"
   on:click={handleCreateAccount}
 >
   Create Account
@@ -90,8 +90,8 @@
       disabled={creatingAccount}
       btnIcon="bi:person-plus-fill"
       btnIconDisabled="bi:gear-wide-connected"
-      btnIconSide="right"
       btnIconDisabledShouldSpin={true}
+      btnIconSide="right"
       on:click={handleCreateAccount}
     >
       Create Account
@@ -108,8 +108,8 @@
       disabled={creatingAccount}
       btnIcon="bi:person-plus-fill"
       btnIconDisabled="bi:gear-wide-connected"
-      btnIconSide="right"
       btnIconDisabledShouldSpin={true}
+      btnIconSide="right"
       on:click={handleCreateAccount}
     >
       Create Account
@@ -230,8 +230,8 @@ You can set the following custom variables:
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="bi:gear-wide-connected"
-  btnIconSide="right"
   btnIconDisabledShouldSpin={true}
+  btnIconSide="right"
   on:click={handleCreateAccount}
 >
   Create Account
@@ -259,8 +259,8 @@ You can set the following custom variables:
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="bi:gear-wide-connected"
-  btnIconSide="right"
   btnIconDisabledShouldSpin={true}
+  btnIconSide="right"
   on:click={handleCreateAccount}
 >
   Create Account
@@ -282,8 +282,8 @@ You can set the following custom variables:
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fpui-theme.ts` file. | See the heading [Enable JavaScript Variables](/get-started#enable-js-vars) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
-| `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
+| `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
 
 <br><br>
 
