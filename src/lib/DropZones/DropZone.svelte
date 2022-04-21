@@ -12,7 +12,6 @@
 
   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
   let formData;
-  let formDataKeys = [];
   let events = ["dragenter", "dragover", "dragleave", "drop"];
   let fileInput;
   let active = false;
@@ -57,12 +56,10 @@
       // Create a unique ID for each file that will be used as the key when the file is appended to the FormData object.
       let id = `${newFiles[i].name}-${newFiles[i].size}-${newFiles[i].lastModified}-${newFiles[i].type}`;
       
-      // If the formDataKeys array does not already include the id of the new file (from this iteration of the loop), then append the new file to the FormData object and push the id to the formDataKeys array so this file will not be duplicated in the FormData object.
-      if (!formDataKeys.includes(id)) {
+      // If the FormData object does not already contain an entry with a key equal to the id of the new file, then append the new file to the FormData object and give it a key equal to the id value that is created above. This will prevent duplicate files from being appended to the FormData object.
+      if (!formData.has(id)) {
         // Append each file with a unique ID as the key. This key can then be used to remove files.
         formData.append(id, newFiles[i]);
-        // Push the id to the formDataKeys array.
-        formDataKeys.push(id);
       }
     }
 
@@ -104,8 +101,6 @@
       uploading = false;
       // Clear the FormData object, which will also clear the list of files in the DropZone.
       formData = null;
-      // Clear the formDataKeys array so it is reset for a new batch of files to be uploaded.
-      formDataKeys.length = 0;
     }
     catch(err) {
       console.error("handleUpload Error:", err);
