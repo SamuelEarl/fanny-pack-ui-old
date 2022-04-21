@@ -5,91 +5,49 @@
   import { BlobServiceClient } from "@azure/storage-blob";
   import Icon from "@iconify/svelte";
 
-  const { VITE_AZURE_BLOB_SERVICE_SAS_URL } = import.meta.env;
+  // const { VITE_AZURE_BLOB_SERVICE_SAS_URL } = import.meta.env;
 
   let containersList = [];
   let filesArray = [];
   let loading = false;
 
-  // Create a new BlobServiceClient.
-  const blobServiceClient = new BlobServiceClient(VITE_AZURE_BLOB_SERVICE_SAS_URL);
-  // Create a unique name for the container by appending the current time to the file name.
-  // const containerName = "container" + new Date().getTime();
-  const containerName = "acmeco";
-  // Get a container client from the BlobServiceClient.
-  const containerClient = blobServiceClient.getContainerClient(containerName);
-
-  onMount(async () => {
-    await getContainers();
-    if (!containersList.includes(containerName)) {
-      await createContainer();
-    }
-    await getFiles();
-  });
-
-  async function getContainers() {
-    // Reset the containersList so the DOM will show the current items in the array when this function finishes executing.
-    containersList.length = 0;
-
-    try {
-      let i = 1;
-      let containers = blobServiceClient.listContainers();
-      console.log("List of Containers from getContainers():");
-      for await (const container of containers) {
-        console.log(`Container ${i++}: ${container.name}`);
-        containersList.push(container.name);
-      }
-      containersList = containersList;
-    }
-    catch(err) {
-      console.log("getContainers Error:", err);
-    }
-  }
-
-  async function createContainer() {
-    try {
-      await containerClient.create();
-    } 
-    catch(err) {
-      console.error("createContainer Error:", err);
-    }
-  }
-
-  // This code calls the ContainerClient.listBlobsFlat function, then uses an iterator to retrieve the name of each BlobItem returned. For each BlobItem, it updates the Files list with the name property value.
-  async function getFiles() {
-    let updatedFilesArray = [];
-
-    try {
-      let iter = containerClient.listBlobsFlat();
-      let blobItem = await iter.next();
-      while (!blobItem.done) {
-        updatedFilesArray.push(blobItem);
-        blobItem = await iter.next();
-      }
-      // Use Svelte's reactive assignment to show the current state of filesArray in the DOM.
-      filesArray = updatedFilesArray;
-      console.log("FILES ARRAY:", filesArray);
-    }
-    catch(err) {
-      console.error("getFiles Error:", err);
-    }
-  }
-
   // Pass a function named "uploadFiles" to the <DropZone /> component.
   // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
   // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
-  async function uploadFiles(files) {
+  async function uploadFiles(formData) {
     try {
-      const promises = [];
-      for (const file of files) {
-        // Get a blockBlobClient from the containerClient.
-        // NOTE: You might want to add a unique ID to the end of each filename so your users do not accidentally overwrite any files that have the same filename. Or if their is an API setting that does not allow users to overwrite existing files, then you may want to use that.
-        const blockBlobClient = containerClient.getBlockBlobClient(file.name);
-        promises.push(blockBlobClient.uploadBrowserData(file));
+      loading = true;
+
+      console.log("Form Data (browser):", [...formData.entries()]);
+
+      let url = "/api/handle-file-uploads";
+      let response = await fetch(url, {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
       }
-      await Promise.all(promises);
-      await getFiles();
+      
+      let result = await response.json();
+      console.log("uploadFiles Result:", result);
+
+      let filenamesList = "";
+      for (let i = 0; i < result.length; i++) {
+        let separator;
+        // Separate each filename with a comma and a space except for the last filename.
+        if (i === result.length - 1) {
+          separator = "";
+        }
+        else {
+          separator = ", ";
+        }
+        filenamesList = filenamesList + result[i] + separator;
+      }
       ToastContent.set({ type: "success", msg: "Files have been uploaded." });
+
+      loading = false;
     }
     catch(err) {
       console.error("uploadFiles Error:", err);
@@ -97,17 +55,125 @@
     }
   }
 
-  async function deleteFile(file) {
-    try {
-      loading = true;
-      await containerClient.deleteBlob(file);
-      await getFiles();
-      loading = false;
-    }
-    catch(err) {
-      console.error("deleteFile Error:", err);
-    }
-  }
+  // // Pass a function named "uploadFiles" to the <DropZone /> component.
+  // // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
+  // // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+  // async function uploadFiles(files) {
+  //   try {
+  //     const promises = [];
+  //     for (const file of files) {
+  //       // Get a blockBlobClient from the containerClient.
+  //       // NOTE: You might want to add a unique ID to the end of each filename so your users do not accidentally overwrite any files that have the same filename. Or if their is an API setting that does not allow users to overwrite existing files, then you may want to use that.
+  //       const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+  //       promises.push(blockBlobClient.uploadBrowserData(file));
+  //     }
+  //     await Promise.all(promises);
+  //     await getFiles();
+  //     ToastContent.set({ type: "success", msg: "Files have been uploaded." });
+  //   }
+  //   catch(err) {
+  //     console.error("uploadFiles Error:", err);
+  //     ToastContent.set({ type: "error", msg: err.message });
+  //   }
+  // }
+
+  // // Create a new BlobServiceClient.
+  // const blobServiceClient = new BlobServiceClient(VITE_AZURE_BLOB_SERVICE_SAS_URL);
+  // // Create a unique name for the container by appending the current time to the file name.
+  // // const containerName = "container" + new Date().getTime();
+  // const containerName = "acmeco";
+  // // Get a container client from the BlobServiceClient.
+  // const containerClient = blobServiceClient.getContainerClient(containerName);
+
+  // onMount(async () => {
+  //   await getContainers();
+  //   if (!containersList.includes(containerName)) {
+  //     await createContainer();
+  //   }
+  //   await getFiles();
+  // });
+
+  // async function getContainers() {
+  //   // Reset the containersList so the DOM will show the current items in the array when this function finishes executing.
+  //   containersList.length = 0;
+
+  //   try {
+  //     let i = 1;
+  //     let containers = blobServiceClient.listContainers();
+  //     console.log("List of Containers from getContainers():");
+  //     for await (const container of containers) {
+  //       console.log(`Container ${i++}: ${container.name}`);
+  //       containersList.push(container.name);
+  //     }
+  //     containersList = containersList;
+  //   }
+  //   catch(err) {
+  //     console.log("getContainers Error:", err);
+  //   }
+  // }
+
+  // async function createContainer() {
+  //   try {
+  //     await containerClient.create();
+  //   } 
+  //   catch(err) {
+  //     console.error("createContainer Error:", err);
+  //   }
+  // }
+
+  // // This code calls the ContainerClient.listBlobsFlat function, then uses an iterator to retrieve the name of each BlobItem returned. For each BlobItem, it updates the Files list with the name property value.
+  // async function getFiles() {
+  //   let updatedFilesArray = [];
+
+  //   try {
+  //     let iter = containerClient.listBlobsFlat();
+  //     let blobItem = await iter.next();
+  //     while (!blobItem.done) {
+  //       updatedFilesArray.push(blobItem);
+  //       blobItem = await iter.next();
+  //     }
+  //     // Use Svelte's reactive assignment to show the current state of filesArray in the DOM.
+  //     filesArray = updatedFilesArray;
+  //     console.log("FILES ARRAY:", filesArray);
+  //   }
+  //   catch(err) {
+  //     console.error("getFiles Error:", err);
+  //   }
+  // }
+
+  // // Pass a function named "uploadFiles" to the <DropZone /> component.
+  // // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
+  // // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+  // async function uploadFiles(files) {
+  //   try {
+  //     const promises = [];
+  //     for (const file of files) {
+  //       // Get a blockBlobClient from the containerClient.
+  //       // NOTE: You might want to add a unique ID to the end of each filename so your users do not accidentally overwrite any files that have the same filename. Or if their is an API setting that does not allow users to overwrite existing files, then you may want to use that.
+  //       const blockBlobClient = containerClient.getBlockBlobClient(file.name);
+  //       promises.push(blockBlobClient.uploadBrowserData(file));
+  //     }
+  //     await Promise.all(promises);
+  //     await getFiles();
+  //     ToastContent.set({ type: "success", msg: "Files have been uploaded." });
+  //   }
+  //   catch(err) {
+  //     console.error("uploadFiles Error:", err);
+  //     ToastContent.set({ type: "error", msg: err.message });
+  //   }
+  // }
+
+  // async function deleteFile(file) {
+  //   try {
+  //     loading = true;
+  //     await containerClient.deleteBlob(file);
+  //     await getFiles();
+  //     loading = false;
+  //   }
+  //   catch(err) {
+  //     console.error("deleteFile Error:", err);
+  //   }
+  // }
 </script>
 
 
@@ -147,7 +213,7 @@ This will be the final version:
 
 <br>
 
-<div><b>Files in the <em>{containerName}</em> container:</b></div>
+<div><b>Files in the folder:</b></div>
 {#if filesArray.length > 0}
   {#each filesArray as file (file.value.name)}
     <div class="file-wrapper">

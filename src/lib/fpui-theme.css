@@ -91,7 +91,7 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-drop-zone-bg-color: #e5e5e5;
   --fpui-drop-zone-bg-color-active: white;
   --fpui-drop-zone-border-radius: var(--fpui-border-radius);
-  --fpui-drop-zone-files-set-for-upload-bg-color: #e5e5e5;
+  --fpui-drop-zone-files-set-for-upload-bg-color: white;
   --fpui-drop-zone-files-set-for-upload-text-color: #343434;
 }
 
