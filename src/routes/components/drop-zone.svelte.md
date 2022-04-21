@@ -185,13 +185,13 @@
 
 ---
 
-File uploads are handled a bit differently in modern web development than they were once upon a time. For example, nowadays you will most likely use a cloud object storage service like Amazon S3, Cloudflare R2, Google Cloud Storage, Azure Storage, Cloudinary, or Uploadcare to handle your file storage (or at least you should use a cloud storage service). Each cloud storage service provides its own APIs and many of them even provide widgets that you can plug into your web app and use "off-the-shelf" to connect with the cloud storage service.
+File uploads are handled a bit differently in modern web development than they were once upon a time. For example, nowadays you will most likely use a cloud object storage service like Amazon S3, Cloudflare R2, Google Cloud Storage, Azure Storage, Cloudinary, or Uploadcare to handle your file storage (or at least you should use a cloud storage service). Each cloud storage service provides its own APIs and many of them even provide ready-made widgets that you can plug into your web app and use "off-the-shelf" to connect with the cloud storage service.
 
 Given that there are many cloud storage services available, each with their own set of APIs and functionality, it can be pretty difficult to create a file upload component that can be used with any cloud storage service. Since each cloud storage service provides their own APIs (and even widgets), I recommend that you read the docs for your cloud storage service and follow their instructions for creating a file upload component that you can reuse in your own apps. 
 
 Since maintaining consistent branding across your components is a common concern when using off-the-shelf widgets, I have written a tutorial on this page that walks you through creating a custom drop zone component. I will show you the concepts involved with a drop zone component and you can customize it to fit your needs.
 
-Many cloud storage services provide APIs for handling file uploads directly from your browser-side code or from your server-side code. I think the browser-side options might be a better choice for frontend frameworks (e.g. Svelte, Vue, React) and the server-side options might be a better choice for server frameworks (e.g. when you use the built-in template files for your frontend code - e.g. Express.js, FastAPI, Laravel). Also, as of this writing (April 2022), when creating a file upload component for SvelteKit you will probably want to use the browser-side option anyway because SvelteKit does not yet have the ability to handle large file uploads on the server-side. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO](https://github.com/sveltejs/kit/issues/3419) right now.
+Many cloud storage services provide APIs for handling file uploads directly from your browser-side code or from your server-side code. I think the browser-side options might be a better choice for frontend frameworks (e.g. Svelte, Vue, React) and the server-side options might be a better choice for server frameworks (e.g. when you use the built-in template files for your frontend code - e.g. Express.js, FastAPI, Laravel). Also, as of this writing (April 2022), when creating a file upload component for SvelteKit you will probably want to use the browser-side option anyway because SvelteKit does not yet have the ability to handle large file uploads on the server-side. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) right now.
 
 One additional benefit of using your cloud storage service's APIs is that they will take care of all the security issues for you, so you don't have to handle those things yourself. Cloud storage APIs for the win!
 
@@ -199,21 +199,11 @@ One additional benefit of using your cloud storage service's APIs is that they w
 
 ## Example Usage
 
-The only thing you have to do to get this component to work is pass it a function named "uploadFiles". Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to there service is what you will put in this function. Your "uploadFiles" function needs to be an async function and the signature need to match this one.
-
----
-
-## Tutorial
-
-This tutorial will show you how to create a custom drop zone component that integrates with Azure Storage. I am following this article: [Quickstart: Manage blobs with JavaScript v12 SDK in a browser](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser)
-
-This will be the final version:
-
 <DropZone {uploadFiles} />
 
 <br>
 
-<div><b>Files in the folder:</b></div>
+<div><b>Files in the storage bucket:</b></div>
 {#if filesArray.length > 0}
   {#each filesArray as file (file.value.name)}
     <div class="file-wrapper">
@@ -234,6 +224,23 @@ This will be the final version:
 {/if}
 
 <br><br>
+
+The only thing you have to do to get this component to work is pass it a function named "uploadFiles". Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to there service is what you will put in this function. Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+
+---
+
+## Slots
+| Slot name | Default value | Description |
+| --------- | ------------- | ----------- |
+| Default slot (optional) | `Or Drag & Drop Files Here` | The text/instructions that will be displayed in the drop zone. |
+
+<br>
+
+## Tutorial
+
+This tutorial will show you how to create a custom drop zone component that integrates with Azure Storage. I am following this article: [Quickstart: Manage blobs with JavaScript v12 SDK in a browser](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser)
+
+The final version from this tutorial will be identical to the component in the "Example Usage" section above.
 
 SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object).
 
