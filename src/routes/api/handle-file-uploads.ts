@@ -1,5 +1,5 @@
 // TODO: Finish this example by uploading files with Cloudflare workers: https://walshy.dev/blog/21_09_10-handling-file-uploads-with-cloudflare-workers.
-// I would like to see if Uploadcare has a server-side upload API.
+// I would like to see if Uploadcare has a server-side upload API. I can't find any server-side upload APIs for Uploadcare. Maybe I will just use Backblaze because that is what is shown in the tutorial link above.
 
 /** @type {import("@sveltejs/kit").RequestHandler} */
 export async function post({ request }) {
