@@ -18,7 +18,7 @@
     try {
       loading = true;
 
-      console.log("Form Data (browser):", [...formData.entries()]);
+      console.log("Form Data (browser):", formData.getAll("files"));
 
       let url = "/api/handle-file-uploads";
       let response = await fetch(url, {
@@ -191,7 +191,7 @@ Given that there are many cloud storage services available, each with their own 
 
 Since maintaining consistent branding across your components is a common concern when using off-the-shelf widgets, I have written a tutorial on this page that walks you through creating a custom drop zone component. I will show you the concepts involved with a drop zone component and you can customize it to fit your needs.
 
-Many cloud storage services provide APIs for handling file uploads directly from your browser-side code or from your server-side code. I think the browser-side options might be a better choice for frontend frameworks (e.g. Svelte, Vue, React) and the server-side options might be a better choice for server frameworks (e.g. when you use the built-in template files for your frontend code - e.g. Express.js, FastAPI, Laravel). Also, as of this writing (April 2022), when creating a file upload component for SvelteKit you will probably want to use the browser-side option anyway because SvelteKit does not yet have the ability to handle large file uploads on the server-side. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) right now.
+Many cloud storage services provide APIs for handling file uploads directly from your browser-side code or from your server-side code. I think the browser-side options might be a better choice for frontend frameworks (e.g. Svelte, Vue, React) and the server-side options might be a better choice for server frameworks (e.g. when you use the built-in template files for your frontend code - e.g. Express.js, FastAPI, Laravel). Also, as of this writing (April 2022), when creating a file upload component for SvelteKit you will probably want to use the browser-side option anyway because SvelteKit does not yet have the ability to handle large file uploads on the server-side. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) right now. See https://javascript.plainenglish.io/how-to-read-files-with-buffer-stream-in-node-js-d77de6ae6b49.
 
 One additional benefit of using your cloud storage service's APIs is that they will take care of all the security issues for you, so you don't have to handle those things yourself. Cloud storage APIs for the win!
 
@@ -242,6 +242,118 @@ This tutorial will show you how to create a custom drop zone component that inte
 
 The final version from this tutorial will be identical to the component in the "Example Usage" section above.
 
+## What is binary data?
+For computers to understand, process, and store data, those data have to be converted to **binary data**, known as **bits** or **binary digits** (i.e. 1's and 0's).
+
+A single character (e.g., `d`, `5`, `!`) takes up one **byte** of storage space. A byte is a data type that contains 8 bits. With 8 bits, a byte can hold values between zero and 255. You can also think of a byte as one character. For example, the letter "h" is one byte, or eight bits, and the word "hope" has four bytes or 32 bits (4 x 8 bits).
+
+Visually, bits and bytes look like this:
+<table id="bits">
+  <tr>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+  </tr>
+</table>
+
+One box represents one bit. All 8 boxes represents one byte.
+
+Every piece of data sent to the computer is first converted to binary data by a microprocessor before processing and outputting the result.
+
+*Maybe that is more information than you wanted to know, but this will come in handy.*
+
+
+## What is a buffer?
+Here's a simplified way of explaining what a buffer is:
+
+*Imagine that you're eating candy out of a bowl. You take one piece regularly. To prevent the bowl from running out, someone might refill the bowl before it gets empty, so that when you want to take another piece, there's candy in the bowl. The bowl acts as a buffer between you and the candy bag.*
+
+*If you're watching a movie online, the web service will continually download the next 5 minutes or so into a buffer, that way your computer doesn't have to download the movie as you're watching it (which would cause hanging).*
+(Reference: https://stackoverflow.com/a/648324/9453009)
+
+Here's another description:
+
+*The term "buffer" is a very generic term, and is not specific to IT or CS. It's a place to store something temporarily, in order to mitigate differences between input speed and output speed. While the producer is being faster than the consumer, the producer can continue to store output in the buffer. When the consumer gets around to it, it can read from the buffer. The buffer is there in the middle to bridge the gap.* (Reference: https://stackoverflow.com/a/648315/9453009)
+
+**A buffer is a temporary storage location (in memory) that is used to hold a chunk of data. For example, when data are sent to a destination, those data need to be stored somewhere (e.g. a buffer) until the destination is ready to take in more chunks of data for processing.**
+
+In the case of file uploads, the data are the files and the destination is either (1) your cloud storage service (e.g. when uploading files from your browser-side code directly to your cloud storage) or (2.a.) your server and then (2.b.) your cloud storage service (e.g. when uploading files from your browser-side code to your server-side code and then to your cloud storage).
+
+You can think of a buffer like an array of integers, which each represent a byte of data. This is an example of what a buffer looks like:
+
+```
+<Buffer 43 68 61 6e 67 65 20 6d 65 20 74 6f 20 62 75 66 66 65 72>
+```
+
+So you can imagine a buffer as an array of bytes, like this:
+
+<table id="bits">
+  <tr>
+    <td class="symbol">[</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td class="symbol">,</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>1</td>
+    <td class="symbol">,</td>
+    <td>0</td>
+    <td>0</td>
+    <td>1</td>
+    <td>0</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td>1</td>
+    <td class="symbol">,</td>
+    <td class="symbol">...</td>
+    <td class="symbol">]</td>
+  </tr>
+</table>
+
+<br>
+
+Node.js has a **[Buffer](https://nodejs.dev/learn/nodejs-buffers)** class that you can use to work with buffers.
+
+
+## How to read files in Node.js
+*You can watch this video for a great explanation of [Streams and Buffers](https://www.youtube.com/watch?v=GlybFFMXXmQ).*
+
+In order for a computer to read files it first needs to convert those files into a form that it can understand. As explained above that form is binary data. More specifically, a buffer is a byte array, so you need to convert your files into buffers.
+
+Buffers are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down your server or even crash it.
+
+Streams are a way to read small chunks of data (i.e. buffers) at a time rather than one massive file all at once. So when your programs read a file as a stream they read it piece by piece, processing its content without keeping it all in memory. That means that streams allow your programs to read much larger files while using less memory. If you don't use streams to read files, then you will have to wait for the entire file to be read before it can be processed, which can use up more memory.
+
+You can read more about [Node.js Streams and how to implement them here](https://nodejs.dev/learn/nodejs-streams).
+
+SIDE NOTE: Buffers were introduced to help developers deal with binary data in an ecosystem that traditionally only dealt with strings rather than binaries.
+
+## References
+* [Node.js buffer: A complete guide](https://blog.logrocket.com/node-js-buffer-a-complete-guide/)
+* [Binary Data](https://www.techopedia.com/definition/17929/binary-data#:~:text=Binary%20data%20is%20a%20type,combination%20of%20zeros%20and%20ones.)
+* [Understanding Bits, Bytes and Their Multiples](https://www.techopedia.com/2/29184/development/programming-languages/understanding-bits-bytes-and-their-multiples)
+* [Node.js Buffers](https://nodejs.dev/learn/nodejs-buffers)
+* [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
+
+---
+
 SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object).
 
 TODOS:
@@ -252,7 +364,28 @@ TODOS:
 * Blob stands for **B**inary **L**arge **Ob**ject, which includes objects such as images and multimedia files. These are known as unstructured data because they don't follow any particular data model. *(Source: [SnapLogic - Azure Blob Storage](https://www.snaplogic.com/glossary/azure-blob-storage#:~:text=Azure%20Blob%20storage%20is%20a,as%20images%20and%20multimedia%20files.))*
 
 
+
 <style>
+  table#bits {
+    width: auto;
+    font-family: mono;
+
+    & tr {
+      border: none;
+    }
+
+    & td {
+      padding: 5px 10px;
+      border: 1px solid #c7c7c7;
+    }
+
+    & .symbol {
+      border: none;
+      font-size: 2rem;
+      line-height: 1rem;
+    }
+  }
+
   .file-wrapper {
     display: flex;
     border-bottom: 1px dotted #343434;
