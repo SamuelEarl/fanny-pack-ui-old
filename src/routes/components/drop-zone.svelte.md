@@ -269,6 +269,8 @@ One box represents one bit. All 8 boxes represents one byte.
 
 Every piece of data sent to the computer is first converted to binary data by a microprocessor before processing and outputting the result.
 
+*NOTE: The number of bits per character is actually a bit more complex than what I explained above, but it works for our purposes. You can read more at this post: [How many bits or bytes are there in a character?](https://stackoverflow.com/a/4850316/9453009)*
+
 
 ## What is a buffer?
 Here's a simplified way of explaining what a buffer is:
