@@ -234,20 +234,24 @@ The only thing you have to do to get this component to work is pass it a functio
 | --------- | ------------- | ----------- |
 | Default slot (optional) | `Or Drag & Drop Files Here` | The text/instructions that will be displayed in the drop zone. |
 
-<br>
+<br><br><br><br><br>
 
-## Tutorial
+# Tutorial
 
 This tutorial will show you how to create a custom drop zone component that integrates with Azure Storage. I am following this article: [Quickstart: Manage blobs with JavaScript v12 SDK in a browser](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser)
 
 The final version from this tutorial will be identical to the component in the "Example Usage" section above.
 
+A file upload component is much more than just the frontend code. It might be better to describe the content of this tutorial as a file upload *feature* rather than just a file upload component. Before I can explain how to create a file upload feature, let me start with some foundational concepts.
+
+
 ## What is binary data?
 For computers to understand, process, and store data, those data have to be converted to **binary data**, known as **bits** or **binary digits** (i.e. 1's and 0's).
 
-A single character (e.g., `d`, `5`, `!`) takes up one **byte** of storage space. A byte is a data type that contains 8 bits. With 8 bits, a byte can hold values between zero and 255. You can also think of a byte as one character. For example, the letter "h" is one byte, or eight bits, and the word "hope" has four bytes or 32 bits (4 x 8 bits).
+A **byte** is a data type that contains 8 bits. A single character (e.g., `d`, `5`, `!`) takes up one byte of storage space, so you can also think of a byte as one character. For example, the letter "h" is one byte, or eight bits, and the word "hope" has four bytes or 32 bits (4 x 8 bits).
 
 Visually, bits and bytes look like this:
+
 <table id="bits">
   <tr>
     <td>1</td>
@@ -264,8 +268,6 @@ Visually, bits and bytes look like this:
 One box represents one bit. All 8 boxes represents one byte.
 
 Every piece of data sent to the computer is first converted to binary data by a microprocessor before processing and outputting the result.
-
-*Maybe that is more information than you wanted to know, but this will come in handy.*
 
 
 ## What is a buffer?
@@ -329,26 +331,38 @@ So you can imagine a buffer as an array of bytes, like this:
 
 <br>
 
-Node.js has a **[Buffer](https://nodejs.dev/learn/nodejs-buffers)** class that you can use to work with buffers.
+Node.js has a **[Buffer](https://nodejs.dev/learn/nodejs-buffers)** module that you can use to work with buffers.
 
 
 ## How to read files in Node.js
 *You can watch this video for a great explanation of [Streams and Buffers](https://www.youtube.com/watch?v=GlybFFMXXmQ).*
 
-In order for a computer to read files it first needs to convert those files into a form that it can understand. As explained above that form is binary data. More specifically, a buffer is a byte array, so you need to convert your files into buffers.
+In order for a computer to read files it first needs to convert those files into a form that it can understand, which is binary data. More specifically, you need to convert your files into buffers (because a buffer is a byte array).
+
+In Node.js, you can use the [`fs`](https://nodejs.dev/learn/the-nodejs-fs-module) module to open and read files. There are two ways you can open and read a file using the `fs` module:
+
+* Load all of the contents at once (buffering)
+* Incrementally load contents (streaming)
+
+*NOTE: JavaScript in the browser does not have access to the `fs` module. If you are trying to read a file in the browser, then you would have to use the [`FileReader` API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader).*
 
 Buffers are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down your server or even crash it.
 
 Streams are a way to read small chunks of data (i.e. buffers) at a time rather than one massive file all at once. So when your programs read a file as a stream they read it piece by piece, processing its content without keeping it all in memory. That means that streams allow your programs to read much larger files while using less memory. If you don't use streams to read files, then you will have to wait for the entire file to be read before it can be processed, which can use up more memory.
 
-You can read more about [Node.js Streams and how to implement them here](https://nodejs.dev/learn/nodejs-streams).
+*NOTE: Buffers were introduced to help developers deal with binary data in an ecosystem that traditionally only dealt with strings rather than binaries.*
 
-SIDE NOTE: Buffers were introduced to help developers deal with binary data in an ecosystem that traditionally only dealt with strings rather than binaries.
+Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that you can use to work with streams. You can read more about streams in Node.js and how to implement them:
+
+* [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
+* [Read Files with Node.js](https://stackabuse.com/read-files-with-node-js/)
+* [Node HTTP Servers for Static File Serving](https://stackabuse.com/node-http-servers-for-static-file-serving/)
+
 
 ## References
-* [Node.js buffer: A complete guide](https://blog.logrocket.com/node-js-buffer-a-complete-guide/)
 * [Binary Data](https://www.techopedia.com/definition/17929/binary-data#:~:text=Binary%20data%20is%20a%20type,combination%20of%20zeros%20and%20ones.)
 * [Understanding Bits, Bytes and Their Multiples](https://www.techopedia.com/2/29184/development/programming-languages/understanding-bits-bytes-and-their-multiples)
+* [Node.js buffer: A complete guide](https://blog.logrocket.com/node-js-buffer-a-complete-guide/)
 * [Node.js Buffers](https://nodejs.dev/learn/nodejs-buffers)
 * [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
 
