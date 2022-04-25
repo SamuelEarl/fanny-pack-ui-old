@@ -12,6 +12,9 @@
   </div>
   <div class="section-heading">Components</div>
   <div class="nav-links">
+    <a href="/components/accordion" class:active={currentPath === "/components/accordion"}>
+      <Icon icon="carbon:account" /> &nbsp; Accordion
+    </a>
     <a href="/components/button" class:active={currentPath === "/components/button"}>
       <Icon icon="carbon:button-centered" /> &nbsp; Button
     </a>
@@ -19,7 +22,7 @@
       <Icon icon="carbon:checkbox-checked" /> &nbsp; Checkbox
     </a>
     <a href="/components/checkbox-group" class:active={currentPath === "/components/checkbox-group"}>
-      <Icon icon="carbon:list-checked" /> &nbsp; Checkbox Group
+      <Icon icon="carbon:list-boxes" /> &nbsp; Checkbox Group
     </a>
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
@@ -40,10 +43,10 @@
       <Icon icon="carbon:radio-button-checked" /> &nbsp; Radio Button
     </a>
     <a href="/components/select-multi" class:active={currentPath === "/components/select-multi"}>
-      <Icon icon="carbon:list-boxes" /> &nbsp; Select (multi)
+      <Icon icon="fluent:multiselect-ltr-20-filled" /> &nbsp; Select (multi)
     </a>
     <a href="/components/select-single" class:active={currentPath === "/components/select-single"}>
-      <Icon icon="carbon:account" /> &nbsp; Select (single)
+      <Icon icon="icon-park-outline:list-view" /> &nbsp; Select (single)
     </a>
     <a href="/components/tabs" class:active={currentPath === "/components/tabs"}>
       <Icon icon="ic:outline-tab" /> &nbsp; Tabs (tabbed content)
