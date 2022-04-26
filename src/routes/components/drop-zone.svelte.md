@@ -251,8 +251,9 @@ Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that 
 
 ---
 
-<!-- The following paragraph is causing build errors, so I need to figure out what is causing those. -->
-<!-- SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object). -->
+<!-- The `import.meta.env` reference is causing build errors in the following paragraph. I don't know if there is a way around this, but I can test any builds with `npm run build` before I try to deploy this again. -->
+SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import[dot]meta[dot]env` object (instead of the `process.env` object).
+<!-- `import.meta.env`  -->
 
 TODOS:
 * At this point in the Quickstart: [Create a SAS connection string](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser#create-a-sas-connection-string) I need to find out if the Azure Storage "Start and expiry date/time" auto-renews or if that expiration permanent?
