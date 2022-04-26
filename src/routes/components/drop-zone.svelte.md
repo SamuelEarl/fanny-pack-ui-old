@@ -346,9 +346,11 @@ In Node.js, you can use the [`fs`](https://nodejs.dev/learn/the-nodejs-fs-module
 * Load all of the contents at once (buffering)
 * Incrementally load contents (streaming)
 
-*NOTE: JavaScript in the browser does not have access to the `fs` module. If you are trying to read a file in the browser, then you would have to use the [`FileReader` API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader).*
+Keep in mind that the `fs` module is used to access and interact with the file system. So any files that you want to read with the `fs` module have to be located in the computer's file system already (or on our server's file system in our case). For example, the `fs.readFile()` method takes a file path as its first argument. You cannot pass a `File` object as the first argument. In order to pass it a 
 
-Buffers are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down your server or even crash it.
+*NOTE: JavaScript in the browser does not have access to the `fs` module. If you are trying to read a file in the browser, then you would have to use the [`FileReader` API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader). " `FileReader` can only access the contents of files that the user has explicitly selected, either using an HTML `<input type="file">` element or by drag and drop. It cannot be used to read a file by pathname from the user's file system. To read files on the client's file system by pathname, use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API). To read server-side files, use standard Ajax solutions, with CORS permission if reading cross-domain."*
+
+Buffers are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down or even crash your server.
 
 Streams are a way to read small chunks of data (i.e. buffers) at a time rather than one massive file all at once. So when your programs read a file as a stream they read it piece by piece, processing its content without keeping it all in memory. That means that streams allow your programs to read much larger files while using less memory. If you don't use streams to read files, then you will have to wait for the entire file to be read before it can be processed, which can use up more memory.
 
@@ -359,6 +361,10 @@ Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that 
 * [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
 * [Read Files with Node.js](https://stackabuse.com/read-files-with-node-js/)
 * [Node HTTP Servers for Static File Serving](https://stackabuse.com/node-http-servers-for-static-file-serving/)
+
+
+## Buffer contents with `fs.readFile()`
+
 
 
 ## References
