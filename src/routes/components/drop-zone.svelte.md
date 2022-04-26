@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount, tick } from "svelte";
   import { DropZone } from "/src/lib";
   import { ToastContent } from "/src/lib";
   import Icon from "@iconify/svelte";
@@ -30,18 +29,8 @@
       let result = await response.json();
       console.log("uploadFiles Result:", result);
 
-      let filenamesList = "";
-      for (let i = 0; i < result.length; i++) {
-        let separator;
-        // Separate each filename with a comma and a space except for the last filename.
-        if (i === result.length - 1) {
-          separator = "";
-        }
-        else {
-          separator = ", ";
-        }
-        filenamesList = filenamesList + result[i] + separator;
-      }
+      // TODO: Update the list of files that is displayed below DropZone.
+
       ToastContent.set({ type: "success", msg: "Files have been uploaded." });
 
       loading = false;
@@ -53,7 +42,12 @@
   }
 
   function deleteFile(fileId) {
-    console.log("File ID:", fileId);
+    try {
+      console.log("File ID:", fileId);
+    }
+    catch(err) {
+      console.error("deleteFile Error:", err);
+    }
   }
 </script>
 
@@ -85,7 +79,7 @@ One additional benefit of using your cloud storage service's APIs is that they w
 <br>
 
 <div><b>Files in the storage bucket:</b></div>
-{#if filesArray.length > 0}
+<!-- {#if filesArray.length > 0}
   {#each filesArray as file (file.id)}
     <div class="file-wrapper">
       <div class="file-name">{file.id}</div>
@@ -102,7 +96,7 @@ One additional benefit of using your cloud storage service's APIs is that they w
   {/each}
 {:else}
   <div class="empty-container">Your container does not contain any files.</div>
-{/if}
+{/if} -->
 
 <br><br>
 
