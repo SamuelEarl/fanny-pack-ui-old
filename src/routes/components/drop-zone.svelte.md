@@ -79,7 +79,7 @@ One additional benefit of using your cloud storage service's APIs is that they w
 <br>
 
 <div><b>Files in the storage bucket:</b></div>
-<!-- {#if filesArray.length > 0}
+{#if filesArray.length > 0}
   {#each filesArray as file (file.id)}
     <div class="file-wrapper">
       <div class="file-name">{file.id}</div>
@@ -96,7 +96,7 @@ One additional benefit of using your cloud storage service's APIs is that they w
   {/each}
 {:else}
   <div class="empty-container">Your container does not contain any files.</div>
-{/if} -->
+{/if}
 
 <br><br>
 
@@ -113,7 +113,7 @@ The only thing you have to do to get this component to work is pass it a functio
 
 # Tutorial
 
-This tutorial will show you how to create a custom drop zone component that integrates with [some cloud storage service].
+This tutorial will show you how to create a custom drop zone component that integrates with (some cloud storage service).
 
 The final version from this tutorial will be identical to the component in the "Example Usage" section above.
 
@@ -251,7 +251,8 @@ Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that 
 
 ---
 
-SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object).
+<!-- The following paragraph is causing build errors, so I need to figure out what is causing those. -->
+<!-- SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import.meta.env` object (instead of the `process.env` object). -->
 
 TODOS:
 * At this point in the Quickstart: [Create a SAS connection string](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser#create-a-sas-connection-string) I need to find out if the Azure Storage "Start and expiry date/time" auto-renews or if that expiration permanent?
