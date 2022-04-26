@@ -55,6 +55,10 @@
     }
   }
 
+  function deleteFile(fileId) {
+    console.log("File ID:", fileId);
+  }
+
   // // Pass a function named "uploadFiles" to the <DropZone /> component.
   // // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
   // // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
@@ -205,15 +209,15 @@ One additional benefit of using your cloud storage service's APIs is that they w
 
 <div><b>Files in the storage bucket:</b></div>
 {#if filesArray.length > 0}
-  {#each filesArray as file (file.value.name)}
+  {#each filesArray as file (file.id)}
     <div class="file-wrapper">
-      <div class="file-name">{file.value.name}</div>
+      <div class="file-name">{file.id}</div>
       {#if loading}
         <button class="remove-file-btn" title="Delete file">
           <Icon icon="icomoon-free:spinner2" width="16" class="fpui-spin" />
         </button>
       {:else}
-        <button class="remove-file-btn" on:click={() => deleteFile(file.value.name)} title="Delete file">
+        <button class="remove-file-btn" on:click={() => deleteFile(file.id)} title="Delete file">
           <Icon icon="ri:delete-bin-2-line" width="16" />
         </button>
       {/if}
