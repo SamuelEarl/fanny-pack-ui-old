@@ -17,7 +17,6 @@
 		"tippy.js": "^6.3.7"
 	},
 	"devDependencies": {
-		"@azure/storage-blob": "^12.9.0",
 		"@babel/core": "^7.16.7",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "next",
@@ -27,7 +26,6 @@
 		"@typescript-eslint/parser": "^4.31.1",
 		"babel-jest": "^27.5.1",
 		"babel-loader": "^8.2.3",
-		"cloudinary": "^1.29.0",
 		"date-picker-svelte": "^2.0.0",
 		"dotenv": "^16.0.0",
 		"eslint": "^7.32.0",
