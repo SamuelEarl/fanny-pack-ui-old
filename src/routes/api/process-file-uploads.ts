@@ -12,7 +12,7 @@
 /** @type {import("@sveltejs/kit").RequestHandler} */
 export async function post({ request }) {
   try {
-    console.log("CALLED handle-file-uploads");
+    console.log("CALLED process-file-uploads");
 
     let formData = await request.formData();
     

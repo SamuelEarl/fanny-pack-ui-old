@@ -273,7 +273,7 @@ You can set the following custom variables:
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `id` (optional) | `string` | Any string | NA (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
+| `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
 | `btnColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The main button color. For regular buttons, this is the background color. For inverted buttons this is the border and text color. |
 | `inverted` | `boolean` | `true`, `false` | `false` | Inverted buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |

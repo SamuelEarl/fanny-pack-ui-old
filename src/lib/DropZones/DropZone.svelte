@@ -8,7 +8,7 @@
   export let dropZoneSelectFilesBtnIcon = theme.dropZoneSelectFilesBtnIcon;
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
   export let dropZoneUploadFilesBtnIcon = theme.dropZoneUploadFilesBtnIcon;
-  export let uploadFiles;
+  export let handleFileUploads;
 
   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
   let formData;
@@ -95,8 +95,8 @@
         reformattedFormData.append("files", formDataValuesArray[i]);
       }
 
-      // Call the `uploadFiles()` function that is passed in as props to this component and pass it the new reformattedFormData object.
-      await uploadFiles(reformattedFormData);
+      // Call the `handleFileUploads()` function that is passed in as props to this component and pass it the new reformattedFormData object.
+      await handleFileUploads(reformattedFormData);
       // Once execution returns back to this function, set `uploading` back to false to re-enable the buttons in this component.
       uploading = false;
       // Clear the FormData object, which will also clear the list of files in the DropZone.
@@ -137,62 +137,65 @@
     active = false;
   }}
 >
-  <div class="file-input-container">
-    <!-- Wrap the #file-input-btn in a span so you can reset the `pointer-events` to `auto` in the CSS. -->
-    <span class="file-input-btn-container">
-      <Button
-        id="file-input-btn" 
-        on:click={() => fileInput.click()}
-        disabled={uploading}
-        btnIcon={dropZoneSelectFilesBtnIcon}
-        btnIconDisabled={dropZoneSelectFilesBtnIcon}
-        btnIconDisabledShouldSpin={false}
-      >
-        Select Files
-      </Button>
-    </span>
-    <input
-      bind:this={fileInput}
-      type="file" 
-      class="file-input-field" 
-      multiple
-      accept="*"
-      on:change={(event) => {
-        // You can access the files from a file input's `change` event through the event.target.files property.
-        addFiles(event.target.files);
-        // If a user adds a file via the input, decides to remove it from their file list, then changes their mind and decides to use the input to add that file again, then the file input will not fire the `change` event because the file input has not changed. By resetting `event.target.value` back to null, you ensure the `change` event will always be fired.
-        event.target.value = null;
-      }}
-    >
-  </div>
-  <div class="drag-drop-text-container">
-    <slot>Or Drag &amp; Drop Files Here</slot>
-  </div>
-  <div class="drag-drop-icon-container">
-    <Icon icon="{dragAndDropIcon}" width="50" />
-  </div>
-
-  {#if formData && [...formData.entries()].length > 0}
-    <div class="upload-files-container">
-      <div class="upload-all-files-btn-container">
+  <!-- Use enctype="multipart/form-data" if the form contains <input type="file"> elements (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form#attr-enctype). -->
+  <form on:submit|preventDefault={handleUpload} enctype="multipart/form-data">
+    <div class="file-input-container">
+      <!-- Wrap the #file-input-btn in a span so you can reset the `pointer-events` to `auto` in the CSS. -->
+      <span class="file-input-btn-container">
         <Button
-          btnIcon={dropZoneUploadFilesBtnIcon}
+          id="file-input-btn" 
+          on:click={() => fileInput.click()}
           disabled={uploading}
-          on:click={handleUpload}
+          btnIcon={dropZoneSelectFilesBtnIcon}
+          btnIconDisabled={dropZoneSelectFilesBtnIcon}
+          btnIconDisabledShouldSpin={false}
         >
-          Upload Files
+          Select Files
         </Button>
-      </div>
-      {#each [...formData.entries()] as file (file[0])}
-        <div class="file-container">
-          <div class="file-name" class:active>{file[1].name}</div>
-          <button class="remove-file-btn" on:click={() => removeFile(file[0])} disabled={uploading}>
-            <Icon icon="ri:delete-bin-2-line" width="16" />
-          </button>
-        </div>
-      {/each}
+      </span>
+      <input
+        bind:this={fileInput}
+        type="file" 
+        class="file-input-field" 
+        multiple
+        accept="*"
+        on:change={(event) => {
+          // You can access the files from a file input's `change` event through the event.target.files property.
+          addFiles(event.target.files);
+          // If a user adds a file via the input, decides to remove it from their file list, then changes their mind and decides to use the input to add that file again, then the file input will not fire the `change` event because the file input has not changed. By resetting `event.target.value` back to null, you ensure the `change` event will always be fired.
+          event.target.value = null;
+        }}
+      >
     </div>
-  {/if}
+    <div class="drag-drop-text-container">
+      <slot>Or Drag &amp; Drop Files Here</slot>
+    </div>
+    <div class="drag-drop-icon-container">
+      <Icon icon="{dragAndDropIcon}" width="50" />
+    </div>
+
+    {#if formData && [...formData.entries()].length > 0}
+      <div class="upload-files-container">
+        <div class="upload-all-files-btn-container">
+          <Button
+            type="submit"
+            btnIcon={dropZoneUploadFilesBtnIcon}
+            disabled={uploading}
+          >
+            Upload Files
+          </Button>
+        </div>
+        {#each [...formData.entries()] as file (file[0])}
+          <div class="file-container">
+            <div class="file-name" class:active>{file[1].name}</div>
+            <button class="remove-file-btn" on:click={() => removeFile(file[0])} disabled={uploading}>
+              <Icon icon="ri:delete-bin-2-line" width="16" />
+            </button>
+          </div>
+        {/each}
+      </div>
+    {/if}
+  </form>
 </div>
 
 

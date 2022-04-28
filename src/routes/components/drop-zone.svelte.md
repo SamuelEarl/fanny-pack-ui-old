@@ -7,16 +7,16 @@
   let filesArray = [];
   let loading = false;
 
-  // Pass a function named "uploadFiles" to the <DropZone /> component.
+  // Pass a function named "handleFileUploads" to the <DropZone /> component.
   // Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to their service is what you will put in this function.
-  // Your "uploadFiles" function needs to be an async function and the signature need to match this one.
-  async function uploadFiles(formData) {
+  // Your "handleFileUploads" function needs to be an async function and the signature need to match this one.
+  async function handleFileUploads(formData) {
     try {
       loading = true;
 
       console.log("Form Data (browser):", formData.getAll("files"));
 
-      let url = "/api/handle-file-uploads";
+      let url = "/api/process-file-uploads";
       let response = await fetch(url, {
         method: "POST",
         body: formData
@@ -27,7 +27,7 @@
       }
       
       let result = await response.json();
-      console.log("uploadFiles Result:", result);
+      console.log("handleFileUploads Result:", result);
 
       // TODO: Update the list of files that is displayed below DropZone.
 
@@ -36,7 +36,7 @@
       loading = false;
     }
     catch(err) {
-      console.error("uploadFiles Error:", err);
+      console.error("handleFileUploads Error:", err);
       ToastContent.set({ type: "error", msg: err.message });
     }
   }
@@ -54,29 +54,67 @@
 
 # Drop Zone (file upload)
 
+File uploads are handled a bit differently in modern web development than they were once upon a time. For example, rather than store files in your webserver (not very scalable) or your database (really complicated, if not impossible), you should store your files in a cloud storage service (e.g. Amazon S3, Cloudflare R2, Google Cloud Storage, Azure Storage, Cloudinary, Uploadcare). When you store a file in a cloud storage service the service will return a URL where that file is located. You should take that URL and save it in your database so you can retrieve the file later.
+
+Given that there are many cloud storage services available, each with their own set of APIs and functionality, a generic file upload component might not work for your situation. I have written a tutorial toward the bottom of this page that explains the concepts involved with a drop zone component so you can create one that fits your needs.
+
+Many cloud storage services provide APIs for handling file uploads from your browser-side code or from your server-side code. You should select the option that makes the most sense for your application. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) as of April 2022. So if you are creating a file upload component for SvelteKit you might have to use a browser-side file upload API.
+
 ---
 
-<em><strong>Shameless Plug</strong>: <a href="https://uploadcare.com/">Uploadcare</a> is one of my favorite cloud storage services because of how easy it is to use and all the features it has. It is also built on top of the Akamai CDN platform, which is one of the leading CDN platforms, and Uploadcare has a pretty generous free tier. I am not writing a tutorial using Uploadcare because their <a href="https://uploadcare.com/docs/integrations/js-upload-client/">browser API</a> is already pretty simple and they also have a really cool <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget that you can use off-the-shelf and even customize the styles to match your app. So a custom file upload component might not be necessary if you are using Uploadcare. Uploadcare's File Uploader widget works well with SvelteKit apps, so check it out!</em>
+***Public Service Announcement***
 
----
-
-File uploads are handled a bit differently in modern web development than they were once upon a time. For example, nowadays you will most likely use a cloud object storage service like Amazon S3, Cloudflare R2, Google Cloud Storage, Azure Storage, Cloudinary, or Uploadcare to handle your file storage (or at least you should use a cloud storage service). Each cloud storage service provides its own APIs and many of them even provide ready-made widgets that you can plug into your web app and use "off-the-shelf" to connect with the cloud storage service.
-
-Given that there are many cloud storage services available, each with their own set of APIs and functionality, it can be pretty difficult to create a file upload component that can be used with any cloud storage service. Since each cloud storage service provides their own APIs (and even widgets), I recommend that you read the docs for your cloud storage service and follow their instructions for creating a file upload component that you can reuse in your own apps. 
-
-Since maintaining consistent branding across your components is a common concern when using off-the-shelf widgets, I have written a tutorial on this page that walks you through creating a custom drop zone component. I will show you the concepts involved with a drop zone component and you can customize it to fit your needs.
-
-Many cloud storage services provide APIs for handling file uploads directly from your browser-side code or from your server-side code. I think the browser-side options might be a better choice for frontend frameworks (e.g. Svelte, Vue, React) and the server-side options might be a better choice for server frameworks (e.g. when you use the built-in template files for your frontend code - e.g. Express.js, FastAPI, Laravel). Also, as of this writing (April 2022), when creating a file upload component for SvelteKit you will probably want to use the browser-side option anyway because SvelteKit does not yet have the ability to handle large file uploads on the server-side. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) right now. See https://javascript.plainenglish.io/how-to-read-files-with-buffer-stream-in-node-js-d77de6ae6b49.
-
-One additional benefit of using your cloud storage service's APIs is that they will take care of all the security issues for you, so you don't have to handle those things yourself. Cloud storage APIs for the win!
+*If you are looking for a cloud storage service that is easy to use, then check out <a href="https://uploadcare.com/">Uploadcare</a>. (I am not affiliated with them, but maybe I should be. :)) Uploadcare has a ton of cool features, it is built on top of the Akamai CDN platform (which is one of the leading CDN platforms), it has a pretty generous free tier, and their ready-made <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget is awesome! The File Uploader widget works well with SvelteKit apps and you can even customize its styles to match your app.*
 
 ---
 
 ## Example Usage
 
-<DropZone {uploadFiles}>File Drop</DropZone>
+<DropZone {handleFileUploads}>File Drop</DropZone>
 
 <br>
+
+```svelte
+<script>
+  import { DropZone } from "@fanny-pack-ui/svelte-kit";
+
+  /**
+   * (1) The signature for your `handleFileUploads` function
+   * needs to match this one.
+   * (2) The body of your `handleFileUploads` function should be the
+   * API code for uploading files to your cloud storage service.
+   */
+  async function handleFileUploads(formData) {
+    try {
+      let url = "https://your-cloud-storage-api-endpoint";
+      let response = await fetch(url, {
+        method: "POST",
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      
+      let result = await response.json();
+
+      console.log("Files have been uploaded successfully!);
+    }
+    catch(err) {
+      console.error("handleFileUploads Error:", err);
+    }
+  }
+</script>
+
+<DropZone {handleFileUploads}>File Drop</DropZone>
+```
+
+<br>
+
+### How does the `handleFileUploads` function work?
+After a user selects/drops files in the `<DropZone>` component, an "Upload Files" button will appear. When the user clicks that button the `handleFileUploads` function that you passed as props will be called and a `FormData` object will be passed to that function. Your `handleFileUploads` function will need to process the files according to your cloud storage service's API.
+
+<!-- <br>
 
 <div><b>Files in the storage bucket:</b></div>
 {#if filesArray.length > 0}
@@ -98,11 +136,16 @@ One additional benefit of using your cloud storage service's APIs is that they w
   <div class="empty-container">Your container does not contain any files.</div>
 {/if}
 
-<br><br>
-
-The only thing you have to do to get this component to work is pass it a function named "uploadFiles". Look at the documentation for your cloud storage service to find out how to upload files to their service. The API code for uploading files to there service is what you will put in this function. Your "uploadFiles" function needs to be an async function and the signature need to match this one.
+<br><br> -->
 
 ---
+
+## Props
+| Prop name | Type | Possible values | Default value | Description |
+| --------- | ---- | --------------- | ------------- | ----------- |
+| `handleFileUploads` | `function` | Any function | NA | In order to get this component to work, you need to pass it a function named `handleFileUploads`. <br><br> The `handleFileUploads` signature needs to be `async function handleFileUploads(formData)`. The `formData` argument is a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object that contains a [`FileList`](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object, which contains the list of files that were selected/dropped in the `<DropZone>` component. <br><br> The body of your `handleFileUploads` function should be the API code for uploading files to your cloud storage service. |
+
+<br>
 
 ## Slots
 | Slot name | Default value | Description |
@@ -113,7 +156,7 @@ The only thing you have to do to get this component to work is pass it a functio
 
 # Tutorial
 
-This tutorial will show you how to create a custom drop zone component that integrates with (some cloud storage service).
+This tutorial will show you how to create a custom drop zone component. Then you can integrate your drop zone component with your cloud storage service.
 
 The final version from this tutorial will be identical to the component in the "Example Usage" section above.
 
@@ -236,9 +279,6 @@ Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that 
 * [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
 * [Read Files with Node.js](https://stackabuse.com/read-files-with-node-js/)
 * [Node HTTP Servers for Static File Serving](https://stackabuse.com/node-http-servers-for-static-file-serving/)
-
-
-## Buffer contents with `fs.readFile()`
 
 
 
