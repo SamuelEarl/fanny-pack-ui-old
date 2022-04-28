@@ -1,6 +1,5 @@
 <script lang="ts">
-  import { DropZone } from "/src/lib";
-  import { ToastContent } from "/src/lib";
+  import { DropZone, ToastContent } from "/src/lib";
   import Icon from "@iconify/svelte";
 
   let containersList = [];

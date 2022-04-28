@@ -9,6 +9,9 @@
     <a href="/get-started" class:active={currentPath === "/get-started"}>
       <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
+    <a href="/customize" class:active={currentPath === "/customize"}>
+      <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize
+    </a>
   </div>
   <div class="section-heading">Components</div>
   <div class="nav-links">

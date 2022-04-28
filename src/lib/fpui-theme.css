@@ -48,9 +48,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-btn-padding-md: var(--fpui-padding-md);
   --fpui-btn-padding-lg: var(--fpui-padding-lg);
   /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
-  --fpui-btn-icon-margin-sm: var(--fpui-padding-sm);
-  --fpui-btn-icon-margin-md: var(--fpui-padding-md);
-  --fpui-btn-icon-margin-lg: var(--fpui-padding-md);
+  --fpui-btn-icon-margin-sm: 3px;
+  --fpui-btn-icon-margin-md: 7px;
+  --fpui-btn-icon-margin-lg: 12px;
   --fpui-btn-font-weight: var(--fpui-font-weight-normal);
   /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpui-btn-icon-disabled-spin-speed: 1.5s;
