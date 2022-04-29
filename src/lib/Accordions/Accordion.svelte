@@ -1,0 +1,1 @@
+<!-- TODO: When an accordion is open and a user navigates to another page, then the accordion has to close before the navigation happens. I want to eliminate that. So in the onDestroy hook, I want to remove the `slide` transition. -->

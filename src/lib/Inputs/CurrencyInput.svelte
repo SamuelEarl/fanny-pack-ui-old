@@ -94,6 +94,7 @@
     disabled={disabled}
     bind:value={formattedValue}
     on:focus={handleTextInputFocus}
+    on:blur
   />
 {/if}
 

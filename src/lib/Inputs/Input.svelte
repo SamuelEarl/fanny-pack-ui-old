@@ -24,6 +24,7 @@
     disabled={disabled}
     on:change
     on:input
+    on:blur
   />
 {:else if type === "email"}
   <input
@@ -35,6 +36,7 @@
     disabled={disabled}
     on:change
     on:input
+    on:blur
   />
 {/if}
 

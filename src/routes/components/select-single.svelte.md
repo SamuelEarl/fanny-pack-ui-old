@@ -19,6 +19,22 @@
     { text: "DEC", value: "december" },
   ];
   let selectedMonthObject = monthObjects[6];
+
+  let monthArrays = [
+    [ 1, "JAN", "january" ],
+    [ 2, "FEB", "february" ],
+    [ 3, "MAR", "march" ],
+    [ 4, "APR", "april" ],
+    [ 5, "MAY", "may" ],
+    [ 6, "JUN", "june" ],
+    [ 7, "JUL", "july" ],
+    [ 8, "AUG", "august" ],
+    [ 9, "SEP", "september" ],
+    [ 10, "OCT", "october" ],
+    [ 11, "NOV", "november" ],
+    [ 12, "DEC", "december" ],
+  ];
+  let selectedMonthArray = monthArrays[6];
 </script>
 
 
@@ -74,7 +90,7 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
 ### "object" arrayType
 
 <Select
-  label="Select a position"
+  label="Select an option"
   optionsArray={monthObjects}
   arrayType="object"
   bind:selectedOption={selectedMonthObject}
@@ -105,7 +121,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 </script>
 
 <Select
-  label="Select a position"
+  label="Select an option"
   optionsArray={monthObjects}
   arrayType="object"
   bind:selectedOption={selectedMonthObject}
@@ -114,6 +130,53 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 ```
 
 Note that if you pass an array of objects to the `optionsArray` prop, then each object inside the array should have `text` and `value` properties.
+
+<br>
+
+### "array" arrayType
+This `arrayType` is used when you want to pass an array that contain nested arrays to the `optionsArray` prop.
+
+<Select
+  label="Select an option"
+  optionsArray={monthArrays}
+  arrayType="array"
+  displayElementAtIndex={1}
+  bind:selectedOption={selectedMonthArray}
+  size="sm"
+/>
+
+Value of `selectedMonthArray`: <code>{JSON.stringify(selectedMonthArray)}</code>
+
+```svelte
+<script>
+  import { Select } from "@fanny-pack-ui/svelte-kit";
+
+  let monthArrays = [
+    [ 1, "JAN", "january" ],
+    [ 2, "FEB", "february" ],
+    [ 3, "MAR", "march" ],
+    [ 4, "APR", "april" ],
+    [ 5, "MAY", "may" ],
+    [ 6, "JUN", "june" ],
+    [ 7, "JUL", "july" ],
+    [ 8, "AUG", "august" ],
+    [ 9, "SEP", "september" ],
+    [ 10, "OCT", "october" ],
+    [ 11, "NOV", "november" ],
+    [ 12, "DEC", "december" ],
+  ];
+  let selectedMonthArray = monthArrays[6];
+</script>
+
+<Select
+  label="Select an option"
+  optionsArray={monthArrays}
+  arrayType="array"
+  displayElementAtIndex={1} 
+  bind:selectedOption={selectedMonthArray}
+  size="sm"
+/>
+```
 
 ---
 
@@ -127,8 +190,9 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `label` (optional) | `string` | Any string | NA | The text for the `<label>` element that is displayed above the `<select>` element. If this prop is not provided, then no label will be displayed. |
-| `optionsArray` | `Array` | any array | NA | This should be an array of strings, numbers, or objects. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the `<option>` elements in the select box. |
-| `arrayType` | `string` | `string`, `number`, `boolean`, `object` | `string` | This prop indicates the data type of the array that is used in the select box. |
+| `optionsArray` | `Array` | any array | NA | This should be an array of strings, numbers, booleans, objects, or arrays. The type of array should match the value passed to the `arrayType` prop. This array will be used to populate the `<option>` elements in the select box. |
+| `arrayType` | `string` | `string`, `number`, `boolean`, `object`, `array` | `string` | This prop indicates the data type of the array that is used in the select box. |
+| `displayElementAtIndex` | `number` | An index value for an element that exists in the nested arrays. | NA | This prop only applies to `arrayTypes` that are `array`. The element that exists within the nested arrays at this index is the element that will be displayed in the `<Select>` component's dropdown. |
 | `bind:selectedOption` | `string`, `number`, `object` | Any string, number, boolean, or object | NA<br><br>There is no default value for this prop. However, you should set `bind:selectedOption` to equal a value from the array that you pass to the `optionsArray` prop. The value that `bind:selectedOption` is equal to will be the default value displayed in the select box. | The option that the user selects from the select box will be bound to the `<select>` element and then passed to the backend when the form is submitted. You need to have a variable defined in the same component where this `<Select>` component is imported and that variable needs to be bound to the `<Select>` component with `bind:selectedOption={nameOfVariable}`.
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for your select box to give the appearance of a larger or smaller select box. The text size will also increase or decrease based on this `size` prop. |
 

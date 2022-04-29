@@ -116,6 +116,8 @@
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user changes the value in the input field and then the input field loses focus. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler when a user enters a value into the input field. |
 
+NOTE: The `on:blur` event is used internally in this componet so it cannot be forwarded. That means when this component loses focus you cannot call an event handler using the `on:blur` event.
+
 
 
 <style>

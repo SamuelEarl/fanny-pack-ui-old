@@ -7,18 +7,29 @@
   let themes = [];
   
   let value = {
-    main: {
-      darkBlue: "#000000",
-    },
-    neutral: {
-      black: "#000000",
-      veryDarkNeutral: "#000000",
-      darkNeutral: "#000000",
-      mediumNeutral: "#000000",
-      lightNeutral: "#000000",
-      veryLightNeutral: "#000000",
-      white: "#000000",
-    },
+    colors: [
+      ["--demo-color-name", "#603cba"],
+    ],
+    neutral: [
+      ["--black", "#000000"],
+      ["--very-dark-neutral", "#000000"],
+      ["--dark-neutral", "#000000"],
+      ["--medium-neutral", "#000000"],
+      ["--light-neutral", "#000000"],
+      ["--very-light-neutral", "#000000"],
+      ["--white", "#000000"],
+    ],
+    globalComponentVariables: [
+      ["--primary-color", ""],
+      ["--secondary-color", ""],
+      ["--tertiary-color", ""],
+    ],
+    accordionVariables: [
+
+    ],
+    buttonVariables: [
+
+    ],
   };
 
   let selectedTheme = { text: "", value };
@@ -36,8 +47,8 @@
 
   onMount(() => {
     if (!localStorage.getItem("themes")) {
-      // The `initThemes` array was going to contain objects like this: { name: "default", css: "" }, but the <Select> component takes object arrays with `text` and `value` properties. So it is easier to just use "theme" objects with `text` and `value` properties.
-      let initThemes = [{ text: "default", value }];
+      // The `initThemes` array was going to contain objects like this: { name: "custom", css: "" }, but the <Select> component takes object arrays with `text` and `value` properties. So it is easier to just use "theme" objects with `text` and `value` properties.
+      let initThemes = [{ text: "custom", value }];
       localStorage.setItem("themes", JSON.stringify(initThemes));
     }
 
@@ -94,6 +105,18 @@
     }
   }
 
+  function addColor() {
+    // Push a new color array to the `colors` array.
+    selectedTheme.value.colors.push(["", "#000000"]);
+    selectedTheme = selectedTheme;
+  }
+
+  function removeColor(index) {
+    selectedTheme.value.colors.splice(index, 1);
+    saveTheme();
+    selectedTheme = selectedTheme;
+  }
+
   /**
    * https://stackoverflow.com/a/47201559/9453009
    */
@@ -114,25 +137,36 @@
   }
 
   function downloadTheme() {
-    // As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB.
-    // hexToRgb("#fbafff");
+    // TODOS: 
+    // * As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff");
+    // * Convert the second value in each of the `selectedTheme.value.globalComponentVariables` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
+
+
 
     // Convert `selectedTheme.value` to a formatted string.
 // TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
-    let content = [
-`:root {
-  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
-  --light-green: #99b433;
-  --green: #00a300;
-}
+//     let content = [
+// `:root {
+//   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+//   --light-green: #99b433;
+//   --green: #00a300;
+// }
 
-/* Button */
-:root {
-  --fpui-btn-primary-text-color: white;
-  --fpui-btn-secondary-text-color: white;
-  --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
-}`
+// /* Button */
+// :root {
+//   --fpui-btn-primary-text-color: white;
+//   --fpui-btn-secondary-text-color: white;
+//   --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
+// }`
+//     ];
+
+    let content = [
+      `:root {\n`,
+      `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
+      `  --light-green: #99b433;\n`,
+      `  --green: #00a300;\n`,
+      `}`,
     ];
 
     // let content = [
@@ -157,11 +191,13 @@
 
 ***This page is a work in progress.***
 
-Customize your theme and download the files to insert into your project.
+Customize your theme and download the files to insert into your project. The download button is at the bottom of the page.
 
 <!-- <button on:click={() => hexToRgb("#fbafff", 0.5)}>Test Hex to RGB</button> -->
 
 ---
+
+## Themes
 
 <form on:submit|preventDefault={createNewTheme}>
   <div class="input-container">
@@ -185,7 +221,7 @@ Customize your theme and download the files to insert into your project.
 <br>
 
 <Select 
-  label="Select a theme to edit"
+  label="Select an existing theme to edit"
   optionsArray={themes}
   arrayType="object"
   bind:selectedOption={selectedTheme}
@@ -225,35 +261,98 @@ Customize your theme and download the files to insert into your project.
 
 ---
 
-<Button 
+<!-- <Button 
   btnIcon="bx:save"
   width="full"
   on:click={saveTheme}
 >
   Save theme
-</Button>
+</Button> -->
 
 ## Color palette
-TODO: Allow users to add as many colors as they want with an "Add color" button.
+Add as many color variables as you want (including your main color palette and neutral colors). Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
-And include color values for the following 7 neutral colors (these are used throughout the components):
+<table>
+  <thead>
+    <tr>
+      <th>Color variable name</th>
+      <th>Color value</th>
+      <th style="text-align:center">Remove color</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each selectedTheme.value.colors as color, index}
+      <tr>
+        <td><Input size="sm" bind:value={color[0]} on:blur={saveTheme} /></td>
+        <td><input type="color" bind:value={color[1]} on:change={saveTheme}></td>
+        <td style="text-align:center">
+          <Button
+            btnIcon="mdi:minus-circle"
+            size="lg"
+            --custom-btn-padding="0px 5px"
+            --custom-btn-border-color="transparent"
+            --custom-btn-background-color="transparent"
+            --custom-btn-text-color="var(--dark-purple)"
+            on:click={() => removeColor(index)}
+          ></Button>
+        </td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
-black: <input type="color" bind:value={selectedTheme.value.neutral.black}>
+<br>
 
-very dark neutral: <input type="color" bind:value={selectedTheme.value.neutral.veryDarkNeutral}>
+<Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+  Add color
+</Button>
 
-dark neutral: <input type="color" bind:value={selectedTheme.value.neutral.darkNeutral}>
+<br><br>
 
-medium neutral: <input type="color" bind:value={selectedTheme.value.neutral.mediumNeutral}>
 
-light neutral: <input type="color" bind:value={selectedTheme.value.neutral.lightNeutral}>
+TODOS: 
+* Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
+    * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
+* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui-* CSS variables in the fpui-theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the fpui-theme.css file has a --fpui-primary-color variable. So I would replace all references to --fpui-primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui-* variable and instead reference the one from the theme.css file.
 
-very light neutral: <input type="color" bind:value={selectedTheme.value.neutral.veryLightNeutral}>
+### Neutral colors
+Include color values for the following 7 neutral colors (these are used throughout the components):
 
-white: <input type="color" bind:value={selectedTheme.value.neutral.white}>
+`--black` : <input type="color" bind:value={selectedTheme.value.neutral.black}>
+
+`--very-dark-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.veryDarkNeutral}>
+
+`--dark-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.darkNeutral}>
+
+`--medium-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.mediumNeutral}>
+
+`--light-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.lightNeutral}>
+
+`--very-light-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.veryLightNeutral}>
+
+`--white` : <input type="color" bind:value={selectedTheme.value.neutral.white}>
 
 ## Global component styles
 These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
+
+Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
+
+<table>
+  <thead>
+    <tr>
+      <th>Variable name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each selectedTheme.value.globalComponentVariables as gcvar}
+      <tr>
+        <td>{gcvar[0]}</td>
+        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={gcvar[1]}/></td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
 TODO: Reference the variables from the above sections (colors, padding, borders, etc) in drop-down menus for each of these variables.
 
@@ -268,13 +367,13 @@ You can customize individual components by changing the following values.
 
 ---
 
-<Button 
+<!-- <Button 
   btnIcon="bx:save"
   width="full"
   on:click={saveTheme}
 >
   Save theme
-</Button>
+</Button> -->
 
 <br><br>
 

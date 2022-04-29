@@ -3,9 +3,10 @@
   import { Label } from "../Labels";
   import { createId, calculateMenuHeight } from "../fpui-utils";
 
-  export let label;
+  export let label = "";
   export let optionsArray;
   export let arrayType = "string";
+  export let displayElementAtIndex = null;
   export let selectedOption;
   export let size = "md";
 
@@ -53,6 +54,12 @@
     {#if arrayType === "object"}
       <span class="fpui-select-btn-text" title={selectedOption.text}>{selectedOption.text}</span>
     {/if}
+    <!-- If the `arrayType` is an array of arrays, then display the element (in the array) at the given index. -->
+    {#if arrayType === "array"}
+      <span class="fpui-select-btn-text" title={selectedOption[displayElementAtIndex]}>
+        {selectedOption[displayElementAtIndex]}
+      </span>
+    {/if}
     <span class="fpui-select-btn-arrow">›</span>
   </div>
   <!-- For accessibility, the select menu needs to stay in the DOM, but it can be hidden. (This is how normal <select> elements work.) So the select menu should not be conditionally displayed inside of an {#if} block. -->
@@ -68,7 +75,8 @@
       // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpui-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
       // **If the user did click on the `#fpui-select-btn-${componentId}` element, then do NOT set `showSelectMenu = false` because the `on:click` event in the `#fpui-select-btn-${componentId}` will set `showSelectMenu = false`. If the user did NOT click on the `#fpui-select-btn-${componentId}` element, then set `showSelectMenu = false`.**
       // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fpui-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
-      if (event && event.relatedTarget && event.relatedTarget.id !== `fpui-select-btn-${componentId}`) {
+      // UPDATE: I have found that sometimes when I click outside of the selecteMenu that event.relatedTarget === null. So for those scenarios I have added a check for `!event.relatedTarget`. So if `event.relatedTarget does not exist, then set `showSelectMenu` to false.
+      if (event && (!event.relatedTarget || event.relatedTarget && event.relatedTarget.id !== `fpui-select-btn-${componentId}`)) {
         showSelectMenu = false;
       }
       // If the user moused over the select menu options but didn't select an option before clicking outside of the menu, then reset the option that should be highlighted (when the user clicks the select box again) to the option that was previously selected.
@@ -111,6 +119,23 @@
           on:click={() => setSelectedOption(obj)}
         >
           {obj.text}
+        </div>
+      {/each}
+    {/if}
+    {#if arrayType === "array"}
+      {#each optionsArray as arr}
+        <!-- The following code references `arr` in all instances of the current array in this each loop except for when the text needs to be displayed to the user. In those cases this code references `arr[displayElementAtIndex]`. -->
+        <div
+          role="option"
+          aria-selected={selectedOption === arr}
+          class="{`fpui-select-option ${size}`}"
+          class:selected={highlightedOption === arr}
+          title={arr[displayElementAtIndex]}
+          on:mouseenter={() => highlightedOption = null }
+          on:mouseleave={() => highlightedOption = arr }
+          on:click={() => setSelectedOption(arr)}
+        >
+          {arr[displayElementAtIndex]}
         </div>
       {/each}
     {/if}
