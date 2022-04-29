@@ -75,19 +75,23 @@
     themes = JSON.parse(localStorage.getItem("themes"));
   }
 
-  function deleteSelectedTheme() {
-    if (themes.length === 1) {
-      ToastContent.set({ type: "warning", msg: "You are not allowed to delete the last remaining theme. Edit it instead." });
-      return;
-    }
+  function deleteTheme() {
     let newThemesArray = themes.filter(obj => obj.text !== selectedTheme.text);
     console.log("newThemesArray", newThemesArray);
     // Update the "themes" array in localStorage.
     localStorage.setItem("themes", JSON.stringify(newThemesArray));
     // Set themes to the updated "themes" array from localStorage.
     themes = JSON.parse(localStorage.getItem("themes"));
-    // Set the `selectedTheme` to the first one in the "themes" array.
-    selectedTheme = themes[0];
+    if (themes.length > 0) {
+      // Set the `selectedTheme` to the first one in the "themes" array.
+      selectedTheme = themes[0];
+    }
+    else {
+      // Remove the "themes" array so an brand new "themes" array will be created when this page is reloaded.
+      localStorage.removeItem("themes");
+      // Reload this page so a new "themes" array will be created.
+      location.reload();
+    }
   }
 
   /**
@@ -115,6 +119,7 @@
     console.log("downloadTheme");
 
     // Convert `selectedTheme.value` to a formatted string.
+// TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
     let content = [
 `:root {
   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
@@ -213,7 +218,7 @@ Customize your theme and download the files to insert into your project.
   type="submit"
   btnIcon="mdi:delete-forever-outline"
   width="full"
-  on:click={deleteSelectedTheme}
+  on:click={deleteTheme}
 >
   Delete "{selectedTheme.text}" theme
 </Button>
