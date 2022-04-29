@@ -197,7 +197,8 @@ Customize your theme and download the files to insert into your project. The dow
 
 ---
 
-## Themes
+## Manage themes
+Create your own themes or use the default "Fanny Pack UI" theme. Each theme is saved in your browser storage so you can access and edit them later.
 
 <form on:submit|preventDefault={createNewTheme}>
   <div class="input-container">
@@ -211,6 +212,7 @@ Customize your theme and download the files to insert into your project. The dow
 
   <Button
     type="submit"
+    btnColor="secondary"
     btnIcon="mdi:plus-circle-outline"
     width="full"
   >
@@ -241,6 +243,7 @@ Customize your theme and download the files to insert into your project. The dow
 
   <Button
     type="submit"
+    btnColor="secondary"
     btnIcon="mdi:checkbox-marked-circle-plus-outline"
     width="full"
   >
@@ -252,6 +255,7 @@ Customize your theme and download the files to insert into your project. The dow
 
 <Button
   type="submit"
+  btnColor="secondary"
   btnIcon="mdi:delete-forever-outline"
   width="full"
   on:click={deleteTheme}
