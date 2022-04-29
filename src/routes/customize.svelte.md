@@ -5,7 +5,23 @@
   import { Button, Input, Select, ToastContent } from "/src/lib";
 
   let themes = [];
-  let selectedTheme = {};
+  
+  let value = {
+    main: {
+      darkBlue: "#000000",
+    },
+    neutral: {
+      black: "#000000",
+      veryDarkNeutral: "#000000",
+      darkNeutral: "#000000",
+      mediumNeutral: "#000000",
+      lightNeutral: "#000000",
+      veryLightNeutral: "#000000",
+      white: "#000000",
+    },
+  };
+
+  let selectedTheme = { text: "", value };
   $: {
     if (selectedTheme.text) {
       setSelectedTheme(selectedTheme.text);
@@ -14,35 +30,14 @@
 
   // $: This comment preserves the syntax highlighting.
   
-  let updateThemeName;
   let newThemeName = "";
-
-  // CSS variables
-  let cssVars = {
-    main: {
-      darkBlue: "",
-    },
-    neutral: {
-      black: "",
-      veryDarkNeutral: "",
-      darkNeutral: "",
-      mediumNeutral: "",
-      lightNeutral: "",
-      veryLightNeutral: "",
-      white: "",
-    }
-  };
-
-  $: console.log("cssVars:", cssVars);
-
-  // $: This comment preserves the syntax highlighting.
+  let content = [];
 
 
   onMount(() => {
-    console.log("THEMES:", localStorage.getItem("themes"));
     if (!localStorage.getItem("themes")) {
       // The `initThemes` array was going to contain objects like this: { name: "default", css: "" }, but the <Select> component takes object arrays with `text` and `value` properties. So it is easier to just use "theme" objects with `text` and `value` properties.
-      let initThemes = [{ text: "default", value: "" }];
+      let initThemes = [{ text: "default", value }];
       localStorage.setItem("themes", JSON.stringify(initThemes));
     }
 
@@ -51,9 +46,6 @@
 
     // Set the `selectedTheme` object.
     selectedTheme = themes[0];
-
-    // Set the `updateThemeName` to equal the name of the currently seleted theme.
-    updateThemeName = selectedTheme.text;
   });
 
   function createNewTheme() {
@@ -61,7 +53,7 @@
       ToastContent.set({ type: "warning", msg: "Please enter a theme name" });
       return;
     }
-    let newTheme = { text: newThemeName, value: "" };
+    let newTheme = { text: newThemeName, value };
     // Push the new theme to the `themes` array.
     themes.push(newTheme);
     // Update the `themes` array in localStorage.
@@ -74,12 +66,9 @@
 
   function setSelectedTheme(themeName) {
     selectedTheme = themes.find(obj => obj.text === themeName);
-    // Set the `updateThemeName` variable to match the `selectedTheme`.
-    updateThemeName = themeName;
   }
 
-  function updateSelectedThemeName() {
-    selectedTheme.text = updateThemeName;
+  function saveTheme() {
     // Update the "themes" array in localStorage.
     localStorage.setItem("themes", JSON.stringify(themes));
     // Set themes to the updated "themes" array from localStorage.
@@ -118,6 +107,43 @@
     let rgb = `rgb(${r}, ${g}, ${b})`;
     console.log("rgb:", rgb);
     return rgb;
+  }
+
+  function downloadTheme() {
+    // As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB.
+    // hexToRgb("#fbafff");
+    console.log("downloadTheme");
+
+    // Convert `selectedTheme.value` to a formatted string.
+    let content = [
+`:root {
+  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+  --light-green: #99b433;
+  --green: #00a300;
+}
+
+/* Button */
+:root {
+  --fpui-btn-primary-text-color: white;
+  --fpui-btn-secondary-text-color: white;
+  --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
+}`
+    ];
+
+    // let content = [
+    //   ":root {",
+    //   "  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */",
+    //   "  --light-green: #99b433;",
+    //   "  --green: #00a300;",
+    //   "}",
+    // ];
+
+    const a = document.createElement("a"); // Create "a" element
+    const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
+    const url = URL.createObjectURL(blob); // Create an object URL from blob
+    a.setAttribute("href", url); // Set "a" element link
+    a.setAttribute("download", selectedTheme.text); // Set download filename
+    a.click(); // Start downloading
   }
 </script>
 
@@ -162,11 +188,11 @@ Customize your theme and download the files to insert into your project.
 
 <br>
 
-<form on:submit|preventDefault={updateSelectedThemeName}>
+<form on:submit|preventDefault={saveTheme}>
   <div class="input-container">
     <Input
       type="text"
-      bind:value={updateThemeName}
+      bind:value={selectedTheme.text}
       label="Edit theme name"
       placeholder="Theme name"
     />
@@ -194,26 +220,66 @@ Customize your theme and download the files to insert into your project.
 
 ---
 
-## Set your main colors
+<Button 
+  btnIcon="bx:save"
+  width="full"
+  on:click={saveTheme}
+>
+  Save theme
+</Button>
 
+## Color palette
+TODO: Allow users to add as many colors as they want with an "Add color" button.
 
-## Set your neutral colors
+And include color values for the following 7 neutral colors (these are used throughout the components):
 
-black: <input type="color" bind:value={cssVars.neutral.black}>
+black: <input type="color" bind:value={selectedTheme.value.neutral.black}>
 
-very dark neutral: <input type="color" bind:value={cssVars.neutral.veryDarkNeutral}>
+very dark neutral: <input type="color" bind:value={selectedTheme.value.neutral.veryDarkNeutral}>
 
-dark neutral: <input type="color" bind:value={cssVars.neutral.darkNeutral}>
+dark neutral: <input type="color" bind:value={selectedTheme.value.neutral.darkNeutral}>
 
-medium neutral: <input type="color" bind:value={cssVars.neutral.mediumNeutral}>
+medium neutral: <input type="color" bind:value={selectedTheme.value.neutral.mediumNeutral}>
 
-light neutral: <input type="color" bind:value={cssVars.neutral.lightNeutral}>
+light neutral: <input type="color" bind:value={selectedTheme.value.neutral.lightNeutral}>
 
-very light neutral: <input type="color" bind:value={cssVars.neutral.veryLightNeutral}>
+very light neutral: <input type="color" bind:value={selectedTheme.value.neutral.veryLightNeutral}>
 
-white: <input type="color" bind:value={cssVars.neutral.white}>
+white: <input type="color" bind:value={selectedTheme.value.neutral.white}>
 
+## Global component styles
+These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
 
+TODO: Reference the variables from the above sections (colors, padding, borders, etc) in drop-down menus for each of these variables.
+
+---
+
+## Individual component styles
+You can customize individual components by changing the following values.
+
+### Accordions
+
+### Buttons
+
+---
+
+<Button 
+  btnIcon="bx:save"
+  width="full"
+  on:click={saveTheme}
+>
+  Save theme
+</Button>
+
+<br><br>
+
+<Button 
+  btnIcon="mi:document-download"
+  width="full"
+  on:click={downloadTheme}
+>
+  Download theme
+</Button>
 
 <style>
   form {
