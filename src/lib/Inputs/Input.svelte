@@ -6,6 +6,9 @@
   export let value = "";
   export let label = "";
   export let size = "md";
+  export let min = null;
+  export let max = null;
+  export let step = "any";
   export let placeholder = "";
   export let disabled = false;
 
@@ -20,8 +23,23 @@
     bind:value={value}
     id={`fpui-input-${componentId}`}
     class="{`${size}`}"
-    placeholder={placeholder}
-    disabled={disabled}
+    {placeholder}
+    {disabled}
+    on:change
+    on:input
+    on:blur
+  />
+{:else if type === "number"}
+  <input
+    type="number"
+    bind:value={value}
+    id={`fpui-input-${componentId}`}
+    class="{`${size}`}"
+    {min}
+    {max}
+    {step}
+    {placeholder}
+    {disabled}
     on:change
     on:input
     on:blur
@@ -32,8 +50,8 @@
     bind:value={value}
     id={`fpui-input-${componentId}`}
     class="{`${size}`}"
-    placeholder={placeholder}
-    disabled={disabled}
+    {placeholder}
+    {disabled}
     on:change
     on:input
     on:blur

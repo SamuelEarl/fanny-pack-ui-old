@@ -37,7 +37,7 @@
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
     <a href="/components/input" class:active={currentPath === "/components/input"}>
-      <Icon icon="radix-icons:input" /> &nbsp; Input (text, email)
+      <Icon icon="radix-icons:input" /> &nbsp; Input (text, number, email)
     </a>
     <a href="/components/modal" class:active={currentPath === "/components/modal"}>
       <Icon icon="carbon:popup" /> &nbsp; Modal (popup window)

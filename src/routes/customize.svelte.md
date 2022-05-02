@@ -5,34 +5,84 @@
   import { Button, Input, Select, ToastContent } from "/src/lib";
 
   let themes = [];
-  
-  let value = {
+
+  let fannyPackUiTheme = {
     colors: [
-      ["--demo-color-name", "#603cba"],
-    ],
-    neutral: [
+      // Main Colors
+      ["--dark-purple", "#603cba"],
+      ["--green", "#00a300"],
+      ["--blue", "#2d89ef"],
+      ["--yellow", "#ffc40d"],
+      ["--red", "#ee1111"],
+      // Neutral Colors
       ["--black", "#000000"],
-      ["--very-dark-neutral", "#000000"],
-      ["--dark-neutral", "#000000"],
-      ["--medium-neutral", "#000000"],
-      ["--light-neutral", "#000000"],
-      ["--very-light-neutral", "#000000"],
-      ["--white", "#000000"],
+      ["--very-dark-gray", "#343434"],
+      ["--dark-gray", "#797979"],
+      ["--gray", "#a0a0a0"],
+      ["--light-gray", "#c7c7c7"],
+      ["--very-light-gray", "#e5e5e5"],
+      ["--white", "#ffffff"],
     ],
-    globalComponentVariables: [
-      ["--primary-color", ""],
-      ["--secondary-color", ""],
-      ["--tertiary-color", ""],
+    sizes: [
+      ["--padding-sm", "5", "px"],
+      ["--padding-md", "10", "px"],
+      ["--padding-lg", "15", "px"],
+      ["--border-radius", "3", "px"],
+      ["--font-size-sm", "12", "px"],
+      ["--font-size-base", "16", "px"],
+      ["--font-size-lg", "20", "px"],
+      ["--font-weight-light", "100"],
+      ["--font-weight-normal", "400"],
+      ["--font-weight-bold", "700"],
     ],
-    accordionVariables: [
-
+    globalComponentColors: [
+      ["--primary-color", ["--dark-purple", "#603cba"]],
+      ["--secondary-color", ["--very-dark-gray", "#343434"]],
+      ["--tertiary-color", ["--white", "#ffffff"]],
+      ["--info-color", ["--blue", "#2d89ef"]],
+      ["--success-color", ["--green", "#00a300"]],
+      ["--warning-color", ["--yellow", "#ffc40d"]],
+      ["--error-color", ["--red", "#ee1111"]],
+      ["--border-color", ["--light-gray", "#c7c7c7"]],
+      ["--text-color", ["--very-dark-gray", "#343434"]],
+      ["--disabled-text-color", ["--light-gray", "#c7c7c7"]],
+      ["--disabled-bg-color", ["--black", "#000000"]],
     ],
-    buttonVariables: [
-
-    ],
+    individualComponentVariables: {
+      // accordion: [],
+      buttons: {
+        colors: [
+          ["--fpui-btn-primary-text-color", ["--white", "#ffffff"]],
+          ["--fpui-btn-secondary-text-color", ["--white", "#ffffff"]],
+          ["--fpui-btn-tertiary-text-color", ["--dark-purple", "#603cba"]],
+        ],
+        sizes: [
+          // The arrays that have a nested array should display select boxes that are populated with the global colors or sizes.
+          ["--fpui-btn-padding-sm", ["--padding-sm", "5px"]],
+          ["--fpui-btn-padding-md", ["--padding-md", "10px"]],
+          ["--fpui-btn-padding-lg", ["--padding-lg", "15px"]],
+          ["--fpui-btn-border-radius", ["--border-radius", "3px"]],
+          ["--fpui-btn-font-weight", ["--font-weight-normal", "400"]],
+          // The arrays that have 3 strings should show an input field and a dropdown box with units (e.g. "px", "rem", "em", etc).
+          ["--fpui-btn-icon-margin-sm", "3", "px"],
+          ["--fpui-btn-icon-margin-md", "6", "px"],
+          ["--fpui-btn-icon-margin-lg", "9", "px"],
+          // This one should only display a select box with an "s" after it. The user should not be able to change the unit.
+          ["--fpui-btn-icon-disabled-spin-speed", "1.5", "s"],
+        ],
+      },
+    },
   };
+  
+  // let customTheme = {
+  //   colors: [
+  //     ["--demo-color-name", "#603cba"],
+  //   ],
+  //   globalComponentColors,
+  //   individualComponentVariables,    
+  // };
 
-  let selectedTheme = { text: "", value };
+  let selectedTheme = { text: "", value: fannyPackUiTheme };
   $: {
     if (selectedTheme.text) {
       setSelectedTheme(selectedTheme.text);
@@ -43,12 +93,13 @@
   
   let newThemeName = "";
   let content = [];
-
+  let units = ["px", "%", "rem", "em"];
 
   onMount(() => {
     if (!localStorage.getItem("themes")) {
       // The `initThemes` array was going to contain objects like this: { name: "custom", css: "" }, but the <Select> component takes object arrays with `text` and `value` properties. So it is easier to just use "theme" objects with `text` and `value` properties.
-      let initThemes = [{ text: "custom", value }];
+      let initThemes = [{ text: "Fanny Pack UI", value: fannyPackUiTheme }];
+      // let initThemes = [{ text: "custom", value: customTheme }];
       localStorage.setItem("themes", JSON.stringify(initThemes));
     }
 
@@ -139,7 +190,7 @@
   function downloadTheme() {
     // TODOS: 
     // * As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff");
-    // * Convert the second value in each of the `selectedTheme.value.globalComponentVariables` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
+    // * Convert the second value in each of the `selectedTheme.value.globalComponentColors` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
 
 
@@ -190,6 +241,11 @@
 # Customize
 
 ***This page is a work in progress.***
+TODOS: 
+* Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
+    * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
+* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the fpui-theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the fpui-theme.css file has a --fpui-primary-color variable. So I would replace all references to --fpui-primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui- variable and instead reference the one from the theme.css file.
+
 
 Customize your theme and download the files to insert into your project. The download button is at the bottom of the page.
 
@@ -295,6 +351,7 @@ Add as many color variables as you want (including your main color palette and n
             size="lg"
             --custom-btn-padding="0px 5px"
             --custom-btn-border-color="transparent"
+            --custom-btn-box-shadow="none"
             --custom-btn-background-color="transparent"
             --custom-btn-text-color="var(--dark-purple)"
             on:click={() => removeColor(index)}
@@ -314,34 +371,36 @@ Add as many color variables as you want (including your main color palette and n
 <br><br>
 
 
-TODOS: 
-* Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
-    * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
-* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui-* CSS variables in the fpui-theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the fpui-theme.css file has a --fpui-primary-color variable. So I would replace all references to --fpui-primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui-* variable and instead reference the one from the theme.css file.
+## Global sizes
 
-### Neutral colors
-Include color values for the following 7 neutral colors (these are used throughout the components):
+<table>
+  <thead>
+    <tr>
+      <th>Size variable name</th>
+      <th>Size value</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each selectedTheme.value.sizes as size, index}
+      <tr>
+        <td><Input size="sm" bind:value={size[0]} on:blur={saveTheme} /></td>
+        <td><Input type="number" size="sm" bind:value={size[1]} on:change={saveTheme} /></td>
+        {#if size[2]}
+          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={saveTheme} /></td>
+        {/if}
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
-`--black` : <input type="color" bind:value={selectedTheme.value.neutral.black}>
-
-`--very-dark-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.veryDarkNeutral}>
-
-`--dark-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.darkNeutral}>
-
-`--medium-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.mediumNeutral}>
-
-`--light-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.lightNeutral}>
-
-`--very-light-neutral` : <input type="color" bind:value={selectedTheme.value.neutral.veryLightNeutral}>
-
-`--white` : <input type="color" bind:value={selectedTheme.value.neutral.white}>
 
 ## Global component styles
 These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
 
 Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
 
-<table>
+<!-- <table>
   <thead>
     <tr>
       <th>Variable name</th>
@@ -349,14 +408,14 @@ Each component style that can be customized has a fallback value. So, for exampl
     </tr>
   </thead>
   <tbody>
-    {#each selectedTheme.value.globalComponentVariables as gcvar}
+    {#each selectedTheme.value.globalComponentColors as globalColor}
       <tr>
-        <td>{gcvar[0]}</td>
-        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={gcvar[1]}/></td>
+        <td>{globalColor[0]}</td>
+        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={globalColor[1]}/></td>
       </tr>
     {/each}
   </tbody>
-</table>
+</table> -->
 
 TODO: Reference the variables from the above sections (colors, padding, borders, etc) in drop-down menus for each of these variables.
 

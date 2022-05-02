@@ -203,17 +203,14 @@
       width: 100%;
       /* Add top and bottom padding that is equal to half of the --fpui-select-border-radius so the menu options will get pushed down enough so they won't get cut off if a user sets a high --fpui-select-border-radius value. */
       padding: calc(var(--fpui-select-border-radius) / 2) 0;
-      border: 1px solid;
+      border: 2px solid;
+      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
       border-color: var(--fpui-select-border-color, #c7c7c7);
       border-radius: var(--fpui-select-border-radius, 3px);
       overflow-y: auto;
       background-color: var(--fpui-select-bg-color);
       color: var(--fpui-select-text-color);
       z-index: 100;
-
-      &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
-      }
 
       &.show {
         display: block;
