@@ -1,15 +1,22 @@
-/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. However, you can change the *values* of any of these variables. You can create a `theme.css` file and add any other variables to that file and then reference those variables in any of the `var()` functions in this file. It is recommended to keep any custom variables separate from the variables in this file so you don't accidentally alter the name of or remove a variable that is referenced throughout the component library.  */
+/* Please read the comments throughout this file for instructions on how to customize the variables to create your own theme. */
 
-/* TODO: I would like to see if there is a way to give users more control over the editing of the components. Is there a way to allow users to specify what colors get passed to the different parts of each component? Maybe I could create a lot of CSS variables to allow users more fine-grained customizability for their components. For example, I could do something like the following, which would keep the styles consistent across all the components and would help to maintain the same theme across the entire website:
+/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. But you are allowed to change any of the variable values to match the theme you want. */
 
-NOTE: Look at how Foundation handles their global styles that can be customized (I think Bootstrap uses a similar concept):
-* Documentation: https://get.foundation/sites/docs/global.html
-* settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
+/* You are welcome to add any other custom variables in addition to the ones already defined in this file. You can add those inside the first :root{} section labeled "Addition Custom Variables". */
+
+
+/******************************************
+  Additional Custom Variables
+  * Add any other variables that you frequently use throughout your app.
+******************************************/
+:root {
+  --border: 1px solid var(--border-color);
+}
 
 
 /******************************************
   Color Palette
-  You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
+  * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
 ******************************************/
 :root {
   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
@@ -41,8 +48,9 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 
 /******************************************
-  Global Styles. 
-  These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
+  Global Component Styles. 
+  * These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
+  * IMPORTANT: If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
 ******************************************/
 :root {
   /* Main Colors */
@@ -74,9 +82,11 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --disabled-bg-color: var(--black);
 }
 
+
 /******************************************
   Typography
-  Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
+  * Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
+  * You can use any of the following font stack variables as examples and delete them when you are done.
 ******************************************/
 :root {
   --cursive-font-stack: "Audiowide", cursive;
@@ -87,21 +97,13 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 }
 
 /******************************************
-  Miscellaneous Variables
-  Add any other variables that you frequently use throughout your app.
-******************************************/
-:root {
-  --border: 1px solid var(--border-color);
-}
-
-/******************************************
   Utility Classes
-  I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library. For example the .fpui-spin class is used to spin icons during loading states.
+  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library so do not edit these (but you are welcome to create additional utility classes here). For example the .fpui-spin class is used to spin icons during loading states.
 ******************************************/
-/*
+/*****
   Begin .fpui-spin class
   Add a class="fpui-spin" to an icon (or any other element) to make it spin.
-*/
+*****/
 .fpui-spin {
   animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
 }
@@ -114,14 +116,16 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
     transform: rotate(360deg);
   }
 }
-/*
+/*****
   End .fpui-spin class
-*/
+*****/
 
 
 /****************************************** 
   Individual Component Styles. 
-  You can customize any of the individual components by changing the color or size values below. 
+  * You can customize any of the individual components by changing the color or size values below.
+  * WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
+  * The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
 ******************************************/
 
 /* Button */

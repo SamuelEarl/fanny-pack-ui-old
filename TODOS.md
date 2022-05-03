@@ -7,7 +7,11 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 
 
 
-* Look at my TODOS in the `get-started.svelte.md` file. I need to test the Get Started instructions in a new app and import the components into that new app.
+* TODOS for the `get-started.svelte.md` page. 
+    * I need to test the Get Started instructions in a new app and import the components into that new app.
+    * I need to improve the customization instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
+    * I need to test that the components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts - see the commented font stack in the `fpui-theme.css` file).
+    * I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `fpui-theme.css` file to the `theme.css` file so the components will also have the same theme.
 * Convert these components to TypeScript.
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.

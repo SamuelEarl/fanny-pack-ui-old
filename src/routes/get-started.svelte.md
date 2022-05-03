@@ -14,51 +14,20 @@ npm install @fanny-pack-ui/svelte-kit
 *NOTE: This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details.*
 
 
-## Step 2: Create the theme for your app
-1. Create a `/src/assets/styles/theme.css` file. 
-2. Copy the code from the `fpui-theme.css` file in this package's folder and paste it into your newly created `theme.css` file.
-3. Delete the variables in the `Color Palette` object and insert your own color variables.
-4. Change any of the other variables throughout your `theme.css` file to create the theme that you want to use throughout your entire app.
+## Step 2: Configure the theme for your app
+When you install and import the components into your app, the components will have a default theme that matches this Fanny Pack UI docs site. (NOTE: The fonts that are used in this site will not be included in your app because you have to [install your own fonts](#install-fonts).) The CSS theme is created with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
 
-
-## Step 3: Enable CSS Variables & Utility Classes
-When you install and import the components into your app, the components will not have a theme (i.e. colors, fonts) by default. The CSS theme is created with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
-
-Create the following files inside a `/src/assets/styles` directory:
-
-* `main.css`
-* `theme.css`
-* `utils.css`
-
-Copy all the code from this package's `fpui-theme.css` file into your `/src/assets/styles/theme.css` file. Do the same thing with this package's `fpui-utils.css` file and your `/src/assets/styles/utils.css` file.
-
-
----
-**TODOS:**
-* I need to improve the following instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
-* The `font-stack` instructions should go in their own section below and I think they should include this: "The components in this library will inherit the fonts that you define for your app." 
-    * However, I need to test this to make sure that these components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts).
-* I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `fpui-theme.css` file to the `theme.css` file so the components will also have the same theme.
----
-
-
-You can customize the theme for the Fanny Pack components in the `theme.css` file.
-
-1. In the `theme.css` file, change the variable **values** (not the variable names) of any of the variables in the `Global Component Styles` block to match the theme in your `theme.css` file. This will cause your components to use the same values that your `theme.css` file has for things like colors (i.e. primary, secondary, tertiary colors), border radius, etc. Updating those variables should handle most of your theme customizations.
-2. If you want to customize individual components, then change the variable **values** for any component style blocks that you want to customize.
-    1. WARNING: If you customize any of the individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
-    2. The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
-
-**IMPORTANT:** If you change any of the CSS variable values that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value that you set (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
-
-Then open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. That might look something like this:
+1. Create the following two files: `/src/assets/styles/theme.css` and `/src/assets/styles/main.css`
+2. Copy all the code from the `fpui-theme.css` file in your `node_modules/@fanny-pack-ui/svelte-kit/` directory (note the `.css` file extension) and paste that code into your newly created `theme.css` file.
+3. Inside your `theme.css` file, delete the variables in the `Color Palette` object and insert your own color variables.
+4. Change any of the other variables *values* in your `theme.css` file to create the theme that you want for your app. (See the comments throughout the `fpui-theme.css` file for instructions and details.)
+5. Then open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. That might look something like this:
 
 ```css
 @import "normalize.css";
 @import "fonts.css";
 @import "theme.css";
 @import "base.css";
-@import "utils.css";
 ```
 
 *NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters.*
@@ -71,14 +40,16 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 </style>
 ```
 
-The default theme should now be enabled when you start your app and you should have some utility classes available to you as well. Now you can edit the variables to create the theme you want. Read the notes at the top of the `fpui-theme.css` file for details.
+*NOTE: You can create a `/src/assets/styles/normalize.css` file and copy and paste the code from [Normalize.css](https://necolas.github.io/normalize.css/) into it. The `fonts.css` and `base.css` files are explained below.*
+
+Your theme should now be enabled when you start your app and you should have some CSS variables and utility classes available to you as well. As you see the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file.
 
 
-## Step 4: Configure Media Queries
+## Step 3: Configure Media Queries
 1. Create a `/src/assets/styles/media-queries.css` file.
 2. Copy the code from this package's `fpui-media-queries.css` file and paste it into your `/src/assets/styles/media-queries.css` file.
-3. It is recommended to leave the `@custom-media` variable definitions as they are. However, if you really need to change any of the `@custom-media` queries, then make sure that you only change the pixel values. If you change any of the variable names or the `min-width` or `max-width` properties, then the component styles could break.
-4. Install `postcss-preset-env`: `npm install --save-dev postcss-preset-env`
+3. It is recommended to leave the `@custom-media` variable definitions as they are defined in the `fpui-media-queries.css` file. However, if you really need to change any of the `@custom-media` queries, then make sure that you only change the pixel values. If you change any of the variable names or the `min-width` or `max-width` properties, then the component styles could break.
+4. Install the `postcss-preset-env` package: `npm install --save-dev postcss-preset-env`
 5. Open your `svelte.config.js` file and make the following changes:
 
 Import `postcss-preset-env` at the top of the file:
@@ -130,8 +101,8 @@ For more details about `@custom-media` rules see https://github.com/postcss/post
 FYI: This provides an example of how to configure the Svelte `preprocess` config: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md.
 
 
-## Step 5: Configure Native CSS Nesting Rules (Optional)
-You can use [native CSS nesting](https://kilianvalkhof.com/2021/css-html/css-nesting-specificity-and-you/) by updating the `postcssPresetEnv()` config like this:
+## Step 4: Configure Native CSS Nesting Rules (Optional)
+You can use [native CSS nesting](https://kilianvalkhof.com/2021/css-html/css-nesting-specificity-and-you/) by updating the `postcssPresetEnv()` config in your `svelte.config.js` file like this:
 
 ```js
 preprocess: [
@@ -152,26 +123,68 @@ preprocess: [
 ],
 ```
 
-If you are using VS Code and would like to configure it to provide syntax highlighting for native CSS nesting rules, then you can read this post: [PostCSS Syntax Highlighting with Svelte in VS Code](https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting)
+If you are using VS Code and would like to configure it to provide syntax highlighting for native CSS nesting rules, then read this post: [PostCSS Syntax Highlighting with Svelte in VS Code](https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting)
 
 
-<h2 id="install-fonts">Step 6: Install Fonts</h2>
-TODO: Provide a step-by-step tutorial for how to install fonts, use them in your CSS styles, and make sure those fonts are inherited by these components.
+<h2 id="install-fonts">Step 5: Install &amp; Configure Fonts</h2>
+The components in this library will inherit the fonts that you define for your app. Here is an easy way to install fonts in your app:
+
+1. Go to [Google Fonts](https://fonts.google.com/) and search for the fonts you want to use.
+2. When you select a font there is a button to the right of each font style (e.g. light, normal, bold) that says "Select this style". Select all the fonts that you want for your app. *(You usually only need to select one style of a particular font in order to download the entire font family.)*
+3. There will be a panel on the right side of the screen labeled "Selected families". At the bottom of that panel is a button that says "Download all". When you click that button it will download all of the fonts that you selected into a zipped folder.
+4. Create a `/src/assets/fonts/` folder. For each font, create a folder inside of the `/src/assets/fonts/` directory and name each folder after the name of the font. For example, the "Source Code Pro" font would have a folder named `source-code-pro`.
+5. Unzip/extract the font folders that you downloaded from Google Fonts. When you open the unzipped font folders you should see either a bunch of files with `.ttf` file extensions or a `static` folder. *(You might see some files that have `VariableFont` as part of their name. Those fonts should have a `README` file that might explain more about how the `VariableFonts` can be used. I usually use the static versions because they are better supported right now.)* For each font copy all the static font files (they might be directly inside the font folder that you extracted or in the `static` folder) and paste them into their respective font folder that you created inside `/src/assets/fonts/`.
+6. Create a `fonts.css` file inside your `/src/assets/styles` folder. Create an `@font-face` style rule for each of your fonts. For example, this is how an `@font-face` rule might look for the "Source Code Pro" font ([read about `@font-face` rules on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)):
+
+```css
+@font-face {
+  font-family: "Source Code Pro";
+  src: local("SourceCodePro"),
+    url("../fonts/source-code-pro/SourceCodePro-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+```
+7. In your `theme.css` file, find the `Typography` block and create your own font stacks for your app following the examples that are already there.
+8. Create a `/src/assets/styles/base.css` file and define your font styles. You could add style like the following to the top of your `base.css` file, which will set the font styles for your app and the Fanny Pack components in your app:
+
+```css
+/* 
+  base.css
+  * General HTML element styles go in this file. 
+  * These form the base styles that can be modified in your .svelte files. 
+*/
+
+html, body {
+  font-size: var(--font-size-base, 16px);
+  font-family: var(--sans-serif-font-stack);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cursive-font-stack);
+  font-weight: normal;
+}
+```
+
+9. Import your `fonts.css` and `base.css` files into your `/src/assets/styles/main.css` file. Your `/src/assets/styles/main.css` file might look something like this:
+
+```css
+@import "normalize.css";
+@import "fonts.css";
+@import "theme.css";
+@import "base.css";
+```
 
 
-<h2 id="enable-js-vars">Step 7: Enable JavaScript Variables</h2>
+<h2 id="enable-js-vars">Step 6: Configure JavaScript variables for icons</h2>
 
-Create a `/src/theme.ts` file and copy all the code from the `@fanny-pack-ui/svelte-kit` package's `theme.js` file into your `/src/theme.ts` file. 
+1. Create a `/src/theme.ts` file.
+2. Copy all the code from the `fpui-theme.js` file in your `node_modules/@fanny-pack-ui/svelte-kit/` directory (note the `.js` file extension) and paste that code into your newly created `/src/theme.ts` file.
 
 *NOTE: The components are already referencing the `/src/theme.ts` file, so the values in your `/src/theme.ts` file should work without any additional configurations.*
 
-You can now edit any of the variables in the `/src/theme.ts` file. The values should come from [Iconify](https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labelled "Selected icon". Copy the value from that field and replace the variable that you want to customize in your `/src/theme.ts` file.
-
-*NOTE: After selecting your icon, if you scroll down you will see a code example like this:*
-```html
-<span class="iconify" data-icon="mdi:account"></span>
-```
-*The "Selected icon" field should also match the `data-icon` attribute of that code example.*
+You can now edit any of the variables in your `/src/theme.ts` file. You can read the instructions in that file to find out how to customize your JavaScript variables.
 
 ---
 
