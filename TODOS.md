@@ -15,9 +15,9 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 * Create the components and associated tests. See "How to develop new components or edit existing components" in the README.
 * Create fallback colors for each CSS variable in the components.
 * Figure out how to customize/edit fonts after the component library has been installed.
-    * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined. See the `example-theme.css` file for an example.
-    * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `fpui-utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
-* Document the media queries and how to use them. The `media-queries.css` file has some examples that I could use in the documentation.
+    * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined.
+    * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
+* Document the media queries and how to use them. The `fpui-media-queries.css` file has some examples that I could use in the documentation.
 
 
 ## Button Component
@@ -68,6 +68,6 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 
 ## Tooltip
 * Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
-    * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `fpui-theme.ts` file.
+    * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `theme.ts` file.
 * Remove the old code that is not related to the Tippy.js version of the tooltip.
 * Manually test this component and write automated tests.

@@ -243,15 +243,15 @@
 
       &.sm {
         padding: 5px;
-        font-size: var(--fpui-font-size-sm, 12px);
+        font-size: var(--font-size-sm, 12px);
       }
       &.md {
         padding: 10px;
-        font-size: var(--fpui-font-size-base, 16px);
+        font-size: var(--font-size-base, 16px);
       }
       &.lg {
         padding: 15px;
-        font-size: var(--fpui-font-size-lg, 20px);
+        font-size: var(--font-size-lg, 20px);
       }
 
       & .selected-values-container {
@@ -266,7 +266,7 @@
           margin-right: 5px;
           padding: 0px 5px 0px 10px;
           border-radius: 20px;
-          background-color: var(--fpui-primary-color);
+          background-color: var(--primary-color);
           color: var(--fpui-btn-primary-text-color);
 
           & .value-text {

@@ -12,7 +12,7 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fpui-utils";
-  import { theme } from "/src/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let label;
   export let size = "md";
@@ -250,17 +250,17 @@
         &.sm {
           width: calc(100% - (var(--fpui-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
           padding: var(--fpui-date-input-btn-padding-sm, 5px);
-          font-size: var(--fpui-font-size-sm, 12px);
+          font-size: var(--font-size-sm, 12px);
         }
         &.md {
           width: calc(100% - (var(--fpui-date-input-btn-padding-md, 10px) * 4) - 16px - (1px * 3));
           padding: var(--fpui-date-input-btn-padding-md, 10px);
-          font-size: var(--fpui-font-size-base, 16px);
+          font-size: var(--font-size-base, 16px);
         }
         &.lg {
           width: calc(100% - (var(--fpui-date-input-btn-padding-lg, 15px) * 4) - 20px - (1px * 3));
           padding: var(--fpui-date-input-btn-padding-lg, 15px);
-          font-size: var(--fpui-font-size-lg, 20px);
+          font-size: var(--font-size-lg, 20px);
         }
       }
 

@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let id = "";
   export let type = "button";
@@ -94,15 +94,15 @@
 
     &.sm {
       padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-sm, 5px) - 1px) calc((var(--fpui-btn-padding-sm, 5px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpui-font-size-sm, 12px));
+      font-size: var(--custom-btn-font-size, var(--font-size-sm, 12px));
     }
     &.md {
       padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-md, 10px) - 1px) calc((var(--fpui-btn-padding-md, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpui-font-size-base, 16px));
+      font-size: var(--custom-btn-font-size, var(--font-size-base, 16px));
     }
     &.lg {
       padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-lg, 10px) - 1px) calc((var(--fpui-btn-padding-lg, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--fpui-font-size-lg, 20px));
+      font-size: var(--custom-btn-font-size, var(--font-size-lg, 20px));
     }
 
     & .btn-icon {
@@ -144,44 +144,44 @@
   }
 
   .primary {
-    border-color: var(--custom-btn-border-color, var(--fpui-primary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--fpui-primary-color, #333));
+    border-color: var(--custom-btn-border-color, var(--primary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--primary-color, #333));
     color: var(--custom-btn-text-color, var(--fpui-btn-primary-text-color, white));
     
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-primary-color, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--primary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpui-primary-color, #333));
+      color: var(--custom-btn-text-color, var(--primary-color, #333));
     }
   }
 
   .secondary {
-    border-color: var(--custom-btn-border-color, var(--fpui-secondary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--fpui-secondary-color, #333));
+    border-color: var(--custom-btn-border-color, var(--secondary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--secondary-color, #333));
     color: var(--custom-btn-text-color, var(--fpui-btn-secondary-text-color, white));
 
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-secondary-color, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--secondary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpui-secondary-color, #333));
+      color: var(--custom-btn-text-color, var(--secondary-color, #333));
     }
   }
 
   .tertiary {
-    border-color: var(--custom-btn-border-color, var(--fpui-tertiary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--fpui-tertiary-color, #333));
+    border-color: var(--custom-btn-border-color, var(--tertiary-color, #333));
+    background-color: var(--custom-btn-background-color, var(--tertiary-color, #333));
     color: var(--custom-btn-text-color, var(--fpui-btn-tertiary-text-color, white));
 
     &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--fpui-tertiary-color, gray));
+      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--tertiary-color, gray));
     }
 
     &.inverted {
-      color: var(--custom-btn-text-color, var(--fpui-tertiary-color, #333));
+      color: var(--custom-btn-text-color, var(--tertiary-color, #333));
     }
   }
 
@@ -197,10 +197,10 @@
   }
 
   .fpui-btn:disabled {
-    border-color: var(--custom-btn-disabled-bg-color, var(--fpui-disabled-bg-color, black));
+    border-color: var(--custom-btn-disabled-bg-color, var(--disabled-bg-color, black));
     box-shadow: none;
-    color: var(--custom-btn-disabled-text-color, var(--fpui-disabled-text-color, #c7c7c7));
-    background-color: var(--custom-btn-disabled-bg-color, var(--fpui-disabled-bg-color, black));
+    color: var(--custom-btn-disabled-text-color, var(--disabled-text-color, #c7c7c7));
+    background-color: var(--custom-btn-disabled-bg-color, var(--disabled-bg-color, black));
     cursor: default;
   }
 </style>

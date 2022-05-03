@@ -69,8 +69,8 @@
 
 /* Disabled state */
 .fpui-checkbox-input:disabled ~ .fpui-checkbox-checkmark {
-  border-color: var(--fpui-disabled-bg-color);
-  background-color: var(--fpui-disabled-bg-color);
+  border-color: var(--disabled-bg-color);
+  background-color: var(--disabled-bg-color);
   cursor: default;
 }
 .fpui-checkbox-label-wrapper .fpui-checkbox-input:disabled ~ .fpui-checkbox-checkmark {

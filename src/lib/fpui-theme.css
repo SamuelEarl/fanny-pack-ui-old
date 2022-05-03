@@ -1,4 +1,4 @@
-/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--fpui-primary-color` because `var(--fpui-primary-color)` is referenced throughout the components. However, you can change the *values* of any of these variables. You can create a `theme.css` file and add any other variables to that file and then reference those variables in any of the `var()` functions in this file. It is recommended to keep any custom variables separate from the variables in this file so you don't accidentally alter the name of or remove a variable that is referenced throughout the component library.  */
+/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. However, you can change the *values* of any of these variables. You can create a `theme.css` file and add any other variables to that file and then reference those variables in any of the `var()` functions in this file. It is recommended to keep any custom variables separate from the variables in this file so you don't accidentally alter the name of or remove a variable that is referenced throughout the component library.  */
 
 /* TODO: I would like to see if there is a way to give users more control over the editing of the components. Is there a way to allow users to specify what colors get passed to the different parts of each component? Maybe I could create a lot of CSS variables to allow users more fine-grained customizability for their components. For example, I could do something like the following, which would keep the styles consistent across all the components and would help to maintain the same theme across the entire website:
 
@@ -7,82 +7,168 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 * settings.scss file: https://github.com/foundation/foundation-sites/blob/develop/scss/settings/_settings.scss
 
 
-/* Global Component Styles */
+/******************************************
+  Color Palette
+  You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
+******************************************/
+:root {
+  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+  --light-green: #99b433;
+  --green: #00a300;
+  --dark-green: #1e7145;
+  --magenta: #ff0097;
+  --light-purple: #9f00a7;
+  --purple: #7e3878;
+  --dark-purple: #603cba;
+  --teal: #00aba9;
+  --light-blue: #eff4ff;
+  --blue: #2d89ef;
+  --dark-blue: #2b5797;
+  --yellow: #ffc40d;
+  --orange: #e3a21a;
+  --dark-orange: #da532c;
+  --red: #ee1111;
+  --dark-red: #b91d47;
+  /* Neutral Colors. NOTE: These are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
+  --black: #000000;
+  --very-dark-gray: #343434;
+  --dark-gray: #797979;
+  --gray: #a0a0a0;
+  --light-gray: #c7c7c7;
+  --very-light-gray: #e5e5e5;
+  --white: #ffffff;
+}
+
+
+/******************************************
+  Global Styles. 
+  These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
+******************************************/
 :root {
   /* Main Colors */
-  --fpui-primary-color: var(--primary-color);
-  --fpui-secondary-color: var(--secondary-color);
-  --fpui-tertiary-color: var(--tertiary-color);
+  --primary-color: var(--dark-purple);
+  --secondary-color: var(--very-dark-gray);
+  --tertiary-color: var(--white);
   /* Notification Colors */
-  --fpui-info-color: var(--info-color);
-  --fpui-success-color: var(--success-color);
-  --fpui-warning-color: var(--warning-color);
-  --fpui-error-color: var(--error-color);
+  --info-color: var(--blue);
+  --success-color: var(--green);
+  --warning-color: var(--yellow);
+  --error-color: var(--red);
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
-  --fpui-padding-sm: var(--padding-sm);
-  --fpui-padding-md: var(--padding-md);
-  --fpui-padding-lg: var(--padding-lg);
+  --padding-sm: 5px;
+  --padding-md: 10px;
+  --padding-lg: 15px;
   /* Borders */
-  --fpui-border-color: var(--border-color);
-  --fpui-border-radius: var(--border-radius);
+  --border-color: var(--light-gray);
+  --border-radius: 3px;
   /* Font styles */
-  --fpui-font-size-sm: var(--font-size-sm);
-  --fpui-font-size-base: var(--font-size-base);
-  --fpui-font-size-lg: var(--font-size-lg);
-  --fpui-font-weight-light: var(--font-weight-light);
-  --fpui-font-weight-normal: var(--font-weight-normal);
-  --fpui-font-weight-bold: var(--font-weight-bold);
-  --fpui-text-color: var(--text-color);
+  --font-size-sm: 12px;
+  --font-size-base: 16px;
+  --font-size-lg: 20px;
+  --font-weight-light: 100;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --text-color: var(--very-dark-gray);
   /* Disabled States */
-  --fpui-disabled-text-color: var(--disabled-text-color);
-  --fpui-disabled-bg-color: var(--disabled-bg-color);
+  --disabled-text-color: var(--light-gray);
+  --disabled-bg-color: var(--black);
 }
+
+/******************************************
+  Typography
+  Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
+******************************************/
+:root {
+  --cursive-font-stack: "Audiowide", cursive;
+  --sans-serif-font-stack: "Montserrat", sans-serif;
+  --mono-font-stack: "Source Code Pro", mono;
+  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
+  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
+}
+
+/******************************************
+  Miscellaneous Variables
+  Add any other variables that you frequently use throughout your app.
+******************************************/
+:root {
+  --border: 1px solid var(--border-color);
+}
+
+/******************************************
+  Utility Classes
+  I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library. For example the .fpui-spin class is used to spin icons during loading states.
+******************************************/
+/*
+  Begin .fpui-spin class
+  Add a class="fpui-spin" to an icon (or any other element) to make it spin.
+*/
+.fpui-spin {
+  animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
+}
+
+@keyframes fpui-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*
+  End .fpui-spin class
+*/
+
+
+/****************************************** 
+  Individual Component Styles. 
+  You can customize any of the individual components by changing the color or size values below. 
+******************************************/
 
 /* Button */
 :root {
   --fpui-btn-primary-text-color: white;
   --fpui-btn-secondary-text-color: white;
-  --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
+  --fpui-btn-tertiary-text-color: var(--primary-color);
   /* The --fpui-btn-padding variables will make the button larger or smaller. */
-  --fpui-btn-padding-sm: var(--fpui-padding-sm);
-  --fpui-btn-padding-md: var(--fpui-padding-md);
-  --fpui-btn-padding-lg: var(--fpui-padding-lg);
+  --fpui-btn-padding-sm: var(--padding-sm);
+  --fpui-btn-padding-md: var(--padding-md);
+  --fpui-btn-padding-lg: var(--padding-lg);
   /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
   --fpui-btn-icon-margin-sm: 3px;
   --fpui-btn-icon-margin-md: 7px;
   --fpui-btn-icon-margin-lg: 12px;
-  --fpui-btn-font-weight: var(--fpui-font-weight-normal);
+  --fpui-btn-font-weight: var(--font-weight-normal);
   /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpui-btn-icon-disabled-spin-speed: 1.5s;
-  --fpui-btn-border-radius: var(--fpui-border-radius);
+  --fpui-btn-border-radius: var(--border-radius);
 }
 
 /* Checkbox */
 :root {
-  --fpui-checkbox-unchecked-border-color: var(--fpui-border-color);
-  --fpui-checkbox-unchecked-border-radius: var(--fpui-border-radius);
+  --fpui-checkbox-unchecked-border-color: var(--border-color);
+  --fpui-checkbox-unchecked-border-radius: var(--border-radius);
   --fpui-checkbox-unchecked-bg-color: white;
-  --fpui-checkbox-checked-bg-color: var(--fpui-primary-color);
+  --fpui-checkbox-checked-bg-color: var(--primary-color);
   --fpui-checkbox-margin-bottom: 20px;
 }
 
 /* Date Picker */
 :root {
   /* These variables apply to both the date input field and calendar components. */
-  --fpui-date-picker-border-color: var(--fpui-border-color);
-  --fpui-date-picker-border-radius: var(--fpui-border-radius);
+  --fpui-date-picker-border-color: var(--border-color);
+  --fpui-date-picker-border-radius: var(--border-radius);
   --fpui-date-picker-bg-color: white;
-  --fpui-date-picker-text-color: var(--fpui-text-color);
+  --fpui-date-picker-text-color: var(--text-color);
   /* These variables apply to only the date input field component. */
   --fpui-date-input-btn-bg-color: #e5e5e5;
   --fpui-date-input-btn-icon-color: inherit;
-  --fpui-date-input-btn-padding-sm: var(--fpui-padding-sm);
-  --fpui-date-input-btn-padding-md: var(--fpui-padding-md);
-  --fpui-date-input-btn-padding-lg: var(--fpui-padding-lg);
+  --fpui-date-input-btn-padding-sm: var(--padding-sm);
+  --fpui-date-input-btn-padding-md: var(--padding-md);
+  --fpui-date-input-btn-padding-lg: var(--padding-lg);
   /* These variables apply to only the calendar component. */
   --fpui-calendar-selected-date-bg-color: #e5e5e5;
-  --fpui-calendar-selected-date-text-color: var(--fpui-text-color);
-  --fpui-calendar-selected-date-border-color: var(--fpui-border-color);
+  --fpui-calendar-selected-date-text-color: var(--text-color);
+  --fpui-calendar-selected-date-border-color: var(--border-color);
 }
 
 /* Drop Zone (file upload) */
@@ -90,20 +176,20 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
   --fpui-drop-zone-border-and-text-color: #343434;
   --fpui-drop-zone-bg-color: #e5e5e5;
   --fpui-drop-zone-bg-color-active: white;
-  --fpui-drop-zone-border-radius: var(--fpui-border-radius);
+  --fpui-drop-zone-border-radius: var(--border-radius);
   --fpui-drop-zone-files-set-for-upload-bg-color: white;
   --fpui-drop-zone-files-set-for-upload-text-color: #343434;
 }
 
 /* Input (currency, text) */
 :root {
-  --fpui-input-border-color: var(--fpui-border-color);
+  --fpui-input-border-color: var(--border-color);
   --fpui-input-bg-color: white;
-  --fpui-input-text-color: var(--fpui-text-color);
+  --fpui-input-text-color: var(--text-color);
   --fpui-input-placeholder-text-color: #a0a0a0;
-  --fpui-input-padding-sm: var(--fpui-padding-sm);
-  --fpui-input-padding-md: var(--fpui-padding-md);
-  --fpui-input-padding-lg: var(--fpui-padding-lg);
+  --fpui-input-padding-sm: var(--padding-sm);
+  --fpui-input-padding-md: var(--padding-md);
+  --fpui-input-padding-lg: var(--padding-lg);
 }
 
 /* Labels */
@@ -115,38 +201,38 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 
 /* Modal */
 :root {
-  --fpui-modal-border-radius: var(--fpui-border-radius);
-  --fpui-modal-header-footer-border-color: var(--fpui-border-color);
+  --fpui-modal-border-radius: var(--border-radius);
+  --fpui-modal-header-footer-border-color: var(--border-color);
   --fpui-modal-header-footer-bg-color: white;
   --fpui-modal-header-footer-text-color: #343434;
 }
 
 /* Select (single, multi) */
 :root {
-  --fpui-select-border-color: var(--fpui-border-color);
-  --fpui-select-border-radius: var(--fpui-border-radius);
+  --fpui-select-border-color: var(--border-color);
+  --fpui-select-border-radius: var(--border-radius);
   --fpui-select-bg-color: white;
-  --fpui-select-text-color: var(--fpui-text-color);
-  --fpui-select-btn-padding-sm: var(--fpui-padding-sm);
-  --fpui-select-btn-padding-md: var(--fpui-padding-md);
-  --fpui-select-btn-padding-lg: var(--fpui-padding-lg);
+  --fpui-select-text-color: var(--text-color);
+  --fpui-select-btn-padding-sm: var(--padding-sm);
+  --fpui-select-btn-padding-md: var(--padding-md);
+  --fpui-select-btn-padding-lg: var(--padding-lg);
   /* Styles for the dropdown menu of the select box. */
   --fpui-select-option-hover-bg-color: #e5e5e5;
-  --fpui-select-option-hover-text-color: var(--fpui-text-color);
-  --fpui-select-option-padding-sm: var(--fpui-padding-sm);
-  --fpui-select-option-padding-md: var(--fpui-padding-md);
-  --fpui-select-option-padding-lg: var(--fpui-padding-lg);
+  --fpui-select-option-hover-text-color: var(--text-color);
+  --fpui-select-option-padding-sm: var(--padding-sm);
+  --fpui-select-option-padding-md: var(--padding-md);
+  --fpui-select-option-padding-lg: var(--padding-lg);
 }
 
 /* Toast */
 :root {
-  --fpui-toast-info-bg-color: var(--fpui-info-color);
+  --fpui-toast-info-bg-color: var(--info-color);
   --fpui-toast-info-text-color: white;
-  --fpui-toast-success-bg-color: var(--fpui-success-color);
+  --fpui-toast-success-bg-color: var(--success-color);
   --fpui-toast-success-text-color: white;
-  --fpui-toast-warning-bg-color: var(--fpui-warning-color);
+  --fpui-toast-warning-bg-color: var(--warning-color);
   --fpui-toast-warning-text-color: black;
-  --fpui-toast-error-bg-color: var(--fpui-error-color);
+  --fpui-toast-error-bg-color: var(--error-color);
   --fpui-toast-error-text-color: white;
   --fpui-toast-font-size: 1.15rem;
   --fpui-toast-font-weight: normal;
@@ -156,5 +242,5 @@ NOTE: Look at how Foundation handles their global styles that can be customized 
 :root {
   --fpui-tooltip-bg-color: #343434;
   --fpui-tooltip-text-color: white;
-  --fpui-tooltip-border-radius: var(--fpui-border-radius);
+  --fpui-tooltip-border-radius: var(--border-radius);
 }

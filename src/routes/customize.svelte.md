@@ -208,7 +208,7 @@
 // :root {
 //   --fpui-btn-primary-text-color: white;
 //   --fpui-btn-secondary-text-color: white;
-//   --fpui-btn-tertiary-text-color: var(--fpui-primary-color);
+//   --fpui-btn-tertiary-text-color: var(--primary-color);
 // }`
 //     ];
 
@@ -244,7 +244,7 @@
 TODOS: 
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
-* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the fpui-theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the fpui-theme.css file has a --fpui-primary-color variable. So I would replace all references to --fpui-primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui- variable and instead reference the one from the theme.css file.
+* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the theme.css file has a --primary-color variable. So I would replace all references to --primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui- variable and instead reference the one from the theme.css file.
 
 
 Customize your theme and download the files to insert into your project. The download button is at the bottom of the page.

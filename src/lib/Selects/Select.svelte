@@ -168,15 +168,15 @@
       */
       &.sm {
         padding: var(--fpui-select-btn-padding-sm, 5px);
-        font-size: var(--fpui-font-size-sm, 12px);
+        font-size: var(--font-size-sm, 12px);
       }
       &.md {
         padding: var(--fpui-select-btn-padding-md, 10px);
-        font-size: var(--fpui-font-size-base, 16px);
+        font-size: var(--font-size-base, 16px);
       }
       &.lg {
         padding: var(--fpui-select-btn-padding-lg, 15px);
-        font-size: var(--fpui-font-size-lg, 20px);
+        font-size: var(--font-size-lg, 20px);
       }
 
       & .fpui-select-btn-text {
@@ -238,15 +238,15 @@
 
         &.sm {
           padding: var(--fpui-select-option-padding-sm, 5px);
-          font-size: var(--fpui-font-size-sm, 12px);
+          font-size: var(--font-size-sm, 12px);
         }
         &.md {
           padding: var(--fpui-select-option-padding-md, 10px);
-          font-size: var(--fpui-font-size-base, 16px);
+          font-size: var(--font-size-base, 16px);
         }
         &.lg {
           padding: var(--fpui-select-option-padding-lg, 15px);
-          font-size: var(--fpui-font-size-lg, 20px);
+          font-size: var(--font-size-lg, 20px);
         }
       }
     }

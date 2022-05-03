@@ -65,13 +65,13 @@
     outline: none;
     border: 1px solid;
     border-color: var(--fpui-input-border-color, #c7c7c7);
-    border-radius: var(--fpui-border-radius, 3px);
+    border-radius: var(--border-radius, 3px);
     background-color: var(--fpui-input-bg-color);
     color: var(--fpui-input-text-color);
 
     &.sm {
       padding: var(--fpui-input-padding-sm, 5px);
-      font-size: var(--fpui-font-size-sm, 12px);
+      font-size: var(--font-size-sm, 12px);
     }
     &.md {
       padding: var(--fpui-input-padding-md, 10px);
@@ -79,7 +79,7 @@
     }
     &.lg {
       padding: var(--fpui-input-padding-lg, 15px);
-      font-size: var(--fpui-font-size-lg, 20px);
+      font-size: var(--font-size-lg, 20px);
     }
 
     &::placeholder {
@@ -91,10 +91,10 @@
     }
 
     &:disabled {
-      border-color: var(--fpui-disabled-bg-color);
+      border-color: var(--disabled-bg-color);
       box-shadow: none;
-      color: var(--fpui-disabled-text-color);
-      background-color: var(--fpui-disabled-bg-color);
+      color: var(--disabled-text-color);
+      background-color: var(--disabled-bg-color);
       cursor: default;
     }
   }

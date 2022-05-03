@@ -3,7 +3,7 @@
   import { browser } from "$app/env";
   import Icon from "@iconify/svelte";
   import { Button } from "../Buttons";
-  import { theme } from "/src/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let dropZoneSelectFilesBtnIcon = theme.dropZoneSelectFilesBtnIcon;
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;

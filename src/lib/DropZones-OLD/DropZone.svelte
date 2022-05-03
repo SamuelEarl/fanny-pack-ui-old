@@ -13,7 +13,7 @@
     onDocumentDragOver,
     TOO_MANY_FILES_REJECTION
   } from "./utils";
-  import { theme } from "/src/fpui-theme";
+  import { theme } from "/src/theme";
 
   //props
   /**
