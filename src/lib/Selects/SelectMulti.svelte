@@ -186,7 +186,7 @@
     {/if}
 
     <!-- 
-      The following commented code has usability attributes in it, so I don't want to remove this commented code until I have had a chance to create tests and see if the usability attributes work.
+      TODO: The following commented code has usability attributes in it, so I don't want to remove this commented code until I have had a chance to create tests and see if the usability attributes work.
     -->
     <!-- {#if arrayType === "string" || arrayType === "number"}
       {#each valuesArray as item}          
@@ -296,14 +296,12 @@
       overflow-y: auto;
       padding: 10px;
       padding-top: 15px;
-      border: 1px solid;
+      border: 2px solid;
       border-color: var(--fpui-select-border-color);
+      border-radius: var(--fpui-select-border-radius, 3px);
+      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
       background-color: white;
       z-index: 100;
-
-      &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
-      }
 
       &.show {
         display: block;

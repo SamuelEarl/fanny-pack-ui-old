@@ -10,6 +10,9 @@
   cursor: pointer;
   user-select: none;
 }
+.fpui-checkbox-label-wrapper:last-child {
+  margin-bottom: 10px;
+}
 /* On mouse-over of an unchecked checkbox, add a box-shadow to the checkbox that matches the border color. */
 .fpui-checkbox-label-wrapper:hover .fpui-checkbox-input ~ .fpui-checkbox-checkmark {
   box-shadow: 0 0 0 1px var(--fpui-checkbox-unchecked-border-color, gray);

@@ -8,6 +8,7 @@
   import { createId } from "../fpui-utils";
 
   export let label = "";
+  export let popup = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
   let componentId = createId();
@@ -258,7 +259,7 @@
 
 
 <Label {label} forVal={`fpui-calendar-${componentId}`} />
-<div class="calendar-container" on:focusout tabindex="0" on:keydown={keydown}>
+<div class="calendar-container" class:popup on:focusout tabindex="0" on:keydown={keydown}>
   <div class="top">
     <button class="change-month-btn" tabindex="-1" on:click={() => setMonth(month - 1)}>
       &ltrif;
@@ -326,6 +327,12 @@
 
     &:hover {
       box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
+    }
+
+    &.popup {
+      border: 2px solid;
+      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
+      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
     }
 
     & .top {

@@ -172,7 +172,7 @@
 
 <Label {label} forVal={`fpui-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
-  <div class="{`date-input-container ${size}`}">
+  <div class="{`date-input-container ${size}`}" class:showCalendar>
     <input
       id={`fpui-date-input-${componentId}`}
       class="{`date-input ${size}`}"
@@ -205,6 +205,7 @@
         {min}
         {max}
         {locale}
+        popup={true}
       />
     </div>
   {/if}
@@ -226,7 +227,7 @@
         box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
       }
 
-      &:focus {
+      &.showCalendar {
         box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
       }
 
@@ -298,7 +299,7 @@
     & .triangle-up {
       width: 10px;
       height: 10px;
-      border: 1px solid;
+      border: 2px solid;
       border-color: var(--fpui-date-picker-border-color, #c7c7c7);
       border-bottom: none;
       border-right: none;
