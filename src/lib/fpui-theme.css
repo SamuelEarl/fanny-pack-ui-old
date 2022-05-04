@@ -96,30 +96,6 @@
   /* --sans-serif-font-stack: "Open Sans", sans-serif; */
 }
 
-/******************************************
-  Utility Classes
-  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library so do not edit these (but you are welcome to create additional utility classes here). For example the .fpui-spin class is used to spin icons during loading states.
-******************************************/
-/*****
-  Begin .fpui-spin class
-  Add a class="fpui-spin" to an icon (or any other element) to make it spin.
-*****/
-.fpui-spin {
-  animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
-}
-
-@keyframes fpui-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-/*****
-  End .fpui-spin class
-*****/
-
 
 /****************************************** 
   Individual Component Styles. 
@@ -248,3 +224,28 @@
   --fpui-tooltip-text-color: white;
   --fpui-tooltip-border-radius: var(--border-radius);
 }
+
+
+/******************************************
+  Utility Classes
+  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library so do not edit these (but you are welcome to create additional utility classes here). For example the .fpui-spin class is used to spin icons during loading states.
+******************************************/
+/*****
+  Begin .fpui-spin class
+  Add a class="fpui-spin" to an icon (or any other element) to make it spin.
+*****/
+.fpui-spin {
+  animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
+}
+
+@keyframes fpui-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/*****
+  End .fpui-spin class
+*****/

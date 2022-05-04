@@ -18,10 +18,10 @@ npm install @fanny-pack-ui/svelte-kit
 When you install and import the components into your app, the components will have a default theme that matches this Fanny Pack UI docs site. (NOTE: The fonts that are used in this site will not be included in your app because you have to [install your own fonts](#install-fonts).) The CSS theme is created with native CSS variables, which allows a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
 
 1. Create the following two files: `/src/assets/styles/theme.css` and `/src/assets/styles/main.css`
-2. Copy all the code from the `fpui-theme.css` file in your `node_modules/@fanny-pack-ui/svelte-kit/` directory (note the `.css` file extension) and paste that code into your newly created `theme.css` file.
-3. Inside your `theme.css` file, delete the variables in the `Color Palette` object and insert your own color variables.
-4. Change any of the other variables *values* in your `theme.css` file to create the theme that you want for your app. (See the comments throughout the `fpui-theme.css` file for instructions and details.)
-5. Then open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. That might look something like this:
+2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy all the code from the `fpui-theme.css` file (note the `.css` file extension) and paste that code into your newly created `theme.css` file.
+3. Inside your `theme.css` file, delete the variables in the `Color Palette` block and insert your own color variables.
+4. Change any of the other variable *values* in your `theme.css` file to create the theme that you want for your app. (See the comments throughout your `theme.css` file for instructions and details.)
+5. Open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. Those imports might look something like this:
 
 ```css
 @import "normalize.css";
@@ -41,8 +41,6 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 ```
 
 *NOTE: You can create a `/src/assets/styles/normalize.css` file and copy and paste the code from [Normalize.css](https://necolas.github.io/normalize.css/) into it. The `fonts.css` and `base.css` files are explained below.*
-
-Your theme should now be enabled when you start your app and you should have some CSS variables and utility classes available to you as well. As you see the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file.
 
 
 ## Step 3: Configure Media Queries
@@ -180,34 +178,38 @@ h1, h2, h3, h4, h5, h6 {
 <h2 id="enable-js-vars">Step 6: Configure JavaScript variables for icons</h2>
 
 1. Create a `/src/theme.ts` file.
-2. Copy all the code from the `fpui-theme.js` file in your `node_modules/@fanny-pack-ui/svelte-kit/` directory (note the `.js` file extension) and paste that code into your newly created `/src/theme.ts` file.
+2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy all the code from the `fpui-theme.js` file (note the `.js` file extension) and paste that code into your newly created `/src/theme.ts` file.
 
 *NOTE: The components are already referencing the `/src/theme.ts` file, so the values in your `/src/theme.ts` file should work without any additional configurations.*
 
 You can now edit any of the variables in your `/src/theme.ts` file. You can read the instructions in that file to find out how to customize your JavaScript variables.
 
+
+## Conclusion
+Your theme should now be enabled when you start your app and you should have some CSS variables and utility classes available to you as well. As you see the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or your JavaScript variable values following the instructions inside your `theme.ts` file.
+
 ---
 
-## How to update `@fanny-pack-ui/svelte-kit` to the latest version in your app
+# How to update `@fanny-pack-ui/svelte-kit` to the latest version in your app
 If you have installed `@fanny-pack-ui/svelte-kit` from the global npm registry, then you can do the following (inside the directory that contains your `package.json` file) to get the latest version in your app:
 
-### See which packages are outdated:
+## See which packages are outdated:
 ```
 npm outdated
 ```
 
-### Install the `npm-ckeck-updates` package globally:
+## Install the `npm-ckeck-updates` package globally:
 ```
 npm install -g npm-check-updates
 ```
 
-### Update the `@fanny-pack-ui/svelte-kit` package:
+## Update the `@fanny-pack-ui/svelte-kit` package:
 ```
 ncu -u @fanny-pack-ui/svelte-kit
 ```
 This will upgrade the `@fanny-pack-ui/svelte-kit` package version hint in your `package.json` file, so npm can install the updated version in the next step.
 
-### Install the updated version:
+## Install the updated version:
 ```
 npm install
 ```
