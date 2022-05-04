@@ -78,8 +78,8 @@
   --font-weight-bold: 700;
   --text-color: var(--very-dark-gray);
   /* Disabled States */
-  --disabled-text-color: var(--light-gray);
   --disabled-bg-color: var(--black);
+  --disabled-text-color: var(--light-gray);
 }
 
 
