@@ -181,11 +181,11 @@
 
 /* Modal */
 :root {
-  --fpui-modal-border-radius: var(--border-radius);
-  --fpui-modal-body-bg-color: white;
   --fpui-modal-header-footer-border-color: var(--border-color);
   --fpui-modal-header-footer-bg-color: white;
   --fpui-modal-header-footer-text-color: #343434;
+  --fpui-modal-border-radius: var(--border-radius);
+  /* --fpui-modal-body-bg-color: white; */
 }
 
 /* Select (single, multi) */

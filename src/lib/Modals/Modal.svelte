@@ -115,7 +115,8 @@
         /* Modal Content/Box */
         & #modal-content {
           width: 100%;
-          border-radius: var(--border-radius);
+          /* If the header and footer are excluded and the user provides a --custom-modal-body-border-radius value, then the modal-content's border-radius will match that custom value. This will prevent any of the modal-content's background styles from spilling outside of the modal-body. */
+          border-radius: var(--custom-modal-body-border-radius, var(--border-radius, 3px));
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
           /* Modal Header */
@@ -132,7 +133,8 @@
           /* Modal Body */
           & #modal-body {
             padding: var(--custom-modal-body-padding, 20px);
-            background-color: var(--fpui-modal-body-bg-color, transparent);
+            border-radius: var(--custom-modal-body-border-radius, 0px);
+            background-color: var(--custom-modal-body-bg-color, var(--fpui-modal-body-bg-color, white));
           }
 
           /* Modal Footer */

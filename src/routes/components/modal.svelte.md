@@ -1,8 +1,12 @@
 <script lang="ts">
   import { Button, Checkbox, Modal } from "/src/lib";
+  import LoginForm from "/src/components/LoginForm.svelte";
 
   let showModal = false;
   let showModalBody = false;
+  let showLoginModal = false;
+  let showLoginModalCode = false;
+  let loggingIn = false;
   let savingEdits = false;
   let enableScrollingBody = false;
 
@@ -176,30 +180,64 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 
 You can customize the following style props:
 
-* `--custom-modal-width-lg-up`: On screens that are 1024px wide and wider, the `<Modal>` component will be 950px wide. You can change that width with this custom style prop.
-* `--custom-modal-header-padding`: The default header padding is 20px. You can change that with this custom style prop.
-* `--custom-modal-footer-padding`: The default footer padding is 10px (top and bottom) and 20px (left and right). You can change that with this custom style prop.
+* `--custom-modal-width-lg-up`: On screens that are 1024px wide and wider, the `<Modal>` component will be 950px wide. You can change that width with this custom style prop. For example, you could set the modal to span the entire width minus 20px on each side with this setting: `--custom-modal-width-lg-up="calc(100% - 40px)"`
+* `--custom-modal-header-padding`: The default header padding is 20px. You can change that with this custom style prop. For example, `--custom-modal-header-padding="40px"`
+* `--custom-modal-footer-padding`: The default footer padding is 10px (top and bottom) and 20px (left and right). You can change that with this custom style prop. For example, `--custom-modal-footer-padding="20px 10px"` or `--custom-modal-footer-padding="20px"`
 * `--custom-modal-body-padding`: The default body padding is 20px. You can change that with this custom style prop. For example, if you want to have a modal that displays an image, chart, or login form that extends all the way to the edges of the modal, then you can exclude the header and footer (see above) and remove the body padding by setting this style prop to `0`.
+* `--custom-modal-body-border-radius`: The default is `0px`. If you exclude the header and footer, then only the modal body will be displayed and the corners of the modal body will come to a point. However, you can overwrite this default value by setting the modal body's border radius to be whatever you want.
+* `--custom-modal-body-bg-color`: The default body background color is `white`. However, this default value can be overwritten globally with the `--fpui-modal-body-bg-color` variable in your `theme.css` file. Also, if you want to exclude the header and footer and only show the modal body, then you can set this variable to `"transparent"`. A transparent background will prevent any of the modal body's background styles from spilling outside of whatever elements you place inside the `modalBody` slot.
 
+<br>
+
+You can put almost anything inside of a modal body and customize it:
+
+<Button btnIcon="" on:click={() => showLoginModal = true}>Show Login Modal</Button>
+
+{#if showLoginModal}
+  <Modal
+    disabled={loggingIn}
+    on:closeModal={() => showLoginModal = false}
+    --custom-modal-width-lg-up="calc(100% - 40px)"
+    --custom-modal-body-padding="0"
+    --custom-modal-body-border-radius="20px"
+    --custom-modal-body-bg-color="transparent"
+  >
+    <div slot="modalBody">
+      <LoginForm 
+        on:login={(event) => loggingIn = event.detail} 
+        on:authenticated={() => showLoginModal = false} 
+      />
+    </div>
+  </Modal>
+{/if}
 
 ```svelte
-<Modal
-  title="Modal Title"
-  --custom-modal-width-lg-up="950px"
-  --custom-modal-header-padding="20px"
-  --custom-modal-footer-padding="10px 20px"
-  --custom-modal-body-padding="0"
->
-  <div slot="modalBody">
-    <img src="path/to/image" alt="image-alt-tag" />
-  </div>
-  <div slot="modalFooterLeft">
-    <Button>Left Button</Button>
-  </div>
-  <div slot="modalFooterRight">
-    <Button>Right Button</Button>
-  </div>
-</Modal>
+<script>
+  import { Button, Modal } from "@fanny-pack-ui/svelte-kit";
+
+  let showLoginModal = false;
+  let loggingIn = false;
+</script>
+
+<Button btnIcon="" on:click={() => showLoginModal = true}>Show Login Modal</Button>
+
+{#if showLoginModal}
+  <Modal
+    disabled={loggingIn}
+    on:closeModal={() => showLoginModal = false}
+    --custom-modal-width-lg-up="calc(100% - 40px)"
+    --custom-modal-body-padding="0"
+    --custom-modal-body-border-radius="20px"
+    --custom-modal-body-bg-color="transparent"
+  >
+    <div slot="modalBody">
+      <LoginForm 
+        on:login={(event) => loggingIn = event.detail} 
+        on:authenticated={() => showLoginModal = false} 
+      />
+    </div>
+  </Modal>
+{/if}
 ```
 
 ---
