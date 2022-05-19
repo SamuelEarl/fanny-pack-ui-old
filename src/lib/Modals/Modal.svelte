@@ -116,7 +116,6 @@
         & #modal-content {
           width: 100%;
           border-radius: var(--border-radius);
-          background-color: white;
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
           /* Modal Header */
@@ -124,7 +123,7 @@
             padding: var(--custom-modal-header-padding, 20px);
             border-bottom: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
             border-radius: var(--border-radius, 3px) var(--border-radius, 3px) 0 0;
-            background-color: var(--fpui-modal-header-footer-bg-color, #e5e5e5);
+            background-color: var(--fpui-modal-header-footer-bg-color, white);
             color: var(--fpui-modal-header-footer-text-color, #343434);
             font-size: 1.25rem;
             font-weight: bold;
@@ -133,6 +132,7 @@
           /* Modal Body */
           & #modal-body {
             padding: var(--custom-modal-body-padding, 20px);
+            background-color: var(--fpui-modal-body-bg-color, transparent);
           }
 
           /* Modal Footer */
@@ -142,7 +142,7 @@
             padding: var(--custom-modal-footer-padding, 10px 20px);
             border-top: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
             border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
-            background-color: var(--fpui-modal-header-footer-bg-color, #e5e5e5);
+            background-color: var(--fpui-modal-header-footer-bg-color, white);
 
             & #modal-footer-left, & #modal-footer-right {
 
@@ -177,15 +177,10 @@
           & #modal-footer {
             flex-direction: row;
             justify-content: space-between;
-            padding: var(--custom-modal-footer-padding, 10px 20px);
-            border-top: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
-            border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
-            background-color: var(--fpui-modal-header-footer-bg-color, #e5e5e5);
 
             & #modal-footer-left, & #modal-footer-right {
 
               & :global(div) { /* This :global(div) modalFooterLeft and modalFooterRight slots */
-                display: flex;
                 flex-direction: row;
 
                 & :global(button) {
