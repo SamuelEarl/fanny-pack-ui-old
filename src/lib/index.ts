@@ -5,6 +5,7 @@ export { DropZone } from "./DropZones";
 export { CurrencyInput, Input } from "./Inputs";
 export { Label } from "./Labels";
 export { Modal } from "./Modals";
+export { RadioButton } from "./RadioButtons";
 export { Select, SelectMulti } from "./Selects";
 export { Toast, ToastContent } from "./Toasts";
 export { Tooltip } from "./Tooltips";

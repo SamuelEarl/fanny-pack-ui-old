@@ -5,12 +5,12 @@
 </script>
 
 
-<label class="fpui-checkbox-label-wrapper" class:disabled={disabled}>
+<label class="fpui-checkbox-label-wrapper" class:disabled>
   <input
     type="checkbox"
     class="fpui-checkbox-input"
     bind:checked={checked}
-    disabled={disabled}
+    {disabled}
     on:change
     on:input
   > {label}

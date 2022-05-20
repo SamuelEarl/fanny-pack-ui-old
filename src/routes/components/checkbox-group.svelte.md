@@ -113,8 +113,8 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 ## Event Forwarding
 | Event | Description |
 | ----- | ----------- |
-| `on:change` | This component forwards the `change` event, so you can call an event handler when a user checks this `<Checkbox>` component. |
-| `on:input` | This component forwards the `input` event, so you can call an event handler when a user checks this `<Checkbox>` component. You would setup and use the `input` event the same way you would setup and use the `change` event. |
+| `on:change` | This component forwards the `change` event, so you can call an event handler with `on:change={handlerFunction}` when a user checks this `<Checkbox>` component. |
+| `on:input` | This component forwards the `input` event, so you can call an event handler with `on:input={handlerFunction}` when a user checks this `<Checkbox>` component. |
 
 <br>
 
