@@ -48,6 +48,7 @@ NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-w
 
 ## Input (currency)
 * Write tests.
+* Work on localization. See the comments at the top of the `CurrencyInput.svelte` component.
 
 ## Input (email, text)
 * Add documentation for the email input.

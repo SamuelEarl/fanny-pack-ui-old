@@ -7,15 +7,6 @@
   let amount1 = 0;
   let amount2 = 0;
   $: total = amount1 + amount2;
-
-  function handlerFunction(event) {
-    try {
-      console.log("Blur Event:", event.details);
-    }
-    catch(err) {
-      console.log("handlerFunction Error:", err);
-    }
-  }
 </script>
 
 
@@ -24,8 +15,6 @@
 ---
 
 ## Example Usage
-
-### Currency Input
 
 <CurrencyInput
   bind:value={amount1}
@@ -37,7 +26,6 @@
   size="md"
   placeholder="Type right here"
   disabled={false}
-  on:blur={(event) => handlerFunction(event)}
 />
 
 ```svelte
@@ -126,7 +114,8 @@
 | ----- | ----------- |
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user changes the value in the input field and then the input field loses focus. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler when a user enters a value into the input field. |
-| `on:blur` | This component dispatches the `blur` event rather than forwards it. This is because the `blur` event is used internally in this componet so the `blur` event cannot be forwarded. The main difference when listening for and handling the `blur` event in this component is that you will find the `blur` event on the `event.detail` object rather than the `event` object. For example:<br><br>`function handlerFunction(event) {`<br>`&nbsp;&nbsp;console.log("Blur Event:", event.details)};`<br>`}`<br><br>`<CurrencyInput on:blur={handlerFunction} />` |
+| `on:blur` | This component dispatches the `blur` event rather than forwards it. This is because the `blur` event is used internally in this componet so the `blur` event cannot be forwarded. The main difference when listening for and handling the `blur` event in this component is that you will find the `blur` event on the `event.detail` object rather than the `event` object. For example:<br><br>`function handlerFunction(event) {`<br>`&nbsp;&nbsp;console.log("Blur Event:", event.detail)};`<br>`}`<br><br>`<CurrencyInput on:blur={handlerFunction} />` |
+| `on:keyup` | This component dispatches the `keyup` event rather than forwards it. This is because the `keyup` event is used internally in this componet so the `keyup` event cannot be forwarded. The main difference when listening for and handling the `keyup` event in this component is that you will find the `keyup` event on the `event.detail` object rather than the `event` object. For example:<br><br>`function handlerFunction(event) {`<br>`&nbsp;&nbsp;console.log("Keyup Event:", event.detail)};`<br>`}`<br><br>`<CurrencyInput on:keyup={handlerFunction} />` |
 
 
 

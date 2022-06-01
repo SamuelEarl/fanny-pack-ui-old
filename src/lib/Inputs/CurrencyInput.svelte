@@ -55,7 +55,12 @@
       showNumberInput = false;
 
       // The `on:blur` event is already used by the <input type="number" /> component (in this file) to switch the input field from a number input back to a text input. So this component is unable to forward the blur event like you normally would in Svelte. Instead, this component manually dispatches the blur event here when the user clicks outside of the input field or presses "Enter" or "Esc". This will act the same as if the blur event were forwarded. The main difference is that the `blur` event will be found on the `event.detail` object rather than the `event` object.
-      dispatch("blur", event);
+      if (event.type === "blur") {
+        dispatch("blur", event);
+      }
+      if (event.type === "keyup") {
+        dispatch("keyup", event);
+      }
     }
   }
 
