@@ -58,9 +58,6 @@
       if (event.type === "blur") {
         dispatch("blur", event);
       }
-      if (event.type === "keyup") {
-        dispatch("keyup", event);
-      }
     }
   }
 
