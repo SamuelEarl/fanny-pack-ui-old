@@ -7,7 +7,7 @@
 -->
 
 <script lang="ts">
-  import { tick } from "svelte";
+  import { tick, createEventDispatcher } from "svelte";
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
 
@@ -21,6 +21,7 @@
   export let placeholder = "";
   export let disabled = false;
 
+  const dispatch = createEventDispatcher();
   let componentId = createId();
   $: formattedValue = formatValue(value);
   let showNumberInput = false;
@@ -40,7 +41,7 @@
    * If the user clicks outside of the input field or presses "Enter" or "Esc",
    * then hide the "number" input field and show the "text" input field.
    */
-  async function unfocus(event) {
+  async function loseFocus(event) {
     // NOTE: `event.keyCode` is deprecated. Use `event.key` instead. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key.
     if (event.type === "blur" || event.key === "Enter" || event.key === "Escape") {
       // If a user deletes the number in the "number" input field and does not enter another number in its place, then `value` will be `null`. The `formatValue()` function will format `null` to be `$0.00`, so it will appear to be a valid value to the user. However, since `value` is actually `null` there could be negative consequences when `value` gets passed to another part of the app or saved to the database. To prevent any possible problems, the following `if` statement will set any values that are either `null` or `undefined` back to their default value of 0.
@@ -52,10 +53,13 @@
       // Use the `toFixed()` method to handle decimal numbers. See https://javascript.info/number#imprecise-calculations.
       value = Number(value.toFixed(2));
       showNumberInput = false;
+
+      // The `on:blur` event is already used by the <input type="number" /> component (in this file) to switch the input field from a number input back to a text input. So this component is unable to forward the blur event like you normally would in Svelte. Instead, this component manually dispatches the blur event here when the user clicks outside of the input field or presses "Enter" or "Esc". This will act the same as if the blur event were forwarded. The main difference is that the `blur` event will be found on the `event.detail` object rather than the `event` object.
+      dispatch("blur", event);
     }
   }
 
-  // See the `unfocus()` function above for some background about this `formatValue()` function.
+  // See the `loseFocus()` function above for some background about this `formatValue()` function.
   function formatValue(value) {
     if (value > 0) {
       return new Intl.NumberFormat(locale, {style: "currency", currency: currency}).format(value);
@@ -80,8 +84,8 @@
     disabled={disabled}
     bind:value={value}
     bind:this={numberInput}
-    on:keyup={unfocus}
-    on:blur={unfocus}
+    on:keyup={loseFocus}
+    on:blur={loseFocus}
     on:change
     on:input
   />
@@ -94,7 +98,6 @@
     disabled={disabled}
     bind:value={formattedValue}
     on:focus={handleTextInputFocus}
-    on:blur
   />
 {/if}
 
