@@ -114,7 +114,7 @@
 | ----- | ----------- |
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user changes the value in the input field and then the input field loses focus. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler when a user enters a value into the input field. |
-| `on:blur` | This component dispatches the `blur` event rather than forwards it. This is because the `blur` event is used internally in this componet so the `blur` event cannot be forwarded. The main difference when listening for and handling the `blur` event in this component is that, since the `blur` event is dispatched, you will find the `blur` event on the `event.detail` object rather than the `event` object. For example:<br><br>`function handlerFunction(event) {`<br>`&nbsp;&nbsp;console.log("Blur Event:", event.detail)};`<br>`}`<br><br>`<CurrencyInput on:blur={handlerFunction} />` |
+| `on:blur` | This component dispatches a custom `blur` event rather than forwarding the `blur` DOM event. This is because the `blur` event is used internally in this component so the `blur` event cannot be forwarded. The main difference when listening for and handling the `blur` event in this component is that, since the `blur` event is dispatched, you will find the `blur` event on the `event.detail` object rather than the `event` object. For example:<br><br>`function handlerFunction(event) {`<br>`&nbsp;&nbsp;console.log("Blur Event:", event.detail)};`<br>`}`<br><br>`<CurrencyInput on:blur={handlerFunction} />` |
 
 
 <style>

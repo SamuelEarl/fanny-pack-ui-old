@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { tick } from "svelte";
+  import { tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateMenuHeight } from "../fpui-utils";
 
@@ -10,6 +10,7 @@
   export let selectedOption;
   export let size = "md";
 
+  const dispatch = createEventDispatcher();
   let componentId = createId();
   let selectMenu;
   let showSelectMenu = false;
@@ -26,6 +27,7 @@
     selectedOption = option;
     highlightedOption = selectedOption;
     showSelectMenu = false;
+    dispatch("change", option);
   }
 </script>
 

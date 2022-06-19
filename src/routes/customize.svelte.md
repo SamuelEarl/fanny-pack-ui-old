@@ -31,9 +31,9 @@
       ["--font-size-sm", "12", "px"],
       ["--font-size-base", "16", "px"],
       ["--font-size-lg", "20", "px"],
-      ["--font-weight-light", "100"],
-      ["--font-weight-normal", "400"],
-      ["--font-weight-bold", "700"],
+      ["--font-weight-light", "100", ""],
+      ["--font-weight-normal", "400", ""],
+      ["--font-weight-bold", "700", ""],
     ],
     globalComponentColors: [
       ["--primary-color", ["--dark-purple", "#603cba"]],
@@ -137,6 +137,15 @@
     themes = JSON.parse(localStorage.getItem("themes"));
   }
 
+  function resetTheme() {
+    if (browser) {
+      let confirmation = confirm(`Are you sure you want to reset the "${selectedTheme.text}" theme to the Fanny Pack UI theme defaults?`);
+      if (confirmation) {
+        alert("TODO: Reset theme back to defaults.");
+      }
+    }
+  }
+
   function deleteTheme() {
     let newThemesArray = themes.filter(obj => obj.text !== selectedTheme.text);
     console.log("newThemesArray", newThemesArray);
@@ -169,6 +178,24 @@
   }
 
   /**
+   * Update the values of the CSS variables when the user changes them in the UI.
+   * See https://www.w3schools.com/css/css3_variables_javascript.asp
+   */
+  function updateCssVariable(variableType, variableName, value, unit) {
+    console.log("CSS Variable:", variableName, "New Value:", value);
+    // Get the root element
+    let root = document.querySelector(":root");
+    // Set the value of the CSS variable to the selected value.
+    if (variableType === "color") {
+      root.style.setProperty(variableName, `var(${value})`);
+    }
+    if (variableType === "size") {
+      root.style.setProperty(variableName, value + unit);
+    }
+    saveTheme();
+  }
+
+  /**
    * https://stackoverflow.com/a/47201559/9453009
    */
   function hexToRgb(hex: string, alpha: string) {
@@ -189,7 +216,7 @@
 
   function downloadTheme() {
     // TODOS: 
-    // * As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff");
+    // * As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart. 
     // * Convert the second value in each of the `selectedTheme.value.globalComponentColors` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
 
@@ -310,7 +337,19 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
 <br><br>
 
 <Button
-  type="submit"
+  type="button"
+  btnColor="secondary"
+  btnIcon="fluent:arrow-reset-24-filled"
+  width="full"
+  on:click={resetTheme}
+>
+  Reset "{selectedTheme.text}" theme to Fanny Pack UI theme defaults
+</Button>
+
+<br><br>
+
+<Button
+  type="button"
   btnColor="secondary"
   btnIcon="mdi:delete-forever-outline"
   width="full"
@@ -371,36 +410,12 @@ Add as many color variables as you want (including your main color palette and n
 <br><br>
 
 
-## Global sizes
-
-<table>
-  <thead>
-    <tr>
-      <th>Size variable name</th>
-      <th>Size value</th>
-      <th>Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each selectedTheme.value.sizes as size, index}
-      <tr>
-        <td><Input size="sm" bind:value={size[0]} on:blur={saveTheme} /></td>
-        <td><Input type="number" size="sm" bind:value={size[1]} on:change={saveTheme} /></td>
-        {#if size[2]}
-          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={saveTheme} /></td>
-        {/if}
-      </tr>
-    {/each}
-  </tbody>
-</table>
-
-
-## Global component styles
+## Global component color variables
 These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
 
 Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
 
-<!-- <table>
+<table>
   <thead>
     <tr>
       <th>Variable name</th>
@@ -411,22 +426,60 @@ Each component style that can be customized has a fallback value. So, for exampl
     {#each selectedTheme.value.globalComponentColors as globalColor}
       <tr>
         <td>{globalColor[0]}</td>
-        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={globalColor[1]}/></td>
+        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={globalColor[1]} on:change={(event) => updateCssVariable("color", globalColor[0], event.detail[0])} /></td>
       </tr>
     {/each}
   </tbody>
-</table> -->
+</table>
 
 TODO: Reference the variables from the above sections (colors, padding, borders, etc) in drop-down menus for each of these variables.
 
 ---
 
-## Individual component styles
+## Global component size variables
+
+<table>
+  <thead>
+    <tr>
+      <th>Size variable name</th>
+      <th>Size value</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each selectedTheme.value.sizes as size}
+      <tr>
+        <td>{size[0]}</td>
+        <td><Input type="number" size="sm" bind:value={size[1]} on:change={(event) => updateCssVariable("size",size[0], event.target.value, size[2])} /></td>
+        <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
+        {#if size[2]}
+          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={(event) => updateCssVariable("size", size[0], size[1], event.detail)} /></td>
+        {/if}
+      </tr>
+    {/each}
+  </tbody>
+</table>
+
+
+---
+
+## Individual component variables
 You can customize individual components by changing the following values.
 
 ### Accordions
 
 ### Buttons
+<Button btnColor="primary">
+  Primary Button
+</Button>
+
+<Button btnColor="secondary">
+  Secondary Button
+</Button>
+
+<Button btnColor="tertiary">
+  Tertiary Button
+</Button>
 
 ---
 
@@ -448,6 +501,7 @@ You can customize individual components by changing the following values.
   Download theme
 </Button>
 
+
 <style>
   form {
     display: flex;
@@ -457,5 +511,24 @@ You can customize individual components by changing the following values.
       width: 600px;
       margin-right: 10px;
     }
+  }
+
+  /* Button */
+  :root {
+    --fpui-btn-primary-text-color: white;
+    --fpui-btn-secondary-text-color: white;
+    --fpui-btn-tertiary-text-color: var(--primary-color);
+    /* The --fpui-btn-padding variables will make the button larger or smaller. */
+    --fpui-btn-padding-sm: var(--padding-sm);
+    --fpui-btn-padding-md: var(--padding-md);
+    --fpui-btn-padding-lg: var(--padding-lg);
+    /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
+    --fpui-btn-icon-margin-sm: 3px;
+    --fpui-btn-icon-margin-md: 7px;
+    --fpui-btn-icon-margin-lg: 12px;
+    --fpui-btn-font-weight: var(--font-weight-normal);
+    /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
+    --fpui-btn-icon-disabled-spin-speed: 1.5s;
+    --fpui-btn-border-radius: var(--border-radius);
   }
 </style>
