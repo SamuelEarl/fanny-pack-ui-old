@@ -54,7 +54,7 @@
       <span class="fpui-select-btn-text" title={selectedOption}>{selectedOption}</span>
     {/if} 
     {#if arrayType === "object"}
-      <span class="fpui-select-btn-text" title={selectedOption.text}>{selectedOption.text}</span>
+      <span class="fpui-select-btn-text" title={selectedOption.label}>{selectedOption.label}</span>
     {/if}
     <!-- If the `arrayType` is an array of arrays, then display the element (in the array) at the given index. -->
     {#if arrayType === "array"}
@@ -109,18 +109,18 @@
     {/if}
     {#if arrayType === "object"}
       {#each optionsArray as obj}
-        <!-- The following code references `obj` in all instances of the current object in this each loop except for when the text needs to be displayed to the user. In those cases this code references `obj.text`. -->
+        <!-- The following code references `obj` in all instances of the current object in this each loop except for when the text needs to be displayed to the user. In those cases this code references `obj.label`. -->
         <div
           role="option"
           aria-selected={selectedOption === obj}
           class="{`fpui-select-option ${size}`}"
           class:selected={highlightedOption === obj}
-          title={obj.text}
+          title={obj.label}
           on:mouseenter={() => highlightedOption = null }
           on:mouseleave={() => highlightedOption = obj }
           on:click={() => setSelectedOption(obj)}
         >
-          {obj.text}
+          {obj.label}
         </div>
       {/each}
     {/if}

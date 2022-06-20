@@ -5,18 +5,18 @@
   let selectedMonth = "July";
 
   let monthObjects = [
-    { text: "JAN", value: "january" },
-    { text: "FEB", value: "february" },
-    { text: "MAR", value: "march" },
-    { text: "APR", value: "april" },
-    { text: "MAY", value: "may" },
-    { text: "JUN", value: "june" },
-    { text: "JUL", value: "july" },
-    { text: "AUG", value: "august" },
-    { text: "SEP", value: "september" },
-    { text: "OCT", value: "october" },
-    { text: "NOV", value: "november" },
-    { text: "DEC", value: "december" },
+    { label: "JAN", value: "january" },
+    { label: "FEB", value: "february" },
+    { label: "MAR", value: "march" },
+    { label: "APR", value: "april" },
+    { label: "MAY", value: "may" },
+    { label: "JUN", value: "june" },
+    { label: "JUL", value: "july" },
+    { label: "AUG", value: "august" },
+    { label: "SEP", value: "september" },
+    { label: "OCT", value: "october" },
+    { label: "NOV", value: "november" },
+    { label: "DEC", value: "december" },
   ];
   let selectedMonthObject = monthObjects[6];
 
@@ -104,18 +104,18 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
   import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let monthObjects = [
-    { text: "JAN", value: "january" },
-    { text: "FEB", value: "february" },
-    { text: "MAR", value: "march" },
-    { text: "APR", value: "april" },
-    { text: "MAY", value: "may" },
-    { text: "JUN", value: "june" },
-    { text: "JUL", value: "july" },
-    { text: "AUG", value: "august" },
-    { text: "SEP", value: "september" },
-    { text: "OCT", value: "october" },
-    { text: "NOV", value: "november" },
-    { text: "DEC", value: "december" },
+    { label: "JAN", value: "january" },
+    { label: "FEB", value: "february" },
+    { label: "MAR", value: "march" },
+    { label: "APR", value: "april" },
+    { label: "MAY", value: "may" },
+    { label: "JUN", value: "june" },
+    { label: "JUL", value: "july" },
+    { label: "AUG", value: "august" },
+    { label: "SEP", value: "september" },
+    { label: "OCT", value: "october" },
+    { label: "NOV", value: "november" },
+    { label: "DEC", value: "december" },
   ];
   let selectedMonthObject = monthObjects[6];
 </script>
@@ -129,7 +129,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 />
 ```
 
-Note that if you pass an array of objects to the `optionsArray` prop, then each object inside the array should have `text` and `value` properties.
+Note that if you pass an array of objects to the `optionsArray` prop, then each object inside the array should have `label` and `value` properties.
 
 <br>
 

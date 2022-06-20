@@ -3,76 +3,84 @@
   import { writable } from "svelte/store";
   import { browser } from "$app/env";
   import { Button, Input, Select, ToastContent } from "/src/lib";
-
+  import themeFile from "../lib/fpui-theme.css";
+  
   let themes = [];
 
   let fannyPackUiTheme = {
-    colors: [
-      // Main Colors
-      ["--dark-purple", "#603cba"],
-      ["--green", "#00a300"],
-      ["--blue", "#2d89ef"],
-      ["--yellow", "#ffc40d"],
-      ["--red", "#ee1111"],
-      // Neutral Colors
-      ["--black", "#000000"],
-      ["--very-dark-gray", "#343434"],
-      ["--dark-gray", "#797979"],
-      ["--gray", "#a0a0a0"],
-      ["--light-gray", "#c7c7c7"],
-      ["--very-light-gray", "#e5e5e5"],
-      ["--white", "#ffffff"],
-    ],
-    sizes: [
-      ["--padding-sm", "5", "px"],
-      ["--padding-md", "10", "px"],
-      ["--padding-lg", "15", "px"],
-      ["--border-radius", "3", "px"],
-      ["--font-size-sm", "12", "px"],
-      ["--font-size-base", "16", "px"],
-      ["--font-size-lg", "20", "px"],
-      ["--font-weight-light", "100", ""],
-      ["--font-weight-normal", "400", ""],
-      ["--font-weight-bold", "700", ""],
-    ],
-    globalComponentColors: [
-      ["--primary-color", ["--dark-purple", "#603cba"]],
-      ["--secondary-color", ["--very-dark-gray", "#343434"]],
-      ["--tertiary-color", ["--white", "#ffffff"]],
-      ["--info-color", ["--blue", "#2d89ef"]],
-      ["--success-color", ["--green", "#00a300"]],
-      ["--warning-color", ["--yellow", "#ffc40d"]],
-      ["--error-color", ["--red", "#ee1111"]],
-      ["--border-color", ["--light-gray", "#c7c7c7"]],
-      ["--text-color", ["--very-dark-gray", "#343434"]],
-      ["--disabled-text-color", ["--light-gray", "#c7c7c7"]],
-      ["--disabled-bg-color", ["--black", "#000000"]],
-    ],
-    individualComponentVariables: {
-      // accordion: [],
-      buttons: {
-        colors: [
-          ["--fpui-btn-primary-text-color", ["--white", "#ffffff"]],
-          ["--fpui-btn-secondary-text-color", ["--white", "#ffffff"]],
-          ["--fpui-btn-tertiary-text-color", ["--dark-purple", "#603cba"]],
-        ],
-        sizes: [
-          // The arrays that have a nested array should display select boxes that are populated with the global colors or sizes.
-          ["--fpui-btn-padding-sm", ["--padding-sm", "5px"]],
-          ["--fpui-btn-padding-md", ["--padding-md", "10px"]],
-          ["--fpui-btn-padding-lg", ["--padding-lg", "15px"]],
-          ["--fpui-btn-border-radius", ["--border-radius", "3px"]],
-          ["--fpui-btn-font-weight", ["--font-weight-normal", "400"]],
-          // The arrays that have 3 strings should show an input field and a dropdown box with units (e.g. "px", "rem", "em", etc).
-          ["--fpui-btn-icon-margin-sm", "3", "px"],
-          ["--fpui-btn-icon-margin-md", "6", "px"],
-          ["--fpui-btn-icon-margin-lg", "9", "px"],
-          // This one should only display a select box with an "s" after it. The user should not be able to change the unit.
-          ["--fpui-btn-icon-disabled-spin-speed", "1.5", "s"],
-        ],
-      },
-    },
+    colorPalette: [],
+    sizes: [],
+    globalComponentColors: [],
   };
+
+  // fannyPackUiTheme = {
+  //   colorPalette: [],
+  //   colors: [
+  //     // Main Colors
+  //     ["--dark-purple", "#603cba"],
+  //     ["--green", "#00a300"],
+  //     ["--blue", "#2d89ef"],
+  //     ["--yellow", "#ffc40d"],
+  //     ["--red", "#ee1111"],
+  //     // Neutral Colors
+  //     ["--black", "#000000"],
+  //     ["--very-dark-gray", "#343434"],
+  //     ["--dark-gray", "#797979"],
+  //     ["--gray", "#a0a0a0"],
+  //     ["--light-gray", "#c7c7c7"],
+  //     ["--very-light-gray", "#e5e5e5"],
+  //     ["--white", "#ffffff"],
+  //   ],
+  //   sizes: [
+  //     ["--padding-sm", "5", "px"],
+  //     ["--padding-md", "10", "px"],
+  //     ["--padding-lg", "15", "px"],
+  //     ["--border-radius", "3", "px"],
+  //     ["--font-size-sm", "12", "px"],
+  //     ["--font-size-base", "16", "px"],
+  //     ["--font-size-lg", "20", "px"],
+  //     ["--font-weight-light", "100", ""],
+  //     ["--font-weight-normal", "400", ""],
+  //     ["--font-weight-bold", "700", ""],
+  //   ],
+  //   globalComponentColors: [
+  //     ["--primary-color", ["--dark-purple", "#603cba"]],
+  //     ["--secondary-color", ["--very-dark-gray", "#343434"]],
+  //     ["--tertiary-color", ["--white", "#ffffff"]],
+  //     ["--info-color", ["--blue", "#2d89ef"]],
+  //     ["--success-color", ["--green", "#00a300"]],
+  //     ["--warning-color", ["--yellow", "#ffc40d"]],
+  //     ["--error-color", ["--red", "#ee1111"]],
+  //     ["--border-color", ["--light-gray", "#c7c7c7"]],
+  //     ["--text-color", ["--very-dark-gray", "#343434"]],
+  //     ["--disabled-text-color", ["--light-gray", "#c7c7c7"]],
+  //     ["--disabled-bg-color", ["--black", "#000000"]],
+  //   ],
+  //   individualComponentVariables: {
+  //     // accordion: [],
+  //     buttons: {
+  //       colors: [
+  //         ["--fpui-btn-primary-text-color", ["--white", "#ffffff"]],
+  //         ["--fpui-btn-secondary-text-color", ["--white", "#ffffff"]],
+  //         ["--fpui-btn-tertiary-text-color", ["--dark-purple", "#603cba"]],
+  //       ],
+  //       sizes: [
+  //         // The arrays that have a nested array should display select boxes that are populated with the global colors or sizes.
+  //         ["--fpui-btn-padding-sm", ["--padding-sm", "5px"]],
+  //         ["--fpui-btn-padding-md", ["--padding-md", "10px"]],
+  //         ["--fpui-btn-padding-lg", ["--padding-lg", "15px"]],
+  //         ["--fpui-btn-border-radius", ["--border-radius", "3px"]],
+  //         ["--fpui-btn-font-weight", ["--font-weight-normal", "400"]],
+  //         // The arrays that have 3 strings should show an input field and a dropdown box with units (e.g. "px", "rem", "em", etc).
+  //         ["--fpui-btn-icon-margin-sm", "3", "px"],
+  //         ["--fpui-btn-icon-margin-md", "6", "px"],
+  //         ["--fpui-btn-icon-margin-lg", "9", "px"],
+  //         // This one should only display a select box with an "s" after it. The user should not be able to change the unit.
+  //         ["--fpui-btn-icon-disabled-spin-speed", "1.5", "s"],
+  //       ],
+  //     },
+  //   },
+  // };
   
   // let customTheme = {
   //   colors: [
@@ -82,10 +90,10 @@
   //   individualComponentVariables,    
   // };
 
-  let selectedTheme = { text: "", value: fannyPackUiTheme };
+  let selectedTheme = { label: "", value: fannyPackUiTheme };
   $: {
-    if (selectedTheme.text) {
-      setSelectedTheme(selectedTheme.text);
+    if (selectedTheme.label) {
+      setSelectedTheme(selectedTheme.label);
     }
   }
 
@@ -96,38 +104,83 @@
   let units = ["px", "%", "rem", "em"];
 
   onMount(() => {
-    if (!localStorage.getItem("themes")) {
-      // The `initThemes` array was going to contain objects like this: { name: "custom", css: "" }, but the <Select> component takes object arrays with `text` and `value` properties. So it is easier to just use "theme" objects with `text` and `value` properties.
-      let initThemes = [{ text: "Fanny Pack UI", value: fannyPackUiTheme }];
-      // let initThemes = [{ text: "custom", value: customTheme }];
-      localStorage.setItem("themes", JSON.stringify(initThemes));
+    // Parse the fpui-theme.css file.
+    parseThemeFile();
+
+    // if (!localStorage.getItem("themes")) {
+    //   // The `initThemes` array was going to contain objects like this: { name: "custom", css: "" }, but the <Select> component takes object arrays with `label` and `value` properties. So it is easier to just use "theme" objects with `label` and `value` properties.
+    //   let initThemes = [{ label: "Fanny Pack UI", value: fannyPackUiTheme }];
+    //   // let initThemes = [{ label: "custom", value: customTheme }];
+    //   localStorage.setItem("themes", JSON.stringify(initThemes));
+    // }
+
+    // // Set the `themes` array.
+    // themes = JSON.parse(localStorage.getItem("themes"));
+
+    // // Set the `selectedTheme` object.
+    // selectedTheme = themes[0];
+  });
+
+  /**
+   * This function will parse the `fpui-theme.css` file and create a `theme` object based on the CSS variables in that file.
+   * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Themes" page will be updated.
+   */
+  function parseThemeFile() {
+    console.log("parseThemeFile...");
+    // console.log("CSS Theme File:", themeFile);
+
+    // Find the text between "/* Color Palette */" and the closing `}`. See https://stackoverflow.com/a/40782646
+    let cpMatch = themeFile.match(/(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs);
+    console.log("Color Palette String:", cpMatch[0]);
+    // The matching text should go inside the `fannyPackUiTheme.colorPalette` array.
+    // Each item in that array should be an object with `label` and `value` keys: {label: --color-variable, value: rgb value}
+    let cpStr = cpMatch[0];
+    let labelPrefix = "--";
+    let labelSuffix = ":";
+    // Match strings that begin and end with specific characters: https://stackoverflow.com/a/20169897
+    let cpLabelRegex = new RegExp(labelPrefix + "[A-Za-z0-9\-\]*" + labelSuffix, "ig");
+    // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
+    let cpLabelMatches = cpStr.matchAll(cpLabelRegex);
+    // console.log("cpLabelMatches:", cpLabelMatches);
+    for (const cpLabelMatch of cpLabelMatches) {
+      console.log("cpLabelMatch:", cpLabelMatch[0]);
+      // Remove the colon (:) from the end of each `label` and push the color variable object into the `colorPalette` array.
+      fannyPackUiTheme.colorPalette.push({ label: cpLabelMatch[0].slice(0, -1), value: ""})
     }
 
-    // Set the `themes` array.
-    themes = JSON.parse(localStorage.getItem("themes"));
+    // Match strings that begin with "rgba?\(" and end with "\);". The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
+    let cpValRegex = /rgba?\([0-9.,\s]*\);/ig;
+    let cpValMatches = cpStr.matchAll(cpValRegex);
+    console.log("cpValMatches:", cpValMatches);
+    let cpValMatchesIndex = 0;
+    for (const cpValMatch of cpValMatches) {
+      console.log("cpValMatch:", cpValMatch[0]);
+      // Remove the semicolon (;) from the end of each `val` and push the color variable object into the `colorPalette` array.
+      fannyPackUiTheme.colorPalette[cpValMatchesIndex].value = cpValMatch[0].slice(0, -1);
+      cpValMatchesIndex++;
+    }
 
-    // Set the `selectedTheme` object.
-    selectedTheme = themes[0];
-  });
+    console.log("COLOR PALETTE:", fannyPackUiTheme.colorPalette);
+  }
 
   function createNewTheme() {
     if (!newThemeName) {
       ToastContent.set({ type: "warning", msg: "Please enter a theme name" });
       return;
     }
-    let newTheme = { text: newThemeName, value };
+    let newTheme = { label: newThemeName, value };
     // Push the new theme to the `themes` array.
     themes.push(newTheme);
     // Update the `themes` array in localStorage.
     localStorage.setItem("themes", JSON.stringify(themes));
     // Set the `selectedTheme` to the one that was just created.
-    setSelectedTheme(newTheme.text);
+    setSelectedTheme(newTheme.label);
     // Clear the theme name field.
     newThemeName = "";
   }
 
   function setSelectedTheme(themeName) {
-    selectedTheme = themes.find(obj => obj.text === themeName);
+    selectedTheme = themes.find(obj => obj.label === themeName);
   }
 
   function saveTheme() {
@@ -139,7 +192,7 @@
 
   function resetTheme() {
     if (browser) {
-      let confirmation = confirm(`Are you sure you want to reset the "${selectedTheme.text}" theme to the Fanny Pack UI theme defaults?`);
+      let confirmation = confirm(`Are you sure you want to reset the "${selectedTheme.label}" theme to the Fanny Pack UI theme defaults?`);
       if (confirmation) {
         alert("TODO: Reset theme back to defaults.");
       }
@@ -147,7 +200,7 @@
   }
 
   function deleteTheme() {
-    let newThemesArray = themes.filter(obj => obj.text !== selectedTheme.text);
+    let newThemesArray = themes.filter(obj => obj.label !== selectedTheme.label);
     console.log("newThemesArray", newThemesArray);
     // Update the "themes" array in localStorage.
     localStorage.setItem("themes", JSON.stringify(newThemesArray));
@@ -167,12 +220,12 @@
 
   function addColor() {
     // Push a new color array to the `colors` array.
-    selectedTheme.value.colors.push(["", "#000000"]);
+    selectedTheme.value.colorPalette.push(["", "rgb(0,0,0)"]);
     selectedTheme = selectedTheme;
   }
 
   function removeColor(index) {
-    selectedTheme.value.colors.splice(index, 1);
+    selectedTheme.value.colorPalette.splice(index, 1);
     saveTheme();
     selectedTheme = selectedTheme;
   }
@@ -196,6 +249,8 @@
   }
 
   /**
+   * When a user enters a color value through a default color picker element, the color value is return as a hex value.
+   * But I want to define color values in RGBA format in order to preserve alpha values for things like fill colors in a line/area chart. 
    * https://stackoverflow.com/a/47201559/9453009
    */
   function hexToRgb(hex: string, alpha: string) {
@@ -259,13 +314,13 @@
     const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
     const url = URL.createObjectURL(blob); // Create an object URL from blob
     a.setAttribute("href", url); // Set "a" element link
-    a.setAttribute("download", selectedTheme.text); // Set download filename
+    a.setAttribute("download", selectedTheme.label); // Set download filename
     a.click(); // Start downloading
   }
 </script>
 
 
-# Customize
+# Customize Themes
 
 ***This page is a work in progress.***
 TODOS: 
@@ -318,7 +373,7 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
   <div class="input-container">
     <Input
       type="text"
-      bind:value={selectedTheme.text}
+      bind:value={selectedTheme.label}
       label="Edit theme name"
       placeholder="Theme name"
     />
@@ -343,7 +398,7 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
   width="full"
   on:click={resetTheme}
 >
-  Reset "{selectedTheme.text}" theme to Fanny Pack UI theme defaults
+  Reset "{selectedTheme.label}" theme to Fanny Pack UI theme defaults
 </Button>
 
 <br><br>
@@ -355,7 +410,7 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
   width="full"
   on:click={deleteTheme}
 >
-  Delete "{selectedTheme.text}" theme
+  Delete "{selectedTheme.label}" theme
 </Button>
 
 ---
@@ -380,10 +435,11 @@ Add as many color variables as you want (including your main color palette and n
     </tr>
   </thead>
   <tbody>
-    {#each selectedTheme.value.colors as color, index}
+    <!-- {#each selectedTheme.value.colorPalette as color, index} -->
+    {#each fannyPackUiTheme.colorPalette as color, index}
       <tr>
-        <td><Input size="sm" bind:value={color[0]} on:blur={saveTheme} /></td>
-        <td><input type="color" bind:value={color[1]} on:change={saveTheme}></td>
+        <td><Input size="sm" bind:value={color.label} on:blur={saveTheme} /></td>
+        <td><input type="color" bind:value={color.value} on:change={saveTheme}></td>
         <td style="text-align:center">
           <Button
             btnIcon="mdi:minus-circle"
@@ -423,12 +479,12 @@ Each component style that can be customized has a fallback value. So, for exampl
     </tr>
   </thead>
   <tbody>
-    {#each selectedTheme.value.globalComponentColors as globalColor}
+    <!-- {#each selectedTheme.value.globalComponentColors as globalColor}
       <tr>
-        <td>{globalColor[0]}</td>
-        <td><Select optionsArray={selectedTheme.value.colors} arrayType="array" displayElementAtIndex={0} size="sm" bind:selectedOption={globalColor[1]} on:change={(event) => updateCssVariable("color", globalColor[0], event.detail[0])} /></td>
+        <td>{globalColor.label}</td>
+        <td><Select optionsArray={selectedTheme.value.colorPalette} arrayType="object" size="sm" bind:selectedOption={globalColor.val} on:change={(event) => updateCssVariable("color", globalColor.label, event.detail[0])} /></td>
       </tr>
-    {/each}
+    {/each} -->
   </tbody>
 </table>
 
@@ -447,16 +503,16 @@ TODO: Reference the variables from the above sections (colors, padding, borders,
     </tr>
   </thead>
   <tbody>
-    {#each selectedTheme.value.sizes as size}
+    <!-- {#each selectedTheme.value.sizes as size}
       <tr>
         <td>{size[0]}</td>
         <td><Input type="number" size="sm" bind:value={size[1]} on:change={(event) => updateCssVariable("size",size[0], event.target.value, size[2])} /></td>
-        <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
+COMMENT: If there is a unit specified for the size variable, then show a <Select> component with the unit options.
         {#if size[2]}
           <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={(event) => updateCssVariable("size", size[0], size[1], event.detail)} /></td>
         {/if}
       </tr>
-    {/each}
+    {/each} -->
   </tbody>
 </table>
 
@@ -511,24 +567,5 @@ You can customize individual components by changing the following values.
       width: 600px;
       margin-right: 10px;
     }
-  }
-
-  /* Button */
-  :root {
-    --fpui-btn-primary-text-color: white;
-    --fpui-btn-secondary-text-color: white;
-    --fpui-btn-tertiary-text-color: var(--primary-color);
-    /* The --fpui-btn-padding variables will make the button larger or smaller. */
-    --fpui-btn-padding-sm: var(--padding-sm);
-    --fpui-btn-padding-md: var(--padding-md);
-    --fpui-btn-padding-lg: var(--padding-lg);
-    /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
-    --fpui-btn-icon-margin-sm: 3px;
-    --fpui-btn-icon-margin-md: 7px;
-    --fpui-btn-icon-margin-lg: 12px;
-    --fpui-btn-font-weight: var(--font-weight-normal);
-    /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
-    --fpui-btn-icon-disabled-spin-speed: 1.5s;
-    --fpui-btn-border-radius: var(--border-radius);
   }
 </style>
