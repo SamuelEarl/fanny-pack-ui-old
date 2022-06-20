@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import { browser } from "$app/env";
+  import Colorpicker from "@budibase/colorpicker";
   import { Button, Input, Select, ToastContent } from "/src/lib";
   import themeFile from "../lib/fpui-theme.css";
   
@@ -126,41 +127,50 @@
    * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Themes" page will be updated.
    */
   function parseThemeFile() {
-    console.log("parseThemeFile...");
-    // console.log("CSS Theme File:", themeFile);
+    try {
+      console.log("parseThemeFile...");
+      // console.log("CSS Theme File:", themeFile);
 
-    // Find the text between "/* Color Palette */" and the closing `}`. See https://stackoverflow.com/a/40782646
-    let cpMatch = themeFile.match(/(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs);
-    console.log("Color Palette String:", cpMatch[0]);
-    // The matching text should go inside the `fannyPackUiTheme.colorPalette` array.
-    // Each item in that array should be an object with `label` and `value` keys: {label: --color-variable, value: rgb value}
-    let cpStr = cpMatch[0];
-    let labelPrefix = "--";
-    let labelSuffix = ":";
-    // Match strings that begin and end with specific characters: https://stackoverflow.com/a/20169897
-    let cpLabelRegex = new RegExp(labelPrefix + "[A-Za-z0-9\-\]*" + labelSuffix, "ig");
-    // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
-    let cpLabelMatches = cpStr.matchAll(cpLabelRegex);
-    // console.log("cpLabelMatches:", cpLabelMatches);
-    for (const cpLabelMatch of cpLabelMatches) {
-      console.log("cpLabelMatch:", cpLabelMatch[0]);
-      // Remove the colon (:) from the end of each `label` and push the color variable object into the `colorPalette` array.
-      fannyPackUiTheme.colorPalette.push({ label: cpLabelMatch[0].slice(0, -1), value: ""})
+      // Find the text between "/* Color Palette */" and the closing `}`. See https://stackoverflow.com/a/40782646
+      let cpMatch = themeFile.match(/(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs);
+      console.log("Color Palette String:", cpMatch[0]);
+      // The matching text should go inside the `fannyPackUiTheme.colorPalette` array.
+      // Each item in that array should be an object with `label` and `value` keys: {label: --color-variable, value: rgb value}
+      let cpStr = cpMatch[0];
+
+      // Match the CSS variable name.
+      // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
+      let namePrefix = "--";
+      let nameSuffix = ":";
+      let cpNameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
+      // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
+      let cpNameMatches = cpStr.matchAll(cpNameRegex);
+      // console.log("cpNameMatches:", cpNameMatches);
+      for (const cpNameMatch of cpNameMatches) {
+        console.log("cpNameMatch:", cpNameMatch[0]);
+        // Remove the colon (:) from the end of each CSS variable `name` and push the color variable object into the `colorPalette` array.
+        fannyPackUiTheme.colorPalette.push({ label: cpNameMatch[0].slice(0, -1), value: ""})
+      }
+
+      // Match the CSS variable value.
+      // Match HEXa values (strings that begin with "#" and end with ";") or RGBa values (strings that begin with "rgba?\(" and end with "\);"). The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
+      let cpValRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);/gi;
+      // let cpValRegex = /#[A-Fa-f0-9]*;/gi;
+      let cpValMatches = cpStr.matchAll(cpValRegex);
+      console.log("cpValMatches:", cpValMatches);
+      let cpValMatchesIndex = 0;
+      for (const cpValMatch of cpValMatches) {
+        console.log("cpValMatch:", cpValMatch[0]);
+        // Remove the semicolon (;) from the end of each `val` and push the color variable object into the `colorPalette` array.
+        fannyPackUiTheme.colorPalette[cpValMatchesIndex].value = cpValMatch[0].slice(0, -1);
+        cpValMatchesIndex++;
+      }
+
+      console.log("COLOR PALETTE:", fannyPackUiTheme.colorPalette);
     }
-
-    // Match strings that begin with "rgba?\(" and end with "\);". The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
-    let cpValRegex = /rgba?\([0-9.,\s]*\);/ig;
-    let cpValMatches = cpStr.matchAll(cpValRegex);
-    console.log("cpValMatches:", cpValMatches);
-    let cpValMatchesIndex = 0;
-    for (const cpValMatch of cpValMatches) {
-      console.log("cpValMatch:", cpValMatch[0]);
-      // Remove the semicolon (;) from the end of each `val` and push the color variable object into the `colorPalette` array.
-      fannyPackUiTheme.colorPalette[cpValMatchesIndex].value = cpValMatch[0].slice(0, -1);
-      cpValMatchesIndex++;
+    catch(err) {
+      console.error("parseThemeFile Error:", err);
     }
-
-    console.log("COLOR PALETTE:", fannyPackUiTheme.colorPalette);
   }
 
   function createNewTheme() {
@@ -248,6 +258,27 @@
     saveTheme();
   }
 
+  // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
+
+  /**
+   * The <input type="color"> elements can only read hex values as input. So I need to convert rgb values to hex and then pass the result to the bound <input type="color"> elements.
+   * See https://stackoverflow.com/a/13070198 and https://stackoverflow.com/a/5624139
+   */
+  function componentToHex(c) {
+    let hex = parseInt(c).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  }
+  function rgbToHex(rgbVal) {
+    let stringOfNumbers = rgbVal.split("(")[1].split(")")[0];
+    let arrayOfNumbers = stringOfNumbers.split(",");
+    console.log("arrayOfNumbers:", arrayOfNumbers);
+
+    console.log("componentToHex:", componentToHex(arrayOfNumbers[0]), componentToHex(arrayOfNumbers[1]), componentToHex(arrayOfNumbers[2]));
+    return "#" + componentToHex(arrayOfNumbers[0]) + componentToHex(arrayOfNumbers[1]) + componentToHex(arrayOfNumbers[2]);
+  }
+
+  // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
+
   /**
    * When a user enters a color value through a default color picker element, the color value is return as a hex value.
    * But I want to define color values in RGBA format in order to preserve alpha values for things like fill colors in a line/area chart. 
@@ -271,7 +302,7 @@
 
   function downloadTheme() {
     // TODOS: 
-    // * As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart. 
+    // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
     // * Convert the second value in each of the `selectedTheme.value.globalComponentColors` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
 
@@ -326,7 +357,7 @@
 TODOS: 
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
-* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a --primary-color variable and the theme.css file has a --primary-color variable. So I would replace all references to --primary-color with --primary-color. If I do this, then I need to make sure to update those variables throughout the components so they reference the non --fpui- variable and instead reference the one from the theme.css file.
+* Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
 
 
 Customize your theme and download the files to insert into your project. The download button is at the bottom of the page.
@@ -439,7 +470,7 @@ Add as many color variables as you want (including your main color palette and n
     {#each fannyPackUiTheme.colorPalette as color, index}
       <tr>
         <td><Input size="sm" bind:value={color.label} on:blur={saveTheme} /></td>
-        <td><input type="color" bind:value={color.value} on:change={saveTheme}></td>
+        <td><Colorpicker width="88px" height="28px" bind:value={color.value} on:change={saveTheme} /></td>
         <td style="text-align:center">
           <Button
             btnIcon="mdi:minus-circle"

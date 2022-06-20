@@ -18,33 +18,34 @@
   COLOR PALETTE
   * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
   * The main colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp.
-  * The neutral colors are lighter and darker shades of rgb(160,160,160). See https://www.colorhexa.com/a0a0a0.
+  * The neutral colors are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
 ******************************************/
-:root { 
+:root {
   /* Color Palette */
-  --light-green: rgb(153,180,51);
-  --green: rgb(0,163,0);
-  --dark-green: rgb(30,113,69);
-  --magenta: rgb(255,0,151);
-  --light-purple: rgb(159,0,167);
-  --purple: rgb(126,56,120);
-  --dark-purple: rgb(96,60,186);
-  --teal: rgb(0,171,169);
-  --light-blue: rgb(239,244,255);
-  --blue: rgb(45,137,239);
-  --dark-blue: rgb(43,87,151);
-  --yellow: rgb(255,196,13);
-  --orange: rgb(227,162,26);
-  --dark-orange: rgb(218,83,44);
-  --red: rgb(238,17,17);
-  --dark-red: rgb(185,29,71);
-  --black: rgb(0,0,0);
-  --very-dark-gray: rgb(52,52,52);
-  --dark-gray: rgb(121,121,121);
-  --gray: rgb(160,160,160);
-  --light-gray: rgb(199,199,199);
-  --very-light-gray: rgb(229,229,229);
-  --white: rgb(255,255,255);
+  --light-green: #99b433;
+  --green: #00a300;
+  --dark-green: #1e7145;
+  --magenta: #ff0097;
+  --light-purple: #9f00a7;
+  --purple: #7e3878;
+  --dark-purple: #603cba;
+  --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
+  --teal: #00aba9;
+  --light-blue: #eff4ff;
+  --blue: #2d89ef;
+  --dark-blue: #2b5797;
+  --yellow: #ffc40d;
+  --orange: #e3a21a;
+  --dark-orange: #da532c;
+  --red: #ee1111;
+  --dark-red: #b91d47;
+  --black: #000000;
+  --very-dark-gray: #343434;
+  --dark-gray: #797979;
+  --gray: #a0a0a0;
+  --light-gray: #c7c7c7;
+  --very-light-gray: #e5e5e5;
+  --white: #ffffff;
 }
 
 
@@ -143,25 +144,25 @@
   --fpui-date-picker-bg-color: white;
   --fpui-date-picker-text-color: var(--text-color);
   /* These variables apply to only the date input field component. */
-  --fpui-date-input-btn-bg-color: rgb(229,229,229);
+  --fpui-date-input-btn-bg-color: #e5e5e5;
   --fpui-date-input-btn-icon-color: inherit;
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
   /* These variables apply to only the calendar component. */
-  --fpui-calendar-selected-date-bg-color: rgb(229,229,229);
+  --fpui-calendar-selected-date-bg-color: #e5e5e5;
   --fpui-calendar-selected-date-text-color: var(--text-color);
   --fpui-calendar-selected-date-border-color: var(--border-color);
 }
 
 /* Drop Zone (file upload) */
 :root {
-  --fpui-drop-zone-border-and-text-color: rgb(52,52,52);
-  --fpui-drop-zone-bg-color: rgb(229,229,229);
+  --fpui-drop-zone-border-and-text-color: #343434;
+  --fpui-drop-zone-bg-color: #e5e5e5;
   --fpui-drop-zone-bg-color-active: white;
   --fpui-drop-zone-border-radius: var(--border-radius);
   --fpui-drop-zone-files-set-for-upload-bg-color: white;
-  --fpui-drop-zone-files-set-for-upload-text-color: rgb(52,52,52);
+  --fpui-drop-zone-files-set-for-upload-text-color: #343434;
 }
 
 /* Input (currency, text) */
@@ -169,7 +170,7 @@
   --fpui-input-border-color: var(--border-color);
   --fpui-input-bg-color: white;
   --fpui-input-text-color: var(--text-color);
-  --fpui-input-placeholder-text-color: rgb(160,160,160);
+  --fpui-input-placeholder-text-color: #a0a0a0;
   --fpui-input-padding-sm: var(--padding-sm);
   --fpui-input-padding-md: var(--padding-md);
   --fpui-input-padding-lg: var(--padding-lg);
@@ -179,14 +180,14 @@
 :root {
   --fpui-label-font-size: 0.8rem;
   --fpui-label-margin-bottom: 5px;
-  --fpui-label-text-color: rgb(121,121,121);
+  --fpui-label-text-color: #797979;
 }
 
 /* Modal */
 :root {
   --fpui-modal-header-footer-border-color: var(--border-color);
   --fpui-modal-header-footer-bg-color: white;
-  --fpui-modal-header-footer-text-color: rgb(52,52,52);
+  --fpui-modal-header-footer-text-color: #343434;
   --fpui-modal-border-radius: var(--border-radius);
   --fpui-modal-body-bg-color: white;
 }
@@ -211,7 +212,7 @@
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);
   /* Styles for the dropdown menu of the select box. */
-  --fpui-select-option-hover-bg-color: rgb(229,229,229);
+  --fpui-select-option-hover-bg-color: #e5e5e5;
   --fpui-select-option-hover-text-color: var(--text-color);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
@@ -234,7 +235,7 @@
 
 /* Tooltip */
 :root {
-  --fpui-tooltip-bg-color: rgb(52,52,52);
+  --fpui-tooltip-bg-color: #343434;
   --fpui-tooltip-text-color: white;
   --fpui-tooltip-border-radius: var(--border-radius);
 }
