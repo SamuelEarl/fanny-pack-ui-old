@@ -64,24 +64,30 @@
   --success-color: var(--green);
   --warning-color: var(--yellow);
   --error-color: var(--red);
+  /* Borders */
+  --border-color: var(--light-gray);
+  /* Font colors */
+  --text-color: var(--very-dark-gray);
+  /* Disabled States */
+  --disabled-bg-color: var(--black);
+  --disabled-text-color: var(--light-gray);
+}
+
+:root {
+  /* Size Variables */
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;
   --padding-md: 10px;
   --padding-lg: 15px;
   /* Borders */
-  --border-color: var(--light-gray);
   --border-radius: 3px;
-  /* Font styles */
+  /* Font sizes */
   --font-size-sm: 12px;
   --font-size-base: 16px;
   --font-size-lg: 20px;
   --font-weight-light: 100;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
-  --text-color: var(--very-dark-gray);
-  /* Disabled States */
-  --disabled-bg-color: var(--black);
-  --disabled-text-color: var(--light-gray);
 }
 
 

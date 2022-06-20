@@ -496,6 +496,18 @@ Add as many color variables as you want (including your main color palette and n
 
 <br><br>
 
+## Main color variables
+These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
+
+Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
+
+---
+
+## Size variables
+The size variables are used to set values for things like padding (for buttons and other elements), the roundness or squareness of borders (i.e. `border-radius`), font sizes, etc.
+
+---
+
 
 ## Global component color variables
 These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
