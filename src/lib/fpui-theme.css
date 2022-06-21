@@ -19,26 +19,28 @@
   * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
   * The main colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp.
   * The neutral colors are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
-******************************************/
-:root {
-  /* Color Palette */
+  * Extra colors from https://www.w3schools.com/w3css/w3css_color_metro.asp that I am not using.
   --light-green: #99b433;
-  --green: #00a300;
   --dark-green: #1e7145;
   --magenta: #ff0097;
   --light-purple: #9f00a7;
   --purple: #7e3878;
-  --dark-purple: #603cba;
-  --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
   --teal: #00aba9;
   --light-blue: #eff4ff;
-  --blue: #2d89ef;
   --dark-blue: #2b5797;
   --yellow: #ffc40d;
   --orange: #e3a21a;
   --dark-orange: #da532c;
-  --red: #ee1111;
   --dark-red: #b91d47;
+******************************************/
+:root {
+  /* Color Palette */
+  --dark-purple: #603cba;
+  --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
+  --blue: #2d89ef;
+  --green: #00a300;
+  --yellow: #ffc40d;
+  --red: #ee1111;
   --black: #000000;
   --very-dark-gray: #343434;
   --dark-gray: #797979;
@@ -50,7 +52,7 @@
 
 
 /******************************************
-  Global Component Styles. 
+  Main Color Variables
   * These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
   * IMPORTANT: If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
 ******************************************/
@@ -59,14 +61,11 @@
   --primary-color: var(--dark-purple);
   --secondary-color: var(--very-dark-gray);
   --tertiary-color: var(--white);
-  /* Notification Colors */
   --info-color: var(--blue);
   --success-color: var(--green);
   --warning-color: var(--yellow);
   --error-color: var(--red);
-  /* Borders */
   --border-color: var(--light-gray);
-  /* Font colors */
   --text-color: var(--very-dark-gray);
   /* Disabled States */
   --disabled-bg-color: var(--black);

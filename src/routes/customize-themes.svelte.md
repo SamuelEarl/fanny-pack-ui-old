@@ -10,9 +10,11 @@
 
   let fannyPackUiTheme = {
     colorPalette: [],
+    mainColors: [],
     sizes: [],
-    globalComponentColors: [],
   };
+
+  let colorPaletteReferenceVariables = [];
 
   // fannyPackUiTheme = {
   //   colorPalette: [],
@@ -122,51 +124,87 @@
     // selectedTheme = themes[0];
   });
 
+  function matchVariableBlock(blockName) {
+    try {
+      // Find the text between "/* Block Name */" (e.g. /* Color Palette */) and the closing `}`.
+      // See https://stackoverflow.com/a/40782646
+      let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
+      // console.log("regex1:", /(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs)
+      // console.log("regex2:", regex);
+      return themeFile.match(regex)[0];
+      // console.log("matchingBlock:", matchingBlock);
+    }
+    catch(err) {
+      console.error("matchVariableBlock Error:", err);
+    }
+  }
+
+  /**
+   * Match the CSS variable name within the matchingBlock of CSS variables.
+   */
+  function matchCssVariableName(matchingBlock, themePropertyName, namePrefix, nameSuffix) {
+    // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
+    let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
+    // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
+    let matchingNamesIterator = matchingBlock.matchAll(nameRegex);
+    // console.log("matchingNamesIterator:", matchingNamesIterator);
+    for (const matchingVarName of matchingNamesIterator) {
+      // console.log("matchingVarName:", matchingVarName[0]);
+      // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
+      let varNameNoColon = matchingVarName[0].slice(0, -1);
+      fannyPackUiTheme[themePropertyName].push({ label: varNameNoColon, value: "" })
+      if (themePropertyName === "colorPalette") {
+        console.log("varNameNoColon:", varNameNoColon);
+        colorPaletteReferenceVariables.push(`var(${varNameNoColon})`);
+      }
+    }
+    console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
+  }
+
+  /**
+   * Match the CSS variable value within the matchingBlock of CSS variables.
+   */
+  function matchCssVariableValue(matchingBlock, themePropertyName) {
+    // Match HEXa values (strings that begin with "#" and end with ";") or RGBa values (strings that begin with "rgba?\(" and end with "\);"). The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
+    let valueRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);|var\([A-Za-z0-9\-]*\);/gi;
+    // let valueRegex = /#[A-Fa-f0-9]*;/gi;
+    // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
+    let matchingValuesIterator = matchingBlock.matchAll(valueRegex);
+    // console.log("matchingValuesIterator:", matchingValuesIterator);
+    let matchingValuesIndex = 0;
+    for (const matchingVarValue of matchingValuesIterator) {
+      // console.log("matchingVarValue:", matchingVarValue[0]);
+      // Remove the semicolon (;) from the end of each `value` and push the color variable object into the `colorPalette` array.
+      let varValueNoSemicolon = matchingVarValue[0].slice(0, -1);
+      fannyPackUiTheme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
+      matchingValuesIndex++;
+    }
+  }
+
   /**
    * This function will parse the `fpui-theme.css` file and create a `theme` object based on the CSS variables in that file.
    * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Themes" page will be updated.
    */
   function parseThemeFile() {
     try {
-      console.log("parseThemeFile...");
       // console.log("CSS Theme File:", themeFile);
 
-      // Find the text between "/* Color Palette */" and the closing `}`. See https://stackoverflow.com/a/40782646
-      let cpMatch = themeFile.match(/(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs);
-      console.log("Color Palette String:", cpMatch[0]);
-      // The matching text should go inside the `fannyPackUiTheme.colorPalette` array.
-      // Each item in that array should be an object with `label` and `value` keys: {label: --color-variable, value: rgb value}
-      let cpStr = cpMatch[0];
+      let regexPrefix = "--";
+      let regexSuffix = ":";
 
-      // Match the CSS variable name.
-      // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
-      let namePrefix = "--";
-      let nameSuffix = ":";
-      let cpNameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
-      // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
-      let cpNameMatches = cpStr.matchAll(cpNameRegex);
-      // console.log("cpNameMatches:", cpNameMatches);
-      for (const cpNameMatch of cpNameMatches) {
-        console.log("cpNameMatch:", cpNameMatch[0]);
-        // Remove the colon (:) from the end of each CSS variable `name` and push the color variable object into the `colorPalette` array.
-        fannyPackUiTheme.colorPalette.push({ label: cpNameMatch[0].slice(0, -1), value: ""})
-      }
+      let blockName = "Color Palette";
+      let themePropertyName = "colorPalette";
+      let matchingBlock = matchVariableBlock(blockName);
+      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingBlock, themePropertyName);
 
-      // Match the CSS variable value.
-      // Match HEXa values (strings that begin with "#" and end with ";") or RGBa values (strings that begin with "rgba?\(" and end with "\);"). The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
-      let cpValRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);/gi;
-      // let cpValRegex = /#[A-Fa-f0-9]*;/gi;
-      let cpValMatches = cpStr.matchAll(cpValRegex);
-      console.log("cpValMatches:", cpValMatches);
-      let cpValMatchesIndex = 0;
-      for (const cpValMatch of cpValMatches) {
-        console.log("cpValMatch:", cpValMatch[0]);
-        // Remove the semicolon (;) from the end of each `val` and push the color variable object into the `colorPalette` array.
-        fannyPackUiTheme.colorPalette[cpValMatchesIndex].value = cpValMatch[0].slice(0, -1);
-        cpValMatchesIndex++;
-      }
+      blockName = "Main Colors";
+      themePropertyName = "mainColors";
+      matchingBlock = matchVariableBlock(blockName);
+      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingBlock, themePropertyName);
 
-      console.log("COLOR PALETTE:", fannyPackUiTheme.colorPalette);
+      console.log("THEME OBJECT:", fannyPackUiTheme);
     }
     catch(err) {
       console.error("parseThemeFile Error:", err);
@@ -244,13 +282,13 @@
    * Update the values of the CSS variables when the user changes them in the UI.
    * See https://www.w3schools.com/css/css3_variables_javascript.asp
    */
-  function updateCssVariable(variableType, variableName, value, unit) {
-    console.log("CSS Variable:", variableName, "New Value:", value);
+  function updateCssVariable(variableType, variableName, referenceVariable, value, unit) {
+    console.log("CSS Variable:", variableName, "New Value:", referenceVariable);
     // Get the root element
     let root = document.querySelector(":root");
     // Set the value of the CSS variable to the selected value.
     if (variableType === "color") {
-      root.style.setProperty(variableName, `var(${value})`);
+      root.style.setProperty(variableName, referenceVariable);
     }
     if (variableType === "size") {
       root.style.setProperty(variableName, value + unit);
@@ -501,10 +539,50 @@ These styles are used throughout the components. Updating these variables will h
 
 Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
 
+<table>
+  <thead>
+    <tr>
+      <th>Variable name</th>
+      <th>Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- {#each selectedTheme.value.globalComponentColors as globalColor} -->
+    {#each fannyPackUiTheme.mainColors as mainColor, index (mainColor.label)}
+      <tr>
+        <td>{mainColor.label}</td>
+        <td><Select optionsArray={colorPaletteReferenceVariables} arrayType="string" size="sm" bind:selectedOption={mainColor.value} on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)} /></td>
+      </tr>
+    {/each}
+  </tbody>
+</table>
+
 ---
 
 ## Size variables
 The size variables are used to set values for things like padding (for buttons and other elements), the roundness or squareness of borders (i.e. `border-radius`), font sizes, etc.
+
+<table>
+  <thead>
+    <tr>
+      <th>Size variable name</th>
+      <th>Size value</th>
+      <th>Unit</th>
+    </tr>
+  </thead>
+  <tbody>
+    {#each selectedTheme.value.sizes as size}
+      <tr>
+        <td>{size[0]}</td>
+        <td><Input type="number" size="sm" bind:value={size[1]} on:change={(event) => updateCssVariable("size",size[0], event.target.value, size[2])} /></td>
+        <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
+        {#if size[2]}
+          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={(event) => updateCssVariable("size", size[0], size[1], event.detail)} /></td>
+        {/if}
+      </tr>
+    {/each}
+  </tbody>
+</table>
 
 ---
 
