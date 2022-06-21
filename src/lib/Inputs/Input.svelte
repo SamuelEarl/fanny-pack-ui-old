@@ -2,6 +2,7 @@
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
 
+  export let id = "";
   export let type = "text";
   export let value = "";
   export let label = "";
@@ -21,19 +22,20 @@
   <input
     type="text"
     bind:value={value}
-    id={`fpui-input-${componentId}`}
+    {id}
     class="{`${size}`}"
     {placeholder}
     {disabled}
     on:change
     on:input
+    on:keyup
     on:blur
   />
 {:else if type === "number"}
   <input
     type="number"
     bind:value={value}
-    id={`fpui-input-${componentId}`}
+    {id}
     class="{`${size}`}"
     {min}
     {max}
@@ -42,18 +44,20 @@
     {disabled}
     on:change
     on:input
+    on:keyup
     on:blur
   />
 {:else if type === "email"}
   <input
     type="email"
     bind:value={value}
-    id={`fpui-input-${componentId}`}
+    {id}
     class="{`${size}`}"
     {placeholder}
     {disabled}
     on:change
     on:input
+    on:keyup
     on:blur
   />
 {/if}

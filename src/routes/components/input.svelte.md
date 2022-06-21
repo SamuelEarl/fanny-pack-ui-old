@@ -114,6 +114,7 @@
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Input>` components an `id` value, if necessary, just like you can with regular `<input>` elements. |
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (an empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
 | `label` | `string` | Any string | NA | This prop will provide a label for the input field. |
@@ -132,3 +133,4 @@
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user changes the value in the input field and then the input field loses focus. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler when a user enters a value into the input field. |
 | `on:blur` | This component forwards the `blur` event, so you can call an event handler when this component loses focus. |
+| `on:keyup` | This component forwards the `keyup` event, so you can call an event handler when a user presses a key while this component has focus. |

@@ -5,7 +5,7 @@
   import Colorpicker from "@budibase/colorpicker";
   import { Button, Input, Select, ToastContent } from "/src/lib";
   import themeFile from "../lib/fpui-theme.css";
-  
+
   let themes = [];
 
   let theme = {
@@ -144,43 +144,57 @@
    * Match the CSS variable name within the matchingBlock of CSS variables.
    */
   function matchCssVariableName(matchingBlock, themePropertyName, namePrefix, nameSuffix) {
-    // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
-    let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
-    // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
-    let matchingNamesIterator = matchingBlock.matchAll(nameRegex);
-    // console.log("matchingNamesIterator:", matchingNamesIterator);
-    for (const matchingVarName of matchingNamesIterator) {
-      // console.log("matchingVarName:", matchingVarName[0]);
-      // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
-      let varNameNoColon = matchingVarName[0].slice(0, -1);
-      theme[themePropertyName].push({ label: varNameNoColon, value: "" });
-      // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
-      // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
-      if (themePropertyName === "colorPalette") {
-        console.log("varNameNoColon:", varNameNoColon);
-        colorPaletteReferenceVariables.push(`var(${varNameNoColon})`);
+    try {
+      // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
+      let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
+      // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
+      let matchingNamesIterator = matchingBlock.matchAll(nameRegex);
+      // console.log("matchingNamesIterator:", matchingNamesIterator);
+      for (const matchingVarName of matchingNamesIterator) {
+        // console.log("matchingVarName:", matchingVarName[0]);
+        // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
+        let varNameNoColon = matchingVarName[0].slice(0, -1);
+        theme[themePropertyName].push({ label: varNameNoColon, value: "" });
+        // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
+        // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
+        if (themePropertyName === "colorPalette") {
+          console.log("varNameNoColon:", varNameNoColon);
+          colorPaletteReferenceVariables.push(`var(${varNameNoColon})`);
+        }
       }
+      console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
     }
-    console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
+    catch(err) {
+      console.error("matchCssVariableValue Error:", err);
+    }
   }
 
   /**
    * Match the CSS variable value within the matchingBlock of CSS variables.
    */
   function matchCssVariableValue(matchingBlock, themePropertyName) {
-    // Match HEXa values (strings that begin with "#" and end with ";") or RGBa values (strings that begin with "rgba?\(" and end with "\);"). The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix ("rgba?\(") and the suffix ("\);") of the regex.
-    let valueRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);|var\([A-Za-z0-9\-]*\);/gi;
-    // let valueRegex = /#[A-Fa-f0-9]*;/gi;
-    // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
-    let matchingValuesIterator = matchingBlock.matchAll(valueRegex);
-    // console.log("matchingValuesIterator:", matchingValuesIterator);
-    let matchingValuesIndex = 0;
-    for (const matchingVarValue of matchingValuesIterator) {
-      // console.log("matchingVarValue:", matchingVarValue[0]);
-      // Remove the semicolon (;) from the end of each `value` and push the color variable object into the `colorPalette` array.
-      let varValueNoSemicolon = matchingVarValue[0].slice(0, -1);
-      theme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
-      matchingValuesIndex++;
+    try {
+      // `valueRegex` will match any of the following types of strings:
+      // * HEXa values - strings that begin with "#" and end with ";"
+      // * RGBa values - strings that begin with "rgba?\(" and end with "\);" - The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix "rgba?\(" and the suffix "\);" of the regex.
+      // * var() values - strings that begin with "var\(" and end with "\);"
+      // * CSS length/size values (e.g. 10px, 20%).
+      let valueRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);|var\([A-Za-z0-9\-]*\);|[0-9a-z\%]*;/gi;
+      // let valueRegex = /#[A-Fa-f0-9]*;/gi;
+      // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
+      let matchingValuesIterator = matchingBlock.matchAll(valueRegex);
+      // console.log("matchingValuesIterator:", matchingValuesIterator);
+      let matchingValuesIndex = 0;
+      for (const matchingVarValue of matchingValuesIterator) {
+        // console.log("matchingVarValue:", matchingVarValue[0]);
+        // Remove the semicolon (;) from the end of each `value` and push the color variable object into the `colorPalette` array.
+        let varValueNoSemicolon = matchingVarValue[0].slice(0, -1);
+        theme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
+        matchingValuesIndex++;
+      }
+    }
+    catch(err) {
+      console.error("matchCssVariableValue Error:", err);
     }
   }
 
@@ -291,17 +305,18 @@
    * Update the values of the CSS variables when the user changes them in the UI.
    * See https://www.w3schools.com/css/css3_variables_javascript.asp
    */
-  function updateCssVariable(variableType, variableName, referenceVariable, value, unit) {
-    console.log("CSS Variable:", variableName, "New Value:", referenceVariable);
+  function updateCssVariable(variableType, variableName, variableValue) {
+    console.log("CSS Variable:", variableName, "New Value:", variableValue);
     // Get the root element
     let root = document.querySelector(":root");
     // Set the value of the CSS variable to the selected value.
-    if (variableType === "color") {
-      root.style.setProperty(variableName, referenceVariable);
-    }
-    if (variableType === "size") {
-      root.style.setProperty(variableName, value + unit);
-    }
+    root.style.setProperty(variableName, variableValue);
+    // if (variableType === "color") {
+    //   root.style.setProperty(variableName, variableValue);
+    // }
+    // if (variableType === "size") {
+    //   root.style.setProperty(variableName, variableValue);
+    // }
     // saveTheme();
   }
 
@@ -348,7 +363,9 @@
   }
 
   function downloadTheme() {
-    // TODOS: 
+    // TODOS:
+    // * Create an "Additional Custom Variables Block" for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
+    // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
     // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
     // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
@@ -403,7 +420,7 @@
 ***This page is a work in progress.***
 
 TODOS: 
-* Read the fpui-theme.css file to populate the variables and their values initially, but then bind everything to the `theme` object so I can create a downloadable theme.css file.
+* Read the fpui-theme.css file to populate the variables and their values initially, but then bind all the user-defined options (i.e. the `<Select>` and `<Input>` components) to the `theme` object so I can create a downloadable theme.css file.
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
 * Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
@@ -590,19 +607,32 @@ The size variables are used to set values for things like padding (for buttons a
     <tr>
       <th>Size variable name</th>
       <th>Size value</th>
-      <th>Unit</th>
+      <!-- <th>Unit</th> -->
     </tr>
   </thead>
   <tbody>
     <!-- {#each selectedTheme.value.sizes as size} -->
-    {#each theme.sizes as size}
+    {#each theme.sizes as size, index}
       <tr>
         <td>{size.label}</td>
-        <td><Input type="number" size="sm" bind:value={size.value} on:change={(event) => updateCssVariable("size", size.label, event.target.value, size.unit)} /></td>
+        <td>
+          <Input
+            id={`size-input-${index}`}
+            type="text"
+            size="sm"
+            bind:value={size.value}
+            on:keyup={(event) => {
+              if (event && (event.key === "Enter" || event.key === "Escape")) {
+                document.getElementById(`size-input-${index}`).blur();
+              }
+            }}
+            on:blur={() => updateCssVariable("size", size.label, event.target.value)}
+          />
+        </td>
         <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
-        {#if size.unit}
+        <!-- {#if size.unit}
           <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size.unit} size="sm" on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)} /></td>
-        {/if}
+        {/if} -->
       </tr>
     {/each}
   </tbody>

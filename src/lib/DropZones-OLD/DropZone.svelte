@@ -76,7 +76,8 @@
       return;
     }
 
-    if (event.keyCode === 32 || event.keyCode === 13) {
+    // NOTE: `event.keyCode` is deprecated. Use `event.key` instead. See https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key.
+    if (event.key === "Enter" || event.key === "Space") {
       event.preventDefault();
       openFileDialog();
     }
