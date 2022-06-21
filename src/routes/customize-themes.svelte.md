@@ -537,6 +537,8 @@ Add as many color variables as you want (including your main color palette and n
 <br><br>
 
 ## Main color variables
+**TODO: These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.**
+
 These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
 
 Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
