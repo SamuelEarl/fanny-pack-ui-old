@@ -33,8 +33,8 @@
   --dark-orange: #da532c;
   --dark-red: #b91d47;
 ******************************************/
+/* Color Palette Block */
 :root {
-  /* Color Palette */
   --dark-purple: #603cba;
   --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
   --blue: #2d89ef;
@@ -56,8 +56,8 @@
   * These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
   * IMPORTANT: If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
 ******************************************/
+/* Main Colors Block */
 :root {
-  /* Main Colors */
   --primary-color: var(--dark-purple);
   --secondary-color: var(--very-dark-gray);
   --tertiary-color: var(--white);
@@ -72,8 +72,8 @@
   --disabled-text-color: var(--light-gray);
 }
 
+/* Sizes Block */
 :root {
-  /* Size Variables */
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;
   --padding-md: 10px;

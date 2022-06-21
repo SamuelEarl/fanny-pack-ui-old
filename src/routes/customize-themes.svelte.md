@@ -8,7 +8,7 @@
   
   let themes = [];
 
-  let fannyPackUiTheme = {
+  let theme = {
     colorPalette: [],
     mainColors: [],
     sizes: [],
@@ -93,16 +93,17 @@
   //   individualComponentVariables,    
   // };
 
-  let selectedTheme = { label: "", value: fannyPackUiTheme };
-  $: {
-    if (selectedTheme.label) {
-      setSelectedTheme(selectedTheme.label);
-    }
-  }
+  // let selectedTheme = { label: "", value: fannyPackUiTheme };
+  // $: {
+  //   if (selectedTheme.label) {
+  //     setSelectedTheme(selectedTheme.label);
+  //   }
+  // }
 
-  // $: This comment preserves the syntax highlighting.
+  // // $: This comment preserves the syntax highlighting.
   
-  let newThemeName = "";
+  // let newThemeName = "";
+
   let content = [];
   let units = ["px", "%", "rem", "em"];
 
@@ -126,10 +127,10 @@
 
   function matchVariableBlock(blockName) {
     try {
-      // Find the text between "/* Block Name */" (e.g. /* Color Palette */) and the closing `}`.
+      // Find the text between "/* Block Name */" (e.g. /* Color Palette Block */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
-      // console.log("regex1:", /(?<=\/\* Color Palette \*\/\s+).*?(?=\s+})/gs)
+      // console.log("regex1:", /(?<=\/\* Color Palette Block \*\/\s+).*?(?=\s+})/gs)
       // console.log("regex2:", regex);
       return themeFile.match(regex)[0];
       // console.log("matchingBlock:", matchingBlock);
@@ -152,7 +153,7 @@
       // console.log("matchingVarName:", matchingVarName[0]);
       // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
       let varNameNoColon = matchingVarName[0].slice(0, -1);
-      fannyPackUiTheme[themePropertyName].push({ label: varNameNoColon, value: "" });
+      theme[themePropertyName].push({ label: varNameNoColon, value: "" });
       // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
       // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
       if (themePropertyName === "colorPalette") {
@@ -178,7 +179,7 @@
       // console.log("matchingVarValue:", matchingVarValue[0]);
       // Remove the semicolon (;) from the end of each `value` and push the color variable object into the `colorPalette` array.
       let varValueNoSemicolon = matchingVarValue[0].slice(0, -1);
-      fannyPackUiTheme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
+      theme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
       matchingValuesIndex++;
     }
   }
@@ -194,90 +195,96 @@
       let regexPrefix = "--";
       let regexSuffix = ":";
 
-      let blockName = "Color Palette";
+      let blockName = "Color Palette Block";
       let themePropertyName = "colorPalette";
       let matchingBlock = matchVariableBlock(blockName);
       matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
       matchCssVariableValue(matchingBlock, themePropertyName);
 
-      blockName = "Main Colors";
+      blockName = "Main Colors Block";
       themePropertyName = "mainColors";
       matchingBlock = matchVariableBlock(blockName);
       matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
       matchCssVariableValue(matchingBlock, themePropertyName);
 
-      console.log("THEME OBJECT:", fannyPackUiTheme);
+      blockName = "Sizes Block";
+      themePropertyName = "sizes";
+      matchingBlock = matchVariableBlock(blockName);
+      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingBlock, themePropertyName);
+
+      console.log("THEME OBJECT:", theme);
     }
     catch(err) {
       console.error("parseThemeFile Error:", err);
     }
   }
 
-  function createNewTheme() {
-    if (!newThemeName) {
-      ToastContent.set({ type: "warning", msg: "Please enter a theme name" });
-      return;
-    }
-    let newTheme = { label: newThemeName, value };
-    // Push the new theme to the `themes` array.
-    themes.push(newTheme);
-    // Update the `themes` array in localStorage.
-    localStorage.setItem("themes", JSON.stringify(themes));
-    // Set the `selectedTheme` to the one that was just created.
-    setSelectedTheme(newTheme.label);
-    // Clear the theme name field.
-    newThemeName = "";
-  }
+  // function createNewTheme() {
+  //   if (!newThemeName) {
+  //     ToastContent.set({ type: "warning", msg: "Please enter a theme name" });
+  //     return;
+  //   }
+  //   let newTheme = { label: newThemeName, value };
+  //   // Push the new theme to the `themes` array.
+  //   themes.push(newTheme);
+  //   // Update the `themes` array in localStorage.
+  //   localStorage.setItem("themes", JSON.stringify(themes));
+  //   // Set the `selectedTheme` to the one that was just created.
+  //   setSelectedTheme(newTheme.label);
+  //   // Clear the theme name field.
+  //   newThemeName = "";
+  // }
 
-  function setSelectedTheme(themeName) {
-    selectedTheme = themes.find(obj => obj.label === themeName);
-  }
+  // function setSelectedTheme(themeName) {
+  //   selectedTheme = themes.find(obj => obj.label === themeName);
+  // }
 
-  function saveTheme() {
-    // Update the "themes" array in localStorage.
-    localStorage.setItem("themes", JSON.stringify(themes));
-    // Set themes to the updated "themes" array from localStorage.
-    themes = JSON.parse(localStorage.getItem("themes"));
-  }
+  // function saveTheme() {
+  //   // Update the "themes" array in localStorage.
+  //   localStorage.setItem("themes", JSON.stringify(themes));
+  //   // Set themes to the updated "themes" array from localStorage.
+  //   themes = JSON.parse(localStorage.getItem("themes"));
+  // }
 
   function resetTheme() {
     if (browser) {
-      let confirmation = confirm(`Are you sure you want to reset the "${selectedTheme.label}" theme to the Fanny Pack UI theme defaults?`);
+      let confirmation = confirm("Are you sure you want to reset the theme back to the default values?");
       if (confirmation) {
         alert("TODO: Reset theme back to defaults.");
       }
     }
   }
 
-  function deleteTheme() {
-    let newThemesArray = themes.filter(obj => obj.label !== selectedTheme.label);
-    console.log("newThemesArray", newThemesArray);
-    // Update the "themes" array in localStorage.
-    localStorage.setItem("themes", JSON.stringify(newThemesArray));
-    // Set themes to the updated "themes" array from localStorage.
-    themes = JSON.parse(localStorage.getItem("themes"));
-    if (themes.length > 0) {
-      // Set the `selectedTheme` to the first one in the "themes" array.
-      selectedTheme = themes[0];
-    }
-    else {
-      // Remove the "themes" array so an brand new "themes" array will be created when this page is reloaded.
-      localStorage.removeItem("themes");
-      // Reload this page so a new "themes" array will be created.
-      location.reload();
-    }
-  }
+  // function deleteTheme() {
+  //   let newThemesArray = themes.filter(obj => obj.label !== selectedTheme.label);
+  //   console.log("newThemesArray", newThemesArray);
+  //   // Update the "themes" array in localStorage.
+  //   localStorage.setItem("themes", JSON.stringify(newThemesArray));
+  //   // Set themes to the updated "themes" array from localStorage.
+  //   themes = JSON.parse(localStorage.getItem("themes"));
+  //   if (themes.length > 0) {
+  //     // Set the `selectedTheme` to the first one in the "themes" array.
+  //     selectedTheme = themes[0];
+  //   }
+  //   else {
+  //     // Remove the "themes" array so an brand new "themes" array will be created when this page is reloaded.
+  //     localStorage.removeItem("themes");
+  //     // Reload this page so a new "themes" array will be created.
+  //     location.reload();
+  //   }
+  // }
 
   function addColor() {
     // Push a new color array to the `colors` array.
-    selectedTheme.value.colorPalette.push(["", "rgb(0,0,0)"]);
-    selectedTheme = selectedTheme;
+    theme.colorPalette.push(["", "rgb(0,0,0)"]);
+    theme = theme;
   }
 
   function removeColor(index) {
-    selectedTheme.value.colorPalette.splice(index, 1);
-    saveTheme();
-    selectedTheme = selectedTheme;
+    theme.colorPalette.splice(index, 1);
+    // saveTheme();
+    theme = theme;
   }
 
   /**
@@ -295,7 +302,7 @@
     if (variableType === "size") {
       root.style.setProperty(variableName, value + unit);
     }
-    saveTheme();
+    // saveTheme();
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
@@ -342,13 +349,13 @@
 
   function downloadTheme() {
     // TODOS: 
-    // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `selectedTheme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
-    // * Convert the second value in each of the `selectedTheme.value.globalComponentColors` and `selectedTheme.value.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
+    // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
+    // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
 
 
 
-    // Convert `selectedTheme.value` to a formatted string.
+    // Convert the values in the `theme` object to a formatted string.
 // TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
 //     let content = [
 // `:root {
@@ -385,7 +392,7 @@
     const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
     const url = URL.createObjectURL(blob); // Create an object URL from blob
     a.setAttribute("href", url); // Set "a" element link
-    a.setAttribute("download", selectedTheme.label); // Set download filename
+    a.setAttribute("download", "theme.css"); // Set download filename
     a.click(); // Start downloading
   }
 </script>
@@ -394,7 +401,9 @@
 # Customize Themes
 
 ***This page is a work in progress.***
+
 TODOS: 
+* Read the fpui-theme.css file to populate the variables and their values initially, but then bind everything to the `theme` object so I can create a downloadable theme.css file.
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
 * Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
@@ -406,7 +415,17 @@ Customize your theme and download the files to insert into your project. The dow
 
 ---
 
-## Manage themes
+<Button
+  type="button"
+  btnColor="secondary"
+  btnIcon="bx:reset"
+  width="full"
+  on:click={resetTheme}
+>
+  Reset theme to default values
+</Button>
+
+<!-- ## Manage themes
 Create your own themes or use the default "Fanny Pack UI" theme. Each theme is saved in your browser storage so you can access and edit them later.
 
 <form on:submit|preventDefault={createNewTheme}>
@@ -482,7 +501,7 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
   on:click={deleteTheme}
 >
   Delete "{selectedTheme.label}" theme
-</Button>
+</Button> -->
 
 ---
 
@@ -507,10 +526,10 @@ Add as many color variables as you want (including your main color palette and n
   </thead>
   <tbody>
     <!-- {#each selectedTheme.value.colorPalette as color, index} -->
-    {#each fannyPackUiTheme.colorPalette as color, index}
+    {#each theme.colorPalette as color, index}
       <tr>
-        <td><Input size="sm" bind:value={color.label} on:blur={saveTheme} /></td>
-        <td><Colorpicker width="88px" height="28px" bind:value={color.value} on:change={saveTheme} /></td>
+        <td><Input size="sm" bind:value={color.label} /></td>
+        <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td>
         <td style="text-align:center">
           <Button
             btnIcon="mdi:minus-circle"
@@ -552,7 +571,7 @@ Each component style that can be customized has a fallback value. So, for exampl
   </thead>
   <tbody>
     <!-- {#each selectedTheme.value.globalComponentColors as globalColor} -->
-    {#each fannyPackUiTheme.mainColors as mainColor, index (mainColor.label)}
+    {#each theme.mainColors as mainColor, index (mainColor.label)}
       <tr>
         <td>{mainColor.label}</td>
         <td><Select optionsArray={colorPaletteReferenceVariables} arrayType="string" size="sm" bind:selectedOption={mainColor.value} on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)} /></td>
@@ -575,72 +594,19 @@ The size variables are used to set values for things like padding (for buttons a
     </tr>
   </thead>
   <tbody>
-    {#each selectedTheme.value.sizes as size}
+    <!-- {#each selectedTheme.value.sizes as size} -->
+    {#each theme.sizes as size}
       <tr>
-        <td>{size[0]}</td>
-        <td><Input type="number" size="sm" bind:value={size[1]} on:change={(event) => updateCssVariable("size",size[0], event.target.value, size[2])} /></td>
+        <td>{size.label}</td>
+        <td><Input type="number" size="sm" bind:value={size.value} on:change={(event) => updateCssVariable("size", size.label, event.target.value, size.unit)} /></td>
         <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
-        {#if size[2]}
-          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={(event) => updateCssVariable("size", size[0], size[1], event.detail)} /></td>
+        {#if size.unit}
+          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size.unit} size="sm" on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)} /></td>
         {/if}
       </tr>
     {/each}
   </tbody>
 </table>
-
----
-
-
-## Global component color variables
-These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
-
-Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
-
-<table>
-  <thead>
-    <tr>
-      <th>Variable name</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- {#each selectedTheme.value.globalComponentColors as globalColor}
-      <tr>
-        <td>{globalColor.label}</td>
-        <td><Select optionsArray={selectedTheme.value.colorPalette} arrayType="object" size="sm" bind:selectedOption={globalColor.val} on:change={(event) => updateCssVariable("color", globalColor.label, event.detail[0])} /></td>
-      </tr>
-    {/each} -->
-  </tbody>
-</table>
-
-TODO: Reference the variables from the above sections (colors, padding, borders, etc) in drop-down menus for each of these variables.
-
----
-
-## Global component size variables
-
-<table>
-  <thead>
-    <tr>
-      <th>Size variable name</th>
-      <th>Size value</th>
-      <th>Unit</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- {#each selectedTheme.value.sizes as size}
-      <tr>
-        <td>{size[0]}</td>
-        <td><Input type="number" size="sm" bind:value={size[1]} on:change={(event) => updateCssVariable("size",size[0], event.target.value, size[2])} /></td>
-COMMENT: If there is a unit specified for the size variable, then show a <Select> component with the unit options.
-        {#if size[2]}
-          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size[2]} size="sm" on:change={(event) => updateCssVariable("size", size[0], size[1], event.detail)} /></td>
-        {/if}
-      </tr>
-    {/each} -->
-  </tbody>
-</table>
-
 
 ---
 

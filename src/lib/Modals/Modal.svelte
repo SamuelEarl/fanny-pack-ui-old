@@ -30,24 +30,24 @@
 </script>
 
 
+<div id="close-btn-container">
+  <Button
+    id="close"
+    btnIcon="la:times"
+    size="lg"
+    --custom-btn-padding="0"
+    --custom-btn-background-color="transparent" 
+    --custom-btn-border-width="0"
+    --custom-btn-font-size="35px"
+    --custom-btn-box-shadow="none"
+    --custom-btn-disabled-bg-color="transparent"
+    --custom-btn-disabled-text-color="white"
+    {disabled}
+    on:click={() => dispatch("closeModal")}
+  ></Button>
+</div>
 <div id="modal">
   <div id="modal-content-container">
-    <div id="close-btn-container">
-      <Button
-        id="close"
-        btnIcon="la:times"
-        size="lg"
-        --custom-btn-padding="0"
-        --custom-btn-background-color="transparent" 
-        --custom-btn-border-width="0"
-        --custom-btn-font-size="35px"
-        --custom-btn-box-shadow="none"
-        --custom-btn-disabled-bg-color="transparent"
-        --custom-btn-disabled-text-color="white"
-        {disabled}
-        on:click={() => dispatch("closeModal")}
-      ></Button>
-    </div>
     <div id="modal-content">
       {#if title}
         <header id="modal-header">{title}</header>      
@@ -85,6 +85,16 @@
 
   @media (--xs-up) {
 
+    #close-btn-container {
+      position: fixed;
+      top: 0;
+      right: 0;
+      padding: 5px 10px;
+      background-color: rgb(0,0,0); /* Fallback color */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      z-index: 1000;
+    }
+
     /* The Modal (background) */
     #modal {
       position: fixed; /* Stay in place */
@@ -101,16 +111,9 @@
         position: relative;
         width: 100%;
         padding: 10px;
-        padding-top: 0;
         margin: auto;
         animation-name: animatetop;
         animation-duration: 0.5s;
-      
-        & #close-btn-container {
-          width: 100%;
-          display: flex;
-          justify-content: flex-end;
-        }
 
         /* Modal Content/Box */
         & #modal-content {
