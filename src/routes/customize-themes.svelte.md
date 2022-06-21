@@ -152,7 +152,9 @@
       // console.log("matchingVarName:", matchingVarName[0]);
       // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
       let varNameNoColon = matchingVarName[0].slice(0, -1);
-      fannyPackUiTheme[themePropertyName].push({ label: varNameNoColon, value: "" })
+      fannyPackUiTheme[themePropertyName].push({ label: varNameNoColon, value: "" });
+      // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
+      // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
       if (themePropertyName === "colorPalette") {
         console.log("varNameNoColon:", varNameNoColon);
         colorPaletteReferenceVariables.push(`var(${varNameNoColon})`);
