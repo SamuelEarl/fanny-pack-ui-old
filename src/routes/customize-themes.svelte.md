@@ -254,12 +254,12 @@
   //   selectedTheme = themes.find(obj => obj.label === themeName);
   // }
 
-  // function saveTheme() {
-  //   // Update the "themes" array in localStorage.
-  //   localStorage.setItem("themes", JSON.stringify(themes));
-  //   // Set themes to the updated "themes" array from localStorage.
-  //   themes = JSON.parse(localStorage.getItem("themes"));
-  // }
+  function saveTheme() {
+    // Update the "themes" array in sessionStorage.
+    sessionStorage.setItem("themes", JSON.stringify(themes));
+    // Set themes to the updated "themes" array from sessionStorage.
+    themes = JSON.parse(sessionStorage.getItem("themes"));
+  }
 
   function resetTheme() {
     if (browser) {
@@ -291,7 +291,7 @@
 
   function addColor() {
     // Push a new color array to the `colors` array.
-    theme.colorPalette.push(["", "rgb(0,0,0)"]);
+    theme.colorPalette.push({ label: "--variable-name", value: "#000000" });
     theme = theme;
   }
 
@@ -317,7 +317,7 @@
     // if (variableType === "size") {
     //   root.style.setProperty(variableName, variableValue);
     // }
-    // saveTheme();
+    saveTheme();
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.

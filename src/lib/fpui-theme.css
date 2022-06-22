@@ -67,6 +67,9 @@
   --error-color: var(--red);
   --border-color: var(--light-gray);
   --text-color: var(--very-dark-gray);
+  --bg-color-dark: var(--very-dark-gray);
+  --bg-color-medium: var(--gray);
+  --bg-color-light: var(--very-light-gray);
   /* Disabled States */
   --disabled-bg-color: var(--black);
   --disabled-text-color: var(--light-gray);
@@ -149,25 +152,25 @@
   --fpui-date-picker-bg-color: white;
   --fpui-date-picker-text-color: var(--text-color);
   /* These variables apply to only the date input field component. */
-  --fpui-date-input-btn-bg-color: #e5e5e5;
+  --fpui-date-input-btn-bg-color: var(--bg-color-light);
   --fpui-date-input-btn-icon-color: inherit;
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
   /* These variables apply to only the calendar component. */
-  --fpui-calendar-selected-date-bg-color: #e5e5e5;
+  --fpui-calendar-selected-date-bg-color: var(--bg-color-light);
   --fpui-calendar-selected-date-text-color: var(--text-color);
   --fpui-calendar-selected-date-border-color: var(--border-color);
 }
 
 /* Drop Zone Block (file upload) */
 :root {
-  --fpui-drop-zone-border-and-text-color: #343434;
-  --fpui-drop-zone-bg-color: #e5e5e5;
+  --fpui-drop-zone-border-and-text-color: var(--text-color);
+  --fpui-drop-zone-bg-color: var(--bg-color-light);
   --fpui-drop-zone-bg-color-active: white;
   --fpui-drop-zone-border-radius: var(--border-radius);
   --fpui-drop-zone-files-set-for-upload-bg-color: white;
-  --fpui-drop-zone-files-set-for-upload-text-color: #343434;
+  --fpui-drop-zone-files-set-for-upload-text-color: var(--text-color);
 }
 
 /* Input Block (currency, text, number, email) */
@@ -175,7 +178,7 @@
   --fpui-input-border-color: var(--border-color);
   --fpui-input-bg-color: white;
   --fpui-input-text-color: var(--text-color);
-  --fpui-input-placeholder-text-color: #a0a0a0;
+  --fpui-input-placeholder-text-color: var(--bg-color-medium);
   --fpui-input-padding-sm: var(--padding-sm);
   --fpui-input-padding-md: var(--padding-md);
   --fpui-input-padding-lg: var(--padding-lg);
@@ -192,7 +195,7 @@
 :root {
   --fpui-modal-header-footer-border-color: var(--border-color);
   --fpui-modal-header-footer-bg-color: white;
-  --fpui-modal-header-footer-text-color: #343434;
+  --fpui-modal-header-footer-text-color: var(--text-color);
   --fpui-modal-border-radius: var(--border-radius);
   --fpui-modal-body-bg-color: white;
 }
@@ -217,7 +220,7 @@
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);
   /* Styles for the dropdown menu of the select box. */
-  --fpui-select-option-hover-bg-color: #e5e5e5;
+  --fpui-select-option-hover-bg-color: var(--bg-color-light);
   --fpui-select-option-hover-text-color: var(--text-color);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
@@ -240,7 +243,7 @@
 
 /* Tooltip Block */
 :root {
-  --fpui-tooltip-bg-color: #343434;
+  --fpui-tooltip-bg-color: var(--bg-color-dark);
   --fpui-tooltip-text-color: white;
   --fpui-tooltip-border-radius: var(--border-radius);
 }
