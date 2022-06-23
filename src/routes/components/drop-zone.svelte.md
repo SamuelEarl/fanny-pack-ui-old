@@ -113,6 +113,9 @@ Many cloud storage services provide APIs for handling file uploads from your bro
 ### How does the `handleFileUploads` function work?
 After a user selects/drops files in the `<DropZone>` component, an "Upload Files" button will appear. When the user clicks that button the `handleFileUploads` function that you passed as props will be called and a `FormData` object will be passed to that function. Your `handleFileUploads` function will need to process the files according to your cloud storage service's API.
 
+### How do you retrieve the files that were passed to your API endpoint? 
+Each server framework or serverless function service will handle this differently, so you will have to look at your server-side code's documentation to find out how to retrieve and process the files that were passed. **Please note that the first parameter that is passed to the `FormData.append()` method in this component is `"files"`. That means that if you use this `<DropZone>` component then any files that are uploaded through this component might be available on a `"files"` property. But that all depends on how your server-side code handles file uploads, of course. Again, read your server-side code's documentation for details.**
+
 <!-- <br>
 
 <div><b>Files in the storage bucket:</b></div>
