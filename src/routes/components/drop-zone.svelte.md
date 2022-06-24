@@ -113,8 +113,12 @@ Many cloud storage services provide APIs for handling file uploads from your bro
 ### How does the `handleFileUploads` function work?
 After a user selects/drops files in the `<DropZone>` component, an "Upload Files" button will appear. When the user clicks that button the `handleFileUploads` function that you passed as props will be called and a `FormData` object will be passed to that function. Your `handleFileUploads` function will need to process the files according to your cloud storage service's API.
 
-### How do you retrieve the files that were passed to your API endpoint? 
-Each server framework or serverless function service will handle this differently, so you will have to look at your server-side code's documentation to find out how to retrieve and process the files that were passed. **Please note that the first parameter that is passed to the `FormData.append()` method in this component is `"files"`. That means that if you use this `<DropZone>` component then any files that are uploaded through this component might be available on a `"files"` property. But that all depends on how your server-side code handles file uploads, of course. Again, read your server-side code's documentation for details.**
+### I want to send uploaded files to one of my server-side API endpoints first and then upload those files to my cloud storage service from my backend code. How do I access and read the files that were uploaded in my API endpoint?
+When a user uploads a file (or multiple files) in the browser, those files are attached to a `FormData` object with the `append()` method. The first parameter in the `append()` method is a `name` field and its second parameter is the file being uploaded. The whole thing might look something like this: `formData.append("userFiles", uploadedFiles[i])`.
+
+When the user clicks the submit button to upload the files, a POST request containing the `formData` object that holds the uploaded files is sent to the API endpoint. Each server framework or serverless function service will handle file uploads differently, so you will have to look at your server-side code's documentation to find out how to access and read the files that were uploaded through the browser. Keep in mind, though, that since the files were attached to the `formData` object with a specific `name` argument, then they would probably be available on a property that has the same name that was passed to the `name` parameter. For example, if `"userFiles"` was passed to the `name` parameter, then the files would be available on a `userFiles` property somewhere in the request object. But, again, read your server-side code's documentation to find out how to access and read the files that were uploaded.
+
+**The argument that is passed to the `name` parameter in this `<DropZone>` component is `"files"`. So if you use this `<DropZone>` component, then any files that are uploaded through this component would probably be available on a `"files"` property.**
 
 <!-- <br>
 
@@ -154,7 +158,7 @@ Each server framework or serverless function service will handle this differentl
 | --------- | ------------- | ----------- |
 | Default slot (optional) | `Or Drag & Drop Files Here` | The text/instructions that will be displayed in the drop zone. |
 
-<br><br><br><br><br>
+<br><br><br>
 
 # Tutorial
 
@@ -206,9 +210,9 @@ Here's another description:
 
 **A buffer is a temporary storage location (in memory) that is used to hold a chunk of data. For example, when data are sent to a destination, those data need to be stored somewhere (e.g. a buffer) until the destination is ready to take in more chunks of data for processing.**
 
-In the case of file uploads, the data are the files and the destination is either (1) your cloud storage service (e.g. when uploading files from your browser-side code directly to your cloud storage) or (2.a.) your server and then (2.b.) your cloud storage service (e.g. when uploading files from your browser-side code to your server-side code and then to your cloud storage).
+In the case of file uploads, the data are the files and the destination is determined by how those files are uploaded. For example, if you upload files from your browser-side code directly to your cloud storage, then the destination (i.e. the location that needs to buffer the data) is your cloud storage service. If, however, you upload files from your browser-side code to your server-side code and then to your cloud storage, then you have to two destinations that need to buffer the data: your server-side code and your cloud storage.
 
-You can think of a buffer like an array of integers, which each represent a byte of data. This is an example of what a buffer looks like:
+You can think of a buffer like an array of integers and each integer represents a byte of data. This is an example of what a buffer looks like:
 
 ```
 <Buffer 43 68 61 6e 67 65 20 6d 65 20 74 6f 20 62 75 66 66 65 72>
@@ -259,37 +263,49 @@ Node.js has a **[Buffer](https://nodejs.dev/learn/nodejs-buffers)** module that 
 ## How to read files in Node.js
 *You can watch this video for a great explanation of [Streams and Buffers](https://www.youtube.com/watch?v=GlybFFMXXmQ).*
 
-In order for a computer to read files it first needs to convert those files into a form that it can understand, which is binary data. More specifically, you need to convert your files into buffers (because a buffer is a byte array).
+In order for a computer to read files it first needs to convert those files into a form that it can understand, which is binary data. More specifically, you need to convert your files into buffers (because a buffer is a byte array - i.e. an array of binary digits).
+
+**Buffers** are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down or even crash your server.
+
+**Streams** are a way to read small chunks of data (i.e. small buffers) at a time rather than one massive file all at once. So when your programs read a file as a stream they read it piece by piece, processing its content without keeping it all in memory. That means that streams allow your programs to read much larger files while using less memory. If you don't use streams to read files, then you will have to wait for the entire file to be read before it can be processed, which can use up more memory.
 
 In Node.js, you can use the [`fs`](https://nodejs.dev/learn/the-nodejs-fs-module) module to open and read files. There are two ways you can open and read a file using the `fs` module:
 
 * Load all of the contents at once (buffering)
 * Incrementally load contents (streaming)
 
-Keep in mind that the `fs` module is used to access and interact with the file system. So any files that you want to read with the `fs` module have to be located in the computer's file system already (or on our server's file system in our case). For example, the `fs.readFile()` method takes a file path as its first argument. You cannot pass a `File` object as the first argument. In order to pass it a 
+Keep in mind that the `fs` module is used to access and interact with the file system. So any files that you want to read with the `fs` module have to be located in the computer's file system already (or on your server's file system in the case of web development). For example, the `fs.readFile()` method takes a file path as its first argument. You cannot pass a `File` object (i.e. a file that was uploaded through the browser) as the first argument to `fs.readFile()`.
 
-*NOTE: JavaScript in the browser does not have access to the `fs` module. If you are trying to read a file in the browser, then you would have to use the [`FileReader` API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader). " `FileReader` can only access the contents of files that the user has explicitly selected, either using an HTML `<input type="file">` element or by drag and drop. It cannot be used to read a file by pathname from the user's file system. To read files on the client's file system by pathname, use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API). To read server-side files, use standard Ajax solutions, with CORS permission if reading cross-domain."*
+So, if you can't use the `fs` module to read file uploads, then how do you read files that have been uploaded by a user? That depends on the server-side framework that you are using. Each server framework or serverless function service will handle file uploads differently, so you will have to look at your server-side code's documentation to find out how to access and read the files that were uploaded through the browser.
 
-Buffers are created in memory. So in order to convert files into a buffer you have to create space in memory that is equal to the size of the file being converted. For example, a 1MB file will use 1MB of memory. That might not sound like a big deal, but what happens if you have a lot of users concurrently uploading files to your server? Too much memory usage at one time can slow down or even crash your server.
+### FYI
 
-Streams are a way to read small chunks of data (i.e. buffers) at a time rather than one massive file all at once. So when your programs read a file as a stream they read it piece by piece, processing its content without keeping it all in memory. That means that streams allow your programs to read much larger files while using less memory. If you don't use streams to read files, then you will have to wait for the entire file to be read before it can be processed, which can use up more memory.
+1. Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that you can use to work with streams. You can read more about streams in Node.js and how to implement them:
+    * [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
+    * [Read Files with Node.js](https://stackabuse.com/read-files-with-node-js/)
+    * [Node HTTP Servers for Static File Serving](https://stackabuse.com/node-http-servers-for-static-file-serving/)
 
-*NOTE: Buffers were introduced to help developers deal with binary data in an ecosystem that traditionally only dealt with strings rather than binaries.*
+2. Buffers were introduced to help developers deal with binary data in an ecosystem that traditionally only dealt with strings rather than binaries.
 
-Node.js has a **[Stream](https://nodejs.dev/learn/nodejs-streams)** module that you can use to work with streams. You can read more about streams in Node.js and how to implement them:
-
-* [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
-* [Read Files with Node.js](https://stackabuse.com/read-files-with-node-js/)
-* [Node HTTP Servers for Static File Serving](https://stackabuse.com/node-http-servers-for-static-file-serving/)
-
+3. JavaScript in the browser does not have access to the `fs` module. If you are trying to read a file in the browser, then you would have to use the [`FileReader` API](https://developer.mozilla.org/en-US/docs/Web/API/FileReader). *" `FileReader` can only access the contents of files that the user has explicitly selected, either using an HTML `<input type="file">` element or by drag and drop. It cannot be used to read a file by pathname from the user's file system. To read files on the client's file system by pathname, use the [File System Access API](https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API). To read server-side files, use standard Ajax solutions, with CORS permission if reading cross-domain." (Source: [FileReader docs on MDN](https://developer.mozilla.org/en-US/docs/Web/API/FileReader))*
 
 
-## References
+### References
 * [Binary Data](https://www.techopedia.com/definition/17929/binary-data#:~:text=Binary%20data%20is%20a%20type,combination%20of%20zeros%20and%20ones.)
 * [Understanding Bits, Bytes and Their Multiples](https://www.techopedia.com/2/29184/development/programming-languages/understanding-bits-bytes-and-their-multiples)
 * [Node.js buffer: A complete guide](https://blog.logrocket.com/node-js-buffer-a-complete-guide/)
 * [Node.js Buffers](https://nodejs.dev/learn/nodejs-buffers)
 * [Node.js Streams](https://nodejs.dev/learn/nodejs-streams)
+
+
+## What are Blobs?
+When working with file uploads you will often see the term "blob" used. Blob stands for **B**inary **L**arge **Ob**ject, which includes objects such as images and multimedia files. These are known as unstructured data because they don't follow any particular data model. *(Source: [SnapLogic - Azure Blob Storage](https://www.snaplogic.com/glossary/azure-blob-storage#:~:text=Azure%20Blob%20storage%20is%20a,as%20images%20and%20multimedia%20files.))*
+
+
+
+
+## Create the frontend component
+Now that we have some of those preliminaries out of the way, let's get into creating the file upload feature.
 
 ---
 
@@ -302,8 +318,6 @@ TODOS:
 * Include this link to the Azure SDK for JavaScript: https://github.com/Azure/azure-sdk-for-js/tree/main/sdk/storage/storage-blob#list-the-containers
 
 * Containers are like folders.
-* Blob stands for **B**inary **L**arge **Ob**ject, which includes objects such as images and multimedia files. These are known as unstructured data because they don't follow any particular data model. *(Source: [SnapLogic - Azure Blob Storage](https://www.snaplogic.com/glossary/azure-blob-storage#:~:text=Azure%20Blob%20storage%20is%20a,as%20images%20and%20multimedia%20files.))*
-
 
 
 <style>
