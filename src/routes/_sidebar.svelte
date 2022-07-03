@@ -9,7 +9,7 @@
     <a href="/get-started" class:active={currentPath === "/get-started"}>
       <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
-    <a href="/customize-themes" class:active={currentPath === "/customize-themes"}>
+    <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
       <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Theme
     </a>
   </div>
