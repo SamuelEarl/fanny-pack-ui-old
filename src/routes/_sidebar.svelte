@@ -10,7 +10,7 @@
       <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
     <a href="/customize-themes" class:active={currentPath === "/customize-themes"}>
-      <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Themes
+      <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Theme
     </a>
   </div>
   <div class="section-heading">Components</div>

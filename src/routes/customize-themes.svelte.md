@@ -200,7 +200,7 @@
 
   /**
    * This function will parse the `fpui-theme.css` file and create a `theme` object based on the CSS variables in that file.
-   * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Themes" page will be updated.
+   * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Theme" page will be updated.
    */
   function parseThemeFile() {
     try {
@@ -415,7 +415,7 @@
 </script>
 
 
-# Customize Themes
+# Customize Theme
 
 ***This page is a work in progress.***
 
