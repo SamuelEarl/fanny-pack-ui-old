@@ -11,6 +11,17 @@
 ******************************************/
 :root {
   --border: 1px solid var(--border-color);
+
+  /***
+    Typography
+    * Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
+    * You can use any of the following font stack variables as examples and delete them when you are done.
+  ***/
+  --cursive-font-stack: "Audiowide", cursive;
+  --sans-serif-font-stack: "Montserrat", sans-serif;
+  --mono-font-stack: "Source Code Pro", mono;
+  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
+  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
 }
 
 
@@ -20,18 +31,23 @@
   * The main colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp.
   * The neutral colors are lighter and darker shades of #a0a0a0. See https://www.colorhexa.com/a0a0a0.
   * Extra colors from https://www.w3schools.com/w3css/w3css_color_metro.asp that I am not using.
-  --light-green: #99b433;
-  --dark-green: #1e7145;
-  --magenta: #ff0097;
-  --light-purple: #9f00a7;
-  --purple: #7e3878;
-  --teal: #00aba9;
-  --light-blue: #eff4ff;
-  --dark-blue: #2b5797;
-  --yellow: #ffc40d;
-  --orange: #e3a21a;
-  --dark-orange: #da532c;
-  --dark-red: #b91d47;
+      --light-green: #99b433;
+      --green: #00a300;
+      --dark-green: #1e7145;
+      --magenta: #ff0097;
+      --light-purple: #9f00a7;
+      --purple: #7e3878;
+      --dark-purple: #603cba;
+      --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
+      --teal: #00aba9;
+      --light-blue: #eff4ff;
+      --blue: #2d89ef;
+      --dark-blue: #2b5797;
+      --yellow: #ffc40d;
+      --orange: #e3a21a;
+      --dark-orange: #da532c;
+      --red: #ee1111;
+      --dark-red: #b91d47;
 ******************************************/
 /* Color Palette Block */
 :root {
@@ -61,16 +77,23 @@
   --primary-color: var(--dark-purple);
   --secondary-color: var(--very-dark-gray);
   --tertiary-color: var(--white);
+  /* Neutral Colors */
+  --neutral-darkest: var(--black);
+  --neutral-very-dark: var(--very-dark-gray);
+  --neutral-dark: var(--dark-gray);
+  --neutral-medium: var(--gray);
+  --neutral-light: var(--light-gray);
+  --neutral-very-light: var(--very-light-gray);
+  --neutral-lightest: var(--white);
+  /* Notification Colors */
   --info-color: var(--blue);
   --success-color: var(--green);
   --warning-color: var(--yellow);
   --error-color: var(--red);
+  /* Border & Text Colors */
   --border-color: var(--light-gray);
   --text-color: var(--very-dark-gray);
-  --bg-color-dark: var(--very-dark-gray);
-  --bg-color-medium: var(--gray);
-  --bg-color-light: var(--very-light-gray);
-  /* Disabled States */
+  /* Disabled State Colors */
   --disabled-bg-color: var(--black);
   --disabled-text-color: var(--light-gray);
 }
@@ -87,23 +110,10 @@
   --font-size-sm: 12px;
   --font-size-base: 16px;
   --font-size-lg: 20px;
+  /* Font weights */
   --font-weight-light: 100;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
-}
-
-
-/******************************************
-  Typography
-  * Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
-  * You can use any of the following font stack variables as examples and delete them when you are done.
-******************************************/
-:root {
-  --cursive-font-stack: "Audiowide", cursive;
-  --sans-serif-font-stack: "Montserrat", sans-serif;
-  --mono-font-stack: "Source Code Pro", mono;
-  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
-  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
 }
 
 
@@ -114,10 +124,10 @@
   * The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
 ******************************************/
 
-/* Button Block */
+/* Button */
 :root {
-  --fpui-btn-primary-text-color: white;
-  --fpui-btn-secondary-text-color: white;
+  --fpui-btn-primary-text-color: var(--neutral-lightest);
+  --fpui-btn-secondary-text-color: var(--neutral-lightest);
   --fpui-btn-tertiary-text-color: var(--primary-color);
   /* The --fpui-btn-padding variables will make the button larger or smaller. */
   --fpui-btn-padding-sm: var(--padding-sm);
@@ -133,118 +143,118 @@
   --fpui-btn-border-radius: var(--border-radius);
 }
 
-/* Checkbox Block */
+/* Checkbox */
 :root {
   --fpui-checkbox-unchecked-border-color: var(--border-color);
   --fpui-checkbox-unchecked-border-radius: var(--border-radius);
-  --fpui-checkbox-unchecked-bg-color: white;
+  --fpui-checkbox-unchecked-bg-color: var(--neutral-lightest);
   --fpui-checkbox-checked-bg-color: var(--primary-color);
   --fpui-checkbox-margin-bottom: 20px;
   /* The `--fpui-checkbox-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable could come in handy. */
   --fpui-checkbox-vertical-alignment: -3px;
 }
 
-/* Date Picker Block */
+/* Date Picker */
 :root {
   /* These variables apply to both the date input field and calendar components. */
   --fpui-date-picker-border-color: var(--border-color);
   --fpui-date-picker-border-radius: var(--border-radius);
-  --fpui-date-picker-bg-color: white;
+  --fpui-date-picker-bg-color: var(--neutral-lightest);
   --fpui-date-picker-text-color: var(--text-color);
   /* These variables apply to only the date input field component. */
-  --fpui-date-input-btn-bg-color: var(--bg-color-light);
+  --fpui-date-input-btn-bg-color: var(--neutral-very-light);
   --fpui-date-input-btn-icon-color: inherit;
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
   /* These variables apply to only the calendar component. */
-  --fpui-calendar-selected-date-bg-color: var(--bg-color-light);
+  --fpui-calendar-selected-date-bg-color: var(--neutral-very-light);
   --fpui-calendar-selected-date-text-color: var(--text-color);
   --fpui-calendar-selected-date-border-color: var(--border-color);
 }
 
-/* Drop Zone Block (file upload) */
+/* Drop Zone (file upload) */
 :root {
   --fpui-drop-zone-border-and-text-color: var(--text-color);
-  --fpui-drop-zone-bg-color: var(--bg-color-light);
-  --fpui-drop-zone-bg-color-active: white;
+  --fpui-drop-zone-bg-color: var(--neutral-very-light);
+  --fpui-drop-zone-bg-color-active: var(--neutral-lightest);
   --fpui-drop-zone-border-radius: var(--border-radius);
-  --fpui-drop-zone-files-set-for-upload-bg-color: white;
+  --fpui-drop-zone-files-set-for-upload-bg-color: var(--neutral-lightest);
   --fpui-drop-zone-files-set-for-upload-text-color: var(--text-color);
 }
 
-/* Input Block (currency, text, number, email) */
+/* Input (currency, text, number, email) */
 :root {
   --fpui-input-border-color: var(--border-color);
-  --fpui-input-bg-color: white;
+  --fpui-input-bg-color: var(--neutral-lightest);
   --fpui-input-text-color: var(--text-color);
-  --fpui-input-placeholder-text-color: var(--bg-color-medium);
+  --fpui-input-placeholder-text-color: var(--neutral-medium);
   --fpui-input-padding-sm: var(--padding-sm);
   --fpui-input-padding-md: var(--padding-md);
   --fpui-input-padding-lg: var(--padding-lg);
 }
 
-/* Labels Block */
+/* Labels */
 :root {
   --fpui-label-font-size: 0.8rem;
   --fpui-label-margin-bottom: 5px;
-  --fpui-label-text-color: #797979;
+  --fpui-label-text-color: var(--neutral-dark);
 }
 
-/* Modal Block */
+/* Modal */
 :root {
   --fpui-modal-header-footer-border-color: var(--border-color);
-  --fpui-modal-header-footer-bg-color: white;
+  --fpui-modal-header-footer-bg-color: var(--neutral-lightest);
   --fpui-modal-header-footer-text-color: var(--text-color);
   --fpui-modal-border-radius: var(--border-radius);
-  --fpui-modal-body-bg-color: white;
+  --fpui-modal-body-bg-color: var(--neutral-lightest);
 }
 
-/* Radio Buttons Block */
+/* Radio Buttons */
 :root {
   --fpui-radio-unchecked-border-color: var(--border-color);
-  --fpui-radio-unchecked-bg-color: white;
+  --fpui-radio-unchecked-bg-color: var(--neutral-lightest);
   --fpui-radio-checked-bg-color: var(--primary-color);
   --fpui-radio-margin-bottom: 20px;
   /* The `--fpui-radio-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable could come in handy. */
   --fpui-radio-vertical-alignment: -2px;
 }
 
-/* Select Block (single, multi) */
+/* Select (single, multi) */
 :root {
   --fpui-select-border-color: var(--border-color);
   --fpui-select-border-radius: var(--border-radius);
-  --fpui-select-bg-color: white;
+  --fpui-select-bg-color: var(--neutral-lightest);
   --fpui-select-text-color: var(--text-color);
   --fpui-select-btn-padding-sm: var(--padding-sm);
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);
   /* Styles for the dropdown menu of the select box. */
-  --fpui-select-option-hover-bg-color: var(--bg-color-light);
+  --fpui-select-option-hover-bg-color: var(--neutral-very-light);
   --fpui-select-option-hover-text-color: var(--text-color);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
   --fpui-select-option-padding-lg: var(--padding-lg);
 }
 
-/* Toast Block */
+/* Toast */
 :root {
   --fpui-toast-info-bg-color: var(--info-color);
-  --fpui-toast-info-text-color: white;
+  --fpui-toast-info-text-color: var(--neutral-lightest);
   --fpui-toast-success-bg-color: var(--success-color);
-  --fpui-toast-success-text-color: white;
+  --fpui-toast-success-text-color: var(--neutral-lightest);
   --fpui-toast-warning-bg-color: var(--warning-color);
-  --fpui-toast-warning-text-color: black;
+  --fpui-toast-warning-text-color: var(--neutral-darkest);
   --fpui-toast-error-bg-color: var(--error-color);
-  --fpui-toast-error-text-color: white;
+  --fpui-toast-error-text-color: var(--neutral-lightest);
   --fpui-toast-font-size: 1.15rem;
-  --fpui-toast-font-weight: normal;
+  --fpui-toast-font-weight: var(--font-weight-normal);
 }
 
-/* Tooltip Block */
+/* Tooltip */
 :root {
-  --fpui-tooltip-bg-color: var(--bg-color-dark);
-  --fpui-tooltip-text-color: white;
+  --fpui-tooltip-bg-color: var(--neutral-very-dark);
+  --fpui-tooltip-text-color: var(--neutral-lightest);
   --fpui-tooltip-border-radius: var(--border-radius);
 }
 

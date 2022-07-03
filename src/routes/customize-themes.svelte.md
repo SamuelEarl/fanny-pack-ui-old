@@ -419,16 +419,19 @@
 
 ***This page is a work in progress.***
 
+---
+
+Customize your theme below then download a `theme.css` file that you can insert into your project. (The download button is at the bottom of this page.)
+
+FYI: The Fanny Pack UI color palette is borrowed from the <a href="https://www.w3schools.com/w3css/w3css_color_metro.asp" target="_blank">Metro UI</a> color palette. The neutral colors in the Fanny Pack UI color palette are lighter and darker shades of #a0a0a0. See <a href="https://www.colorhexa.com/a0a0a0" target="_blank">ColorHexa: #a0a0a0</a>.
+
+---
+
 TODOS: 
 * Read the fpui-theme.css file to populate the variables and their values initially, but then bind all the user-defined options (i.e. the `<Select>` and `<Input>` components) to the `theme` object so I can create a downloadable theme.css file.
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
 * Since I am creating this "wizard" to create a theme file, I can probably remove --fpui- CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
-
-
-Customize your theme and download the files to insert into your project. The download button is at the bottom of the page.
-
-<!-- <button on:click={() => hexToRgb("#fbafff", 0.5)}>Test Hex to RGB</button> -->
 
 ---
 
@@ -531,7 +534,13 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
 </Button> -->
 
 ## Color palette
-Add as many color variables as you want (including your main color palette and neutral colors). Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
+Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
+
+In the next section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades of gray), so it would be best if you also have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. For example, you can use black and white (or shades that are close to black and white) and then pick a medium neutral color (like a medium gray or grayish color) and then define two lighter shades than your medium neutral color and two darker shades than your medium neutral color. 
+
+As an example, the neutral colors that are used in Fanny Pack UI are black, white, gray (#a0a0a0), two lighter shades of #a0a0a0, and two darker shades of #a0a0a0. An easy way to define your neutral colors is to go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>, enter your medium neutral color, scroll down to the "Shades and Tints" heading, and find somes shades or tints that you like.
+
+<br>
 
 <table>
   <thead>
@@ -575,9 +584,11 @@ Add as many color variables as you want (including your main color palette and n
 ## Main color variables
 **TODO: These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.**
 
-These styles are used throughout the components. Updating these variables will handle most of your theme customizations.
+These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
-Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all the component variables right now or you can edit them later as needed when you implement a new component in your app.
+NOTE: Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all these main color variables right now or you can edit them later as needed when you implement a new component in your app and see what it looks like in your app.
+
+<br>
 
 <table>
   <thead>
@@ -597,10 +608,12 @@ Each component style that can be customized has a fallback value. So, for exampl
   </tbody>
 </table>
 
----
+<br>
 
 ## Size variables
-The size variables are used to set values for things like padding (for buttons and other elements), the roundness or squareness of borders (i.e. `border-radius`), font sizes, etc.
+The size variables are used to set values for things like padding (for buttons and other elements), the roundness or squareness of borders (i.e. `border-radius`), font sizes, etc. You are welcome to keep the default sizes for each of the following variables or change them however you want.
+
+<br>
 
 <table>
   <thead>
@@ -638,9 +651,9 @@ The size variables are used to set values for things like padding (for buttons a
   </tbody>
 </table>
 
----
+<br>
 
-## Individual component variables
+<!-- ## Individual component variables
 You can customize individual components by changing the following values.
 
 ### Accordions
@@ -656,9 +669,9 @@ You can customize individual components by changing the following values.
 
 <Button btnColor="tertiary">
   Tertiary Button
-</Button>
+</Button> -->
 
----
+<!-- --- -->
 
 <!-- <Button 
   btnIcon="bx:save"
@@ -670,7 +683,9 @@ You can customize individual components by changing the following values.
 
 <br><br>
 
-<Button 
+<Button
+  type="button"
+  btnColor="secondary"
   btnIcon="mi:document-download"
   width="full"
   on:click={downloadTheme}
