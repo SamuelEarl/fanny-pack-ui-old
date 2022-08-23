@@ -1,7 +1,7 @@
 <script lang="ts">
   import { afterNavigate } from "$app/navigation";
   import { Toast } from "/src/lib";
-  import Sidebar from "./_sidebar.svelte";
+  import Sidebar from "/src/components/Sidebar.svelte";
 
   /**
    * Reset the page scroll position to the top on navigation.

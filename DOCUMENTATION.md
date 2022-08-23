@@ -56,13 +56,13 @@ You have to make sure that the package name and package version combination don'
 Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub before you continue.
 
 
-## Step 5: Turn your component library into an npm package
-Install the `svelte2tsx` package:
-
+## Step 5: Make sure you have the `svelte2tsx` package installed
 ```
 npm install --save-dev svelte2tsx
 ```
 
+
+## Step 6: Turn your component library into an npm package
 Then run the following from the root of the project:
 
 ```
@@ -74,11 +74,11 @@ This command will take all the files that are under the `src/lib` folder and mak
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
 
-## Step 6: Login to npm
+## Step 7: Login to npm
 Read how to do login here: http://npm.github.io/installation-setup-docs/installing/logging-in-and-out.html
 
 
-## Step 7: Publish to npm with a scoped package
+## Step 8: Publish to npm with a scoped package
 In order to distribute this package to other developers and allow them to install it as an npm package you need to publish it to npm. To publish this as an npm module run the following command from inside the directory that contains your `package.json` file:
 
 ```

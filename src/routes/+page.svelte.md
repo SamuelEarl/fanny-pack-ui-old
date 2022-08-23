@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Logo from "/static/fanny-pack.svg";
+  import Logo from "/src/assets/images/fanny-pack.svg";
 
   // Get app version from package.json using Vite: https://stackoverflow.com/questions/67194082/how-can-i-display-the-current-app-version-from-package-json-to-the-user-using-vi.
   let version = __APP_VERSION__;

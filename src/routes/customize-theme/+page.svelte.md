@@ -4,7 +4,7 @@
   import { browser } from "$app/env";
   import Colorpicker from "@budibase/colorpicker";
   import { Button, Input, Select, ToastContent } from "/src/lib";
-  import themeFile from "../lib/fpui-theme.css";
+  import themeFile from "/src/lib/fpui-theme.css";
 
   let themes = [];
 

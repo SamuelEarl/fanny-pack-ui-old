@@ -32,7 +32,7 @@ When you install and import the components into your app, the components will ha
 
 *NOTE: Since CSS styles that are declared later will override styles that are declared earlier, remember that the order of these imports matters.*
 
-Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/__layout.svelte` file. That import would look like this:
+Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the `/src/routes/+layout.svelte` file. That import would look like this:
 
 ```html
 <style>

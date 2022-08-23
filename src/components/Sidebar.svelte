@@ -21,11 +21,11 @@
     <a href="/components/button" class:active={currentPath === "/components/button"}>
       <Icon icon="carbon:button-centered" /> &nbsp; Button
     </a>
-    <a href="/components/checkbox" class:active={currentPath === "/components/checkbox"}>
-      <Icon icon="carbon:checkbox-checked" /> &nbsp; Checkbox
+    <a href="/components/checkbox/single" class:active={currentPath === "/components/checkbox/single"}>
+      <Icon icon="carbon:checkbox-checked" /> &nbsp; Checkbox (single)
     </a>
-    <a href="/components/checkbox-group" class:active={currentPath === "/components/checkbox-group"}>
-      <Icon icon="carbon:list-boxes" /> &nbsp; Checkbox Group
+    <a href="/components/checkbox/group" class:active={currentPath === "/components/checkbox/group"}>
+      <Icon icon="carbon:list-boxes" /> &nbsp; Checkbox (group)
     </a>
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
@@ -33,10 +33,10 @@
     <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
       <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
     </a>
-    <a href="/components/input-currency" class:active={currentPath === "/components/input-currency"}>
+    <a href="/components/input/currency" class:active={currentPath === "/components/input/currency"}>
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
-    <a href="/components/input" class:active={currentPath === "/components/input"}>
+    <a href="/components/input/misc" class:active={currentPath === "/components/input/misc"}>
       <Icon icon="radix-icons:input" /> &nbsp; Input (text, number, email)
     </a>
     <a href="/components/modal" class:active={currentPath === "/components/modal"}>
@@ -45,11 +45,11 @@
     <a href="/components/radio-button" class:active={currentPath === "/components/radio-button"}>
       <Icon icon="carbon:radio-button-checked" /> &nbsp; Radio Button
     </a>
-    <a href="/components/select-multi" class:active={currentPath === "/components/select-multi"}>
-      <Icon icon="fluent:multiselect-ltr-20-filled" /> &nbsp; Select (multi)
-    </a>
-    <a href="/components/select-single" class:active={currentPath === "/components/select-single"}>
+    <a href="/components/select/single" class:active={currentPath === "/components/select/single"}>
       <Icon icon="icon-park-outline:list-view" /> &nbsp; Select (single)
+    </a>
+    <a href="/components/select/multi" class:active={currentPath === "/components/select/multi"}>
+      <Icon icon="fluent:multiselect-ltr-20-filled" /> &nbsp; Select (multi)
     </a>
     <a href="/components/tabs" class:active={currentPath === "/components/tabs"}>
       <Icon icon="ic:outline-tab" /> &nbsp; Tabs (tabbed content)
@@ -66,11 +66,11 @@
     <a href="/data-viz/area-chart" class:active={currentPath === "/data-viz/area-chart"}>
       <Icon icon="tabler:chart-area-line" /> &nbsp; Area Chart
     </a>
-    <a href="/data-viz/bar-chart-horizontal" class:active={currentPath === "/data-viz/bar-chart-horizontal"}>
-      <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart (Horizontal)
+    <a href="/data-viz/bar-chart/horizontal" class:active={currentPath === "/data-viz/bar-chart/horizontal"}>
+      <Icon icon="bi:bar-chart" rotate="90deg" /> &nbsp; Bar Chart (horizontal)
     </a>
-    <a href="/data-viz/bar-chart-vertical" class:active={currentPath === "/data-viz/bar-chart-vertical"}>
-      <Icon icon="bi:bar-chart" /> &nbsp; Bar Chart (Vertical)
+    <a href="/data-viz/bar-chart/vertical" class:active={currentPath === "/data-viz/bar-chart/vertical"}>
+      <Icon icon="bi:bar-chart" /> &nbsp; Bar Chart (vertical)
     </a>
     <a href="/data-viz/bubble-chart" class:active={currentPath === "/data-viz/bubble-chart"}>
       <Icon icon="carbon:chart-bubble" /> &nbsp; Bubble Chart

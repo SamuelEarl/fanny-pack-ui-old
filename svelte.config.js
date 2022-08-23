@@ -40,18 +40,6 @@ const config = {
 
 	kit: {
 		adapter: adapterAuto(),
-
-		vite: () => ({
-			server: {
-				fs: {
-					allow: ["package"]
-				}
-			},
-
-      define: {
-        "__APP_VERSION__": JSON.stringify(process.env.npm_package_version),
-      },
-		}),
 	}
 };
 

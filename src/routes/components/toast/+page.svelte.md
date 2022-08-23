@@ -32,9 +32,9 @@ The `<Toast>` component has two parts:
 
 <br>
 
-**Step 1**: Import the `<Toast>` component into another component (probably your `/src/routes/__layout.svelte` component) so you can show notifications to your users.
+**Step 1**: Import the `<Toast>` component into another component (probably your `/src/routes/+layout.svelte` component) so you can show notifications to your users.
 
-*`/src/routes/__layout.svelte`*
+*`/src/routes/+layout.svelte`*
 ```svelte
 <script>
   import { Toast } from "@fanny-pack-ui/svelte-kit";
