@@ -5,7 +5,8 @@ const config = {
 	plugins: [sveltekit()],
 
   server: {
-    port: 3000,
+    port: 5000,
+
     fs: {
       allow: ["package"]
     }
