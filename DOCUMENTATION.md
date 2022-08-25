@@ -100,7 +100,7 @@ Sources:
 # Deployment to Cloudflare
 * Follow these instructions for deploying a SvelteKit project: https://developers.cloudflare.com/pages/framework-guides/deploy-a-svelte-site/, but use these settings instead of the ones described in that article:
     * When creating a new project in your Cloudflare dashboard, use the "Framework preset" for SvelteKit.
-    * IMPORTANT: SvelteKit requires Node.js v14.x or later to build successfully. You must expand the Environment Variables (advanced) section and add a `NODE_VERSION` variable with a value of `14` or greater.
+    * IMPORTANT: SvelteKit requires Node.js v14.x or later to build successfully. You must expand the Environment Variables (advanced) section and add a `NODE_VERSION` variable with a value of `16` or greater.
     * In your `svelte.config.js` file, use the `adapter-auto` that is already installed by default in SvelteKit instead of the `adapter-static` that is mentioned in the Cloudflare guide.
 * Follow these instructions to add custom domains, etc: https://developers.cloudflare.com/pages/get-started/.
 
