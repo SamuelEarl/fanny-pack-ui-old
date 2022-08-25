@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import { writable } from "svelte/store";
   import { browser } from "$app/env";
-  import Colorpicker from "@budibase/colorpicker";
+  // import Colorpicker from "@budibase/colorpicker";
   import { Button, Input, Select, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
@@ -555,7 +555,9 @@ As an example, the neutral colors that are used in Fanny Pack UI are black, whit
     {#each theme.colorPalette as color, index}
       <tr>
         <td><Input size="sm" bind:value={color.label} /></td>
-        <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td>
+<!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+        <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+        <td><input type="color" bind:value={color.value} /></td>
         <td style="text-align:center">
           <Button
             btnIcon="mdi:minus-circle"
