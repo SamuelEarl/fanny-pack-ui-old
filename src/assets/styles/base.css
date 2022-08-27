@@ -49,14 +49,14 @@ pre {
   font-family: var(--mono-font-stack);
   padding: 10px;
   border-radius: var(--border-radius);
-  background-color: var(--very-light-gray);
+  background-color: var(--neutral-very-light);
 }
 /* <code> or single backticks */
 code {
   font-family: var(--mono-font-stack);
   padding: 0 3px;
   border-radius: var(--border-radius);
-  background-color: var(--very-light-gray);
+  background-color: var(--neutral-very-light);
 }
 
 hr {

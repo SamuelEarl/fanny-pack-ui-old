@@ -423,7 +423,7 @@
 
 Customize your theme below then download a `theme.css` file that you can insert into your project. (The download button is at the bottom of this page.)
 
-FYI: The Fanny Pack UI color palette is borrowed from the <a href="https://www.w3schools.com/w3css/w3css_color_metro.asp" target="_blank">Metro UI</a> color palette. The neutral colors in the Fanny Pack UI color palette are lighter and darker shades of #a0a0a0. See <a href="https://www.colorhexa.com/a0a0a0" target="_blank">ColorHexa: #a0a0a0</a>.
+FYI: The Fanny Pack UI color palette borrows colors from the <a href="https://www.w3schools.com/w3css/w3css_color_metro.asp" target="_blank">Metro UI</a> color palette. The neutral colors in the Fanny Pack UI color palette are shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>).
 
 ---
 
@@ -536,9 +536,16 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
 ## Color palette
 Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
-In the next section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades of gray), so it would be best if you also have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. For example, you can use black and white (or shades that are close to black and white) and then pick a medium neutral color (like a medium gray or grayish color) and then define two lighter shades than your medium neutral color and two darker shades than your medium neutral color. 
+In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. Here is one way to do it:
 
-As an example, the neutral colors that are used in Fanny Pack UI are black, white, gray (#a0a0a0), two lighter shades of #a0a0a0, and two darker shades of #a0a0a0. An easy way to define your neutral colors is to go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>, enter your medium neutral color, scroll down to the "Shades and Tints" heading, and find somes shades or tints that you like.
+1. Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.
+2. Take your primary color, enter it into the search bar, and press Enter.
+3. Once you are on the page for your primary color, scroll down until you find the heading "Tones of [your primary color]". 
+4. Find a tone that has a good amount of gray in it - maybe one of the first two or three tones on the left side of the spectrum. Click on that tone. 
+5. Once you are on the new page for that tone, scroll down to the heading "Shades and Tints of [the tone you selected]".
+6. Select a shade or tint to use as your "medium" neutral color - maybe the 3rd, 4th, or 5th color from the left in the tint spectrum.
+7. Once you have selected your "medium" neutral color you can pick two neutral colors that are darker than your "medium" neutral color and two that are lighter than your "medium" neutral color. You might want to pick colors that are about three or four shades/tints away from each other to give enough contrast between each neutral color, but you decide what looks best for your color palette.
+8. That will give you five neutral colors and if you use black (`#000000`) and white (`#ffffff`) as your darkest and lightest neutral colors, respectively, (or shades/tints that are close to black and white) then you will have the seven neutral colors you need.
 
 <br>
 

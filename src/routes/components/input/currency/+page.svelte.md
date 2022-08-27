@@ -169,7 +169,7 @@
         width: 100%;
         text-align: right;
         padding-top: 10px;
-        border-top: 1px solid var(--light-gray);
+        border-top: 1px solid var(--neutral-light);
         margin-top: 10px;
       }
     }

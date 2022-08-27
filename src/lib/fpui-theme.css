@@ -57,12 +57,37 @@
   --green: #00a300;
   --yellow: #ffc40d;
   --red: #ee1111;
+
+  /* Neutral Colors */
+  /* Purple Grays. These are shades and tints of #50404d (i.e. Purple Taupe) on colorhexa.com. */
+  --purple-gray-260: #040304;
+  --purple-gray-250: #0f0c0e;
+  --purple-gray-240: #1a1419;
+  --purple-gray-230: #241d23;
+  --purple-gray-220: #2f262e;
+  --purple-gray-210: #3a2f38;
+  --purple-gray-200: #453743;
+  --purple-gray-190: #50404d;
+  --purple-gray-180: #5b4957;
+  --purple-gray-170: #665162;
+  --purple-gray-160: #715a6c;
+  --purple-gray-150: #7c6377;
+  --purple-gray-140: #866c81;
+  --purple-gray-130: #91758b;
+  --purple-gray-120: #998095;
+  --purple-gray-110: #a28b9e;
+  --purple-gray-100: #ab96a7;
+  --purple-gray-90: #b4a1b0;
+  --purple-gray-80: #bcacb9;
+  --purple-gray-70: #c5b6c2;
+  --purple-gray-60: #cec1cb;
+  --purple-gray-50: #d6ccd4;
+  --purple-gray-40: #dfd7de;
+  --purple-gray-30: #e8e2e7;
+  --purple-gray-20: #f1edf0;
+  --purple-gray-10: #f9f8f9;
+
   --black: #000000;
-  --very-dark-gray: #343434;
-  --dark-gray: #797979;
-  --gray: #a0a0a0;
-  --light-gray: #c7c7c7;
-  --very-light-gray: #e5e5e5;
   --white: #ffffff;
 }
 
@@ -75,15 +100,16 @@
 /* Main Colors Block */
 :root {
   --primary-color: var(--dark-purple);
-  --secondary-color: var(--very-dark-gray);
+  /* --secondary-color: var(--purple-gray-210); */
+  --secondary-color: var(--purple-gray-210);
   --tertiary-color: var(--white);
   /* Neutral Colors */
   --neutral-darkest: var(--black);
-  --neutral-very-dark: var(--very-dark-gray);
-  --neutral-dark: var(--dark-gray);
-  --neutral-medium: var(--gray);
-  --neutral-light: var(--light-gray);
-  --neutral-very-light: var(--very-light-gray);
+  --neutral-very-dark: var(--purple-gray-210);
+  --neutral-dark: var(--purple-gray-140);
+  --neutral-medium: var(--purple-gray-100);
+  --neutral-light: var(--purple-gray-60);
+  --neutral-very-light: var(--purple-gray-30);
   --neutral-lightest: var(--white);
   /* Notification Colors */
   --info-color: var(--blue);
@@ -91,11 +117,11 @@
   --warning-color: var(--yellow);
   --error-color: var(--red);
   /* Border & Text Colors */
-  --border-color: var(--light-gray);
-  --text-color: var(--very-dark-gray);
+  --border-color: var(--purple-gray-60);
+  --text-color: var(--purple-gray-210);
   /* Disabled State Colors */
   --disabled-bg-color: var(--black);
-  --disabled-text-color: var(--light-gray);
+  --disabled-text-color: var(--purple-gray-60);
 }
 
 /* Sizes Block */
