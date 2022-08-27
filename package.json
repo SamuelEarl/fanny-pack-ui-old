@@ -21,7 +21,7 @@
 	"devDependencies": {
 		"@babel/core": "^7.16.7",
 		"@sveltejs/adapter-auto": "next",
-		"@sveltejs/kit": "next",
+		"@sveltejs/kit": "1.0.0-next.445",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@types/jest": "^27.4.0",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",

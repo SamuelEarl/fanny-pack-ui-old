@@ -248,3 +248,10 @@ const config = {
 
 export default config;
 ```
+
+---
+
+# How to update SveltKit to latest version
+1. Search for "sveltekit changelog".
+2. Find the latest version number.
+3. Run `pnpm update @sveltejs/kit@<version#>`. For example: `pnpm update @sveltejs/kit@1.0.0-next.445`
