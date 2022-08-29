@@ -49,7 +49,7 @@
       if (value === null || value === undefined || value < 0) {
         value = 0;
       }
-      // Remove all decimals numbers long than 2 decimal places.
+      // Remove all decimals numbers longer than 2 decimal places.
       // Use the `toFixed()` method to handle decimal numbers. See https://javascript.info/number#imprecise-calculations.
       value = Number(value.toFixed(2));
       showNumberInput = false;
