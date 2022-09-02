@@ -219,16 +219,16 @@
       display: flex;
       /* align-items: stretch; */
       border: 1px solid;
-      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
+      border-color: var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
       border-radius: var(--fpui-date-picker-border-radius, 3px);
       overflow: hidden;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
+        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
       }
 
       &.showCalendar {
-        box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
+        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
       }
 
       & .date-input {
@@ -237,8 +237,12 @@
         /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px);
         outline: none;
-        background-color: var(--fpui-date-picker-bg-color, white);
-        color: var(--fpui-date-picker-text-color, inherit);
+        background-color: var(--custom-date-picker-bg-color, var(--fpui-date-picker-bg-color, white));
+        color: var(--custom-date-picker-text-color, var(--fpui-date-picker-text-color, inherit));
+
+        &::placeholder {
+          color: var(--custom-date-input-placeholder-text-color, var(--fpui-date-input-placeholder-text-color, lightgray));
+        }
 
         /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
         /* 
@@ -268,10 +272,10 @@
         display: flex;
         align-items: center;
         border-left: 1px solid;
-        border-left-color: var(--fpui-date-picker-border-color, #c7c7c7);
+        border-left-color: var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
         border-radius: 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px) calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0;
-        background: var(--fpui-date-input-btn-bg-color, #e5e5e5);
-        color: var(--fpui-date-input-btn-icon-color, inherit);
+        background-color: var(--custom-date-input-btn-bg-color, var(--fpui-date-input-btn-bg-color, #e5e5e5));
+        color: var(--custom-date-input-btn-icon-color, var(--fpui-date-input-btn-icon-color, inherit));
         cursor: pointer;
 
         &.sm {

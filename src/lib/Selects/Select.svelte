@@ -155,14 +155,14 @@
       justify-content: space-between;
       align-items: center;
       border: 1px solid;
-      border-color: var(--fpui-select-border-color, #c7c7c7);
+      border-color: var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
       border-radius: var(--fpui-select-border-radius);
-      background-color: var(--fpui-select-bg-color);
-      color: var(--fpui-select-text-color);
+      background-color: var(--custom-select-bg-color, var(--fpui-select-bg-color, white));
+      color: var(--custom-select-text-color, var(--fpui-select-text-color, black));
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
       }
 
       /*
@@ -196,6 +196,7 @@
         transform: rotate(90deg);
         font-size: 1.5rem;
         line-height: 1rem;
+        color: var(--custom-select-text-color, var(--fpui-select-text-color, black));
       }
     }
 

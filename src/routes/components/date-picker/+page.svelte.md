@@ -107,6 +107,45 @@ The code for this component was taken from this great [date picker component](ht
 
 ---
 
+## Custom DateInput Styles
+The original intention for these custom styles was to set `--custom-date-picker-bg-color="transparent"` so the `<DateInput>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+
+You can set the following custom variables:
+* `--custom-date-picker-border-color`
+* `--custom-date-picker-bg-color`
+* `--custom-date-picker-text-color`
+* `--custom-date-input-placeholder-text-color`
+* `--custom-date-input-btn-bg-color`
+* `--custom-date-input-btn-icon-color`
+
+<DateInput
+  bind:value={date}
+  bind:valid={dateIsValid}
+  placeholder="Enter a date"
+  --custom-date-picker-border-color="darkred"
+  --custom-date-picker-bg-color="pink"
+  --custom-date-picker-text-color="darkred"
+  --custom-date-input-placeholder-text-color="gray"
+  --custom-date-input-btn-bg-color="darkred"
+  --custom-date-input-btn-icon-color="white"
+/>
+
+```svelte
+<DateInput
+  bind:value={date}
+  bind:valid={dateIsValid}
+  placeholder="Enter a date"
+  --custom-date-picker-border-color="darkred"
+  --custom-date-picker-bg-color="pink"
+  --custom-date-picker-text-color="darkred"
+  --custom-date-input-placeholder-text-color="gray"
+  --custom-date-input-btn-bg-color="darkred"
+  --custom-date-input-btn-icon-color="white"
+/>
+```
+
+---
+
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |

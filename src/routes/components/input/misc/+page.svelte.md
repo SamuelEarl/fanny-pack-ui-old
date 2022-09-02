@@ -111,13 +111,47 @@
 
 ---
 
+## Custom Input Styles
+The original intention for these custom styles was to set `--custom-input-bg-color="transparent"` so the `<Input>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+
+
+You can set the following custom variables:
+* `--custom-input-border-color`
+* `--custom-input-bg-color`
+* `--custom-input-text-color`
+* `--custom-input-placeholder-text-color`
+
+<Input
+  type="text"
+  bind:value={textValue}
+  placeholder="Enter some text"
+  --custom-input-border-color="darkred"
+  --custom-input-bg-color="pink"
+  --custom-input-text-color="darkred"
+  --custom-input-placeholder-text-color="gray"
+/>
+
+```svelte
+<Input
+  type="text"
+  bind:value={textValue}
+  placeholder="Enter some text"
+  --custom-input-border-color="darkred"
+  --custom-input-bg-color="pink"
+  --custom-input-text-color="darkred"
+  --custom-input-placeholder-text-color="gray"
+/>
+```
+
+---
+
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `label` | `string` | Any string | NA | This prop will provide a label for the input field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Input>` components an `id` value, if necessary, just like you can with regular `<input>` elements. |
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
-| `bind:value` | `string` | Any string | `""` (an empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
-| `label` | `string` | Any string | NA | This prop will provide a label for the input field. |
+| `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. The text size will also increase or decrease based on this `size` prop. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |

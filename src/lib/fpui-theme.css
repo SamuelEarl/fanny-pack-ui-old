@@ -190,6 +190,7 @@
   /* These variables apply to only the date input field component. */
   --fpui-date-input-btn-bg-color: var(--neutral-very-light);
   --fpui-date-input-btn-icon-color: inherit;
+  --fpui-date-input-placeholder-text-color: var(--neutral-medium);
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
@@ -261,6 +262,17 @@
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
   --fpui-select-option-padding-lg: var(--padding-lg);
+}
+
+/* Textarea */
+:root {
+  --fpui-textarea-border-color: var(--border-color);
+  --fpui-textarea-bg-color: var(--neutral-lightest);
+  --fpui-textarea-text-color: var(--text-color);
+  --fpui-textarea-placeholder-text-color: var(--neutral-medium);
+  --fpui-textarea-padding-sm: var(--padding-sm);
+  --fpui-textarea-padding-md: var(--padding-md);
+  --fpui-textarea-padding-lg: var(--padding-lg);
 }
 
 /* Toast */

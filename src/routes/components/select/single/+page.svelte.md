@@ -186,6 +186,37 @@ Value of `selectedMonthArray`: <code>{JSON.stringify(selectedMonthArray)}</code>
 
 ---
 
+## Custom Select Styles
+The original intention for these custom styles was to set `--custom-select-bg-color="transparent"` so the `<Select>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+
+
+You can set the following custom variables:
+* `--custom-select-border-color`
+* `--custom-select-bg-color`
+* `--custom-select-text-color`
+
+<Select
+  optionsArray={months}  
+  arrayType="string"
+  bind:selectedOption={selectedMonth}
+  --custom-select-border-color="darkred"
+  --custom-select-bg-color="pink"
+  --custom-select-text-color="darkred"
+/>
+
+```svelte
+<Select
+  optionsArray={months}  
+  arrayType="string"
+  bind:selectedOption={selectedMonth}
+  --custom-select-border-color="darkred"
+  --custom-select-bg-color="pink"
+  --custom-select-text-color="darkred"
+/>
+```
+
+---
+
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |

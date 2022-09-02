@@ -17,7 +17,7 @@
 ## Example Usage
 
 <CurrencyInput
-  bind:value={amount1}
+  bind:value={amount}
   valAlign="right"
   locale={locale}
   currency={currency}
@@ -91,6 +91,38 @@
 <br>
 
 *NOTE: The **Return Value** example above shows the value that is returned from this component. This is the value that you would use to run calculations or that you would send to the backend for processing or to store in a database. This value is a `number` data type.*
+
+---
+
+## Custom Input Styles
+The original intention for these custom styles was to set `--custom-input-bg-color="transparent"` so the `<CurrencyInput>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+
+
+You can set the following custom variables:
+* `--custom-input-border-color`
+* `--custom-input-bg-color`
+* `--custom-input-text-color`
+* `--custom-input-placeholder-text-color`
+
+<CurrencyInput
+  bind:value={amount}
+  placeholder="Enter an amount"
+  --custom-input-border-color="darkred"
+  --custom-input-bg-color="pink"
+  --custom-input-text-color="darkred"
+  --custom-input-placeholder-text-color="gray"
+/>
+
+```svelte
+<CurrencyInput
+  bind:value={amount}
+  placeholder="Enter an amount"
+  --custom-input-border-color="darkred"
+  --custom-input-bg-color="pink"
+  --custom-input-text-color="darkred"
+  --custom-input-placeholder-text-color="gray"
+/>
+```
 
 ---
 

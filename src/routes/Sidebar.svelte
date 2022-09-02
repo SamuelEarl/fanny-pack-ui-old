@@ -54,6 +54,9 @@
     <a href="/components/tabs" class:active={currentPath === "/components/tabs"}>
       <Icon icon="ic:outline-tab" /> &nbsp; Tabs (tabbed content)
     </a>
+    <a href="/components/textarea" class:active={currentPath === "/components/textarea"}>
+      <Icon icon="bi:textarea-resize" /> &nbsp; Textarea
+    </a>
     <a href="/components/toast" class:active={currentPath === "/components/toast"}>
       <Icon icon="carbon:information-square" /> &nbsp; Toast (notification pane)
     </a>
