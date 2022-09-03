@@ -56,7 +56,39 @@
   --white: #ffffff;
   --white-rgb: 255, 255, 255;
 
-  /* Grays. These are shades and tints of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
+  /* Fanny Pack Neutrals (purple grays). 
+  These are shades and tints of #50404d (i.e. Purple Taupe).
+  See https://www.colorhexa.com/50404d. */
+  --fpn-260: #040304;
+  --fpn-250: #0f0c0e;
+  --fpn-240: #1a1419;
+  --fpn-230: #241d23;
+  --fpn-220: #2f262e;
+  --fpn-210: #3a2f38;
+  --fpn-200: #453743;
+  --fpn-190: #50404d;
+  --fpn-180: #5b4957;
+  --fpn-170: #665162;
+  --fpn-160: #715a6c;
+  --fpn-150: #7c6377;
+  --fpn-140: #866c81;
+  --fpn-130: #91758b;
+  --fpn-120: #998095;
+  --fpn-110: #a28b9e;
+  --fpn-100: #ab96a7;
+  --fpn-90: #b4a1b0;
+  --fpn-80: #bcacb9;
+  --fpn-70: #c5b6c2;
+  --fpn-60: #cec1cb;
+  --fpn-50: #d6ccd4;
+  --fpn-40: #dfd7de;
+  --fpn-30: #e8e2e7;
+  --fpn-20: #f1edf0;
+  --fpn-10: #f9f8f9;
+
+  /* Grays. 
+  These are shades and tints of #a0a0a0.
+  See https://www.colorhexa.com/a0a0a0. */
   --gray-260: #030303;
   --gray-250: #0d0d0d;
   --gray-240: #171717;
@@ -83,34 +115,6 @@
   --gray-30: #e5e5e5;
   --gray-20: #eeeeee;
   --gray-10: #f8f8f8;
-
-  /* Purple Grays. These are shades and tints of #50404d (i.e. Purple Taupe).  See https://www.colorhexa.com/50404d. */
-  --purple-gray-260: #040304;
-  --purple-gray-250: #0f0c0e;
-  --purple-gray-240: #1a1419;
-  --purple-gray-230: #241d23;
-  --purple-gray-220: #2f262e;
-  --purple-gray-210: #3a2f38;
-  --purple-gray-200: #453743;
-  --purple-gray-190: #50404d;
-  --purple-gray-180: #5b4957;
-  --purple-gray-170: #665162;
-  --purple-gray-160: #715a6c;
-  --purple-gray-150: #7c6377;
-  --purple-gray-140: #866c81;
-  --purple-gray-130: #91758b;
-  --purple-gray-120: #998095;
-  --purple-gray-110: #a28b9e;
-  --purple-gray-100: #ab96a7;
-  --purple-gray-90: #b4a1b0;
-  --purple-gray-80: #bcacb9;
-  --purple-gray-70: #c5b6c2;
-  --purple-gray-60: #cec1cb;
-  --purple-gray-50: #d6ccd4;
-  --purple-gray-40: #dfd7de;
-  --purple-gray-30: #e8e2e7;
-  --purple-gray-20: #f1edf0;
-  --purple-gray-10: #f9f8f9;
 }
 
 
@@ -122,16 +126,15 @@
 /* Main Colors Block */
 :root {
   --primary-color: var(--dark-purple);
-  /* --secondary-color: var(--purple-gray-210); */
-  --secondary-color: var(--purple-gray-210);
+  --secondary-color: var(--fpn-210);
   --tertiary-color: var(--white);
   /* Neutral Colors */
   --neutral-darkest: var(--black);
-  --neutral-very-dark: var(--purple-gray-210);
-  --neutral-dark: var(--purple-gray-140);
-  --neutral-medium: var(--purple-gray-100);
-  --neutral-light: var(--purple-gray-60);
-  --neutral-very-light: var(--purple-gray-30);
+  --neutral-very-dark: var(--fpn-210);
+  --neutral-dark: var(--fpn-140);
+  --neutral-medium: var(--fpn-100);
+  --neutral-light: var(--fpn-60);
+  --neutral-very-light: var(--fpn-30);
   --neutral-lightest: var(--white);
   /* Notification Colors */
   --info-color: var(--blue);
@@ -139,11 +142,11 @@
   --warning-color: var(--yellow);
   --error-color: var(--red);
   /* Border & Text Colors */
-  --border-color: var(--purple-gray-60);
-  --text-color: var(--purple-gray-210);
+  --border-color: var(--fpn-60);
+  --text-color: var(--fpn-210);
   /* Disabled State Colors */
   --disabled-bg-color: var(--black);
-  --disabled-text-color: var(--purple-gray-60);
+  --disabled-text-color: var(--fpn-60);
 }
 
 /* Sizes Block */
