@@ -14,6 +14,7 @@
     sizes: [],
   };
 
+  let activeTab = "main";
   let colorPaletteReferenceVariables = [];
 
   // fannyPackUiTheme = {
@@ -536,7 +537,7 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
 ## Color palette
 Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
-In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. Here is one way to do it:
+In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "Fanny Pack Neutral Colors" or the "Shades and Tints of Gray" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
 
 1. Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.
 2. Take your primary color, enter it into the search bar, and press Enter.
@@ -548,6 +549,35 @@ In the "Main color variables" section (below) you will use your color palette to
 8. That will give you five neutral colors and if you use black (`#000000`) and white (`#ffffff`) as your darkest and lightest neutral colors, respectively, (or shades/tints that are close to black and white) then you will have the seven neutral colors you need.
 
 <br>
+
+IDEAS:
+* I would like to create tabs here for (1) Main Colors, (2) Fanny Pack's neutral colors, and (3) the list of gray neutral colors. Users could use any of these colors in their theme or remove one or all of these sets of colors and start from scratch with their own color palette.
+* Provide a button for each tab to remove all colors from that set of colors to make it easier for users to start with an empty set of colors.
+* I would like to show checkboxes for each set of colors where users can select the set of colors they want to include in their theme file.
+* How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
+
+<div class="tabs">
+  <div class="tab" class:active={activeTab === "main"} on:click={() => activeTab = "main"}>Main Colors</div>
+  <div class="tab" class:active={activeTab === "fpneutrals"} on:click={() => activeTab = "fpneutrals"}>Fanny Pack Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "grays"} on:click={() => activeTab = "grays"}>Shades and Tints of Gray</div>
+</div>
+
+<div class="color-sets">
+  {#if activeTab === "main"}
+    <div id="main-colors">
+      <h2>Main Colors</h2>
+    </div>
+  {:else if activeTab === "fpneutrals"}
+    <div id="fp-neutral-colors">
+      <h2>Fanny Pack Neutral Colors</h2>
+    </div>
+  {:else if activeTab === "grays"}
+    <div id="gray-colors">
+      <h2>Shades and Tints of Gray</h2>
+    </div>
+  {/if}
+</div>
+
 
 <table>
   <thead>
@@ -704,6 +734,30 @@ You can customize individual components by changing the following values.
 
 
 <style>
+  .tabs {
+    display: flex;
+    border: 10px solid var(--secondary-color);
+    border-bottom: none;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    background-color: var(--secondary-color);
+    color: var(--white);
+
+    & .tab {
+      padding: 10px 15px 15px 15px;
+      cursor: pointer;
+
+      &.active {
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        background-color: var(--white);
+        color: var(--secondary-color);
+      }
+    }
+  }
+
+  .color-sets {
+    margin-bottom: 20px;
+  }
+
   form {
     display: flex;
     align-items: flex-end;
