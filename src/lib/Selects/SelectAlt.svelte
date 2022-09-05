@@ -5,67 +5,125 @@
 
 <script lang="ts">
   import { onMount } from "svelte";
+  import { createId } from "../fpui-utils";
 
   // export let label = "";
   export let value = "";
+  let componentId = createId();
 
   onMount(() => {
     // TODO: Replace the `innerHTML` references with the correct variable reference to get this Svelte component to work.
 
-    /* Look for any elements with the class "fpui-select-container": */
-    let selectContainer = document.getElementsByClassName("fpui-select-container");
-    let selectContainerLength = selectContainer.length;
-    for (let i = 0; i < selectContainerLength; i++) {
-      let selectEl = selectContainer[i].getElementsByTagName("select")[0];
-      let selectElLength = selectEl.length;
-      /* For each element, create a new DIV that will act as the selected item: */
-      let selectOptionSelected = document.createElement("DIV");
-      selectOptionSelected.setAttribute("class", "fpui-select-option-selected");
-      selectOptionSelected.innerHTML = selectEl.options[selectEl.selectedIndex].innerHTML;
-      selectContainer[i].appendChild(selectOptionSelected);
-      /* For each element, create a new DIV that will contain the option list: */
-      let selectOptionList = document.createElement("DIV");
-      selectOptionList.setAttribute("class", "fpui-select-option-list fpui-select-option-list-hide");
-      for (let j = 1; j < selectElLength; j++) {
-        /* For each option in the original select element,
-        create a new DIV that will act as an option item: */
-        let selectOption = document.createElement("DIV");
-        selectOption.setAttribute("class", "fpui-select-option");
-        selectOption.innerHTML = selectEl.options[j].innerHTML;
-        selectOption.addEventListener("click", function(e) {
-            /* When an item is clicked, update the original select box,
-            and the selected item: */
-            var y, i, k, s, h, sl, yl;
-            s = this.parentNode.parentNode.getElementsByTagName("select")[0];
-            sl = s.length;
-            h = this.parentNode.previousSibling;
-            for (i = 0; i < sl; i++) {
-              if (s.options[i].innerHTML == this.innerHTML) {
-                s.selectedIndex = i;
-                h.innerHTML = this.innerHTML;
-                y = this.parentNode.getElementsByClassName("fpui-same-as-selected");
-                yl = y.length;
-                for (k = 0; k < yl; k++) {
-                  y[k].removeAttribute("class");
-                }
-                this.setAttribute("class", "fpui-same-as-selected");
-                break;
-              }
+    /* Get the `fpui-select-container-${componentId}` element. */
+    let selectContainer = document.getElementsByClassName(`fpui-select-container-${componentId}`)[0];
+    let selectElem = selectContainer.firstChild;
+    
+    /* Create a new <div> element that will act as the selected item. */
+    let selectOptionSelected = document.createElement("DIV");
+    selectOptionSelected.setAttribute("class", "fpui-select-option-selected");
+    selectOptionSelected.innerHTML = selectElem.options[selectElem.selectedIndex].innerHTML;
+    selectContainer.appendChild(selectOptionSelected);
+
+    /* Create a new <div> element that will contain the list of options. */
+    let selectOptionList = document.createElement("DIV");
+    selectOptionList.setAttribute("class", "fpui-select-option-list fpui-select-option-list-hide");
+
+    // For each option inside the <select> element, create a new <div> element. 
+    // Each of these <div> elements will appear as an <option> element to the user because they will be styleable.
+    for (let j = 1; j < selectElem.length; j++) {
+      /* For each option in the original select element,
+      create a new DIV that will act as an option item: */
+      let selectOption = document.createElement("DIV");
+      selectOption.setAttribute("class", "fpui-select-option");
+      selectOption.innerHTML = selectElem.options[j].innerHTML;
+      selectOption.addEventListener("click", function(e) {
+        /* When an item is clicked, update the original select box,
+        and the selected item: */
+        var y, i, k, s, h, sl, yl;
+        s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+        sl = s.length;
+        h = this.parentNode.previousSibling;
+        for (i = 0; i < sl; i++) {
+          if (s.options[i].innerHTML == this.innerHTML) {
+            s.selectedIndex = i;
+            h.innerHTML = this.innerHTML;
+            y = this.parentNode.getElementsByClassName("fpui-same-as-selected");
+            yl = y.length;
+            for (k = 0; k < yl; k++) {
+              y[k].removeAttribute("class");
             }
-            h.click();
-        });
-        selectOptionList.appendChild(selectOption);
-      }
-      selectContainer[i].appendChild(selectOptionList);
-      selectOptionSelected.addEventListener("click", function(e) {
-        /* When the select box is clicked, close any other select boxes,
-        and open/close the current select box: */
-        e.stopPropagation();
-        closeAllSelect(this);
-        this.nextSibling.classList.toggle("fpui-select-option-list-hide");
-        this.classList.toggle("select-arrow-active");
+            this.setAttribute("class", "fpui-same-as-selected");
+            break;
+          }
+        }
+        h.click();
       });
+      selectOptionList.appendChild(selectOption);
     }
+
+    selectContainer.appendChild(selectOptionList);
+    selectOptionSelected.addEventListener("click", function(e) {
+      /* When the select box is clicked, close any other select boxes,
+      and open/close the current select box: */
+      e.stopPropagation();
+      closeAllSelect(this);
+      this.nextSibling.classList.toggle("fpui-select-option-list-hide");
+      this.classList.toggle("select-arrow-active");
+    });
+
+
+    // // let selectContainerLength = selectContainer.length;
+    // for (let i = 0; i < selectContainerLength; i++) {
+    //   let selectEl = selectContainer[i].getElementsByTagName("select")[0];
+    //   let selectElLength = selectEl.length;
+    //   /* For each element, create a new DIV that will act as the selected item: */
+    //   let selectOptionSelected = document.createElement("DIV");
+    //   selectOptionSelected.setAttribute("class", "fpui-select-option-selected");
+    //   selectOptionSelected.innerHTML = selectEl.options[selectEl.selectedIndex].innerHTML;
+    //   selectContainer[i].appendChild(selectOptionSelected);
+    //   /* For each element, create a new DIV that will contain the option list: */
+    //   let selectOptionList = document.createElement("DIV");
+    //   selectOptionList.setAttribute("class", "fpui-select-option-list fpui-select-option-list-hide");
+    //   for (let j = 1; j < selectElLength; j++) {
+    //     /* For each option in the original select element,
+    //     create a new DIV that will act as an option item: */
+    //     let selectOption = document.createElement("DIV");
+    //     selectOption.setAttribute("class", "fpui-select-option");
+    //     selectOption.innerHTML = selectEl.options[j].innerHTML;
+    //     selectOption.addEventListener("click", function(e) {
+    //         /* When an item is clicked, update the original select box,
+    //         and the selected item: */
+    //         var y, i, k, s, h, sl, yl;
+    //         s = this.parentNode.parentNode.getElementsByTagName("select")[0];
+    //         sl = s.length;
+    //         h = this.parentNode.previousSibling;
+    //         for (i = 0; i < sl; i++) {
+    //           if (s.options[i].innerHTML == this.innerHTML) {
+    //             s.selectedIndex = i;
+    //             h.innerHTML = this.innerHTML;
+    //             y = this.parentNode.getElementsByClassName("fpui-same-as-selected");
+    //             yl = y.length;
+    //             for (k = 0; k < yl; k++) {
+    //               y[k].removeAttribute("class");
+    //             }
+    //             this.setAttribute("class", "fpui-same-as-selected");
+    //             break;
+    //           }
+    //         }
+    //         h.click();
+    //     });
+    //     selectOptionList.appendChild(selectOption);
+    //   }
+    //   selectContainer[i].appendChild(selectOptionList);
+    //   selectOptionSelected.addEventListener("click", function(e) {
+    //     /* When the select box is clicked, close any other select boxes,
+    //     and open/close the current select box: */
+    //     e.stopPropagation();
+    //     closeAllSelect(this);
+    //     this.nextSibling.classList.toggle("fpui-select-option-list-hide");
+    //     this.classList.toggle("select-arrow-active");
+    //   });
+    // }
 
     function closeAllSelect(elmnt) {
       /* A function that will close all select boxes in the document,
@@ -96,7 +154,7 @@
 </script>
 
 
-<div class="fpui-select-container">
+<div class={`fpui-select-container fpui-select-container-${componentId}`}>
   <select bind:value={value} on:change>
     <slot></slot>
   </select>
