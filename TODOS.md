@@ -1,11 +1,7 @@
 # TODOS
 NOTE: Maybe I could look at how to theme the Carbon components rather than create my own component library. Actually, I don't think I could contribute themable components to that project because that project is based on the Carbon Design System and I want to create components that can be themed to fit other design systems. But maybe I could base my components off of the Carbon components for Svelte, so I could see how they create their components and use some of their ideas.
 
-
-
-NEXT TODO: Remove the old "fpcl" package from "insightfull-web" and "financial-wreck-sveltekit". Install the new `@fanny-pack-ui/svelte-kit` package. Update the CSS files and `<style>` tags with the newly named variables.
-
-
+* Low Priority: Look into how to create a dark theme and provide instructions for doing so.
 
 * TODOS for the `get-started.svelte.md` page. 
     * I need to test the Get Started instructions in a new app and import the components into that new app.
