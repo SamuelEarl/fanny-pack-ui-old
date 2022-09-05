@@ -30,6 +30,7 @@
         /* For each option in the original select element,
         create a new DIV that will act as an option item: */
         let selectOption = document.createElement("DIV");
+        selectOption.setAttribute("class", "fpui-select-option");
         selectOption.innerHTML = selectEl.options[j].innerHTML;
         selectOption.addEventListener("click", function(e) {
             /* When an item is clicked, update the original select box,
