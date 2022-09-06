@@ -11,7 +11,7 @@
 </script>
 
 <br>
-<SelectAlt bind:value={selected}>
+<SelectAlt bind:value={selected} options={questions}>
   {#each questions as question}
     <option value={question}>
       {question.text}
