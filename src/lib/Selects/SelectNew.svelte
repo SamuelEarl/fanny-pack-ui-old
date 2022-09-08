@@ -19,10 +19,9 @@
   export let label = "";
   export let id = "";
   export let options;
+  export let optionLabel = null;
   export let optgroup = null;
   export let value;
-  // The `labelIndex` is used for options arrays that contain nested arrays.
-  export let labelIndex = 1;
   export let size = "md";
 
   const dispatch = createEventDispatcher();
@@ -135,7 +134,7 @@
       {#each Object.entries(optgroups) as [key, value]}
         <optgroup label={key}>
           {#each value as option}
-            <option value={option.label}>{option.label}</option>
+            <option value={option[optionLabel]}>{option[optionLabel]}</option>
           {/each}
         </optgroup>
       {/each}
@@ -186,13 +185,13 @@
     {#if showSelectOptionsList}
       <div class="fpui-select-option-selected active">
         <div class="fpui-select-option-selected-overlay active">
-          {value.label}
+          {value[optionLabel]}
         </div>
       </div>
     {:else}
       <div class="fpui-select-option-selected">
         <div class="fpui-select-option-selected-overlay" on:click={toggleOptionsList}>
-          {value.label}
+          {value[optionLabel]}
         </div>
       </div>
     {/if}
@@ -213,7 +212,7 @@
                 class="fpui-select-option optgroup"
                 on:click={() => setSelectedOption(option)}
               >
-                {option.label}
+                {option[optionLabel]}
               </div>
             {/each}
           {/each}
@@ -223,7 +222,7 @@
               class="fpui-select-option"
               on:click={() => setSelectedOption(option)}
             >
-              {option.label}
+              {option[optionLabel]}
             </div>
           {/each}
         {/if}
@@ -234,13 +233,13 @@
     {#if showSelectOptionsList}
       <div class="fpui-select-option-selected active">
         <div class="fpui-select-option-selected-overlay active">
-          {value[labelIndex]}
+          {value[optionLabel]}
         </div>
       </div>
     {:else}
       <div class="fpui-select-option-selected">
         <div class="fpui-select-option-selected-overlay" on:click={toggleOptionsList}>
-          {value[labelIndex]}
+          {value[optionLabel]}
         </div>
       </div>
     {/if}
@@ -258,7 +257,7 @@
             class="fpui-select-option"
             on:click={() => setSelectedOption(option)}
           >
-            {option[labelIndex]}
+            {option[optionLabel]}
           </div>
         {/each}
       </div>

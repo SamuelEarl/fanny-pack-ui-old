@@ -5,46 +5,46 @@
   let selectedMonth = "July";
 
   let monthObjects = [
-    { label: "JAN", value: "january" },
-    { label: "FEB", value: "february" },
-    { label: "MAR", value: "march" },
-    { label: "APR", value: "april" },
-    { label: "MAY", value: "may" },
-    { label: "JUN", value: "june" },
-    { label: "JUL", value: "july" },
-    { label: "AUG", value: "august" },
-    { label: "SEP", value: "september" },
-    { label: "OCT", value: "october" },
-    { label: "NOV", value: "november" },
-    { label: "DEC", value: "december" },
+    { shortMonth: "Jan", longMonth: "January" },
+    { shortMonth: "Feb", longMonth: "February" },
+    { shortMonth: "Mar", longMonth: "March" },
+    { shortMonth: "Apr", longMonth: "April" },
+    { shortMonth: "May", longMonth: "May" },
+    { shortMonth: "Jun", longMonth: "June" },
+    { shortMonth: "Jul", longMonth: "July" },
+    { shortMonth: "Aug", longMonth: "August" },
+    { shortMonth: "Sep", longMonth: "September" },
+    { shortMonth: "Oct", longMonth: "October" },
+    { shortMonth: "Nov", longMonth: "November" },
+    { shortMonth: "Dec", longMonth: "December" },
   ];
   let selectedMonthObject = monthObjects[6];
 
   let monthArrays = [
-    [ 1, "january", "JAN" ],
-    [ 2, "february", "FEB" ],
-    [ 3, "march", "MAR" ],
-    [ 4, "april", "APR" ],
-    [ 5, "may", "MAY" ],
-    [ 6, "june", "JUN" ],
-    [ 7, "july", "JUL" ],
-    [ 8, "august", "AUG" ],
-    [ 9, "september", "SEP" ],
-    [ 10, "october", "OCT" ],
-    [ 11, "november", "NOV" ],
-    [ 12, "december", "DEC" ],
+    [ 1, "Jan", "January" ],
+    [ 2, "Feb", "February" ],
+    [ 3, "Mar", "March" ],
+    [ 4, "Apr", "April" ],
+    [ 5, "May", "May" ],
+    [ 6, "Jun", "June" ],
+    [ 7, "Jul", "July" ],
+    [ 8, "Aug", "August" ],
+    [ 9, "Sep", "September" ],
+    [ 10, "Oct", "October" ],
+    [ 11, "Nov", "November" ],
+    [ 12, "Dec", "December" ],
   ];
   let selectedMonthArray = monthArrays[6];
 
   let dinosaurObjects = [
-    { label: "Tyrannosaurus", group: "Theropods" },
-    { label: "Velociraptor", group: "Theropods" },
-    { label: "Diplodocus", group: "Sauropods" },
-    { label: "Saltasaurus", group: "Sauropods" },
-    { label: "Deinonychus", group: "Theropods" },
-    { label: "Apatosaurus", group: "Sauropods" },
+    { name: "Tyrannosaurus", group: "Theropods" },
+    { name: "Velociraptor", group: "Theropods" },
+    { name: "Diplodocus", group: "Sauropods" },
+    { name: "Saltasaurus", group: "Sauropods" },
+    { name: "Deinonychus", group: "Theropods" },
+    { name: "Apatosaurus", group: "Sauropods" },
   ];
-  let selectedDinosaurObject = dinosaurObjects[0];
+  let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
 
   let dinosaurArrays = [
     [ "Tyrannosaurus", "Theropods" ],
@@ -54,7 +54,7 @@
     [ "Deinonychus", "Theropods" ],
     [ "Apatosaurus", "Sauropods" ],
   ];
-  let selectedDinosaurArray = dinosaurArrays[0];
+  let selectedDinosaurArray = dinosaurArrays[2];
 </script>
 
 
@@ -113,7 +113,8 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
 
 <SelectNew
   label="Select an option"
-  options={monthObjects}  
+  options={monthObjects}
+  optionLabel="shortMonth"
   bind:value={selectedMonthObject}
   id="object-options-id"
   size="md"
@@ -126,18 +127,18 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
   import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let monthObjects = [
-    { label: "JAN", value: "january" },
-    { label: "FEB", value: "february" },
-    { label: "MAR", value: "march" },
-    { label: "APR", value: "april" },
-    { label: "MAY", value: "may" },
-    { label: "JUN", value: "june" },
-    { label: "JUL", value: "july" },
-    { label: "AUG", value: "august" },
-    { label: "SEP", value: "september" },
-    { label: "OCT", value: "october" },
-    { label: "NOV", value: "november" },
-    { label: "DEC", value: "december" },
+    { shortMonth: "Jan", longMonth: "January" },
+    { shortMonth: "Feb", longMonth: "February" },
+    { shortMonth: "Mar", longMonth: "March" },
+    { shortMonth: "Apr", longMonth: "April" },
+    { shortMonth: "May", longMonth: "May" },
+    { shortMonth: "Jun", longMonth: "June" },
+    { shortMonth: "Jul", longMonth: "July" },
+    { shortMonth: "Aug", longMonth: "August" },
+    { shortMonth: "Sep", longMonth: "September" },
+    { shortMonth: "Oct", longMonth: "October" },
+    { shortMonth: "Nov", longMonth: "November" },
+    { shortMonth: "Dec", longMonth: "December" },
   ];
 
   let selectedMonthObject = monthObjects[6];
@@ -145,14 +146,15 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 
 <Select
   label="Select an option"
-  options={monthObjects}  
+  options={monthObjects}
+  optionLabel="shortMonth"
   bind:value={selectedMonthObject}
   id="object-options-id"
   size="md"
 />
 ```
 
-Note that if you pass an array of objects to the `options` prop, then each object inside the array should have a `label` property. The rest of the properties in the object can be anything, but the `label` property is used as the label text for the options in the `<Select>` component. 
+Note that when the `optionaLabel` prop is used with an array of objects (passed to the `options` prop), the `optionLabel` prop will provide the property name that will be used as the label text for the `<Select>` component's options.
 
 ---
 
@@ -160,10 +162,10 @@ Note that if you pass an array of objects to the `options` prop, then each objec
 
 <SelectNew
   label="Select an option"
-  options={monthArrays}  
+  options={monthArrays}
+  optionLabel={2}
   bind:value={selectedMonthArray}
   id="array-options-id"
-  labelIndex={2}
   size="md"
 />
 
@@ -174,18 +176,18 @@ Value of `selectedMonthArray`: <code>{JSON.stringify(selectedMonthArray)}</code>
   import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let monthArrays = [
-    [ 1, "january", "JAN" ],
-    [ 2, "february", "FEB" ],
-    [ 3, "march", "MAR" ],
-    [ 4, "april", "APR" ],
-    [ 5, "may", "MAY" ],
-    [ 6, "june", "JUN" ],
-    [ 7, "july", "JUL" ],
-    [ 8, "august", "AUG" ],
-    [ 9, "september", "SEP" ],
-    [ 10, "october", "OCT" ],
-    [ 11, "november", "NOV" ],
-    [ 12, "december", "DEC" ],
+    [ 1, "Jan", "January" ],
+    [ 2, "Feb", "February" ],
+    [ 3, "Mar", "March" ],
+    [ 4, "Apr", "April" ],
+    [ 5, "May", "May" ],
+    [ 6, "Jun", "June" ],
+    [ 7, "Jul", "July" ],
+    [ 8, "Aug", "August" ],
+    [ 9, "Sep", "September" ],
+    [ 10, "Oct", "October" ],
+    [ 11, "Nov", "November" ],
+    [ 12, "Dec", "December" ],
   ];
 
   let selectedMonthArray = monthArrays[6];
@@ -193,15 +195,15 @@ Value of `selectedMonthArray`: <code>{JSON.stringify(selectedMonthArray)}</code>
 
 <Select
   label="Select an option"
-  options={monthArrays}  
+  options={monthArrays}
+  optionLabel={2}
   bind:value={selectedMonthArray}
   id="array-options-id"
-  labelIndex={2}
   size="md"
 />
 ```
 
-Note that the `labelIndex` prop is only used if the elements within the `options` array are also arrays. The `labelIndex` prop indicates which element within each of the nested arrays will be used as the label text for the options in the `<Select>` component.
+Note that when the `optionLabel` prop is used with an array of nested arrays (passed to the `options` prop), the `optionLabel` prop will provide the index of the element within each of the nested arrays that will be used as the label text for the `<Select>` component's options.
 
 ---
 
@@ -212,6 +214,7 @@ You can group your options (similar to using the [`<optgroup>`](https://develope
 <SelectNew
   label="Select an option"
   options={dinosaurObjects}
+  optionLabel="name"
   optgroup="group"
   bind:value={selectedDinosaurObject}
   id="object-optgroups-id"
@@ -225,20 +228,21 @@ Value of `selectedDinosaurObject`: <code>{JSON.stringify(selectedDinosaurObject)
   import { Select } from "@fanny-pack-ui/svelte-kit";
 
   let dinosaurObjects = [
-    { label: "Tyrannosaurus", group: "Theropods" },
-    { label: "Velociraptor", group: "Theropods" },
-    { label: "Diplodocus", group: "Sauropods" },
-    { label: "Saltasaurus", group: "Sauropods" },
-    { label: "Deinonychus", group: "Theropods" },
-    { label: "Apatosaurus", group: "Sauropods" },
+    { name: "Tyrannosaurus", group: "Theropods" },
+    { name: "Velociraptor", group: "Theropods" },
+    { name: "Diplodocus", group: "Sauropods" },
+    { name: "Saltasaurus", group: "Sauropods" },
+    { name: "Deinonychus", group: "Theropods" },
+    { name: "Apatosaurus", group: "Sauropods" },
   ];
 
-  let selectedDinosaurObject = dinosaurObjects[0];
+  let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
 </script>
 
 <Select
   label="Select an option"
   options={dinosaurObjects}
+  optionLabel="name"
   optgroup="group"
   bind:value={selectedDinosaurObject}
   id="object-optgroups-id"
@@ -255,6 +259,7 @@ Note that the `optgroup`s within the `<Select>` component will be sorted based o
 <SelectNew
   label="Select an option"
   options={dinosaurArrays}
+  optionLabel={0}
   optgroup={1}
   bind:value={selectedDinosaurArray}
   id="array-optgroups-id"
