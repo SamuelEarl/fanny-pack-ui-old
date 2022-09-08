@@ -48,12 +48,13 @@
 
   let dinosaurArrays = [
     [ "Tyrannosaurus", "Theropods" ],
-    [ "Diplodocus", "Sauropods" ],
     [ "Velociraptor", "Theropods" ],
+    [ "Diplodocus", "Sauropods" ],
     [ "Saltasaurus", "Sauropods" ],
-    [ "Apatosaurus", "Sauropods" ],
     [ "Deinonychus", "Theropods" ],
+    [ "Apatosaurus", "Sauropods" ],
   ];
+  let selectedDinosaurArray = dinosaurArrays[0];
 </script>
 
 
@@ -63,7 +64,7 @@
 
 ## Example Usage
 
-### "primitive" data type of `options` elements
+### `options` elements with primitive data type
 
 <SelectNew
   label="Select an option"
@@ -93,6 +94,7 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
     "November", 
     "December"
   ];
+
   let selectedMonth = "July";
 </script>
 
@@ -107,7 +109,7 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
 
 ---
 
-### "object" data type of `options` elements
+### `options` elements with "object" data type
 
 <SelectNew
   label="Select an option"
@@ -137,6 +139,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
     { label: "NOV", value: "november" },
     { label: "DEC", value: "december" },
   ];
+
   let selectedMonthObject = monthObjects[6];
 </script>
 
@@ -153,7 +156,7 @@ Note that if you pass an array of objects to the `options` prop, then each objec
 
 ---
 
-### "array" data type of `options` elements
+### `options` elements with "array" data type
 
 <SelectNew
   label="Select an option"
@@ -184,6 +187,7 @@ Value of `selectedMonthArray`: <code>{JSON.stringify(selectedMonthArray)}</code>
     [ 11, "november", "NOV" ],
     [ 12, "december", "DEC" ],
   ];
+
   let selectedMonthArray = monthArrays[6];
 </script>
 
@@ -210,7 +214,7 @@ You can group your options (similar to using the [`<optgroup>`](https://develope
   options={dinosaurObjects}
   optgroup="group"
   bind:value={selectedDinosaurObject}
-  id="object-options-id"
+  id="object-optgroups-id"
   size="md"
 />
 
@@ -228,6 +232,7 @@ Value of `selectedDinosaurObject`: <code>{JSON.stringify(selectedDinosaurObject)
     { label: "Deinonychus", group: "Theropods" },
     { label: "Apatosaurus", group: "Sauropods" },
   ];
+
   let selectedDinosaurObject = dinosaurObjects[0];
 </script>
 
@@ -236,11 +241,22 @@ Value of `selectedDinosaurObject`: <code>{JSON.stringify(selectedDinosaurObject)
   options={dinosaurObjects}
   optgroup="group"
   bind:value={selectedDinosaurObject}
-  id="object-options-id"
+  id="object-optgroups-id"
   size="md"
 />
-
-Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</code>
 ```
 
 Note that the `optgroup`s within the `<Select>` component will be sorted based on the first appearance of the property that is passed to the `optgroup` prop. For example, in the `dinosaurObjects` array shown above, the `group` property is passed to the `optgroup` prop, so the `dinosaurObjects` array will be sorted based the `group` property. The first `group` property that appears in the `dinosaurObjects` array has a value of `Theropods`, so that will be the first `optgroup` listed in the `<Select>` component's options list. The second `group` property that appears has a value of `Sauropods`, so that will be the second `optgroup` listed in the `<Select>` component's options list. And so on.
+
+---
+
+# TODO: Implement the `optgroup` feature for nested array `options`.
+
+<SelectNew
+  label="Select an option"
+  options={dinosaurArrays}
+  optgroup={1}
+  bind:value={selectedDinosaurArray}
+  id="array-optgroups-id"
+  size="md"
+/>
