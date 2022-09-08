@@ -6,7 +6,7 @@ export { CurrencyInput, Input } from "./Inputs";
 export { Label } from "./Labels";
 export { Modal } from "./Modals";
 export { RadioButton } from "./RadioButtons";
-export { Select, SelectAlt, SelectMulti } from "./Selects";
+export { Select, SelectNew, SelectAlt, SelectMulti } from "./Selects";
 export { Textarea } from "./Textareas";
 export { Toast, ToastContent } from "./Toasts";
 export { Tooltip } from "./Tooltips";

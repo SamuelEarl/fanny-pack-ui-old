@@ -8,15 +8,15 @@
   import { createId } from "../fpui-utils";
 
   // export let label = "";
+  // export let id = "";
   export let value;
   export let options;
   let componentId = createId();
 
   onMount(() => {
     // TODOS:
-    // * The `options` prop is the data structure that is used to create the <options> for the <select> element. Figure out how to use the `options` prop to set the value prop and make this component work.
     // * Replace the `innerHTML` references with the correct variable reference to get this Svelte component to work.
-    // * Remove event listeners in the onDestroy() hook.
+    // * Remove event listeners with the onDestroy() hook.
 
     /* Get the `fpui-select-container-${componentId}` element. */
     let selectContainer = document.getElementsByClassName(`fpui-select-container-${componentId}`)[0];
@@ -119,7 +119,7 @@
 </div>
 
 
-<style>
+<!-- <style>
   /* The container must be positioned relative: */
   .fpui-select-container {
     width: 100%;
@@ -193,4 +193,4 @@
   :global(.fpui-select-option:hover) {
     background-color: rgba(0, 0, 0, 0.1);
   }
-</style>
+</style> -->
