@@ -1,6 +1,14 @@
 <!--
-  I converted the Custom Select Box from this How To page into a Svelte select box:
+  I borrowed some ideas from the Custom Select Box on this How To page:
   https://www.w3schools.com/howto/howto_custom_select.asp
+-->
+
+<!--
+  TODOS:
+  * Add an `optgroup` feature. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup.
+  * Implement the `calculateMenuHeight()` function.
+  * Add CSS Variables for colors and sizes.
+  * Add the same style customization from the original <Select> component.
 -->
 
 <script lang="ts">
@@ -82,6 +90,7 @@
   </select>
 
   <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-option-selected-overlay` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and closed the `fpui-select-options-list`. So if `showSelectOptionsList` is `true`, then the `fpui-select-option-selected-overlay` element will not include the `click` event so it does not conflict with the `blur` event. -->
+
   {#if optionsDataType === "primitive"}
     {#if showSelectOptionsList}
       <div class="fpui-select-option-selected active">
