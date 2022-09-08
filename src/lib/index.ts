@@ -7,6 +7,7 @@ export { Label } from "./Labels";
 export { Modal } from "./Modals";
 export { RadioButton } from "./RadioButtons";
 export { Select, SelectNew, SelectAlt, SelectMulti } from "./Selects";
+export { TabBar, Tab } from "./Tabs";
 export { Textarea } from "./Textareas";
 export { Toast, ToastContent } from "./Toasts";
 export { Tooltip } from "./Tooltips";

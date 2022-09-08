@@ -556,7 +556,7 @@ IDEAS:
 * I would like to show checkboxes for each set of colors where users can select the set of colors they want to include in their theme file.
 * How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
 
-<div class="tabs">
+<div class="tab-bar">
   <div class="tab" class:active={activeTab === "main"} on:click={() => activeTab = "main"}>Main Colors</div>
   <div class="tab" class:active={activeTab === "fpneutrals"} on:click={() => activeTab = "fpneutrals"}>Fanny Pack Neutral Colors</div>
   <div class="tab" class:active={activeTab === "grays"} on:click={() => activeTab = "grays"}>Shades and Tints of Gray</div>
@@ -734,7 +734,7 @@ You can customize individual components by changing the following values.
 
 
 <style>
-  .tabs {
+  .tab-bar {
     display: flex;
     border: 10px solid var(--secondary-color);
     border-bottom: none;
