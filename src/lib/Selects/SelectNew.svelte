@@ -19,6 +19,7 @@
   export let label = "";
   export let id = "";
   export let options;
+  export let optgroup = null;
   export let value;
   // The `labelIndex` is used for options arrays that contain nested arrays.
   export let labelIndex = 1;
@@ -27,11 +28,15 @@
   const dispatch = createEventDispatcher();
   let componentId = createId();
   let optionsDataType;
+  let optgroups = {};
   let selectOptionsList;
   let showSelectOptionsList = false;
 
   onMount(() => {
     determineOptionsDataType(options);
+    if (optgroup) {
+      sortOptions();
+    }
   });
 
   /**
@@ -55,6 +60,48 @@
     }
     catch(err) {
       console.error("determineOptionsDataType:", err);
+    }
+  }
+
+  /**
+   * This function will group the `options` by the order of first appearance of the `optgroup` prop.
+   * https://stackoverflow.com/questions/44887733/group-array-items-by-order-of-their-first-appearance
+   * 
+   * How does the JavaScript Array.sort() method work?
+   * https://www.javascripttutorial.net/javascript-array-sort/#:~:text=The%20sort()%20method%20allows,first%20and%20largest%20value%20last.
+   */
+  function sortOptions() {
+    try {
+      options.sort(function(a, b) {        
+        // If `(a[optgroup] !== b[optgroup])`, then sort the two elements so that b (the first element) stays in the lower index position (i.e. b comes first).
+        if (a[optgroup] !== b[optgroup]) {
+          let indexA = options.findIndex(option => option[optgroup] === a[optgroup]);
+          let indexB = options.findIndex(option => option[optgroup] === b[optgroup]);
+          return indexA - indexB;
+        }
+        // Otherwise leave them where they are (i.e. do not sort them).
+        else {
+          return 0;
+        }
+      });
+
+      console.log("options:", options);
+
+      let currentOptgroup = "";
+      for (let i = 0; i < options.length; i++) {
+        if (currentOptgroup !== options[i][optgroup]) {
+          // Update the currentOptgroup value.
+          currentOptgroup = options[i][optgroup];
+          optgroups[currentOptgroup] = [ options[i] ];
+        }
+        else {
+          optgroups[currentOptgroup].push(options[i]);
+        }
+      }
+      console.log("optgroups:", optgroups);
+    }
+    catch(err) {
+      console.error("sortOptions:", err);
     }
   }
 
@@ -84,9 +131,19 @@
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
   <select value={value} on:change>
-    {#each options as option}
-      <option value={option}>{option}</option>
-    {/each}
+    {#if optgroup}
+      {#each Object.entries(optgroups) as [key, value]}
+        <optgroup label={key}>
+          {#each value as option}
+            <option value={option.label}>{option.label}</option>
+          {/each}
+        </optgroup>
+      {/each}
+    {:else}
+      {#each options as option}
+        <option value={option}>{option}</option>
+      {/each}
+    {/if}
   </select>
 
   <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-option-selected-overlay` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and closed the `fpui-select-options-list`. So if `showSelectOptionsList` is `true`, then the `fpui-select-option-selected-overlay` element will not include the `click` event so it does not conflict with the `blur` event. -->
@@ -148,14 +205,28 @@
           showSelectOptionsList = false;
         }}
       >
-        {#each options as option}
-          <div 
-            class="fpui-select-option"
-            on:click={() => setSelectedOption(option)}
-          >
-            {option.label}
-          </div>
-        {/each}
+        {#if optgroup}
+          {#each Object.entries(optgroups) as [key, value]}
+            <div class="fpui-select-optgroup">{key}</div>
+            {#each value as option}
+              <div 
+                class="fpui-select-option optgroup"
+                on:click={() => setSelectedOption(option)}
+              >
+                {option.label}
+              </div>
+            {/each}
+          {/each}
+        {:else}
+          {#each options as option}
+            <div 
+              class="fpui-select-option"
+              on:click={() => setSelectedOption(option)}
+            >
+              {option.label}
+            </div>
+          {/each}
+        {/if}
       </div>
     {/if}
 
@@ -246,7 +317,7 @@
     }
 
     /* Style the options, including the selected option: */
-    & .fpui-select-option, & .fpui-select-option-selected-overlay {
+    & .fpui-select-optgroup, & .fpui-select-option, & .fpui-select-option-selected-overlay {
       padding: 8px 16px;
       border: 1px solid transparent;
       cursor: pointer;
@@ -264,9 +335,19 @@
       right: 0;
       z-index: 99;
 
+      & .fpui-select-optgroup {
+        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+        font-weight: bold;
+        pointer-events: none;
+      }
+
       & .fpui-select-option {
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         color: var(--text-color);
+
+        &.optgroup {
+          padding-left: 26px;
+        }
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
