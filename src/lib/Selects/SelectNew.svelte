@@ -6,7 +6,8 @@
 <!--
   TODOS:
   * Add an `optgroup` feature. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup.
-  * Implement the `calculateMenuHeight()` function.
+      * Implement the `optgroup` feature for nested array `options`.
+  * Implement the `calculateOptionsListHeight()` function.
   * Add CSS Variables for colors and sizes.
   * Add the same style customization from the original <Select> component.
 -->
@@ -14,7 +15,7 @@
 <script lang="ts">
   import { onMount, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
-  import { createId } from "../fpui-utils";
+  import { createId, calculateOptionsListHeight } from "../fpui-utils";
 
   export let label = "";
   export let id = "";
@@ -106,10 +107,10 @@
 
   async function toggleOptionsList() {
     showSelectOptionsList = !showSelectOptionsList;
-    // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
+    // There is no need to run the following code if the options list is hidden, so only run it if the options list is shown.
     if (showSelectOptionsList)  {
-      // calculateMenuHeight(componentId, showSelectOptionsList, tick, window, document);
-      // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
+      calculateOptionsListHeight(componentId, showSelectOptionsList, tick, window);
+      // Wait for the options list element to be displayed in the DOM before setting `focus()` on it.
       await tick();
       selectOptionsList.focus();
     }
@@ -149,20 +150,21 @@
 
   {#if optionsDataType === "primitive"}
     {#if showSelectOptionsList}
-      <div class="fpui-select-option-selected active">
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected active">
         <div class="fpui-select-option-selected-overlay active">
           {value}
         </div>
       </div>
     {:else}
-      <div class="fpui-select-option-selected">
-        <div class="fpui-select-option-selected-overlay" on:click={toggleOptionsList}>
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected" on:click={toggleOptionsList}>
+        <div class="fpui-select-option-selected-overlay">
           {value}
         </div>
       </div>
     {/if}
     {#if showSelectOptionsList}
       <div
+        id={`fpui-select-options-list-${componentId}`}
         class="fpui-select-options-list"
         tabindex="-1"
         bind:this={selectOptionsList}
@@ -183,20 +185,21 @@
 
   {:else if optionsDataType === "object"}
     {#if showSelectOptionsList}
-      <div class="fpui-select-option-selected active">
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected active">
         <div class="fpui-select-option-selected-overlay active">
           {value[optionLabel]}
         </div>
       </div>
     {:else}
-      <div class="fpui-select-option-selected">
-        <div class="fpui-select-option-selected-overlay" on:click={toggleOptionsList}>
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected" on:click={toggleOptionsList}>
+        <div class="fpui-select-option-selected-overlay">
           {value[optionLabel]}
         </div>
       </div>
     {/if}
     {#if showSelectOptionsList}
       <div
+        id={`fpui-select-options-list-${componentId}`}
         class="fpui-select-options-list"
         tabindex="-1"
         bind:this={selectOptionsList}
@@ -231,20 +234,21 @@
 
   {:else if optionsDataType === "array"}
     {#if showSelectOptionsList}
-      <div class="fpui-select-option-selected active">
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected active">
         <div class="fpui-select-option-selected-overlay active">
           {value[optionLabel]}
         </div>
       </div>
     {:else}
-      <div class="fpui-select-option-selected">
-        <div class="fpui-select-option-selected-overlay" on:click={toggleOptionsList}>
+      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected" on:click={toggleOptionsList}>
+        <div class="fpui-select-option-selected-overlay">
           {value[optionLabel]}
         </div>
       </div>
     {/if}
     {#if showSelectOptionsList}
       <div
+        id={`fpui-select-options-list-${componentId}`}
         class="fpui-select-options-list"
         tabindex="-1"
         bind:this={selectOptionsList}
@@ -324,15 +328,16 @@
     
     & .fpui-select-options-list {
       position: absolute;
-      outline: none;
-      border: 1px solid var(--gray-60);
-      border-top: none;
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-      background-color: var(--white);
-      top: 100%;
       left: 0;
       right: 0;
-      z-index: 99;
+      overflow-y: auto;
+      outline: none;
+      border: 2px solid;
+      border-color: var(--fpui-select-border-color);
+      border-radius: 0 0 var(--fpui-select-border-radius) var(--fpui-select-border-radius);
+      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
+      background-color: var(--white);
+      z-index: 100;
 
       & .fpui-select-optgroup {
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;

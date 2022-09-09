@@ -1,7 +1,7 @@
 <script lang="ts">
   import { SelectMulti } from "/src/lib";
 
-  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack" ];
+  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
   let selectedSuvOptions = ["mud tires"];
 
   let suvOptionsObjects = [

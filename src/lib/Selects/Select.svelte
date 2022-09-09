@@ -1,7 +1,7 @@
 <script lang="ts">
   import { tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
-  import { createId, calculateMenuHeight } from "../fpui-utils";
+  import { createId, calculateOptionsListHeight } from "../fpui-utils";
 
   export let label = "";
   export let optionsArray;
@@ -43,7 +43,7 @@
       showSelectMenu = !showSelectMenu;
       // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
       if (showSelectMenu)  {
-        calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
+        calculateOptionsListHeight(componentId, showSelectMenu, tick, window);
         // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
         await tick();
         selectMenu.focus();

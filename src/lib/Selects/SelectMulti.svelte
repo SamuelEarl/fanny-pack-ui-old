@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { tick } from "svelte";
-  import { createId, calculateMenuHeight } from "../fpui-utils";
+  import { createId, calculateOptionsListHeight } from "../fpui-utils";
   // import isEqual from "lodash.isequal";
   import { Button } from "../Buttons";
   import { CheckboxGroup } from "../Checkboxes";
@@ -90,19 +90,19 @@
 </script>
 
 
-<Label {label} forVal={`fpui-select-btn-${componentId}`} {tooltipText} />
+<Label {label} forVal={`fpui-select-option-selected-${componentId}`} {tooltipText} />
 <div class="fpui-multi-select"> 
   <div
     role="listbox" 
     aria-multiselectable="true" 
-    id={`fpui-select-btn-${componentId}`} 
-    class={`fpui-select-btn ${size}`}
+    id={`fpui-select-option-selected-${componentId}`} 
+    class={`fpui-select-option-selected ${size}`}
     tabindex="-1"
     on:click={async () => {
       showSelectMenu = !showSelectMenu;
       // There is no need to run the following code if the menu is hidden, so only run it if the menu is shown.
       if (showSelectMenu)  {
-        calculateMenuHeight(componentId, showSelectMenu, tick, window, document);
+        calculateOptionsListHeight(componentId, showSelectMenu, tick, window);
         // Wait for the menu element to be displayed in the DOM before setting `focus()` on it.
         await tick();
         selectMenu.focus();
@@ -126,12 +126,12 @@
         {/if}
       {/if}
     </div>
-    <span class="fpui-select-btn-arrow">›</span>
+    <span class="fpui-select-option-selected-arrow">›</span>
   </div>
 
   <div
-    id={`fpui-select-menu-${componentId}`} 
-    class="fpui-select-menu"
+    id={`fpui-select-options-list-${componentId}`} 
+    class="fpui-select-options-list"
     class:show={showSelectMenu}
     tabindex="-1"
     bind:this={selectMenu}
@@ -142,7 +142,7 @@
       // See this function in the `<Select>` component for an explanation of how this if statement works.
       // This is basically saying if the user clicks on the select-btn or the one of the select-all-btns or a checkbox, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
       if (
-        elementId !== `fpui-select-btn-${componentId}` && 
+        elementId !== `fpui-select-option-selected-${componentId}` && 
         elementId !== `fpui-select-all-btn-${componentId}` && 
         elementId !== `fpui-checkbox-input-${componentId}`
       ) {
@@ -225,7 +225,7 @@
   .fpui-multi-select {
     position: relative;
 
-    & .fpui-select-btn {
+    & .fpui-select-option-selected {
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -281,7 +281,7 @@
         }
       }
 
-      & .fpui-select-btn-arrow {
+      & .fpui-select-option-selected-arrow {
         margin-left: 10px;
         transform: rotate(90deg);
         font-size: 1.5rem;
@@ -289,7 +289,7 @@
       }
     }
     
-    & .fpui-select-menu {
+    & .fpui-select-options-list {
       display: none;
       position: absolute;
       width: 100%;
