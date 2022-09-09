@@ -150,7 +150,7 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
   optionLabel="shortMonth"
   bind:value={selectedMonthObject}
   id="object-options-id"
-  size="md"
+  size="sm"
 />
 ```
 
@@ -283,7 +283,7 @@ You can set the following custom variables:
     options={months}  
     bind:value={selectedMonth}
     id="primitive-options-id"
-    size="md"
+    size="lg"
     --custom-select-border-color="white"
     --custom-select-bg-color="transparent"
     --custom-select-text-color="white"
@@ -295,7 +295,7 @@ You can set the following custom variables:
   options={months}  
   bind:value={selectedMonth}
   id="primitive-options-id"
-  size="md"
+  size="lg"
   --custom-select-border-color="white"
   --custom-select-bg-color="transparent"
   --custom-select-text-color="white"
