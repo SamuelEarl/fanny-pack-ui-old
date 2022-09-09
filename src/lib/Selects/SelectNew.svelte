@@ -5,11 +5,8 @@
 
 <!--
   TODOS:
-  * Add an `optgroup` feature. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup.
-      * Implement the `optgroup` feature for nested array `options`.
-  * Implement the `calculateOptionsListHeight()` function.
-  * Add CSS Variables for colors and sizes.
-  * Add the same style customization from the original <Select> component.
+  * [COMPLETED] Add an `optgroup` feature. See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup.
+      * If I decide to support nested arrays for the `options` prop, then implement the `optgroup` feature for nested array `options`.
 -->
 
 <script lang="ts">
@@ -150,14 +147,14 @@
 
   {#if optionsDataType === "primitive"}
     {#if showSelectOptionsList}
-      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected active">
-        <div class="fpui-select-option-selected-overlay active">
+      <div id={`fpui-select-option-selected-${componentId}`} class="{`fpui-select-option-selected ${size} active`}">
+        <div class="{`fpui-select-option-selected-overlay ${size} active`}">
           {value}
         </div>
       </div>
     {:else}
-      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected" on:click={toggleOptionsList}>
-        <div class="fpui-select-option-selected-overlay">
+      <div id={`fpui-select-option-selected-${componentId}`} class="{`fpui-select-option-selected ${size}`}" on:click={toggleOptionsList}>
+        <div class="{`fpui-select-option-selected-overlay ${size}`}">
           {value}
         </div>
       </div>
@@ -174,7 +171,7 @@
       >
         {#each options as option}
           <div 
-            class="fpui-select-option"
+            class="{`fpui-select-option ${size}`}"
             on:click={() => setSelectedOption(option)}
           >
             {option}
@@ -185,14 +182,14 @@
 
   {:else if optionsDataType === "object"}
     {#if showSelectOptionsList}
-      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected active">
-        <div class="fpui-select-option-selected-overlay active">
+      <div id={`fpui-select-option-selected-${componentId}`} class="{`fpui-select-option-selected ${size} active`}">
+        <div class="{`fpui-select-option-selected-overlay ${size} active`}">
           {value[optionLabel]}
         </div>
       </div>
     {:else}
-      <div id={`fpui-select-option-selected-${componentId}`} class="fpui-select-option-selected" on:click={toggleOptionsList}>
-        <div class="fpui-select-option-selected-overlay">
+      <div id={`fpui-select-option-selected-${componentId}`} class="{`fpui-select-option-selected ${size}`}" on:click={toggleOptionsList}>
+        <div class="{`fpui-select-option-selected-overlay ${size}`}">
           {value[optionLabel]}
         </div>
       </div>
@@ -209,10 +206,10 @@
       >
         {#if optgroup}
           {#each Object.entries(optgroups) as [key, value]}
-            <div class="fpui-select-optgroup">{key}</div>
+            <div class="{`fpui-select-optgroup-label ${size}`}">{key}</div>
             {#each value as option}
               <div 
-                class="fpui-select-option optgroup"
+                class="{`fpui-select-option ${size} optgroup`}"
                 on:click={() => setSelectedOption(option)}
               >
                 {option[optionLabel]}
@@ -222,7 +219,7 @@
         {:else}
           {#each options as option}
             <div 
-              class="fpui-select-option"
+              class="{`fpui-select-option ${size}`}"
               on:click={() => setSelectedOption(option)}
             >
               {option[optionLabel]}
@@ -282,46 +279,68 @@
     }
 
     & .fpui-select-option-selected {
-      border: 1px solid var(--gray-60);
-      border-radius: var(--border-radius);
-      background-color: var(--white);
+      border: 1px solid;
+      border-color: var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
+      border-radius: var(--fpui-select-border-radius);
+      background-color: var(--custom-select-bg-color, var(--fpui-select-bg-color, white));
+      color: var(--custom-select-text-color, var(--fpui-select-text-color, black));
+      cursor: pointer;
+
+      &:hover {
+        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
+      }
+
+      /* Style the arrow inside the select element */
+      &:after {
+        position: absolute;
+        content: "›";
+        top: 45%;
+        right: 5px;
+        width: 0;
+        height: 0;
+        transform: rotate(90deg);
+        font-size: 1.5rem;
+      }
+
+      &.sm:after {
+        top: 40%;
+      }
 
       &.active {
         border-radius: var(--border-radius) var(--border-radius) 0 0;
       }
 
+      /* The overlay contains the text for the selected option. */
       & .fpui-select-option-selected-overlay {
-        height: 100%;
-        color: var(--text-color);
+        /* Cut off any text that overflows the space provided for this Select component: */
+        /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
 
-        /* Style the arrow inside the select element */
-        &:after {
-          position: absolute;
-          content: "";
-          top: 14px;
-          right: 10px;
-          width: 0;
-          height: 0;
-          border: 6px solid transparent;
-          border-color: var(--text-color) transparent transparent transparent;
+        /* Change the padding and font-size for different sizes of the <Select> component. */
+        &.sm {
+          padding: var(--fpui-select-option-selected-padding-sm, 5px);
+          font-size: var(--font-size-sm, 12px);
+        }
+        &.md {
+          padding: var(--fpui-select-option-selected-padding-md, 10px);
+          font-size: var(--font-size-base, 16px);
+        }
+        &.lg {
+          padding: var(--fpui-select-option-selected-padding-lg, 15px);
+          font-size: var(--font-size-lg, 20px);
         }
         
         &.active {
           border-radius: var(--border-radius) var(--border-radius) 0 0;
           background-color: rgba(0, 0, 0, 0.1);
         }
-      
-        /* Point the arrow upwards when the select box is open (active): */
-        /* &:after {
-          border-color: transparent transparent #fff transparent;
-          top: 7px;
-        } */
       }
     }
 
     /* Style the options, including the selected option: */
-    & .fpui-select-optgroup, & .fpui-select-option, & .fpui-select-option-selected-overlay {
-      padding: 8px 16px;
+    & .fpui-select-option-selected-overlay, & .fpui-select-optgroup-label, & .fpui-select-option {
       border: 1px solid transparent;
       cursor: pointer;
     }
@@ -336,25 +355,60 @@
       border-color: var(--fpui-select-border-color);
       border-radius: 0 0 var(--fpui-select-border-radius) var(--fpui-select-border-radius);
       box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
-      background-color: var(--white);
+      background-color: var(--fpui-select-bg-color);
+      color: var(--fpui-select-text-color);
       z-index: 100;
 
-      & .fpui-select-optgroup {
+      & .fpui-select-optgroup-label {
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         font-weight: bold;
         pointer-events: none;
+
+        &.sm {
+          padding: var(--fpui-select-option-padding-sm, 5px);
+          font-size: var(--font-size-sm, 12px);
+        }
+        &.md {
+          padding: var(--fpui-select-option-padding-md, 10px);
+          font-size: var(--font-size-base, 16px);
+        }
+        &.lg {
+          padding: var(--fpui-select-option-padding-lg, 15px);
+          font-size: var(--font-size-lg, 20px);
+        }
       }
 
       & .fpui-select-option {
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         color: var(--text-color);
 
-        &.optgroup {
-          padding-left: 26px;
-        }
-
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        &.sm {
+          padding: var(--fpui-select-option-padding-sm, 5px);
+          font-size: var(--font-size-sm, 12px);
+
+          &.optgroup {
+            padding-left: calc(2 * var(--fpui-select-option-padding-sm, 5px));
+          }
+        }
+        &.md {
+          padding: var(--fpui-select-option-padding-md, 10px);
+          font-size: var(--font-size-base, 16px);
+
+          &.optgroup {
+            padding-left: calc(2 * var(--fpui-select-option-padding-md, 10px));
+          }
+        }
+        &.lg {
+          padding: var(--fpui-select-option-padding-lg, 15px);
+          font-size: var(--font-size-lg, 20px);
+
+          &.optgroup {
+            padding-left: calc(2 * var(--fpui-select-option-padding-lg, 15px));
+          }
         }
 
         &:last-child {

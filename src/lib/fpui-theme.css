@@ -278,12 +278,10 @@
   --fpui-select-border-radius: var(--border-radius);
   --fpui-select-bg-color: var(--neutral-lightest);
   --fpui-select-text-color: var(--text-color);
-  --fpui-select-btn-padding-sm: var(--padding-sm);
-  --fpui-select-btn-padding-md: var(--padding-md);
-  --fpui-select-btn-padding-lg: var(--padding-lg);
+  --fpui-select-option-selected-padding-sm: var(--padding-sm);
+  --fpui-select-option-selected-padding-md: var(--padding-md);
+  --fpui-select-option-selected-padding-lg: var(--padding-lg);
   /* Styles for the dropdown menu of the select box. */
-  --fpui-select-option-hover-bg-color: var(--neutral-very-light);
-  --fpui-select-option-hover-text-color: var(--text-color);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
   --fpui-select-option-padding-lg: var(--padding-lg);

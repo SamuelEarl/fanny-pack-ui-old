@@ -108,7 +108,7 @@ The code for this component was taken from this great [date picker component](ht
 ---
 
 ## Custom DateInput Styles
-The original intention for these custom styles was to set `--custom-date-picker-bg-color="transparent"` so the `<DateInput>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+The original intention for these custom styles was to set `--custom-date-picker-bg-color="transparent"` so the `<DateInput>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
 
 You can set the following custom variables:
 * `--custom-date-picker-border-color`

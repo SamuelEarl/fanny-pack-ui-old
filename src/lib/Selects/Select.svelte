@@ -169,15 +169,15 @@
         Give some padding around the dropdown arrow icon so it does not get pressed into the right border of the select box.
       */
       &.sm {
-        padding: var(--fpui-select-btn-padding-sm, 5px);
+        padding: var(--fpui-select-option-selected-padding-sm, 5px);
         font-size: var(--font-size-sm, 12px);
       }
       &.md {
-        padding: var(--fpui-select-btn-padding-md, 10px);
+        padding: var(--fpui-select-option-selected-padding-md, 10px);
         font-size: var(--font-size-base, 16px);
       }
       &.lg {
-        padding: var(--fpui-select-btn-padding-lg, 15px);
+        padding: var(--fpui-select-option-selected-padding-lg, 15px);
         font-size: var(--font-size-lg, 20px);
       }
 

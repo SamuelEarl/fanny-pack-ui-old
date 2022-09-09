@@ -112,7 +112,7 @@
 ---
 
 ## Custom Input Styles
-The original intention for these custom styles was to set `--custom-input-bg-color="transparent"` so the `<Input>` field would blend into the background even if the background color changed when a user hovered over the background. A few extra custom style rules have been provided for even more customizability.
+The original intention for these custom styles was to set `--custom-input-bg-color="transparent"` so the `<Input>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
 
 
 You can set the following custom variables:

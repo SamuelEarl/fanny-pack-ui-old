@@ -117,7 +117,7 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
   optionLabel="shortMonth"
   bind:value={selectedMonthObject}
   id="object-options-id"
-  size="md"
+  size="sm"
 />
 
 Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</code>
@@ -265,3 +265,50 @@ Note that the `optgroup`s within the `<Select>` component will be sorted based o
   id="array-optgroups-id"
   size="md"
 />
+
+
+---
+
+## Custom Select Styles
+The original intention for these custom styles was to set `--custom-select-bg-color="transparent"` so the `<Select>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
+
+
+You can set the following custom variables:
+* `--custom-select-border-color`
+* `--custom-select-bg-color`
+* `--custom-select-text-color`
+
+<div class="alt-background">
+  <SelectNew
+    options={months}  
+    bind:value={selectedMonth}
+    id="primitive-options-id"
+    size="md"
+    --custom-select-border-color="white"
+    --custom-select-bg-color="transparent"
+    --custom-select-text-color="white"
+  />
+</div>
+
+```svelte
+<Select
+  options={months}  
+  bind:value={selectedMonth}
+  id="primitive-options-id"
+  size="md"
+  --custom-select-border-color="white"
+  --custom-select-bg-color="transparent"
+  --custom-select-text-color="white"
+/>
+```
+
+---
+
+
+<style>
+  .alt-background {
+    padding: 25px;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+  }
+</style>
