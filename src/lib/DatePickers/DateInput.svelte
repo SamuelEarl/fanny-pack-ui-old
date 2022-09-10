@@ -14,7 +14,7 @@
   import { createId } from "../fpui-utils";
   import { theme } from "/src/theme";
 
-  export let label;
+  export let label = "";
   export let size = "md";
   export let dateInputIcon = theme.dateInputIcon;
 

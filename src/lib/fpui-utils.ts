@@ -24,7 +24,7 @@ export async function calculateOptionsListHeight(id, showSelectOptionsList, tick
     let windowHeight = window.innerHeight || window.document.documentElement.clientHeight || window.document.body.clientHeight;
     // Get the selectBtn element.
     // `fpui-select-btn` is now `fpui-select-option-selected`
-    let selectBtn = window.document.getElementById(`fpui-select-option-selected-${id}`).getBoundingClientRect();
+    let selectBtn = window.document.getElementById(`fpui-select-btn-${id}`).getBoundingClientRect();
     // Get the y-position of the top of the selectBtn element.
     let selectBtnTop = selectBtn.top;
     // Get the y-position of the bottom of the selectBtn element.

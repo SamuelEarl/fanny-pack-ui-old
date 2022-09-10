@@ -81,7 +81,7 @@ You can set the following custom variables:
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `label` (optional) | `string` | Any string | NA | This prop will provide a label for the `textarea` field. If no `label` prop is provided, then the label will not be displayed. |
+| `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the `textarea` field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Textarea>` components an id value, if necessary, just like you can with regular `<textarea>` elements. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the `textarea` field to be updated with a string value, this component’s value property needs to be bound to a string variable. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the `textarea` field to give the appearance of a larger or smaller `textarea` field. The text size will also increase or decrease based on this `size` prop. |

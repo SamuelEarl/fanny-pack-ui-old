@@ -104,7 +104,7 @@ Note that if you pass an array of objects to the `valuesArray` prop, then each o
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `label` (optional) | `string` | Any string | NA | The text for the `<label>` element that is displayed above the `<select>` element. If this prop is not provided, then no label will be displayed. |
+| `label`<br>(optional) | `string` | Any string | `""` (an empty string) | The text for the `<label>` element that is displayed above the `<select>` element. If this prop is not provided, then no label will be displayed. |
 | `tooltipText` (optional) | `string` | Any string | NA | This prop accepts a string argument that will act as the tooltip text when a user hovers over the tooltip element. Multi-line strings can be created with newline characters that are inside of backticks, which are inside of curly braces. (See the [Tooltip](/components/tooltip) component for code examples.) If no `tooltipText` is provided, then no tooltip will be displayed. |
 | `valuesArray` | `array` | Any array | NA | The array that is passed to this prop is the array of values that will be looped over to create the checkboxes in the dropdown menu. |
 | `arrayType` | `string` | `string`, `number`, `object` | `string` | This prop tells what type of data is in the `valuesArray` array that is passed to this component. |

@@ -148,7 +148,7 @@ You can set the following custom variables:
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `label` | `string` | Any string | NA | This prop will provide a label for the input field. If no `label` prop is provided, then the label will not be displayed. |
+| `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the input field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Input>` components an `id` value, if necessary, just like you can with regular `<input>` elements. |
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |

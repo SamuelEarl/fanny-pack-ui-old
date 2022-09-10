@@ -90,13 +90,13 @@
 </script>
 
 
-<Label {label} forVal={`fpui-select-option-selected-${componentId}`} {tooltipText} />
+<Label {label} forVal={`fpui-select-btn-${componentId}`} {tooltipText} />
 <div class="fpui-multi-select"> 
   <div
     role="listbox" 
     aria-multiselectable="true" 
-    id={`fpui-select-option-selected-${componentId}`} 
-    class={`fpui-select-option-selected ${size}`}
+    id={`fpui-select-btn-${componentId}`} 
+    class={`fpui-select-btn ${size}`}
     tabindex="-1"
     on:click={async () => {
       showSelectMenu = !showSelectMenu;
@@ -126,7 +126,7 @@
         {/if}
       {/if}
     </div>
-    <span class="fpui-select-option-selected-arrow">›</span>
+    <span class="fpui-select-btn-arrow">›</span>
   </div>
 
   <div
@@ -142,7 +142,7 @@
       // See this function in the `<Select>` component for an explanation of how this if statement works.
       // This is basically saying if the user clicks on the select-btn or the one of the select-all-btns or a checkbox, then do not hide the selectMenu. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectMenu.
       if (
-        elementId !== `fpui-select-option-selected-${componentId}` && 
+        elementId !== `fpui-select-btn-${componentId}` && 
         elementId !== `fpui-select-all-btn-${componentId}` && 
         elementId !== `fpui-checkbox-input-${componentId}`
       ) {
@@ -225,7 +225,7 @@
   .fpui-multi-select {
     position: relative;
 
-    & .fpui-select-option-selected {
+    & .fpui-select-btn {
       position: relative;
       display: flex;
       justify-content: space-between;
@@ -281,7 +281,7 @@
         }
       }
 
-      & .fpui-select-option-selected-arrow {
+      & .fpui-select-btn-arrow {
         margin-left: 10px;
         transform: rotate(90deg);
         font-size: 1.5rem;
