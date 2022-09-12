@@ -29,6 +29,10 @@
     { name: "Apatosaurus", group: "Sauropods" },
   ];
   let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
+
+  function handleChange() {
+    console.log("Changed");
+  }
 </script>
 
 
@@ -46,6 +50,7 @@
   bind:value={selectedMonth}
   id="primitive-options-id"
   size="md"
+  on:change={handleChange}
 />
 
 Value of `selectedMonth`: <code>{selectedMonth}</code>
@@ -224,8 +229,8 @@ You can set the following custom variables:
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `label`<br>(optional) | `string` | Any string | `""` (an empty string) | The text for the `<label>` element that is displayed above the `<select>` element. If this prop is not provided, then no label will be displayed. |
 | `options` | `Array` | any array | NA | This should be an array of strings, numbers, booleans, or objects. This array will be used to populate the `<option>` elements in the `<Select />` component's dropdown list. |
-| `optionLabel` (only used with arrays of objects) | `string` | Any property name from objects that are passed to the `options` array | `null` | When the `optionLabel` prop is used with an array of objects (which are passed to the `options` prop), the `optionLabel` prop will provide the property name that will be used as the label text for the `<Select>` component's options. |
-| `optgroup` (only used with arrays of objects) | `string` | Any property name from objects that are passed to the `options` array | `null` | You can group your options (similar to using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag) by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
+| `optionLabel` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | When the `optionLabel` prop is used with an array of objects (which are passed to the `options` prop), the `optionLabel` prop will provide the property name that will be used as the label text for the `<Select>` component's options. |
+| `optgroup` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | You can group your options (similar to using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag) by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
 | `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
 | `id` | `string` | Any string | `""` (an empty string) | You can give your `<Select />` components an `id` attribute. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for your `<Select />` component to give the appearance of a larger or smaller `<Select />` component. The text size will also increase or decrease based on this `size` prop. |

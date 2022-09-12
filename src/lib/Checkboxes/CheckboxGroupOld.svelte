@@ -1,46 +1,14 @@
 <script lang="ts">
-  import { onMount } from "svelte";
-
   // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
   export let componentId = "";
   export let checkboxGroupValues;
-  export let valueLabel = null;
+  export let arrayType = "string";
   export let selectedValues = [];
   export let disabled = false;
-  let valuesDataType;
-
-  onMount(() => {
-    determineValuesDataType(checkboxGroupValues);
-  });
-
-  /**
-   * This function will determine the data type of the data structures that are inside the `checkboxGroupValues` array.
-   * The result will be either `array`, `object`, or `primitive`.
-   */
-   function determineValuesDataType(values) {
-    try {
-      if (values?.length > 0) {
-        // NOTE: I am keeping this code here in case I want to support nested arrays as a `checkboxGroupValues` data structure.
-        // `typeof values[0] === "object"` will return `true` for arrays, so it is necessary to check for arrays with Array.isArray() before checking for objects. Otherwise a `checkboxGroupValues` array that contains nested arrays will be designated as an array of objects.
-        // if (Array.isArray(values[0])) {
-        //   valuesDataType = "array";
-        // }
-        if (typeof values[0] === "object") {
-          valuesDataType = "object";
-        }
-        else {
-          valuesDataType = "primitive";
-        }
-      }
-    }
-    catch(err) {
-      console.error("determineValuesDataType:", err);
-    }
-  }
 </script>
 
 
-{#if valuesDataType === "primitive"}
+{#if arrayType === "string" || arrayType === "number"}
   {#each checkboxGroupValues as item}
     <!--
       IMPORTANT NOTE: 
@@ -64,7 +32,7 @@
   {/each}
 {/if}
 
-{#if valuesDataType === "object"}
+{#if arrayType === "object"}
   {#each checkboxGroupValues as obj}
     <label class="fpui-checkbox-label-wrapper" class:disabled>
       <input
@@ -76,7 +44,7 @@
         {disabled}
         on:change
         on:input
-      > {obj[valueLabel]}
+      > {obj.label}
       <span class="fpui-checkbox-checkmark"></span>
     </label>
   {/each}

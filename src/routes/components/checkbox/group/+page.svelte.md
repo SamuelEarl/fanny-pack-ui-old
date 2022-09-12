@@ -2,14 +2,14 @@
   import { Checkbox, CheckboxGroup } from "/src/lib";
 
   let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
-  let selectedSuvOptions = [];
+  let selectedSuvOptions = [suvOptions[1]];
 
   let suvOptionsObjects = [
-    { label: "Oversized Wheels", value: "oversizedWheels" },
-    { label: "Mud Tires", value: "mudTires" },
-    { label: "Mud Guards", value: "mudGuards" },
-    { label: "Trail Running Boards", value: "trailRunningBoards" },
-    { label: "Roof Rack", value: "roofRack" },
+    { displayText: "Oversized Wheels", value: "oversizedWheels" },
+    { displayText: "Mud Tires", value: "mudTires" },
+    { displayText: "Mud Guards", value: "mudGuards" },
+    { displayText: "Trail Running Boards", value: "trailRunningBoards" },
+    { displayText: "Roof Rack", value: "roofRack" },
   ];
   let selectedSuvOptionsObjects = [];
 </script>
@@ -25,12 +25,12 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 
 ## Example Usage
 
-### "string" (or "number") arrayType
+### `checkboxGroupValues` elements with primitive data type
 
 <p>Select any of the following options for your SUV:</p>
+
 <CheckboxGroup
   checkboxGroupValues={suvOptions}
-  arrayType="string"
   bind:selectedValues={selectedSuvOptions}
   disabled={false}
 />
@@ -43,13 +43,12 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
   import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
-  let selectedSuvOptions = [];
+  let selectedSuvOptions = [suvOptions[1]];
 </script>
 
 <p>Select any of the following options for your SUV:</p>
 <CheckboxGroup
   checkboxGroupValues={suvOptions}
-  arrayType="string"
   bind:selectedValues={selectedSuvOptions}
   disabled={false}
 />
@@ -59,12 +58,12 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 
 <br>
 
-### "object" arrayType
+### `checkboxGroupValues` elements with object data type
 
 <p>Select any of the following options for your SUV:</p>
 <CheckboxGroup
   checkboxGroupValues={suvOptionsObjects}
-  arrayType="object"
+  valueLabel="displayText"
   bind:selectedValues={selectedSuvOptionsObjects}
   disabled={false}
 />
@@ -76,11 +75,11 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
   import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
   let suvOptionsObjects = [
-    { label: "Oversized Wheels", value: "oversizedWheels" },
-    { label: "Mud Tires", value: "mudTires" },
-    { label: "Mud Guards", value: "mudGuards" },
-    { label: "Trail Running Boards", value: "trailRunningBoards" },
-    { label: "Roof Rack", value: "roofRack" },
+    { displayText: "Oversized Wheels", value: "oversizedWheels" },
+    { displayText: "Mud Tires", value: "mudTires" },
+    { displayText: "Mud Guards", value: "mudGuards" },
+    { displayText: "Trail Running Boards", value: "trailRunningBoards" },
+    { displayText: "Roof Rack", value: "roofRack" },
   ];
   let selectedSuvOptionsObjects = [];
 </script>
@@ -88,7 +87,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 <p>Select any of the following options for your SUV:</p>
 <CheckboxGroup
   checkboxGroupValues={suvOptionsObjects}
-  arrayType="object"
+  valueLabel="displayText"
   bind:selectedValues={selectedSuvOptionsObjects}
   disabled={false}
 />
@@ -104,7 +103,7 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `checkboxGroupValues` | `array` | Any array | NA | The array that is passed to this prop is the array of values that will be looped over to create the checkboxes. |
-| `arrayType` | `string` | `string`, `number`, `object` | `string` | This prop tells what type of data is in the `checkboxGroupValues` array that is passed to this component. |
+| `valueLabel` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `checkboxGroupValues` array | `null` | When the `valueLabel` prop is used with an array of objects (which are passed to the `checkboxGroupValues` prop), the `valueLabel` prop will provide the property name that will be used as the label text for the `<CheckboxGroup>` component's values. |
 | `bind:selectedValues` | `array` | Any array | `[]` (an empty array) | The array that is passed to this prop will hold the values that the user will select. This array will usually be an empty array, but if you want any values to be pre-selected, then you could include any of the values from the `checkboxGroupValues` array. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable all the checkboxes in the group. |
 

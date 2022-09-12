@@ -56,9 +56,12 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Add more custom style options.
 
 ## Select (multi)
-* Test the tooltip to see if it works (i.e. got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
+* Test the tooltip to see if it works (i.e. see if it got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
+* Implement the `size` prop throughout the entire component. I think it is only on the button part of the component, but not in the options list part of the component.
+* Try to get event forwarding to work for the `change` event. Maybe I should try to convert the multiple select element on this page to a reusable component and see if I can get the `change` event to forward.
 
 ## Select (single)
+* Implement the `disabled` prop.
 * Write tests. I will be able to verify if the roles work with the `getByRole()` selector.
 * On the "Button" doc page, there are multiple select boxes. If I click on one, it will open up. Then if I click on another without explicitly closing the first, then they will both stay open. So I need to figure out how to close the first select box in that scenario.
 * Clean up old code and documentation that no longer applies or that is commented out.

@@ -15,6 +15,7 @@
   export let optgroup = null;
   export let value;
   export let size = "md";
+  export let disabled = false;
 
   const dispatch = createEventDispatcher();
   let componentId = createId();
@@ -120,14 +121,20 @@
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
   <select value={value} on:change>
-    {#if optgroup}
-      {#each Object.entries(optgroups) as [key, value]}
-        <optgroup label={key}>
-          {#each value as option}
-            <option value={option[optionLabel]}>{option[optionLabel]}</option>
-          {/each}
-        </optgroup>
-      {/each}
+    {#if optionsDataType === "object"}
+      {#if optgroup}
+        {#each Object.entries(optgroups) as [key, value]}
+          <optgroup label={key}>
+            {#each value as option}
+              <option value={option[optionLabel]}>{option[optionLabel]}</option>
+            {/each}
+          </optgroup>
+        {/each}
+      {:else}
+        {#each options as option}
+          <option value={option[optionLabel]}>{option[optionLabel]}</option>
+        {/each}
+      {/if}
     {:else}
       {#each options as option}
         <option value={option}>{option}</option>
