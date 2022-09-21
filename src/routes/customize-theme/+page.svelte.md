@@ -9,12 +9,14 @@
   let themes = [];
 
   let theme = {
-    colorPalette: [],
+    nonNeutralColors: [],
+    fpNeutralColors: [],
+    grayNeutralColors: [],
     mainColors: [],
     sizes: [],
   };
 
-  let activeTab = "main";
+  let activeTab = "nonNeutrals";
   let colorPaletteReferenceVariables = [];
 
   // fannyPackUiTheme = {
@@ -126,44 +128,51 @@
     // selectedTheme = themes[0];
   });
 
-  function matchVariableBlock(blockName) {
+  /**
+   * This function will take the name of a block of CSS variables (as defined in the `fpui-theme.css` file),
+   * find that block in the `themeFile`, and return all the variables that are defined in that block.
+   */
+  function findMatchingVariableBlock(blockName) {
     try {
-      // Find the text between "/* Block Name */" (e.g. /* Color Palette Block */) and the closing `}`.
+      // Find the text between "/* Block Name */" (e.g. /* Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
-      // console.log("regex1:", /(?<=\/\* Color Palette Block \*\/\s+).*?(?=\s+})/gs)
-      // console.log("regex2:", regex);
-      return themeFile.match(regex)[0];
-      // console.log("matchingBlock:", matchingBlock);
+      let matchingVariableBlock = themeFile.match(regex)[0];
+      // console.log("Matching Variable Block:", matchingVariableBlock);
+      return matchingVariableBlock;
     }
     catch(err) {
-      console.error("matchVariableBlock Error:", err);
+      console.error("findMatchingVariableBlock Error:", err);
     }
   }
 
   /**
-   * Match the CSS variable name within the matchingBlock of CSS variables.
+   * This function will:
+   * (1) match the CSS variable name within the matchingVariableBlock, 
+   * (2) remove the colon from the end of the CSS variable name, 
+   * (3) populate the theme object by pushing an object of the form 
+   * `{ label: varName, value: "" }` to each `theme[themePropertyName]` array, and
+   * (4) populate the `colorPaletteReferenceVariables` array.
    */
-  function matchCssVariableName(matchingBlock, themePropertyName, namePrefix, nameSuffix) {
+  function matchCssVariableName(matchingVariableBlock, themePropertyName, namePrefix, nameSuffix) {
     try {
       // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
       let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
       // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
-      let matchingNamesIterator = matchingBlock.matchAll(nameRegex);
+      let matchingNamesIterator = matchingVariableBlock.matchAll(nameRegex);
       // console.log("matchingNamesIterator:", matchingNamesIterator);
       for (const matchingVarName of matchingNamesIterator) {
         // console.log("matchingVarName:", matchingVarName[0]);
         // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
-        let varNameNoColon = matchingVarName[0].slice(0, -1);
-        theme[themePropertyName].push({ label: varNameNoColon, value: "" });
+        let varNameWithoutColon = matchingVarName[0].slice(0, -1);
+        theme[themePropertyName].push({ label: varNameWithoutColon, value: "" });
         // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
         // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
-        if (themePropertyName === "colorPalette") {
-          console.log("varNameNoColon:", varNameNoColon);
-          colorPaletteReferenceVariables.push(`var(${varNameNoColon})`);
+        if (themePropertyName === "nonNeutralColors" || themePropertyName === "fpNeutralColors" || themePropertyName === "grayNeutralColors") {
+          colorPaletteReferenceVariables.push(`var(${varNameWithoutColon})`);
         }
       }
-      console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
+      // console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
     }
     catch(err) {
       console.error("matchCssVariableValue Error:", err);
@@ -171,9 +180,9 @@
   }
 
   /**
-   * Match the CSS variable value within the matchingBlock of CSS variables.
+   * Match the CSS variable value within the matchingVariableBlock of CSS variables.
    */
-  function matchCssVariableValue(matchingBlock, themePropertyName) {
+  function matchCssVariableValue(matchingVariableBlock, themePropertyName) {
     try {
       // `valueRegex` will match any of the following types of strings:
       // * HEXa values - strings that begin with "#" and end with ";"
@@ -183,7 +192,7 @@
       let valueRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);|var\([A-Za-z0-9\-]*\);|[0-9a-z\%]*;/gi;
       // let valueRegex = /#[A-Fa-f0-9]*;/gi;
       // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
-      let matchingValuesIterator = matchingBlock.matchAll(valueRegex);
+      let matchingValuesIterator = matchingVariableBlock.matchAll(valueRegex);
       // console.log("matchingValuesIterator:", matchingValuesIterator);
       let matchingValuesIndex = 0;
       for (const matchingVarValue of matchingValuesIterator) {
@@ -210,23 +219,35 @@
       let regexPrefix = "--";
       let regexSuffix = ":";
 
-      let blockName = "Color Palette Block";
-      let themePropertyName = "colorPalette";
-      let matchingBlock = matchVariableBlock(blockName);
-      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingBlock, themePropertyName);
+      let blockName = "Non-Neutral Colors";
+      let themePropertyName = "nonNeutralColors";
+      let matchingVariableBlock = findMatchingVariableBlock(blockName);
+      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingVariableBlock, themePropertyName);
 
-      blockName = "Main Colors Block";
+      blockName = "Fanny Pack Neutral Colors";
+      themePropertyName = "fpNeutralColors";
+      matchingVariableBlock = findMatchingVariableBlock(blockName);
+      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+
+      blockName = "Grayscale Neutral Colors";
+      themePropertyName = "grayNeutralColors";
+      matchingVariableBlock = findMatchingVariableBlock(blockName);
+      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+
+      blockName = "Main Colors";
       themePropertyName = "mainColors";
-      matchingBlock = matchVariableBlock(blockName);
-      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingBlock, themePropertyName);
+      matchingVariableBlock = findMatchingVariableBlock(blockName);
+      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingVariableBlock, themePropertyName);
 
-      blockName = "Sizes Block";
+      blockName = "Size Variables";
       themePropertyName = "sizes";
-      matchingBlock = matchVariableBlock(blockName);
-      matchCssVariableName(matchingBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingBlock, themePropertyName);
+      matchingVariableBlock = findMatchingVariableBlock(blockName);
+      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      matchCssVariableValue(matchingVariableBlock, themePropertyName);
 
       console.log("THEME OBJECT:", theme);
     }
@@ -364,7 +385,7 @@
   }
 
   function downloadTheme() {
-    // TODOS:
+    // TODOS (for the download theme function):
     // * Create an "Additional Custom Variables Block" for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
     // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
     // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
@@ -432,7 +453,7 @@ TODOS:
 * Read the fpui-theme.css file to populate the variables and their values initially, but then bind all the user-defined options (i.e. the `<Select>` and `<Input>` components) to the `theme` object so I can create a downloadable theme.css file.
 * Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
     * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
-* Since I am creating this "wizard" to create a theme file, I can probably remove `--fpui-` CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
+* Since I am creating this "wizard" to create a theme file, I can probably remove `--fpui-` CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--fpui-primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--fpui-primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
 
 ---
 
@@ -537,12 +558,12 @@ Create your own themes or use the default "Fanny Pack UI" theme. Each theme is s
 ## Color palette
 Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
-In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "Fanny Pack Neutral Colors" or the "Shades and Tints of Gray" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
+In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "Fanny Pack Neutral Colors" or the "Grayscale Neutral Colors" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
 
 1. Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.
 2. Take your primary color, enter it into the search bar, and press Enter.
 3. Once you are on the page for your primary color, scroll down until you find the heading "Tones of [your primary color]". 
-4. Find a tone that has a good amount of gray in it - maybe one of the first two or three tones on the left side of the spectrum. Click on that tone. 
+4. Find a tone that has a good amount of gray in it - maybe one of the first two or three tones on the left side of the spectrum. Click on that tone.
 5. Once you are on the new page for that tone, scroll down to the heading "Shades and Tints of [the tone you selected]".
 6. Select a shade or tint to use as your "medium" neutral color - maybe the 3rd, 4th, or 5th color from the left in the tint spectrum.
 7. Once you have selected your "medium" neutral color you can pick two neutral colors that are darker than your "medium" neutral color and two that are lighter than your "medium" neutral color. You might want to pick colors that are about three or four shades/tints away from each other to give enough contrast between each neutral color, but you decide what looks best for your color palette.
@@ -557,66 +578,130 @@ IDEAS:
 * How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
 
 <div class="tab-bar">
-  <div class="tab" class:active={activeTab === "main"} on:click={() => activeTab = "main"}>Main Colors</div>
+  <div class="tab" class:active={activeTab === "nonNeutrals"} on:click={() => activeTab = "nonNeutrals"}>Non-Neutral Colors</div>
   <div class="tab" class:active={activeTab === "fpneutrals"} on:click={() => activeTab = "fpneutrals"}>Fanny Pack Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "grays"} on:click={() => activeTab = "grays"}>Shades and Tints of Gray</div>
+  <div class="tab" class:active={activeTab === "grays"} on:click={() => activeTab = "grays"}>Grayscale Neutral Colors</div>
 </div>
 
 <div class="color-sets">
-  {#if activeTab === "main"}
-    <div id="main-colors">
-      <h2>Main Colors</h2>
+  {#if activeTab === "nonNeutrals"}
+    <div id="non-neutral-colors">
+      <table>
+        <thead>
+          <tr>
+            <th>Color variable name</th>
+            <th>Color value</th>
+            <th style="text-align:center">Remove color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each theme.nonNeutralColors as color, index}
+            <tr>
+              <td><Input size="sm" bind:value={color.label} /></td>
+      <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+              <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+              <td><input type="color" bind:value={color.value} /></td>
+              <td style="text-align:center">
+                <Button
+                  btnIcon="mdi:minus-circle"
+                  size="lg"
+                  --custom-btn-padding="0px 5px"
+                  --custom-btn-border-color="transparent"
+                  --custom-btn-box-shadow="none"
+                  --custom-btn-background-color="transparent"
+                  --custom-btn-text-color="var(--dark-purple)"
+                  on:click={() => removeColor(index)}
+                ></Button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+      <br>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+        Add color
+      </Button>
     </div>
   {:else if activeTab === "fpneutrals"}
     <div id="fp-neutral-colors">
-      <h2>Fanny Pack Neutral Colors</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Color variable name</th>
+            <th>Color value</th>
+            <th style="text-align:center">Remove color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each theme.fpNeutralColors as color, index}
+            <tr>
+              <td><Input size="sm" bind:value={color.label} /></td>
+      <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+              <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+              <td><input type="color" bind:value={color.value} /></td>
+              <td style="text-align:center">
+                <Button
+                  btnIcon="mdi:minus-circle"
+                  size="lg"
+                  --custom-btn-padding="0px 5px"
+                  --custom-btn-border-color="transparent"
+                  --custom-btn-box-shadow="none"
+                  --custom-btn-background-color="transparent"
+                  --custom-btn-text-color="var(--dark-purple)"
+                  on:click={() => removeColor(index)}
+                ></Button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+      <br>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+        Add color
+      </Button>
     </div>
   {:else if activeTab === "grays"}
-    <div id="gray-colors">
-      <h2>Shades and Tints of Gray</h2>
+    <div id="grayscale-neutral-colors">
+      <table>
+        <thead>
+          <tr>
+            <th>Color variable name</th>
+            <th>Color value</th>
+            <th style="text-align:center">Remove color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each theme.grayNeutralColors as color, index}
+            <tr>
+              <td><Input size="sm" bind:value={color.label} /></td>
+      <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+              <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+              <td><input type="color" bind:value={color.value} /></td>
+              <td style="text-align:center">
+                <Button
+                  btnIcon="mdi:minus-circle"
+                  size="lg"
+                  --custom-btn-padding="0px 5px"
+                  --custom-btn-border-color="transparent"
+                  --custom-btn-box-shadow="none"
+                  --custom-btn-background-color="transparent"
+                  --custom-btn-text-color="var(--dark-purple)"
+                  on:click={() => removeColor(index)}
+                ></Button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+
+      <br>
+
+      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+        Add color
+      </Button>
     </div>
   {/if}
 </div>
-
-
-<table>
-  <thead>
-    <tr>
-      <th>Color variable name</th>
-      <th>Color value</th>
-      <th style="text-align:center">Remove color</th>
-    </tr>
-  </thead>
-  <tbody>
-    <!-- {#each selectedTheme.value.colorPalette as color, index} -->
-    {#each theme.colorPalette as color, index}
-      <tr>
-        <td><Input size="sm" bind:value={color.label} /></td>
-<!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
-        <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
-        <td><input type="color" bind:value={color.value} /></td>
-        <td style="text-align:center">
-          <Button
-            btnIcon="mdi:minus-circle"
-            size="lg"
-            --custom-btn-padding="0px 5px"
-            --custom-btn-border-color="transparent"
-            --custom-btn-box-shadow="none"
-            --custom-btn-background-color="transparent"
-            --custom-btn-text-color="var(--dark-purple)"
-            on:click={() => removeColor(index)}
-          ></Button>
-        </td>
-      </tr>
-    {/each}
-  </tbody>
-</table>
-
-<br>
-
-<Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
-  Add color
-</Button>
 
 <br><br>
 
@@ -637,11 +722,10 @@ NOTE: Each component style that can be customized has a fallback value. So, for 
     </tr>
   </thead>
   <tbody>
-    <!-- {#each selectedTheme.value.globalComponentColors as globalColor} -->
     {#each theme.mainColors as mainColor, index (mainColor.label)}
       <tr>
         <td>{mainColor.label}</td>
-        <td><Select optionsArray={colorPaletteReferenceVariables} arrayType="string" size="sm" bind:selectedOption={mainColor.value} on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)} /></td>
+        <td><Select options={colorPaletteReferenceVariables} size="sm" bind:value={mainColor.value} on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)} /></td>
       </tr>
     {/each}
   </tbody>
@@ -755,7 +839,7 @@ You can customize individual components by changing the following values.
   }
 
   .color-sets {
-    margin-bottom: 20px;
+    margin: 20px 0;
   }
 
   form {

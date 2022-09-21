@@ -29,16 +29,15 @@
   COLOR PALETTE
   * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
 ******************************************/
-/* Color Palette Block */
+/* Non-Neutral Colors */
+/* Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
 :root {
-  /* Main Colors: Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
   --dark-purple: #603cba;
   --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
   --blue: #2d89ef;
   --green: #00a300;
   --yellow: #ffc40d;
   --red: #ee1111;
-
   --light-green: #99b433;
   --dark-green: #1e7145;
   --magenta: #ff0097;
@@ -50,15 +49,11 @@
   --orange: #e3a21a;
   --dark-orange: #da532c;
   --dark-red: #b91d47;
+}
 
-  /* Neutral Colors */
-  --black: #000000;
-  --white: #ffffff;
-  --white-rgb: 255, 255, 255;
-
-  /* Fanny Pack Neutrals (purple grays). 
-  These are shades and tints of #50404d (i.e. Purple Taupe).
-  See https://www.colorhexa.com/50404d. */
+/* Fanny Pack Neutral Colors */
+/* These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
+:root {
   --fpn-260: #040304;
   --fpn-250: #0f0c0e;
   --fpn-240: #1a1419;
@@ -85,10 +80,12 @@
   --fpn-30: #e8e2e7;
   --fpn-20: #f1edf0;
   --fpn-10: #f9f8f9;
+}
 
-  /* Grays. 
-  These are shades and tints of #a0a0a0.
-  See https://www.colorhexa.com/a0a0a0. */
+/* Grayscale Neutral Colors */
+/* These are shades and tints of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
+:root {
+  --black: #000000;
   --gray-260: #030303;
   --gray-250: #0d0d0d;
   --gray-240: #171717;
@@ -115,15 +112,16 @@
   --gray-30: #e5e5e5;
   --gray-20: #eeeeee;
   --gray-10: #f8f8f8;
+  --white: #ffffff;
+  --white-rgb: 255, 255, 255;
 }
 
 
+/* Main Colors */
 /******************************************
-  Main Color Variables
   * These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
   * IMPORTANT: If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
 ******************************************/
-/* Main Colors Block */
 :root {
   --primary-color: var(--dark-purple);
   --secondary-color: var(--fpn-210);
@@ -149,7 +147,7 @@
   --disabled-text-color: var(--fpn-60);
 }
 
-/* Sizes Block */
+/* Size Variables */
 :root {
   /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;

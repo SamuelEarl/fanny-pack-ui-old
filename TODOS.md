@@ -56,8 +56,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Add more custom style options.
 
 ## Select (multi)
-* Test the tooltip to see if it works (i.e. see if it got imported correctly) in production. If it does not work, then I probably need to look at how I am importing it into the `<SelectMulti>` component.
-* Implement the `size` prop throughout the entire component. I think it is only on the button part of the component, but not in the options list part of the component.
+* Implement the `size` prop throughout the entire component. I think it is only on the `fpui-select-btn` part of the component, but not in the options list part of the component.
 * Try to get event forwarding to work for the `change` event. I have everything coded up for this to work, but it won't work. On this page https://svelte.dev/tutorial/multiple-select-bindings I attached an `on:change` listener to the `<select multiple>` element and it worked. However, when I converted the `<select multiple>` element to a reusable component and imported that component into the App.svelte page, the `change` event did not forward (i.e. it didn't trigger anything in the App.svelte page). So maybe the `change` event cannot be forwarded for `<select multiple>` components. If I need to respond to a `change` event, then it might be better to watch for changes in the array that is passed into the `options` prop and respond to those changes somehow. Or I could dispatch an event that carries the `values` array as a payload, similar to what I did with the `<SelectOld>` component.
 
 ## Select (single)
