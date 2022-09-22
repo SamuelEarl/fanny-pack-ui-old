@@ -17,6 +17,8 @@
 }
 
 
+/* Regex Replace Start */
+
 /******************************************
   COLOR PALETTE
   * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
@@ -157,6 +159,8 @@
   --font-weight-normal: 400;
   --font-weight-bold: 700;
 }
+
+/* Regex Replace End */
 
 
 /****************************************** 

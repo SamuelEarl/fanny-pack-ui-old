@@ -6,8 +6,6 @@
   import { Button, Checkbox, Input, Select, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
-  let themes = [];
-
   let theme = {
     fpNonNeutralColors: [],
     fpNeutralColors: [],
@@ -18,9 +16,6 @@
     sizes: [],
   };
 
-  let activeTab = "fpNonNeutralColors";
-  let content = [];
-  let units = ["px", "%", "rem", "em"];
   // The `referenceVariables` object is used to populate the select boxes in the "Main color variables" section.
   let referenceVariables = {
     fpNonNeutralColors: [],
@@ -30,6 +25,7 @@
     customNeutralColors: [],
     includedVariables: [],
   };
+
   let includedColorSets = {
     fpNonNeutralColors: false,
     fpNeutralColors: false,
@@ -37,6 +33,48 @@
     customNonNeutralColors: false,
     customNeutralColors: false,
   };
+
+  // TODO: Refactor this page to use this `refactoredTheme` object instead of the 3 objects above.
+  let refactoredTheme = {
+    fpNonNeutralColors: {
+      // This array will contain the CSS variables of the form `{ label: varName, value: "" }`.
+      variables: [],
+      // Include this color set in the Main Color variables select boxes? 
+      include: false,
+      // The `referenceVariables` are used to populate the select boxes in the "Main color variables" section.
+      referenceVariables: [],
+    },
+    fpNeutralColors: {
+      variables: [],
+      include: false,
+      referenceVariables: [],
+    },
+    grayscaleNeutralColors: {
+      variables: [],
+      include: false,
+      referenceVariables: [],
+    },
+    customNonNeutralColors: {
+      variables: [],
+      include: false,
+      referenceVariables: [],
+    },
+    customNeutralColors: {
+      variables: [],
+      include: false,
+      referenceVariables: [],
+    },
+    mainColors: {
+      variables: [],
+    },
+    sizes: {
+      variables: [],
+    },
+  };
+
+  let activeTab = "fpNonNeutralColors";
+  let content = [];
+  let units = ["px", "%", "rem", "em"];
 
   onMount(() => {
     parseThemeFile();
@@ -68,7 +106,7 @@
    * `{ label: varName, value: "" }` to each `theme[themePropertyName]` array, and
    * (4) populate the `referenceVariables` object.
    */
-  function matchCssVariableName(matchingVariableBlock, themePropertyName, namePrefix, nameSuffix) {
+  function setCssVariableName(matchingVariableBlock, themePropertyName, namePrefix, nameSuffix) {
     try {
       // Match strings that begin with a specific prefix and end with specific suffix: https://stackoverflow.com/a/20169897
       let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
@@ -100,7 +138,7 @@
       // console.log("referenceVariables:", referenceVariables);
     }
     catch(err) {
-      console.error("matchCssVariableValue Error:", err);
+      console.error("setCssVariableName:", err);
     }
   }
 
@@ -110,7 +148,7 @@
    * (2) remove the semicolon from the end of the CSS variable name, 
    * (3) replace the empty color value in the theme object with the matching color value.
    */
-  function matchCssVariableValue(matchingVariableBlock, themePropertyName) {
+  function setCssVariableValue(matchingVariableBlock, themePropertyName) {
     try {
       // `valueRegex` will match any of the following types of strings:
       // * HEXa values - strings that begin with "#" and end with ";"
@@ -133,7 +171,7 @@
       }
     }
     catch(err) {
-      console.error("matchCssVariableValue Error:", err);
+      console.error("setCssVariableValue:", err);
     }
   }
 
@@ -153,32 +191,32 @@
       let blockName = "FP Non-Neutral Colors";
       let themePropertyName = "fpNonNeutralColors";
       let matchingVariableBlock = findMatchingVariableBlock(blockName);
-      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+      setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      setCssVariableValue(matchingVariableBlock, themePropertyName);
 
       blockName = "FP Neutral Colors";
       themePropertyName = "fpNeutralColors";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
-      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+      setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      setCssVariableValue(matchingVariableBlock, themePropertyName);
 
       blockName = "Grayscale Neutral Colors";
       themePropertyName = "grayscaleNeutralColors";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
-      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+      setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      setCssVariableValue(matchingVariableBlock, themePropertyName);
 
       blockName = "Main Colors";
       themePropertyName = "mainColors";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
-      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+      setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      setCssVariableValue(matchingVariableBlock, themePropertyName);
 
       blockName = "Size Variables";
       themePropertyName = "sizes";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
-      matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
-      matchCssVariableValue(matchingVariableBlock, themePropertyName);
+      setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
+      setCssVariableValue(matchingVariableBlock, themePropertyName);
 
       console.log("THEME OBJECT:", theme);
     }
@@ -282,15 +320,34 @@
 
   function downloadTheme() {
     // TODOS (for the download theme function):
-    // * Create an "Additional Custom Variables Block" for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
+    // * Create an "Additional Custom Variables" block for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
     // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
     // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
     // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
     console.log("downloadTheme");
 
 
+    // (1) Read the `themeFile` string.
+
+    // (2) Replace everything between the "/* Regex Replace Start */" and the "/* Regex Replace End */" with the customized theme variables from the `theme` object. 
+
 
     // Convert the values in the `theme` object to a formatted string.
+    let content = [
+      `:root {\n`,
+      `  /* Non-Neutral Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
+      `  --dark-purple: #603cba;\n`,
+      `  --fpn-210: #3a2f38;\n`,
+      `}`,
+      `\n\n`,
+      `:root {\n`,
+      `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
+      `  --primary-color: var(--dark-purple);\n`,
+      `  --secondary-color: var(--fpn-210);\n`,
+      `}`,
+    ];
+
+
 // TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
 //     let content = [
 // `:root {
@@ -306,14 +363,6 @@
 //   --fpui-btn-tertiary-text-color: var(--primary-color);
 // }`
 //     ];
-
-    let content = [
-      `:root {\n`,
-      `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
-      `  --light-green: #99b433;\n`,
-      `  --green: #00a300;\n`,
-      `}`,
-    ];
 
     // let content = [
     //   ":root {",
@@ -347,9 +396,6 @@ FYI: The Fanny Pack UI color palette borrows colors from the <a href="https://ww
 
 TODOS: 
 * Read the fpui-theme.css file to populate the variables and their values initially, but then bind all the user-defined options (i.e. the `<Select>` and `<Input>` components) to the `theme` object so I can create a downloadable theme.css file.
-* Instead of requiring users to create neutral colors that are used in the components (for things like border colors, background colors in the DropZone, etc) I want to let users create the color palette they want and then let them specify those colors in the global and individual component styles. I will also set default values for the component styles to give users an idea of what they might want to use for the components. Maybe I will create a "Fanny Pack UI" theme that will use the color palette and other variables that I use for this app (and users won't be able to delete this theme from their list of themes).
-    * START HERE: I need to create this "wizard" with my "Fanny Pack UI" theme as an optional theme. Once that one is finished, then I can work on the "custom" theme. That should speed up this process.
-* Since I am creating this "wizard" to create a theme file, I can probably remove `--fpui-` CSS variables in the theme.css file and just reference the same variables from the theme.css file. For example, The theme.css file has a `--fpui-primary-color` variable and the theme.css file has a `--primary-color` variable. So I would replace all references to `--fpui-primary-color` with `--primary-color`. If I do this, then I need to make sure to update those variables throughout the components so they reference the non `--fpui-` variable and instead reference the one from the theme.css file.
 
 ---
 
