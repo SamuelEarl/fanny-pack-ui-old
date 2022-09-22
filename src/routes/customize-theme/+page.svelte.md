@@ -3,7 +3,7 @@
   import { writable } from "svelte/store";
   import { browser } from "$app/environment";
   // import Colorpicker from "@budibase/colorpicker";
-  import { Button, Input, Select, ToastContent } from "/src/lib";
+  import { Button, Checkbox, Input, Select, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
   let themes = [];
@@ -11,121 +11,25 @@
   let theme = {
     nonNeutralColors: [],
     fpNeutralColors: [],
-    grayNeutralColors: [],
+    grayscaleNeutralColors: [],
+    yourNeutralColors: [],
     mainColors: [],
     sizes: [],
   };
 
-  let activeTab = "nonNeutrals";
+  let activeTab = "nonNeutralColors";
   let colorPaletteReferenceVariables = [];
-
-  // fannyPackUiTheme = {
-  //   colorPalette: [],
-  //   colors: [
-  //     // Main Colors
-  //     ["--dark-purple", "#603cba"],
-  //     ["--green", "#00a300"],
-  //     ["--blue", "#2d89ef"],
-  //     ["--yellow", "#ffc40d"],
-  //     ["--red", "#ee1111"],
-  //     // Neutral Colors
-  //     ["--black", "#000000"],
-  //     ["--very-dark-gray", "#343434"],
-  //     ["--dark-gray", "#797979"],
-  //     ["--gray", "#a0a0a0"],
-  //     ["--light-gray", "#c7c7c7"],
-  //     ["--very-light-gray", "#e5e5e5"],
-  //     ["--white", "#ffffff"],
-  //   ],
-  //   sizes: [
-  //     ["--padding-sm", "5", "px"],
-  //     ["--padding-md", "10", "px"],
-  //     ["--padding-lg", "15", "px"],
-  //     ["--border-radius", "3", "px"],
-  //     ["--font-size-sm", "12", "px"],
-  //     ["--font-size-base", "16", "px"],
-  //     ["--font-size-lg", "20", "px"],
-  //     ["--font-weight-light", "100", ""],
-  //     ["--font-weight-normal", "400", ""],
-  //     ["--font-weight-bold", "700", ""],
-  //   ],
-  //   globalComponentColors: [
-  //     ["--primary-color", ["--dark-purple", "#603cba"]],
-  //     ["--secondary-color", ["--very-dark-gray", "#343434"]],
-  //     ["--tertiary-color", ["--white", "#ffffff"]],
-  //     ["--info-color", ["--blue", "#2d89ef"]],
-  //     ["--success-color", ["--green", "#00a300"]],
-  //     ["--warning-color", ["--yellow", "#ffc40d"]],
-  //     ["--error-color", ["--red", "#ee1111"]],
-  //     ["--border-color", ["--light-gray", "#c7c7c7"]],
-  //     ["--text-color", ["--very-dark-gray", "#343434"]],
-  //     ["--disabled-text-color", ["--light-gray", "#c7c7c7"]],
-  //     ["--disabled-bg-color", ["--black", "#000000"]],
-  //   ],
-  //   individualComponentVariables: {
-  //     // accordion: [],
-  //     buttons: {
-  //       colors: [
-  //         ["--fpui-btn-primary-text-color", ["--white", "#ffffff"]],
-  //         ["--fpui-btn-secondary-text-color", ["--white", "#ffffff"]],
-  //         ["--fpui-btn-tertiary-text-color", ["--dark-purple", "#603cba"]],
-  //       ],
-  //       sizes: [
-  //         // The arrays that have a nested array should display select boxes that are populated with the global colors or sizes.
-  //         ["--fpui-btn-padding-sm", ["--padding-sm", "5px"]],
-  //         ["--fpui-btn-padding-md", ["--padding-md", "10px"]],
-  //         ["--fpui-btn-padding-lg", ["--padding-lg", "15px"]],
-  //         ["--fpui-btn-border-radius", ["--border-radius", "3px"]],
-  //         ["--fpui-btn-font-weight", ["--font-weight-normal", "400"]],
-  //         // The arrays that have 3 strings should show an input field and a dropdown box with units (e.g. "px", "rem", "em", etc).
-  //         ["--fpui-btn-icon-margin-sm", "3", "px"],
-  //         ["--fpui-btn-icon-margin-md", "6", "px"],
-  //         ["--fpui-btn-icon-margin-lg", "9", "px"],
-  //         // This one should only display a select box with an "s" after it. The user should not be able to change the unit.
-  //         ["--fpui-btn-icon-disabled-spin-speed", "1.5", "s"],
-  //       ],
-  //     },
-  //   },
-  // };
-  
-  // let customTheme = {
-  //   colors: [
-  //     ["--demo-color-name", "#603cba"],
-  //   ],
-  //   globalComponentColors,
-  //   individualComponentVariables,    
-  // };
-
-  // let selectedTheme = { label: "", value: fannyPackUiTheme };
-  // $: {
-  //   if (selectedTheme.label) {
-  //     setSelectedTheme(selectedTheme.label);
-  //   }
-  // }
-
-  // // $: This comment preserves the syntax highlighting.
-  
-  // let newThemeName = "";
-
   let content = [];
   let units = ["px", "%", "rem", "em"];
+  let includedColorSets = {
+    nonNeutralColors: false,
+    fpNeutralColors: false,
+    grayscaleNeutralColors: false,
+    yourNeutralColors: false,
+  };
 
   onMount(() => {
-    // Parse the fpui-theme.css file.
     parseThemeFile();
-
-    // if (!localStorage.getItem("themes")) {
-    //   // The `initThemes` array was going to contain objects like this: { name: "custom", css: "" }, but the <Select> component takes object arrays with `label` and `value` properties. So it is easier to just use "theme" objects with `label` and `value` properties.
-    //   let initThemes = [{ label: "Fanny Pack UI", value: fannyPackUiTheme }];
-    //   // let initThemes = [{ label: "custom", value: customTheme }];
-    //   localStorage.setItem("themes", JSON.stringify(initThemes));
-    // }
-
-    // // Set the `themes` array.
-    // themes = JSON.parse(localStorage.getItem("themes"));
-
-    // // Set the `selectedTheme` object.
-    // selectedTheme = themes[0];
   });
 
   /**
@@ -168,7 +72,7 @@
         theme[themePropertyName].push({ label: varNameWithoutColon, value: "" });
         // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
         // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
-        if (themePropertyName === "nonNeutralColors" || themePropertyName === "fpNeutralColors" || themePropertyName === "grayNeutralColors") {
+        if (themePropertyName === "nonNeutralColors" || themePropertyName === "fpNeutralColors" || themePropertyName === "grayscaleNeutralColors" || themePropertyName === "yourNeutralColors") {
           colorPaletteReferenceVariables.push(`var(${varNameWithoutColon})`);
         }
       }
@@ -180,7 +84,10 @@
   }
 
   /**
-   * Match the CSS variable value within the matchingVariableBlock of CSS variables.
+   * This function will:
+   * (1) match the CSS variable value within the matchingVariableBlock,
+   * (2) remove the semicolon from the end of the CSS variable name, 
+   * (3) replace the empty color value in the theme object with the matching color value.
    */
   function matchCssVariableValue(matchingVariableBlock, themePropertyName) {
     try {
@@ -197,9 +104,10 @@
       let matchingValuesIndex = 0;
       for (const matchingVarValue of matchingValuesIterator) {
         // console.log("matchingVarValue:", matchingVarValue[0]);
-        // Remove the semicolon (;) from the end of each `value` and push the color variable object into the `colorPalette` array.
-        let varValueNoSemicolon = matchingVarValue[0].slice(0, -1);
-        theme[themePropertyName][matchingValuesIndex].value = varValueNoSemicolon;
+        // Remove the semicolon (;) from the end of each `value`.
+        let varValueWithoutSemicolon = matchingVarValue[0].slice(0, -1);
+        // Replace the empty color value in the theme object with the matching color value.
+        theme[themePropertyName][matchingValuesIndex].value = varValueWithoutSemicolon;
         matchingValuesIndex++;
       }
     }
@@ -210,7 +118,9 @@
 
   /**
    * This function will parse the `fpui-theme.css` file and create a `theme` object based on the CSS variables in that file.
-   * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css` file and both the components and this "Customize Theme" page will be updated.
+   * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. 
+   * This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css`
+   * file and both the components and this "Customize Theme" page will be updated.
    */
   function parseThemeFile() {
     try {
@@ -232,7 +142,7 @@
       matchCssVariableValue(matchingVariableBlock, themePropertyName);
 
       blockName = "Grayscale Neutral Colors";
-      themePropertyName = "grayNeutralColors";
+      themePropertyName = "grayscaleNeutralColors";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
       matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
       matchCssVariableValue(matchingVariableBlock, themePropertyName);
@@ -256,71 +166,25 @@
     }
   }
 
-  // function createNewTheme() {
-  //   if (!newThemeName) {
-  //     ToastContent.set({ type: "warning", msg: "Please enter a theme name" });
-  //     return;
-  //   }
-  //   let newTheme = { label: newThemeName, value };
-  //   // Push the new theme to the `themes` array.
-  //   themes.push(newTheme);
-  //   // Update the `themes` array in localStorage.
-  //   localStorage.setItem("themes", JSON.stringify(themes));
-  //   // Set the `selectedTheme` to the one that was just created.
-  //   setSelectedTheme(newTheme.label);
-  //   // Clear the theme name field.
-  //   newThemeName = "";
-  // }
-
-  // function setSelectedTheme(themeName) {
-  //   selectedTheme = themes.find(obj => obj.label === themeName);
-  // }
-
-  function saveTheme() {
-    // Update the "themes" array in sessionStorage.
-    sessionStorage.setItem("themes", JSON.stringify(themes));
-    // Set themes to the updated "themes" array from sessionStorage.
-    themes = JSON.parse(sessionStorage.getItem("themes"));
-  }
-
-  function resetTheme() {
-    if (browser) {
-      let confirmation = confirm("Are you sure you want to reset the theme back to the default values?");
-      if (confirmation) {
-        alert("TODO: Reset theme back to defaults.");
-      }
+  function addColor(colorSet) {
+    try {
+      // Push a new color array to the `colors` array.
+      theme[colorSet].push({ label: "--variable-name", value: "#000000" });
+      theme = theme;
+    }
+    catch(err) {
+      console.log("addColor", err);
     }
   }
 
-  // function deleteTheme() {
-  //   let newThemesArray = themes.filter(obj => obj.label !== selectedTheme.label);
-  //   console.log("newThemesArray", newThemesArray);
-  //   // Update the "themes" array in localStorage.
-  //   localStorage.setItem("themes", JSON.stringify(newThemesArray));
-  //   // Set themes to the updated "themes" array from localStorage.
-  //   themes = JSON.parse(localStorage.getItem("themes"));
-  //   if (themes.length > 0) {
-  //     // Set the `selectedTheme` to the first one in the "themes" array.
-  //     selectedTheme = themes[0];
-  //   }
-  //   else {
-  //     // Remove the "themes" array so an brand new "themes" array will be created when this page is reloaded.
-  //     localStorage.removeItem("themes");
-  //     // Reload this page so a new "themes" array will be created.
-  //     location.reload();
-  //   }
-  // }
-
-  function addColor() {
-    // Push a new color array to the `colors` array.
-    theme.colorPalette.push({ label: "--variable-name", value: "#000000" });
-    theme = theme;
-  }
-
-  function removeColor(index) {
-    theme.colorPalette.splice(index, 1);
-    // saveTheme();
-    theme = theme;
+  function removeColor(colorSet, index) {
+    try {
+      theme[colorSet].splice(index, 1);
+      theme = theme;
+    }
+    catch(err) {
+      console.log("removeColor", err);
+    }
   }
 
   /**
@@ -339,7 +203,15 @@
     // if (variableType === "size") {
     //   root.style.setProperty(variableName, variableValue);
     // }
-    saveTheme();
+  }
+
+// TODO: When a user checks a color set, then add those reference variables to the colorPaletteReferenceVariables array. Also, when a user unchecks a color set, then remove those colors from the colorPaletteReferenceVariables array.
+  function includeColorSet() {
+    alert("Implement the 'includeColorSet' function");
+    for (const colorSet in includedColorSets) {
+      console.log("colorSet:", colorSet, includedColorSets[colorSet]);
+      
+    }
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
@@ -457,104 +329,6 @@ TODOS:
 
 ---
 
-<Button
-  type="button"
-  btnColor="secondary"
-  btnIcon="bx:reset"
-  width="full"
-  on:click={resetTheme}
->
-  Reset theme to default values
-</Button>
-
-<!-- ## Manage themes
-Create your own themes or use the default "Fanny Pack UI" theme. Each theme is saved in your browser storage so you can access and edit them later.
-
-<form on:submit|preventDefault={createNewTheme}>
-  <div class="input-container">
-    <Input
-      type="text"
-      bind:value={newThemeName}
-      label="Create a new theme"
-      placeholder="Theme name"
-    />
-  </div>
-
-  <Button
-    type="submit"
-    btnColor="secondary"
-    btnIcon="mdi:plus-circle-outline"
-    width="full"
-  >
-    Create new theme
-  </Button>
-</form>
-
-<br>
-
-<Select 
-  label="Select an existing theme to edit"
-  optionsArray={themes}
-  arrayType="object"
-  bind:selectedOption={selectedTheme}
-/>
-
-<br>
-
-<form on:submit|preventDefault={saveTheme}>
-  <div class="input-container">
-    <Input
-      type="text"
-      bind:value={selectedTheme.label}
-      label="Edit theme name"
-      placeholder="Theme name"
-    />
-  </div>
-
-  <Button
-    type="submit"
-    btnColor="secondary"
-    btnIcon="mdi:checkbox-marked-circle-plus-outline"
-    width="full"
-  >
-    Update theme name
-  </Button>
-</form>
-
-<br><br>
-
-<Button
-  type="button"
-  btnColor="secondary"
-  btnIcon="fluent:arrow-reset-24-filled"
-  width="full"
-  on:click={resetTheme}
->
-  Reset "{selectedTheme.label}" theme to Fanny Pack UI theme defaults
-</Button>
-
-<br><br>
-
-<Button
-  type="button"
-  btnColor="secondary"
-  btnIcon="mdi:delete-forever-outline"
-  width="full"
-  on:click={deleteTheme}
->
-  Delete "{selectedTheme.label}" theme
-</Button> -->
-
----
-
-<!-- <Button 
-  btnIcon="bx:save"
-  width="full"
-  on:click={saveTheme}
->
-  Save theme
-</Button> -->
-
 ## Color palette
 Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
@@ -572,19 +346,24 @@ In the "Main color variables" section (below) you will use your color palette to
 <br>
 
 IDEAS:
-* I would like to create tabs here for (1) Main Colors, (2) Fanny Pack's neutral colors, and (3) the list of gray neutral colors. Users could use any of these colors in their theme or remove one or all of these sets of colors and start from scratch with their own color palette.
-* Provide a button for each tab to remove all colors from that set of colors to make it easier for users to start with an empty set of colors.
-* I would like to show checkboxes for each set of colors where users can select the set of colors they want to include in their theme file.
+* Users could use any of the colors from the following tabs in their theme or remove one or all of these sets of colors and start from scratch with their own color palette.
 * How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
 
 <div class="tab-bar">
-  <div class="tab" class:active={activeTab === "nonNeutrals"} on:click={() => activeTab = "nonNeutrals"}>Non-Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "fpneutrals"} on:click={() => activeTab = "fpneutrals"}>Fanny Pack Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "grays"} on:click={() => activeTab = "grays"}>Grayscale Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "nonNeutralColors"} on:click={() => activeTab = "nonNeutralColors"}>Non-Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "fpNeutralColors"} on:click={() => activeTab = "fpNeutralColors"}>Fanny Pack Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "grayscaleNeutralColors"} on:click={() => activeTab = "grayscaleNeutralColors"}>Grayscale Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "yourNeutralColors"} on:click={() => activeTab = "yourNeutralColors"}>Your Neutral Colors</div>
 </div>
 
 <div class="color-sets">
-  {#if activeTab === "nonNeutrals"}
+  {#if activeTab === "nonNeutralColors"}
+    <div>
+      <Button btnIcon="mdi:minus-circle-outline" on:click={() => theme.nonNeutralColors = []}>
+        Remove all non-neutral colors and start from scratch
+      </Button>
+    </div>
+    <br>
     <div id="non-neutral-colors">
       <table>
         <thead>
@@ -610,7 +389,7 @@ IDEAS:
                   --custom-btn-box-shadow="none"
                   --custom-btn-background-color="transparent"
                   --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor(index)}
+                  on:click={() => removeColor("nonNeutralColors", index)}
                 ></Button>
               </td>
             </tr>
@@ -618,11 +397,11 @@ IDEAS:
         </tbody>
       </table>
       <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("nonNeutralColors")}>
         Add color
       </Button>
     </div>
-  {:else if activeTab === "fpneutrals"}
+  {:else if activeTab === "fpNeutralColors"}
     <div id="fp-neutral-colors">
       <table>
         <thead>
@@ -648,7 +427,7 @@ IDEAS:
                   --custom-btn-box-shadow="none"
                   --custom-btn-background-color="transparent"
                   --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor(index)}
+                  on:click={() => removeColor("fpNeutralColors", index)}
                 ></Button>
               </td>
             </tr>
@@ -656,11 +435,11 @@ IDEAS:
         </tbody>
       </table>
       <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("fpNeutralColors")}>
         Add color
       </Button>
     </div>
-  {:else if activeTab === "grays"}
+  {:else if activeTab === "grayscaleNeutralColors"}
     <div id="grayscale-neutral-colors">
       <table>
         <thead>
@@ -671,7 +450,7 @@ IDEAS:
           </tr>
         </thead>
         <tbody>
-          {#each theme.grayNeutralColors as color, index}
+          {#each theme.grayscaleNeutralColors as color, index}
             <tr>
               <td><Input size="sm" bind:value={color.label} /></td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
@@ -686,17 +465,54 @@ IDEAS:
                   --custom-btn-box-shadow="none"
                   --custom-btn-background-color="transparent"
                   --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor(index)}
+                  on:click={() => removeColor("grayscaleNeutralColors", index)}
                 ></Button>
               </td>
             </tr>
           {/each}
         </tbody>
       </table>
-
       <br>
-
-      <Button btnIcon="mdi:plus-circle-outline" on:click={addColor}>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("grayscaleNeutralColors")}>
+        Add color
+      </Button>
+    </div>
+  {:else if activeTab === "yourNeutralColors"}
+    <p>Create your own set of neutral colors.</p>
+    <div id="your-neutral-colors">
+      <table>
+        <thead>
+          <tr>
+            <th>Color variable name</th>
+            <th>Color value</th>
+            <th style="text-align:center">Remove color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each theme.yourNeutralColors as color, index}
+            <tr>
+              <td><Input size="sm" bind:value={color.label} /></td>
+      <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+              <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+              <td><input type="color" bind:value={color.value} /></td>
+              <td style="text-align:center">
+                <Button
+                  btnIcon="mdi:minus-circle"
+                  size="lg"
+                  --custom-btn-padding="0px 5px"
+                  --custom-btn-border-color="transparent"
+                  --custom-btn-box-shadow="none"
+                  --custom-btn-background-color="transparent"
+                  --custom-btn-text-color="var(--dark-purple)"
+                  on:click={() => removeColor("yourNeutralColors", index)}
+                ></Button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+      <br>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("yourNeutralColors")}>
         Add color
       </Button>
     </div>
@@ -706,11 +522,41 @@ IDEAS:
 <br><br>
 
 ## Main color variables
-**TODO: These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.**
+**TODOS:** 
+* These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.
+* I would like to show checkboxes for each set of colors where users can select the set of colors they want to include in their theme file.
 
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
 NOTE: Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all these main color variables right now or you can edit them later as needed when you implement a new component in your app and see what it looks like in your app.
+
+---
+
+Select the color sets that you want to include in your theme file:
+
+<Checkbox
+  bind:checked={includedColorSets.nonNeutralColors}
+  label="Non-Neutral Colors"
+  on:change={includeColorSet}
+/>
+
+<Checkbox
+  bind:checked={includedColorSets.fpNeutralColors}
+  label="Fanny Pack Neutral Colors"
+  on:change={includeColorSet}
+/>
+
+<Checkbox
+  bind:checked={includedColorSets.grayscaleNeutralColors}
+  label="Grayscale Neutral Colors"
+  on:change={includeColorSet}
+/>
+
+<Checkbox
+  bind:checked={includedColorSets.yourNeutralColors}
+  label="Your Neutral Colors"
+  on:change={includeColorSet}
+/>
 
 <br>
 
@@ -725,7 +571,14 @@ NOTE: Each component style that can be customized has a fallback value. So, for 
     {#each theme.mainColors as mainColor, index (mainColor.label)}
       <tr>
         <td>{mainColor.label}</td>
-        <td><Select options={colorPaletteReferenceVariables} size="sm" bind:value={mainColor.value} on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)} /></td>
+        <td>
+          <Select
+            options={colorPaletteReferenceVariables}
+            size="sm"
+            bind:value={mainColor.value}
+            on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
+          />
+        </td>
       </tr>
     {/each}
   </tbody>
@@ -773,36 +626,6 @@ The size variables are used to set values for things like padding (for buttons a
     {/each}
   </tbody>
 </table>
-
-<br>
-
-<!-- ## Individual component variables
-You can customize individual components by changing the following values.
-
-### Accordions
-
-### Buttons
-<Button btnColor="primary">
-  Primary Button
-</Button>
-
-<Button btnColor="secondary">
-  Secondary Button
-</Button>
-
-<Button btnColor="tertiary">
-  Tertiary Button
-</Button> -->
-
-<!-- --- -->
-
-<!-- <Button 
-  btnIcon="bx:save"
-  width="full"
-  on:click={saveTheme}
->
-  Save theme
-</Button> -->
 
 <br><br>
 

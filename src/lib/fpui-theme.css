@@ -117,11 +117,12 @@
 }
 
 
-/* Main Colors */
 /******************************************
-  * These are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there are a few colors and maybe some sizes that you might want to customize under the "Individual Component Styles" section. 
+  * The following variables are used throughout the components. Changing the values for these variables will handle most of the theme customizations for your components. However, there might be some colors or sizes that you want to customize under the "Individual Component Styles" section. 
   * IMPORTANT: If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`.
 ******************************************/
+
+/* Main Colors */
 :root {
   --primary-color: var(--dark-purple);
   --secondary-color: var(--fpn-210);
