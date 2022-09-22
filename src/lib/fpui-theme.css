@@ -8,9 +8,12 @@
 /******************************************
   Additional Custom Variables
   * Add any other variables that you frequently use throughout your app.
+  * For example, you might add font stacks or border variables:
+    --sans-serif-font-stack: "Montserrat", sans-serif;
+    --border: 1px solid var(--border-color);
 ******************************************/
 :root {
-  
+  /* Add custom variables here */
 }
 
 

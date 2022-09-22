@@ -583,7 +583,7 @@ IDEAS:
 **TODOS:** 
 * These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.
 * Do I want to call `updateCssVariable` when a user sets the Main Colors or changes the size variables? Maybe. This might be an easy way for users to see the effects of their theme on the components throughout the documentation. 
-    * I should probably change the CSS variables that the layouts and pages are referencing so things like the navigation do not get changed when a user changes their Main Colors. But I could still change the `--fpui-*` color variables throughout the docs so users could still see how their components look with their color palette. All I need to do is change the main color references (e.g. `var(--primary-color)`) to `var(--docs-primary-color)`.
+    * I THINK THIS MIGHT BE DONE NOW, BUT I NEED TO DOUBLE-CHECK IT: I should probably change the CSS variables that the layouts and pages are referencing so things like the navigation do not get changed when a user changes their Main Colors. But I could still change the `--fpui-*` color variables throughout the docs so users could still see how their components look with their color palette. All I need to do is change the main color references, e.g. `var(--primary-color)`, to `var(--docs-primary-color)`.
 
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
