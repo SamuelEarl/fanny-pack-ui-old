@@ -4,7 +4,7 @@
 html, body {
   font-size: var(--font-size-base, 16px);
   font-family: var(--sans-serif-font-stack);
-  color: var(--text-color);
+  color: var(--docs-text-color);
   font-weight: var(--font-weight-normal);
 }
 
@@ -24,8 +24,8 @@ li {
 
 a {
   text-decoration: none;
-  color: var(--primary-color);
-  border-bottom: 1px dotted var(--primary-color);
+  color: var(--docs-primary-color);
+  border-bottom: 1px dotted var(--docs-primary-color);
 }
 a:hover {
   border-bottom: none;
@@ -36,7 +36,7 @@ table {
   border-collapse: collapse;
 }
 tr {
-  border-bottom: var(--border);
+  border-bottom: var(--docs-border);
 }
 th, td {
   padding: 10px 25px;
@@ -62,5 +62,5 @@ code {
 hr {
   margin: 30px 0;
   border: none;
-  border-top: var(--border);
+  border-top: var(--docs-border);
 }

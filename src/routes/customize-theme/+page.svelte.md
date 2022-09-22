@@ -582,7 +582,8 @@ IDEAS:
 ## Main color variables
 **TODOS:** 
 * These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.
-* Do I want to call `updateCssVariable` when a user sets the main colors or changes the size variables? Probably not. I would rather show some simple examples of what the user's theme might look like some other way.
+* Do I want to call `updateCssVariable` when a user sets the Main Colors or changes the size variables? Maybe. This might be an easy way for users to see the effects of their theme on the components throughout the documentation. 
+    * I should probably change the CSS variables that the layouts and pages are referencing so things like the navigation do not get changed when a user changes their Main Colors. But I could still change the `--fpui-*` color variables throughout the docs so users could still see how their components look with their color palette. All I need to do is change the main color references (e.g. `var(--primary-color)`) to `var(--docs-primary-color)`.
 
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
@@ -593,6 +594,8 @@ NOTE: Each component style that can be customized has a fallback value. So, for 
 Select the color sets that you want to include in your theme file. Then set the main colors that you want to use in your theme.
 
 *NOTE: After you select your color sets you will see that the main colors below are initially set to the Fanny Pack main colors. That is intentional to provide an example.*
+
+<br>
 
 <Checkbox
   bind:checked={includedColorSets.fpNonNeutralColors}
@@ -687,7 +690,14 @@ The size variables are used to set values for things like padding (for buttons a
         </td>
         <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
         <!-- {#if size.unit}
-          <td><Select optionsArray={units} arrayType="string" bind:selectedOption={size.unit} size="sm" on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)} /></td>
+          <td>
+            <Select
+              options={units}
+              bind:value={size.unit}
+              size="sm"
+              on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)}
+            />
+          </td>
         {/if} -->
       </tr>
     {/each}
@@ -710,10 +720,10 @@ The size variables are used to set values for things like padding (for buttons a
 <style>
   .tab-bar {
     display: flex;
-    border: 10px solid var(--secondary-color);
+    border: 10px solid var(--docs-secondary-color);
     border-bottom: none;
-    border-radius: var(--border-radius) var(--border-radius) 0 0;
-    background-color: var(--secondary-color);
+    border-radius: var(--docs-border-radius) var(--docs-border-radius) 0 0;
+    background-color: var(--docs-secondary-color);
     color: var(--white);
 
     & .tab {
@@ -721,9 +731,9 @@ The size variables are used to set values for things like padding (for buttons a
       cursor: pointer;
 
       &.active {
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
+        border-radius: var(--docs-border-radius) var(--docs-border-radius) 0 0;
         background-color: var(--white);
-        color: var(--secondary-color);
+        color: var(--docs-secondary-color);
       }
     }
   }

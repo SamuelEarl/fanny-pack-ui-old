@@ -246,7 +246,7 @@ You can set the following custom variables:
 <style>
   .alt-background {
     padding: 25px;
-    border-radius: var(--border-radius);
-    background-color: var(--secondary-color);
+    border-radius: var(--docs-border-radius);
+    background-color: var(--docs-secondary-color);
   }
 </style>

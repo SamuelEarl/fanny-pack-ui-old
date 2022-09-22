@@ -106,13 +106,13 @@
   nav {
     min-height: 100%;
     padding-bottom: 50px;
-    background-color: var(--secondary-color);
-    color: var(--tertiary-color);
+    background-color: var(--docs-secondary-color);
+    color: var(--docs-tertiary-color);
 
     & #title-wrapper {
       font-family: var(--cursive-font-stack);
       padding: 15px;
-      border-bottom: 1px solid var(--black);
+      border-bottom: 1px solid var(--fpn-260);
       margin-bottom: 15px;
       font-size: 1.5rem;
       line-height: 1.5;
@@ -135,14 +135,14 @@
         padding: 10px;
         padding-left: 30px;
         border-bottom: none;
-        color: var(--tertiary-color);
+        color: var(--docs-tertiary-color);
 
         &:hover {
-          background-color: var(--primary-color);
+          background-color: var(--docs-primary-color);
         }
 
         &.active {
-          background-color: var(--primary-color);
+          background-color: var(--docs-primary-color);
         }
       }
     }

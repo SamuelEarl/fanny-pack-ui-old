@@ -122,36 +122,32 @@
 
 <Select
   label="Button color (primary = purple; secondary = dark gray; tertiary = white)"
-  optionsArray={btnColors}
-  arrayType="string"
-  bind:selectedOption={selectedBtnColor}
+  options={btnColors}
+  bind:value={selectedBtnColor}
 />
 
 <br>
 
 <Select
   label="Inverted"
-  optionsArray={[false,true]}
-  arrayType="boolean"
-  bind:selectedOption={isInverted}
+  options={[false,true]}
+  bind:value={isInverted}
 />
 
 <br>
 
 <Select
   label="Size"
-  optionsArray={["sm","md","lg"]}
-  arrayType="string"
-  bind:selectedOption={btnSize}
+  options={["sm","md","lg"]}
+  bind:value={btnSize}
 />
 
 <br>
 
 <Select
   label="Width"
-  optionsArray={["auto","full"]}
-  arrayType="string"
-  bind:selectedOption={btnWidth}
+  options={["auto","full"]}
+  bind:value={btnWidth}
 />
 
 ---
@@ -327,12 +323,12 @@ Depending on the colors that you use as your `primary`, `secondary`, and `tertia
 
     & .light-bg {
       background-color: #e5e5e5;
-      border-radius: var(--border-radius) 0 0 var(--border-radius);
+      border-radius: var(--docs-border-radius) 0 0 var(--docs-border-radius);
     }
 
     & .dark-bg {
       background-color: #000;
-      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      border-radius: 0 var(--docs-border-radius) var(--docs-border-radius) 0;
     }
   }
 </style>

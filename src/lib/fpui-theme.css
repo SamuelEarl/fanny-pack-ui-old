@@ -10,18 +10,7 @@
   * Add any other variables that you frequently use throughout your app.
 ******************************************/
 :root {
-  --border: 1px solid var(--border-color);
-
-  /***
-    Typography
-    * Install your own fonts in your app and create your own font stacks. See the tutorial in the docs: https://fanny-pack-ui.pages.dev/get-started#install-fonts.
-    * You can use any of the following font stack variables as examples and delete them when you are done.
-  ***/
-  --cursive-font-stack: "Audiowide", cursive;
-  --sans-serif-font-stack: "Montserrat", sans-serif;
-  --mono-font-stack: "Source Code Pro", mono;
-  /* The following "Open Sans" font is used for testing purposes to see how it affects different components because the letters that have tails that hang below the baseline, like J, hang lower in Open Sans than they do in Montserrat. */
-  /* --sans-serif-font-stack: "Open Sans", sans-serif; */
+  
 }
 
 
