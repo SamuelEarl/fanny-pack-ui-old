@@ -9,23 +9,33 @@
   let themes = [];
 
   let theme = {
-    nonNeutralColors: [],
+    fpNonNeutralColors: [],
     fpNeutralColors: [],
     grayscaleNeutralColors: [],
-    yourNeutralColors: [],
+    customNonNeutralColors: [],
+    customNeutralColors: [],
     mainColors: [],
     sizes: [],
   };
 
-  let activeTab = "nonNeutralColors";
-  let colorPaletteReferenceVariables = [];
+  let activeTab = "fpNonNeutralColors";
   let content = [];
   let units = ["px", "%", "rem", "em"];
+  // The `referenceVariables` object is used to populate the select boxes in the "Main color variables" section.
+  let referenceVariables = {
+    fpNonNeutralColors: [],
+    fpNeutralColors: [],
+    grayscaleNeutralColors: [],
+    customNonNeutralColors: [],
+    customNeutralColors: [],
+    includedVariables: [],
+  };
   let includedColorSets = {
-    nonNeutralColors: false,
+    fpNonNeutralColors: false,
     fpNeutralColors: false,
     grayscaleNeutralColors: false,
-    yourNeutralColors: false,
+    customNonNeutralColors: false,
+    customNeutralColors: false,
   };
 
   onMount(() => {
@@ -38,7 +48,7 @@
    */
   function findMatchingVariableBlock(blockName) {
     try {
-      // Find the text between "/* Block Name */" (e.g. /* Non-Neutral Colors */) and the closing `}`.
+      // Find the text between "/* Block Name */" (e.g. /* FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
       let matchingVariableBlock = themeFile.match(regex)[0];
@@ -56,7 +66,7 @@
    * (2) remove the colon from the end of the CSS variable name, 
    * (3) populate the theme object by pushing an object of the form 
    * `{ label: varName, value: "" }` to each `theme[themePropertyName]` array, and
-   * (4) populate the `colorPaletteReferenceVariables` array.
+   * (4) populate the `referenceVariables` object.
    */
   function matchCssVariableName(matchingVariableBlock, themePropertyName, namePrefix, nameSuffix) {
     try {
@@ -70,13 +80,24 @@
         // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
         let varNameWithoutColon = matchingVarName[0].slice(0, -1);
         theme[themePropertyName].push({ label: varNameWithoutColon, value: "" });
-        // Populate the "colorPaletteReferenceVariables" array with reference variables that have the form `var(--variable-name)`.
-        // The "colorPaletteReferenceVariables" array is used to populate the select boxes for the variables that come after the color palette variables.
-        if (themePropertyName === "nonNeutralColors" || themePropertyName === "fpNeutralColors" || themePropertyName === "grayscaleNeutralColors" || themePropertyName === "yourNeutralColors") {
-          colorPaletteReferenceVariables.push(`var(${varNameWithoutColon})`);
+        // Populate the arrays in the `referenceVariables` object with reference variables that have the form `var(--variable-name)`.
+        if (themePropertyName === "fpNonNeutralColors") {
+          referenceVariables.fpNonNeutralColors.push(`var(${varNameWithoutColon})`);
+        }
+        if (themePropertyName === "fpNeutralColors") {
+          referenceVariables.fpNeutralColors.push(`var(${varNameWithoutColon})`);
+        } 
+        if (themePropertyName === "grayscaleNeutralColors") {
+          referenceVariables.grayscaleNeutralColors.push(`var(${varNameWithoutColon})`);
+        }
+        if (themePropertyName === "customNonNeutralColors") {
+          referenceVariables.customNonNeutralColors.push(`var(${varNameWithoutColon})`);
+        }
+        if (themePropertyName === "customNeutralColors") {
+          referenceVariables.customNeutralColors.push(`var(${varNameWithoutColon})`);
         }
       }
-      // console.log("colorPaletteReferenceVariables:", colorPaletteReferenceVariables);
+      // console.log("referenceVariables:", referenceVariables);
     }
     catch(err) {
       console.error("matchCssVariableValue Error:", err);
@@ -129,13 +150,13 @@
       let regexPrefix = "--";
       let regexSuffix = ":";
 
-      let blockName = "Non-Neutral Colors";
-      let themePropertyName = "nonNeutralColors";
+      let blockName = "FP Non-Neutral Colors";
+      let themePropertyName = "fpNonNeutralColors";
       let matchingVariableBlock = findMatchingVariableBlock(blockName);
       matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
       matchCssVariableValue(matchingVariableBlock, themePropertyName);
 
-      blockName = "Fanny Pack Neutral Colors";
+      blockName = "FP Neutral Colors";
       themePropertyName = "fpNeutralColors";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
       matchCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
@@ -205,13 +226,16 @@
     // }
   }
 
-// TODO: When a user checks a color set, then add those reference variables to the colorPaletteReferenceVariables array. Also, when a user unchecks a color set, then remove those colors from the colorPaletteReferenceVariables array.
   function includeColorSet() {
-    alert("Implement the 'includeColorSet' function");
+    referenceVariables.includedVariables.length = 0;
     for (const colorSet in includedColorSets) {
       console.log("colorSet:", colorSet, includedColorSets[colorSet]);
-      
+      if (includedColorSets[colorSet]) {
+        referenceVariables.includedVariables.push(...referenceVariables[colorSet]);
+      }
     }
+    referenceVariables.includedVariables = referenceVariables.includedVariables;
+    console.log("referenceVariables:", referenceVariables);
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
@@ -332,7 +356,7 @@ TODOS:
 ## Color palette
 Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
 
-In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "Fanny Pack Neutral Colors" or the "Grayscale Neutral Colors" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
+In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
 
 1. Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.
 2. Take your primary color, enter it into the search bar, and press Enter.
@@ -350,20 +374,15 @@ IDEAS:
 * How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
 
 <div class="tab-bar">
-  <div class="tab" class:active={activeTab === "nonNeutralColors"} on:click={() => activeTab = "nonNeutralColors"}>Non-Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "fpNeutralColors"} on:click={() => activeTab = "fpNeutralColors"}>Fanny Pack Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "fpNonNeutralColors"} on:click={() => activeTab = "fpNonNeutralColors"}>FP Non-Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "fpNeutralColors"} on:click={() => activeTab = "fpNeutralColors"}>FP Neutral Colors</div>
   <div class="tab" class:active={activeTab === "grayscaleNeutralColors"} on:click={() => activeTab = "grayscaleNeutralColors"}>Grayscale Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "yourNeutralColors"} on:click={() => activeTab = "yourNeutralColors"}>Your Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "customNonNeutralColors"} on:click={() => activeTab = "customNonNeutralColors"}>Custom Non-Neutral Colors</div>
+  <div class="tab" class:active={activeTab === "customNeutralColors"} on:click={() => activeTab = "customNeutralColors"}>Custom Neutral Colors</div>
 </div>
 
 <div class="color-sets">
-  {#if activeTab === "nonNeutralColors"}
-    <div>
-      <Button btnIcon="mdi:minus-circle-outline" on:click={() => theme.nonNeutralColors = []}>
-        Remove all non-neutral colors and start from scratch
-      </Button>
-    </div>
-    <br>
+  {#if activeTab === "fpNonNeutralColors"}
     <div id="non-neutral-colors">
       <table>
         <thead>
@@ -374,7 +393,7 @@ IDEAS:
           </tr>
         </thead>
         <tbody>
-          {#each theme.nonNeutralColors as color, index}
+          {#each theme.fpNonNeutralColors as color, index}
             <tr>
               <td><Input size="sm" bind:value={color.label} /></td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
@@ -389,7 +408,7 @@ IDEAS:
                   --custom-btn-box-shadow="none"
                   --custom-btn-background-color="transparent"
                   --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor("nonNeutralColors", index)}
+                  on:click={() => removeColor("fpNonNeutralColors", index)}
                 ></Button>
               </td>
             </tr>
@@ -397,7 +416,7 @@ IDEAS:
         </tbody>
       </table>
       <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("nonNeutralColors")}>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("fpNonNeutralColors")}>
         Add color
       </Button>
     </div>
@@ -477,8 +496,8 @@ IDEAS:
         Add color
       </Button>
     </div>
-  {:else if activeTab === "yourNeutralColors"}
-    <p>Create your own set of neutral colors.</p>
+  {:else if activeTab === "customNonNeutralColors"}
+    <p>Create your own custom set of non-neutral colors.</p>
     <div id="your-neutral-colors">
       <table>
         <thead>
@@ -489,7 +508,7 @@ IDEAS:
           </tr>
         </thead>
         <tbody>
-          {#each theme.yourNeutralColors as color, index}
+          {#each theme.customNonNeutralColors as color, index}
             <tr>
               <td><Input size="sm" bind:value={color.label} /></td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
@@ -504,7 +523,7 @@ IDEAS:
                   --custom-btn-box-shadow="none"
                   --custom-btn-background-color="transparent"
                   --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor("yourNeutralColors", index)}
+                  on:click={() => removeColor("customNonNeutralColors", index)}
                 ></Button>
               </td>
             </tr>
@@ -512,7 +531,46 @@ IDEAS:
         </tbody>
       </table>
       <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("yourNeutralColors")}>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("customNonNeutralColors")}>
+        Add color
+      </Button>
+    </div>
+  {:else if activeTab === "customNeutralColors"}
+    <p>Create your own custom set of neutral colors.</p>
+    <div id="your-neutral-colors">
+      <table>
+        <thead>
+          <tr>
+            <th>Color variable name</th>
+            <th>Color value</th>
+            <th style="text-align:center">Remove color</th>
+          </tr>
+        </thead>
+        <tbody>
+          {#each theme.customNeutralColors as color, index}
+            <tr>
+              <td><Input size="sm" bind:value={color.label} /></td>
+      <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
+              <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
+              <td><input type="color" bind:value={color.value} /></td>
+              <td style="text-align:center">
+                <Button
+                  btnIcon="mdi:minus-circle"
+                  size="lg"
+                  --custom-btn-padding="0px 5px"
+                  --custom-btn-border-color="transparent"
+                  --custom-btn-box-shadow="none"
+                  --custom-btn-background-color="transparent"
+                  --custom-btn-text-color="var(--dark-purple)"
+                  on:click={() => removeColor("customNeutralColors", index)}
+                ></Button>
+              </td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+      <br>
+      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("customNeutralColors")}>
         Add color
       </Button>
     </div>
@@ -524,7 +582,7 @@ IDEAS:
 ## Main color variables
 **TODOS:** 
 * These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.
-* I would like to show checkboxes for each set of colors where users can select the set of colors they want to include in their theme file.
+* Do I want to call `updateCssVariable` when a user sets the main colors or changes the size variables? Probably not. I would rather show some simple examples of what the user's theme might look like some other way.
 
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
@@ -532,17 +590,19 @@ NOTE: Each component style that can be customized has a fallback value. So, for 
 
 ---
 
-Select the color sets that you want to include in your theme file:
+Select the color sets that you want to include in your theme file. Then set the main colors that you want to use in your theme.
+
+*NOTE: After you select your color sets you will see that the main colors below are initially set to the Fanny Pack main colors. That is intentional to provide an example.*
 
 <Checkbox
-  bind:checked={includedColorSets.nonNeutralColors}
-  label="Non-Neutral Colors"
+  bind:checked={includedColorSets.fpNonNeutralColors}
+  label="FP Non-Neutral Colors"
   on:change={includeColorSet}
 />
 
 <Checkbox
   bind:checked={includedColorSets.fpNeutralColors}
-  label="Fanny Pack Neutral Colors"
+  label="FP Neutral Colors"
   on:change={includeColorSet}
 />
 
@@ -553,8 +613,14 @@ Select the color sets that you want to include in your theme file:
 />
 
 <Checkbox
-  bind:checked={includedColorSets.yourNeutralColors}
-  label="Your Neutral Colors"
+  bind:checked={includedColorSets.customNonNeutralColors}
+  label="Custom Non-Neutral Colors"
+  on:change={includeColorSet}
+/>
+
+<Checkbox
+  bind:checked={includedColorSets.customNeutralColors}
+  label="Custom Neutral Colors"
   on:change={includeColorSet}
 />
 
@@ -572,12 +638,14 @@ Select the color sets that you want to include in your theme file:
       <tr>
         <td>{mainColor.label}</td>
         <td>
-          <Select
-            options={colorPaletteReferenceVariables}
-            size="sm"
-            bind:value={mainColor.value}
-            on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
-          />
+          {#if referenceVariables.includedVariables.length > 0}
+            <Select
+              options={referenceVariables.includedVariables}
+              size="sm"
+              bind:value={mainColor.value}
+              on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
+            />
+          {/if}
         </td>
       </tr>
     {/each}
@@ -600,7 +668,6 @@ The size variables are used to set values for things like padding (for buttons a
     </tr>
   </thead>
   <tbody>
-    <!-- {#each selectedTheme.value.sizes as size} -->
     {#each theme.sizes as size, index}
       <tr>
         <td>{size.label}</td>

@@ -29,7 +29,7 @@
   COLOR PALETTE
   * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
 ******************************************/
-/* Non-Neutral Colors */
+/* FP Non-Neutral Colors */
 /* Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
 :root {
   --dark-purple: #603cba;
@@ -51,7 +51,7 @@
   --dark-red: #b91d47;
 }
 
-/* Fanny Pack Neutral Colors */
+/* FP Neutral Colors */
 /* These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
 :root {
   --fpn-260: #040304;
