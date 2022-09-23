@@ -103,7 +103,7 @@
     </div>
     <div slot="modalFooterRight">
       <Button>Another Footer Button</Button>
-      <Button btnIcon="la:times" disabled={savingEdits} on:click={() => showModal = false}>Close</Button>
+      <Button btnIcon="mdi:close" disabled={savingEdits} on:click={() => showModal = false}>Close</Button>
     </div>
   </Modal>
 {/if}

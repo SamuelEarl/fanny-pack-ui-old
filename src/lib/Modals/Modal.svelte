@@ -33,7 +33,7 @@
 <div id="close-btn-container">
   <Button
     id="close"
-    btnIcon="la:times"
+    btnIcon="mdi:close"
     size="lg"
     --custom-btn-padding="0"
     --custom-btn-background-color="transparent" 

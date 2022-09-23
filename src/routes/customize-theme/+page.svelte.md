@@ -3,7 +3,7 @@
   import { writable } from "svelte/store";
   import { browser } from "$app/environment";
   // import Colorpicker from "@budibase/colorpicker";
-  import { Button, Checkbox, Input, Select, ToastContent } from "/src/lib";
+  import { Button, Checkbox, Input, Modal, Select, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
   let theme = {
@@ -24,19 +24,13 @@
     customNeutralColors: false,
   };
 
-  // The `referenceVariables` object is used to populate the select boxes in the "Main color variables" section.
-  let referenceVariables = {
-    fpNonNeutralColors: [],
-    fpNeutralColors: [],
-    grayscaleNeutralColors: [],
-    customNonNeutralColors: [],
-    customNeutralColors: [],
-    includedVariables: [],
-  };
+  // The `referenceVariables` array is used to populate the select boxes in the "Main color variables" section.
+  let referenceVariables = [];
 
   let activeTab = "fpNonNeutralColors";
   let content = [];
   let units = ["px", "%", "rem", "em"];
+  let showColorPaletteModal = false;
 
   onMount(() => {
     parseThemeFile();
@@ -65,8 +59,7 @@
    * (1) match the CSS variable name within the matchingVariableBlock, 
    * (2) remove the colon from the end of the CSS variable name, 
    * (3) populate the theme object by pushing an object of the form 
-   * `{ label: varName, value: "" }` to each `theme[themePropertyName]` array, and
-   * (4) populate the `referenceVariables` object.
+   * `{ label: varName, value: "" }` to each `theme[themePropertyName]` array.
    */
   function setCssVariableName(matchingVariableBlock, themePropertyName, namePrefix, nameSuffix) {
     try {
@@ -80,24 +73,7 @@
         // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
         let varNameWithoutColon = matchingVarName[0].slice(0, -1);
         theme[themePropertyName].push({ label: varNameWithoutColon, value: "" });
-        // Populate the arrays in the `referenceVariables` object with reference variables that have the form `var(--variable-name)`.
-        if (themePropertyName === "fpNonNeutralColors") {
-          referenceVariables.fpNonNeutralColors.push(`var(${varNameWithoutColon})`);
-        }
-        if (themePropertyName === "fpNeutralColors") {
-          referenceVariables.fpNeutralColors.push(`var(${varNameWithoutColon})`);
-        } 
-        if (themePropertyName === "grayscaleNeutralColors") {
-          referenceVariables.grayscaleNeutralColors.push(`var(${varNameWithoutColon})`);
-        }
-        if (themePropertyName === "customNonNeutralColors") {
-          referenceVariables.customNonNeutralColors.push(`var(${varNameWithoutColon})`);
-        }
-        if (themePropertyName === "customNeutralColors") {
-          referenceVariables.customNeutralColors.push(`var(${varNameWithoutColon})`);
-        }
       }
-      // console.log("referenceVariables:", referenceVariables);
     }
     catch(err) {
       console.error("setCssVariableName:", err);
@@ -140,7 +116,7 @@
   /**
    * This function will parse the `fpui-theme.css` file and create a `theme` object based on the CSS variables in that file.
    * This will allow me to work with a single source of truth (the `fpui-theme.css` file) for the theme. 
-   * This way, when I add new components or change something in the theme I only need to make changes in the `fpui-theme.css`
+   * This way, when I add new components or change something in the theme, I only need to make changes in the `fpui-theme.css`
    * file and both the components and this "Customize Theme" page will be updated.
    */
   function parseThemeFile() {
@@ -208,12 +184,6 @@
     }
   }
 
-  // This function needs to update the variable in both the `theme` object and the `referenceVariables` object.
-  // See the `includeColorSet` function for more details.
-  function updateThemeVariable(themeSet, index) {
-    alert("Implement the updateThemeVariable function");
-  }
-
   /**
    * Update the values of the CSS variables when the user changes them in the UI.
    * See https://www.w3schools.com/css/css3_variables_javascript.asp
@@ -227,26 +197,23 @@
   }
 
   function includeColorSet() {
-    // Clear the `referenceVariables.includedVariables` array so no variables get duplicated.
-    referenceVariables.includedVariables.length = 0;
-
+    // Clear the `referenceVariables` array so no variables get duplicated.
+    referenceVariables.length = 0;
+    // Loop through the `includedColorSets` object and see which color sets have been set to `true`.
     for (const colorSet in includedColorSets) {
-      console.log("colorSet:", colorSet, includedColorSets[colorSet]);
-      // If a color set has been included, then push the variable values from that color set into the `referenceVariables.includedVariables` array.
+      // console.log("colorSet:", colorSet, includedColorSets[colorSet]);
+      // If a color set has been set to `true`, then push the variable values from that color set into the `referenceVariables` array.
       if (includedColorSets[colorSet]) {
-        referenceVariables.includedVariables.push(...referenceVariables[colorSet]);
-        // for (let i = 0; theme[colorSet].length > i; i++) {
-        //   console.log("COLOR LABEL:", theme[colorSet][i].label);
-        //   referenceVariables.includedVariables.push(`var(${theme[colorSet][i].label})`);
-        // }
+        for (let i = 0; theme[colorSet].length > i; i++) {
+          // console.log("COLOR LABEL:", `var(${theme[colorSet][i].label})`);
+          referenceVariables.push(`var(${theme[colorSet][i].label})`);
+        }
       }
     }
-    referenceVariables.includedVariables = referenceVariables.includedVariables;
-    console.log("referenceVariables:", referenceVariables);
+    // console.log("referenceVariables:", referenceVariables);
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
-
   /**
    * The <input type="color"> elements can only read hex values as input. So I need to convert rgb values to hex and then pass the result to the bound <input type="color"> elements.
    * See https://stackoverflow.com/a/13070198 and https://stackoverflow.com/a/5624139
@@ -265,7 +232,6 @@
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
-
   /**
    * When a user enters a color value through a default color picker element, the color value is return as a hex value.
    * But I want to define color values in RGBA format in order to preserve alpha values for things like fill colors in a line/area chart. 
@@ -388,7 +354,6 @@
       sizesContent.push("}");
       colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
 
-
       // (4) Get the text before and after the color and size variable blocks, then create a `themeContent` array that puts all the code for the theme file together.
       // Find the text between "/* REGEX TOP START */" and "/* REGEX TOP END */".
       // See https://stackoverflow.com/a/40782646
@@ -434,30 +399,43 @@ FYI: The Fanny Pack UI color palette borrows colors from the <a href="https://ww
 
 ---
 
-TODOS: 
-* Read the fpui-theme.css file to populate the variables and their values initially, but then bind all the user-defined options (i.e. the `<Select>` and `<Input>` components) to the `theme` object so I can create a downloadable theme.css file.
-
----
-
 ## Color palette
-Add as many color variables as you want. Each color variable name needs to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) - i.e. the name needs to begin with double hyphens (`--`) and each word is separated by a hyphen.
+Add as many color variables as you want. For custom color variables, the names of those variables need to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) &ndash; i.e. the name needs to begin with double hyphens (`--`) and each word in the name should be separated by a hyphen.
 
-In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use some neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs below or you can create your own set of neutral colors. Here is one idea to create your own set of neutral colors:
+In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. Click the button below to read some ideas on how to create your set of neutral colors.
 
-1. Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.
-2. Take your primary color, enter it into the search bar, and press Enter.
-3. Once you are on the page for your primary color, scroll down until you find the heading "Tones of [your primary color]". 
-4. Find a tone that has a good amount of gray in it - maybe one of the first two or three tones on the left side of the spectrum. Click on that tone.
-5. Once you are on the new page for that tone, scroll down to the heading "Shades and Tints of [the tone you selected]".
-6. Select a shade or tint to use as your "medium" neutral color - maybe the 3rd, 4th, or 5th color from the left in the tint spectrum.
-7. Once you have selected your "medium" neutral color you can pick two neutral colors that are darker than your "medium" neutral color and two that are lighter than your "medium" neutral color. You might want to pick colors that are about three or four shades/tints away from each other to give enough contrast between each neutral color, but you decide what looks best for your color palette.
-8. That will give you five neutral colors and if you use black (`#000000`) and white (`#ffffff`) as your darkest and lightest neutral colors, respectively, (or shades/tints that are close to black and white) then you will have the seven neutral colors you need.
+<Button
+  btnIcon=""
+  on:click={() => showColorPaletteModal = true}
+>Click to read</Button>
+
+<br><br>
+
+{#if showColorPaletteModal}
+  <Modal
+    title="Ideas for creating your set of neutral colors"
+    on:closeModal={() => showColorPaletteModal = false}
+  >
+    <div slot="modalBody">
+      <p>The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use the neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs or you can create your own set of custom neutral colors. Here is one idea to create your own set of neutral colors:</p>
+      <ol>
+        <li>Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.</li>
+        <li>Take your primary color, enter it into the search bar, and press Enter.</li>
+        <li>Once you are on the page for your primary color, scroll down until you find the heading "Tones of [your primary color]". </li>
+        <li>Find a tone that has a good amount of gray in it - maybe one of the first two or three tones on the left side of the spectrum. Click on that tone.</li>
+        <li>Once you are on the new page for that tone, scroll down to the heading "Shades and Tints of [the tone you selected]".</li>
+        <li>Select a shade or tint to use as your "medium" neutral color - maybe the 3rd, 4th, or 5th color from the left in the tint spectrum.</li>
+        <li>Once you have selected your "medium" neutral color you can pick two neutral colors that are darker than your "medium" neutral color and two that are lighter than your "medium" neutral color. You might want to pick colors that are about three or four shades/tints away from each other to give enough contrast between each neutral color, but you decide what looks best for your color palette.</li>
+        <li>That will give you five neutral colors. If you use black (`#000000`) and white (`#ffffff`) as your darkest and lightest neutral colors, respectively, (or shades/tints that are close to black and white) then you will have the seven neutral colors you need.</li>
+      </ol>
+    </div>
+    <div slot="modalFooterRight">
+      <Button btnIcon="mdi:close" on:click={() => showColorPaletteModal = false}>Close</Button>
+    </div>
+  </Modal>
+{/if}
 
 <br>
-
-IDEAS:
-* Users could use any of the colors from the following tabs in their theme or remove one or all of these sets of colors and start from scratch with their own color palette.
-* How should I demo to the user how their color palette will look? I could import the Button component and show the three versions (i.e. primary, secondary, tertiary) along with their `inverted` variants to show what the user's. I could also import the Date Picker component because that one includes both an input element along with a button (to demo borders, hover states, etc).
 
 <div class="tab-bar">
   <div class="tab" class:active={activeTab === "fpNonNeutralColors"} on:click={() => activeTab = "fpNonNeutralColors"}>FP Non-Neutral Colors</div>
@@ -596,8 +574,7 @@ IDEAS:
         <tbody>
           {#each theme.customNonNeutralColors as color, index}
             <tr>
-            <!-- TODO: When a user adds a variable that variable will get pushed to the theme object. But when a user updates the name or value of a variable, that does not get updated in the theme object. So I need to do that with all of the <Input> components and elements using the `on:blur` event. -->
-              <td><Input size="sm" bind:value={color.label} on:blur={() => updateThemeVariable("customNonNeutralColors", index)} /></td>
+              <td><Input size="sm" bind:value={color.label} /></td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
               <td><input type="color" bind:value={color.value} /></td>
@@ -667,18 +644,13 @@ IDEAS:
 <br><br>
 
 ## Main color variables
-**TODOS:** 
-* These values are being read from the fpui-theme.css file, but they probably need to be read from the theme object because the theme object will get updated by the user. The fpui-theme.css file does not get updated by the user.
-* Do I want to call `updateCssVariable` when a user sets the Main Colors or changes the size variables? Maybe. This might be an easy way for users to see the effects of their theme on the components throughout the documentation. 
-    * I THINK THIS MIGHT BE DONE NOW, BUT I NEED TO DOUBLE-CHECK IT: I should probably change the CSS variables that the layouts and pages are referencing so things like the navigation do not get changed when a user changes their Main Colors. But I could still change the `--fpui-*` color variables throughout the docs so users could still see how their components look with their color palette. All I need to do is change the main color references, e.g. `var(--primary-color)`, to `var(--docs-primary-color)`.
-
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
-NOTE: Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors might not match your theme. So you can either set all the values for all these main color variables right now or you can edit them later as needed when you implement a new component in your app and see what it looks like in your app.
+NOTE: Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So you can either set all the values for all these main color variables right now or you can edit them later as needed when you implement a new component in your app and see what it looks like in your app.
 
 ---
 
-Select the color sets that you want to include in your theme file. Then set the main colors that you want to use in your theme.
+Select the color sets that you want to include in your theme file. Then set the main colors that you want to use in your theme. After you have done that, then you can browse to the different component pages to see how they look with your theme.
 
 *NOTE: After you select your color sets you will see that the main colors below are initially set to the Fanny Pack main colors. That is intentional to provide an example.*
 
@@ -728,9 +700,10 @@ Select the color sets that you want to include in your theme file. Then set the 
       <tr>
         <td>{mainColor.label}</td>
         <td>
-          {#if referenceVariables.includedVariables.length > 0}
+          {#if referenceVariables.length > 0}
+            <!-- NOTE: When this page first loads, the `parseThemeFile()` function will populate the `theme` object based on the color and size CSS variables that are defined in the `fpui-theme.css` file. So the `theme.mainColors` array will contain the Main Color variables from the `fpui-theme.css` file. Since each of the following <Select> components is bound to `theme.mainColors[i].value`, the initial value of each of these <Select> components will be the corresponding Main Color value from the `fpui-theme.css` file. -->
             <Select
-              options={referenceVariables.includedVariables}
+              options={referenceVariables}
               size="sm"
               bind:value={mainColor.value}
               on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
