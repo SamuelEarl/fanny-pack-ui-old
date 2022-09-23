@@ -208,6 +208,12 @@
     }
   }
 
+  // This function needs to update the variable in both the `theme` object and the `referenceVariables` object.
+  // See the `includeColorSet` function for more details.
+  function updateThemeVariable(themeSet, index) {
+    alert("Implement the updateThemeVariable function");
+  }
+
   /**
    * Update the values of the CSS variables when the user changes them in the UI.
    * See https://www.w3schools.com/css/css3_variables_javascript.asp
@@ -221,11 +227,18 @@
   }
 
   function includeColorSet() {
+    // Clear the `referenceVariables.includedVariables` array so no variables get duplicated.
     referenceVariables.includedVariables.length = 0;
+
     for (const colorSet in includedColorSets) {
       console.log("colorSet:", colorSet, includedColorSets[colorSet]);
+      // If a color set has been included, then push the variable values from that color set into the `referenceVariables.includedVariables` array.
       if (includedColorSets[colorSet]) {
         referenceVariables.includedVariables.push(...referenceVariables[colorSet]);
+        // for (let i = 0; theme[colorSet].length > i; i++) {
+        //   console.log("COLOR LABEL:", theme[colorSet][i].label);
+        //   referenceVariables.includedVariables.push(`var(${theme[colorSet][i].label})`);
+        // }
       }
     }
     referenceVariables.includedVariables = referenceVariables.includedVariables;
@@ -277,19 +290,11 @@
   function downloadTheme() {
     try {
       // TODOS (for the download theme function):
-      // * Create an "Additional Custom Variables" block for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
-      // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
       // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
-      // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
-      console.log("downloadTheme");
-
-
-      // (1) Read the `themeFile` string.
-      // console.log("THEME FILE:", themeFile);
 
       let colorsAndSizesContent = [];
 
-      // (2) Create the variable blocks for selected colors and sizes.
+      // (1) Create the variable blocks for the selected colors and the size variables.
       for (const prop in includedColorSets) {
         // If "fpNonNeutralColors" has been selected to be included in the theme, then create a content array for this variable block.
         if (prop === "fpNonNeutralColors" && includedColorSets[prop]) {
@@ -358,7 +363,7 @@
         }
       }
 
-      // Create the Main Colors content.
+      // (2) Create the Main Colors variable block.
       let mainColorsContent = [
         `/* Main Colors */\n`,
         `:root {\n`,    
@@ -370,7 +375,7 @@
       mainColorsContent.push("\n\n");
       colorsAndSizesContent = [...colorsAndSizesContent, ...mainColorsContent];
 
-      // Create the Size Variables content.
+      // (3) Create the Size Variables block.
       let sizesContent = [
         `/* SIZE VARIABLES */\n`,
         `/* -------------- */\n`,
@@ -383,22 +388,16 @@
       sizesContent.push("}");
       colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
 
-      // console.log("colorsAndSizesContent:", colorsAndSizesContent);
 
-      // (3) Replace everything between the "/* Regex Replace Start */" and the "/* Regex Replace End */" with the customized theme variables from the `theme` object.
+      // (4) Get the text before and after the color and size variable blocks, then create a `themeContent` array that puts all the code for the theme file together.
       // Find the text between "/* REGEX TOP START */" and "/* REGEX TOP END */".
       // See https://stackoverflow.com/a/40782646
       let topRegex = new RegExp(`(?<=\/\\* REGEX TOP START \\*\/\\s+).*?(?=\\s+/\\* REGEX TOP END \\*\/)`, "gs");
       let matchingTopText = themeFile.match(topRegex)[0];
-      console.log("Matching Top Text:", matchingTopText);
 
-
+      // Find the text between "/* REGEX BOTTOM START */" and "/* REGEX BOTTOM END */".
       let bottomRegex = new RegExp(`(?<=\/\\* REGEX BOTTOM START \\*\/\\s+).*?(?=\\s+/\\* REGEX BOTTOM END \\*\/)`, "gs");
       let matchingBottomText = themeFile.match(bottomRegex)[0];
-      console.log("Matching Bottom Text:", matchingBottomText);
-
-
-      console.log("colorsAndSizesContent:", colorsAndSizesContent);
 
       let themeContent = [
         matchingTopText,
@@ -408,50 +407,8 @@
         matchingBottomText,
       ];
 
-      // Convert the values in the `theme` object to a formatted string.
-      // content = [
-      //   `:root {\n`,
-      //   `  /* Non-Neutral Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
-      //   `  --dark-purple: #603cba;\n`,
-      //   `  --fpn-210: #3a2f38;\n`,
-      //   `}`,
-      //   `\n\n`,
-      //   `:root {\n`,
-      //   `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
-      //   `  --primary-color: var(--dark-purple);\n`,
-      //   `  --secondary-color: var(--fpn-210);\n`,
-      //   `}`,
-      // ];
-
-
-
-  // TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
-  //     let content = [
-  // `:root {
-  //   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
-  //   --light-green: #99b433;
-  //   --green: #00a300;
-  // }
-
-  // /* Button */
-  // :root {
-  //   --fpui-btn-primary-text-color: white;
-  //   --fpui-btn-secondary-text-color: white;
-  //   --fpui-btn-tertiary-text-color: var(--primary-color);
-  // }`
-  //     ];
-
-      // let content = [
-      //   ":root {",
-      //   "  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */",
-      //   "  --light-green: #99b433;",
-      //   "  --green: #00a300;",
-      //   "}",
-      // ];
-
-
+      // (5) Create the downloadable theme file.
       const a = document.createElement("a"); // Create "a" element
-      // const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
       const blob = new Blob(themeContent, {type: "text/css"}) // Create a blob (file-like object)
       const url = URL.createObjectURL(blob); // Create an object URL from blob
       a.setAttribute("href", url); // Set "a" element link
@@ -639,7 +596,8 @@ IDEAS:
         <tbody>
           {#each theme.customNonNeutralColors as color, index}
             <tr>
-              <td><Input size="sm" bind:value={color.label} /></td>
+            <!-- TODO: When a user adds a variable that variable will get pushed to the theme object. But when a user updates the name or value of a variable, that does not get updated in the theme object. So I need to do that with all of the <Input> components and elements using the `on:blur` event. -->
+              <td><Input size="sm" bind:value={color.label} on:blur={() => updateThemeVariable("customNonNeutralColors", index)} /></td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
               <td><input type="color" bind:value={color.value} /></td>
