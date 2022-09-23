@@ -159,6 +159,7 @@
 /* The Main Colors (above) are used throughout the components. Changing the values for those variables will handle most of the theme customizations for your components. However, there might be some colors or sizes that you want to customize under these "INDIVIDUAL COMPONENT STYLES". */
 /* You can customize any of the individual components by changing the color or size values below. */
 /* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
+/* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
 /* Buttons */

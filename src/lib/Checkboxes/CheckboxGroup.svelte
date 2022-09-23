@@ -60,7 +60,7 @@
         on:input
       > {item}
       <span class="fpui-checkbox-checkmark"></span>
-    </label>
+    </label><br>
   {/each}
 {/if}
 
@@ -78,7 +78,7 @@
         on:input
       > {obj[valueLabel]}
       <span class="fpui-checkbox-checkmark"></span>
-    </label>
+    </label><br>
   {/each}
 {/if}
 

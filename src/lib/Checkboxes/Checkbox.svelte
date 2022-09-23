@@ -15,7 +15,7 @@
     on:input
   > {label}
   <span class="fpui-checkbox-checkmark"></span>
-</label>
+</label><br>
 
 
 <style>

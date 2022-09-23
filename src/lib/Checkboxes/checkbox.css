@@ -3,7 +3,7 @@
 
 /* Customize the label (the container). */
 .fpui-checkbox-label-wrapper {
-  display: block;
+  display: inline-block;
   position: relative;
   padding-left: 35px;
   margin-bottom: var(--fpui-checkbox-margin-bottom, 20px);

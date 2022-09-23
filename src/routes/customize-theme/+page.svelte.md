@@ -400,9 +400,9 @@ FYI: The Fanny Pack UI color palette borrows colors from the <a href="https://ww
 ---
 
 ## Color palette
-Add as many color variables as you want. For custom color variables, the names of those variables need to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) &ndash; i.e. the name needs to begin with double hyphens (`--`) and each word in the name should be separated by a hyphen.
+You can use any or all of the pre-defined color sets below or create your own custom color sets. When creating custom color variables, the names of those variables need to follow the [CSS variable naming convention](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties#basic_usage) &ndash; i.e. the name needs to begin with double hyphens (`--`) and each word in the name should be separated by a hyphen.
 
-In the "Main color variables" section (below) you will use your color palette to define your main component colors, including the neutral colors that are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. Click the button below to read some ideas on how to create your set of neutral colors.
+In the "Main color variables" section (after this "Color palette" section) you will use your color palette to define your main component colors, including the neutral colors, which are used throughout the components. The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have at least seven neutral colors in your color palette. Click the button below to read some ideas on how to create your set of neutral colors.
 
 <Button
   btnIcon=""
@@ -417,7 +417,7 @@ In the "Main color variables" section (below) you will use your color palette to
     on:closeModal={() => showColorPaletteModal = false}
   >
     <div slot="modalBody">
-      <p>The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use the neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs or you can create your own set of custom neutral colors. Here is one idea to create your own set of neutral colors:</p>
+      <p>The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have at least seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use the neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs or you can create your own set of custom neutral colors. Here is one idea to create your own set of neutral colors:</p>
       <ol>
         <li>Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.</li>
         <li>Take your primary color, enter it into the search bar, and press Enter.</li>
@@ -453,36 +453,19 @@ In the "Main color variables" section (below) you will use your color palette to
           <tr>
             <th>Color variable name</th>
             <th>Color value</th>
-            <th style="text-align:center">Remove color</th>
           </tr>
         </thead>
         <tbody>
           {#each theme.fpNonNeutralColors as color, index}
             <tr>
-              <td><Input size="sm" bind:value={color.label} /></td>
+              <td>{color.label}</td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
-              <td><input type="color" bind:value={color.value} /></td>
-              <td style="text-align:center">
-                <Button
-                  btnIcon="mdi:minus-circle"
-                  size="lg"
-                  --custom-btn-padding="0px 5px"
-                  --custom-btn-border-color="transparent"
-                  --custom-btn-box-shadow="none"
-                  --custom-btn-background-color="transparent"
-                  --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor("fpNonNeutralColors", index)}
-                ></Button>
-              </td>
+              <td><input type="color" value={color.value} /></td>
             </tr>
           {/each}
         </tbody>
       </table>
-      <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("fpNonNeutralColors")}>
-        Add color
-      </Button>
     </div>
   {:else if activeTab === "fpNeutralColors"}
     <div id="fp-neutral-colors">
@@ -491,36 +474,19 @@ In the "Main color variables" section (below) you will use your color palette to
           <tr>
             <th>Color variable name</th>
             <th>Color value</th>
-            <th style="text-align:center">Remove color</th>
           </tr>
         </thead>
         <tbody>
           {#each theme.fpNeutralColors as color, index}
             <tr>
-              <td><Input size="sm" bind:value={color.label} /></td>
+              <td>{color.label}</td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
-              <td><input type="color" bind:value={color.value} /></td>
-              <td style="text-align:center">
-                <Button
-                  btnIcon="mdi:minus-circle"
-                  size="lg"
-                  --custom-btn-padding="0px 5px"
-                  --custom-btn-border-color="transparent"
-                  --custom-btn-box-shadow="none"
-                  --custom-btn-background-color="transparent"
-                  --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor("fpNeutralColors", index)}
-                ></Button>
-              </td>
+              <td><input type="color" value={color.value} /></td>
             </tr>
           {/each}
         </tbody>
       </table>
-      <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("fpNeutralColors")}>
-        Add color
-      </Button>
     </div>
   {:else if activeTab === "grayscaleNeutralColors"}
     <div id="grayscale-neutral-colors">
@@ -529,36 +495,19 @@ In the "Main color variables" section (below) you will use your color palette to
           <tr>
             <th>Color variable name</th>
             <th>Color value</th>
-            <th style="text-align:center">Remove color</th>
           </tr>
         </thead>
         <tbody>
           {#each theme.grayscaleNeutralColors as color, index}
             <tr>
-              <td><Input size="sm" bind:value={color.label} /></td>
+              <td>{color.label}</td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
-              <td><input type="color" bind:value={color.value} /></td>
-              <td style="text-align:center">
-                <Button
-                  btnIcon="mdi:minus-circle"
-                  size="lg"
-                  --custom-btn-padding="0px 5px"
-                  --custom-btn-border-color="transparent"
-                  --custom-btn-box-shadow="none"
-                  --custom-btn-background-color="transparent"
-                  --custom-btn-text-color="var(--dark-purple)"
-                  on:click={() => removeColor("grayscaleNeutralColors", index)}
-                ></Button>
-              </td>
+              <td><input type="color" value={color.value} /></td>
             </tr>
           {/each}
         </tbody>
       </table>
-      <br>
-      <Button btnIcon="mdi:plus-circle-outline" on:click={() => addColor("grayscaleNeutralColors")}>
-        Add color
-      </Button>
     </div>
   {:else if activeTab === "customNonNeutralColors"}
     <p>Create your own custom set of non-neutral colors.</p>
@@ -646,13 +595,12 @@ In the "Main color variables" section (below) you will use your color palette to
 ## Main color variables
 These styles are used throughout the Fanny Pack UI components. Updating these variables will handle almost all of your theme customizations. If you want to customize individual components, then you can change the values for any of the individual components in the `theme.css` file that you download at the bottom of this page.
 
-NOTE: Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So you can either set all the values for all these main color variables right now or you can edit them later as needed when you implement a new component in your app and see what it looks like in your app.
+To set your main color variables:
 
----
+1. Select the color sets that you want to include in your `theme.css` file.
+2. In the table below, set the main colors that you want to use throughout your theme. (You can then browse to the different component pages to see how the components will look with your theme.)
 
-Select the color sets that you want to include in your theme file. Then set the main colors that you want to use in your theme. After you have done that, then you can browse to the different component pages to see how they look with your theme.
-
-*NOTE: After you select your color sets you will see that the main colors below are initially set to the Fanny Pack main colors. That is intentional to provide an example.*
+*NOTE: After you select your color sets you will see that the main colors below are initially set to the Fanny Pack main colors. That is intentional to provide an example for you to follow.*
 
 <br>
 
@@ -715,7 +663,7 @@ Select the color sets that you want to include in your theme file. Then set the 
   </tbody>
 </table>
 
-<br>
+<br><br>
 
 ## Size variables
 The size variables are used to set values for things like padding (for buttons and other elements), the roundness or squareness of borders (i.e. `border-radius`), font sizes, etc. You are welcome to keep the default sizes for each of the following variables or change them however you want.
@@ -764,17 +712,30 @@ The size variables are used to set values for things like padding (for buttons a
   </tbody>
 </table>
 
-<br><br>
+<br><br><br><br>
 
-<Button
-  type="button"
-  btnColor="secondary"
-  btnIcon="mi:document-download"
-  width="full"
-  on:click={downloadTheme}
->
-  Download theme
-</Button>
+{#if referenceVariables.length === 0}
+  <p class="download-error">Before you can download your theme you need to select and set your main colors above.</p>
+  <Button
+    btnIconDisabled="mi:document-download"
+    width="full"
+    size="lg"
+    disabled={true}
+    btnIconDisabledShouldSpin={false}
+  >
+    Download theme
+  </Button>
+{:else}
+  <Button
+    btnColor="secondary"
+    btnIcon="mi:document-download"
+    width="full"
+    size="lg"
+    on:click={downloadTheme}
+  >
+    Download theme
+  </Button>
+{/if}
 
 
 <style>
@@ -802,13 +763,12 @@ The size variables are used to set values for things like padding (for buttons a
     margin: 20px 0;
   }
 
-  form {
-    display: flex;
-    align-items: flex-end;
-
-    & .input-container {
-      width: 600px;
-      margin-right: 10px;
-    }
+  .download-error {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid var(--dark-red);
+    border-radius: var(--docs-border-radius);
+    background-color: pink;
+    color: darkred;
   }
 </style>
