@@ -174,7 +174,7 @@
       setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
       setCssVariableValue(matchingVariableBlock, themePropertyName);
 
-      blockName = "Size Variables";
+      blockName = "SIZE VARIABLES";
       themePropertyName = "sizes";
       matchingVariableBlock = findMatchingVariableBlock(blockName);
       setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
@@ -287,9 +287,7 @@
       // (1) Read the `themeFile` string.
       // console.log("THEME FILE:", themeFile);
 
-      let colorsAndSizesContent = [
-        `\n/* COLOR PALETTE */\n/* ------------- */\n\n`
-      ];
+      let colorsAndSizesContent = [];
 
       // (2) Create the variable blocks for selected colors and sizes.
       for (const prop in includedColorSets) {
@@ -374,14 +372,15 @@
 
       // Create the Size Variables content.
       let sizesContent = [
-        `/* Size Variables */\n`,
+        `/* SIZE VARIABLES */\n`,
+        `/* -------------- */\n`,
         `:root {\n`,
+        `  /* The padding values are used to provide the sizes for elements like buttons, input fields, etc. */\n`,
       ];
       for (let i = 0; theme.sizes.length > i; i++) {
         sizesContent.push("  " + theme.sizes[i].label + ": " + theme.sizes[i].value + ";\n");
       }
       sizesContent.push("}");
-      sizesContent.push("\n\n");
       colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
 
       // console.log("colorsAndSizesContent:", colorsAndSizesContent);
@@ -403,7 +402,7 @@
 
       let themeContent = [
         matchingTopText,
-        "\n\n",
+        "\n",
         ...colorsAndSizesContent,
         "\n\n",
         matchingBottomText,
