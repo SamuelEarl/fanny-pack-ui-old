@@ -142,28 +142,25 @@
     {/if}
   </select>
 
-  <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-btn-overlay` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and closed the `fpui-select-options-list`. So if `showSelectOptionsList` is `true`, then the `fpui-select-btn-overlay` element will not include the `click` event so it does not conflict with the `blur` event. -->  
-  {#if showSelectOptionsList}
-    <div id={`fpui-select-btn-${componentId}`} class="{`fpui-select-btn ${size} active`}">
-      <div class="{`fpui-select-btn-overlay ${size} active`}" title={optionsDataType === "primitive" ? value : value[optionLabel]}>
-        {#if optionsDataType === "primitive"}
-          {value}
-        {:else if optionsDataType === "object"}
-          {value[optionLabel]}
-        {/if}
-      </div>
+  <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-btn` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and then closed the `fpui-select-options-list`. However, the `active` class uses a `pointer-events: none` CSS rule to disable any pointer events on both the `fpui-select-btn` and `fpui-select-btn-overlay` elements when they are active. So the click event will not conflict with the `blur` event. -->  
+  <div
+    id={`fpui-select-btn-${componentId}`} 
+    class="{`fpui-select-btn ${size}`}" 
+    class:active={showSelectOptionsList} 
+    on:click={toggleOptionsList}
+  >
+    <div 
+      class="{`fpui-select-btn-overlay ${size}`}" 
+      class:active={showSelectOptionsList} 
+      title={optionsDataType === "primitive" ? value : value[optionLabel]}
+    >
+      {#if optionsDataType === "primitive"}
+        {value}
+      {:else if optionsDataType === "object"}
+        {value[optionLabel]}
+      {/if}
     </div>
-  {:else}
-    <div id={`fpui-select-btn-${componentId}`} class="{`fpui-select-btn ${size}`}" on:click={toggleOptionsList}>
-      <div class="{`fpui-select-btn-overlay ${size}`}" title={optionsDataType === "primitive" ? value : value[optionLabel]}>
-        {#if optionsDataType === "primitive"}
-          {value}
-        {:else if optionsDataType === "object"}
-          {value[optionLabel]}
-        {/if}
-      </div>
-    </div>
-  {/if}
+  </div>
 
   {#if showSelectOptionsList}
     <div
@@ -246,7 +243,7 @@
         position: absolute;
         content: "›";
         top: 45%;
-        right: 5px;
+        right: 0;
         width: 0;
         height: 0;
         transform: rotate(90deg);
@@ -257,8 +254,13 @@
         top: 40%;
       }
 
+      &.lg:after {
+        font-size: 2rem;
+      }
+
       &.active {
         border-radius: var(--border-radius) var(--border-radius) 0 0;
+        pointer-events: none;
       }
 
       /* The overlay contains the text for the selected option. */
@@ -286,6 +288,7 @@
         &.active {
           border-radius: var(--border-radius) var(--border-radius) 0 0;
           background-color: rgba(0, 0, 0, 0.1);
+          pointer-events: none;
         }
       }
     }
@@ -313,7 +316,7 @@
       & .fpui-select-optgroup-label {
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         font-weight: bold;
-        cursor: default;
+        pointer-events: none;
         /* Cut off any text that overflows the space provided for this Select component: */
         /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
         white-space: nowrap;

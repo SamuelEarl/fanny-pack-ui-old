@@ -201,6 +201,6 @@
     box-shadow: none;
     color: var(--custom-btn-disabled-text-color, var(--disabled-text-color, #c7c7c7));
     background-color: var(--custom-btn-disabled-bg-color, var(--disabled-bg-color, black));
-    cursor: default;
+    pointer-events: none;
   }
 </style>

@@ -170,6 +170,7 @@
     aria-multiselectable="true" 
     id={`fpui-select-btn-${componentId}`} 
     class={"fpui-select-btn"}
+    class:active={showSelectOptionsList}
     tabindex="-1"
     on:click={toggleOptionsList}
   >
@@ -328,6 +329,10 @@
         box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
       }
 
+      &.active {
+        pointer-events: none;
+      }
+
       & .fpui-select-btn-overlay {
         display: flex;
         justify-content: space-between;
@@ -335,6 +340,7 @@
 
         &.active {
           background-color: rgba(0, 0, 0, 0.1);
+          pointer-events: none;
         }
 
         &.sm {
