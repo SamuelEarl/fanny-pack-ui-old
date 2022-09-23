@@ -16,16 +16,6 @@
     sizes: [],
   };
 
-  // The `referenceVariables` object is used to populate the select boxes in the "Main color variables" section.
-  let referenceVariables = {
-    fpNonNeutralColors: [],
-    fpNeutralColors: [],
-    grayscaleNeutralColors: [],
-    customNonNeutralColors: [],
-    customNeutralColors: [],
-    includedVariables: [],
-  };
-
   let includedColorSets = {
     fpNonNeutralColors: false,
     fpNeutralColors: false,
@@ -34,42 +24,14 @@
     customNeutralColors: false,
   };
 
-  // TODO: Refactor this page to use this `refactoredTheme` object instead of the 3 objects above.
-  let refactoredTheme = {
-    fpNonNeutralColors: {
-      // This array will contain the CSS variables of the form `{ label: varName, value: "" }`.
-      variables: [],
-      // Include this color set in the Main Color variables select boxes? 
-      include: false,
-      // The `referenceVariables` are used to populate the select boxes in the "Main color variables" section.
-      referenceVariables: [],
-    },
-    fpNeutralColors: {
-      variables: [],
-      include: false,
-      referenceVariables: [],
-    },
-    grayscaleNeutralColors: {
-      variables: [],
-      include: false,
-      referenceVariables: [],
-    },
-    customNonNeutralColors: {
-      variables: [],
-      include: false,
-      referenceVariables: [],
-    },
-    customNeutralColors: {
-      variables: [],
-      include: false,
-      referenceVariables: [],
-    },
-    mainColors: {
-      variables: [],
-    },
-    sizes: {
-      variables: [],
-    },
+  // The `referenceVariables` object is used to populate the select boxes in the "Main color variables" section.
+  let referenceVariables = {
+    fpNonNeutralColors: [],
+    fpNeutralColors: [],
+    grayscaleNeutralColors: [],
+    customNonNeutralColors: [],
+    customNeutralColors: [],
+    includedVariables: [],
   };
 
   let activeTab = "fpNonNeutralColors";
@@ -151,10 +113,10 @@
   function setCssVariableValue(matchingVariableBlock, themePropertyName) {
     try {
       // `valueRegex` will match any of the following types of strings:
-      // * HEXa values - strings that begin with "#" and end with ";"
-      // * RGBa values - strings that begin with "rgba?\(" and end with "\);" - The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix "rgba?\(" and the suffix "\);" of the regex.
-      // * var() values - strings that begin with "var\(" and end with "\);"
-      // * CSS length/size values (e.g. 10px, 20%).
+        // (1) HEXa values - strings that begin with "#" and end with ";"
+        // (2) RGBa values - strings that begin with "rgba?\(" and end with "\);" - The "a" in rgba is optional and numbers, periods, commas, and spaces (\s) can be anywhere between the prefix "rgba?\(" and the suffix "\);" of the regex.
+        // (3) var() values - strings that begin with "var\(" and end with "\);"
+        // (4) CSS length/size values (e.g. 10px, 20%).
       let valueRegex = /#[A-Fa-f0-9]*;|rgba?\([0-9.,\s]*\);|var\([A-Za-z0-9\-]*\);|[0-9a-z\%]*;/gi;
       // let valueRegex = /#[A-Fa-f0-9]*;/gi;
       // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
@@ -256,12 +218,6 @@
     let root = document.querySelector(":root");
     // Set the value of the CSS variable to the selected value.
     root.style.setProperty(variableName, variableValue);
-    // if (variableType === "color") {
-    //   root.style.setProperty(variableName, variableValue);
-    // }
-    // if (variableType === "size") {
-    //   root.style.setProperty(variableName, variableValue);
-    // }
   }
 
   function includeColorSet() {
@@ -319,65 +275,193 @@
   }
 
   function downloadTheme() {
-    // TODOS (for the download theme function):
-    // * Create an "Additional Custom Variables" block for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
-    // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
-    // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
-    // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
-    console.log("downloadTheme");
+    try {
+      // TODOS (for the download theme function):
+      // * Create an "Additional Custom Variables" block for "any other variables that you frequently use throughout your app" at the top of the file. Define some starter font stacks underneath a "Typography" section in this block.
+      // * Make sure to include the utility classes at the bottom of the generated `theme.css` file.
+      // * UPDATE: I don't need to convert hex to RGBa or vice versa because the color picker that I am using supports HEXa values. As I loop through the `value` object in the `theme`, convert hex values to RGB: hexToRgb("#fbafff"); This will preserve alpha values for things like fill colors in a line/area chart.
+      // * Convert the second value in each of the `theme.mainColors` and `theme.individualComponentVariables` array to a CSS variable reference value: `var(--css-variable-name)`
+      console.log("downloadTheme");
 
 
-    // (1) Read the `themeFile` string.
+      // (1) Read the `themeFile` string.
+      // console.log("THEME FILE:", themeFile);
 
-    // (2) Replace everything between the "/* Regex Replace Start */" and the "/* Regex Replace End */" with the customized theme variables from the `theme` object. 
+      let colorsAndSizesContent = [
+        `\n/* COLOR PALETTE */\n/* ------------- */\n\n`
+      ];
+
+      // (2) Create the variable blocks for selected colors and sizes.
+      for (const prop in includedColorSets) {
+        // If "fpNonNeutralColors" has been selected to be included in the theme, then create a content array for this variable block.
+        if (prop === "fpNonNeutralColors" && includedColorSets[prop]) {
+          let fpNonNeutralColorsContent = [
+            `/* FP Non-Neutral Colors */\n`,
+            `:root {\n`,    
+          ];
+          for (let i = 0; theme[prop].length > i; i++) {
+            fpNonNeutralColorsContent.push("  " + theme[prop][i].label + ": " + theme[prop][i].value + ";\n");
+          }
+          fpNonNeutralColorsContent.push("}");
+          fpNonNeutralColorsContent.push("\n\n");
+          colorsAndSizesContent = [...colorsAndSizesContent, ...fpNonNeutralColorsContent];
+        }
+
+        if (prop === "fpNeutralColors" && includedColorSets[prop]) {
+          let fpNeutralColorsContent = [
+            `/* FP Neutral Colors */\n`,
+            `:root {\n`,    
+          ];
+          for (let i = 0; theme[prop].length > i; i++) {
+            fpNeutralColorsContent.push("  " + theme[prop][i].label + ": " + theme[prop][i].value + ";\n");
+          }
+          fpNeutralColorsContent.push("}");
+          fpNeutralColorsContent.push("\n\n");
+          colorsAndSizesContent = [...colorsAndSizesContent, ...fpNeutralColorsContent];
+        }
+
+        if (prop === "grayscaleNeutralColors" && includedColorSets[prop]) {
+          let grayscaleNeutralColorsContent = [
+            `/* Grayscale Neutral Colors */\n`,
+            `:root {\n`,    
+          ];
+          for (let i = 0; theme[prop].length > i; i++) {
+            grayscaleNeutralColorsContent.push("  " + theme[prop][i].label + ": " + theme[prop][i].value + ";\n");
+          }
+          grayscaleNeutralColorsContent.push("}");
+          grayscaleNeutralColorsContent.push("\n\n");
+          colorsAndSizesContent = [...colorsAndSizesContent, ...grayscaleNeutralColorsContent];
+        }
+
+        if (prop === "customNonNeutralColors" && includedColorSets[prop]) {
+          let customNonNeutralColorsContent = [
+            `/* Custom Non-Neutral Colors */\n`,
+            `:root {\n`,    
+          ];
+          for (let i = 0; theme[prop].length > i; i++) {
+            customNonNeutralColorsContent.push("  " + theme[prop][i].label + ": " + theme[prop][i].value + ";\n");
+          }
+          customNonNeutralColorsContent.push("}");
+          customNonNeutralColorsContent.push("\n\n");
+          colorsAndSizesContent = [...colorsAndSizesContent, ...customNonNeutralColorsContent];
+        }
+
+        if (prop === "customNeutralColors" && includedColorSets[prop]) {
+          let customNeutralColorsContent = [
+            `/* Custom Neutral Colors */\n`,
+            `:root {\n`,    
+          ];
+          for (let i = 0; theme[prop].length > i; i++) {
+            customNeutralColorsContent.push("  " + theme[prop][i].label + ": " + theme[prop][i].value + ";\n");
+          }
+          customNeutralColorsContent.push("}");
+          customNeutralColorsContent.push("\n\n");
+          colorsAndSizesContent = [...colorsAndSizesContent, ...customNeutralColorsContent];
+        }
+      }
+
+      // Create the Main Colors content.
+      let mainColorsContent = [
+        `/* Main Colors */\n`,
+        `:root {\n`,    
+      ];
+      for (let i = 0; theme.mainColors.length > i; i++) {
+        mainColorsContent.push("  " + theme.mainColors[i].label + ": " + theme.mainColors[i].value + ";\n");
+      }
+      mainColorsContent.push("}");
+      mainColorsContent.push("\n\n");
+      colorsAndSizesContent = [...colorsAndSizesContent, ...mainColorsContent];
+
+      // Create the Size Variables content.
+      let sizesContent = [
+        `/* Size Variables */\n`,
+        `:root {\n`,
+      ];
+      for (let i = 0; theme.sizes.length > i; i++) {
+        sizesContent.push("  " + theme.sizes[i].label + ": " + theme.sizes[i].value + ";\n");
+      }
+      sizesContent.push("}");
+      sizesContent.push("\n\n");
+      colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
+
+      // console.log("colorsAndSizesContent:", colorsAndSizesContent);
+
+      // (3) Replace everything between the "/* Regex Replace Start */" and the "/* Regex Replace End */" with the customized theme variables from the `theme` object.
+      // Find the text between "/* REGEX TOP START */" and "/* REGEX TOP END */".
+      // See https://stackoverflow.com/a/40782646
+      let topRegex = new RegExp(`(?<=\/\\* REGEX TOP START \\*\/\\s+).*?(?=\\s+/\\* REGEX TOP END \\*\/)`, "gs");
+      let matchingTopText = themeFile.match(topRegex)[0];
+      console.log("Matching Top Text:", matchingTopText);
 
 
-    // Convert the values in the `theme` object to a formatted string.
-    let content = [
-      `:root {\n`,
-      `  /* Non-Neutral Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
-      `  --dark-purple: #603cba;\n`,
-      `  --fpn-210: #3a2f38;\n`,
-      `}`,
-      `\n\n`,
-      `:root {\n`,
-      `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
-      `  --primary-color: var(--dark-purple);\n`,
-      `  --secondary-color: var(--fpn-210);\n`,
-      `}`,
-    ];
+      let bottomRegex = new RegExp(`(?<=\/\\* REGEX BOTTOM START \\*\/\\s+).*?(?=\\s+/\\* REGEX BOTTOM END \\*\/)`, "gs");
+      let matchingBottomText = themeFile.match(bottomRegex)[0];
+      console.log("Matching Bottom Text:", matchingBottomText);
 
 
-// TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
-//     let content = [
-// `:root {
-//   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
-//   --light-green: #99b433;
-//   --green: #00a300;
-// }
+      console.log("colorsAndSizesContent:", colorsAndSizesContent);
 
-// /* Button */
-// :root {
-//   --fpui-btn-primary-text-color: white;
-//   --fpui-btn-secondary-text-color: white;
-//   --fpui-btn-tertiary-text-color: var(--primary-color);
-// }`
-//     ];
+      let themeContent = [
+        matchingTopText,
+        "\n\n",
+        ...colorsAndSizesContent,
+        "\n\n",
+        matchingBottomText,
+      ];
 
-    // let content = [
-    //   ":root {",
-    //   "  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */",
-    //   "  --light-green: #99b433;",
-    //   "  --green: #00a300;",
-    //   "}",
-    // ];
+      // Convert the values in the `theme` object to a formatted string.
+      // content = [
+      //   `:root {\n`,
+      //   `  /* Non-Neutral Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
+      //   `  --dark-purple: #603cba;\n`,
+      //   `  --fpn-210: #3a2f38;\n`,
+      //   `}`,
+      //   `\n\n`,
+      //   `:root {\n`,
+      //   `  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */\n`,
+      //   `  --primary-color: var(--dark-purple);\n`,
+      //   `  --secondary-color: var(--fpn-210);\n`,
+      //   `}`,
+      // ];
 
-    const a = document.createElement("a"); // Create "a" element
-    const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
-    const url = URL.createObjectURL(blob); // Create an object URL from blob
-    a.setAttribute("href", url); // Set "a" element link
-    a.setAttribute("download", "theme.css"); // Set download filename
-    a.click(); // Start downloading
+
+
+  // TODO: Use one `theme.css` as the single source of truth. I might be able to pull the content from that `theme.css` file and manipulate it here.    
+  //     let content = [
+  // `:root {
+  //   /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+  //   --light-green: #99b433;
+  //   --green: #00a300;
+  // }
+
+  // /* Button */
+  // :root {
+  //   --fpui-btn-primary-text-color: white;
+  //   --fpui-btn-secondary-text-color: white;
+  //   --fpui-btn-tertiary-text-color: var(--primary-color);
+  // }`
+  //     ];
+
+      // let content = [
+      //   ":root {",
+      //   "  /* Main Colors: The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */",
+      //   "  --light-green: #99b433;",
+      //   "  --green: #00a300;",
+      //   "}",
+      // ];
+
+
+      const a = document.createElement("a"); // Create "a" element
+      // const blob = new Blob(content, {type: "text/css"}) // Create a blob (file-like object)
+      const blob = new Blob(themeContent, {type: "text/css"}) // Create a blob (file-like object)
+      const url = URL.createObjectURL(blob); // Create an object URL from blob
+      a.setAttribute("href", url); // Set "a" element link
+      a.setAttribute("download", "theme.css"); // Set download filename
+      a.click(); // Start downloading
+    }
+    catch(err) {
+      console.error("downloadTheme:", err);
+    }
   }
 </script>
 

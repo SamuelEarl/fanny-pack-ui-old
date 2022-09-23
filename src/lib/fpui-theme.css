@@ -1,3 +1,4 @@
+/* REGEX TOP START */
 /* Please read the comments throughout this file for instructions on how to customize the variables to create your own theme. */
 
 /* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. But you are allowed to change any of the variable values to match the theme you want. */
@@ -15,14 +16,13 @@
 :root {
   /* Add custom variables here */
 }
+/* REGEX TOP END */
 
 
-/* Regex Replace Start */
+/* COLOR PALETTE */
+/* ------------- */
+/* You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette. */
 
-/******************************************
-  COLOR PALETTE
-  * You can keep this default color palette or you can delete all of the colors in this color palette and use your own color palette.
-******************************************/
 /* FP Non-Neutral Colors */
 /* Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
 :root {
@@ -107,7 +107,7 @@
   --gray-20: #eeeeee;
   --gray-10: #f8f8f8;
   --white: #ffffff;
-  --white-rgb: 255, 255, 255;
+  --white-rgb: rgb(255, 255, 255);
 }
 
 
@@ -160,15 +160,12 @@
   --font-weight-bold: 700;
 }
 
-/* Regex Replace End */
-
-
-/****************************************** 
-  Individual Component Styles. 
-  * You can customize any of the individual components by changing the color or size values below.
-  * WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components.
-  * The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons.
-******************************************/
+/* REGEX BOTTOM START */
+/* INDIVIDUAL COMPONENT STYLES */
+/* --------------------------- */
+/* You can customize any of the individual components by changing the color or size values below. */
+/* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
+/* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
 /* Button */
 :root {
@@ -315,14 +312,12 @@
 }
 
 
-/******************************************
-  Utility Classes
-  * I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library so do not edit these (but you are welcome to create additional utility classes here). For example the .fpui-spin class is used to spin icons during loading states.
-******************************************/
-/*****
-  Begin .fpui-spin class
-  Add a class="fpui-spin" to an icon (or any other element) to make it spin.
-*****/
+/* UTILITY CLASSES */
+/* --------------- */
+/* I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library so do not edit these (but you are welcome to create additional utility classes here). For example the .fpui-spin class is used to spin icons during loading states. */
+
+/* Begin .fpui-spin class */
+/* Add a class="fpui-spin" to an icon (or any other element) to make it spin. */
 .fpui-spin {
   animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
 }
@@ -335,6 +330,6 @@
     transform: rotate(360deg);
   }
 }
-/*****
-  End .fpui-spin class
-*****/
+/* End .fpui-spin class */
+
+/* REGEX BOTTOM END */
