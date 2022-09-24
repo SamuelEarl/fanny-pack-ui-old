@@ -175,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
 ```
 
 
-<h2 id="enable-js-vars">Step 6: Configure JavaScript variables for icons</h2>
+<h2 id="configure-js-vars">Step 6: Configure JavaScript variables</h2>
 
 1. Create a `/src/theme.ts` file.
 2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy all the code from the `fpui-theme.js` file (note the `.js` file extension) and paste that code into your newly created `/src/theme.ts` file.

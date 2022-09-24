@@ -161,7 +161,7 @@ You can set the following custom variables:
 | `closeOnSelection`<br>*(optional)* | `boolean` | `true`, `false` | `true` | This prop allows you to close the calendar when a date is selected or leave it open. |
 | `locale`<br>*(optional)* | | | | See the docs for [date-picker-svelte](https://date-picker-svelte.kasper.space/docs).<br><br>*NOTE: The `weekStartsOn` property represents the day that the week starts on. `0` = Sunday. The default value in this component is `0`.* |
 | `placeholder`<br>*(optional)* | `string` | Any string | `YYYY-MM-DD` | This prop will act as the placeholder when the date value is null (i.e. when the input field is empty). |
-| `dateInputIcon`<br>*(optional)* | `string` | Any icon name from the Iconify library. | The default value can be set in your `/src/theme.ts` file. | Read [Configure JavaScript variables for icons](/get-started#enable-js-vars) for instructions on how to set the default value. |
+| `dateInputIcon`<br>*(optional)* | `string` | Any icon name from the Iconify library. | The default value can be set in your `/src/theme.ts` file. | Read [Configure JavaScript variables](/get-started#configure-js-vars) for instructions on how to set the default value. |
 
 <br>
 

@@ -150,6 +150,9 @@ When the user clicks the submit button to upload the files, a POST request conta
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `handleFileUploads` | `function` | Any function | NA | In order to get this component to work, you need to pass it a function named `handleFileUploads`. <br><br> The `handleFileUploads` signature needs to be `async function handleFileUploads(formData)`. The `formData` argument is a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object that contains a [`FileList`](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object, which contains the list of files that were selected/dropped in the `<DropZone>` component. <br><br> The body of your `handleFileUploads` function should be the API code for uploading files to your cloud storage service. |
+| `dragAndDropIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
+| `dropZoneSelectFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
+| `dropZoneUploadFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
 
 <br>
 

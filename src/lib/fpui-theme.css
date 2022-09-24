@@ -283,6 +283,21 @@
   --fpui-select-option-padding-lg: var(--padding-lg);
 }
 
+/* Tabs */
+:root {
+  /* Fill tab styles */
+  --fpui-tabs-tab-bar-fill-border-radius: var(--border-radius);
+  --fpui-tabs-tab-bar-fill-bg-color: var(--secondary-color);
+  --fpui-tabs-tab-bar-fill-text-color: var(--neutral-lightest);
+  --fpui-tabs-tab-fill-active-bg-color: var(--neutral-lightest);
+  --fpui-tabs-tab-fill-active-text-color: var(--secondary-color);
+  /* Line tab styles */
+  --fpui-tabs-tab-bar-line-border-color: var(--neutral-light);
+  --fpui-tabs-tab-bar-line-text-color: var(--text-color);
+  --fpui-tabs-tab-line-active-border-color: var(--secondary-color);
+	--fpui-tabs-tab-line-active-text-color: var(--secondary-color);
+}
+
 /* Textareas */
 :root {
   --fpui-textarea-border-color: var(--border-color);

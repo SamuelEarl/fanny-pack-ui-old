@@ -5,10 +5,10 @@
   import { Button } from "../Buttons";
   import { theme } from "/src/theme";
 
+  export let handleFileUploads;
   export let dropZoneSelectFilesBtnIcon = theme.dropZoneSelectFilesBtnIcon;
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
   export let dropZoneUploadFilesBtnIcon = theme.dropZoneUploadFilesBtnIcon;
-  export let handleFileUploads;
 
   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
   let formData;
