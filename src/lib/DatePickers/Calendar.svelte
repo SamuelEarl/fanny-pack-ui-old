@@ -8,6 +8,7 @@
   import { createId } from "../fpui-utils";
 
   export let label = "";
+  // I am not documenting this prop in the docs because I wanted to keep a "flat" look for these components as much as possible. However, this prop needs to stay here because the `<DateInput>` component passes `true` to this prop.
   export let popup = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();

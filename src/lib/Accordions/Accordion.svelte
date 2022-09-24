@@ -1,6 +1,7 @@
 <script lang="ts">
   import { slide } from "svelte/transition";
 
+  export let id = "";
   export let title;
   export let showAccordionPanel = false;
   export let size = "md";
@@ -8,6 +9,7 @@
 
 
 <div
+  {id}
   class={`fpui-accordion-btn ${size}`}
   class:active={showAccordionPanel}
   on:click={() => showAccordionPanel = !showAccordionPanel}
@@ -65,6 +67,7 @@
   }
 
   .fpui-accordion-panel {
+    margin-bottom: 5px;
 
     &.sm {
       padding: var(--fpui-accordion-padding-sm, 5px);

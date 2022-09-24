@@ -75,7 +75,9 @@
   }
   $: valueUpdate($store, formatTokens);
 
-  export let text = toText($store, formatTokens);
+  // I am not exporting this `text` prop. If it becomes necessary later, then I will figure out what this prop does and I will export it.
+  // export let text = toText($store, formatTokens);
+  let text = toText($store, formatTokens);
   let textHistory = [text, text];
   $: textHistory = [textHistory[1], text];
 
@@ -122,7 +124,7 @@
   export let closeOnSelection = true;
 
   // handle on:focusout for parent element. If the parent element loses
-  // focus (e.g input element), showCalendar is set to false
+  // focus (e.g input element), showCalendar is set to false.
   function handleHideCalendar(e: FocusEvent) {
     if (
       e?.currentTarget instanceof HTMLElement &&
@@ -133,6 +135,7 @@
       return;
     } 
     else {
+      // TODO: Fix this bug: Pass the `closeOnSelection` prop's value as `true`. Then when I click on a date and then try to close the calendar by clicking on the icon button, it does not close after the first click (but it will close after the second click). If I comment out the following line, then the calendar will close after the first button click. So I need to figure out how the FocusEvent that is passed to this function is conflicting with the click event on the icon button. Whatever I come up with, though, needs to be tested to make sure that it does not mess up other scenarios.
       showCalendar = false;
     }
   }
@@ -152,7 +155,7 @@
   }
 
   function handleSelection(e: CustomEvent<undefined>) {
-    dispatch("select", e.detail)
+    dispatch("select", e.detail);
     if (closeOnSelection) {
       showCalendar = false;
     }
