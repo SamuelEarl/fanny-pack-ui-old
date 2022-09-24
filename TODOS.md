@@ -19,6 +19,9 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
     * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
 * Document the media queries and how to use them. The `fpui-media-queries.css` file has some examples that I could use in the documentation.
 
+## Customize Theme
+* Replace the `<input type="color">` elements with `<ColorPicker>` components after I finish that component.
+
 
 ## Button Component
 * Write more tests.

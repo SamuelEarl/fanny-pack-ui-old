@@ -1,3 +1,4 @@
+export { AccordionGroup, Accordion } from "./Accordions";
 export { Button } from "./Buttons";
 export { Checkbox, CheckboxGroup } from "./Checkboxes";
 export { Calendar, DateInput } from "./DatePickers";
