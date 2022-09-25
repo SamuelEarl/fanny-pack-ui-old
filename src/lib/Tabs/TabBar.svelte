@@ -14,8 +14,9 @@
     display: flex;
 
     &.fill {
-      padding: 0 15px;
-      border-radius: var(--fpui-tabs-tab-bar-fill-border-radius);
+      border: 1px solid var(--fpui-tabs-border-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
       background-color: var(--fpui-tabs-tab-bar-fill-bg-color);
       color: var(--fpui-tabs-tab-bar-fill-text-color);
     }

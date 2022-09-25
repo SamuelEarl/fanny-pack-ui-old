@@ -10,17 +10,17 @@
 
 <style>
   .fpui-accordion-group {
-    border: 1px solid var(--fpui-accordion-btn-bg-color);
+    border: 1px solid var(--fpui-accordion-border-color);
     border-radius: var(--border-radius);
 
     &.sm {
-      padding: 5px;
+      padding: var(--padding-sm, 5px);
     }
     &.md {
-      padding: 10px;
+      padding: var(--padding-sm, 10px);
     }
     &.lg {
-      padding: 15px;
+      padding: var(--padding-sm, 15px);
     }
   }
 </style>

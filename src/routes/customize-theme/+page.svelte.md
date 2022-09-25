@@ -3,7 +3,7 @@
   import { writable } from "svelte/store";
   import { browser } from "$app/environment";
   // import Colorpicker from "@budibase/colorpicker";
-  import { Button, Checkbox, Input, Modal, Select, ToastContent } from "/src/lib";
+  import { Button, Checkbox, Input, Modal, Select, TabsContainer, TabBar, Tab, TabPanel, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
   let theme = {
@@ -27,9 +27,7 @@
   // The `referenceVariables` array is used to populate the select boxes in the "Main color variables" section.
   let referenceVariables = [];
 
-  let activeTab = "fpNonNeutralColors";
-  let content = [];
-  let units = ["px", "%", "rem", "em"];
+  // let units = ["px", "%", "rem", "em"];
   let showColorPaletteModal = false;
 
   onMount(() => {
@@ -437,17 +435,17 @@ In the "Main color variables" section (after this "Color palette" section) you w
 
 <br>
 
-<div class="tab-bar">
-  <div class="tab" class:active={activeTab === "fpNonNeutralColors"} on:click={() => activeTab = "fpNonNeutralColors"}>FP Non-Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "fpNeutralColors"} on:click={() => activeTab = "fpNeutralColors"}>FP Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "grayscaleNeutralColors"} on:click={() => activeTab = "grayscaleNeutralColors"}>Grayscale Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "customNonNeutralColors"} on:click={() => activeTab = "customNonNeutralColors"}>Custom Non-Neutral Colors</div>
-  <div class="tab" class:active={activeTab === "customNeutralColors"} on:click={() => activeTab = "customNeutralColors"}>Custom Neutral Colors</div>
-</div>
+<TabsContainer>
+  <TabBar>
+    <Tab>FP Non-Neutral Colors</Tab>
+    <Tab>FP Neutral Colors</Tab>
+    <Tab>Grayscale Neutral Colors</Tab>
+    <Tab>Custom Non-Neutral Colors</Tab>
+    <Tab>Custom Neutral Colors</Tab>
+  </TabBar>
 
-<div class="color-sets">
-  {#if activeTab === "fpNonNeutralColors"}
-    <div id="non-neutral-colors">
+  <TabPanel>
+    <div id="non-neutral-colors" class="color-set">
       <table>
         <thead>
           <tr>
@@ -467,8 +465,10 @@ In the "Main color variables" section (after this "Color palette" section) you w
         </tbody>
       </table>
     </div>
-  {:else if activeTab === "fpNeutralColors"}
-    <div id="fp-neutral-colors">
+  </TabPanel>
+
+  <TabPanel>
+    <div id="fp-neutral-colors" class="color-set">
       <table>
         <thead>
           <tr>
@@ -488,8 +488,10 @@ In the "Main color variables" section (after this "Color palette" section) you w
         </tbody>
       </table>
     </div>
-  {:else if activeTab === "grayscaleNeutralColors"}
-    <div id="grayscale-neutral-colors">
+  </TabPanel>
+
+  <TabPanel>
+    <div id="grayscale-neutral-colors" class="color-set">
       <table>
         <thead>
           <tr>
@@ -509,9 +511,11 @@ In the "Main color variables" section (after this "Color palette" section) you w
         </tbody>
       </table>
     </div>
-  {:else if activeTab === "customNonNeutralColors"}
-    <p>Create your own custom set of non-neutral colors.</p>
-    <div id="your-neutral-colors">
+  </TabPanel>
+
+  <TabPanel>
+    <div id="custom-non-neutral-colors" class="color-set">
+      <p>Create your own custom set of non-neutral colors.</p>
       <table>
         <thead>
           <tr>
@@ -548,9 +552,11 @@ In the "Main color variables" section (after this "Color palette" section) you w
         Add color
       </Button>
     </div>
-  {:else if activeTab === "customNeutralColors"}
-    <p>Create your own custom set of neutral colors.</p>
-    <div id="your-neutral-colors">
+  </TabPanel>
+
+  <TabPanel>
+    <div id="custom-neutral-colors" class="color-set">
+      <p>Create your own custom set of neutral colors.</p>
       <table>
         <thead>
           <tr>
@@ -587,8 +593,8 @@ In the "Main color variables" section (after this "Color palette" section) you w
         Add color
       </Button>
     </div>
-  {/if}
-</div>
+  </TabPanel>
+</TabsContainer>
 
 <br><br>
 
@@ -759,7 +765,7 @@ The size variables are used to set values for things like padding (for buttons a
     }
   }
 
-  .color-sets {
+  .color-set {
     margin: 20px 0;
   }
 

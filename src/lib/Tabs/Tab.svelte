@@ -21,9 +21,16 @@
     padding: 10px;
     cursor: pointer;
 
-    &.fill.active {
-      background-color: var(--fpui-tabs-tab-fill-active-bg-color, #333);
-      color: var(--fpui-tabs-tab-fill-active-text-color, #333);
+    &.fill {
+
+      &:hover {
+        background-color: var(--fpui-tabs-tab-fill-hover-bg-color, #ccc);
+      }
+      
+      &.active {
+        background-color: var(--fpui-tabs-border-color, #ccc);
+        color: var(--fpui-tabs-tab-fill-active-text-color, #333);
+      }
     }
 
     &.line {
@@ -31,8 +38,12 @@
       border-bottom: 3px solid transparent;
       color: var(--fpui-tabs-tab-line-text-color, #333);
 
+      &:hover {
+        border-color: var(--fpui-tabs-tab-line-hover-border-color, #ccc);
+      }
+
       &.active {
-        border-color: var(--fpui-tabs-tab-line-active-border-color, #333);
+        border-color: var(--fpui-tabs-tab-line-active-border-color, #ccc);
 		    color: var(--fpui-tabs-tab-line-active-text-color, #333);
       }
     }

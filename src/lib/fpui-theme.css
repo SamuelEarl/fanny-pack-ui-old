@@ -164,6 +164,7 @@
 
 /* Accordions */
 :root {
+  --fpui-accordion-border-color: var(--neutral-light);
   --fpui-accordion-btn-bg-color: var(--neutral-very-light);
   --fpui-accordion-btn-text-color: var(--text-color);
   --fpui-accordion-padding-sm: var(--padding-sm);
@@ -285,17 +286,23 @@
 
 /* Tabs */
 :root {
+  --fpui-tabs-border-color: var(--border-color);
+  --fpui-tabs-border-radius: var(--border-radius);
+
   /* Fill tab styles */
-  --fpui-tabs-tab-bar-fill-border-radius: var(--border-radius);
-  --fpui-tabs-tab-bar-fill-bg-color: var(--secondary-color);
-  --fpui-tabs-tab-bar-fill-text-color: var(--neutral-lightest);
-  --fpui-tabs-tab-fill-active-bg-color: var(--neutral-lightest);
-  --fpui-tabs-tab-fill-active-text-color: var(--secondary-color);
+  --fpui-tabs-tab-bar-fill-bg-color: var(--neutral-very-light);
+  --fpui-tabs-tab-bar-fill-text-color: var(--text-color);
+  --fpui-tabs-tab-fill-hover-bg-color: var(--fpui-tabs-border-color);
+  --fpui-tabs-tab-fill-active-text-color: var(--text-color);
+  /* NOTE: For "fill" tab styles, the active tab's background-color inherits the --fpui-tabs-border-color value.
+  That way the active tab will blend with the tab bar's border. */
+
   /* Line tab styles */
-  --fpui-tabs-tab-bar-line-border-color: var(--neutral-light);
+  --fpui-tabs-tab-bar-line-border-color: var(--fpui-tabs-border-color);
   --fpui-tabs-tab-bar-line-text-color: var(--text-color);
-  --fpui-tabs-tab-line-active-border-color: var(--secondary-color);
-	--fpui-tabs-tab-line-active-text-color: var(--secondary-color);
+  --fpui-tabs-tab-line-hover-border-color: var(--fpui-tabs-border-color);
+  --fpui-tabs-tab-line-active-border-color: var(--text-color);
+	--fpui-tabs-tab-line-active-text-color: var(--text-color);
 }
 
 /* Textareas */

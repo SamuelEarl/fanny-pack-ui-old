@@ -26,7 +26,8 @@
 
 <style>
   .fpui-accordion-btn {
-    margin-bottom: 4px;
+    margin-bottom: 5px;
+    border: 1px solid var(--fpui-accordion-border-color);
     border-radius: var(--border-radius);
     background-color: var(--fpui-accordion-btn-bg-color);
     color: var(--fpui-accordion-btn-text-color);
@@ -49,7 +50,7 @@
     }
 
     &:hover {
-      box-shadow: 0 0 0 1px var(--fpui-accordion-btn-bg-color, gray);
+      box-shadow: 0 0 0 1px var(--fpui-accordion-border-color, gray);
     }
 
     &.sm {

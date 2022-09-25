@@ -14,9 +14,10 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 ---
 
 ## Example Usage
+
 <br>
 
-<TabsContainer>
+<TabsContainer border={true} padding="md">
   <TabBar>
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
@@ -46,7 +47,7 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";  
 </script>
 
-<TabsContainer>
+<TabsContainer border={true} padding="md">
   <TabBar>
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
@@ -80,7 +81,7 @@ There are two different tab styles: `fill` and `line`. The default style is `fil
 
 <br>
 
-<TabsContainer>
+<TabsContainer border={true} padding="md">
   <TabBar {tabStyle}>
     <Tab {tabStyle}>First Tab</Tab>
     <Tab {tabStyle}>Second Tab</Tab>
@@ -112,7 +113,7 @@ There are two different tab styles: `fill` and `line`. The default style is `fil
   let tabStyle = "line";
 </script>
 
-<TabsContainer>
+<TabsContainer border={true} padding="md">
   <TabBar {tabStyle}>
     <Tab {tabStyle}>First Tab</Tab>
     <Tab {tabStyle}>Second Tab</Tab>
@@ -139,6 +140,16 @@ There are two different tab styles: `fill` and `line`. The default style is `fil
 <br>
 
 ## Props
+
+### For the `<TabsContainer>` component
+| Prop name | Type | Possible values | Default value | Description |
+| --------- | ---- | --------------- | ------------- | ----------- |
+| `border` | `boolean` | `true`, `false` | `false` | This prop will add a border around the tab bar and the tab panels. 
+| `padding` | `string` | `sm`, `md`, `lg` | `md` | If `border` is true, then the value that is passed to this prop will be applied as the padding between the border and the tab contents. |
+
+*NOTE: You can also wrap your tab components in a `<div>` and apply your own border and padding values. The above props are just for convenience.*
+
+<br>
 
 ### For the `<TabBar>` and `<Tab>` components
 | Prop name | Type | Possible values | Default value | Description |

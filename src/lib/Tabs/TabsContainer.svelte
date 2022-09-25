@@ -7,6 +7,9 @@
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
 
+  export let border = false;
+  export let padding = "md";
+
 	const tabsContainer = [];
 	const panels = [];
 	const selectedTab = writable(null);
@@ -47,6 +50,28 @@
 </script>
 
 
-<div class="tabs-container">
+<!-- If `border` is true, then add the padding value that is passed as a prop. -->
+<div class={`fpui-tabs-container ${border ? padding : ""}`} class:border>
 	<slot></slot>
 </div>
+
+
+<style>
+  .fpui-tabs-container {
+
+    &.border {
+      border: 1px solid var(--border-color);
+      border-radius: var(--fpui-tabs-border-radius);
+    }
+
+    &.sm {
+      padding: var(--padding-sm, 5px);
+    }
+    &.md {
+      padding: var(--padding-sm, 10px);
+    }
+    &.lg {
+      padding: var(--padding-sm, 15px);
+    }
+  }
+</style>
