@@ -7,7 +7,7 @@
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
 
-  export let border = false;
+  export let border = true;
   export let padding = "md";
 
 	const tabsContainer = [];
@@ -68,10 +68,10 @@
       padding: var(--padding-sm, 5px);
     }
     &.md {
-      padding: var(--padding-sm, 10px);
+      padding: var(--padding-md, 10px);
     }
     &.lg {
-      padding: var(--padding-sm, 15px);
+      padding: var(--padding-lg, 15px);
     }
   }
 </style>

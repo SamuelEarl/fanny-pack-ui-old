@@ -17,10 +17,10 @@
       padding: var(--padding-sm, 5px);
     }
     &.md {
-      padding: var(--padding-sm, 10px);
+      padding: var(--padding-md, 10px);
     }
     &.lg {
-      padding: var(--padding-sm, 15px);
+      padding: var(--padding-lg, 15px);
     }
   }
 </style>

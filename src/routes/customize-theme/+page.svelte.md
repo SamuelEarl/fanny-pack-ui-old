@@ -435,7 +435,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
 
 <br>
 
-<TabsContainer>
+<TabsContainer padding="lg">
   <TabBar>
     <Tab>FP Non-Neutral Colors</Tab>
     <Tab>FP Neutral Colors</Tab>

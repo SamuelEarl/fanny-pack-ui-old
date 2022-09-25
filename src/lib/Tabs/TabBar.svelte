@@ -19,6 +19,10 @@
       overflow: hidden;
       background-color: var(--fpui-tabs-tab-bar-fill-bg-color);
       color: var(--fpui-tabs-tab-bar-fill-text-color);
+
+      /* &:hover {
+        box-shadow: 0 0 0 1px var(--fpui-tabs-border-color, gray);
+      } */
     }
 
     &.line {
