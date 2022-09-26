@@ -319,7 +319,7 @@
     border: 1px solid;
     border-color: var(--fpui-date-picker-border-color, #c7c7c7);
     border-radius: var(--fpui-date-picker-border-radius, 3px);
-    background: var(--fpui-date-picker-bg-color, white);
+    background: var(--fpui-calendar-bg-color, white);
     color: var(--fpui-date-picker-text-color, inherit);
     user-select: none;
     -webkit-user-select: none;
@@ -378,7 +378,7 @@
           border-color: var(--fpui-date-picker-border-color, #c7c7c7);
           border-radius: var(--fpui-date-picker-border-radius, 3px);
           font-size: 0.85rem;
-          background-color: var(--fpui-date-picker-bg-color, white);
+          background-color: var(--fpui-calendar-bg-color, white);
           color: var(--fpui-date-picker-text-color, inherit);
           cursor: pointer;
 

@@ -122,16 +122,17 @@
   --neutral-very-light: var(--fpn-30);
   --neutral-lightest: var(--white);
   /* Notification Colors */
-  --info-color: var(--blue);
-  --success-color: var(--green);
+  --info-color: var(--dark-blue);
+  --success-color: var(--dark-green);
   --warning-color: var(--yellow);
-  --error-color: var(--red);
-  /* Border & Text Colors */
-  --border-color: var(--fpn-60);
-  --text-color: var(--fpn-210);
+  --error-color: var(--dark-red);
+  /* Border, Background, & Text Colors */
+  --border-color: var(--neutral-light);
+  --bg-color: var(--neutral-very-light);
+  --text-color: var(--neutral-very-dark);
   /* Disabled State Colors */
-  --disabled-bg-color: var(--black);
-  --disabled-text-color: var(--fpn-60);
+  --disabled-bg-color: var(--neutral-dark);
+  --disabled-text-color: var(--neutral-very-light);
 }
 
 /* SIZE VARIABLES */
@@ -164,8 +165,8 @@
 
 /* Accordions */
 :root {
-  --fpui-accordion-border-color: var(--neutral-light);
-  --fpui-accordion-btn-bg-color: var(--neutral-very-light);
+  --fpui-accordion-border-color: var(--border-color);
+  --fpui-accordion-btn-bg-color: var(--bg-color);
   --fpui-accordion-btn-text-color: var(--text-color);
   --fpui-accordion-padding-sm: var(--padding-sm);
   --fpui-accordion-padding-md: var(--padding-md);
@@ -195,7 +196,7 @@
 :root {
   --fpui-checkbox-unchecked-border-color: var(--border-color);
   --fpui-checkbox-unchecked-border-radius: var(--border-radius);
-  --fpui-checkbox-unchecked-bg-color: var(--neutral-lightest);
+  --fpui-checkbox-unchecked-bg-color: var(--bg-color);
   --fpui-checkbox-checked-bg-color: var(--primary-color);
   --fpui-checkbox-margin-bottom: 20px;
   /* The `--fpui-checkbox-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable could come in handy. */
@@ -207,17 +208,18 @@
   /* These variables apply to both the date input field and calendar components. */
   --fpui-date-picker-border-color: var(--border-color);
   --fpui-date-picker-border-radius: var(--border-radius);
-  --fpui-date-picker-bg-color: var(--neutral-lightest);
   --fpui-date-picker-text-color: var(--text-color);
   /* These variables apply to only the date input field component. */
-  --fpui-date-input-btn-bg-color: var(--neutral-very-light);
-  --fpui-date-input-btn-icon-color: inherit;
+  --fpui-date-input-bg-color: var(--bg-color);
   --fpui-date-input-placeholder-text-color: var(--neutral-medium);
+  --fpui-date-input-btn-bg-color: var(--border-color);
+  --fpui-date-input-btn-icon-color: inherit;
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
   /* These variables apply to only the calendar component. */
-  --fpui-calendar-selected-date-bg-color: var(--neutral-very-light);
+  --fpui-calendar-bg-color: var(--neutral-lightest); 
+  --fpui-calendar-selected-date-bg-color: var(--bg-color);
   --fpui-calendar-selected-date-text-color: var(--text-color);
   --fpui-calendar-selected-date-border-color: var(--border-color);
 }
@@ -225,7 +227,7 @@
 /* Drop Zones (file upload) */
 :root {
   --fpui-drop-zone-border-and-text-color: var(--text-color);
-  --fpui-drop-zone-bg-color: var(--neutral-very-light);
+  --fpui-drop-zone-bg-color: var(--bg-color);
   --fpui-drop-zone-bg-color-active: var(--neutral-lightest);
   --fpui-drop-zone-border-radius: var(--border-radius);
   --fpui-drop-zone-files-set-for-upload-bg-color: var(--neutral-lightest);
@@ -235,7 +237,7 @@
 /* Inputs (currency, text, number, email) */
 :root {
   --fpui-input-border-color: var(--border-color);
-  --fpui-input-bg-color: var(--neutral-lightest);
+  --fpui-input-bg-color: var(--bg-color);
   --fpui-input-text-color: var(--text-color);
   --fpui-input-placeholder-text-color: var(--neutral-medium);
   --fpui-input-padding-sm: var(--padding-sm);
@@ -262,7 +264,7 @@
 /* Radio Buttons */
 :root {
   --fpui-radio-unchecked-border-color: var(--border-color);
-  --fpui-radio-unchecked-bg-color: var(--neutral-lightest);
+  --fpui-radio-unchecked-bg-color: var(--bg-color);
   --fpui-radio-checked-bg-color: var(--primary-color);
   --fpui-radio-margin-bottom: 20px;
   /* The `--fpui-radio-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable could come in handy. */
@@ -273,34 +275,37 @@
 :root {
   --fpui-select-border-color: var(--border-color);
   --fpui-select-border-radius: var(--border-radius);
-  --fpui-select-bg-color: var(--neutral-lightest);
+  --fpui-select-bg-color: var(--bg-color);
   --fpui-select-text-color: var(--text-color);
   --fpui-select-btn-padding-sm: var(--padding-sm);
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);
-  /* Styles for the dropdown menu of the select box. */
+  /* Styles for the options list (dropdown) of the select box. */
+  --fpui-select-options-list-bg-color: var(--neutral-lightest);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
   --fpui-select-option-padding-lg: var(--padding-lg);
+  /* Styles for MultiSelect components. */
+  --fpui-select-multi-selected-values-btn-bg-color: var(--primary-color);
+  --fpui-select-multi-selected-values-btn-text-color: var(--fpui-btn-primary-text-color);
 }
 
 /* Tabs */
 :root {
-  --fpui-tabs-border-color: var(--border-color);
-  --fpui-tabs-border-radius: var(--border-radius);
-
   /* Fill tab styles */
-  --fpui-tabs-tab-bar-fill-bg-color: var(--neutral-very-light);
+  --fpui-tabs-tab-bar-fill-border-color: var(--border-color);
+  --fpui-tabs-tab-bar-fill-bg-color: var(--bg-color);
   --fpui-tabs-tab-bar-fill-text-color: var(--text-color);
-  --fpui-tabs-tab-fill-hover-bg-color: var(--fpui-tabs-border-color);
+  /* NOTE: For "fill" tab styles, both the hover background-color and the active tab's background-color inherit the --border-color value.
+  That way the hovered and active tabs will blend with the tab bar's border. */
+  --fpui-tabs-tab-fill-hover-bg-color: var(--border-color);
+  --fpui-tabs-tab-fill-active-bg-color: var(--border-color);
   --fpui-tabs-tab-fill-active-text-color: var(--text-color);
-  /* NOTE: For "fill" tab styles, the active tab's background-color inherits the --fpui-tabs-border-color value.
-  That way the active tab will blend with the tab bar's border. */
 
   /* Line tab styles */
-  --fpui-tabs-tab-bar-line-border-color: var(--fpui-tabs-border-color);
+  --fpui-tabs-tab-bar-line-border-color: var(--border-color);
   --fpui-tabs-tab-bar-line-text-color: var(--text-color);
-  --fpui-tabs-tab-line-hover-border-color: var(--fpui-tabs-border-color);
+  --fpui-tabs-tab-line-hover-border-color: var(--border-color);
   --fpui-tabs-tab-line-active-border-color: var(--text-color);
 	--fpui-tabs-tab-line-active-text-color: var(--text-color);
 }
@@ -308,7 +313,7 @@
 /* Textareas */
 :root {
   --fpui-textarea-border-color: var(--border-color);
-  --fpui-textarea-bg-color: var(--neutral-lightest);
+  --fpui-textarea-bg-color: var(--bg-color);
   --fpui-textarea-text-color: var(--text-color);
   --fpui-textarea-placeholder-text-color: var(--neutral-medium);
   --fpui-textarea-padding-sm: var(--padding-sm);

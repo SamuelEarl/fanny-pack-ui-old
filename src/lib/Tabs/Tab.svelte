@@ -28,7 +28,7 @@
       }
       
       &.active {
-        background-color: var(--fpui-tabs-border-color, #ccc);
+        background-color: var(--fpui-tabs-tab-fill-active-bg-color, #ccc);
         color: var(--fpui-tabs-tab-fill-active-text-color, #333);
       }
     }

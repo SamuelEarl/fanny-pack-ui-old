@@ -368,8 +368,8 @@
             margin-right: 5px;
             padding: 0px 5px 0px 10px;
             border-radius: 20px;
-            background-color: var(--primary-color);
-            color: var(--fpui-btn-primary-text-color);
+            background-color: var(--fpui-select-multi-selected-values-btn-bg-color, gray);
+            color: var(--fpui-select-multi-selected-values-btn-text-color, white);
 
             & .value-text {
               white-space: nowrap;
@@ -403,7 +403,7 @@
       border-color: var(--fpui-select-border-color);
       border-radius: var(--fpui-select-border-radius, 3px);
       box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
-      background-color: white;
+      background-color: var(--fpui-select-options-list-bg-color, white);
       z-index: 100;
 
       & .select-all-btn {

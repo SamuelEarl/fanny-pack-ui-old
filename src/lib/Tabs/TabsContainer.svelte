@@ -60,8 +60,8 @@
   .fpui-tabs-container {
 
     &.border {
-      border: 1px solid var(--border-color);
-      border-radius: var(--fpui-tabs-border-radius);
+      border: 1px solid var(--border-color, gray);
+      border-radius: var(--border-radius, 3px);
     }
 
     &.sm {

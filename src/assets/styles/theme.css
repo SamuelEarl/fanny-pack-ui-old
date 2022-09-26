@@ -23,7 +23,7 @@
   /* --sans-serif-font-stack: "Open Sans", sans-serif; */
 }
 
-
+/* NOTE: I have created these `--docs-*` styles so the styles for the navigation and documentation pages won't be affected when the user customizes their styles on the "Customize Theme" page. Anything that is NOT a component should use these styles. */
 /* Main Colors for Docs Pages */
 :root {
   --docs-primary-color: var(--dark-purple);
@@ -38,16 +38,17 @@
   --docs-neutral-very-light: var(--fpn-30);
   --docs-neutral-lightest: var(--white);
   /* Notification Colors */
-  --docs-info-color: var(--blue);
-  --docs-success-color: var(--green);
+  --docs-info-color: var(--dark-blue);
+  --docs-success-color: var(--dark-green);
   --docs-warning-color: var(--yellow);
-  --docs-error-color: var(--red);
-  /* Border & Text Colors */
-  --docs-border-color: var(--fpn-60);
-  --docs-text-color: var(--fpn-210);
+  --docs-error-color: var(--dark-red);
+  /* Border, Background, & Text Colors */
+  --docs-border-color: var(--docs-neutral-light);
+  --docs-bg-color: var(--docs-neutral-very-light);
+  --docs-text-color: var(--docs-neutral-very-dark);
   /* Disabled State Colors */
-  --docs-disabled-bg-color: var(--black);
-  --docs-disabled-text-color: var(--fpn-60);
+  --docs-disabled-bg-color: var(--docs-neutral-dark);
+  --docs-disabled-text-color: var(--docs-neutral-very-light);
 }
 
 

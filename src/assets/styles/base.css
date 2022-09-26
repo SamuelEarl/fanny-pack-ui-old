@@ -5,12 +5,12 @@ html, body {
   font-size: var(--font-size-base, 16px);
   font-family: var(--sans-serif-font-stack);
   color: var(--docs-text-color);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--docs-font-weight-normal);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--cursive-font-stack);
-  font-weight: var(--font-weight-normal);
+  font-weight: var(--docs-font-weight-normal);
 }
 
 p {
@@ -48,15 +48,15 @@ th, td {
 pre {
   font-family: var(--mono-font-stack);
   padding: 10px;
-  border-radius: var(--border-radius);
-  background-color: var(--neutral-very-light);
+  border-radius: var(--docs-border-radius);
+  background-color: var(--docs-neutral-very-light);
 }
 /* <code> or single backticks */
 code {
   font-family: var(--mono-font-stack);
   padding: 0 3px;
-  border-radius: var(--border-radius);
-  background-color: var(--neutral-very-light);
+  border-radius: var(--docs-border-radius);
+  background-color: var(--docs-neutral-very-light);
 }
 
 hr {

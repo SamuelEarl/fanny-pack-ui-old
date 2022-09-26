@@ -309,7 +309,7 @@
       border-color: var(--fpui-select-border-color);
       border-radius: 0 0 var(--fpui-select-border-radius) var(--fpui-select-border-radius);
       box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
-      background-color: var(--fpui-select-bg-color);
+      background-color: var(--fpui-select-options-list-bg-color, white);
       color: var(--fpui-select-text-color);
       z-index: 100;
 

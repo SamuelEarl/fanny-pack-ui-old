@@ -240,7 +240,7 @@
         /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px);
         outline: none;
-        background-color: var(--custom-date-picker-bg-color, var(--fpui-date-picker-bg-color, white));
+        background-color: var(--custom-date-picker-bg-color, var(--fpui-date-input-bg-color, #e8e2e7));
         color: var(--custom-date-picker-text-color, var(--fpui-date-picker-text-color, inherit));
 
         &::placeholder {
@@ -277,7 +277,7 @@
         border-left: 1px solid;
         border-left-color: var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
         border-radius: 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px) calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0;
-        background-color: var(--custom-date-input-btn-bg-color, var(--fpui-date-input-btn-bg-color, #e5e5e5));
+        background-color: var(--custom-date-input-btn-bg-color, var(--fpui-date-input-btn-bg-color, #cec1cb));
         color: var(--custom-date-input-btn-icon-color, var(--fpui-date-input-btn-icon-color, inherit));
         cursor: pointer;
 
@@ -313,7 +313,7 @@
       border-radius: 4px 0 0 0;
       /* Move the triangle down by 5px and over from the left by (border-radius + 10px). */
       margin: 0 auto -5px calc(var(--fpui-date-picker-border-radius, 3px) + 10px);
-      background-color: var(--fpui-date-picker-bg-color, white);
+      background-color: var(--fpui-calendar-bg-color, white);
       transform: rotate(45deg);
       z-index: 100;
     }

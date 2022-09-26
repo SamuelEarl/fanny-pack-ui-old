@@ -457,6 +457,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
           {#each theme.fpNonNeutralColors as color, index}
             <tr>
               <td>{color.label}</td>
+      <!-- UPDATE: I might not create a custom colorpicker. I just need users to be able to set their color palettes (without any transparency values) and then I will create transparency values for some of the charts the will use transparent colors. -->
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
               <td><input type="color" value={color.value} /></td>
@@ -771,10 +772,9 @@ The size variables are used to set values for things like padding (for buttons a
 
   .download-error {
     text-align: center;
-    padding: 10px;
-    border: 1px solid var(--dark-red);
+    padding: 15px;
     border-radius: var(--docs-border-radius);
-    background-color: pink;
-    color: darkred;
+    background-color: var(--docs-error-color);
+    color: var(--docs-neutral-lightest);
   }
 </style>

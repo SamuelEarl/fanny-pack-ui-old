@@ -14,15 +14,11 @@
     display: flex;
 
     &.fill {
-      border: 1px solid var(--fpui-tabs-border-color);
-      border-radius: var(--border-radius);
+      border: 1px solid var(--fpui-tabs-tab-bar-fill-border-color, gray);
+      border-radius: var(--border-radius, 3px);
       overflow: hidden;
-      background-color: var(--fpui-tabs-tab-bar-fill-bg-color);
-      color: var(--fpui-tabs-tab-bar-fill-text-color);
-
-      /* &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-tabs-border-color, gray);
-      } */
+      background-color: var(--fpui-tabs-tab-bar-fill-bg-color, lightgray);
+      color: var(--fpui-tabs-tab-bar-fill-text-color, black);
     }
 
     &.line {
