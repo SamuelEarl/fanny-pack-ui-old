@@ -731,7 +731,7 @@ The size variables are used to set values for things like padding (for buttons a
 <br><br><br><br>
 
 {#if referenceVariables.length === 0}
-  <p class="download-error">Before you can download your theme you need to select and set your main colors above</p>
+  <p class="download-error">You need to select and set your main colors before you can download your theme</p>
   <Button
     btnIconDisabled="mi:document-download"
     width="full"
