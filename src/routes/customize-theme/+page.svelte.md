@@ -31,7 +31,6 @@
   let showColorPaletteModal = false;
 
   onMount(() => {
-    console.log("THEME FILE:", themeFile);
     parseThemeFile();
   });
 
@@ -44,12 +43,7 @@
       // Find the text between "/* Block Name */" (e.g. /* FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s*).*?(?=\\s*})`, "gs");
-// TODO: Run `npm run build` then `npm run preview` to test a production version and try to figure out what is going on with this regex. 
-// Is it possible that this is not working because the line breaks are being stripped out during compression? I don't think so, but it looks like something is stripped out that is affecting this regex in production.
-      // console.log("REGEX:", regex);
-      // console.log("MATCH?", regex.test("/* FP Non-Neutral Colors */some text in between}"));
       let matchingVariableBlock = themeFile.match(regex)[0];
-      // console.log("Matching Variable Block:", matchingVariableBlock);
       return matchingVariableBlock;
     }
     catch(err) {
@@ -70,9 +64,7 @@
       let nameRegex = new RegExp(namePrefix + "[A-Za-z0-9\-\]*" + nameSuffix, "gi");
       // String.matchAll(): https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll#regexp.exec_and_matchall.
       let matchingNamesIterator = matchingVariableBlock.matchAll(nameRegex);
-      // console.log("matchingNamesIterator:", matchingNamesIterator);
       for (const matchingVarName of matchingNamesIterator) {
-        // console.log("matchingVarName:", matchingVarName[0]);
         // Remove the colon (:) from the end of each CSS variable `name` and push the variable object into the array that matches the theme property name that is passed into this function.
         let varNameWithoutColon = matchingVarName[0].slice(0, -1);
         theme[themePropertyName].push({ label: varNameWithoutColon, value: "" });
@@ -100,10 +92,8 @@
       // let valueRegex = /#[A-Fa-f0-9]*;/gi;
       // let valueRegex = /var\([A-Za-z0-9\-]*\);/gi;
       let matchingValuesIterator = matchingVariableBlock.matchAll(valueRegex);
-      // console.log("matchingValuesIterator:", matchingValuesIterator);
       let matchingValuesIndex = 0;
       for (const matchingVarValue of matchingValuesIterator) {
-        // console.log("matchingVarValue:", matchingVarValue[0]);
         // Remove the semicolon (;) from the end of each `value`.
         let varValueWithoutSemicolon = matchingVarValue[0].slice(0, -1);
         // Replace the empty color value in the theme object with the matching color value.
@@ -124,8 +114,6 @@
    */
   function parseThemeFile() {
     try {
-      // console.log("CSS Theme File:", themeFile);
-
       let regexPrefix = "--";
       let regexSuffix = ":";
 
@@ -158,8 +146,6 @@
       matchingVariableBlock = findMatchingVariableBlock(blockName);
       setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
       setCssVariableValue(matchingVariableBlock, themePropertyName);
-
-      // console.log("THEME OBJECT:", theme);
     }
     catch(err) {
       console.error("parseThemeFile:", err);
@@ -173,7 +159,7 @@
       theme = theme;
     }
     catch(err) {
-      console.log("addColor", err);
+      console.error("addColor", err);
     }
   }
 
@@ -183,7 +169,7 @@
       theme = theme;
     }
     catch(err) {
-      console.log("removeColor", err);
+      console.error("removeColor", err);
     }
   }
 
@@ -192,7 +178,6 @@
    * See https://www.w3schools.com/css/css3_variables_javascript.asp
    */
   function updateCssVariable(variableType, variableName, variableValue) {
-    console.log("CSS Variable:", variableName, "New Value:", variableValue);
     // Get the root element
     let root = document.querySelector(":root");
     // Set the value of the CSS variable to the selected value.
@@ -204,16 +189,13 @@
     referenceVariables.length = 0;
     // Loop through the `includedColorSets` object and see which color sets have been set to `true`.
     for (const colorSet in includedColorSets) {
-      // console.log("colorSet:", colorSet, includedColorSets[colorSet]);
       // If a color set has been set to `true`, then push the variable values from that color set into the `referenceVariables` array.
       if (includedColorSets[colorSet]) {
         for (let i = 0; i < theme[colorSet].length; i++) {
-          // console.log("COLOR LABEL:", `var(${theme[colorSet][i].label})`);
           referenceVariables.push(`var(${theme[colorSet][i].label})`);
         }
       }
     }
-    // console.log("referenceVariables:", referenceVariables);
   }
 
   // NOTE: Neither the hexToRgb nor the rgbToHex functions are being used, but I am keeping them around in case I do need to use them later.
