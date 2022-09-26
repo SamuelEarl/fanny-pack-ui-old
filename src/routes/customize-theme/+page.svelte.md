@@ -41,9 +41,9 @@
   function findMatchingVariableBlock(blockName) {
     try {
       console.log("THEME FILE:", themeFile);
-      // Find the text between "/* Block Name */" (e.g. /* FP Non-Neutral Colors */) and the closing `}`.
+      // Find the text between "/*! Block Name */" (e.g. /*! FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
-      let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
+      let regex = new RegExp(`(?<=\/\\*! ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
       let matchingVariableBlock = themeFile.match(regex)[0];
       // console.log("Matching Variable Block:", matchingVariableBlock);
       return matchingVariableBlock;
@@ -354,13 +354,13 @@
       colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
 
       // (4) Get the text before and after the color and size variable blocks, then create a `themeContent` array that puts all the code for the theme file together.
-      // Find the text between "/* REGEX TOP START */" and "/* REGEX TOP END */".
+      // Find the text between "/*! REGEX TOP START */" and "/*! REGEX TOP END */".
       // See https://stackoverflow.com/a/40782646
-      let topRegex = new RegExp(`(?<=\/\\* REGEX TOP START \\*\/\\s+).*?(?=\\s+/\\* REGEX TOP END \\*\/)`, "gs");
+      let topRegex = new RegExp(`(?<=\/\\*! REGEX TOP START \\*\/\\s+).*?(?=\\s+/\\*! REGEX TOP END \\*\/)`, "gs");
       let matchingTopText = themeFile.match(topRegex)[0];
 
-      // Find the text between "/* REGEX BOTTOM START */" and "/* REGEX BOTTOM END */".
-      let bottomRegex = new RegExp(`(?<=\/\\* REGEX BOTTOM START \\*\/\\s+).*?(?=\\s+/\\* REGEX BOTTOM END \\*\/)`, "gs");
+      // Find the text between "/*! REGEX BOTTOM START */" and "/*! REGEX BOTTOM END */".
+      let bottomRegex = new RegExp(`(?<=\/\\*! REGEX BOTTOM START \\*\/\\s+).*?(?=\\s+/\\*! REGEX BOTTOM END \\*\/)`, "gs");
       let matchingBottomText = themeFile.match(bottomRegex)[0];
 
       let themeContent = [
