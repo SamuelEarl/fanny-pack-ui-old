@@ -1,28 +1,28 @@
-/* REGEX TOP START */
-/* Please read the comments throughout this file for instructions on how to customize the variables to create your own theme. */
+/*! REGEX TOP START */
+/*! Please read the comments throughout this file for instructions on how to customize the variables to create your own theme. */
 
-/* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. But you are allowed to change any of the variable values to match the theme you want. */
+/*! Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. But you are allowed to change any of the variable values to match the theme you want. */
 
-/* If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`. */
+/*! If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`. */
 
 
-/* ADDITIONAL CUSTOM VARIABLES */
-/* --------------------------- */
-/* Add any other variables that you frequently use throughout your app. */
-/* For example, you might add font stacks or border variables: */
-/*   --cursive-font-stack: "Audiowide", cursive; */
-/*   --sans-serif-font-stack: "Montserrat", sans-serif; */
-/*   --border: 1px solid var(--border-color); */
+/*! ADDITIONAL CUSTOM VARIABLES */
+/*! --------------------------- */
+/*! Add any other variables that you frequently use throughout your app. */
+/*! For example, you might add font stacks or border variables: */
+/*!   --cursive-font-stack: "Audiowide", cursive; */
+/*!   --sans-serif-font-stack: "Montserrat", sans-serif; */
+/*!   --border: 1px solid var(--border-color); */
 :root {
-  /* Add additional custom variables here */
+  /*! Add additional custom variables here */
 }
 
-/* COLOR PALETTE */
-/* ------------- */
-/* REGEX TOP END */
+/*! COLOR PALETTE */
+/*! ------------- */
+/*! REGEX TOP END */
 
-/* FP Non-Neutral Colors */
-/* Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+/*! FP Non-Neutral Colors */
+/*! Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
 :root {
   --dark-purple: #603cba;
   --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
@@ -43,8 +43,8 @@
   --dark-red: #b91d47;
 }
 
-/* FP Neutral Colors */
-/* These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
+/*! FP Neutral Colors */
+/*! These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
 :root {
   --fpn-260: #040304;
   --fpn-250: #0f0c0e;
@@ -74,8 +74,8 @@
   --fpn-10: #f9f8f9;
 }
 
-/* Grayscale Neutral Colors */
-/* These are shades and tints of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
+/*! Grayscale Neutral Colors */
+/*! These are shades and tints of #a0a0a0. See https://www.colorhexa.com/a0a0a0. */
 :root {
   --black: #000000;
   --gray-260: #030303;
@@ -108,12 +108,12 @@
   --white-rgb: rgb(255, 255, 255);
 }
 
-/* Main Colors */
+/*! Main Colors */
 :root {
   --primary-color: var(--dark-purple);
   --secondary-color: var(--fpn-210);
   --tertiary-color: var(--white);
-  /* Neutral Colors */
+  /*! Neutral Colors */
   --neutral-darkest: var(--black);
   --neutral-very-dark: var(--fpn-210);
   --neutral-dark: var(--fpn-140);
@@ -121,49 +121,49 @@
   --neutral-light: var(--fpn-60);
   --neutral-very-light: var(--fpn-30);
   --neutral-lightest: var(--white);
-  /* Notification Colors */
+  /*! Notification Colors */
   --info-color: var(--dark-blue);
   --success-color: var(--dark-green);
   --warning-color: var(--yellow);
   --error-color: var(--dark-red);
-  /* Border, Background, & Text Colors */
+  /*! Border, Background, & Text Colors */
   --border-color: var(--neutral-light);
   --bg-color: var(--neutral-very-light);
   --text-color: var(--neutral-very-dark);
-  /* Disabled State Colors */
+  /*! Disabled State Colors */
   --disabled-bg-color: var(--neutral-dark);
   --disabled-text-color: var(--neutral-very-light);
 }
 
-/* SIZE VARIABLES */
-/* -------------- */
+/*! SIZE VARIABLES */
+/*! -------------- */
 :root {
-  /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
+  /*! Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
   --padding-sm: 5px;
   --padding-md: 10px;
   --padding-lg: 15px;
-  /* Borders */
+  /*! Borders */
   --border-radius: 3px;
-  /* Font sizes */
+  /*! Font sizes */
   --font-size-sm: 12px;
   --font-size-base: 16px;
   --font-size-lg: 20px;
-  /* Font weights */
+  /*! Font weights */
   --font-weight-light: 100;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
 }
 
-/* REGEX BOTTOM START */
-/* INDIVIDUAL COMPONENT STYLES */
-/* --------------------------- */
-/* The Main Colors (above) are used throughout the components. Changing the values for those variables will handle most of the theme customizations for your components. However, there might be some colors or sizes that you want to customize under these "INDIVIDUAL COMPONENT STYLES". */
-/* You can customize any of the individual components by changing the color or size values below. */
-/* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
-/* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
-/* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
+/*! REGEX BOTTOM START */
+/*! INDIVIDUAL COMPONENT STYLES */
+/*! --------------------------- */
+/*! The Main Colors (above) are used throughout the components. Changing the values for those variables will handle most of the theme customizations for your components. However, there might be some colors or sizes that you want to customize under these "INDIVIDUAL COMPONENT STYLES". */
+/*! You can customize any of the individual components by changing the color or size values below. */
+/*! WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
+/*! Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
+/*! The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
-/* Accordions */
+/*! Accordions */
 :root {
   --fpui-accordion-border-color: var(--border-color);
   --fpui-accordion-btn-bg-color: var(--bg-color);
@@ -173,43 +173,43 @@
   --fpui-accordion-padding-lg: var(--padding-lg);
 }
 
-/* Buttons */
+/*! Buttons */
 :root {
   --fpui-btn-primary-text-color: var(--neutral-lightest);
   --fpui-btn-secondary-text-color: var(--neutral-lightest);
   --fpui-btn-tertiary-text-color: var(--primary-color);
-  /* The --fpui-btn-padding variables will make the button larger or smaller. */
+  /*! The --fpui-btn-padding variables will make the button larger or smaller. */
   --fpui-btn-padding-sm: var(--padding-sm);
   --fpui-btn-padding-md: var(--padding-md);
   --fpui-btn-padding-lg: var(--padding-lg);
-  /* The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
+  /*! The --fpui-btn-icon-margin variables provide the space between the button text and the button icon. */
   --fpui-btn-icon-margin-sm: 3px;
   --fpui-btn-icon-margin-md: 7px;
   --fpui-btn-icon-margin-lg: 12px;
   --fpui-btn-font-weight: var(--font-weight-normal);
-  /* --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
+  /*! --fpui-btn-icon-spin-speed: The speed at which icons for disabled buttons will spin when a button has a loading/disabled state. */
   --fpui-btn-icon-disabled-spin-speed: 1.5s;
   --fpui-btn-border-radius: var(--border-radius);
 }
 
-/* Checkboxes */
+/*! Checkboxes */
 :root {
   --fpui-checkbox-unchecked-border-color: var(--border-color);
   --fpui-checkbox-unchecked-border-radius: var(--border-radius);
   --fpui-checkbox-unchecked-bg-color: var(--bg-color);
   --fpui-checkbox-checked-bg-color: var(--primary-color);
   --fpui-checkbox-margin-bottom: 20px;
-  /* The `--fpui-checkbox-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable could come in handy. */
+  /*! The `--fpui-checkbox-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable could come in handy. */
   --fpui-checkbox-vertical-alignment: -3px;
 }
 
-/* Date Pickers */
+/*! Date Pickers */
 :root {
-  /* These variables apply to both the date input field and calendar components. */
+  /*! These variables apply to both the date input field and calendar components. */
   --fpui-date-picker-border-color: var(--border-color);
   --fpui-date-picker-border-radius: var(--border-radius);
   --fpui-date-picker-text-color: var(--text-color);
-  /* These variables apply to only the date input field component. */
+  /*! These variables apply to only the date input field component. */
   --fpui-date-input-bg-color: var(--bg-color);
   --fpui-date-input-placeholder-text-color: var(--neutral-medium);
   --fpui-date-input-btn-bg-color: var(--border-color);
@@ -217,14 +217,14 @@
   --fpui-date-input-btn-padding-sm: var(--padding-sm);
   --fpui-date-input-btn-padding-md: var(--padding-md);
   --fpui-date-input-btn-padding-lg: var(--padding-lg);
-  /* These variables apply to only the calendar component. */
+  /*! These variables apply to only the calendar component. */
   --fpui-calendar-bg-color: var(--neutral-lightest); 
   --fpui-calendar-selected-date-bg-color: var(--bg-color);
   --fpui-calendar-selected-date-text-color: var(--text-color);
   --fpui-calendar-selected-date-border-color: var(--border-color);
 }
 
-/* Drop Zones (file upload) */
+/*! Drop Zones (file upload) */
 :root {
   --fpui-drop-zone-border-and-text-color: var(--text-color);
   --fpui-drop-zone-bg-color: var(--bg-color);
@@ -234,7 +234,7 @@
   --fpui-drop-zone-files-set-for-upload-text-color: var(--text-color);
 }
 
-/* Inputs (currency, text, number, email) */
+/*! Inputs (currency, text, number, email) */
 :root {
   --fpui-input-border-color: var(--border-color);
   --fpui-input-bg-color: var(--bg-color);
@@ -245,14 +245,14 @@
   --fpui-input-padding-lg: var(--padding-lg);
 }
 
-/* Labels */
+/*! Labels */
 :root {
   --fpui-label-font-size: 0.8rem;
   --fpui-label-margin-bottom: 5px;
   --fpui-label-text-color: var(--neutral-dark);
 }
 
-/* Modals */
+/*! Modals */
 :root {
   --fpui-modal-header-footer-border-color: var(--border-color);
   --fpui-modal-header-footer-bg-color: var(--neutral-lightest);
@@ -261,17 +261,17 @@
   --fpui-modal-body-bg-color: var(--neutral-lightest);
 }
 
-/* Radio Buttons */
+/*! Radio Buttons */
 :root {
   --fpui-radio-unchecked-border-color: var(--border-color);
   --fpui-radio-unchecked-bg-color: var(--bg-color);
   --fpui-radio-checked-bg-color: var(--primary-color);
   --fpui-radio-margin-bottom: 20px;
-  /* The `--fpui-radio-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable could come in handy. */
+  /*! The `--fpui-radio-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable could come in handy. */
   --fpui-radio-vertical-alignment: -2px;
 }
 
-/* Select Boxes (single, multi) */
+/*! Select Boxes (single, multi) */
 :root {
   --fpui-select-border-color: var(--border-color);
   --fpui-select-border-radius: var(--border-radius);
@@ -280,29 +280,29 @@
   --fpui-select-btn-padding-sm: var(--padding-sm);
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);
-  /* Styles for the options list (dropdown) of the select box. */
+  /*! Styles for the options list (dropdown) of the select box. */
   --fpui-select-options-list-bg-color: var(--neutral-lightest);
   --fpui-select-option-padding-sm: var(--padding-sm);
   --fpui-select-option-padding-md: var(--padding-md);
   --fpui-select-option-padding-lg: var(--padding-lg);
-  /* Styles for MultiSelect components. */
+  /*! Styles for MultiSelect components. */
   --fpui-select-multi-selected-values-btn-bg-color: var(--primary-color);
   --fpui-select-multi-selected-values-btn-text-color: var(--fpui-btn-primary-text-color);
 }
 
-/* Tabs */
+/*! Tabs */
 :root {
-  /* Fill tab styles */
+  /*! Fill tab styles */
   --fpui-tabs-tab-bar-fill-border-color: var(--border-color);
   --fpui-tabs-tab-bar-fill-bg-color: var(--bg-color);
   --fpui-tabs-tab-bar-fill-text-color: var(--text-color);
-  /* NOTE: For "fill" tab styles, both the hover background-color and the active tab's background-color inherit the --border-color value.
+  /*! NOTE: For "fill" tab styles, both the hover background-color and the active tab's background-color inherit the --border-color value.
   That way the hovered and active tabs will blend with the tab bar's border. */
   --fpui-tabs-tab-fill-hover-bg-color: var(--border-color);
   --fpui-tabs-tab-fill-active-bg-color: var(--border-color);
   --fpui-tabs-tab-fill-active-text-color: var(--text-color);
 
-  /* Line tab styles */
+  /*! Line tab styles */
   --fpui-tabs-tab-bar-line-border-color: var(--border-color);
   --fpui-tabs-tab-bar-line-text-color: var(--text-color);
   --fpui-tabs-tab-line-hover-border-color: var(--border-color);
@@ -310,7 +310,7 @@
 	--fpui-tabs-tab-line-active-text-color: var(--text-color);
 }
 
-/* Textareas */
+/*! Textareas */
 :root {
   --fpui-textarea-border-color: var(--border-color);
   --fpui-textarea-bg-color: var(--bg-color);
@@ -321,7 +321,7 @@
   --fpui-textarea-padding-lg: var(--padding-lg);
 }
 
-/* Toasts */
+/*! Toasts */
 :root {
   --fpui-toast-info-bg-color: var(--info-color);
   --fpui-toast-info-text-color: var(--neutral-lightest);
@@ -335,7 +335,7 @@
   --fpui-toast-font-weight: var(--font-weight-normal);
 }
 
-/* Tooltips */
+/*! Tooltips */
 :root {
   --fpui-tooltip-bg-color: var(--neutral-very-dark);
   --fpui-tooltip-text-color: var(--neutral-lightest);
@@ -343,13 +343,13 @@
 }
 
 
-/* UTILITY CLASSES */
-/* --------------- */
-/* I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library, so do not edit these (but you are welcome to create additional utility classes here). */
+/*! UTILITY CLASSES */
+/*! --------------- */
+/*! I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library, so do not edit these (but you are welcome to create additional utility classes here). */
 
-/* The "fpui-spin" class is used to spin icons during loading states. */
-/* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
-/* Beginning of "fpui-spin" class */
+/*! The "fpui-spin" class is used to spin icons during loading states. */
+/*! You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
+/*! Beginning of "fpui-spin" class */
 .fpui-spin {
   animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
 }
@@ -362,6 +362,6 @@
     transform: rotate(360deg);
   }
 }
-/* Ending of "fpui-spin" class */
+/*! Ending of "fpui-spin" class */
 
-/* REGEX BOTTOM END */
+/*! REGEX BOTTOM END */
