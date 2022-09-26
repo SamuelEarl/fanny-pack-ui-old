@@ -41,13 +41,13 @@
    */
   function findMatchingVariableBlock(blockName) {
     try {
-      // Find the text between "/*! Block Name */" (e.g. /*! FP Non-Neutral Colors */) and the closing `}`.
+      // Find the text between "/* Block Name */" (e.g. /* FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
-      let regex = new RegExp(`(?<=\/\\*! ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
+      let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s*).*?(?=\\s*})`, "gs");
 // TODO: Run `npm run build` then `npm run preview` to test a production version and try to figure out what is going on with this regex. 
 // Is it possible that this is not working because the line breaks are being stripped out during compression? I don't think so, but it looks like something is stripped out that is affecting this regex in production.
-      console.log("REGEX:", regex);
-      console.log("MATCH?", regex.test("/*! FP Non-Neutral Colors */ some text in between }"));
+      // console.log("REGEX:", regex);
+      // console.log("MATCH?", regex.test("/* FP Non-Neutral Colors */some text in between}"));
       let matchingVariableBlock = themeFile.match(regex)[0];
       // console.log("Matching Variable Block:", matchingVariableBlock);
       return matchingVariableBlock;
@@ -207,7 +207,7 @@
       // console.log("colorSet:", colorSet, includedColorSets[colorSet]);
       // If a color set has been set to `true`, then push the variable values from that color set into the `referenceVariables` array.
       if (includedColorSets[colorSet]) {
-        for (let i = 0; theme[colorSet].length > i; i++) {
+        for (let i = 0; i < theme[colorSet].length; i++) {
           // console.log("COLOR LABEL:", `var(${theme[colorSet][i].label})`);
           referenceVariables.push(`var(${theme[colorSet][i].label})`);
         }
@@ -358,13 +358,13 @@
       colorsAndSizesContent = [...colorsAndSizesContent, ...sizesContent];
 
       // (4) Get the text before and after the color and size variable blocks, then create a `themeContent` array that puts all the code for the theme file together.
-      // Find the text between "/*! REGEX TOP START */" and "/*! REGEX TOP END */".
+      // Find the text between "/* REGEX TOP START */" and "/* REGEX TOP END */".
       // See https://stackoverflow.com/a/40782646
-      let topRegex = new RegExp(`(?<=\/\\*! REGEX TOP START \\*\/\\s+).*?(?=\\s+/\\*! REGEX TOP END \\*\/)`, "gs");
+      let topRegex = new RegExp(`(?<=\/\\* REGEX TOP START \\*\/\\s*).*?(?=\\s*/\\* REGEX TOP END \\*\/)`, "gs");
       let matchingTopText = themeFile.match(topRegex)[0];
 
-      // Find the text between "/*! REGEX BOTTOM START */" and "/*! REGEX BOTTOM END */".
-      let bottomRegex = new RegExp(`(?<=\/\\*! REGEX BOTTOM START \\*\/\\s+).*?(?=\\s+/\\*! REGEX BOTTOM END \\*\/)`, "gs");
+      // Find the text between "/* REGEX BOTTOM START */" and "/* REGEX BOTTOM END */".
+      let bottomRegex = new RegExp(`(?<=\/\\* REGEX BOTTOM START \\*\/\\s*).*?(?=\\s*/\\* REGEX BOTTOM END \\*\/)`, "gs");
       let matchingBottomText = themeFile.match(bottomRegex)[0];
 
       let themeContent = [
@@ -731,7 +731,7 @@ The size variables are used to set values for things like padding (for buttons a
 <br><br><br><br>
 
 {#if referenceVariables.length === 0}
-  <p class="download-error">Before you can download your theme you need to select and set your main colors above.</p>
+  <p class="download-error">Before you can download your theme you need to select and set your main colors above</p>
   <Button
     btnIconDisabled="mi:document-download"
     width="full"

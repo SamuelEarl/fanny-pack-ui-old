@@ -15,6 +15,11 @@ const config = {
   define: {
     "__APP_VERSION__": JSON.stringify(process.env.npm_package_version),
   },
+
+  // If the files are minified during build, then the downloadable `theme.css` file will be compressed and unreadable.
+  build: {
+    minify: false,
+  },
 };
 
 export default config;
