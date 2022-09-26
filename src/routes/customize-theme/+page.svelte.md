@@ -48,7 +48,7 @@
       return matchingVariableBlock;
     }
     catch(err) {
-      console.error("findMatchingVariableBlock Error:", err);
+      console.error("findMatchingVariableBlock:", err);
     }
   }
 
@@ -154,10 +154,10 @@
       setCssVariableName(matchingVariableBlock, themePropertyName, regexPrefix, regexSuffix);
       setCssVariableValue(matchingVariableBlock, themePropertyName);
 
-      console.log("THEME OBJECT:", theme);
+      // console.log("THEME OBJECT:", theme);
     }
     catch(err) {
-      console.error("parseThemeFile Error:", err);
+      console.error("parseThemeFile:", err);
     }
   }
 

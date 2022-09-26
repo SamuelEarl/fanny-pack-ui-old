@@ -20,7 +20,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Document the media queries and how to use them. The `fpui-media-queries.css` file has some examples that I could use in the documentation.
 
 ## Customize Theme
-* Replace the `<input type="color">` elements with `<ColorPicker>` components after I finish that component.
+* Replace the `<input type="color">` elements with `<ColorPicker>` components after I finish that component. UPDATE: I might not create a custom colorpicker. I just need users to be able to set their color palettes (without any transparency values) and then I will create transparency values for some of the charts the will use transparent colors. If the browser's default color picker is not very easy to use, then I will create a custom color picker.
 
 
 ## Button Component
