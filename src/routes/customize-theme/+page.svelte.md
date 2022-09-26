@@ -44,7 +44,10 @@
       // Find the text between "/*! Block Name */" (e.g. /*! FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\*! ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
+// TODO: Run `npm run build` then `npm run preview` to test a production version and try to figure out what is going on with this regex. 
+// Is it possible that this is not working because the line breaks are being stripped out during compression? I don't think so, but it looks like something is stripped out that is affecting this regex in production.
       console.log("REGEX:", regex);
+      console.log("MATCH?", regex.test("/*! FP Non-Neutral Colors */ some text in between }"));
       let matchingVariableBlock = themeFile.match(regex)[0];
       // console.log("Matching Variable Block:", matchingVariableBlock);
       return matchingVariableBlock;
