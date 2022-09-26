@@ -31,12 +31,20 @@ a:hover {
   border-bottom: none;
 }
 
+.table-container {
+  padding: 15px;
+  border: var(--docs-border);
+  border-radius: var(--docs-border-radius);
+}
 table {
   width: 100%;
   border-collapse: collapse;
 }
 tr {
   border-bottom: var(--docs-border);
+}
+tbody tr:last-child {
+  border-bottom: none;
 }
 th, td {
   padding: 10px 25px;

@@ -40,6 +40,7 @@
    */
   function findMatchingVariableBlock(blockName) {
     try {
+      console.log("THEME FILE:", themeFile);
       // Find the text between "/* Block Name */" (e.g. /* FP Non-Neutral Colors */) and the closing `}`.
       // See https://stackoverflow.com/a/40782646
       let regex = new RegExp(`(?<=\/\\* ${blockName} \\*\/\\s+).*?(?=\\s+})`, "gs");
@@ -643,32 +644,34 @@ To set your main color variables:
 
 <br>
 
-<table>
-  <thead>
-    <tr>
-      <th>Variable name</th>
-      <th>Value</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each theme.mainColors as mainColor, index (mainColor.label)}
+<div class="table-container">
+  <table>
+    <thead>
       <tr>
-        <td>{mainColor.label}</td>
-        <td>
-          {#if referenceVariables.length > 0}
-            <!-- NOTE: When this page first loads, the `parseThemeFile()` function will populate the `theme` object based on the color and size CSS variables that are defined in the `fpui-theme.css` file. So the `theme.mainColors` array will contain the Main Color variables from the `fpui-theme.css` file. Since each of the following <Select> components is bound to `theme.mainColors[i].value`, the initial value of each of these <Select> components will be the corresponding Main Color value from the `fpui-theme.css` file. -->
-            <Select
-              options={referenceVariables}
-              size="sm"
-              bind:value={mainColor.value}
-              on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
-            />
-          {/if}
-        </td>
+        <th>Variable name</th>
+        <th>Value</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each theme.mainColors as mainColor, index (mainColor.label)}
+        <tr>
+          <td>{mainColor.label}</td>
+          <td>
+            {#if referenceVariables.length > 0}
+              <!-- NOTE: When this page first loads, the `parseThemeFile()` function will populate the `theme` object based on the color and size CSS variables that are defined in the `fpui-theme.css` file. So the `theme.mainColors` array will contain the Main Color variables from the `fpui-theme.css` file. Since each of the following <Select> components is bound to `theme.mainColors[i].value`, the initial value of each of these <Select> components will be the corresponding Main Color value from the `fpui-theme.css` file. -->
+              <Select
+                options={referenceVariables}
+                size="sm"
+                bind:value={mainColor.value}
+                on:change={(event) => updateCssVariable("color", mainColor.label, event.detail)}
+              />
+            {/if}
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 
 <br><br>
 
@@ -677,47 +680,49 @@ The size variables are used to set values for things like padding (for buttons a
 
 <br>
 
-<table>
-  <thead>
-    <tr>
-      <th>Size variable name</th>
-      <th>Size value</th>
-      <!-- <th>Unit</th> -->
-    </tr>
-  </thead>
-  <tbody>
-    {#each theme.sizes as size, index}
+<div class="table-container">
+  <table>
+    <thead>
       <tr>
-        <td>{size.label}</td>
-        <td>
-          <Input
-            id={`size-input-${index}`}
-            type="text"
-            size="sm"
-            bind:value={size.value}
-            on:keyup={(event) => {
-              if (event && (event.key === "Enter" || event.key === "Escape")) {
-                document.getElementById(`size-input-${index}`).blur();
-              }
-            }}
-            on:blur={() => updateCssVariable("size", size.label, event.target.value)}
-          />
-        </td>
-        <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
-        <!-- {#if size.unit}
+        <th>Size variable name</th>
+        <th>Size value</th>
+        <!-- <th>Unit</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      {#each theme.sizes as size, index}
+        <tr>
+          <td>{size.label}</td>
           <td>
-            <Select
-              options={units}
-              bind:value={size.unit}
+            <Input
+              id={`size-input-${index}`}
+              type="text"
               size="sm"
-              on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)}
+              bind:value={size.value}
+              on:keyup={(event) => {
+                if (event && (event.key === "Enter" || event.key === "Escape")) {
+                  document.getElementById(`size-input-${index}`).blur();
+                }
+              }}
+              on:blur={() => updateCssVariable("size", size.label, event.target.value)}
             />
           </td>
-        {/if} -->
-      </tr>
-    {/each}
-  </tbody>
-</table>
+          <!-- If there is a unit specified for the size variable, then show a <Select> component with the unit options. -->
+          <!-- {#if size.unit}
+            <td>
+              <Select
+                options={units}
+                bind:value={size.unit}
+                size="sm"
+                on:change={(event) => updateCssVariable("size", size.label, size.value, event.detail)}
+              />
+            </td>
+          {/if} -->
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+</div>
 
 <br><br><br><br>
 
@@ -767,7 +772,7 @@ The size variables are used to set values for things like padding (for buttons a
   }
 
   .color-set {
-    margin: 20px 0;
+    padding-top: 20px;
   }
 
   .download-error {
