@@ -120,7 +120,7 @@
   class={`fpui-select-container fpui-select-container-${componentId}`}
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
-  <select value={value} on:change>
+  <select bind:value={value} on:change>
     {#if optionsDataType === "object"}
       {#if optgroup}
         {#each Object.entries(optgroups) as [key, value]}

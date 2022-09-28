@@ -143,7 +143,7 @@
   class="{`fpui-select-multi-container fpui-select-multi-container-${componentId}`}"
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
-  <select multiple value={values} on:change>
+  <select multiple bind:value={values} on:change>
     {#if optionsDataType === "object"}
       {#if optgroup}
         {#each Object.entries(optgroups) as [key, value]}
