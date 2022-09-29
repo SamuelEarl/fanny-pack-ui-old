@@ -30,9 +30,10 @@
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
     </a>
-    <a href="/components/color-picker" class:active={currentPath === "/components/color-picker"}>
+    <!-- See my comment about a color picker component in the TODOS.md file. -->
+    <!-- <a href="/components/color-picker" class:active={currentPath === "/components/color-picker"}>
       <Icon icon="clarity:color-picker-solid" /> &nbsp; Color Picker
-    </a>
+    </a> -->
     <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
       <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
     </a>

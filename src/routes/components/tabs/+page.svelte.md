@@ -1,7 +1,5 @@
 <script lang="ts">
   import { TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
-  
-  let tabStyle = "line";
 </script>
 
 
@@ -123,10 +121,10 @@ The next example shows how to set the tab style to `line` with the `tabStyle` pr
 <br>
 
 <TabsContainer border={true} padding="md">
-  <TabBar {tabStyle}>
-    <Tab {tabStyle}>First Tab</Tab>
-    <Tab {tabStyle}>Second Tab</Tab>
-    <Tab {tabStyle}>Third Tab</Tab>
+  <TabBar tabStyle="line">
+    <Tab>First Tab</Tab>
+    <Tab>Second Tab</Tab>
+    <Tab>Third Tab</Tab>
   </TabBar>
 
   <TabPanel>
@@ -150,15 +148,13 @@ The next example shows how to set the tab style to `line` with the `tabStyle` pr
 ```svelte
 <script lang="ts">
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";
-  
-  let tabStyle = "line";
 </script>
 
 <TabsContainer border={true} padding="md">
-  <TabBar {tabStyle}>
-    <Tab {tabStyle}>First Tab</Tab>
-    <Tab {tabStyle}>Second Tab</Tab>
-    <Tab {tabStyle}>Third Tab</Tab>
+  <TabBar tabStyle="line">
+    <Tab>First Tab</Tab>
+    <Tab>Second Tab</Tab>
+    <Tab>Third Tab</Tab>
   </TabBar>
 
   <TabPanel>
@@ -185,10 +181,10 @@ This is how a `line` tab style looks without a border:
 <br>
 
 <TabsContainer border={false}>
-  <TabBar {tabStyle}>
-    <Tab {tabStyle}>First Tab</Tab>
-    <Tab {tabStyle}>Second Tab</Tab>
-    <Tab {tabStyle}>Third Tab</Tab>
+  <TabBar tabStyle="line"}>
+    <Tab>First Tab</Tab>
+    <Tab>Second Tab</Tab>
+    <Tab>Third Tab</Tab>
   </TabBar>
 
   <TabPanel>
@@ -210,16 +206,11 @@ This is how a `line` tab style looks without a border:
 <br>
 
 ```svelte
-<script lang="ts">
-  ...  
-  let tabStyle = "line";
-</script>
-
 <TabsContainer border={false}>
-  <TabBar {tabStyle}>
-    <Tab {tabStyle}>First Tab</Tab>
-    <Tab {tabStyle}>Second Tab</Tab>
-    <Tab {tabStyle}>Third Tab</Tab>
+  <TabBar tabStyle="line"}>
+    <Tab>First Tab</Tab>
+    <Tab>Second Tab</Tab>
+    <Tab>Third Tab</Tab>
   </TabBar>
   ...
 </TabsContainer>
@@ -242,7 +233,7 @@ This is how a `line` tab style looks without a border:
 ### For the `<TabBar>` and `<Tab>` components
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `tabStyle` | `string` | `fill`, `line` | `fill`<br>The default value can be set in the `/src/theme.ts` file. | You can use the default tab style for most of your tabs and you can use this prop if you want to set the tab style for individual tabs.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
+| `tabStyle` | `string` | `fill`, `line` | `fill`<br>The default value can be set in the `/src/theme.ts` file. | This prop sets the style of the tab bar and the tabs.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
 
 
 <style>

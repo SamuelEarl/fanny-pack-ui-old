@@ -1,11 +1,10 @@
 <script>
 	import { getContext } from "svelte";
 	import { TABS_CONTAINER } from "./TabsContainer.svelte";
-  import { theme } from "/src/theme";
 
-  export let tabStyle = theme.defaultTabStyle;
 	const tab = {};
 	const { registerTab, selectTab, selectedTab } = getContext(TABS_CONTAINER);
+  let tabStyle = getContext("tabStyle");
 
 	registerTab(tab);
 </script>

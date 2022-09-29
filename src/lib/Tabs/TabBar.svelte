@@ -1,7 +1,10 @@
 <script lang="ts">
+  import { setContext } from "svelte";
   import { theme } from "/src/theme";
 
   export let tabStyle = theme.defaultTabStyle;
+
+  setContext("tabStyle", tabStyle);
 </script>
 
 <div class={`fpui-tabs-tab-bar ${tabStyle}`}>
