@@ -1,7 +1,6 @@
 <script context="module">
-  export let TABS_CONTAINER = {};
+  export let TABS_KEY = Symbol();
 </script>
-
 
 <script>
 	import { setContext, onDestroy } from "svelte";
@@ -15,7 +14,7 @@
 	const selectedTab = writable(null);
 	const selectedPanel = writable(null);
 
-	setContext(TABS_CONTAINER, {
+	setContext(TABS_KEY, {
 		registerTab: tab => {
 			tabsContainer.push(tab);
 			selectedTab.update(current => current || tab);

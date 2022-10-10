@@ -1,9 +1,9 @@
 <script>
 	import { getContext } from "svelte";
-	import { TABS_CONTAINER } from "./TabsContainer.svelte";
+	import { TABS_KEY } from "./TabsContainer.svelte";
 
 	const tab = {};
-	const { registerTab, selectTab, selectedTab } = getContext(TABS_CONTAINER);
+	const { registerTab, selectTab, selectedTab } = getContext(TABS_KEY);
   let tabStyle = getContext("tabStyle");
 
 	registerTab(tab);
