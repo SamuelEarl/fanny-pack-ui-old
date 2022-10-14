@@ -6,6 +6,7 @@
   import { theme } from "/src/theme";
 
   export let handleFileUploads;
+  export let accept = "*";
   export let dropZoneSelectFilesBtnIcon = theme.dropZoneSelectFilesBtnIcon;
   export let dragAndDropIcon = theme.dropZoneDragAndDropIcon;
   export let dropZoneUploadFilesBtnIcon = theme.dropZoneUploadFilesBtnIcon;
@@ -158,7 +159,7 @@
         type="file" 
         class="file-input-field" 
         multiple
-        accept="*"
+        {accept}
         on:change={(event) => {
           // You can access the files from a file input's `change` event through the event.target.files property.
           addFiles(event.target.files);
@@ -204,11 +205,11 @@
     padding: 20px;
     padding-bottom: 5px;
     border: 2px dashed;
-    border-color: var(--fpui-drop-zone-border-and-text-color, #797979);
+    border-color: var(--fpui-drop-zone-border-color, #797979);
     border-radius: var(--fpui-drop-zone-border-radius, 3px);
     text-align: center;
     background-color: var(--fpui-drop-zone-bg-color, #e5e5e5);
-    color: var(--fpui-drop-zone-border-and-text-color, #797979);
+    color: var(--fpui-drop-zone-text-color, #797979);
     outline: none;
     transition: border 0.25s ease-in-out;
 

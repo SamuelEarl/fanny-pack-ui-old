@@ -226,7 +226,8 @@
 
 /* Drop Zones (file upload) */
 :root {
-  --fpui-drop-zone-border-and-text-color: var(--text-color);
+  --fpui-drop-zone-border-color: var(--neutral-medium);
+  --fpui-drop-zone-text-color: var(--text-color);
   --fpui-drop-zone-bg-color: var(--bg-color);
   --fpui-drop-zone-bg-color-active: var(--neutral-lightest);
   --fpui-drop-zone-border-radius: var(--border-radius);

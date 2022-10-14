@@ -55,21 +55,22 @@
 
 File uploads are handled a bit differently in modern web development than they were once upon a time. For example, rather than store files in your webserver (not very scalable) or your database (really complicated, if not impossible), you should store your files in a cloud storage service (e.g. Amazon S3, Cloudflare R2, Google Cloud Storage, Azure Storage, Cloudinary, Uploadcare). When you store a file in a cloud storage service the service will return a URL where that file is located. You should take that URL and save it in your database so you can retrieve the file later.
 
-Given that there are many cloud storage services available, each with their own set of APIs and functionality, a generic file upload component might not work for your situation. I have written a tutorial toward the bottom of this page that explains the concepts involved with a drop zone component so you can create one that fits your needs.
+Given that there are many cloud storage services available, each with their own set of APIs and functionality, a generic file upload component might not work for your situation. I have written a tutorial toward the bottom of this page that explains the concepts involved with a drop zone component so you can create one that fits your needs, if necessary.
 
 Many cloud storage services provide APIs for handling file uploads from your browser-side code or from your server-side code. You should select the option that makes the most sense for your application. In order to handle large file uploads (on the server-side) you have to implement streams and [handling streams in SvelteKit is still a TODO item](https://github.com/sveltejs/kit/issues/3419) as of April 2022. So if you are creating a file upload component for SvelteKit you might have to use a browser-side file upload API.
 
 ---
 
-***Public Service Announcement***
+***Public Service Announcements***
 
-*If you are looking for a cloud storage service that is easy to use, then check out <a href="https://uploadcare.com/">Uploadcare</a>. (I am not affiliated with them, but maybe I should be. :)) Uploadcare has a ton of cool features, it is built on top of the Akamai CDN platform (which is one of the leading CDN platforms), it has a pretty generous free tier, and their ready-made <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget is awesome! The File Uploader widget works well with SvelteKit apps and you can even customize its styles to match your app.*
+* *This is only a frontend component. It does not include a way to send files to a server. However, if you are looking for a frontend and backend solution, then checkout <a href="https://pqina.nl/filepond/">filepond</a> or <a href="https://uppy.io/">uppy.io</a>.*
+* *If you are looking for a cloud storage service that is easy to use, then check out <a href="https://uploadcare.com/">Uploadcare</a>. (I am not affiliated with them, but maybe I should be. :)) Uploadcare has a ton of cool features, it is built on top of the Akamai CDN platform (which is one of the leading CDN platforms), it has a pretty generous free tier, and their ready-made <a href="https://uploadcare.com/docs/uploads/file-uploader/">File Uploader</a> widget is awesome! The File Uploader widget works well with SvelteKit apps and you can even customize its styles to match your app.*
 
 ---
 
 ## Example Usage
 
-<DropZone {handleFileUploads}>File Drop</DropZone>
+<DropZone {handleFileUploads} accept="image/*,.pdf">File Drop</DropZone>
 
 <br>
 
@@ -105,20 +106,42 @@ Many cloud storage services provide APIs for handling file uploads from your bro
   }
 </script>
 
-<DropZone {handleFileUploads}>File Drop</DropZone>
+<DropZone {handleFileUploads} accept="image/*,.pdf">File Drop</DropZone>
 ```
 
 <br>
 
-### How does the `handleFileUploads` function work?
+## How does the `handleFileUploads` function work?
 After a user selects/drops files in the `<DropZone>` component, an "Upload Files" button will appear. When the user clicks that button the `handleFileUploads` function that you passed as props will be called and a `FormData` object will be passed to that function. Your `handleFileUploads` function will need to process the files according to your cloud storage service's API.
 
-### I want to send uploaded files to one of my server-side API endpoints first and then upload those files to my cloud storage service from my backend code. How do I access and read the files that were uploaded in my API endpoint?
+<br>
+
+## How to upload files through your backend code
+
+**Question:**
+
+I want to send files to one of my own API endpoints first and then upload those files to my cloud storage service from my backend code. How do I access and read the files that were sent to my API endpoint?
+
+**Answer:**
+
 When a user uploads a file (or multiple files) in the browser, those files are attached to a `FormData` object with the `append()` method. The first parameter in the `append()` method is a `name` field and its second parameter is the file being uploaded. The whole thing might look something like this: `formData.append("userFiles", uploadedFiles[i])`.
 
-When the user clicks the submit button to upload the files, a POST request containing the `formData` object that holds the uploaded files is sent to the API endpoint. Each server framework or serverless function service will handle file uploads differently, so you will have to look at your server-side code's documentation to find out how to access and read the files that were uploaded through the browser. Keep in mind, though, that since the files were attached to the `formData` object with a specific `name` argument, then they would probably be available on a property that has the same name that was passed to the `name` parameter. For example, if `"userFiles"` was passed to the `name` parameter, then the files would be available on a `userFiles` property somewhere in the request object. But, again, read your server-side code's documentation to find out how to access and read the files that were uploaded.
+When the user clicks the submit button to upload the files, a POST request containing the `formData` object that holds the files to be uploaded is sent to the API endpoint. Each server framework or serverless function service will handle file uploads differently, so you will have to look at your server-side code's documentation to find out how to access and read the files that were uploaded through the browser. Keep in mind, though, that since the files were attached to the `formData` object with a specific `name` argument, then they would probably be available on a property that has the same name that was passed to the `name` parameter. For example, if `"userFiles"` was passed to the `name` parameter, then the files would be available on a `userFiles` property somewhere in the request object. But, again, read your server-side code's documentation to find out how to access and read the files that were uploaded.
 
-**The argument that is passed to the `name` parameter in this `<DropZone>` component is `"files"`. So if you use this `<DropZone>` component, then any files that are uploaded through this component would probably be available on a `"files"` property.**
+**IMPORTANT NOTE: The argument that is passed to the `name` parameter in this `<DropZone>` component is `"files"`. So if you use this `<DropZone>` component, then any files that are uploaded through this component would probably be available on a `"files"` property.**
+
+<br>
+
+## How to limit the accepted file types
+You can use the `accept` prop to limit the acceptable file types. If you do, then you will see that the file picker only lets you select the file types specified in the `accept` value. However, keep the following note from MDN in mind:
+
+*The `accept` attribute doesn't validate the types of the selected files; it provides hints for browsers to guide users towards selecting the correct file types. It is still possible (in most cases) for users to toggle an option in the file picker that makes it possible to override this and select any file they wish, and then choose incorrect file types.*
+
+*Because of this, you should make sure that the `accept` attribute is backed up by appropriate server-side validation.*
+
+*Source: [`<input type="file">` - Limiting accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#limiting_accepted_file_types)*
+
+<br>
 
 <!-- <br>
 
@@ -150,6 +173,7 @@ When the user clicks the submit button to upload the files, a POST request conta
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `handleFileUploads` | `function` | Any function | NA | In order to get this component to work, you need to pass it a function named `handleFileUploads`. <br><br> The `handleFileUploads` signature needs to be `async function handleFileUploads(formData)`. The `formData` argument is a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object that contains a [`FileList`](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object, which contains the list of files that were selected/dropped in the `<DropZone>` component. <br><br> The body of your `handleFileUploads` function should be the API code for uploading files to your cloud storage service. |
+| `accept` | `string` | See the "Description" to the right. | `"*"` (All file types are accepted) | This prop allows you to provide a [unique file type specifier](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers). The `accept` prop in this component works exactly the same as the `accept` attribute in an `<input type="file">` element.<br><br>For details on what you can pass to this prop, see [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept), [Unique file type specifier](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers), and [Limiting accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#limiting_accepted_file_types). |
 | `dragAndDropIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
 | `dropZoneSelectFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
 | `dropZoneUploadFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
