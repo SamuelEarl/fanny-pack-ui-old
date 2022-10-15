@@ -42,9 +42,9 @@
 
   /**
    * This function appends new files to the FormData object.
-   * @param {Object} newFiles - newFiles is a FileList object that contains all of the files that the user selected after clicking the file input button or all the files that were dragged and dropped onto the drop zone. Each item in the FileList object is a File object.
+   * @param {Object} stagedFiles - stagedFiles is a FileList object that contains all of the files that the user selected after clicking the file input button or all the files that were dragged and dropped onto the drop zone. Each item in the FileList object is a File object.
    */
-  function addFiles(newFiles) {
+  function addFiles(stagedFiles) {
     // If there is no existing FormData object, then create a new one.
     // This will allow new files to be appended to the end of the existing FormData object.
     // If there was no conditional `if (!formData)` statement, then a new FormData object would be created each time a user selected or dropped new files and all their previously selected files would be removed from the list of files to be uploaded.
@@ -52,15 +52,15 @@
       formData = new FormData();
     }
 
-    // Loop over the File objects (that are inside the newFiles FileList object) and append the files that do not already exist in the FormData object.
-    for (let i = 0; i < newFiles.length; i++) {
+    // Loop over the File objects (that are inside the stagedFiles FileList object) and append the files that do not already exist in the FormData object.
+    for (let i = 0; i < stagedFiles.length; i++) {
       // Create a unique ID for each file that will be used as the key when the file is appended to the FormData object.
-      let id = `${newFiles[i].name}-${newFiles[i].size}-${newFiles[i].lastModified}-${newFiles[i].type}`;
+      let id = `${stagedFiles[i].name}-${stagedFiles[i].size}-${stagedFiles[i].lastModified}-${stagedFiles[i].type}`;
       
       // If the FormData object does not already contain an entry with a key equal to the id of the new file, then append the new file to the FormData object and give it a key equal to the id value that is created above. This will prevent duplicate files from being appended to the FormData object.
       if (!formData.has(id)) {
         // Append each file with a unique ID as the key. This key can then be used to remove files.
-        formData.append(id, newFiles[i]);
+        formData.append(id, stagedFiles[i]);
       }
     }
 
