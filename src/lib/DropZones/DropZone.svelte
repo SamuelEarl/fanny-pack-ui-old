@@ -44,7 +44,7 @@
    * This function appends new files to the FormData object.
    * @param {Object} stagedFiles - stagedFiles is a FileList object that contains all of the files that the user selected after clicking the file input button or all the files that were dragged and dropped onto the drop zone. Each item in the FileList object is a File object.
    */
-  function addFiles(stagedFiles) {
+  function addFilesToStage(stagedFiles) {
     // If there is no existing FormData object, then create a new one.
     // This will allow new files to be appended to the end of the existing FormData object.
     // If there was no conditional `if (!formData)` statement, then a new FormData object would be created each time a user selected or dropped new files and all their previously selected files would be removed from the list of files to be uploaded.
@@ -117,7 +117,7 @@
     // If some files are already uploading, then return early so new files cannot be dropped.
     if (uploading) return;
     // You can access the files from a `drop` event through the event.dataTransfer.files property.
-    addFiles(event.dataTransfer.files);
+    addFilesToStage(event.dataTransfer.files);
     active = false;
   }}
   on:dragenter|preventDefault={() => {
@@ -162,7 +162,7 @@
         {accept}
         on:change={(event) => {
           // You can access the files from a file input's `change` event through the event.target.files property.
-          addFiles(event.target.files);
+          addFilesToStage(event.target.files);
           // If a user adds a file via the input, decides to remove it from their file list, then changes their mind and decides to use the input to add that file again, then the file input will not fire the `change` event because the file input has not changed. By resetting `event.target.value` back to null, you ensure the `change` event will always be fired.
           event.target.value = null;
         }}
@@ -187,7 +187,7 @@
           </Button>
         </div>
         {#each [...formData.entries()] as file (file[0])}
-          <div class="file-container">
+          <div class="staged-file-container">
             <div class="file-name" class:active>{file[1].name}</div>
             <button class="remove-file-btn" on:click={() => removeFile(file[0])} disabled={uploading}>
               <Icon icon="ri:delete-bin-2-line" width="16" />
@@ -252,7 +252,7 @@
         margin-bottom: 20px;
       }
 
-      & .file-container {
+      & .staged-file-container {
         display: flex;
         margin: 10px 0;
         text-align: left;
