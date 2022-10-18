@@ -124,6 +124,7 @@
    * the tooltip and the indicator line will be placed in the visible DOM again. 
    */
   function removeIndicators() {
+    // TODO: Figure out how to resolve this issue without a setTimeout.
     setTimeout(() => {
       tooltipXPos = -1000000;
       $hoveredValueXPos = -1000000;

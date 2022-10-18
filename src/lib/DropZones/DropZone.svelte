@@ -1,3 +1,11 @@
+<!--
+  This component was created following these tutorials:
+  * https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+  * https://www.smashingmagazine.com/2022/03/drag-drop-file-uploader-vuejs-3/
+-->
+<!-- If I want to enhance this component, then I can refer to the second part of this tutorial (which uses the HTML Drag and Drop API.):
+https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
+
 <script lang="ts">
   import { onMount, onDestroy } from "svelte";
   import { browser } from "$app/environment";
@@ -45,6 +53,7 @@
    * @param {Object} stagedFiles - stagedFiles is a FileList object that contains all of the files that the user selected after clicking the file input button or all the files that were dragged and dropped onto the drop zone. Each item in the FileList object is a File object.
    */
   function addFilesToStage(stagedFiles) {
+    console.log("STAGED FILES:", stagedFiles);
     // If there is no existing FormData object, then create a new one.
     // This will allow new files to be appended to the end of the existing FormData object.
     // If there was no conditional `if (!formData)` statement, then a new FormData object would be created each time a user selected or dropped new files and all their previously selected files would be removed from the list of files to be uploaded.
