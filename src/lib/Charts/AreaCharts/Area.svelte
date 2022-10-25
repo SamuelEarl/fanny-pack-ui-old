@@ -71,18 +71,11 @@
 
 <style>
   .line {
-    /* transition: all 0.25s; */
     fill-opacity: 0;
     stroke-width: 2;
-    /* stroke: #5d62b5; */
   }
 
   .circle {
     stroke-width: 1;
-
-    /* &.highlight {
-      stroke-width: 2;
-      fill: #5d62b5;
-    } */
   }
 </style>

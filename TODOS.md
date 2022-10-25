@@ -27,6 +27,11 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 ## Customize Theme
 * Replace the `<input type="color">` elements with `<ColorPicker>` components after I finish that component. UPDATE: I might not create a custom color picker. I just need users to be able to set their color palettes (without any transparency values) and then I will create transparency values for some of the charts that will use transparent colors (e.g. area charts). If the browser's default color picker is not very easy to use, then I will create a custom color picker.
 
+## Charts
+
+### Area Chart
+* Add chart title and x and y-axis titles.
+* Add a legend.
 
 ## Button Component
 * Write more tests.

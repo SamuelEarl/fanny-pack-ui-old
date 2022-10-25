@@ -10,13 +10,16 @@
   export let numberOfTickMarks = 5;
   // Tick Labels
   export let showTickLabels = true;
-  export let formatTickLabel = (tick) => tick; // By default this will return the tick label without formatting it.
+  // By default this will return the tick label without formatting it.
+  export let formatTickLabel = (tick) => tick;
   let textAnchor = "end";
   export let dominantBaseline = "middle";
   export let tickLabelTranslateX = -15;
   export let tickLabelTranslateY = 0;
   export let rotateTickLabel = 0;
-  // TODO: Create Axis Titles
+  // Axis Labels
+  export let axisLabelText = "";
+  export let axisLabelSize = 16;
 
   // Styles
   export let lineStroke = "#dfdfdf";
@@ -33,6 +36,18 @@
 
   $: yScale = yScaleFunction($svgHeight);
 </script>
+
+{#if axisLabelText}
+  <text
+    class="axis-label"
+    transform={`translate(${0}, ${$svgHeight / 2}) rotate(270)`}
+    text-anchor="middle"
+    dominant-baseline="hanging"
+    font-size={axisLabelSize + "px"}
+  >
+    {axisLabelText}
+  </text>
+{/if}
 
 <!-- y-axis -->
 <!-- y-axis group -->

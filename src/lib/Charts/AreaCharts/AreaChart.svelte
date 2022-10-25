@@ -3,12 +3,23 @@
   import { writable } from "svelte/store";
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
   import throttle from "lodash.throttle";
+  import type { Margin } from "../types-charts";
+  import type { Data } from "./types-area";
   import { AREA_CHART_KEY } from "./area-chart-utils";
   import { createId } from "../../fpui-utils";
 
   export let data = [];
-  export let xValueId;
-  export let margin = {};
+  export let xValueId: string;
+  export let margin: Margin = {
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+  };
+  export let chartTitleSize = 16;
+  export let chartTitleText = "";
+  // By default this will return the value without formatting it.
+  export let formatTooltipXValue = (value) => value;
 
   let componentId = createId();
 
@@ -44,7 +55,7 @@
     return scaleTime()
       .domain([min(data, xAccessor), max(data, xAccessor)])
       // The range will provide a 5px buffer on the left and right sides so the points don't get cutoff.
-      .range([margin.left + 5, svgWidth - 5]);
+      .range([margin.left + 5, svgWidth - margin.right - 5]);
   }
 
   $: xScale = xScaleFunction($svgWidth);
@@ -156,7 +167,7 @@
     <div class="chart-tooltip" id={`chart-tooltip-${componentId}`} style={`transform: translate(${tooltipXPos + 15}px, ${tooltipYPos}px)`}>
       {#each Object.entries(data[dataIndex]) as [prop, value]}
         {#if prop === xValueId}
-          <div><strong>{prop}: {value}</strong></div>
+          <div>{prop}: {formatTooltipXValue(value)}</div>
         {:else}
           <div>{prop}: {value}</div>
         {/if}
@@ -167,11 +178,24 @@
     <g class="vertical-hover-line" transform="translate(0, 0)">
       <line
         x1={$hoveredValueXPos}
-        y1={0}
+        y1={margin.top}
         x2={$hoveredValueXPos}
         y2={$svgHeight - margin.bottom}
       />
     </g>
+
+    {#if chartTitleText}
+      <text
+        class="chart-title"
+        x={$svgWidth / 2}
+        y={0}
+        text-anchor="middle"
+        dominant-baseline="hanging"
+        font-size={chartTitleSize + "px"}
+      >
+        {chartTitleText}
+      </text>
+    {/if}
 
     <slot></slot>
   </svg>
@@ -187,10 +211,11 @@
       top: 0px;
       left: 0px;
       padding: 10px;
-      border: 1px solid lightgray;
-      border-radius: 3px;
-      background: white;
-      box-shadow: 0 0 5px 0 lightgray;
+      border: 1px solid var(--neutral-light);
+      border-radius: var(--border-radius);
+      background: var(--neutral-lightest);
+      color: var(--text-color);
+      box-shadow: 0 0 5px 0 var(--neutral-light);
       pointer-events: none;
       transition: 200ms linear 0s;
       z-index: 100;
@@ -201,8 +226,7 @@
       height: 100%;
 
       & .vertical-hover-line line {
-        /* stroke: var(--border-color); */
-        stroke: lightgray;
+        stroke: var(--neutral-medium);
         stroke-dasharray: 4 4;
       }
     }

@@ -3,7 +3,7 @@
   * https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
   * https://www.smashingmagazine.com/2022/03/drag-drop-file-uploader-vuejs-3/
 -->
-<!-- If I want to enhance this component, then I can refer to the second part of this tutorial (which uses the HTML Drag and Drop API.):
+<!-- If I want to enhance this component, then I can refer to the second part of this tutorial (which uses the HTML Drag and Drop API):
 https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
 
 <script lang="ts">
