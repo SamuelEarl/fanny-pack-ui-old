@@ -253,25 +253,37 @@
     height: 400px;
   }
 </style>
-
 ```
+
+---
 
 ## Props
 
 ### For the `<AreaChart>` component
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `data` | `array` of `objects` | Any array of objects containing numerical values | NA | This prop will provide the data that is displayed in your chart. |
+| `xValueId` | `string` | Any property name your data objects | NA | This prop should be the name of a property from your data objects. This is how the `<AreaChart>` component is able to tell which values should be treated as the x-values. |
+| `margin` | `object` | possible values | `{ top: 0, bottom: 0, left: 0, right: 0 }` | The `margin` prop is used to provide space between the edges of the chart and the container element that wraps your chart component. The margins include the axes and their tick labels, but do not include the chart title or axis labels. For example, if you increase the left chart margin, then the left edge of the chart along with the y-axis and its tick labels will move away from the left side of the screen, but the y-axis label will not move. |
+| `chartTitleText` | `string` | Any string | `""` (an empty string) | This prop provides the chart title text. If no text is provided in this prop, then the chart will not have a title. |
+| `chartTitleSize` | `number` | Any number | `16` (pixels) | This prop provides the size of the chart title in pixels. |
+| `formatTooltipXValue` | `function` | Any function | `(value) => value`<br>By default this will return the value without formatting it. | You should provide a function to this prop that will take an x-value as an argument and return a formatted version of the x-value. |
 
+<br>
 
 ### For the `<Area>` component
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 
 
+<br>
+
 ### For the `<XAxis>` component
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 
+
+<br>
 
 ### For the `<YAxis>` component
 | Prop name | Type | Possible values | Default value | Description |
