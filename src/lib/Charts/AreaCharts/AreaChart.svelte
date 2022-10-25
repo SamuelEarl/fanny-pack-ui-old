@@ -18,6 +18,7 @@
   };
   export let chartTitleSize = 16;
   export let chartTitleText = "";
+  export let showTooltip = true;
   // By default this will return the value without formatting it.
   export let formatTooltipXValue = (value) => value;
 
@@ -163,7 +164,7 @@
   on:mousemove={throttle(handleMouseMove, 200)}
   on:mouseleave={removeIndicators}
 >
-  {#if $hoveredValueXPos > 0}
+  {#if showTooltip && $hoveredValueXPos > 0}
     <div class="chart-tooltip" id={`chart-tooltip-${componentId}`} style={`transform: translate(${tooltipXPos + 15}px, ${tooltipYPos}px)`}>
       {#each Object.entries(data[dataIndex]) as [prop, value]}
         {#if prop === xValueId}
@@ -175,14 +176,16 @@
     </div>
   {/if}
   <svg>
-    <g class="vertical-hover-line" transform="translate(0, 0)">
-      <line
-        x1={$hoveredValueXPos}
-        y1={margin.top}
-        x2={$hoveredValueXPos}
-        y2={$svgHeight - margin.bottom}
-      />
-    </g>
+    {#if showTooltip}
+      <g class="vertical-hover-line" transform="translate(0, 0)">
+        <line
+          x1={$hoveredValueXPos}
+          y1={margin.top}
+          x2={$hoveredValueXPos}
+          y2={$svgHeight - margin.bottom}
+        />
+      </g>
+    {/if}
 
     {#if chartTitleText}
       <text
@@ -211,11 +214,11 @@
       top: 0px;
       left: 0px;
       padding: 10px;
-      border: 1px solid var(--neutral-light);
+      border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
       background: var(--neutral-lightest);
       color: var(--text-color);
-      box-shadow: 0 0 5px 0 var(--neutral-light);
+      box-shadow: 0 0 5px 0 var(--border-color);
       pointer-events: none;
       transition: 200ms linear 0s;
       z-index: 100;

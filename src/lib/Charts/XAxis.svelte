@@ -12,8 +12,6 @@
   export let showTickLabels = true;
   // By default this will return the tick label without formatting it.
   export let formatTickLabel = (tick) => tick;
-  let textAnchor = "middle";
-  export let dominantBaseline = "middle";
   export let tickLabelTranslateX = 0;
   export let tickLabelTranslateY = 15;
   export let rotateTickLabel = 0;
@@ -21,10 +19,10 @@
   export let axisLabelText = "";
   export let axisLabelSize = 16;
   // Styles
-  export let lineStroke = "#dfdfdf";
+  export let lineStrokeColor = "#000000";
   export let lineStrokeWidth = 1;
   export let tickLabelFontSize = 12;
-  export let tickLabelFill = "#5a5a5a";
+  export let tickLabelFill = "#000000";
 
   let {
     svgWidth,
@@ -60,7 +58,7 @@
       x1={margin.left - 5}
       x2={$svgWidth - margin.right}
       class="axis-line"
-      stroke={lineStroke}
+      stroke={lineStrokeColor}
       stroke-width={lineStrokeWidth}
     />
   {/if}
@@ -74,15 +72,15 @@
           y1="10" 
           y2={fullLengthTickMarks ? (-($svgHeight - margin.top - margin.bottom + 5)) : 0}
           class="tick-mark" 
-          stroke={lineStroke} 
+          stroke={lineStrokeColor} 
           stroke-width={lineStrokeWidth} 
         />
       {/if}
       {#if showTickLabels}
         <text
           class="tick-label"
-          text-anchor={textAnchor} 
-          dominant-baseline={dominantBaseline}
+          text-anchor="middle"
+          dominant-baseline="middle"
           transform={`translate(${tickLabelTranslateX}, ${tickLabelTranslateY}) rotate(${rotateTickLabel})`}
           font-size={tickLabelFontSize}
           fill={tickLabelFill}
