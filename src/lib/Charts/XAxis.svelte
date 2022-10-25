@@ -20,7 +20,6 @@
   // Axis Label
   export let axisLabelText = "";
   export let axisLabelSize = 16;
-
   // Styles
   export let lineStroke = "#dfdfdf";
   export let lineStrokeWidth = 1;
