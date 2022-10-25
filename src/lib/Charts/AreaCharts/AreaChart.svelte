@@ -111,7 +111,7 @@
     }
 
     // If the user hovers too far to the right on the chart, then place the tooltip a little to the left so it will stay visible.
-    let spaceForTooltipWidth = chartContainerBounds.width - (tooltipBounds.width + 30);
+    let spaceForTooltipWidth = chartContainerBounds.width - tooltipBounds.width - margin.right - 30;
     if (mouseXPos > spaceForTooltipWidth) {
       tooltipXPos = spaceForTooltipWidth;
     }

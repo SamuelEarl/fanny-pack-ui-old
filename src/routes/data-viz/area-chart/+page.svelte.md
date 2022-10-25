@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { AreaChart, Area, XAxis, YAxis } from "/src/lib";
+  import { AreaChart, Area, Axis } from "/src/lib";
 
   function subtractSec(sec) {
     const date = new Date();
@@ -143,17 +143,19 @@
     formatTooltipXValue={getTime}
     on:hoveredData={handleHoveredData}
   >
-    <XAxis
+    <Axis
+      axisType="xAxis"
       formatTickLabel={getTime}
       tickLabelTranslateX={-15}
-      tickLabelTranslateY={35}
+      tickLabelTranslateY={25}
       rotateTickLabel={-45}
       showAxisLine={false}
       showTickMarks={false}
       axisLabelText="X-Axis Label"
       axisLabelSize={20}
     />
-    <YAxis
+    <Axis
+      axisType="yAxis"
       showAxisLine={false}
       showTickMarks={false}
       axisLabelText="Y-Axis Label"
@@ -170,7 +172,7 @@
 
 ```svelte
 <script>
-  import { AreaChart, Area, XAxis, YAxis } from "@fanny-pack-ui/svelte-kit";
+  import { AreaChart, Area, Axis } from "@fanny-pack-ui/svelte-kit";
 
   function subtractSec(sec) {
     const date = new Date();
@@ -228,8 +230,10 @@
     chartTitleText="Chart Title"
     chartTitleSize=30
     formatTooltipXValue={getTime}
+    on:hoveredData={handleHoveredData}
   >
-    <XAxis
+    <Axis
+      axisType="xAxis"
       formatTickLabel={getTime}
       tickLabelTranslateX={-15}
       tickLabelTranslateY={35}
@@ -239,7 +243,8 @@
       axisLabelText="X-Axis Label"
       axisLabelSize={20}
     />
-    <YAxis
+    <Axis
+      axisType="yAxis"
       showAxisLine={false}
       showTickMarks={false}
       axisLabelText="Y-Axis Label"
@@ -287,9 +292,10 @@
 <hr>
 <br>
 
-### For the `<XAxis>` component
+### For the `<Axis>` component
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `axisType` | `string` | `"xAxis"`, `"yAxis"` | `""` (an empty string) | This prop defines whether the axis will be an x-axis (positioned below the chart) or a y-axis (positioned on the left side of the chart). |
 | <div class="divider-row">Axis Line</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
 | `showAxisLine` | `boolean` | `true`, `false` | `true` | This prop allows you to show or hide the axis line. |
 | `lineStrokeColor` | `string` | Any CSS color value | `"#000000"` | This prop provides the color of the axis lines and axis tick marks. |
@@ -303,41 +309,14 @@
 | `tickLabelFontSize` | `number` | Any number | `12` | This prop sets the font size of the tick labels. |
 | `tickLabelFill` | `string` | Any CSS color value | `"#000000"` | This prop sets the text color of the tick labels. |
 | `formatTickLabel` | `function` | Any function | `(tick) => tick`<br>By default this will return the tick label without formatting it. | You should provide a function to this prop that will take a tick label as an argument and return a formatted version of the tick label. |
-| `tickLabelTranslateX` | `number` | Any number | `0` | This prop allows you to shift the tick labels either left or right. |
-| `tickLabelTranslateY` | `number` | Any number | `15` | This prop allows you to shift the tick labels either up or down. |
+| `tickLabelTranslateX` | `number` | Any number | `"xAxis"`=`0`, `"yAxis"`=`-15` | This prop allows you to shift the tick labels either left or right. |
+| `tickLabelTranslateY` | `number` | Any number | `"xAxis"`=`15`, `"yAxis"`=`0` | This prop allows you to shift the tick labels either up or down. |
 | `rotateTickLabel` | `number` | Any number | `0` | This prop allows you to rotate the tick labels. |
 | <div class="divider-row">Axis Labels</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
 | `axisLabelText` | `string` | Any string | `""` (an empty string) | This prop provides the axis label text. If no text is provided in this prop, then the axis will not have a label. |
 | `axisLabelSize` | `number` | Any number | `16` (pixels) | This prop provides the size of the axis label in pixels. |
 
 <hr>
-<br>
-
-### For the `<YAxis>` component
-| Prop name | Type | Possible values | Default value | Description |
-| --------- | ---- | --------------- | ------------- | ----------- |
-| <div class="divider-row">Axis Line</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
-| `showAxisLine` | `boolean` | `true`, `false` | `true` | This prop allows you to show or hide the axis line. |
-| `lineStrokeColor` | `string` | Any CSS color value | `"#000000"` | This prop provides the color of the axis lines and axis tick marks. |
-| `lineStrokeWidth` | `number` | Any number | `1` | This prop provides the stroke width for the axis lines and axis tick marks. |
-| <div class="divider-row">Tick Marks</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
-| `showTickMarks` | `boolean` | `true`, `false` | `true` | This prop allows you to show or hide the tick marks. |
-| `fullLengthTickMarks` | `boolean` | `true`, `false` | `false` | If `showTickMarks` is `true`, then this prop allows you to set the tick marks to be the full width of the chart. |
-| `numberOfTickMarks` | `number` | Any number | `5` | D3.js will take this number into consideration when setting the number of tick marks, but ultimately D3 will set the number of tick marks that it calculates to be the most appropriate number based on your data. |
-| <div class="divider-row">Tick Labels</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
-| `showTickLabels` | `boolean` | `true`, `false` | `true` | This prop allows you to show or hide the tick labels. |
-| `tickLabelFontSize` | `number` | Any number | `12` | This prop sets the font size of the tick labels. |
-| `tickLabelFill` | `string` | Any CSS color value | `"#000000"` | This prop sets the text color of the tick labels. |
-| `formatTickLabel` | `function` | Any function | `(tick) => tick`<br>By default this will return the tick label without formatting it. | You should provide a function to this prop that will take a tick label as an argument and return a formatted version of the tick label. |
-| `tickLabelTranslateX` | `number` | Any number | `-15` | This prop allows you to shift the tick labels either left or right. |
-| `tickLabelTranslateY` | `number` | Any number | `0` | This prop allows you to shift the tick labels either up or down. |
-| `rotateTickLabel` | `number` | Any number | `0` | This prop allows you to rotate the tick labels. |
-| <div class="divider-row">Axis Labels</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
-| `axisLabelText` | `string` | Any string | `""` (an empty string) | This prop provides the axis label text. If no text is provided in this prop, then the axis will not have a label. |
-| `axisLabelSize` | `number` | Any number | `16` (pixels) | This prop provides the size of the axis label in pixels. |
-
-<hr>
-<br>
 <br>
 
 ## Event dispatching for the `<AreaChart>` component
@@ -382,7 +361,8 @@ You can overlay multiple areas on top of each other. Keep in mind that some of t
     chartTitleSize=30
     formatTooltipXValue={getTime}
   >
-    <XAxis
+    <Axis
+      axisType="xAxis"
       formatTickLabel={getTime}
       tickLabelTranslateX={-12}
       tickLabelTranslateY={35}
@@ -392,7 +372,8 @@ You can overlay multiple areas on top of each other. Keep in mind that some of t
       axisLabelText="X-Axis Label"
       axisLabelSize={20}
     />
-    <YAxis
+    <Axis
+      axisType="yAxis"
       showAxisLine={false}
       showTickMarks={false}
       axisLabelText="Y-Axis Label"
@@ -468,22 +449,7 @@ You can overlay multiple areas on top of each other. Keep in mind that some of t
     chartTitleSize=30
     formatTooltipXValue={getTime}
   >
-    <XAxis
-      formatTickLabel={getTime}
-      tickLabelTranslateX={-12}
-      tickLabelTranslateY={35}
-      rotateTickLabel={-45}
-      showAxisLine={false}
-      showTickMarks={false}
-      axisLabelText="X-Axis Label"
-      axisLabelSize={20}
-    />
-    <YAxis
-      showAxisLine={false}
-      showTickMarks={false}
-      axisLabelText="Y-Axis Label"
-      axisLabelSize={20}
-    />
+    ...
     <Area yValueId="uv" color="darkred" />
     <Area yValueId="pv" color="greenyellow" />
     <Area yValueId="amt" color="darkblue" />

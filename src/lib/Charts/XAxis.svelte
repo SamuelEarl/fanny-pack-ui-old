@@ -4,12 +4,16 @@
 
   // Axis Line
   export let showAxisLine = true;
+  export let lineStrokeColor = "#000000";
+  export let lineStrokeWidth = 1;
   // Tick Marks
   export let showTickMarks = true;
   export let fullLengthTickMarks = false;
   export let numberOfTickMarks = 5;
   // Tick Labels
   export let showTickLabels = true;
+  export let tickLabelFontSize = 12;
+  export let tickLabelFill = "#000000";
   // By default this will return the tick label without formatting it.
   export let formatTickLabel = (tick) => tick;
   export let tickLabelTranslateX = 0;
@@ -18,11 +22,6 @@
   // Axis Label
   export let axisLabelText = "";
   export let axisLabelSize = 16;
-  // Styles
-  export let lineStrokeColor = "#000000";
-  export let lineStrokeWidth = 1;
-  export let tickLabelFontSize = 12;
-  export let tickLabelFill = "#000000";
 
   let {
     svgWidth,
