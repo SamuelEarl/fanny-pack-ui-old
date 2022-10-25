@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext, tick } from "svelte";
+  import { setContext, tick, createEventDispatcher } from "svelte";
   import { writable } from "svelte/store";
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
   import throttle from "lodash.throttle";
@@ -22,6 +22,7 @@
   // By default this will return the value without formatting it.
   export let formatTooltipXValue = (value) => value;
 
+  const dispatch = createEventDispatcher();
   let componentId = createId();
 
   let xValuesArray = data.map(datum => datum[xValueId]);
@@ -89,6 +90,8 @@
     // Set the highlighted x-values and the x-position of the tooltip.
     if (dataIndex < xValuesArray.length) {
       $hoveredValueXPos = xScale(xValuesArray[dataIndex]);
+      // Dispatch the values that are being hovered over.
+      dispatch("hoveredData", data[dataIndex]);
     }
 
     // Wait until the tooltip is in the DOM before referencing it.
@@ -116,6 +119,7 @@
       tooltipXPos = $hoveredValueXPos;
     }
 
+    // TODO: I don't think this is working. I need to look into this.
     // If the user hovers too low on the chart, then place the tooltip a little higher.
     let spaceForTooltipHeight = tooltipBounds.height + 30;
     if (mouseYPos > chartContainerBounds.bottom - (2 * spaceForTooltipHeight)) {

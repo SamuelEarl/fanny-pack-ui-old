@@ -115,6 +115,10 @@
     let seconds = padWithZeros(tick.getSeconds());
     return `${hours}:${minutes}:${seconds}`;
   }
+
+  function handleHoveredData(event) {
+    console.log("Current Data Object:", event.detail);
+  }
 </script>
 
 
@@ -137,6 +141,7 @@
     chartTitleText="Chart Title"
     chartTitleSize=30
     formatTooltipXValue={getTime}
+    on:hoveredData={handleHoveredData}
   >
     <XAxis
       formatTickLabel={getTime}
@@ -330,6 +335,30 @@
 | <div class="divider-row">Axis Labels</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> | <div class="divider-row">&nbsp;</div> |
 | `axisLabelText` | `string` | Any string | `""` (an empty string) | This prop provides the axis label text. If no text is provided in this prop, then the axis will not have a label. |
 | `axisLabelSize` | `number` | Any number | `16` (pixels) | This prop provides the size of the axis label in pixels. |
+
+<hr>
+<br>
+<br>
+
+## Event dispatching for the `<AreaChart>` component
+
+| Event | Description |
+| ----- | ----------- |
+| `on:hoveredData` | You can listen for the `hoveredData` event and get the currently hovered data object on the `event.detail` property. You might want to use this instead of displaying data through the tooltip. You could hide the tooltip and use this event to display data to the user. |
+
+<hr>
+
+```svelte
+<script lang="ts">
+  function handleHoveredData(event) {
+    console.log("Current Data Object:", event.detail);
+  }
+</script>
+
+<AreaChart on:hoveredData={handleHoveredData}>
+  ...
+</AreaChart>
+```
 
 <hr>
 <br>
