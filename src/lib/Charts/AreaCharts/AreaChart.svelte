@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { setContext, tick, createEventDispatcher } from "svelte";
+  import { setContext, tick, createEventDispatcher, onDestroy } from "svelte";
   import { writable } from "svelte/store";
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
   import throttle from "lodash.throttle";
@@ -23,6 +23,7 @@
 
   const dispatch = createEventDispatcher();
   let componentId = createId();
+  let highlightTimerID = null;
 
   let xValuesArray = data.map(datum => datum[xValueId]);
 
@@ -51,6 +52,10 @@
   let chartContainerBounds = null;
 
   $: xAccessor = (d) => d[xValueId];
+
+  onDestroy(() => {
+    clearTimeout(highlightTimerID);
+  });
 
   function xScaleFunction(svgWidth) {
     return scaleTime()
@@ -133,18 +138,25 @@
 
   /**
    * This function fixes the bug related to using throttle in the on:mouseover event. 
-   * Before this function: When I removed the throttle function, then the tooltip and the 
-   * highlighting line will disappear when I hover outside of the chart area. But when the
-   * throttle function is present then those things may or may not disappear. I think that
-   * is because the timer that is attached to the throttle function allows it to run one 
-   * last time, which means that it will run after the on:mouseleave event has run and 
-   * the tooltip and the indicator line will be placed in the visible DOM again. 
+   * Before implementing this function: When I removed the throttle function, then the 
+   * tooltip and the highlighting line will disappear when I hover outside of the chart 
+   * area. But when the throttle function is present then those things may or may not 
+   * disappear. I think that is because the timer that is attached to the throttle 
+   * function allows it to run one last time, which means that it will run after the 
+   * on:mouseleave event has run and the tooltip and the highlight line will be placed 
+   * in the visible DOM again. 
    */
-  function removeIndicators() {
-    // TODO: Figure out how to resolve this issue without a setTimeout.
-    setTimeout(() => {
+  // TODO: Is there a way to resolve this issue without a setTimeout?
+  function removeHighlights() {
+    highlightTimerID = setTimeout(() => {
       tooltipXPos = -1000000;
-      $hoveredValueXPos = -1000000;
+      // If the tooltip is displayed, then remove the highlighted data point when the user 
+      // moves their mouse out of the chart area. This also means that when the tooltip is 
+      // not displayed then the highlighted data point will remain highlighted when the 
+      // user moves their mouse out of the chart area.
+      if (showTooltip) {
+        $hoveredValueXPos = -1000000;
+      }
     }, 250);
   }
 
@@ -166,7 +178,7 @@
   bind:clientWidth={$svgWidth}
   bind:clientHeight={$svgHeight}
   on:mousemove={throttle(handleMouseMove, 200)}
-  on:mouseleave={removeIndicators}
+  on:mouseleave={removeHighlights}
 >
   {#if showTooltip && $hoveredValueXPos > 0}
     <div class="chart-tooltip" id={`chart-tooltip-${componentId}`} style={`transform: translate(${tooltipXPos + 15}px, ${tooltipYPos}px)`}>
