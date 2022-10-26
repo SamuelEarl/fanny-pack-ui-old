@@ -6,3 +6,11 @@ export interface Margin {
   left: number;
   right: number;
 }
+
+export interface AxisContext {
+  svgWidth: SvelteStore<number>;
+  svgHeight: SvelteStore<number>;
+  margin: Margin;
+  xScaleFunction: (svgWidth: number) => number;
+  yScaleFunction: (svgHeight: number) => number;
+}

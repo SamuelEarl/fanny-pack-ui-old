@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getContext } from "svelte";
   import { AREA_CHART_KEY } from "./AreaCharts/area-chart-utils";
+  import type { AxisContext } from "./types-charts";
 
   export let axisType = "";
   // Axis Line
@@ -30,7 +31,7 @@
     margin,
     xScaleFunction,
     yScaleFunction,
-  } = getContext(AREA_CHART_KEY);
+  }: AxisContext = getContext(AREA_CHART_KEY);
 
   $: xScale = xScaleFunction($svgWidth);
   $: yScale = yScaleFunction($svgHeight);

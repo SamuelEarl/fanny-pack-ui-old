@@ -4,7 +4,6 @@
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
   import throttle from "lodash.throttle";
   import type { Margin } from "../types-charts";
-  import type { Data } from "./types-area";
   import { AREA_CHART_KEY } from "./area-chart-utils";
   import { createId } from "../../fpui-utils";
 
@@ -41,9 +40,9 @@
   let yScaleMax = Math.max(...yValues);
 
   // These are reactive contexts, so you can subscribe to them with the $ symbol.
-  let svgWidth = writable(600);
-  let svgHeight = writable(300);
-  let hoveredValueXPos = writable(-1000000);
+  let svgWidth = writable<number>(600);
+  let svgHeight = writable<number>(300);
+  let hoveredValueXPos = writable<number>(-1000000);
 
   $: tooltipXPos = $hoveredValueXPos;
   let tooltipYPos = 0;
@@ -94,39 +93,41 @@
       dispatch("hoveredData", data[dataIndex]);
     }
 
-    // Wait until the tooltip is in the DOM before referencing it.
-    // Calling the tick() method outside of the following `if` statement will also prevent the tooltip from skipping around when the user moves their mouse outside of the chart area to the right.
-    await tick();
+    if (showTooltip) {
+      // Wait until the tooltip is in the DOM before referencing it.
+      // Calling the tick() method outside of the following `if` statement will also prevent the tooltip from skipping around when the user moves their mouse outside of the chart area to the right.
+      await tick();
 
-    // Get the tooltip element.
-    if (!tooltipBounds) {
-      tooltipBounds = document.getElementById(`chart-tooltip-${componentId}`).getBoundingClientRect();
-      // console.log("tooltipBounds:", tooltipBounds);
-    }
+      // Get the tooltip element.
+      if (!tooltipBounds) {
+        tooltipBounds = document.getElementById(`chart-tooltip-${componentId}`).getBoundingClientRect();
+        // console.log("tooltipBounds:", tooltipBounds);
+      }
 
-    // Get the chart container element.
-    if (!chartContainerBounds) {
-      chartContainerBounds = event.target.closest(".chart-container").getBoundingClientRect();
-      // console.log("CHART CONTAINER BOUNDS:", chartContainerBounds);
-    }
+      // Get the chart container element.
+      if (!chartContainerBounds) {
+        chartContainerBounds = event.target.closest(".chart-container").getBoundingClientRect();
+        // console.log("CHART CONTAINER BOUNDS:", chartContainerBounds);
+      }
 
-    // If the user hovers too far to the right on the chart, then place the tooltip a little to the left so it will stay visible.
-    let spaceForTooltipWidth = chartContainerBounds.width - tooltipBounds.width - margin.right - 30;
-    if (mouseXPos > spaceForTooltipWidth) {
-      tooltipXPos = spaceForTooltipWidth;
-    }
-    else {
-      tooltipXPos = $hoveredValueXPos;
-    }
+      // If the user hovers too far to the right on the chart, then place the tooltip a little to the left so it will stay visible.
+      let spaceForTooltipWidth = chartContainerBounds.width - tooltipBounds.width - margin.right - 30;
+      if (mouseXPos > spaceForTooltipWidth) {
+        tooltipXPos = spaceForTooltipWidth;
+      }
+      else {
+        tooltipXPos = $hoveredValueXPos;
+      }
 
-    // TODO: I don't think this is working. I need to look into this.
-    // If the user hovers too low on the chart, then place the tooltip a little higher.
-    let spaceForTooltipHeight = tooltipBounds.height + 30;
-    if (mouseYPos > chartContainerBounds.bottom - (2 * spaceForTooltipHeight)) {
-      tooltipYPos = chartContainerBounds.bottom - (2 * spaceForTooltipHeight);
-    }
-    else {
-      tooltipYPos = mouseYPos;
+      // TODO: I don't think this is working. I need to look into this.
+      // If the user hovers too low on the chart, then place the tooltip a little higher.
+      let spaceForTooltipHeight = tooltipBounds.height + 30;
+      if (mouseYPos > chartContainerBounds.bottom - (2 * spaceForTooltipHeight)) {
+        tooltipYPos = chartContainerBounds.bottom - (2 * spaceForTooltipHeight);
+      }
+      else {
+        tooltipYPos = mouseYPos;
+      }
     }
   }
 
@@ -154,7 +155,6 @@
     "data": data,
     "xValueId": xValueId,
     "xValuesArray": xValuesArray,
-    "yScaleDomain": [yScaleMin, yScaleMax],
     "margin": margin,
     "xScaleFunction": xScaleFunction,
     "yScaleFunction": yScaleFunction,
