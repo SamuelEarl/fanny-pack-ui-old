@@ -11,11 +11,14 @@
   export let xxl = 0;
 
   let {
+    equalColWidths,
     colPaddingV,
     colPaddingH, 
   } = getContext(GRID_KEY);
 
   const breakpointNames = ["xs", "sm", "md", "lg", "xl", "xxl"];
+
+  // Create the set of classes that the column <div> element will have.
   $: columnClasses = [xs, sm, md, lg, xl, xxl]
     .map((numberOfColumns, i) => {
       console.log("numberOfColumns:", numberOfColumns);
@@ -31,14 +34,18 @@
 
 <div 
   class={`fpui-col ${columnClasses}`}
+  class:fpui-equal-col-widths={equalColWidths}
   style={`padding: ${colPaddingV}px ${colPaddingH}px`}
 >
   <slot />
 </div>
 
 <style>
-  .fpui-col {
+  .fpui-equal-col-widths {
     flex: 1;
+  }
+
+  .fpui-col {
 
     @media (--xs-up) {
       &.fpui-xs-1 {

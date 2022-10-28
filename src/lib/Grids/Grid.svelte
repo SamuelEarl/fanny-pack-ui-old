@@ -4,6 +4,7 @@
 
   export let rowMarginsV = 0;
   export let rowMarginsH = 0;
+  export let equalColWidths = false;
   export let colPaddingV = 0;
   export let colPaddingH = 0;
   export let contain = false;
@@ -11,6 +12,7 @@
   setContext(GRID_KEY, {
     "rowMarginsV": rowMarginsV,
     "rowMarginsH": rowMarginsH,
+    "equalColWidths": equalColWidths,
     "colPaddingV": colPaddingV,
     "colPaddingH": colPaddingH,
   });
