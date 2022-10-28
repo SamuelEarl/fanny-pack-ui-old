@@ -274,9 +274,25 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
 
 ## Props
 
-`contain`: The `<Grid>` component references the `--fpui-grid-max-content-width` CSS variable. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the value that you have placed in `--fpui-grid-max-content-width`.
+### `<Grid>` component props
+`rowMarginsV`: Stands for "row margins vertical".
+
+`rowMarginsH`: Stands for "row margins horizontal".
 
 `equalColWidths`: If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component.
+
+`colPaddingV`: Stands for "column padding vertical". You probably won't find much use for this property, but it is here in case you need it.
+
+`colPaddingH`: Stands for "column padding horizontal".
+
+`contain`: The `<Grid>` component references the `--fpui-grid-max-content-width` CSS variable. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the value that you have placed in `--fpui-grid-max-content-width`.
+
+<br>
+
+### `<Col>` component props 
+
+`xs`, `sm`, `md`, `lg`, `xl`, `xxl`: Specify the width of each `<Col>` component for the `xs`, `sm`, `md`, `lg`, `xl`, and/or `xxl` breakpoints. Values can be from `1` to `12`.
+
 
 <style>
   .grid-container {
