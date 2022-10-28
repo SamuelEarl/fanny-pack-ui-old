@@ -5,6 +5,7 @@ export { Checkbox, CheckboxGroup } from "./Checkboxes";
 export { Calendar, DateInput } from "./DatePickers";
 export { DropZone } from "./DropZones";
 export { CurrencyInput, Input } from "./Inputs";
+export { Grid, Row, Col } from "./Grids";
 export { Label } from "./Labels";
 export { Modal } from "./Modals";
 export { RadioButton } from "./RadioButtons";

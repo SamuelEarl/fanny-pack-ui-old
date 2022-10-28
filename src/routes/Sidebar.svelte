@@ -43,6 +43,9 @@
     <a href="/components/input/misc" class:active={currentPath === "/components/input/misc"}>
       <Icon icon="radix-icons:input" /> &nbsp; Input (text, number, email)
     </a>
+    <a href="/components/grid" class:active={currentPath === "/components/grid"}>
+      <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
+    </a>
     <a href="/components/modal" class:active={currentPath === "/components/modal"}>
       <Icon icon="carbon:popup" /> &nbsp; Modal (popup window)
     </a>

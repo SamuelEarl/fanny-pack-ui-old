@@ -235,6 +235,11 @@
   --fpui-drop-zone-files-set-for-upload-text-color: var(--text-color);
 }
 
+/* Grids */
+:root {
+  --fpui-grid-max-content-width: 1140px;
+}
+
 /* Inputs (currency, text, number, email) */
 :root {
   --fpui-input-border-color: var(--border-color);
