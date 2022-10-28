@@ -279,7 +279,7 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
 
 `rowMarginsH`: Stands for "row margins horizontal".
 
-`equalColWidths`: If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component.
+`equalColWidths`: If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component. NOTE: The column breakpoint values will override the `equalColWidths` prop if both are set for a row.
 
 `colPaddingV`: Stands for "column padding vertical". You probably won't find much use for this property, but it is here in case you need it.
 
