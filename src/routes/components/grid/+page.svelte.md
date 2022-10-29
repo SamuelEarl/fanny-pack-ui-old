@@ -1,12 +1,22 @@
+<!--
+  * This grid borrows ideas from W3Schools' responsive grid (https://www.w3schools.com/w3css/w3css_grid.asp) and the Carbon Components Svelte Grid (https://carbon-components-svelte.onrender.com/components/Grid).
+  * I also used this article as inspiration for creating a grid component system in the first place: https://codyhouse.co/blog/post/css-grid-layout-vs-framework-grid
+-->
+
+
 <script lang="ts">
   import { Grid, Row, Col } from "/src/lib";
 </script>
 
 # Grid (layout)
 
-Why shoud you consider using a grid component instead of applying CSS Flexbox or Grid styles to your pages? You can certainly use CSS Flexbox or Grid styles to layout elements and components on a page and that will work nicely with small projects. However, when you are working on large projects that have multiple developers, standardization becomes very important when you want to keep a consistent look and feel from one page to another and when you are concerned about maintenance.
+Why shoud you consider using reusable grid components instead of applying CSS styles (with Flexbox or Grid) to layout your pages? You can certainly use Flexbox or CSS Grid styles to layout elements and components on a page and that will work nicely with small projects. However, when you are working on large projects that have multiple developers you will quickly run into a few important issues.
 
-It can become very difficult to standardize on a consistent way to handle your page layouts using Flexbox or CSS Grid styles. Some developers might prefer using Flexbox, while others might prefer CSS Grid. Some might be old school and prefer using `float` properties. Even if all the develops on your team agree on a single way to layout your pages, each developer will implement the layout a little differently. It can get messy really quickly. Using reusable grid components can help you standardize your page layouts, which can help to keep a consistent theme and improve the maintenance of your site/app.
+What should you do when you need to define a grid layout for a new page or a portion of a page? Initially you might create some layout styles somewhere and then copy and paste those layout styles in other places where you need a grid layout. Imagine trying to scale that approach with even a medium sized project. Often times developers end up creating utility classes that they can reuse so they don't have to copy and paste the same CSS grid styles multiple times. However, when using a component-based framework, like Svelte, a better option than using utility classes is using reusable grid components. Reusable grid components can help you prevent code duplication, which greatly simplifies code maintenance.
+
+What about when you are working on a project with multiple developers? Now consistency and standardization become critical. It can be very difficult to standardize on a consistent method for laying out pages using CSS styles alone. Aside from all the duplicated CSS code that happens from copying and pasting CSS layout rules all over the place, some developers might prefer using Flexbox, while others might prefer CSS Grid. Some might be old school and prefer using `float` properties. Even if all the developers on your team agree on a single method for laying out your pages, each developer could implement the layout a little differently. Things can get really messy really quickly. Reusable grid components can help you maintain consistent standards for your page layouts, which also helps with code maintenance. 
+
+Remember that when working with CSS, the main goal is maintainability. So implement standards that make your code easier to maintain.
 
 ---
 
