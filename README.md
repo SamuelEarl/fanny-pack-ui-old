@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="/static/fanny-pack.svg" alt="fanny pack" width="512" /><br>
+    <img src="static/fanny-pack.svg" alt="fanny pack" width="512" /><br>
 </div>
 
 ---
