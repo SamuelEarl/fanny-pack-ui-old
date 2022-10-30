@@ -13,7 +13,6 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"@budibase/colorpicker": "^1.1.2",
 		"@iconify/svelte": "^2.2.0",
 		"d3": "^7.6.1",
 		"lodash.throttle": "^4.1.1",

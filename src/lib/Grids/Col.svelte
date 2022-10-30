@@ -21,7 +21,6 @@
   // Create the set of classes that the column <div> element will have.
   $: columnClasses = [xs, sm, md, lg, xl, xxl]
     .map((numberOfColumns, i) => {
-      console.log("numberOfColumns:", numberOfColumns);
       let breakpoint = breakpointNames[i];
 
       if (numberOfColumns) {
