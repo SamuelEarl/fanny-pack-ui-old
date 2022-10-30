@@ -10,7 +10,7 @@
    */
   afterNavigate(({to}) => {
     // If the user clicks a bookmark link, then the `to` object will include a hash. But if a user clicks a regular page link, then there won't be a hash. So if a user navigates to a new page by clicking on a page link (not a bookmark link), then make sure the page is scrolled to the top.
-    if (!to.hash) {
+    if (!to.url.hash) {
       document.getElementById("main").scrollTop = 0;
     }
   });
