@@ -2,6 +2,7 @@
   import { setContext, tick, createEventDispatcher, onDestroy } from "svelte";
   import { writable } from "svelte/store";
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
+  // TODO (bug fix): This lodash function might be causing loading errors for the entire app. Ugh!!!!!
   import { throttle } from "lodash-es";
   import type { Margin } from "../types-charts";
   import { AREA_CHART_KEY } from "./area-chart-utils";
