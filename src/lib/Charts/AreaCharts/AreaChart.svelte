@@ -2,7 +2,7 @@
   import { setContext, tick, createEventDispatcher, onDestroy } from "svelte";
   import { writable } from "svelte/store";
   import { scaleTime, scaleLinear, bisectCenter, min, max } from "d3";
-  import * as throttle from "lodash.throttle";
+  import throttle from "lodash.throttle";
   import type { Margin } from "../types-charts";
   import { AREA_CHART_KEY } from "./area-chart-utils";
   import { createId } from "../../fpui-utils";
