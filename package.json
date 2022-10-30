@@ -1,6 +1,6 @@
 {
 	"name": "@fanny-pack-ui/svelte-kit",
-	"version": "0.0.33",
+	"version": "0.0.34",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -16,7 +16,7 @@
 		"@budibase/colorpicker": "^1.1.2",
 		"@iconify/svelte": "^2.2.0",
 		"d3": "^7.6.1",
-		"lodash": "^4.17.21",
+		"lodash.throttle": "^4.1.1",
 		"svelte-portal": "^2.2.0",
 		"tippy.js": "^6.3.7"
 	},
