@@ -1,5 +1,9 @@
+<script lang="ts">
+  import img from "static/fanny-pack.svg";
+</script>
+
 <div align="center">
-    <img src="static/fanny-pack.svg" alt="fanny pack" width="512" /><br>
+    <img src={img} alt="fanny pack" width="512" /><br>
 </div>
 
 ---

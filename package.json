@@ -1,6 +1,6 @@
 {
 	"name": "@fanny-pack-ui/svelte-kit",
-	"version": "0.0.28",
+	"version": "0.0.29",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -27,6 +27,7 @@
 		"@sveltejs/package": "^1.0.0-next.5",
 		"@testing-library/jest-dom": "^5.16.2",
 		"@types/jest": "^27.4.0",
+		"@types/lodash.throttle": "^4.1.7",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
 		"@typescript-eslint/parser": "^4.31.1",
 		"babel-jest": "^27.5.1",
