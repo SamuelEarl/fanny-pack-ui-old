@@ -12,6 +12,9 @@
     <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
       <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Theme
     </a>
+    <a href="/update-to-latest-version" class:active={currentPath === "/update-to-latest-version"}>
+      <Icon icon="ic:baseline-update" /> &nbsp; Update To Latest Version
+    </a>
   </div>
   <div class="section-heading">Components</div>
   <div class="nav-links">

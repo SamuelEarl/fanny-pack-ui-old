@@ -5,41 +5,28 @@
 
 /* If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`. */
 
-
-/* ADDITIONAL CUSTOM VARIABLES */
-/* --------------------------- */
-/* Add any other variables that you frequently use throughout your app. */
-/* For example, you might add font stacks or border variables: */
-/*   --cursive-font-stack: "Audiowide", cursive; */
-/*   --sans-serif-font-stack: "Montserrat", sans-serif; */
-/*   --border: 1px solid var(--border-color); */
-:root {
-  /* Add additional custom variables here */
-}
-
 /* COLOR PALETTE */
 /* ------------- */
 /* REGEX TOP END */
 
 /* FP Non-Neutral Colors */
-/* Most of the following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
+/* The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
 :root {
-  --dark-purple: #603cba;
-  --dark-purple-alpha60: rgba(95, 60, 186, 0.6);
-  --blue: #2d89ef;
-  --green: #00a300;
-  --yellow: #ffc40d;
-  --red: #ee1111;
   --light-green: #99b433;
+  --green: #00a300;
   --dark-green: #1e7145;
   --magenta: #ff0097;
   --light-purple: #9f00a7;
   --purple: #7e3878;
+  --dark-purple: #603cba;
   --teal: #00aba9;
   --light-blue: #eff4ff;
+  --blue: #2d89ef;
   --dark-blue: #2b5797;
+  --yellow: #ffc40d;
   --orange: #e3a21a;
   --dark-orange: #da532c;
+  --red: #ee1111;
   --dark-red: #b91d47;
 }
 
@@ -351,7 +338,7 @@
 
 /* UTILITY CLASSES */
 /* --------------- */
-/* I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library, so do not edit these (but you are welcome to create additional utility classes here). */
+/* I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library, so do not edit these (but you are welcome to create additional utility classes in your `theme-extras.css` file). */
 
 /* The "fpui-spin" class is used to spin icons during loading states. */
 /* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */

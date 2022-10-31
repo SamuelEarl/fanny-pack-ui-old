@@ -378,7 +378,13 @@
 
 ---
 
-Customize your theme below then download a `theme.css` file that you can insert into your project. (The download button is at the bottom of this page.)
+How to customize your theme:
+
+1. Follow the instructions below to customize your theme.
+2. Download your `theme.css` file. (The download button is at the bottom of this page.)
+3. Place your `theme.css` file in your project. (See the [Get Started](/get-started) page for details).
+
+<br>
 
 FYI: The Fanny Pack UI color palette borrows colors from the <a href="https://www.w3schools.com/w3css/w3css_color_metro.asp" target="_blank">Metro UI</a> color palette. The neutral colors in the Fanny Pack UI color palette are shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>).
 
