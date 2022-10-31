@@ -33,6 +33,7 @@
 /* FP Neutral Colors */
 /* These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
 :root {
+  --black: #000000;
   --fpn-260: #040304;
   --fpn-250: #0f0c0e;
   --fpn-240: #1a1419;
@@ -59,6 +60,7 @@
   --fpn-30: #e8e2e7;
   --fpn-20: #f1edf0;
   --fpn-10: #f9f8f9;
+  --white: #ffffff;
 }
 
 /* Grayscale Neutral Colors */
@@ -92,7 +94,6 @@
   --gray-20: #eeeeee;
   --gray-10: #f8f8f8;
   --white: #ffffff;
-  --white-rgb: rgb(255, 255, 255);
 }
 
 /* Main Colors */
@@ -101,7 +102,7 @@
   --secondary-color: var(--fpn-210);
   --tertiary-color: var(--white);
   /* Neutral Colors */
-  --neutral-darkest: var(--black);
+  --neutral-darkest: var(--fpn-260);
   --neutral-very-dark: var(--fpn-210);
   --neutral-dark: var(--fpn-140);
   --neutral-medium: var(--fpn-100);
