@@ -79,7 +79,7 @@
   <input
     type="number"
     id={`fpui-input-${componentId}`}
-    class="{`${size} ${valAlign}`}"
+    class="{`fpui-currency-input ${size} ${valAlign}`}"
     step="0.01"
     min="0.00"
     placeholder={placeholder}
@@ -95,7 +95,7 @@
   <input
     type="text"
     id={`fpui-input-${componentId}`}
-    class="{`${size} ${valAlign}`}"
+    class="{`fpui-currency-input ${size} ${valAlign}`}"
     placeholder={placeholder}
     disabled={disabled}
     bind:value={formattedValue}
@@ -117,7 +117,7 @@
     -moz-appearance: textfield;
   }
 
-  input {
+  .fpui-currency-input {
     width: 100%;
     outline: none;
     border: 1px solid;

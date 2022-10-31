@@ -23,7 +23,7 @@
     type="text"
     bind:value={value}
     {id}
-    class="{`${size}`}"
+    class="{`fpui-input ${size}`}"
     {placeholder}
     {disabled}
     on:change
@@ -36,7 +36,7 @@
     type="number"
     bind:value={value}
     {id}
-    class="{`${size}`}"
+    class="{`fpui-input ${size}`}"
     {min}
     {max}
     {step}
@@ -52,7 +52,7 @@
     type="email"
     bind:value={value}
     {id}
-    class="{`${size}`}"
+    class="{`fpui-input ${size}`}"
     {placeholder}
     {disabled}
     on:change
@@ -64,7 +64,7 @@
 
 
 <style>
-  input {
+  .fpui-input {
     width: 100%;
     outline: none;
     border: 1px solid;

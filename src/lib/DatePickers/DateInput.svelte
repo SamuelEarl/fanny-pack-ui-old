@@ -175,10 +175,10 @@
 
 <Label {label} forVal={`fpui-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
-  <div class="{`date-input-container ${size}`}" class:showCalendar>
+  <div class="{`fpui-date-input-container ${size}`}" class:showCalendar>
     <input
       id={`fpui-date-input-${componentId}`}
-      class="{`date-input ${size}`}"
+      class="{`fpui-date-input ${size}`}"
       type="text"
       bind:value={text}
       {placeholder}
@@ -190,7 +190,7 @@
       You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `handleHideCalendar`.
     -->
     <div
-      class="{`date-input-btn ${size}`}"
+      class="{`fpui-date-input-btn ${size}`}"
       tabindex="-1"
       on:click={() => showCalendar = !showCalendar}
     >
@@ -218,7 +218,7 @@
   .date-picker-container {
     position: relative;
 
-    & .date-input-container {
+    & .fpui-date-input-container {
       display: flex;
       /* align-items: stretch; */
       border: 1px solid;
@@ -234,10 +234,10 @@
         box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
       }
 
-      & .date-input {
+      & .fpui-date-input {
         flex: 1;
         border: none;
-        /* This `border-radius` style along with the `overflow: hidden` style in the `.date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
+        /* This `border-radius` style along with the `overflow: hidden` style in the `.fpui-date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px);
         outline: none;
         background-color: var(--custom-date-picker-bg-color, var(--fpui-date-input-bg-color, #e8e2e7));
@@ -252,7 +252,7 @@
          * 100% is used to cause the input field to span the width of the parent element.
          * The padding values (5px, 10px, 15px) are multiplied by 4 because the input field and the button each have padding applied to each of their left and right sides. NOTE: I don't know if these style calculations actually do anything anymore after I refactored this component. It looks like a simple `width: 100%` will also work. TODO: I need to test these calculations to see if they actually do anything anymore or if I can change them to `width: 100%`.
          * 12px, 16px, and 20px are the width of the icon, depending on the `size` prop. 
-         * The border-width value (1px) is multiplied by 3 because there are 3 borders along the horizontal axis of the `.date-input-container` element.
+         * The border-width value (1px) is multiplied by 3 because there are 3 borders along the horizontal axis of the `.fpui-date-input-container` element.
          */
         &.sm {
           width: calc(100% - (var(--fpui-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
@@ -271,7 +271,7 @@
         }
       }
 
-      & .date-input-btn {
+      & .fpui-date-input-btn {
         display: flex;
         align-items: center;
         border-left: 1px solid;
