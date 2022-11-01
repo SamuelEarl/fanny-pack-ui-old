@@ -101,6 +101,12 @@
       <Icon icon="carbon:chart-scatter" /> &nbsp; Scatterplot
     </a>
   </div>
+  <div class="section-heading">Utility Classes</div>
+  <div class="nav-links">
+    <a href="/utility-classes/visibility" class:active={currentPath === "/utility-classes/visibility"}>
+      <Icon icon="bx:show" /> &nbsp; Visibility
+    </a>
+  </div>
 </nav>
 
 
