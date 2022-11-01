@@ -270,6 +270,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        cursor: pointer;
 
         /* Change the padding and font-size for different sizes of the <Select> component. */
         &.sm {
@@ -292,12 +293,6 @@
         }
       }
     }
-
-    /* Style the options, including the selected option: */
-    & .fpui-select-btn-overlay, & .fpui-select-optgroup-label, & .fpui-select-option {
-      border: 1px solid transparent;
-      cursor: pointer;
-    }
     
     & .fpui-select-options-list {
       position: absolute;
@@ -314,6 +309,7 @@
       z-index: 100;
 
       & .fpui-select-optgroup-label {
+        border: 1px solid;
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         font-weight: bold;
         pointer-events: none;
@@ -338,6 +334,7 @@
       }
 
       & .fpui-select-option {
+        border: 1px solid;
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         color: var(--text-color);
         /* Cut off any text that overflows the space provided for this Select component: */
@@ -345,6 +342,7 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        cursor: pointer;
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
@@ -375,8 +373,10 @@
           }
         }
 
+        /* For the last option in the select dropdown, make the bottom border 
+        transparent so it looks hidden and gives a sharper appearance. */
         &:last-child {
-          border-color: transparent;
+          border-bottom-color: transparent;
         }
       }
     }

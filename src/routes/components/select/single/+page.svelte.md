@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Select } from "/src/lib";
+  import { Select, CurrencyInput } from "/src/lib";
 
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let selectedMonth = "July";
@@ -33,12 +33,36 @@
   function handleChange() {
     console.log("Changed");
   }
+
+  let categories = [
+    "Uncategorized",
+    "Split Transaction",
+    "Food",
+    "Housing",
+    "Insurance",
+  ];
+  let selectedCategory = "Food";
+
+  let value = 0;
 </script>
 
 
 # Select (single)
 
 ---
+
+<div class="grid-container">
+  <Select
+    options={categories}  
+    bind:value={selectedCategory}
+    size="sm"
+  />
+
+  <CurrencyInput
+    bind:value={value}
+    size="sm"
+  />
+</div>
 
 ## Example Usage
 
@@ -248,5 +272,11 @@ You can set the following custom variables:
     padding: 25px;
     border-radius: var(--docs-border-radius);
     background-color: var(--docs-secondary-color);
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    font-family: "Inter", sans-serif;
   }
 </style>
