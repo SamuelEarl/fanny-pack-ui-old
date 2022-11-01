@@ -51,19 +51,6 @@
 
 ---
 
-<div class="grid-container">
-  <Select
-    options={categories}  
-    bind:value={selectedCategory}
-    size="sm"
-  />
-
-  <CurrencyInput
-    bind:value={value}
-    size="sm"
-  />
-</div>
-
 ## Example Usage
 
 ### `options` elements with primitive data type
@@ -272,11 +259,5 @@ You can set the following custom variables:
     padding: 25px;
     border-radius: var(--docs-border-radius);
     background-color: var(--docs-secondary-color);
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    font-family: "Inter", sans-serif;
   }
 </style>
