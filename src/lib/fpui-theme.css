@@ -119,7 +119,7 @@
   --bg-color: var(--neutral-very-light);
   --text-color: var(--neutral-very-dark);
   /* Disabled State Colors */
-  --disabled-bg-color: var(--neutral-dark);
+  --disabled-bg-color: var(--neutral-medium);
   --disabled-text-color: var(--neutral-very-light);
 }
 
