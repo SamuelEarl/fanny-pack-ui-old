@@ -252,7 +252,7 @@ You can set the following custom variables:
 | `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
 | `id` | `string` | Any string | `""` (an empty string) | You can give your `<Select />` components an `id` attribute. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for your `<Select />` component to give the appearance of a larger or smaller `<Select />` component. The text size will also increase or decrease based on this `size` prop. |
-| `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select>` component. |
 
 <br><br>
 

@@ -17,6 +17,7 @@
   export let label = "";
   export let size = "md";
   export let dateInputIcon = theme.dateInputIcon;
+  export let disabled = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
   let componentId = createId();
@@ -175,7 +176,7 @@
 
 <Label {label} forVal={`fpui-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
-  <div class="{`fpui-date-input-container ${size}`}" class:showCalendar>
+  <div class="{`fpui-date-input-container ${size}`}" class:showCalendar class:disabled={disabled}>
     <input
       id={`fpui-date-input-${componentId}`}
       class="{`fpui-date-input ${size}`}"
@@ -185,14 +186,19 @@
       on:focus={() => (showCalendar = true)}
       on:mousedown={() => (showCalendar = true)}
       on:input={handleInput}
+      {disabled}
     />
     <!--
       You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `handleHideCalendar`.
     -->
     <div
       class="{`fpui-date-input-btn ${size}`}"
+      class:disabled={disabled}
       tabindex="-1"
-      on:click={() => showCalendar = !showCalendar}
+      on:click={() => {
+        if (disabled) return;
+        showCalendar = !showCalendar;
+      }}
     >
       <!-- This <Icon/> element does not inherit the font-size property of its parent component, so I am setting it programmatically. -->
       <Icon icon="{dateInputIcon}" width="{inputFontSize}" />
@@ -234,6 +240,10 @@
         box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
       }
 
+      &.disabled {
+        border-color: var(--disabled-bg-color);
+      }
+
       & .fpui-date-input {
         flex: 1;
         border: none;
@@ -245,6 +255,11 @@
 
         &::placeholder {
           color: var(--custom-date-input-placeholder-text-color, var(--fpui-date-input-placeholder-text-color, lightgray));
+        }
+
+        &:disabled {
+          background-color: var(--disabled-bg-color);
+          color: var(--disabled-text-color);
         }
 
         /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
@@ -280,6 +295,14 @@
         background-color: var(--custom-date-input-btn-bg-color, var(--fpui-date-input-btn-bg-color, #cec1cb));
         color: var(--custom-date-input-btn-icon-color, var(--fpui-date-input-btn-icon-color, inherit));
         cursor: pointer;
+
+        &.disabled {
+          border-color: var(--disabled-bg-color);
+          border-left-color: var(--disabled-text-color);
+          background-color: var(--disabled-bg-color);
+          color: var(--disabled-text-color);
+          pointer-events: none;
+        }
 
         &.sm {
           padding: var(--fpui-date-input-btn-padding-sm, 5px);
