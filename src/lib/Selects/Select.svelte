@@ -120,7 +120,7 @@
   class={`fpui-select-container fpui-select-container-${componentId}`}
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
-  <select bind:value={value} on:change>
+  <select bind:value={value} on:change {disabled}>
     {#if optionsDataType === "object"}
       {#if optgroup}
         {#each Object.entries(optgroups) as [key, value]}
@@ -146,8 +146,12 @@
   <div
     id={`fpui-select-btn-${componentId}`} 
     class="{`fpui-select-btn ${size}`}" 
-    class:active={showSelectOptionsList} 
-    on:click={toggleOptionsList}
+    class:active={showSelectOptionsList}
+    class:disabled={disabled}
+    on:click={() => {
+      if (disabled) return;
+      toggleOptionsList();
+    }}
   >
     <div 
       class="{`fpui-select-btn-overlay ${size}`}" 
@@ -260,6 +264,13 @@
 
       &.active {
         border-radius: var(--border-radius) var(--border-radius) 0 0;
+        pointer-events: none;
+      }
+
+      &.disabled {
+        border-color: var(--disabled-bg-color);
+        background-color: var(--disabled-bg-color);
+        color: var(--disabled-text-color);
         pointer-events: none;
       }
 
