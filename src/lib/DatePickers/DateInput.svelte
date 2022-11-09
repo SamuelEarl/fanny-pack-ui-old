@@ -205,7 +205,7 @@
     </div>
   </div>
   {#if showCalendar}
-    <div class="calendar-container" class:showCalendar transition:fly={{ duration: 80, easing: cubicInOut, y: -5 }}>
+    <div class="calendar-container" class:showCalendar transition:fly|local>
       <div class="triangle-up"></div>
       <Calendar
         on:focusout={handleHideCalendar}
