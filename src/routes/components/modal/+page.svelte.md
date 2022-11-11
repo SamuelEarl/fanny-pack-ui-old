@@ -109,7 +109,7 @@
 {/if}
 ```
 
-*NOTE: The footer is intended to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
+*NOTE: The footer is designed to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
 
 ---
 
@@ -258,7 +258,7 @@ You can put almost anything inside of a modal body and customize it:
 | `modalFooterLeft` | NA | The content that is passed to this slot will be displayed in the left side of the modal footer. |
 | `modalFooterRight` | NA | The content that is passed to this slot will be displayed in the right side of the modal footer. |
 
-*NOTE: The footer is intended to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
+*NOTE: The footer is designed to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
 
 <br><br>
 
