@@ -6,6 +6,7 @@
   export let type = "text";
   export let value = "";
   export let label = "";
+  export let list = "";
   export let size = "md";
   export let min = null;
   export let max = null;
@@ -22,6 +23,7 @@
   <input
     type="text"
     bind:value={value}
+    {list}
     {id}
     class="{`fpui-input ${size}`}"
     {placeholder}
@@ -35,6 +37,7 @@
   <input
     type="number"
     bind:value={value}
+    {list}
     {id}
     class="{`fpui-input ${size}`}"
     {min}
@@ -51,6 +54,7 @@
   <input
     type="email"
     bind:value={value}
+    {list}
     {id}
     class="{`fpui-input ${size}`}"
     {placeholder}

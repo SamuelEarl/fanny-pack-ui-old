@@ -4,6 +4,18 @@
   let textValue = "Change this text";
   let numberValue = 1;
   let email = ""
+
+  let browsers = [
+    "Chrome",
+    "Edge",
+    "Firefox",
+    "Opera",
+    "Safari",
+  ];
+  let browser;
+
+  let numbers = [1, 2, 3, 4, 5];
+  let number;
 </script>
 
 
@@ -111,6 +123,86 @@
 
 ---
 
+## `<datalist>`
+
+A `<datalist>` allows you to specify a list of predefined options for an `<input>` element, but users can also enter their own data into the `<input>` element. As a user types inside an `<input>` element that has a `<datalist>` element bound to it, the list of predefined options will get filtered based on the user's input. 
+
+NOTE: In order to bind a `<datalist>` element to an `<input>` element, the `<datalist>` element's `id` attribute should match the `<input>` element's `list` attribute.
+
+<br>
+
+<Input
+  type="text"
+  bind:value={browser}
+  label="Select a browser or enter your own"
+  list="browsers"
+/>
+<datalist id="browsers">
+  {#each browsers as browser}
+    <option value={browser}>
+  {/each}
+</datalist>
+
+```svelte
+<script lang="ts">
+  let browsers = [
+    "Chrome",
+    "Edge",
+    "Firefox",
+    "Opera",
+    "Safari",
+  ];
+  let browser;
+</script>
+
+<Input
+  type="text"
+  bind:value={browser}
+  label="Select a browser or enter your own"
+  list="browsers"
+/>
+<datalist id="browsers">
+  {#each browsers as browser}
+    <option value={browser}>
+  {/each}
+</datalist>
+```
+
+<br>
+
+<Input
+  type="number"
+  bind:value={number}
+  label="Select a number or enter your own"
+  list="numbers"
+/>
+<datalist id="numbers">
+  {#each numbers as number}
+    <option value={number}>
+  {/each}
+</datalist>
+
+```svelte
+<script lang="ts">
+  let numbers = [1, 2, 3, 4, 5];
+  let number;
+</script>
+
+<Input
+  type="number"
+  bind:value={number}
+  label="Select a number or enter your own"
+  list="numbers"
+/>
+<datalist id="numbers">
+  {#each numbers as number}
+    <option value={number}>
+  {/each}
+</datalist>
+```
+
+---
+
 ## Custom Input Styles
 The original intention for these custom styles was to set `--custom-input-bg-color="transparent"` so the `<Input>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
 
@@ -152,6 +244,7 @@ You can set the following custom variables:
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Input>` components an `id` value, if necessary, just like you can with regular `<input>` elements. |
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
+| `list` | `string` | Any string | `""` (empty string) | See the `<datalist>` example above for details. |
 | `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. The text size will also increase or decrease based on this `size` prop. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
