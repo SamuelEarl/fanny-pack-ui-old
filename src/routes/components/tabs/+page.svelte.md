@@ -23,17 +23,17 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
   </TabBar>
 
   <TabPanel>
-    <p class="h2">First Panel</p>
+    <h2>First Panel</h2>
     <p>This content is inside the first panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Second Panel</p>
+    <h2>Second Panel</h2>
     <p>This content is inside the second panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Third Panel</p>
+    <h2>Third Panel</h2>
     <p>This content is inside the third panel...</p>
   </TabPanel>
 </TabsContainer>
@@ -91,17 +91,17 @@ This is how a `fill` tab style looks without a border:
   </TabBar>
 
   <TabPanel>
-    <p class="h2">First Panel</p>
+    <h2>First Panel</h2>
     <p>This content is inside the first panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Second Panel</p>
+    <h2>Second Panel</h2>
     <p>This content is inside the second panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Third Panel</p>
+    <h2>Third Panel</h2>
     <p>This content is inside the third panel...</p>
   </TabPanel>
 </TabsContainer>
@@ -128,17 +128,17 @@ The next example shows how to set the tab style to `line` with the `tabStyle` pr
   </TabBar>
 
   <TabPanel>
-    <p class="h2">First Panel</p>
+    <h2>First Panel</h2>
     <p>This content is inside the first panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Second Panel</p>
+    <h2>Second Panel</h2>
     <p>This content is inside the second panel...</p>
   </TabPanel>
 
   <TabPanel>
-    <p class="h2">Third Panel</p>
+    <h2>Third Panel</h2>
     <p>This content is inside the third panel...</p>
   </TabPanel>
 </TabsContainer>
@@ -234,10 +234,3 @@ This is how a `line` tab style looks without a border:
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `tabStyle` | `string` | `fill`, `line` | `fill`<br>The default value can be set in the `/src/theme.ts` file. | This prop sets the style of the tab bar and the tabs.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
-
-
-<style>
-  .h2 {
-    font-size: 2rem;
-  }
-</style>
