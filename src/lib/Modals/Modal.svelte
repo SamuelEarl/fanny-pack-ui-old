@@ -4,7 +4,7 @@
 
   export let title = "";
   export let scrollingBody = false;
-  export let disabled;
+  export let disabled = false;
 
   const dispatch = createEventDispatcher();
 
