@@ -1,9 +1,9 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { getMonthLength, getCalendarDays } from "./date-utils";
   import type { CalendarDay } from "./date-utils";
   import { getInnerLocale } from "./locale";
   import type { Locale } from "./locale";
-  import { createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId } from "../fpui-utils";
 

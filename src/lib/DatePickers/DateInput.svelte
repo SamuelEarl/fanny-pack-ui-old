@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, createEventDispatcher } from "svelte";
+  import { onMount, createEventDispatcher, tick } from "svelte";
   import { fly } from "svelte/transition";
   import { cubicInOut } from "svelte/easing";
   import type { Writable } from "svelte/store";
@@ -20,6 +20,8 @@
   export let disabled = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
+  let activeDateInput;
+  let activeCalendar;
   let componentId = createId();
   let inputFontSize;
 
@@ -141,17 +143,14 @@
     }
   }
 
-  function keydown(e: KeyboardEvent) {
-    if (e.key === "Escape" && showCalendar) {
+  async function handleKeydown(e: KeyboardEvent) {
+    if (showCalendar && (e.key === "Escape" || e.key === "Enter")) {
       showCalendar = false;
       e.preventDefault();
+      activeDateInput.blur();
       // When the calendar is open, we prevent "Escape" from propagating,
-      // so for example a parent modal won't be closed
+      // so for example a parent modal won't be closed.
       e.stopPropagation();
-    } 
-    else if (e.key === "Enter") {
-      showCalendar = !showCalendar;
-      e.preventDefault();
     }
   }
 
@@ -175,16 +174,22 @@
 
 
 <Label {label} forVal={`fpui-date-input-${componentId}`} />
-<div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={keydown}>
+<div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={handleKeydown}>
   <div class="{`fpui-date-input-container ${size}`}" class:showCalendar class:disabled={disabled}>
     <input
       id={`fpui-date-input-${componentId}`}
       class="{`fpui-date-input ${size}`}"
       type="text"
       bind:value={text}
+      bind:this={activeDateInput}
       {placeholder}
-      on:focus={() => (showCalendar = true)}
-      on:mousedown={() => (showCalendar = true)}
+      on:focus={() => showCalendar = true}
+      on:mousedown={async () => {
+        showCalendar = true;
+        // When a user clicks on the input field, then give the calendar component the focus so the screen will scroll down to show the entire calendar.
+        await tick();
+        activeCalendar.focus();
+      }}
       on:input={handleInput}
       {disabled}
     />
@@ -195,9 +200,13 @@
       class="{`fpui-date-input-btn ${size}`}"
       class:disabled={disabled}
       tabindex="-1"
-      on:click={() => {
+      on:click={async () => {
         if (disabled) return;
         showCalendar = !showCalendar;
+        // For an explanation of this code, see the comment in the
+        // `on:mousedown` event of the `fpui-date-input` element.
+        await tick();
+        if (showCalendar) activeCalendar.focus();
       }}
     >
       <!-- This <Icon/> element does not inherit the font-size property of its parent component, so I am setting it programmatically. -->
@@ -205,7 +214,7 @@
     </div>
   </div>
   {#if showCalendar}
-    <div class="calendar-container" class:showCalendar transition:fly|local>
+    <div class="calendar-container" tabindex="-1" bind:this={activeCalendar} class:showCalendar transition:fly|local>
       <div class="triangle-up"></div>
       <Calendar
         on:focusout={handleHideCalendar}
@@ -321,6 +330,7 @@
     position: absolute;
     margin-top: 2px;
     z-index: 10;
+    outline: none;
 
     &.showCalendar {
       display: block;
