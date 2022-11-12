@@ -9,6 +9,7 @@
   export let size = "md";
   export let width = "auto";
   export let disabled = false;
+  export let title = "";
   export let btnIcon = theme.btnIcon;
   export let btnIconDisabled = theme.btnIconDisabled;
   export let btnIconSide = "left";
@@ -25,7 +26,8 @@
   {id}
   class="{`fpui-btn ${btnColor} ${size} ${width}-width`}"
   class:inverted={inverted}
-  disabled={disabled}
+  {disabled}
+  {title}
   on:click
 >
   <!-- If the btnIcon exists, and the btnIconDisabled exists, and the btnIcon should be on the left side, then display an icon on the left. If either the btnIcon or btnIconDisabled is an empty string, then no icons will be displayed with the button. See the docs for details. -->
