@@ -4,7 +4,7 @@
 -->
 
 <script lang="ts">
-  import { onMount, tick, createEventDispatcher } from "svelte";
+  import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateOptionsListHeight } from "../fpui-utils";
 
@@ -20,11 +20,33 @@
   const dispatch = createEventDispatcher();
   let componentId = createId();
   let optionsDataType;
+  // When the `optgroups` object is created it will look like the following.
+  // This will allow this <Select> component to render properly with <optgroup> elements.
+  // let optgroups = {
+  //   Sauropods: [
+  //     { name: "Diplodocus", group: "Sauropods" },
+  //     { name: "Saltasaurus", group: "Sauropods" },
+  //     { name: "Apatosaurus", group: "Sauropods" },
+  //   ],
+  //   Theropods: [
+  //     { name: "Tyrannosaurus", group: "Theropods" },
+  //     { name: "Velociraptor", group: "Theropods" },
+  //     { name: "Deinonychus", group: "Theropods" },
+  //   ],
+  // };
   let optgroups = {};
   let selectOptionsList;
   let showSelectOptionsList = false;
 
   onMount(() => {
+    determineOptionsDataType(options);
+    if (optgroup) {
+      sortOptions();
+    }
+  });
+
+  // If a user passes an array of objects to the `options` prop and updates that array of objects later while this `<Select>` component is still mounted, then the functions inside the `onMount()` hook will not run again (since this component is already mounted) and the updates to the array of objects will not be reflected in this component's dropdown. The following `afterUpdate()` hook will run the functions inside of it again, if the previously described scenario occurs, which will cause the updates to the array of objects to be reflected in this component's dropdown.
+  afterUpdate(() => {
     determineOptionsDataType(options);
     if (optgroup) {
       sortOptions();
@@ -79,6 +101,7 @@
       });
 
       let currentOptgroup = "";
+      // This for loop will loop through the `options` array that is passed into this component and create an `optgroups` object. See the `optgroups` object example above for details.
       for (let i = 0; i < options.length; i++) {
         if (currentOptgroup !== options[i][optgroup]) {
           // Update the currentOptgroup value.
