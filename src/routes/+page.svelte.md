@@ -48,7 +48,7 @@ Here are a few other issues that you might run into with unscalable CSS:
 * How can you ensure that other developers on your team are styling their pages following your company's design system? Unless developers are carefully referencing your company's design guide they could easily stray from the design system.
 * How do you onboard new developers if you don't have a standard way to style your pages? How would they get trained to handle CSS styles? You could have a mess of CSS styles on each page that don't follow any standard practices.
 
-**Scalable CSS means that the CSS styles are defined and organized in such a way that you can maintain coding standards even when used in large projects or with multiple team members.** One common way to implement CSS coding standards is through utility classes. CSS coding standards help to maintain consistent theming through an app and they make future code maintenance easier.
+**Scalable CSS means that the CSS styles are defined and organized in such a way that you can maintain coding standards, even when the CSS is used in large projects or with multiple team members.** One common way to implement CSS coding standards is through utility classes. CSS coding standards help to maintain consistent theming through an app and they make future code maintenance easier.
 
 To understand the value of CSS coding standards through the use of utility classes, consider the following example from [codyhouse.co](https://codyhouse.co/blog/post/css-grid-layout-vs-framework-grid) about different ways to handle grid layouts:
 
