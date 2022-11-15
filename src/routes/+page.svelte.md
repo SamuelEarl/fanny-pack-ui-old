@@ -34,21 +34,25 @@ These components are also designed for responsiveness and with accessibility in 
 
 If you want to customize these components even more than what is available to you, then please feel free to copy the code and customize it however you want. The code is intentially simple, easy to understand, heavily commented/documented, and not very DRY (don't repeat yourself) to allow users to copy only the components they want (instead of the entire package) and easily customize the code without very many dependencies on other components. There are some cases where the code is DRY, but it's not too DRY.
 
+Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most, if not all, styling needs. Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes instead of components. So using Tailwind to define your grid layouts, for example, might be a better choice than using a grid component for your layouts. To learn more about scalable and maintainable CSS, read the following section.
+
 <br>
 
 # The Importance of Scalable & Maintainable CSS
 
-What does it mean to have scalable CSS? One of the biggest challenges of using CSS is when you are using it in a large project or with multiple team members. If the CSS styles are not defined and used in a "scalable" way, then you will likely have a maintenance nightmare on your hands. 
+What does it mean to have scalable CSS? 
 
-Imagine working on a large project that has been around for years and it has a lot of legacy code (along with a lot of global CSS). Your boss asks you to update a page along with some styles for that page. Since the CSS is global if you change some of the existing styles, then you might accidentally change styles on another, unrelated page. That's a big problem. So you have to create new styles and try to namespace the classes for those styles so you avoid accidentaly changing the styles on another page. 
+CSS coding standards help to maintain consistent theming throughout an app and they make future code maintenance easier. **Scalable CSS means that the CSS styles are defined and organized in such a way that you can maintain coding standards, even when the CSS is used in large projects or with multiple team members.** One common way to implement CSS coding standards is through utility classes.
 
-Here are a few issues that you might run into with unscalable CSS:
+One of the biggest challenges of using CSS is when you are using it in a large project or with multiple team members. If the CSS styles are not defined and used in a scalable way, then you will likely have a maintenance nightmare on your hands. Let me provide an example to illustrate.
 
-* Namespacing classes will work because you have been able to isolate the styles for that page, but what if your company wants to do a redesign? How will all the pages that have isolated styles get redesigned without styling each page individually? 
+Imagine working on a large project that has been around for years and it has a lot of legacy code (along with a lot of global CSS). Your boss asks you to update a page along with some styles for that page. Since the CSS is global, if you change some of the existing styles, then you might accidentally change styles on another, unrelated page. That's a big problem. So you have to create new styles and namespace the ids and classes for those styles so you avoid accidentally changing the styles on another page. Namespacing styles will work because it allows you to isolate the styles for that page, but that is a one of many non-scalable approaches to CSS.
+
+Component-based frameworks, like SvelteKit, will namespace styles for you, which helps to implement scalable CSS. But it's not foolproof. You can still create non-scalable CSS easily. Here are just a few issues that you might run into with non-scalable CSS approaches, even when using component-based frameworks:
+
+* What if your company wants to do a redesign? How will all the pages that have isolated styles get redesigned without styling each page individually? 
 * How can you ensure that other developers on your team are styling their pages following your company's design system? Unless developers are carefully referencing your company's design guide they could easily stray from the design system. And how many developers do you think carefully reference a company's design guide, especially when they are under pressure to get a feature out?
 * How do you onboard new developers if you don't have a standard way to style your pages? How would they get trained to handle CSS styles? You could have a mess of CSS styles on each page that don't follow any standard practices.
-
-CSS coding standards help to maintain consistent theming throughout an app and they make future code maintenance easier. **Scalable CSS means that the CSS styles are defined and organized in such a way that you can maintain coding standards, even when the CSS is used in large projects or with multiple team members.** One common way to implement CSS coding standards is through utility classes. 
 
 To understand the value of CSS coding standards through the use of utility classes, consider the following example from [codyhouse.co](https://codyhouse.co/blog/post/css-grid-layout-vs-framework-grid) about different ways to handle grid layouts:
 
@@ -218,8 +222,6 @@ To understand the value of CSS coding standards through the use of utility class
 When we need to style an element, a component, or a page we will sometimes (or often) style those things in isolation, which often leads to a lot of duplicated styles and brittle CSS code. However, **a scalable CSS approach will define styles in one location and then reference those styles wherever they are needed** (i.e. scalable CSS uses utility classes). CSS utility classes keeps our styles DRY, scalable, and more maintainable. *(By the way, this is similar to how we use the concept of "a single source of truth" in component libraries where we have a single component definition and then we import and configure that component wherever we need it.)*
 
 So for example, instead of implementing all the style rules for a button element and copying and pasting those styles each time you implement a button (which is very error prone and not scalable at all), you simply reference the utility classes for a button element. If you do that, then you will be able to maintain a consistent theme througout your app and reduce the maintenance burden. Also, if you need to change any styles, you only need to change them in one location&mdash;where they are defined.
-
-Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most, if not all, styling needs. Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes as opposed to components. So using Tailwind to define your grid layouts, for example, might be a better choice than using a grid component for your layouts.
 
 <style>
   #home {
