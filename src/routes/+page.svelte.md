@@ -42,10 +42,10 @@ What does it mean to have scalable CSS? One of the biggest challenges of using C
 
 Imagine working on a large project that has been around for years and it has a lot of legacy code (along with a lot of global CSS). Your boss asks you to update a page along with some styles for that page. Since the CSS is global if you change some of the existing styles, then you might accidentally change styles on another, unrelated page. That's a big problem. So you have to create new styles and try to namespace the classes for those styles so you avoid accidentaly changing the styles on another page. 
 
-Here are a few other issues that you might run into with unscalable CSS:
+Here are a few issues that you might run into with unscalable CSS:
 
 * Namespacing classes will work because you have been able to isolate the styles for that page, but what if your company wants to do a redesign? How will all the pages that have isolated styles get redesigned without styling each page individually? 
-* How can you ensure that other developers on your team are styling their pages following your company's design system? Unless developers are carefully referencing your company's design guide they could easily stray from the design system.
+* How can you ensure that other developers on your team are styling their pages following your company's design system? Unless developers are carefully referencing your company's design guide they could easily stray from the design system. And how many developers do you think carefully reference a company's design guide, especially when they are under pressure to get a feature out?
 * How do you onboard new developers if you don't have a standard way to style your pages? How would they get trained to handle CSS styles? You could have a mess of CSS styles on each page that don't follow any standard practices.
 
 CSS coding standards help to maintain consistent theming throughout an app and they make future code maintenance easier. **Scalable CSS means that the CSS styles are defined and organized in such a way that you can maintain coding standards, even when the CSS is used in large projects or with multiple team members.** One common way to implement CSS coding standards is through utility classes. 
