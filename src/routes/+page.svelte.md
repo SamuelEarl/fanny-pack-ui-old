@@ -223,6 +223,8 @@ When we need to style an element, a component, or a page we will sometimes (or o
 
 So for example, instead of implementing all the style rules for a button element and copying and pasting those styles each time you implement a button (which is very error prone and not scalable at all), you simply reference the utility classes for a button element. If you do that, then you will be able to maintain a consistent theme througout your app and reduce the maintenance burden. Also, if you need to change any styles, you only need to change them in one location&mdash;where they are defined.
 
+Tailwind and Fanny Pack UI will handle most of your CSS needs, but no framework can possibly cover everything. If you run into any unique styling situtations that either Tailwind or Fanny Pack UI don't cover, then you can simply use plain CSS styles to cover those situations.
+
 <style>
   #home {
     
