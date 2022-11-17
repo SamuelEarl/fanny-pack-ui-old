@@ -34,7 +34,11 @@ These components are also designed for responsiveness and with accessibility in 
 
 If you want to customize these components even more than what is available to you, then please feel free to copy the code and customize it however you want. The code is intentially simple, easy to understand, heavily commented/documented, and not very DRY (don't repeat yourself) to allow users to copy only the components they want (instead of the entire package) and easily customize the code without very many dependencies on other components. There are some cases where the code is DRY, but it's not too DRY.
 
-Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most, if not all, styling needs. Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes instead of components. So using Tailwind to define your grid layouts, for example, might be a better choice than using a grid component for your layouts. To learn more about scalable and maintainable CSS, read the following section.
+Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most styling needs. However, no framework can possibly cover everything. So if you run into any unique styling situations that either Tailwind or Fanny Pack UI don't cover, then you can simply use plain CSS styles to cover those situations.
+
+Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes instead of components. So using Tailwind to define your grid layouts, for example, might be a better choice than using a grid component for your layouts. 
+
+To learn more about scalable and maintainable CSS and how a framework like Tailwind can help, please read the following section.
 
 <br>
 
@@ -223,7 +227,6 @@ When we need to style an element, a component, or a page we will sometimes (or o
 
 So for example, instead of implementing all the style rules for a button element and copying and pasting those styles each time you implement a button (which is very error prone and not scalable at all), you simply reference the utility classes for a button element. If you do that, then you will be able to maintain a consistent theme througout your app and reduce the maintenance burden. Also, if you need to change any styles, you only need to change them in one location&mdash;where they are defined.
 
-Tailwind and Fanny Pack UI will handle most of your CSS needs, but no framework can possibly cover everything. If you run into any unique styling situtations that either Tailwind or Fanny Pack UI don't cover, then you can simply use plain CSS styles to cover those situations.
 
 <style>
   #home {
