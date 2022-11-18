@@ -36,7 +36,7 @@ If you want to customize these components even more than what is available to yo
 
 Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most styling needs. However, no framework can possibly cover everything. So if you run into any unique styling situations that either Tailwind or Fanny Pack UI don't cover, then you can simply use plain CSS styles to cover those situations.
 
-Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes instead of components. So using Tailwind to define your grid layouts, for example, might be a better choice than using a grid component for your layouts. 
+Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes provided by Tailwind instead of using layout or grid components. So consider whether using Tailwind classes to layout your pages would be a better option than using layout or grid components.
 
 To learn more about scalable and maintainable CSS and how a framework like Tailwind can help, please read the following section.
 
@@ -54,9 +54,10 @@ Imagine working on a large project that has been around for years and it has a l
 
 Component-based frameworks, like SvelteKit, will namespace styles for you, which helps to implement scalable CSS. But it's not foolproof. You can still create non-scalable CSS easily. Here are just a few issues that you might run into with non-scalable CSS approaches, even when using component-based frameworks:
 
+* Adding more namespaced styles in an effort to update your CSS without breaking CSS that already exists will only increase the CSS file size. That's a bad practice.
 * What if your company wants to do a redesign? How will all the pages that have isolated styles get redesigned without styling each page individually? 
 * How can you ensure that other developers on your team are styling their pages following your company's design system? Unless developers are carefully referencing your company's design guide they could easily stray from the design system. And how many developers do you think carefully reference a company's design guide, especially when they are under pressure to get a feature out?
-* How do you onboard new developers if you don't have a standard way to style your pages? How would they get trained to handle CSS styles? You could have a mess of CSS styles on each page that don't follow any standard practices.
+* How do you onboard new developers if you don't have a standard way to style your pages? How would they get trained to handle CSS styles? You could have a mess of CSS styles on each page or component that don't follow any standard practices.
 
 To understand the value of CSS coding standards through the use of utility classes, consider the following example from [codyhouse.co](https://codyhouse.co/blog/post/css-grid-layout-vs-framework-grid) about different ways to handle grid layouts:
 
