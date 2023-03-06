@@ -106,20 +106,25 @@ Sources:
 
 ---
 
-# How to import the components into the "example" app in this repo
-**NOTE: This is old information and I am not using it anymore. However, I am keeping this information here for now in case I need to access any of this information.**
+# How to develop a local package and install it as an npm package
+
+You can install the local `package` directory as a package in your `package.json` file. This comes in handy in situations where you want to develop your component library locally. You could then move your package to npm and use it in other projects.
+
+Many of these concepts are borrowed from this tutorial: [The Ultimate Guide to Building a UI Component Library—Part 2: Establishing a Development Environment](https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment)
 
 ## Step 1: Turn your component library into a package
+
 Follow steps 1 and 2 under the heading "How to package and publish this component library to npm".
 
-You can then either publish this package to npm and install it from there (above - this is good for distributing the component library to other developers to use in their projects), or you can install the local `package` directory as a package in your `package.json` file (below - this is good for locally developing the component library).
+You can then either publish this package to npm and install it from there (above, which is good for distributing the component library to other developers to use in their projects), or you can install the local `package` directory as a package in your `package.json` file (below, which is good for locally developing the component library).
 
 
 ## Step 2: Allow Vite to serve files from the `package` folder
-Vite will not serve files from the `package` folder by default. If you try to use your components in a `src/routes` file, then you will see the following error:
+
+Vite will not serve files from the `package` folder by default. If you try to import your components into a `src/routes` file, then you will see the following error:
 
 ```
-The request url "/path/to/files" is outside of Vite serving allow list.
+The request url "/path/to/package/folder" is outside of Vite serving allow list.
 ```
 
 To fix this problem, open the `svelte.config.js` file, add the following `vite.server.fs.allow` config:
@@ -146,7 +151,8 @@ See:
 
 
 ## Step 3: Install your local library/package and import components
-In order to use your components in the example app (i.e. the example component app inside the `src/routes` directory), you will have to install them. From the project root directoy run the following command:
+
+In order to use your local component library in the rest of your app (i.e. the files inside your `src/routes` directory), you will have to install them. From the project root directoy run the following command:
 
 ```
 npm install --save-dev ./package
@@ -168,15 +174,14 @@ This is a link that gives you the ability to use your components in your example
 import { Button } from "@fanny-pack-ui/svelte-kit";
 ```
 
-*https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment*
-
-
 ## Step 4: Develop and edit components and update to the latest version from your local `package` directory
-Since you have already installed the local `fpui` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `fpui` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
+
+Since you have already installed the local `@fanny-pack-ui` library as a package, the link has been established from the files in the `package` folder to the `package.json` file. So now when you create any new components or update any existing components, all you need to do to get those updates is run the `npm run package` command to rebuild the `@fanny-pack-ui` library into a package. The link in the `package.json` file will simply reference the latest version of your library/package. And you can keep building/updating your components and then running `npm run package`.
 
 ---
 
 # How to add `postcss-preset-env` (for native CSS nesting) and `mdsvex` (for Markdown documentation)
+
 * The `postcss-preset-env` config and notes are below.
 * Use `svelte-add` to install `mdsvex`, which will configure everything for you: https://github.com/svelte-add/mdsvex. Then you can create `.svelte.md` files and start creating regular Svelte components with Markdown syntax sprinkled throughout. I like to use Markdown to document code blocks in between opening and closing triple backticks. 
     * NOTE: I think `mdsvex` conflicts with Storybook's MDX installation and throws silent errors, so if you want to install `mdsvex` alongside Storybook then you might run into problems. I would just use the default MDX installation.
@@ -252,6 +257,7 @@ export default config;
 ---
 
 # How to update SveltKit to latest version
+
 1. Search for "sveltekit changelog".
 2. Find the latest version number.
 3. Run `npm update @sveltejs/kit@<version#>`. For example: `npm update @sveltejs/kit@1.0.0-next.445`
