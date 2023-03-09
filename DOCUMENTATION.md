@@ -22,7 +22,11 @@ I am referencing https://carbon-components-svelte.onrender.com/ for ideas on how
 ---
 
 # How to package and publish the Fanny Pack UI to npm
-Source: https://blog.logrocket.com/build-your-own-component-library-svelte/
+
+Sources: 
+
+* https://kit.svelte.dev/docs/packaging
+* https://blog.logrocket.com/build-your-own-component-library-svelte/
 
 ## Step 1: Organize your components so they can be imported easily
 Inside of the `src/lib` folder, create a folder for each component. Inside of each of those folders create an `index.js` file that exports the component, like this:
