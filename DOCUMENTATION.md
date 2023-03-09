@@ -108,6 +108,8 @@ Sources:
 
 # How to develop a local package and install it as an npm package
 
+**IMPORTANT NOTE: SvelteKit now uses your app's `package.json` file instead of creating a new one for you. So the process of developing a local package might not be as easy as it used to be. See https://kit.svelte.dev/docs/packaging.**
+
 You can install the local `package` directory as a package in your `package.json` file. This comes in handy in situations where you want to develop your component library locally. You could then move your package to npm and use it in other projects.
 
 Many of these concepts are borrowed from this tutorial: [The Ultimate Guide to Building a UI Component Library—Part 2: Establishing a Development Environment](https://www.telerik.com/blogs/ultimate-guide-to-building-ui-component-library-part-2-environment)
