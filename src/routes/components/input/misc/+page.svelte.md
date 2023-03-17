@@ -27,14 +27,17 @@
 
 ### Text Input
 
-<Input
-  type="text"
-  bind:value={textValue}
-  label="Enter some text"
-  size="md"
-  placeholder="Type right here"
-  disabled={false}
-/>
+<div style="margin-bottom: 15px;">
+  <Input
+    type="text"
+    bind:value={textValue}
+    label="Enter some text"
+    padding=""
+    fontSize=""
+    placeholder="Type right here"
+    disabled={false}
+  />
+</div>
 
 <p>Entered Text: {textValue}</p>
 
@@ -49,7 +52,8 @@
   type="text"
   bind:value={textValue}
   label="Enter some text"
-  size="md"
+  padding="sm"
+  fontSize="md"
   placeholder="Type right here"
   disabled={false}
 />
@@ -61,7 +65,8 @@
   type="number"
   bind:value={numberValue}
   label="Enter a number"
-  size="md"
+  padding="sm"
+  fontSize="md"
   placeholder="Type right here"
   disabled={false}
   min="0"
@@ -82,7 +87,8 @@
   type="number"
   bind:value={numberValue}
   label="Enter a number"
-  size="md"
+  padding="sm"
+  fontSize="md"
   placeholder="Type right here"
   disabled={false}
   min="0"
@@ -97,7 +103,8 @@
   type="email"
   bind:value={email}
   label="Enter an email address"
-  size="md"
+  padding="sm"
+  fontSize="md"
   placeholder="Type email here"
   disabled={false}
 />
@@ -115,7 +122,8 @@
   type="email"
   bind:value={email}
   label="Enter an email address"
-  size="md"
+  padding="sm"
+  fontSize="md"
   placeholder="Type email here"
   disabled={false}
 />
@@ -245,7 +253,8 @@ You can set the following custom variables:
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
 | `list` | `string` | Any string | `""` (empty string) | See the `<datalist>` example above for details. |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. The text size will also increase or decrease based on this `size` prop. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the padding in the input field. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the size of the text in the input field. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
 | `min` (number input types only) | `string` | Any numeric string value | `null` (i.e. no `min` value is set by default) | See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#min |

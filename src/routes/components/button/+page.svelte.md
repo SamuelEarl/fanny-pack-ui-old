@@ -1,13 +1,16 @@
 <script lang="ts">
-  import { Button, Select } from "/src/lib";
+  // import Prism from "prismjs";
+  // // Svelte code highlighting: https://github.com/pngwn/prism-svelte
+  // import "prism-svelte";
+  import { Button, Select, Tooltip } from "/src/lib";
 
   let creatingAccount = false;
   let savingData = false;
-  let btnColors = ["primary", "secondary", "tertiary"];
   let selectedBtnColor = "primary";
-  let isInverted = false;
+  let isHollow = false;
   let btnSize = "md";
   let btnWidth = "auto";
+  let showInteractiveButtons = true;
 
   function handleCreateAccount() {
     creatingAccount = true;
@@ -17,6 +20,13 @@
   function handleSaveData() {
     savingData = true;
     setTimeout(() => savingData = false, 3000);
+  }
+
+  function handleRefreshInteractiveBtns() {
+    showInteractiveButtons = false;
+    setTimeout(() => {
+      showInteractiveButtons = true;
+    }, 0);
   }
 </script>
 
@@ -31,7 +41,8 @@
   id="some-id"
   type="button"
   btnColor="primary"
-  inverted={false}
+  textColor="primary"
+  hollow={false}
   size="md"
   width="auto"
   disabled={creatingAccount}
@@ -40,12 +51,15 @@
   btnIconDisabledShouldSpin={true}
   btnIconSide="right"
   on:click={handleCreateAccount}
+  rotateBtnIcon="45deg"
 >
   Create Account
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
 
-```svelte
+<br>
+
+```
 <script>
   import { Button } from "@fanny-pack-ui/svelte-kit";
 
@@ -61,15 +75,16 @@
   id="some-id"
   type="button"
   btnColor="primary"
-  inverted={false}
+  hollow={false}
   size="md"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="icomoon-free:spinner2"
   btnIconDisabledShouldSpin={true}
-  btnIconSide="right"
+  btnIconSide="left"
   on:click={handleCreateAccount}
+  rotateBtnIcon="45deg"
 >
   Create Account
   <span slot="btnTextDisabled">Creating Account...</span>
@@ -80,66 +95,73 @@
 
 ## Interactive Example
 
-<div class="interactive">
-  <div class="light-bg">
-    <Button
-      btnColor={selectedBtnColor}
-      inverted={isInverted}
-      size={btnSize}
-      width={btnWidth}
-      disabled={creatingAccount}
-      btnIcon="bi:person-plus-fill"
-      btnIconDisabled="bi:gear-wide-connected"
-      btnIconDisabledShouldSpin={true}
-      btnIconSide="right"
-      on:click={handleCreateAccount}
-    >
-      Create Account
-      <span slot="btnTextDisabled">Creating Account...</span>
-    </Button>
+<div class="flex">
+  <div class="h-100 flex-1 flex justify-evenly items-center p-10 border border-solid border-black rounded-l">
+    {#if showInteractiveButtons}
+      <Button
+        btnColor={selectedBtnColor}
+        hollow={isHollow}
+        size={btnSize}
+        width={btnWidth}
+        disabled={creatingAccount}
+        btnIcon="bi:person-plus-fill"
+        btnIconDisabled="bi:gear-wide-connected"
+        btnIconDisabledShouldSpin={true}
+        btnIconSide="right"
+        on:click={handleCreateAccount}
+      >
+        Create Account
+        <span slot="btnTextDisabled">Creating Account...</span>
+      </Button>
+    {/if}
   </div>
 
-  <div class="dark-bg">
-    <Button
-      btnColor={selectedBtnColor}
-      inverted={isInverted}
-      size={btnSize}
-      width={btnWidth}
-      disabled={creatingAccount}
-      btnIcon="bi:person-plus-fill"
-      btnIconDisabled="bi:gear-wide-connected"
-      btnIconDisabledShouldSpin={true}
-      btnIconSide="right"
-      on:click={handleCreateAccount}
-    >
-      Create Account
-      <span slot="btnTextDisabled">Creating Account...</span>
-    </Button>
+  <div class="h-100 flex-1 flex justify-evenly items-center p-10 bg-black rounded-r">
+    {#if showInteractiveButtons}
+      <Button
+        btnColor={selectedBtnColor}
+        hollow={isHollow}
+        size={btnSize}
+        width={btnWidth}
+        disabled={creatingAccount}
+        btnIcon="bi:person-plus-fill"
+        btnIconDisabled="bi:gear-wide-connected"
+        btnIconDisabledShouldSpin={true}
+        btnIconSide="right"
+        on:click={handleCreateAccount}
+      >
+        Create Account
+        <span slot="btnTextDisabled">Creating Account...</span>
+      </Button>
+    {/if}
   </div>
 </div>
 
 <br>
 
 <Select
-  label="Button color (primary = purple; secondary = dark gray; tertiary = white)"
-  options={btnColors}
+  label="Button color"
+  options={["primary", "secondary", "tertiary"]}
   bind:value={selectedBtnColor}
+  on:change={handleRefreshInteractiveBtns}
 />
 
 <br>
 
 <Select
-  label="Inverted"
+  label="Hollow"
   options={[false,true]}
-  bind:value={isInverted}
+  bind:value={isHollow}
+  on:change={handleRefreshInteractiveBtns}
 />
 
 <br>
 
 <Select
   label="Size"
-  options={["sm","md","lg"]}
+  options={["xs", "sm","md","lg", "xl"]}
   bind:value={btnSize}
+  on:change={handleRefreshInteractiveBtns}
 />
 
 <br>
@@ -148,6 +170,7 @@
   label="Width"
   options={["auto","full"]}
   bind:value={btnWidth}
+  on:change={handleRefreshInteractiveBtns}
 />
 
 ---
@@ -158,12 +181,14 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 <Button
   btnIcon="ion:save-sharp" 
   size="lg" 
-  disabled={savingData} 
-  --custom-btn-padding="7px 10px"
+  disabled={savingData}
+  title="Save File"
   on:click={handleSaveData}
 ></Button>
 
-```svelte
+<br>
+
+```
 <script>
   let savingData = false;
 
@@ -176,8 +201,8 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 <Button
   btnIcon="ion:save-sharp" 
   size="lg" 
-  disabled={savingData} 
-  --custom-btn-padding="7px 10px"
+  disabled={savingData}
+  title="Save File"
   on:click={handleSaveData}
 ></Button>
 ```
@@ -185,102 +210,29 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 ---
 
 ## Custom Button Styles
+
 There are situations where you might want to tweak (or even completely overhaul) the look of a button. For example, you might need uniquely styled buttons when creating a login page that has buttons for different authentication providers or maybe you want to make some minor modifications to the styles of buttons in your header or footer.
 
-You can set the following custom variables: 
-* `--custom-btn-padding`
-* `--custom-btn-border-width`
-* `--custom-btn-border-style`
-* `--custom-btn-border-color`
-* `--custom-btn-border-radius`
-* `--custom-btn-background-color`
-* `--custom-btn-text-color`
-* `--custom-btn-font-size`
-* `--custom-btn-font-weight`
-* `--custom-btn-icon-margin`
-* `--custom-btn-box-shadow`
-* `--custom-btn-disabled-bg-color`
-* `--custom-btn-disabled-text-color`
-* `--custom-btn-icon-rotate`
-* `--custom-btn-icon-disabled-rotate`
-
-*NOTE: Your custom styles can conflict with the `size` and `inverted` props. So if you are customizing any padding, size, or color values, then it might be best to leave the `size` and `inverted` props out of your buttons, but you will have to try different style and prop combinations to see what works best for your needs.*
-
-<Button
-  --custom-btn-padding="7px 14px"
-  --custom-btn-border-width="5px"
-  --custom-btn-border-style="solid"
-  --custom-btn-border-color="palevioletred"
-  --custom-btn-border-radius="25px"
-  --custom-btn-background-color="white"
-  --custom-btn-text-color="palevioletred"
-  --custom-btn-font-size="20px"
-  --custom-btn-font-weight="bold"
-  --custom-btn-icon-margin="25px"
-  --custom-btn-box-shadow="0 0 0 5px palevioletred"
-  --custom-btn-disabled-bg-color="gray"
-  --custom-btn-disabled-text-color="white"
-  --custom-btn-icon-rotate="45deg"
-  --custom-btn-icon-disabled-rotate="-45deg"
-  width="auto"
-  disabled={creatingAccount}
-  btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
-  btnIconDisabledShouldSpin={true}
-  btnIconSide="right"
-  on:click={handleCreateAccount}
->
-  Create Account
-  <span slot="btnTextDisabled">Creating Account...</span>
-</Button>
-
-```svelte
-<Button
-  --custom-btn-padding="7px 14px"
-  --custom-btn-border-width="5px"
-  --custom-btn-border-style="solid"
-  --custom-btn-border-color="palevioletred"
-  --custom-btn-border-radius="25px"
-  --custom-btn-background-color="white"
-  --custom-btn-text-color="palevioletred"
-  --custom-btn-font-size="20px"
-  --custom-btn-font-weight="bold"
-  --custom-btn-icon-margin="25px"
-  --custom-btn-box-shadow="0 0 0 5px palevioletred"
-  --custom-btn-disabled-bg-color="gray"
-  --custom-btn-disabled-text-color="white"
-  --custom-btn-icon-rotate="45deg"
-  --custom-btn-icon-disabled-rotate="-45deg"
-  width="auto"
-  disabled={creatingAccount}
-  btnIcon="bi:person-plus-fill"
-  btnIconDisabled="bi:gear-wide-connected"
-  btnIconDisabledShouldSpin={true}
-  btnIconSide="right"
-  on:click={handleCreateAccount}
->
-  Create Account
-  <span slot="btnTextDisabled">Creating Account...</span>
-</Button>
-```
+**The buttons in this UI library are not intended to be infinitely customizable. If you need to create a custom button that is outside of the customizability of these buttons, then it is recommneded to create your own custom button.**
 
 ---
 
 ## Props
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
-| `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Button>` components an `id` value, if necessary, just like you can with regular `<button>` elements. |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
-| `btnColor` | `string` | `primary`, `secondary`, `tertiary` | `primary` | The main button color. For regular buttons, this is the background color. For inverted buttons this is the border and text color. |
-| `inverted` | `boolean` | `true`, `false` | `false` | Inverted buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | Alter the padding and font size of the button. |
+| `btnColor` | `string` | `primary`, `secondary`, `tertiary`, `transparent` | `primary` | This prop is for the button's main color. For regular buttons, this is the background color. For `hollow` buttons this is the border and text color.<br><br>If you pass `"transparent"` to this prop, then the background and border colors will also be transparent. You can also change the text color of a `"transparent"` button. See the `textColor` prop for color options. |
+| `textColor` (optional) | `string` | `default`, `primary`, `secondary`, `tertiary`, `white`, `black` | `default` (which is the `--text-color-default` color in the `theme.css` file) | This prop will only be applied if you pass `"transparent"` to the `btnColor` prop. |
+| `hollow` | `boolean` | `true`, `false` | `false` | Hollow buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
+| `size` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding and font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
-| `title` | `string` | Any string | `""` (empty string) | You can add a title attribute to your buttons. |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/theme.ts` file. | See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
 | `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
+| `rotateBtnIcon` (optional) | `string` | Any number with `deg` appended to the end. | `"0deg"` (i.e. no rotation) | You can pass a rotate value to this prop and the icon will be rotated according to the value you pass. For example, `"45deg"` will rotate the icon 45 degrees. |
+| `rotateBtnIconDisabled` (optional) <td colspan=5>Refer to the `rotateBtnIcon` prop above. |
 
 <br><br>
 
@@ -300,36 +252,10 @@ You can set the following custom variables:
 <br><br>
 
 ## Style Notes
-Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `theme.css` file. These are the default button text colors:
+Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `theme.cjs` file. These are the class names that you need to look at:
 
-```css
---fpui-btn-primary-text-color: white;
---fpui-btn-secondary-text-color: white;
---fpui-btn-tertiary-text-color: var(--primary-color);
 ```
-
-
-<style>
-  .interactive {
-    display: flex;
-
-    & .light-bg, & .dark-bg {
-      flex: 1;
-      height: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-    }
-
-    & .light-bg {
-      background-color: var(--docs-neutral-very-light);
-      border-radius: var(--docs-border-radius) 0 0 var(--docs-border-radius);
-    }
-
-    & .dark-bg {
-      background-color: var(--docs-neutral-darkest);
-      border-radius: 0 var(--docs-border-radius) var(--docs-border-radius) 0;
-    }
-  }
-</style>
+"text-color-for-bg-primary"
+"text-color-for-bg-secondary"
+"text-color-for-bg-tertiary"
+```

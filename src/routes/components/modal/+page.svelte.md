@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Button, Checkbox, Modal } from "/src/lib";
-  import LoginForm from "/src/components/LoginForm.svelte";
+  import LoginForm from "./LoginForm.svelte";
 
   let showModal = false;
   let showModalBody = false;
@@ -8,7 +8,7 @@
   let showLoginModalCode = false;
   let loggingIn = false;
   let savingEdits = false;
-  let enableScrollingBody = false;
+  let enableScrollingBody = true;
 
   function handleSaveData() {
     savingEdits = true;
@@ -22,7 +22,7 @@
 ---
 
 <Button btnIcon="" on:click={() => showModal = true}>Click To Show Modal</Button>
-<br><br>
+<br>
 <Checkbox bind:checked={enableScrollingBody} label="Enable `scrollingBody` prop" />
 
 {#if showModal}
@@ -32,7 +32,7 @@
     disabled={savingEdits}
     on:closeModal={() => showModal = false}
   >
-    <div slot="modalBody">
+    <div slot="modalBody" style="padding: 20px;">
       <div>Modal body text goes here...</div>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
@@ -68,7 +68,7 @@
 
   let showModal = false;
   let savingEdits = false;
-  let enableScrollingBody = false;
+  let enableScrollingBody = true;
 
   function handleSaveData() {
     savingEdits = true;
@@ -77,7 +77,7 @@
 </script>
 
 <Button btnIcon="" on:click={() => showModal = true}>Click To Show Modal</Button>
-<br><br>
+<br>
 <Checkbox bind:checked={enableScrollingBody} label="Enable `scrollingBody` prop" />
 
 {#if showModal}
@@ -87,7 +87,7 @@
     disabled={savingEdits}
     on:closeModal={() => showModal = false}
   >
-    <div slot="modalBody">
+    <div slot="modalBody" style="padding: 20px;">
       <div>Modal body text goes here...</div>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
     </div>
@@ -109,8 +109,6 @@
 {/if}
 ```
 
-*NOTE: The footer is designed to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
-
 ---
 
 ## Exclude Modal Header or Footer
@@ -119,6 +117,7 @@ You can exclude the modal header by leaving out the `title` prop.
 You can exclude the modal footer by leaving out the `modalFooterLeft` and `modalFooterRight` slots.
 
 <Button btnIcon="" on:click={() => showModalBody = true}>Click To Show Modal Without Header or Footer</Button>
+<br>
 
 {#if showModalBody}
   <!-- No `title` prop -->
@@ -126,7 +125,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
     disabled={savingEdits}
     on:closeModal={() => showModalBody = false}
   >
-    <div slot="modalBody">
+    <div slot="modalBody" style="padding: 20px;">
       <div>This modal only has a body (i.e. there is no header or footer included).</div>
       <h3>I can put header tags inside this modal</h3>
       <p id="custom-p">I can put any custom styled content inside this modal</p>
@@ -150,6 +149,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 </script>
 
 <Button btnIcon="" on:click={() => showModalBody = true}>Click To Show Modal Without Header or Footer</Button>
+<br>
 
 {#if showModalBody}
   <!-- No `title` prop -->
@@ -157,7 +157,7 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
     disabled={savingEdits}
     on:closeModal={() => showModalBody = false}
   >
-    <div slot="modalBody">
+    <div slot="modalBody" style="padding: 20px;">
       <div>This modal only has a body (i.e. there is no header or footer included).</div>
       <h3>I can put header tags inside this modal</h3>
       <p id="custom-p">I can put any custom styled content inside this modal</p>
@@ -176,31 +176,15 @@ You can exclude the modal footer by leaving out the `modalFooterLeft` and `modal
 
 ---
 
-## Custom Modal Styles
-
-You can customize the following style props:
-
-* `--custom-modal-width-lg-up`: On screens that are 1024px wide and wider, the `<Modal>` component will be 950px wide. You can change that width with this custom style prop. For example, you could set the modal to span the entire width minus 20px on each side with this setting: `--custom-modal-width-lg-up="calc(100% - 40px)"`
-* `--custom-modal-header-padding`: The default header padding is 20px. You can change that with this custom style prop. For example, `--custom-modal-header-padding="40px"`
-* `--custom-modal-footer-padding`: The default footer padding is 10px (top and bottom) and 20px (left and right). You can change that with this custom style prop. For example, `--custom-modal-footer-padding="20px 10px"` or `--custom-modal-footer-padding="20px"`
-* `--custom-modal-body-padding`: The default body padding is 20px. You can change that with this custom style prop. For example, if you want to have a modal that displays an image, chart, or login form that extends all the way to the edges of the modal, then you can exclude the header and footer (see above) and remove the body padding by setting this style prop to `0`.
-* `--custom-modal-body-border-radius`: The default is `0px`. If you exclude the header and footer, then only the modal body will be displayed and the corners of the modal body will come to a point. However, you can overwrite this default value by setting the modal body's border radius to be whatever you want.
-* `--custom-modal-body-bg-color`: The default body background color is `white`. However, this default value can be overwritten globally with the `--fpui-modal-body-bg-color` variable in your `theme.css` file. Also, if you want to exclude the header and footer and only show the modal body, then you can set this variable to `"transparent"`. A transparent background will prevent any of the modal body's background styles from spilling outside of whatever elements you place inside the `modalBody` slot.
-
-<br>
-
-You can put almost anything inside of a modal body and customize it:
+You can put almost anything inside of a modal body:
 
 <Button btnIcon="" on:click={() => showLoginModal = true}>Show Login Modal</Button>
+<br>
 
 {#if showLoginModal}
   <Modal
     disabled={loggingIn}
     on:closeModal={() => showLoginModal = false}
-    --custom-modal-width-lg-up="calc(100% - 40px)"
-    --custom-modal-body-padding="0"
-    --custom-modal-body-border-radius="20px"
-    --custom-modal-body-bg-color="transparent"
   >
     <div slot="modalBody">
       <LoginForm 
@@ -220,15 +204,12 @@ You can put almost anything inside of a modal body and customize it:
 </script>
 
 <Button btnIcon="" on:click={() => showLoginModal = true}>Show Login Modal</Button>
+<br>
 
 {#if showLoginModal}
   <Modal
     disabled={loggingIn}
     on:closeModal={() => showLoginModal = false}
-    --custom-modal-width-lg-up="calc(100% - 40px)"
-    --custom-modal-body-padding="0"
-    --custom-modal-body-border-radius="20px"
-    --custom-modal-body-bg-color="transparent"
   >
     <div slot="modalBody">
       <LoginForm 
@@ -254,11 +235,13 @@ You can put almost anything inside of a modal body and customize it:
 ## Slots
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
-| `modalBody` | NA | The content that is passed to this slot will be displayed in the modal body. You can pass any custom content to this slot. See the example under the "Exclude Modal Header or Footer" heading. |
+| `modalBody` | NA | The content that is passed to this slot will be displayed in the modal body. You can pass any custom content to this slot. See the example under the "Exclude Modal Header or Footer" heading.<br><br>The content that is passed in between the opening `<div slot="modalBody">` and closing `</div>` tags will not have any padding around it. This works great for displaying things like a sign in form, an image, or a chart. But if you want to pass text in between those tags, then you should include some padding styles so the text isn't right up against the border of the `modalBody`. |
 | `modalFooterLeft` | NA | The content that is passed to this slot will be displayed in the left side of the modal footer. |
 | `modalFooterRight` | NA | The content that is passed to this slot will be displayed in the right side of the modal footer. |
 
-*NOTE: The footer is designed to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.*
+<br>
+
+**NOTE**: The footer is designed to contain buttons. You can include as many footer buttons as you want as long as they fit the footer space without spilling over.
 
 <br><br>
 

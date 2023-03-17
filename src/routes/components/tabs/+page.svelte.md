@@ -15,8 +15,8 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 
 <br>
 
-<TabsContainer border={true} padding="md">
-  <TabBar>
+<TabsContainer border={true} borderPadding="md" tabPadding="sm" panelPadding="" tabFontSize="sm">
+  <TabBar tabStyle="line" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -45,8 +45,8 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";  
 </script>
 
-<TabsContainer border={true} padding="md">
-  <TabBar>
+<TabsContainer border={true} borderPadding="md">
+  <TabBar tabStyle="line" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -73,18 +73,18 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 
 The order of the `<Tab>` and `<TabPanel>` components matters. The first `<Tab>` is associated with the first `<TabPanel>`, the second `<Tab>` is associated with the second `<TabPanel>`, and so on.
 
-There are two different tab styles: `fill` and `line`. The default style is `fill`.
+There are two different tab styles: `line` and `fill`. The default style is `line`.
 
 *NOTE: The default tab style can be changed in your `/src/theme.ts` file. See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value.*
 
 <br>
 
-This is how a `fill` tab style looks without a border:
+This is how a `line` tab style looks without a border:
 
 <br>
 
-<TabsContainer border={false}>
-  <TabBar>
+<TabsContainer border={false} borderPadding="xl">
+  <TabBar tabStyle="line" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -109,19 +109,19 @@ This is how a `fill` tab style looks without a border:
 <br>
 
 ```svelte
-<TabsContainer border={false}>
+<TabsContainer border={false} borderPadding="xl">
   ...
 </TabsContainer>
 ```
 
 <br>
 
-The next example shows how to set the tab style to `line` with the `tabStyle` prop.
+The next example shows how to set the tab style to `fill` with the `tabStyle` prop.
 
 <br>
 
-<TabsContainer border={true} padding="md">
-  <TabBar tabStyle="line">
+<TabsContainer border={true} borderPadding="md">
+  <TabBar tabStyle="fill" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -150,8 +150,8 @@ The next example shows how to set the tab style to `line` with the `tabStyle` pr
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<TabsContainer border={true} padding="md">
-  <TabBar tabStyle="line">
+<TabsContainer border={true} borderPadding="md">
+  <TabBar tabStyle="fill" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -176,12 +176,12 @@ The next example shows how to set the tab style to `line` with the `tabStyle` pr
 
 <br>
 
-This is how a `line` tab style looks without a border:
+This is how a `fill` tab style looks without a border:
 
 <br>
 
-<TabsContainer border={false}>
-  <TabBar tabStyle="line"}>
+<TabsContainer border={false} borderPadding="xl">
+  <TabBar tabStyle="fill" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -206,8 +206,8 @@ This is how a `line` tab style looks without a border:
 <br>
 
 ```svelte
-<TabsContainer border={false}>
-  <TabBar tabStyle="line"}>
+<TabsContainer border={false} borderPadding="xl">
+  <TabBar tabStyle="fill" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -216,21 +216,43 @@ This is how a `line` tab style looks without a border:
 </TabsContainer>
 ```
 
-<br>
+<br><br>
 
 ## Props
 
-### For the `<TabsContainer>` component
-| Prop name | Type | Possible values | Default value | Description |
-| --------- | ---- | --------------- | ------------- | ----------- |
-| `border` | `boolean` | `true`, `false` | `true` | This prop will add a border around the tab bar and the tab panels. 
-| `padding` | `string` | `sm`, `md`, `lg` | `md` | If `border` is true, then the value that is passed to this prop will be applied as the padding between the border and the tab contents. |
+<TabsContainer>
+  <TabBar>
+    <Tab>TabsContainer</Tab>
+    <Tab>TabBar</Tab>
+  </TabBar>
 
-*NOTE: You can also wrap your tab components in a `<div>` and apply your own border and padding values. The above props are just for convenience.*
+  <TabPanel>
+    <h2>TabsContainer</h2>
 
-<br>
+    <!-- I don't why, but inserting an element above the markdown table causes the markdown to convert to an HTML table. So, if I remove the following empty <div>, then the markdown table will display as a string of characters instead of a table. Hmmm. -->
+    <div></div>
 
-### For the `<TabBar>` and `<Tab>` components
-| Prop name | Type | Possible values | Default value | Description |
-| --------- | ---- | --------------- | ------------- | ----------- |
-| `tabStyle` | `string` | `fill`, `line` | `fill`<br>The default value can be set in the `/src/theme.ts` file. | This prop sets the style of the tab bar and the tabs.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
+    | Prop name | Type | Possible values | Default value | Description |
+    | --------- | ---- | --------------- | ------------- | ----------- |
+    | `border` | `boolean` | `true`, `false` | `true` | This prop will add a border around the tab bar and the tab panels. 
+    | `borderPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will be applied as the padding between the border and the tab contents. An empty string will remove the padding. |
+    | `tabPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will be applied as the padding for each tab. An empty string will remove the padding. |
+    | `panelPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `""` (no padding) | The value that is passed to this prop will be applied as the padding for each panel. An empty string will remove the padding. |
+    | `tabFontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will set the font size for the tabs.<br><br>NOTES: (1) Passing an empty string to this will just set the tab font size to your app's base font size. (2) This will not change the font size inside the panels because you can change the font yourself depending on the elements that you pass in between the `<TabPanel>` and `</TabPanel>` components. |
+
+    ---
+
+    *NOTE: You can also wrap your tab components in a `<div>` and apply your own border and padding values. The above props are just for convenience.*
+  </TabPanel>
+
+  <TabPanel>
+    <h2>TabBar</h2>
+    
+    <div></div>
+
+    | Prop name | Type | Possible values | Default value | Description |
+    | --------- | ---- | --------------- | ------------- | ----------- |
+    | `tabStyle` | `string` | `fill`, `line` | `fill`<br>The default value can be set in the `/src/theme.ts` file. | This prop sets the style of the tab bar and the tabs.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-js-vars) on the Get Started page for instructions on how to set the default value. |
+    | `marginBottom` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md`	| This prop allows you to set a margin below the `<TabBar>` to give some space between the `<TabBar>` and the `<TabPanel>`s. You can pass an empty string (`""`) to remove the margin. |
+  </TabPanel>
+</TabsContainer>
