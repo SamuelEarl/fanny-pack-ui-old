@@ -3,6 +3,8 @@
 @import "/src/lib/fpui-theme.css";
 
 
+/* TODO: Remove all `--docs` CSS variables and replace them with the regular CSS variables. */
+/* I created the `--docs` CSS variables so a user would not change the styles of the docs when they customized the theme. But I am going to have users change the the theme in the code (because it is much easier to work with now) so that won't be an issue anymore. */
 
 /******************************************
   Additional Custom Variables

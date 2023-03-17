@@ -1,0 +1,40 @@
+/* The utility classes in this file are organized the same as Tailwind organizes their utility classes. */
+/* See https://tailwindcss.com/docs/installation */
+
+/* TRANSITIONS & ANIMATION */
+/* ----------------------- */
+/* This section will contain all variables and classes that you would find under the Transitions & Animations section of the Tailwind docs: https://tailwindcss.com/docs/transition-property */
+/* ---------- */
+/* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
+/* Beginning of "fpui-spin" class */
+.fpui-spin {
+  animation: fpui-spin 1.5s infinite linear;
+}
+
+@keyframes fpui-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+/* End of "fpui-spin" class */
+
+/* Beginning of "fpui-animatetop class */
+.fpui-animatetop {
+  animation: fpui-animatetop 0.5s;
+}
+
+/* Add Animation */
+@keyframes fpui-animatetop {
+  from {
+    top: -300px;
+    opacity: 0
+  }
+  to {
+    top: 0;
+    opacity: 1
+  }
+}
+/* End of "fpui-animatetop class */

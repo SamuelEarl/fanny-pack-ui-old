@@ -16,7 +16,7 @@
   import { fontSizes, paddingSizes } from "../styles";
 
   export let label = "";
-  export let size = theme.dateInputSize;
+  export let size = theme.dateInputDefaultSize;
   export let dateInputIcon = theme.dateInputIcon;
   export let disabled = false;
 

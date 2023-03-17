@@ -21,6 +21,7 @@
 	},
 	"devDependencies": {
 		"@babel/core": "^7.16.7",
+		"@csstools/postcss-global-data": "^1.0.3",
 		"@sveltejs/adapter-auto": "next",
 		"@sveltejs/kit": "^1.12.0",
 		"@sveltejs/package": "^1.0.0-next.5",

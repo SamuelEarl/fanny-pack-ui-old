@@ -30,7 +30,7 @@ The CSS theme that you create on the [Customize Theme](/customize-theme) page us
 5. Open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. Those imports might look something like this:
 
 ```css
-@import "normalize.css";
+@import "preflight.css";
 @import "fonts.css";
 @import "theme.css";
 @import "theme-extras.css";
@@ -46,6 +46,8 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
   @import "/src/assets/styles/main.css";
 </style>
 ```
+
+TODO: I have replaced `normalize.css` with a slightly modified version of Tailwind's `preflight.css`. So I need to update all references to `normalize.css` to use `preflight.css`.
 
 *NOTE: You can create a `/src/assets/styles/normalize.css` file and copy and paste the code from [Normalize.css](https://necolas.github.io/normalize.css/) into it. The `fonts.css` and `base.css` files are explained below.*
 
@@ -209,7 +211,7 @@ h1, h2, h3, h4, h5, h6 {
 9. Import your `fonts.css` and `base.css` files into your `/src/assets/styles/main.css` file. Your `/src/assets/styles/main.css` file might look something like this:
 
 ```css
-@import "normalize.css";
+@import "preflight.css";
 @import "fonts.css";
 @import "theme.css";
 @import "theme-extras.css";

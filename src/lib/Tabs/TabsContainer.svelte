@@ -5,13 +5,14 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
+  import { theme } from "/src/lib/fpui-theme";
   import { paddingSizes, fontSizes } from "../styles";
 
   export let border = true;
   export let borderPadding = "md";
   export let tabPadding = "sm";
   export let panelPadding = "";
-  export let tabFontSize = "sm";
+  export let tabFontSize = theme.tabsFontSizeDefault;
 
 	const tabsContainer = [];
 	const panels = [];

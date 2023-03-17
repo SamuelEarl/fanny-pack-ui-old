@@ -3,7 +3,7 @@
   import { theme } from "/src/lib/fpui-theme";
   import { marginBottomSizes } from "../styles";
 
-  export let tabStyle = theme.defaultTabStyle;
+  export let tabStyle = theme.tabsTabStyleDefault;
   export let marginBottom = "md";
 
   const marginBottomStyle = marginBottomSizes[marginBottom];

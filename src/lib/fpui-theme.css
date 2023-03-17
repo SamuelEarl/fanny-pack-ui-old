@@ -390,7 +390,7 @@ These variables are organized in the same way that Tailwind organizes their util
 /* The "fpui-spin" class is used to spin icons during loading states. */
 /* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
 /* Beginning of "fpui-spin" class */
-.fpui-spin {
+/* .fpui-spin {
   animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
 }
 
@@ -401,5 +401,5 @@ These variables are organized in the same way that Tailwind organizes their util
   to {
     transform: rotate(360deg);
   }
-}
+} */
 /* End of "fpui-spin" class */

@@ -1,14 +1,10 @@
-// __dirname is not available in ES modules: https://nodejs.org/api/esm.html#esm_no_filename_or_dirname
-// This issue has a fix: https://github.com/nodejs/help/issues/2907
-// import path from "path";
-// import { fileURLToPath } from "url";
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
+import adapter from "@sveltejs/adapter-auto";
+import { vitePreprocess } from "@sveltejs/kit/vite";
 import { mdsvex } from "mdsvex";
 import mdsvexConfig from "./mdsvex.config.js";
-import adapterAuto from "@sveltejs/adapter-auto";
-import preprocess from "svelte-preprocess";
+import sveltePreprocess from "svelte-preprocess";
 import postcssPresetEnv from "postcss-preset-env";
+import postcssGlobalData from "@csstools/postcss-global-data";
 
 /** @type {import("@sveltejs/kit").Config} */
 const config = {
@@ -17,9 +13,21 @@ const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: [
-		preprocess({
+    vitePreprocess(),
+    // You need to also configure the `svelte-preprocess` plugin:
+    // https://kit.svelte.dev/docs/integrations#preprocessors-svelte-preprocess
+		sveltePreprocess({
 			postcss: {
 				plugins: [
+          // Configure the `@custom-media` queries through the `@csstools/postcss-global-data` plugin.
+          // See https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media
+          postcssGlobalData({
+            files: [
+              "src/assets/styles/media-queries.css",
+            ],
+          }),
+					// * Configure nesting rules through the postcssPresetEnv plugin:
+          // https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env
 					// * How to configure the postcssPresetEnv plugin:
 					// https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md
 					// * Disable "Svelte plugin CSS diagnostics" and install the "PostCSS Language Support" extension in VS Code to prevent false error highlighting:
@@ -30,8 +38,7 @@ const config = {
 							"nesting-rules": true
 						},
 						browsers: "last 2 versions",
-            importFrom: "src/assets/styles/media-queries.css",
-					})
+					}),
 				]
 			}
 		}),
@@ -39,7 +46,7 @@ const config = {
 	],
 
 	kit: {
-		adapter: adapterAuto(),
+		adapter: adapter(),
 	}
 };
 

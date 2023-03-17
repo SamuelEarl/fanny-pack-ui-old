@@ -45,7 +45,7 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";  
 </script>
 
-<TabsContainer border={true} borderPadding="md">
+<TabsContainer border={true} borderPadding="md" tabPadding="sm" panelPadding="" tabFontSize="sm">
   <TabBar tabStyle="line" marginBottom="md">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
