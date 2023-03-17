@@ -13,9 +13,10 @@
   import { Label } from "../Labels";
   import { createId } from "../fpui-utils";
   import { theme } from "/src/lib/fpui-theme";
+  import { fontSizes, paddingSizes } from "../styles";
 
   export let label = "";
-  export let size = "md";
+  export let size = theme.dateInputSize;
   export let dateInputIcon = theme.dateInputIcon;
   export let disabled = false;
 
@@ -27,7 +28,10 @@
 
   onMount(() => {
     setIconFontSize();
-  })
+  });
+
+  const paddingStyle = paddingSizes[size];
+  const fontSizeStyle = fontSizes[size];
 
   /** Default date to display in input before value is assigned */
   const currentDate = new Date();
@@ -175,10 +179,15 @@
 
 <Label {label} forVal={`fpui-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={handleKeydown}>
-  <div class="{`fpui-date-input-container ${size}`}" class:showCalendar class:disabled={disabled}>
+  <div
+    class="fpui-date-input-container" 
+    class:showCalendar 
+    class:disabled={disabled}
+  >
     <input
       id={`fpui-date-input-${componentId}`}
-      class="{`fpui-date-input ${size}`}"
+      class="fpui-date-input"
+      style={`${fontSizeStyle} ${paddingStyle}`}
       type="text"
       bind:value={text}
       bind:this={activeDateInput}
@@ -197,8 +206,9 @@
       You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `handleHideCalendar`.
     -->
     <div
-      class="{`fpui-date-input-btn ${size}`}"
+      class="fpui-date-input-btn"
       class:disabled={disabled}
+      style={`${paddingStyle}`}
       tabindex="-1"
       on:click={async () => {
         if (disabled) return;
@@ -232,21 +242,20 @@
 <style>
   .date-picker-container {
     position: relative;
+    /* width: 100%; */
 
     & .fpui-date-input-container {
       display: flex;
-      /* align-items: stretch; */
-      border: 1px solid;
-      border-color: var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
-      border-radius: var(--fpui-date-picker-border-radius, 3px);
+      border: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-border-color, var(--border-color-default));
+      border-radius: var(--border-radius);
       overflow: hidden;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
+        box-shadow: var(--box-shadow-default);
       }
 
       &.showCalendar {
-        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
+        box-shadow: var(--box-shadow-default);
       }
 
       &.disabled {
@@ -255,54 +264,31 @@
 
       & .fpui-date-input {
         flex: 1;
+        width: 100%;
         border: none;
         /* This `border-radius` style along with the `overflow: hidden` style in the `.fpui-date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
-        border-radius: calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px);
+        border-radius: calc(var(--border-radius) - 10px) 0 0 calc(var(--border-radius) - 10px);
         outline: none;
-        background-color: var(--custom-date-picker-bg-color, var(--fpui-date-input-bg-color, #e8e2e7));
-        color: var(--custom-date-picker-text-color, var(--fpui-date-picker-text-color, inherit));
+        background-color: var(--custom-date-picker-bg-color, var(--bg-color-default));
+        color: var(--custom-date-picker-text-color, inherit);
 
         &::placeholder {
-          color: var(--custom-date-input-placeholder-text-color, var(--fpui-date-input-placeholder-text-color, lightgray));
+          color: var(--custom-date-input-placeholder-text-color, var(--placeholder-color-default));
         }
 
         &:disabled {
           background-color: var(--disabled-bg-color);
           color: var(--disabled-text-color);
         }
-
-        /* The following `width` styles are necessary to keep the input field and button contained within their parent element rather than spilling outside of the parent element and hiding the button. */
-        /* 
-         * 100% is used to cause the input field to span the width of the parent element.
-         * The padding values (5px, 10px, 15px) are multiplied by 4 because the input field and the button each have padding applied to each of their left and right sides. NOTE: I don't know if these style calculations actually do anything anymore after I refactored this component. It looks like a simple `width: 100%` will also work. TODO: I need to test these calculations to see if they actually do anything anymore or if I can change them to `width: 100%`.
-         * 12px, 16px, and 20px are the width of the icon, depending on the `size` prop. 
-         * The border-width value (1px) is multiplied by 3 because there are 3 borders along the horizontal axis of the `.fpui-date-input-container` element.
-         */
-        &.sm {
-          width: calc(100% - (var(--fpui-date-input-btn-padding-sm, 5px) * 4) - 12px - (1px * 3));
-          padding: var(--fpui-date-input-btn-padding-sm, 5px);
-          font-size: var(--font-size-sm, 12px);
-        }
-        &.md {
-          width: calc(100% - (var(--fpui-date-input-btn-padding-md, 10px) * 4) - 16px - (1px * 3));
-          padding: var(--fpui-date-input-btn-padding-md, 10px);
-          font-size: var(--font-size-base, 16px);
-        }
-        &.lg {
-          width: calc(100% - (var(--fpui-date-input-btn-padding-lg, 15px) * 4) - 20px - (1px * 3));
-          padding: var(--fpui-date-input-btn-padding-lg, 15px);
-          font-size: var(--font-size-lg, 20px);
-        }
       }
 
       & .fpui-date-input-btn {
         display: flex;
         align-items: center;
-        border-left: 1px solid;
-        border-left-color: var(--custom-date-picker-border-color, var(--fpui-date-picker-border-color, #c7c7c7));
-        border-radius: 0 calc(var(--fpui-date-picker-border-radius, 3px) - 10px) calc(var(--fpui-date-picker-border-radius, 3px) - 10px) 0;
-        background-color: var(--custom-date-input-btn-bg-color, var(--fpui-date-input-btn-bg-color, #cec1cb));
-        color: var(--custom-date-input-btn-icon-color, var(--fpui-date-input-btn-icon-color, inherit));
+        border-left: var(--border-default);
+        border-radius: 0 calc(var(--border-radius) - 10px) calc(var(--border-radius) - 10px) 0;
+        background-color: var(--custom-date-input-btn-bg-color, var(--border-color-default));
+        color: var(--custom-date-input-btn-icon-color, inherit);
         cursor: pointer;
 
         &.disabled {
@@ -311,16 +297,6 @@
           background-color: var(--disabled-bg-color);
           color: var(--disabled-text-color);
           pointer-events: none;
-        }
-
-        &.sm {
-          padding: var(--fpui-date-input-btn-padding-sm, 5px);
-        }
-        &.md {
-          padding: var(--fpui-date-input-btn-padding-md, 10px);
-        }
-        &.lg {
-          padding: var(--fpui-date-input-btn-padding-lg, 15px);
         }
       }
     }
@@ -340,13 +316,13 @@
       width: 10px;
       height: 10px;
       border: 2px solid;
-      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
+      border-color: var(--border-color-default);
       border-bottom: none;
       border-right: none;
       border-radius: 4px 0 0 0;
       /* Move the triangle down by 5px and over from the left by (border-radius + 10px). */
-      margin: 0 auto -5px calc(var(--fpui-date-picker-border-radius, 3px) + 10px);
-      background-color: var(--fpui-calendar-bg-color, white);
+      margin: 0 auto -5px calc(var(--border-radius) + 10px);
+      background-color: var(--neutral-tone-white);
       transform: rotate(45deg);
       z-index: 100;
     }

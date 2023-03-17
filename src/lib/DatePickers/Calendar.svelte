@@ -316,24 +316,23 @@
   .calendar-container {
     display: inline-block;
     padding: 5px;
-    border: 1px solid;
-    border-color: var(--fpui-date-picker-border-color, #c7c7c7);
-    border-radius: var(--fpui-date-picker-border-radius, 3px);
-    background: var(--fpui-calendar-bg-color, white);
-    color: var(--fpui-date-picker-text-color, inherit);
+    border: var(--border-default);
+    border-radius: var(--border-radius);
+    background: var(--neutral-tone-white);
+    color: inherit;
     user-select: none;
     -webkit-user-select: none;
     cursor: default;
     font-size: 0.75rem;
 
     &:hover {
-      box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
+      box-shadow: var(--box-shadow-default);
     }
 
     &.popup {
       border: 2px solid;
-      border-color: var(--fpui-date-picker-border-color, #c7c7c7);
-      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
+      border-color: var(--border-color-default);
+      box-shadow: var(--box-shadow-depth);
     }
 
     & .top {
@@ -348,7 +347,7 @@
         outline: none;
         background-color: transparent;
         font-size: 1.25rem;
-        color: var(--fpui-date-picker-text-color, inherit);
+        color: inherit;
         flex-shrink: 0;
         box-sizing: border-box;
         cursor: pointer;
@@ -374,16 +373,15 @@
           /* Add custom styles */
           width: 100%;
           padding: 0.35rem 0.5rem;
-          border: 1px solid;
-          border-color: var(--fpui-date-picker-border-color, #c7c7c7);
-          border-radius: var(--fpui-date-picker-border-radius, 3px);
+          border: var(--border-default);
+          border-radius: var(--border-radius);
           font-size: 0.85rem;
-          background-color: var(--fpui-calendar-bg-color, white);
-          color: var(--fpui-date-picker-text-color, inherit);
+          background-color: var(--neutral-tone-white);
+          color: inherit;
           cursor: pointer;
 
           &:hover {
-            box-shadow: 0 0 0 1px var(--fpui-date-picker-border-color, gray);
+            box-shadow: var(--box-shadow-default);
           }
         }
 
@@ -418,12 +416,11 @@
       flex-grow: 1;
       border: 1px solid;
       border-color: transparent;
-      border-radius: var(--fpui-date-picker-border-radius, 3px);
+      border-radius: var(--border-radius);
       box-sizing: border-box;
 
       &:hover {
-        border: 1px solid;
-        border-color: var(--fpui-date-picker-border-color, #c7c7c7);
+        border: var(--border-default);
         cursor: pointer;
       }
 
@@ -442,10 +439,9 @@
       }
 
       &.selected {
-        border: 1px solid;
-        border-color: var(--fpui-calendar-selected-date-border-color, #c7c7c7);
-        color: var(--fpui-calendar-selected-date-text-color, inherit);
-        background-color: var(--fpui-calendar-selected-date-bg-color, #e5e5e5);
+        border: var(--border-default);
+        color: inherit;
+        background-color: var(--bg-color-default);
       }
     }
   }

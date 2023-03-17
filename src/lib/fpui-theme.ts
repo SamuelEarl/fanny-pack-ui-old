@@ -10,7 +10,12 @@ export const theme = {
   btnIcon: "",
   btnIconSide: "right",
   btnIconDisabled: "icomoon-free:spinner2",
-  // CALENDAR
+  // CHECKBOXES
+  checkboxMarginBottom: "20px",
+  // The `checkboxVerticalAlignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable might come in handy.
+  checkboxVerticalAlignment: "-3px",
+  // DATE PICKER
+  dateInputSize: "md",
   dateInputIcon: "mdi:calendar",
   // INPUTS
   // TODO: Add default sizes here.

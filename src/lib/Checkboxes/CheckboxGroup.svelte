@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { theme } from "/src/lib/fpui-theme";
 
   // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
   export let componentId = "";
@@ -48,7 +49,11 @@
       So I have just copied and pasted the code from the Checkbox.svelte component into this component.
     -->
     <!-- In Svelte you would use the `bind:group` property if you want to include all the values from a group of checkboxes into a single array of values that would then get sent to the backend for processing. So if the <Checkbox> component is used as part of a group of checkboxes, then use `bind:group` to bind to the `selectedValues` prop that is passed into this component. Otherwise, if this is a single checkbox (i.e. not part of a group of checkboxes), then do not use the `bind:group` property. -->
-    <label class="fpui-checkbox-label-wrapper" class:disabled>
+    <label
+      class="fpui-checkbox-label-wrapper" 
+      class:disabled
+      style={`margin-bottom: ${theme.checkboxMarginBottom}`}
+    >
       <input
         type="checkbox"
         id={`fpui-checkbox-input-${componentId}`}
@@ -59,14 +64,21 @@
         on:change
         on:input
       > {item}
-      <span class="fpui-checkbox-checkmark"></span>
+      <span
+        class="fpui-checkbox-checkmark"
+        style={`top: ${theme.checkboxVerticalAlignment}`}
+      ></span>
     </label><br>
   {/each}
 {/if}
 
 {#if valuesDataType === "object"}
   {#each checkboxGroupValues as obj}
-    <label class="fpui-checkbox-label-wrapper" class:disabled>
+    <label
+      class="fpui-checkbox-label-wrapper" 
+      class:disabled
+      style={`margin-bottom: ${theme.checkboxMarginBottom}`}
+    >
       <input
         type="checkbox" 
         id={`fpui-checkbox-input-${componentId}`}
@@ -77,7 +89,10 @@
         on:change
         on:input
       > {obj[valueLabel]}
-      <span class="fpui-checkbox-checkmark"></span>
+      <span
+        class="fpui-checkbox-checkmark"
+        style={`top: ${theme.checkboxVerticalAlignment}`}
+      ></span>
     </label><br>
   {/each}
 {/if}

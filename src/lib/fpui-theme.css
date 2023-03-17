@@ -166,6 +166,10 @@ These variables are organized in the same way that Tailwind organizes their util
 /* BOX SHADOW */
 :root {
   --box-shadow-default: 0 0 0 1px var(--border-color-default);
+  --box-shadow-primary: 0 0 0 1px var(--primary-color);
+  --box-shadow-secondary: 0 0 0 1px var(--secondary-color);
+  --box-shadow-tertiary: 0 0 0 1px var(--tertiary-color);
+  --box-shadow-depth: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -253,38 +257,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
-
-/* Checkboxes */
-:root {
-  --fpui-checkbox-unchecked-border-color: var(--border-color);
-  --fpui-checkbox-unchecked-border-radius: var(--border-radius);
-  --fpui-checkbox-unchecked-bg-color: var(--bg-color);
-  --fpui-checkbox-checked-bg-color: var(--primary-color);
-  --fpui-checkbox-margin-bottom: 20px;
-  /* The `--fpui-checkbox-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable could come in handy. */
-  --fpui-checkbox-vertical-alignment: -3px;
-}
-
-/* Date Pickers */
-:root {
-  /* These variables apply to both the date input field and calendar components. */
-  --fpui-date-picker-border-color: var(--border-color);
-  --fpui-date-picker-border-radius: var(--border-radius);
-  --fpui-date-picker-text-color: var(--text-color);
-  /* These variables apply to only the date input field component. */
-  --fpui-date-input-bg-color: var(--bg-color);
-  --fpui-date-input-placeholder-text-color: var(--neutral-medium);
-  --fpui-date-input-btn-bg-color: var(--border-color);
-  --fpui-date-input-btn-icon-color: inherit;
-  --fpui-date-input-btn-padding-sm: var(--padding-sm);
-  --fpui-date-input-btn-padding-md: var(--padding-md);
-  --fpui-date-input-btn-padding-lg: var(--padding-lg);
-  /* These variables apply to only the calendar component. */
-  --fpui-calendar-bg-color: var(--neutral-lightest); 
-  --fpui-calendar-selected-date-bg-color: var(--bg-color);
-  --fpui-calendar-selected-date-text-color: var(--text-color);
-  --fpui-calendar-selected-date-border-color: var(--border-color);
-}
 
 /* Drop Zones (file upload) */
 :root {
