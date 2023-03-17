@@ -27,33 +27,44 @@
       modalBody.style.overflow = "auto";
     }
   });
-</script>
 
+  let bodyBorderRadius = "";
+  // If there is no title, which means there will be no header, then set the top of the body to be rounded.
+  if (!title) {
+    bodyBorderRadius = "border-radius: var(--border-radius) var(--border-radius) 0 0;";
+  }
+
+  // If there is no footer, then set the bottom of the body to be rounded.
+  if (!$$slots.modalFooterRight && !$$slots.modalFooterRight) {
+    bodyBorderRadius = "border-radius: 0 0 var(--border-radius) var(--border-radius);";
+  }
+
+  // If there is no header and no footer, then set all corners of the body to be rounded.
+  if (!title && !$$slots.modalFooterRight && !$$slots.modalFooterRight) {
+    bodyBorderRadius = "border-radius: var(--border-radius);";
+  }
+</script>
 
 <div id="close-btn-container">
   <Button
     id="close"
-    btnIcon="mdi:close"
-    size="lg"
-    --custom-btn-padding="0"
-    --custom-btn-background-color="transparent" 
-    --custom-btn-border-width="0"
-    --custom-btn-font-size="35px"
-    --custom-btn-box-shadow="none"
-    --custom-btn-disabled-bg-color="transparent"
-    --custom-btn-disabled-text-color="white"
+    btnIcon="fa-solid:times"
+    btnColor="transparent"
+    textColor="white"
+    size="xl"
     {disabled}
     on:click={() => dispatch("closeModal")}
   ></Button>
 </div>
 
 <div id="modal">
-  <div id="modal-content-container">
+  <div id="modal-content-container" class="fpui-animatetop">
     <div id="modal-content">
       {#if title}
         <header id="modal-header">{title}</header>      
       {/if}
-      <div id="modal-body">
+      <!-- If the header and footer are excluded, then set a rounded border-radius on the `modal-body`. -->
+      <div id="modal-body" style={`${bodyBorderRadius}`}>
         <slot name="modalBody"></slot>
       </div>
       {#if $$slots.modalFooterLeft || $$slots.modalFooterRight}
@@ -72,28 +83,13 @@
 
 
 <style>
-  /* Add Animation */
-  @keyframes animatetop {
-    from {
-      top: -300px;
-      opacity: 0
-    }
-    to {
-      top: 0;
-      opacity: 1
-    }
-  }
-
   @media (--xs-up) {
-
     #close-btn-container {
       position: fixed;
-      top: 0;
-      right: 0;
-      padding: 5px 10px;
-      background-color: rgb(0,0,0); /* Fallback color */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      top: 0px;
+      right: 0px;
       z-index: 1000;
+      background-color: rgba(0, 0, 0, 0.4);
     }
 
     /* The Modal (background) */
@@ -114,46 +110,33 @@
         width: 100%;
         padding: 10px;
         margin: auto;
-        animation-name: animatetop;
-        animation-duration: 0.5s;
 
-        /* Modal Content/Box */
+        & #modal-header {
+          padding: 20px;
+          border-bottom: var(--border-default);
+          border-radius: var(--border-radius) var(--border-radius) 0 0;
+          font-size: var(--font-size-xl);
+          font-weight: bold;
+        }
+
         & #modal-content {
           width: 100%;
-          /* If the header and footer are excluded and the user provides a --custom-modal-body-border-radius value, then the modal-content's border-radius will match that custom value. This will prevent any of the modal-content's background styles from spilling outside of the modal-body. */
-          border-radius: var(--custom-modal-body-border-radius, var(--border-radius, 3px));
+          /* The `border-radius` style will prevent any `modal-content` background styles from spilling outside of the `modal-body`. */
+          border-radius: var(--border-radius);
+          background-color: var(--white);
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
-          /* Modal Header */
-          & #modal-header {
-            padding: var(--custom-modal-header-padding, 20px);
-            border-bottom: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
-            border-radius: var(--border-radius, 3px) var(--border-radius, 3px) 0 0;
-            background-color: var(--fpui-modal-header-footer-bg-color, white);
-            color: var(--fpui-modal-header-footer-text-color, #343434);
-            font-size: 1.25rem;
-            font-weight: bold;
-          }
-
-          /* Modal Body */
-          & #modal-body {
-            padding: var(--custom-modal-body-padding, 20px);
-            border-radius: var(--custom-modal-body-border-radius, 0px);
-            background-color: var(--custom-modal-body-bg-color, var(--fpui-modal-body-bg-color, white));
-          }
-
-          /* Modal Footer */
           & #modal-footer {
             display: flex;
             flex-direction: column;
-            padding: var(--custom-modal-footer-padding, 10px 20px);
-            border-top: 1px solid var(--fpui-modal-header-footer-border-color, #c7c7c7);
-            border-radius: 0 0 var(--border-radius, 3px) var(--border-radius, 3px);
-            background-color: var(--fpui-modal-header-footer-bg-color, white);
+            padding: 10px 20px;
+            border-top: var(--border-default);
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
 
             & #modal-footer-left, & #modal-footer-right {
 
-              & :global(div) { /* This :global(div) modalFooterLeft and modalFooterRight slots */
+              /* The following :global(div) and :global(button) are for elements that are inserted into the `modalFooterLeft` and `modalFooterRight` slots */
+              & :global(div) {
                 display: flex;
                 flex-direction: column;
 
@@ -168,26 +151,23 @@
     }
   }
 
+  /* @media lg */
   @media (--lg-up) {
-
     #modal {
 
       & #modal-content-container {
-        width: var(--custom-modal-width-lg-up, 950px);
-        /* Remove the left and right padding on large screens. */
-        padding-left: 0;
-        padding-right: 0;
+        width: 950px;
 
         & #modal-content {
 
-          /* Modal Footer */
           & #modal-footer {
             flex-direction: row;
-            justify-content: space-between;
+            justify-content: space-beteen;
 
             & #modal-footer-left, & #modal-footer-right {
 
-              & :global(div) { /* This :global(div) modalFooterLeft and modalFooterRight slots */
+              /* The following :global(div) and :global(button) are for elements that are inserted into the `modalFooterLeft` and `modalFooterRight` slots */
+              & :global(div) {
                 flex-direction: row;
 
                 & :global(button) {
@@ -202,6 +182,8 @@
             }
 
             & #modal-footer-left {
+              /* Push the #modal-footer-right content to the right. */
+              flex: auto;
 
               & :global(div) {
                 justify-content: flex-start;

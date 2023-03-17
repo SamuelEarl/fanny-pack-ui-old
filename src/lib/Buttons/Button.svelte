@@ -1,208 +1,190 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/theme";
+  import { theme } from "/src/lib/fpui-theme";
+  import { 
+    bgColors, 
+    borderColors,
+    textColors,
+    textColorsForColoredBgs, 
+    fontSizes, 
+  } from "../styles";
 
-  export let id = "";
   export let type = "button";
   export let btnColor = "primary";
-  export let inverted = false;
+  // The user can change the textColor for transparent buttons.
+  export let textColor = "";
+  export let hollow = false;
   export let size = "md";
   export let width = "auto";
   export let disabled = false;
-  export let title = "";
   export let btnIcon = theme.btnIcon;
   export let btnIconDisabled = theme.btnIconDisabled;
-  export let btnIconSide = "left";
+  export let btnIconSide = theme.btnIconSide;
   export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
+  export let rotateBtnIcon = "0deg";
+  export let rotateBtnIconDisabled = "0deg";
 
+  let bgColor = "";
+  let borderColor = "";
+
+  // If no button text slots are passed to this component, then `btnTextSlotsExist` will be `false`.
   let btnTextSlotsExist = Object.keys($$slots).length !== 0;
+
+  /**
+   * Set the background, border, and text colors.
+   */
+  function getColorStyles() {
+    bgColor = bgColors[btnColor];
+    borderColor = borderColors[btnColor];
+    // Only set the textColor if the btnColor is NOT "transparent".
+    // If this `if` statement was not here, then when the btnColor is set to "transparent" the textColor could not be set because `textColorsForColoredBgs[btnColor]` would return undefined. So when the execution gets to the `if (btnColor === "transparent")` conditional statement, `textColor` would be undefined and the textColor would always be set to `--text-color-default` from the `else` clause.
+    if (btnColor !== "transparent") {
+      textColor = textColorsForColoredBgs[btnColor];
+    }
+
+    // Set the textColor value for "transparent" buttons.
+    // NOTE: Since no `disabled` values are set for "transparent" buttons, they will inherit the colors of the regular element states.
+    if (btnColor === "transparent") {
+      if (textColor) {
+        textColor = textColors[textColor];
+      }
+      else {
+        textColor = textColors["default"];
+      }
+    }
+
+    // If `hollow` is `true`, then turn the background color transparent and turn the textColor to the btnColor.
+    if (hollow) {
+      bgColor = bgColors["transparent"];
+      textColor = textColors[btnColor];
+    }
+
+    return `${bgColor} ${borderColor} ${textColor}`;
+  }
+  const colorStyles = getColorStyles();
+
+  function getSizeStyles() {
+    let btnPadding;
+    // If no button text slots are passed to this component, then `btnTextSlotsExist` will be false and this will be treated as an icon button, which has equal padding on all 4 sides.
+    if (!btnTextSlotsExist) {
+      btnPadding = {
+        xs: "padding: 2px;",
+        sm: "padding: 4px;",
+        md: "padding: 6px;",
+        lg: "padding: 8px;",
+        xl: "padding: 10px;",
+      }
+    }
+    else {
+      btnPadding = {
+        xs: "padding: 2px 4px;",
+        sm: "padding: 4px 8px;",
+        md: "padding: 6px 12px;",
+        lg: "padding: 8px 16px;",
+        xl: "padding: 10px 20px;",
+      }
+    }
+    return `${btnPadding[size]} ${fontSizes[size]}`;
+  }
+  const sizeStyles = getSizeStyles();
+
+  function getBtnIconStyles() {
+    let iconStyles = "";
+    // Icon Buttons do not have any text. So if no button text slots are passed to this component, then `btnTextSlotsExist` will be false and no `order` or `margin` styles will be set on the icon.
+    if (btnTextSlotsExist) {
+      if (btnIconSide === "left") {
+        let rightMargins = {
+          xs: "margin-right: 7px;",
+          sm: "margin-right: 9px;",
+          md: "margin-right: 11px;",
+          lg: "margin-right: 13px;",
+          xl: "margin-right: 15px;",
+        }
+        iconStyles = `order: -9999; ${rightMargins[size]}`;
+      }
+      if (btnIconSide === "right") {
+        let leftMargins = {
+          xs: "margin-left: 7px;",
+          sm: "margin-left: 9px;",
+          md: "margin-left: 11px;",
+          lg: "margin-left: 13px;",
+          xl: "margin-left: 15px;",
+        }
+        iconStyles = `order: 9999; ${leftMargins[size]}`;
+      }
+    }
+    return iconStyles;
+  }
+  const btnIconStyles = getBtnIconStyles();
 </script>
-
-
-<!-- NOTE: Using flexbox styles on this button component messes up the tooltip component if a user wraps a <Button> in a <Tooltip>. So I can't use flexbox to move the icon around. -->
 
 <button
   {type}
-  {id}
-  class="{`fpui-btn ${btnColor} ${size} ${width}-width`}"
-  class:inverted={inverted}
+  class={`fpui-btn ${btnColor === "transparent" ? "" : "non-transparent"}`}
+  style={`${colorStyles} ${sizeStyles} ${width === "full" ? "width: 100%" : ""}`}
   {disabled}
-  {title}
+  {...$$restProps}
   on:click
 >
-  <!-- If the btnIcon exists, and the btnIconDisabled exists, and the btnIcon should be on the left side, then display an icon on the left. If either the btnIcon or btnIconDisabled is an empty string, then no icons will be displayed with the button. See the docs for details. -->
-  {#if btnIcon && btnIconDisabled && btnIconSide === "left"}
-    <!-- If the button is disabled, then... -->
-    {#if disabled}
-      <!-- ...show a spinning disabled icon. -->
-      {#if btnIconDisabledShouldSpin}
-        <!-- If no slots (i.e. button text) are passed to this component, then `btnTextSlotsExist` will be false and no icon margin will be set. -->
-        <span class={`btn-icon left disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <!-- NOTE: You can NOT dynamically bind classes to a component, so the <Icon /> component has to be repeated a few times: Once for the "fpui-spin" class and once without. -->
-          <Icon icon={btnIconDisabled} class="fpui-spin" />
-        </span>
-      <!-- ...or show a non-spinning disabled icon. -->
-      {:else}
-        <span class={`btn-icon left disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon={btnIconDisabled} />
-        </span>
-      {/if}
-    <!-- If the button is not disabled, then show the btnIcon. -->
-    {:else}
-      <span class={`btn-icon left icon-margin-${btnTextSlotsExist ? size : null}`}>
-        <Icon icon={btnIcon} />
-      </span>
-    {/if}
-  {/if}
-
+  <!-- Button Text -->
   {#if $$slots.btnTextDisabled && disabled}
     <slot name="btnTextDisabled">Disabled Button Text</slot>
   {:else if $$slots.default}
     <slot>Button Text</slot>
   {/if}
-  
-  {#if btnIcon && btnIconDisabled && btnIconSide === "right"}
+
+  <!-- Button Icon -->
+  <!-- If the btnIcon and the btnIconDisabled both exist, then display the icon. If either the btnIcon or btnIconDisabled is an empty string, then no icons will be displayed with the button. See the docs for details. -->
+  {#if btnIcon && btnIconDisabled}
+    <!-- If the button is disabled, then... -->
     {#if disabled}
+      <!-- NOTE: You can NOT dynamically bind classes to a component instance, so the <Icon /> component has to be repeated a couple of times - once for the "fpui-spin" class and once without. -->
       {#if btnIconDisabledShouldSpin}
-        <span class={`btn-icon right disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon={btnIconDisabled} class="fpui-spin" />
-        </span>
+        <!-- ...show a spinning disabled icon. -->
+        <Icon icon={btnIconDisabled} style={`${btnIconStyles}`} class="fpui-spin" />
       {:else}
-        <span class={`btn-icon right disabled icon-margin-${btnTextSlotsExist ? size : null}`}>
-          <Icon icon={btnIconDisabled} />
-        </span>
+        <!-- ...or show a non-spinning disabled icon. -->
+        <Icon icon={btnIconDisabled} style={`${btnIconStyles} transform:rotate(${rotateBtnIconDisabled});`} />
       {/if}
+    <!-- If the button is not disabled, then show the btnIcon. -->
     {:else}
-      <span class={`btn-icon right icon-margin-${btnTextSlotsExist ? size : null}`}>
-        <Icon icon={btnIcon} />
-      </span>
+      <Icon icon={btnIcon} style={`${btnIconStyles} transform:rotate(${rotateBtnIcon});`} />
     {/if}
   {/if}
 </button>
 
-
 <style>
-  .fpui-btn {
-    outline: none;
-    border-width: var(--custom-btn-border-width, 2px);
-    border-style: var(--custom-btn-border-style, solid);
-    border-radius: var(--custom-btn-border-radius, var(--fpui-btn-border-radius, 3px));
-    cursor: pointer;
-    font-weight: var(--custom-btn-font-weight, var(--fpui-btn-font-weight, 400));
+  @media (--xs-up) {
+    .fpui-btn {
+      border-width: 2px;
+      font-weight: bold;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    & :global(.iconify) {
-      margin-bottom: -2px;
-    }
-
-    &.sm {
-      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-sm, 5px) - 1px) calc((var(--fpui-btn-padding-sm, 5px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--font-size-sm, 12px));
-    }
-    &.md {
-      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-md, 10px) - 1px) calc((var(--fpui-btn-padding-md, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--font-size-base, 16px));
-    }
-    &.lg {
-      padding: var(--custom-btn-padding, calc(var(--fpui-btn-padding-lg, 10px) - 1px) calc((var(--fpui-btn-padding-lg, 10px) * 2) - 1px));
-      font-size: var(--custom-btn-font-size, var(--font-size-lg, 20px));
-    }
-
-    & .btn-icon {
-      
-      &.left {
-
-        &.icon-margin-sm {
-          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-sm, 5px));
-        }
-        &.icon-margin-md {
-          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-md, 10px));
-        }
-        &.icon-margin-lg {
-          margin-right: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-lg, 15px));
-        }
+      &.primary:hover {
+        box-shadow: 0 0 0 1px var(--primary-color);
       }
 
-      &.right {
-
-        &.icon-margin-sm {
-          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-sm, 5px));
-        }
-        &.icon-margin-md {
-          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-md, 10px));
-        }
-        &.icon-margin-lg {
-          margin-left: var(--custom-btn-icon-margin, var(--fpui-btn-icon-margin-lg, 15px));
-        }
+      &.secondary:hover {
+        box-shadow: 0 0 0 1px var(--secondary-color);        
       }
 
-      & :global(.iconify) {
-        transform: rotate(var(--custom-btn-icon-rotate, 0deg));
+      &.tertiary:hover {
+        box-shadow: 0 0 0 1px var(--tertiary-color);        
       }
 
-      &.disabled :global(.iconify) {
-        transform: rotate(var(--custom-btn-icon-disabled-rotate, 0deg));
+      &:disabled {
+        box-shadow: none !important;
+        pointer-events: none !important;
+      }
+
+      &.non-transparent:disabled {
+        background-color: var(--bg-color-disabled) !important;
+        border-color: var(--border-color-disabled) !important;
+        color: var(--text-color-disabled) !important;
       }
     }
-  }
-
-  .primary {
-    border-color: var(--custom-btn-border-color, var(--primary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--primary-color, #333));
-    color: var(--custom-btn-text-color, var(--fpui-btn-primary-text-color, white));
-    
-    &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--primary-color, gray));
-    }
-
-    &.inverted {
-      color: var(--custom-btn-text-color, var(--primary-color, #333));
-    }
-  }
-
-  .secondary {
-    border-color: var(--custom-btn-border-color, var(--secondary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--secondary-color, #333));
-    color: var(--custom-btn-text-color, var(--fpui-btn-secondary-text-color, white));
-
-    &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--secondary-color, gray));
-    }
-
-    &.inverted {
-      color: var(--custom-btn-text-color, var(--secondary-color, #333));
-    }
-  }
-
-  .tertiary {
-    border-color: var(--custom-btn-border-color, var(--tertiary-color, #333));
-    background-color: var(--custom-btn-background-color, var(--tertiary-color, #333));
-    color: var(--custom-btn-text-color, var(--fpui-btn-tertiary-text-color, white));
-
-    &:hover {
-      box-shadow: var(--custom-btn-box-shadow, 0 0 0 1px var(--tertiary-color, gray));
-    }
-
-    &.inverted {
-      color: var(--custom-btn-text-color, var(--tertiary-color, #333));
-    }
-  }
-
-  .inverted {
-    background-color: transparent;
-  }
-
-  .auto-width {
-    width: auto;
-  }
-  .full-width {
-    width: 100%;
-  }
-
-  .fpui-btn:disabled {
-    border-color: var(--custom-btn-disabled-bg-color, var(--disabled-bg-color, black));
-    box-shadow: none;
-    color: var(--custom-btn-disabled-text-color, var(--disabled-text-color, #c7c7c7));
-    background-color: var(--custom-btn-disabled-bg-color, var(--disabled-bg-color, black));
-    pointer-events: none;
   }
 </style>

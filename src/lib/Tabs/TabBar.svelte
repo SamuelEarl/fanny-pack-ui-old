@@ -1,31 +1,46 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { theme } from "/src/theme";
+  import { theme } from "/src/lib/fpui-theme";
+  import { marginBottomSizes } from "../styles";
 
   export let tabStyle = theme.defaultTabStyle;
+  export let marginBottom = "md";
+
+  const marginBottomStyle = marginBottomSizes[marginBottom];
 
   setContext("tabStyle", tabStyle);
 </script>
 
-<div class={`fpui-tabs-tab-bar ${tabStyle}`}>
+<div 
+  class={`fpui-tabs-tab-bar ${tabStyle}`} 
+  style={`${marginBottomStyle}`}>
 	<slot></slot>
 </div>
 
-
 <style>
-	.fpui-tabs-tab-bar {
-    display: flex;
+  @media (--xs-up) {
+    .fpui-tabs-tab-bar {
+      display: flex;
 
-    &.fill {
-      border: 1px solid var(--fpui-tabs-tab-bar-fill-border-color, gray);
-      border-radius: var(--border-radius, 3px);
-      overflow: hidden;
-      background-color: var(--fpui-tabs-tab-bar-fill-bg-color, lightgray);
-      color: var(--fpui-tabs-tab-bar-fill-text-color, black);
-    }
+      &.fill {
+        border: var(--border-default);
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        background-color: var(--bg-color-default);
+        color: var(--text-color-default);
 
-    &.line {
-      border-bottom: 1px solid var(--fpui-tabs-tab-bar-line-border-color, gray);
+        &:hover {
+          box-shadow: var(--box-shadow-default);
+        }
+      }
+
+      &.line {
+        border-bottom: var(--border-default);
+
+        &:hover {
+          box-shadow: 0 1px 0 0 var(--border-color-default);
+        }
+      }
     }
-	}
+  }
 </style>

@@ -34,11 +34,7 @@ These components are also designed for responsiveness and with accessibility in 
 
 If you want to customize these components even more than what is available to you, then please feel free to copy the code and customize it however you want. The code is intentially simple, easy to understand, heavily commented/documented, and not very DRY (don't repeat yourself) to allow users to copy only the components they want (instead of the entire package) and easily customize the code without very many dependencies on other components. There are some cases where the code is DRY, but it's not too DRY.
 
-Fanny Pack UI takes advantage of both scalable CSS utility classes and reusable components. The components in Fanny Pack UI are built on top of Tailwind CSS since Tailwind has already done all the heavy lifting of creating utility classes to cover most styling needs. However, no framework can possibly cover everything. So if you run into any unique styling situations that either Tailwind or Fanny Pack UI don't cover, then you can simply use plain CSS styles to cover those situations.
-
-Also, there are some styling situations, such as layouts with grid styles, where it might make more sense to use simple utility classes provided by Tailwind instead of using layout or grid components. So consider whether using Tailwind classes to layout your pages would be a better option than using layout or grid components.
-
-To learn more about scalable and maintainable CSS and how a framework like Tailwind can help, please read the following section.
+Fanny Pack UI takes advantage of CSS variables, utility classes, and reusable components, which makes for a scalable approach to CSS. To learn more about the importance of scalable and maintainable CSS, please read the following section.
 
 <br>
 
@@ -61,7 +57,7 @@ Component-based frameworks, like SvelteKit, will namespace styles for you, which
 
 To understand the value of CSS coding standards through the use of utility classes, consider the following example from [codyhouse.co](https://codyhouse.co/blog/post/css-grid-layout-vs-framework-grid) about different ways to handle grid layouts:
 
-<br>
+<hr>
 
 <div class="example">
   <h2>Starting a project using only CSS Grid</h2>
@@ -222,9 +218,57 @@ To understand the value of CSS coding standards through the use of utility class
   </ol>
 </div>
 
-<br>
+<hr>
 
-When we need to style an element, a component, or a page we will sometimes (or often) style those things in isolation, which often leads to a lot of duplicated styles and brittle CSS code. However, **a scalable CSS approach will define styles in one location and then reference those styles wherever they are needed** (i.e. scalable CSS uses utility classes). CSS utility classes keep our styles DRY, scalable, and more maintainable. *(By the way, this is similar to how we use the concept of "a single source of truth" in component libraries where we have a single component definition and then we import and configure that component wherever we need it.)*
+Libraries like TailwindCSS are awesome and handle a lot of the heavy lifting for you, but they can also be difficult to work with for a few reasons:
+
+* It is one more thing to learn, which may not be around later on. Web standards will be around for a long time, but libraries come and go pretty quickly sometimes. Everytime I get back into a Tailwind project I have to reference the Tailwind docs a lot. That's not necessarily a bad thing, but it is really nice to just use standard CSS, which has a much larger community to lean on when I run into a CSS issue.
+* You have to do things their way, which you might not like or which might not make sense to you.
+* Creating a custom theme can get pretty hairy and confusing. For example, if I want to create a custom `text-color` class in Tailwind, I can define a color like this in the `tailwind.config.cjs` file: `"text-color": "#0f172a"`. But then when I want to use the `text-color` class I can't just reference `"text-color"` in my HTML. I actually have to reference `"text-text-color"`. But I can work around this issue by creating custom classes in the `base` layer of my `main.css` file, like this: `.text-color { @apply text-text-color; }`. But now I am duplicating code just to get the same benefits that I could get by using CSS variables. So why not just use CSS variables? When working on a team (and even when working on solo projects) those custom classes in the `base` layer can often get lost and forgotten, especially if you are defining a lot of custom classes. 
+* Tailwind colors can get pretty confusing when you start to introduce things that are a little more complex. For example, I wanted to add a simple box shadow to some elements when they were hovered. I wanted to define a default border color that I could use for certain elements (e.g. input fields, select boxes, checkboxes, radio buttons). I named that custom color value `border-color-default`. After defining that custom color value I was able to use it anywhere if I prefixed with the corresponding element prefix. For example, I could set a default border color with the `border-border-color-default` or I could color some text with `text-border-color-default` (even though that seems a little confusing). (NOTE: The `border-border` part gets a little confusing, but there is a work around for that, as explained above.) Once that was defined I wanted to create a box-shadow that basically added a 1px border around elements that were hovered. So I set this utility in the `tailwind.config.cjs` file: 
+
+```
+boxShadow: {
+  "hover": "0 0 0 1px",
+}
+```
+
+That allowed me to set a box-shadow that had the same color as my default border color with these utilities: `shadow-hover shadow-border-color-default`. (Or was it `shadow-hover shadow-border-color-default-hover`? I can't remember.)
+
+Now I can apply that to the hover state of an element with these utilities: `hover:shadow-hover hover:shadow-border-color-default`. (Or maybe it was `hover:shadow-hover hover:shadow-border-color-default-hover`). 
+
+I remember using those utilities on some elements and then I hadn't used them for a while. When I tried to use those utilities again later on, I could not remember how to apply them to some elements. (The naming conventions that Tailwind uses are not always obvious when you want to apply a utility, often because of the fact that custom utilities and classes are defined in different areas rather than all together. The Tailwind docs lay all of the default utility class names out very nicely for you and you see what is available and how to use them. But if you create custom utilities then there is no documentation for those utilities unless you create your own.) Maybe I could have named my custom `boxShadow` `hover` utility something else that would have made more sense in a class name. Or maybe I could have created another custom class in the `base` layer to make it easier to apply these utilities. Either way, the fact remains that it was difficult for me to use these utilities, even though I was the one who defined them. At the end of the day, I prefer this much more:
+
+```
+.element:hover {
+  box-shadow: 0 0 0 1px var(--border-color-default);
+}
+```
+
+Or better yet:
+
+```
+--box-shadow-default: 0 0 0 1px var(--border-color-default);
+```
+```
+.element:hover {
+  box-shadow: var(--box-shadow-default);
+}
+```
+
+That is much easier to reason about, at least for me. No strange naming rules to remember. No defining styles in multiple places or using workarounds to define a sensible name for custom styles. Just plain, standards-based CSS that is defined in one location.
+
+Tailwind is great if you just want to use their default settings, but if you want a custom theme, then it might be easier to stick with the strengths of CSS variables and reusable components with some of your own utility classes sprinkled throughout.
+* What happens when a framework has a major version change? Should you update everything that was affected? Should you ignore the version change? You don't have that problem with standard CSS.
+* Frameworks like SvelteKit isolate styles to the local scope by default. So using a utility library like Tailwind does not provide the same value in SvelteKit as it does in a framework like React or as it does if you were not using a frontend framework.
+
+<!-- TODO: Look under the heading "CSS Variables vs Utility Classes" in my TECHNICAL_DECISIONS.md file and include some of those points in this file. -->
+
+My preference is to use CSS variables and create the CSS utility classes that I need as I need them (for styles that are repeated multiple times throughout an app, like animations). (You can use Tailwind or another CSS framework as a reference when creating your utility classes.) If you go this route, then you would have to make sure that those variables and classes are clearly defined in a single location and train your team to reference and use those styles religiously. For example, you could have a `colors.css` file that holds all of your color variables, a `layout.css` file that holds all of your layout and grid classes, a `sizes.css` file that holds all of your size and spacing variables, etc. You could then import all of those files into your `main.css` file and import your `main.css` file into your `+layout.svelte` file. 
+
+Truthfully, there is no sure fire way that will keep your CSS scalable in all situations. Even if you use Tailwind, there are still plenty of situations where you can (and even have to at times) breakout of Tailwind and use plain CSS again. I guess it just comes down to this one true principle: There are different strokes for different folks. If you like Tailwind, then use it. If you prefer something else then go with that. Just decide on something and move forward.
+
+When we need to style an element, a component, or a page we will sometimes (or often) style those things in isolation, which often leads to a lot of duplicated styles and brittle CSS code. However, **a scalable CSS approach will define styles in one location and then reference those styles wherever they are needed**. Scalable CSS will use some combination of CSS variables, utility classes, and components. These concepts also keep our styles DRY and more maintainable. These scalable CSS concepts are similar to the concept of "a single source of truth" where you define or store something in a single location and then reference it wherever it is needed.
 
 So for example, instead of implementing all the style rules for a button element and copying and pasting those styles each time you implement a button (which is very error prone and not scalable at all), you simply reference the utility classes for a button element. If you do that, then you will be able to maintain a consistent theme througout your app and reduce the maintenance burden. Also, if you need to change any styles, you only need to change them in one location&mdash;where they are defined.
 

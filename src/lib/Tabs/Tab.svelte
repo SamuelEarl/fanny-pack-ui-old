@@ -3,48 +3,56 @@
 	import { TABS_KEY } from "./TabsContainer.svelte";
 
 	const tab = {};
-	const { registerTab, selectTab, selectedTab } = getContext(TABS_KEY);
+	const {
+    registerTab, 
+    selectTab, 
+    selectedTab, 
+    tabPaddingStyle, 
+    tabFontSizeStyle 
+  } = getContext(TABS_KEY);
   let tabStyle = getContext("tabStyle");
 
 	registerTab(tab);
 </script>
 
-
-<div class={`fpui-tabs-tab ${tabStyle}`} class:active="{$selectedTab === tab}" on:click="{() => selectTab(tab)}">
+<div
+  class={`fpui-tabs-tab ${tabStyle}`}
+  class:active="{$selectedTab === tab}"
+  style={`${tabPaddingStyle} ${tabFontSizeStyle}`}
+  on:click="{() => selectTab(tab)}"
+  on:keyup="{() => selectTab(tab)}"
+>
 	<slot></slot>
 </div>
 
-
 <style>
-	.fpui-tabs-tab {
-    padding: 10px;
-    cursor: pointer;
+  @media (--xs-up) {
+    .fpui-tabs-tab {
+      cursor: pointer;
 
-    &.fill {
+      &.fill {
 
-      &:hover {
-        background-color: var(--fpui-tabs-tab-fill-hover-bg-color, #ccc);
-      }
-      
-      &.active {
-        background-color: var(--fpui-tabs-tab-fill-active-bg-color, #ccc);
-        color: var(--fpui-tabs-tab-fill-active-text-color, #333);
-      }
-    }
-
-    &.line {
-      margin-bottom: -1px;
-      border-bottom: 3px solid transparent;
-      color: var(--fpui-tabs-tab-line-text-color, #333);
-
-      &:hover {
-        border-color: var(--fpui-tabs-tab-line-hover-border-color, #ccc);
+        &:hover {
+          background-color: var(--border-color-default);
+        }
+        
+        &.active {
+          background-color: var(--border-color-default);
+        }
       }
 
-      &.active {
-        border-color: var(--fpui-tabs-tab-line-active-border-color, #ccc);
-		    color: var(--fpui-tabs-tab-line-active-text-color, #333);
+      &.line {
+        margin-bottom: -1px;
+        border-bottom: 3px solid transparent;
+
+        &:hover {
+          border-color: var(--border-color-default);
+        }
+
+        &.active {
+          border-color: var(--text-color-default);
+        }
       }
     }
-	}
+  }
 </style>

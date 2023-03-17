@@ -11,7 +11,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
   import { browser } from "$app/environment";
   import Icon from "@iconify/svelte";
   import { Button } from "../Buttons";
-  import { theme } from "/src/theme";
+  import { theme } from "/src/lib/fpui-theme";
 
   export let handleFileUploads;
   export let accept = "*";

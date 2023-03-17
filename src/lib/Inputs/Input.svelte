@@ -1,13 +1,14 @@
 <script lang="ts">
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
+  import { paddingSizes, fontSizes } from "../styles";
 
-  export let id = "";
   export let type = "text";
   export let value = "";
   export let label = "";
   export let list = "";
-  export let size = "md";
+  export let padding = "sm";
+  export let fontSize = "md";
   export let min = null;
   export let max = null;
   export let step = "any";
@@ -15,6 +16,16 @@
   export let disabled = false;
 
   let componentId = createId();
+
+  let paddingStyle = paddingSizes[padding];
+  if (paddingStyle === undefined) {
+    paddingStyle = paddingSizes["sm"];
+  }
+
+  let fontSizeStyle = fontSizes[fontSize];
+  if (fontSizeStyle === undefined) {
+    fontSizeStyle = fontSizes["md"];
+  }
 </script>
 
 
@@ -24,10 +35,11 @@
     type="text"
     bind:value={value}
     {list}
-    {id}
-    class="{`fpui-input ${size}`}"
+    class="fpui-input"
+    style="{`${paddingStyle} ${fontSizeStyle}`}"
     {placeholder}
     {disabled}
+    {...$$restProps}
     on:change
     on:input
     on:keyup
@@ -38,13 +50,14 @@
     type="number"
     bind:value={value}
     {list}
-    {id}
-    class="{`fpui-input ${size}`}"
+    class="fpui-input"
+    style="{`${paddingStyle} ${fontSizeStyle}`}"
     {min}
     {max}
     {step}
     {placeholder}
     {disabled}
+    {...$$restProps}
     on:change
     on:input
     on:keyup
@@ -55,10 +68,11 @@
     type="email"
     bind:value={value}
     {list}
-    {id}
-    class="{`fpui-input ${size}`}"
+    class="fpui-input"
+    style="{`${paddingStyle} ${fontSizeStyle}`}"
     {placeholder}
     {disabled}
+    {...$$restProps}
     on:change
     on:input
     on:keyup
@@ -71,38 +85,23 @@
   .fpui-input {
     width: 100%;
     outline: none;
-    border: 1px solid;
-    border-color: var(--custom-input-border-color, var(--fpui-input-border-color, #c7c7c7));
-    border-radius: var(--border-radius, 3px);
-    background-color: var(--custom-input-bg-color, var(--fpui-input-bg-color, white));
-    color: var(--custom-input-text-color, var(--fpui-input-text-color, black));
-
-    &.sm {
-      padding: var(--fpui-input-padding-sm, 5px);
-      font-size: var(--font-size-sm, 12px);
-    }
-    &.md {
-      padding: var(--fpui-input-padding-md, 10px);
-      font-size: var(--font-size-md, 16px);
-    }
-    &.lg {
-      padding: var(--fpui-input-padding-lg, 15px);
-      font-size: var(--font-size-lg, 20px);
-    }
+    border: var(--border-default);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color-default);
 
     &::placeholder {
-      color: var(--custom-input-placeholder-text-color, var(--fpui-input-placeholder-text-color, gray));
+      color: var(--placeholder-color-default);
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--fpui-input-border-color, gray);
+      box-shadow: var(--box-shadow-default);
     }
 
     &:disabled {
-      border-color: var(--disabled-bg-color);
+      border-color: var(--border-color-disabled);
       box-shadow: none;
-      color: var(--disabled-text-color);
-      background-color: var(--disabled-bg-color);
+      color: var(--text-color-disabled);
+      background-color: var(--bg-color-disabled);
       cursor: default;
     }
   }

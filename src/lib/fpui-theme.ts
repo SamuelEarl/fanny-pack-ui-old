@@ -5,12 +5,21 @@
 // Replace the `btnIcon` value with an empty string to have no default icon.
 // Replace the `btnIconDisabled` value with an empty string to have no default disabled icon.
 export const theme = {
-  btnIcon: "mdi:check-circle",
+  // BUTTONS
+  // btnIcon: "mdi:check-circle",
+  btnIcon: "",
+  btnIconSide: "right",
   btnIconDisabled: "icomoon-free:spinner2",
+  // CALENDAR
   dateInputIcon: "mdi:calendar",
+  // INPUTS
+  // TODO: Add default sizes here.
+  // TOOLTIP
   labelTooltipIcon: "entypo:info-with-circle",
+  // DROPZONE
   dropZoneSelectFilesBtnIcon: "lucide:mouse-pointer-2",
   dropZoneDragAndDropIcon: "pixelarticons:drag-and-drop",
   dropZoneUploadFilesBtnIcon: "mdi:cloud-upload",
-  defaultTabStyle: "fill", // Possible values: "fill", "line"
+  // TABS
+  defaultTabStyle: "fill", // Possible values: "line", "fill"
 };

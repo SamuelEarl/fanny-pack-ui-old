@@ -233,8 +233,8 @@
       padding: 10px;
       border: 1px solid var(--border-color);
       border-radius: var(--border-radius);
-      background: var(--neutral-lightest);
-      color: var(--text-color);
+      background: var(--neutral-tone-white);
+      color: var(--text-color-default);
       box-shadow: 0 0 5px 0 var(--border-color);
       pointer-events: none;
       transition: 200ms linear 0s;
@@ -246,7 +246,7 @@
       height: 100%;
 
       & .vertical-hover-line line {
-        stroke: var(--neutral-medium);
+        stroke: var(--neutral-tone-400);
         stroke-dasharray: 4 4;
       }
     }

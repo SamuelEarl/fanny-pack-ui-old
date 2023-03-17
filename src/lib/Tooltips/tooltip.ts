@@ -9,7 +9,7 @@
 /**
  * Example Usage:
  
-  import tooltip from "$/components/ui/tooltip.js";
+  import tooltip from "/src/components/ui/tooltip.js";
 
   <span use:tooltip={{ content: `This is multi-line content.
 

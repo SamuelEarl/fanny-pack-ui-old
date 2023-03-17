@@ -370,7 +370,7 @@
       & .fpui-select-option {
         border: 1px solid;
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-        color: var(--text-color);
+        color: var(--text-color-default);
         /* Cut off any text that overflows the space provided for this Select component: */
         /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
         white-space: nowrap;

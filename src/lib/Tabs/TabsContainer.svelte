@@ -5,14 +5,23 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
+  import { paddingSizes, fontSizes } from "../styles";
 
   export let border = true;
-  export let padding = "md";
+  export let borderPadding = "md";
+  export let tabPadding = "sm";
+  export let panelPadding = "";
+  export let tabFontSize = "sm";
 
 	const tabsContainer = [];
 	const panels = [];
 	const selectedTab = writable(null);
 	const selectedPanel = writable(null);
+
+  const borderPaddingStyle = paddingSizes[borderPadding];
+  const tabPaddingStyle = paddingSizes[tabPadding];
+  const panelPaddingStyle = paddingSizes[panelPadding];
+  const tabFontSizeStyle = fontSizes[tabFontSize];
 
 	setContext(TABS_KEY, {
 		registerTab: tab => {
@@ -44,33 +53,16 @@
 		},
 
 		selectedTab,
-		selectedPanel
+		selectedPanel,
+    tabPaddingStyle,
+    panelPaddingStyle,
+    tabFontSizeStyle,
 	});
 </script>
 
-
-<!-- If `border` is true, then add the padding value that is passed as a prop. -->
-<div class={`fpui-tabs-container ${border ? padding : ""}`} class:border>
+<!-- If `border` is true, then include the border styles. -->
+<div
+  style={`${border ? "border: var(--border-default); border-radius: var(--border-radius);" : ""} ${borderPaddingStyle}`}
+>
 	<slot></slot>
 </div>
-
-
-<style>
-  .fpui-tabs-container {
-
-    &.border {
-      border: 1px solid var(--border-color, gray);
-      border-radius: var(--border-radius, 3px);
-    }
-
-    &.sm {
-      padding: var(--padding-sm, 5px);
-    }
-    &.md {
-      padding: var(--padding-md, 10px);
-    }
-    &.lg {
-      padding: var(--padding-lg, 15px);
-    }
-  }
-</style>
