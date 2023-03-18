@@ -1,8 +1,9 @@
 /* NOTE: The `postcssGlobalData` setting in the `svelte.config.js` file makes the --custom-media variables (i.e. media queries) available inside `.svelte` components, but the --custom-media variables are not available outside of `.svelte` components. So I would have to use the actual values of the media queries in this file instead of referencing the variables. */
 
-/* The `container` class sets the `max-width` of an element to `--width-lg` and it will center the content and provide a 15px padding on the left and right sides. */
+/* The `container` class sets the `max-width` of an element to `--width-lg` and it centers the content. */
 .container {
   max-width: var(--width-lg);
   margin: 0 auto;
-  padding: 0 15px;
+  /* I will not include padding here because a developer would probably put padding around their pages through the layout file or through individual pages. */
+  /* padding: 0 15px; */
 }

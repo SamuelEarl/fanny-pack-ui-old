@@ -123,7 +123,7 @@ There are three components: `<Grid>`, `<Row>`, `<Col>`. By default the column wi
 </Grid>
 ```
 
-This `<Grid>` component uses a 12-column layout. That means that for each breakpoint any columns that exceed 12 will wrap to the next row. For example, each of the `xs` values equals `12`, so each `<Col>` will take up the entire row on `xs` screens. Each of the `md` values equals `6`, so each `<Col>` will take up half a row on `md` screens. You can probably do the math for how much space each `<Col>` will take up on `xl` screens and above.
+This `<Grid>` component uses a 12-column layout. That means that for each breakpoint any columns that exceed 12 will wrap to the next row. For example, each of the `xs` values equals `12`, so each `<Col>` will take up the entire row on `xs` screens. Each of the `md` values equals `6`, so each `<Col>` will take up half a row on `md` screens. You can probably do the math for how much space each `<Col>` will take up on `xl` screens and above. You can also resize your screen to see how the columns layout at each of those breakpoints.
 
 <br>
 
@@ -155,7 +155,7 @@ For reference, here are the viewport sizes of some common devices:
 
 <br>
 
-### 12-column layout
+### 12-column Layout
 The Fanny Pack `<Grid>` component uses a 12-column layout. A 12-column layout is more versatile than a 16 column layout because it allows developers to implement evenly-spaced 1-, 2-, 3-, 4-, 6-, and 12-column layouts, if necessary.
 
 <br>
@@ -310,10 +310,10 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
     | --------- | ---- | --------------- | ------------- | ----------- |
     | `rowMarginsY` | `number` | Any number | `0` | This stands for "row margins y-axis". This will provide top and bottom margins for each `<Row>` in a `<Grid>`. |
     | `rowMarginsX` | `number` | Any number | `0` | This stands for "row margins x-axis". This will provide left and right margins for each `<Row>` in a `<Grid>`. |
-    | `colPaddingY` | `number` | Any number | `0` | This stands for "column padding y-axis". This will provide top and bottom padding within the columns of each row. So this will essentially provide top and bottom padding for each cell a `<Grid>`.
-    | `colPaddingX` | `number` | Any number | `0` | This stands for "column padding x-axis". This will provide left and right padding within the columns of each row. So this will essentially provide left and right padding for each cell a `<Grid>`.
+    | `colPaddingY` | `number` | Any number | `0` | This stands for "column padding y-axis". This will provide top and bottom padding for each `<Col>` in a `<Grid>`. So this essentially provides top and bottom padding for each cell in a `<Grid>`.
+    | `colPaddingX` | `number` | Any number | `0` | This stands for "column padding x-axis". This will provide left and right padding for each `<Col>` in a `<Grid>`. So this essentially provides left and right padding for each cell in a `<Grid>`.
     | `equalColWidths` | `boolean` | `true`, `false` | `false` | If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component.<br><br>NOTE: The column breakpoint values will override the `equalColWidths` prop if both are set on a row. |
-    | `contain` | `boolean` | `true`, `false` | `false` | The `<Grid>` component references the `container` class from the `layout.css` utility classes file. The `container` class sets the `max-width` of an element to `--width-lg` and it will center the content and provide a 15px padding on the left and right sides. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the `--width-lg` value. |
+    | `contain` | `boolean` | `true`, `false` | `false` | The `<Grid>` component references the `.container` class from the `layout.css` utility classes file. The `.container` class sets the `max-width` of an element to `--width-lg` and it centers the content. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the `--width-lg` value. |
   </TabPanel>
 
   <TabPanel>
