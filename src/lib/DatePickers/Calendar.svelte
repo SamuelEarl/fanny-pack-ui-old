@@ -318,7 +318,7 @@
     padding: 5px;
     border: var(--border-default);
     border-radius: var(--border-radius);
-    background: var(--neutral-tone-white);
+    background: var(--white);
     color: inherit;
     user-select: none;
     -webkit-user-select: none;
@@ -376,7 +376,7 @@
           border: var(--border-default);
           border-radius: var(--border-radius);
           font-size: 0.85rem;
-          background-color: var(--neutral-tone-white);
+          background-color: var(--white);
           color: inherit;
           cursor: pointer;
 

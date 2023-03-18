@@ -12,8 +12,16 @@
 
 
 {#if label && forVal}
-  <div class={`fpui-label-container ${labelAlign}`}>
-    <label for={forVal} class="fpui-label">{label}</label>
+  <div
+    class={`fpui-label-container ${labelAlign}`}
+    style={`margin-bottom: ${theme.labelMarginBottom}`}
+  >
+    <label 
+      for={forVal}
+      style={`font-size: ${theme.labelFontSize}`}
+    >
+      {label}
+    </label>
     {#if tooltipText}
       <Tooltip tooltipText={tooltipText}>
         <Icon icon={tooltipIcon} />
@@ -25,18 +33,12 @@
 
 <style>
   .fpui-label-container {
-    margin-bottom: var(--fpui-label-margin-bottom);
 
     &.left {
       text-align: left;
     }
     &.right {
       text-align: right;
-    }
-
-    & .fpui-label {
-      font-size: var(--fpui-label-font-size);
-      color: var(--fpui-label-text-color);
     }
   }
 </style>

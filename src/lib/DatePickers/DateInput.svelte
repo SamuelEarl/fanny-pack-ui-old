@@ -322,7 +322,7 @@
       border-radius: 4px 0 0 0;
       /* Move the triangle down by 5px and over from the left by (border-radius + 10px). */
       margin: 0 auto -5px calc(var(--border-radius) + 10px);
-      background-color: var(--neutral-tone-white);
+      background-color: var(--white);
       transform: rotate(45deg);
       z-index: 100;
     }

@@ -2,13 +2,14 @@
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../styles";
+  import { theme } from "/src/theme";
 
   export let type = "text";
   export let value = "";
   export let label = "";
   export let list = "";
-  export let padding = "sm";
-  export let fontSize = "md";
+  export let padding = theme.inputDefaultPadding;
+  export let fontSize = theme.inputDefaultFontSize;
   export let min = null;
   export let max = null;
   export let step = "any";

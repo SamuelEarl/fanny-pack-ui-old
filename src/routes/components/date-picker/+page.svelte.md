@@ -137,10 +137,10 @@ You can set the following custom variables:
     bind:value={date}
     bind:valid={dateIsValid}
     placeholder="Enter a date"
-    --custom-date-picker-bg-color="var(--neutral-tone-200)"
+    --custom-date-picker-bg-color="var(--neutral-200)"
     --custom-date-picker-border-color="var(--primary-color)"
     --custom-date-picker-text-color="var(--primary-color)"
-    --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
+    --custom-date-input-placeholder-text-color="var(--neutral-400)"
     --custom-date-input-btn-bg-color="var(--primary-color)"
     --custom-date-input-btn-icon-color="white"
   />
@@ -152,10 +152,10 @@ You can set the following custom variables:
     bind:value={date}
     bind:valid={dateIsValid}
     placeholder="Enter a date"
-    --custom-date-picker-bg-color="var(--neutral-tone-200)"
+    --custom-date-picker-bg-color="var(--neutral-200)"
     --custom-date-picker-border-color="var(--primary-color)"
     --custom-date-picker-text-color="var(--primary-color)"
-    --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
+    --custom-date-input-placeholder-text-color="var(--neutral-400)"
     --custom-date-input-btn-bg-color="var(--primary-color)"
     --custom-date-input-btn-icon-color="white"
   />

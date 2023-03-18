@@ -274,12 +274,12 @@ Depending on the colors that you use as your `primary`, `secondary`, and `tertia
     }
 
     & .light-bg {
-      background-color: var(--neutral-tone-200);
+      background-color: var(--neutral-200);
       border-radius: var(--border-radius) 0 0 var(--border-radius);
     }
 
     & .dark-bg {
-      background-color: var(--neutral-tone-black);
+      background-color: var(--neutral-black);
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
   }

@@ -336,8 +336,8 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
   .cell {
     height: 100%;
     padding: 10px;
-    border: 1px solid var(--neutral-tone-white);
-    color: var(--neutral-tone-white);
+    border: 1px solid var(--white);
+    color: var(--white);
 
     &.red {
       background-color: var(--dark-red);

@@ -22,10 +22,12 @@ export const theme = {
   dropZoneSelectFilesBtnIcon: "lucide:mouse-pointer-2",
   dropZoneDragAndDropIcon: "pixelarticons:drag-and-drop",
   dropZoneUploadFilesBtnIcon: "mdi:cloud-upload",
-  // INPUTS
+  // INPUTS (currency, text, number, email)
   inputDefaultPadding: "sm",
   inputDefaultFontSize: "md",
   // LABELS
+  labelFontSize: "0.8rem",
+  labelMarginBottom: "5px",
   labelTooltipIcon: "entypo:info-with-circle",
   // TABS
   tabsFontSizeDefault: "md",

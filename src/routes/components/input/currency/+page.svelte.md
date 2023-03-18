@@ -115,7 +115,7 @@ You can set the following custom variables:
     --custom-input-bg-color="pink"
     --custom-input-border-color="darkred"
     --custom-input-text-color="darkred"
-    --custom-input-placeholder-text-color="var(--neutral-tone-500)"
+    --custom-input-placeholder-text-color="var(--neutral-500)"
   />
 </div>
 
@@ -127,7 +127,7 @@ You can set the following custom variables:
     --custom-input-bg-color="pink"
     --custom-input-border-color="darkred"
     --custom-input-text-color="darkred"
-    --custom-input-placeholder-text-color="var(--neutral-tone-500)"
+    --custom-input-placeholder-text-color="var(--neutral-500)"
   />
 </div>
 ```

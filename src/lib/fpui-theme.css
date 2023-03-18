@@ -96,7 +96,7 @@
   --tertiary-color: var(--white);
   --text-color-for-tertiary-bg: var(--fpn-210);
   /* Neutral Tones */
-  --neutral-tone-white: var(--white);
+  /* --neutral-tone-white: var(--white);
   --neutral-tone-50: var(--neutral-50);
   --neutral-tone-100: var(--neutral-100);
   --neutral-tone-200: var(--neutral-200);
@@ -107,7 +107,7 @@
   --neutral-tone-700: var(--neutral-700);
   --neutral-tone-800: var(--neutral-800);
   --neutral-tone-900: var(--neutral-900);
-  --neutral-tone-black: var(--black);
+  --neutral-tone-black: var(--black); */
   /* --neutral-darkest: var(--fpn-260);
   --neutral-very-dark: var(--fpn-210);
   --neutral-dark: var(--fpn-140);
@@ -148,11 +148,11 @@ These variables are organized in the same way that Tailwind organizes their util
 /* BACKGROUNDS */
 :root {
   /* Page background colors. */
-  --bg-color-default: var(--neutral-tone-white);
-  --bg-color-default-dark: var(--neutral-tone-700);
+  --bg-color-default: var(--white);
+  --bg-color-default-dark: var(--neutral-700);
   /* Element background colors. */
-  --bg-color-element-default: var(--neutral-tone-200);
-  --bg-color-element-disabled: var(--neutral-tone-400);
+  --bg-color-element-default: var(--neutral-200);
+  --bg-color-element-disabled: var(--neutral-400);
 }
 
 
@@ -160,9 +160,9 @@ These variables are organized in the same way that Tailwind organizes their util
 :root {
   --border-width-default: 1px;
   --border-style-default: solid;
-  --border-color-default: var(--neutral-tone-300);
+  --border-color-default: var(--neutral-300);
   --border-default: var(--border-width-default) var(--border-style-default) var(--border-color-default);
-  --border-color-disabled: var(--neutral-tone-400);
+  --border-color-disabled: var(--neutral-400);
   --border-radius: 3px;
 }
 
@@ -227,11 +227,11 @@ These variables are organized in the same way that Tailwind organizes their util
   --font-size-9xl: 128px;
 
   /* Text Color */
-  --text-color-default: var(--neutral-tone-700);
-  --text-color-disabled: var(--neutral-tone-900);
+  --text-color-default: var(--neutral-700);
+  --text-color-disabled: var(--neutral-900);
 
   /* Placeholder Text Color */
-  --placeholder-color-default: var(--neutral-tone-500);
+  --placeholder-color-default: var(--neutral-500);
 }
 
 
@@ -263,20 +263,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
-
-/* Inputs (currency, text, number, email) */
-:root {
-  --fpui-input-padding-sm: var(--padding-sm);
-  --fpui-input-padding-md: var(--padding-md);
-  --fpui-input-padding-lg: var(--padding-lg);
-}
-
-/* Labels */
-:root {
-  --fpui-label-font-size: 0.8rem;
-  --fpui-label-margin-bottom: 5px;
-  --fpui-label-text-color: var(--neutral-dark);
-}
 
 /* Modals */
 :root {

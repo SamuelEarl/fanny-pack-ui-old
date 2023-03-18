@@ -214,7 +214,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     padding: 20px;
     padding-bottom: 5px;
     border: 2px dashed;
-    border-color: var(--neutral-tone-600);
+    border-color: var(--neutral-600);
     border-radius: var(--border-radius);
     text-align: center;
     background-color: var(--bg-color-element-default);
@@ -223,7 +223,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     transition: border 0.25s ease-in-out;
 
     &.active {
-      background-color: var(--neutral-tone-white);
+      background-color: var(--white);
     }
 
     & .file-input-container {
@@ -276,7 +276,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
           flex: 1;
           padding: 5px;
           border-radius: 3px;
-          background-color: var(--neutral-tone-white);
+          background-color: var(--white);
           color: inherit;
 
           &.active {
