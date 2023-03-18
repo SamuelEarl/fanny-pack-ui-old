@@ -23,17 +23,21 @@ Go to the [Customize Theme](/customize-theme) page and follow the instructions t
 ## Step 3: Configure the theme for your app
 The CSS theme that you create on the [Customize Theme](/customize-theme) page uses native CSS variables. These variables allow a lot of flexibility in how you can enable the CSS theme for your components, but this is my preferred way:
 
-1. Create the following two files in your SvelteKit project: 
-    1. `/src/assets/styles/theme-extras.css` (This file should hold any additional CSS variables or utility classes that you want to use in your app.)
-    2. `/src/assets/styles/main.css` (This file will import the other CSS files in your `/src/assets/styles/` folder.)
-2. Take the `theme.css` file that you downloaded from the [Customize Theme](/customize-theme) page and place it in the `/src/assets/styles/` folder (next to your `theme.extras.css` and `main.css` files).
+1. Create a `/src/assets/styles` folder in your SvelteKit project and create the following files inside of it:
+    1. `preflight.css` (This file should hold any utility classes that you want to use in your app.)
+    2. `fonts.css` (This file will hold all of your font definitions.)
+    3. `theme.css` (This file will hold the CSS variables that make up your theme.)
+    4. `utility-classes.css` (This file will hold any utility classes that you want to use in your app.)
+    5. `base.css` (Default HTML element styles go in this file. The `preflight.css` file clears some of the default styles for HTML elements, so you need to define default styles for your HTML elements in this file.)
+    6. `main.css` (This file will import the other CSS files in your `/src/assets/styles/` folder.)
+2. Take the `theme.css` file that you downloaded from the [Customize Theme](/customize-theme) page and place it in the `/src/assets/styles/` folder (next to your `main.css` file).
 5. Open your `/src/assets/styles/main.css` file and import all of your CSS files from your `/src/assets/styles` folder. Those imports might look something like this:
 
 ```css
 @import "preflight.css";
 @import "fonts.css";
 @import "theme.css";
-@import "theme-extras.css";
+@import "utility-classes.css";
 @import "base.css";
 ```
 
@@ -47,7 +51,7 @@ Then import the `/src/assets/styles/main.css` file into the `<style>` tag of the
 </style>
 ```
 
-TODO: I have replaced `normalize.css` with a slightly modified version of Tailwind's `preflight.css`. So I need to update all references to `normalize.css` to use `preflight.css`.
+**TODO: I have replaced `normalize.css` with a slightly modified version of Tailwind's `preflight.css`. So I need to update all references to `normalize.css` to use `preflight.css`.**
 
 *NOTE: You can create a `/src/assets/styles/normalize.css` file and copy and paste the code from [Normalize.css](https://necolas.github.io/normalize.css/) into it. The `fonts.css` and `base.css` files are explained below.*
 
@@ -174,7 +178,7 @@ When you [customize your theme](/customize-theme) no fonts are included in your 
 }
 ```
 
-6. In your `theme-extras.css` file, create a `Typography` block and create your own font stack variables, which would look like this:
+6. In your `utility-classes.css` file, create a `Typography` block and create your own font stack variables, which would look like this:
 
 ```css
 /*************
@@ -214,7 +218,7 @@ h1, h2, h3, h4, h5, h6 {
 @import "preflight.css";
 @import "fonts.css";
 @import "theme.css";
-@import "theme-extras.css";
+@import "utility-classes.css";
 @import "base.css";
 ```
 

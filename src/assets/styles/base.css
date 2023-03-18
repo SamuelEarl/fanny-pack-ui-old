@@ -1,6 +1,9 @@
-/* General HTML element styles go in this file. These form the base styles that can be modified in your .svelte files. */
-/* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
+/* NOTE: This file imports the `fpui-base.css` file from "/src/lib/fpui-base.css" so if any of the variables in the "/src/lib/fpui-base.css" are changed, then they will be automatically updated in the example app. */
 
+@import "/src/lib/fpui-base.css";
+
+
+/*
 html, body {
   font-size: var(--font-size-base, 16px);
   font-family: var(--sans-serif-font-stack);
@@ -52,14 +55,14 @@ th, td {
   vertical-align: top;
 }
 
-/* <pre> or triple backticks */
+<pre> or triple backticks
 pre {
   font-family: var(--mono-font-stack);
   padding: 10px;
   border-radius: var(--docs-border-radius);
   background-color: var(--docs-neutral-very-light);
 }
-/* <code> or single backticks */
+<code> or single backticks
 code {
   font-family: var(--mono-font-stack);
   padding: 0 3px;
@@ -71,4 +74,5 @@ hr {
   margin: 30px 0;
   border: none;
   border-top: var(--docs-border);
-}
+} 
+*/

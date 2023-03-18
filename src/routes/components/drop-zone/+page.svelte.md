@@ -70,7 +70,7 @@ Many cloud storage services provide APIs for handling file uploads from your bro
 
 ## Example Usage
 
-<DropZone {handleFileUploads} accept="image/*,.pdf">File Drop</DropZone>
+<DropZone {handleFileUploads} accept="image/*,.pdf">Drop Files Here</DropZone>
 
 <br>
 

@@ -214,19 +214,21 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     padding: 20px;
     padding-bottom: 5px;
     border: 2px dashed;
-    border-color: var(--fpui-drop-zone-border-color, #797979);
-    border-radius: var(--fpui-drop-zone-border-radius, 3px);
+    border-color: var(--neutral-tone-600);
+    border-radius: var(--border-radius);
     text-align: center;
-    background-color: var(--fpui-drop-zone-bg-color, #e5e5e5);
-    color: var(--fpui-drop-zone-text-color, #797979);
+    background-color: var(--bg-color-default);
+    color: var(--text-color-default);
     outline: none;
     transition: border 0.25s ease-in-out;
 
     &.active {
-      background-color: var(--fpui-drop-zone-bg-color-active, white);
+      background-color: var(--neutral-tone-white);
     }
 
     & .file-input-container {
+      display: flex;
+      justify-content: center;
       margin-bottom: 30px;
       /* The pointer-events CSS property sets under what circumstances (if any) a particular graphic element can become the target of pointer events. (https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events) */
       /* What does the `pointer-events: none` rule do? The .drop-zone element is configured to change state from inactive to active when a user drags files over the top of it. But the .drop-zone element has child elements nested inside of it. Each time a user drags files over the top of any of those child elements the browser acts as if the user leaves the .drop-zone element and enters the child element for a moment. However, the drag events bubble up from the child elements and are handled by the .drop-zone element. The drag events that the .drop-zone element handles each fire at different times, which causes the active state to switch back and forth causing the UI to flicker. */
@@ -245,11 +247,13 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     }
 
     & .drag-drop-text-container {
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       pointer-events: none;
     }
 
     & .drag-drop-icon-container {
+      display: flex;
+      justify-content: center;
       margin-bottom: 5px;
       pointer-events: none;
     }
@@ -258,6 +262,8 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
       margin: 20px 0;
 
       & .upload-all-files-btn-container {
+        display: flex;
+        justify-content: center;
         margin-bottom: 20px;
       }
 
@@ -270,11 +276,11 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
           flex: 1;
           padding: 5px;
           border-radius: 3px;
-          background-color: var(--fpui-drop-zone-files-set-for-upload-bg-color, #e5e5e5);
-          color: var(--fpui-drop-zone-files-set-for-upload-text-color, #343434);
+          background-color: var(--neutral-tone-white);
+          color: inherit;
 
           &.active {
-            background-color: var(--fpui-drop-zone-bg-color, #e5e5e5);
+            background-color: var(--bg-color-default);
           }
         }
 

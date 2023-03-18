@@ -349,10 +349,10 @@
     align-items: center;
     padding: 20px;
     border: 2px dashed;
-    border-color: var(--fpui-drop-zone-border-color, #a0a0a0);
-    border-radius: var(--fpui-drop-zone-border-radius, 3px);
-    background-color: var(--fpui-drop-zone-bg-color, #e5e5e5);
-    color: var(--fpui-drop-zone-text-color, #797979);
+    border-color: var(--neutral-tone-600);
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color-default);
+    color: var(--text-color-default);
     outline: none;
     transition: border 0.25s ease-in-out;
     cursor: pointer;

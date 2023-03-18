@@ -202,8 +202,9 @@ These variables are organized in the same way that Tailwind organizes their util
 /* TYPOGRAPHY */
 :root {
   /* Font Families */
-  --sans-serif: "Open Sans", "sans-serif";
+  --sans-serif: Montserrat, "sans-serif";
   --serif: "Bitstream Charter", "serif";
+  --cursive: Audiowide, cursive;
   --monospace: "Source Code Pro", "monospace";
 
   /* Font Sizes */
@@ -257,17 +258,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
-
-/* Drop Zones (file upload) */
-:root {
-  --fpui-drop-zone-border-color: var(--neutral-medium);
-  --fpui-drop-zone-text-color: var(--text-color);
-  --fpui-drop-zone-bg-color: var(--bg-color);
-  --fpui-drop-zone-bg-color-active: var(--neutral-lightest);
-  --fpui-drop-zone-border-radius: var(--border-radius);
-  --fpui-drop-zone-files-set-for-upload-bg-color: var(--neutral-lightest);
-  --fpui-drop-zone-files-set-for-upload-text-color: var(--text-color);
-}
 
 /* Grids */
 :root {

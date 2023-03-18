@@ -1,0 +1,124 @@
+/* Default HTML element styles go in this file. */
+/* The `preflight.css` file clears some of the default styles for HTML elements, so you need to define default styles for your HTML elements in this file. */
+/* These form the base styles that can be modified in your .svelte files. */
+/* NOTE: I haven't been able to figure out how to get CSS nesting to work outside of Svelte components. */
+
+html, body {
+  font-family: var(--sans-serif);
+  font-size: var(--font-size-base);
+  color: var(--text-color-default);
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-bottom: var(--space-md);
+  font-family: var(--cursive);
+}
+
+h1 {
+  font-size: var(--font-size-4xl);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+}
+
+h3 {
+  font-size: var(--font-size-xl);
+  color: var(--primary-color);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+}
+
+p {
+  margin-bottom: var(--space-md);
+}
+
+ul, ol {
+  list-style-position: inside;
+  margin-bottom: var(--space-md);
+  padding-left: 30px;
+}
+
+ul {
+  list-style-type: disc;
+}
+
+ol {
+  list-style-type: decimal;
+}
+
+li {
+  margin-bottom: var(--space-sm);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration-line: none;
+  border-bottom: 1px dotted var(--primary-color);
+  cursor: pointer;
+}
+
+a:hover {
+  border-bottom: none;
+}
+
+br {
+  margin: 30px 0;
+}
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: var(--border-default);
+}
+
+/* <pre> or triple backticks. The background color might have a conflict with the "prismjs" package, so I have added `!important`. */
+pre {
+  font-family: var(--monospace);
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color-default) !important;
+}
+
+/* <code> or single backticks. See the comment for the `pre` styles above. */
+code {
+  font-family: var(--monospace);
+  padding: 0 3px;
+  border-radius: var(--border-radius);
+  background-color: var(--bg-color-default) !important;
+}
+
+/* --------------------------------------------------------------------- */
+/* TABLE STYLES */
+/* TODO: The following table styles should be used in a table component. */
+/* --------------------------------------------------------------------- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: var(--border-default);
+}
+
+tbody tr:last-child {
+  border-bottom: none;
+}
+
+th, td {
+  padding: 10px 25px;
+  text-align: left;
+  vertical-align: top;
+}

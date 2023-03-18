@@ -44,16 +44,16 @@
 <style>
   .fpui-accordion-wrapper {
 
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+
     & .fpui-accordion-btn {
       border: var(--border-default);
       border-radius: var(--border-radius);
       background-color: var(--bg-color-default);
       color: var(--text-color-default);
       cursor: pointer;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
 
       &:after {
         content: "+"; /* Unicode character for "plus" sign (+) */
