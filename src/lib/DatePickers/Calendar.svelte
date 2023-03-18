@@ -441,7 +441,7 @@
       &.selected {
         border: var(--border-default);
         color: inherit;
-        background-color: var(--bg-color-default);
+        background-color: var(--bg-color-element-default);
       }
     }
   }

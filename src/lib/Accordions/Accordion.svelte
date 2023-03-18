@@ -51,7 +51,7 @@
     & .fpui-accordion-btn {
       border: var(--border-default);
       border-radius: var(--border-radius);
-      background-color: var(--bg-color-default);
+      background-color: var(--bg-color-element-default);
       color: var(--text-color-default);
       cursor: pointer;
 

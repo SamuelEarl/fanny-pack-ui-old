@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
   import { marginBottomSizes } from "../styles";
 
   export let tabStyle = theme.tabsTabStyleDefault;
@@ -26,7 +26,7 @@
         border: var(--border-default);
         border-radius: var(--border-radius);
         overflow: hidden;
-        background-color: var(--bg-color-default);
+        background-color: var(--bg-color-element-default);
         color: var(--text-color-default);
 
         &:hover {

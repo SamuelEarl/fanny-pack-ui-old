@@ -47,7 +47,7 @@
   width: 25px;
   border: var(--border-default);
   border-radius: var(--border-radius);
-  background-color: var(--bg-color-default);
+  background-color: var(--bg-color-element-default);
 }
 .fpui-checkbox-checkmark:after {
   /* Create the checkmark/indicator (hidden when not checked). */

@@ -36,7 +36,7 @@
     bind:value={value}
     {list}
     class="fpui-input"
-    style="{`${paddingStyle} ${fontSizeStyle}`}"
+    style={`${paddingStyle} ${fontSizeStyle}`}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -51,7 +51,7 @@
     bind:value={value}
     {list}
     class="fpui-input"
-    style="{`${paddingStyle} ${fontSizeStyle}`}"
+    style={`${paddingStyle} ${fontSizeStyle}`}
     {min}
     {max}
     {step}
@@ -69,7 +69,7 @@
     bind:value={value}
     {list}
     class="fpui-input"
-    style="{`${paddingStyle} ${fontSizeStyle}`}"
+    style={`${paddingStyle} ${fontSizeStyle}`}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -87,7 +87,7 @@
     outline: none;
     border: var(--border-default);
     border-radius: var(--border-radius);
-    background-color: var(--bg-color-default);
+    background-color: var(--bg-color-element-default);
 
     &::placeholder {
       color: var(--placeholder-color-default);
@@ -101,7 +101,7 @@
       border-color: var(--border-color-disabled);
       box-shadow: none;
       color: var(--text-color-disabled);
-      background-color: var(--bg-color-disabled);
+      background-color: var(--bg-color-element-disabled);
       cursor: default;
     }
   }

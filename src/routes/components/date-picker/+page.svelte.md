@@ -71,6 +71,7 @@ The code for this component was taken from this great [date picker component](ht
 <style>
   .date-wrapper {
     width: 250px;
+    margin-bottom: 20px;
   }
 
   .invalid-wrapper {
@@ -92,12 +93,14 @@ The code for this component was taken from this great [date picker component](ht
 
 ### Calendar only
 
-<Calendar
-  bind:value={date}
-  label="Select a date"
-  min={new Date(2022, 2, 5)}
-  max={new Date(2023, 4, 15)}
-/>
+<div style="margin-bottom:20px">
+  <Calendar
+    bind:value={date}
+    label="Select a date"
+    min={new Date(2022, 2, 5)}
+    max={new Date(2023, 4, 15)}
+  />
+</div>
 
 ```svelte
 <script>
@@ -106,12 +109,14 @@ The code for this component was taken from this great [date picker component](ht
   let date = new Date();
 </script>
 
-<Calendar
-  bind:value={date}
-  label="Select a date"
-  min={new Date(2022, 2, 5)}
-  max={new Date(2023, 4, 15)}
-/>
+<div style="margin-bottom:20px">
+  <Calendar
+    bind:value={date}
+    label="Select a date"
+    min={new Date(2022, 2, 5)}
+    max={new Date(2023, 4, 15)}
+  />
+</div>
 ```
 
 ---
@@ -127,30 +132,34 @@ You can set the following custom variables:
 * `--custom-date-input-btn-bg-color`
 * `--custom-date-input-btn-icon-color`
 
-<DateInput
-  bind:value={date}
-  bind:valid={dateIsValid}
-  placeholder="Enter a date"
-  --custom-date-picker-bg-color="var(--neutral-tone-200)"
-  --custom-date-picker-border-color="var(--primary-color)"
-  --custom-date-picker-text-color="var(--primary-color)"
-  --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
-  --custom-date-input-btn-bg-color="var(--primary-color)"
-  --custom-date-input-btn-icon-color="white"
-/>
+<div style="margin-bottom:20px">
+  <DateInput
+    bind:value={date}
+    bind:valid={dateIsValid}
+    placeholder="Enter a date"
+    --custom-date-picker-bg-color="var(--neutral-tone-200)"
+    --custom-date-picker-border-color="var(--primary-color)"
+    --custom-date-picker-text-color="var(--primary-color)"
+    --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
+    --custom-date-input-btn-bg-color="var(--primary-color)"
+    --custom-date-input-btn-icon-color="white"
+  />
+</div>
 
 ```svelte
-<DateInput
-  bind:value={date}
-  bind:valid={dateIsValid}
-  placeholder="Enter a date"
-  --custom-date-picker-bg-color="var(--neutral-tone-200)"
-  --custom-date-picker-border-color="var(--primary-color)"
-  --custom-date-picker-text-color="var(--primary-color)"
-  --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
-  --custom-date-input-btn-bg-color="var(--primary-color)"
-  --custom-date-input-btn-icon-color="white"
-/>
+<div style="margin-bottom:20px">
+  <DateInput
+    bind:value={date}
+    bind:valid={dateIsValid}
+    placeholder="Enter a date"
+    --custom-date-picker-bg-color="var(--neutral-tone-200)"
+    --custom-date-picker-border-color="var(--primary-color)"
+    --custom-date-picker-text-color="var(--primary-color)"
+    --custom-date-input-placeholder-text-color="var(--neutral-tone-400)"
+    --custom-date-input-btn-bg-color="var(--primary-color)"
+    --custom-date-input-btn-icon-color="white"
+  />
+</div>
 ```
 
 ---
@@ -205,6 +214,7 @@ You can set the following custom variables:
 <style>
   .date-wrapper {
     width: 250px;
+    margin-bottom: 20px;
   }
 
   .invalid-wrapper {

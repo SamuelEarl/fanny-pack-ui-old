@@ -11,7 +11,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
   import { browser } from "$app/environment";
   import Icon from "@iconify/svelte";
   import { Button } from "../Buttons";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let handleFileUploads;
   export let accept = "*";
@@ -217,7 +217,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     border-color: var(--neutral-tone-600);
     border-radius: var(--border-radius);
     text-align: center;
-    background-color: var(--bg-color-default);
+    background-color: var(--bg-color-element-default);
     color: var(--text-color-default);
     outline: none;
     transition: border 0.25s ease-in-out;
@@ -280,7 +280,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
           color: inherit;
 
           &.active {
-            background-color: var(--bg-color-default);
+            background-color: var(--bg-color-element-default);
           }
         }
 

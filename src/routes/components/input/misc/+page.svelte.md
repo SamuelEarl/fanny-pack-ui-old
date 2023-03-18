@@ -27,7 +27,7 @@
 
 ### Text Input
 
-<div style="margin-bottom: 15px;">
+<div style="margin-bottom:20px">
   <Input
     type="text"
     bind:value={textValue}
@@ -48,31 +48,35 @@
   let textValue = "Change this text";
 </script>
 
-<Input
-  type="text"
-  bind:value={textValue}
-  label="Enter some text"
-  padding="sm"
-  fontSize="md"
-  placeholder="Type right here"
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="text"
+    bind:value={textValue}
+    label="Enter some text"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type right here"
+    disabled={false}
+  />
+</div>
 ```
 
 ### Number Input
 
-<Input
-  type="number"
-  bind:value={numberValue}
-  label="Enter a number"
-  padding="sm"
-  fontSize="md"
-  placeholder="Type right here"
-  disabled={false}
-  min="0"
-  max="10"
-  step="0.5"
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="number"
+    bind:value={numberValue}
+    label="Enter a number"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type right here"
+    disabled={false}
+    min="0"
+    max="10"
+    step="0.5"
+  />
+</div>
 
 <p>Entered Number: {numberValue}</p>
 
@@ -83,31 +87,35 @@
   let number = 1;
 </script>
 
-<Input
-  type="number"
-  bind:value={numberValue}
-  label="Enter a number"
-  padding="sm"
-  fontSize="md"
-  placeholder="Type right here"
-  disabled={false}
-  min="0"
-  max="10"
-  step="0.5"
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="number"
+    bind:value={numberValue}
+    label="Enter a number"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type right here"
+    disabled={false}
+    min="0"
+    max="10"
+    step="0.5"
+  />
+</div>
 ```
 
 ### Email Input
 
-<Input
-  type="email"
-  bind:value={email}
-  label="Enter an email address"
-  padding="sm"
-  fontSize="md"
-  placeholder="Type email here"
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="email"
+    bind:value={email}
+    label="Enter an email address"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type email here"
+    disabled={false}
+  />
+</div>
 
 <p>Entered Email: {email}</p>
 
@@ -118,15 +126,17 @@
   let email = "";
 </script>
 
-<Input
-  type="email"
-  bind:value={email}
-  label="Enter an email address"
-  padding="sm"
-  fontSize="md"
-  placeholder="Type email here"
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="email"
+    bind:value={email}
+    label="Enter an email address"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type email here"
+    disabled={false}
+  />
+</div>
 ```
 
 ---
@@ -139,17 +149,20 @@ NOTE: In order to bind a `<datalist>` element to an `<input>` element, the `<dat
 
 <br>
 
-<Input
-  type="text"
-  bind:value={browser}
-  label="Select a browser or enter your own"
-  list="browsers"
-/>
-<datalist id="browsers">
-  {#each browsers as browser}
-    <option value={browser}>
-  {/each}
-</datalist>
+<div style="margin-bottom:20px">
+  <Input
+    type="text"
+    bind:value={browser}
+    label="Select a browser or enter your own"
+    list="browsers"
+    placeholder="Enter a browser name"
+  />
+  <datalist id="browsers">
+    {#each browsers as browser}
+      <option value={browser}>
+    {/each}
+  </datalist>
+</div>
 
 ```svelte
 <script lang="ts">
@@ -163,32 +176,38 @@ NOTE: In order to bind a `<datalist>` element to an `<input>` element, the `<dat
   let browser;
 </script>
 
-<Input
-  type="text"
-  bind:value={browser}
-  label="Select a browser or enter your own"
-  list="browsers"
-/>
-<datalist id="browsers">
-  {#each browsers as browser}
-    <option value={browser}>
-  {/each}
-</datalist>
+<div style="margin-bottom:20px">
+  <Input
+    type="text"
+    bind:value={browser}
+    label="Select a browser or enter your own"
+    list="browsers"
+    placeholder="Enter a browser name"
+  />
+  <datalist id="browsers">
+    {#each browsers as browser}
+      <option value={browser}>
+    {/each}
+  </datalist>
+</div>
 ```
 
 <br>
 
-<Input
-  type="number"
-  bind:value={number}
-  label="Select a number or enter your own"
-  list="numbers"
-/>
-<datalist id="numbers">
-  {#each numbers as number}
-    <option value={number}>
-  {/each}
-</datalist>
+<div style="margin-bottom:20px">
+  <Input
+    type="number"
+    bind:value={number}
+    label="Select a number or enter your own"
+    list="numbers"
+    placeholder="Enter a number"
+  />
+  <datalist id="numbers">
+    {#each numbers as number}
+      <option value={number}>
+    {/each}
+  </datalist>
+</div>
 
 ```svelte
 <script lang="ts">
@@ -196,17 +215,20 @@ NOTE: In order to bind a `<datalist>` element to an `<input>` element, the `<dat
   let number;
 </script>
 
-<Input
-  type="number"
-  bind:value={number}
-  label="Select a number or enter your own"
-  list="numbers"
-/>
-<datalist id="numbers">
-  {#each numbers as number}
-    <option value={number}>
-  {/each}
-</datalist>
+<div style="margin-bottom:20px">
+  <Input
+    type="number"
+    bind:value={number}
+    label="Select a number or enter your own"
+    list="numbers"
+    placeholder="Enter a number"
+  />
+  <datalist id="numbers">
+    {#each numbers as number}
+      <option value={number}>
+    {/each}
+  </datalist>
+</div>
 ```
 
 ---
@@ -216,36 +238,41 @@ The original intention for these custom styles was to set `--custom-input-bg-col
 
 
 You can set the following custom variables:
-* `--custom-input-border-color`
 * `--custom-input-bg-color`
+* `--custom-input-border-color`
 * `--custom-input-text-color`
 * `--custom-input-placeholder-text-color`
 
-<Input
-  type="text"
-  bind:value={textValue}
-  placeholder="Enter some text"
-  --custom-input-border-color="darkred"
-  --custom-input-bg-color="pink"
-  --custom-input-text-color="darkred"
-  --custom-input-placeholder-text-color="gray"
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="text"
+    bind:value={textValue}
+    placeholder="Enter something"
+    --custom-input-bg-color="pink"
+    --custom-input-border-color="darkred"
+    --custom-input-text-color="darkred"
+    --custom-input-placeholder-text-color="gray"
+  />
+</div>
 
 ```svelte
-<Input
-  type="text"
-  bind:value={textValue}
-  placeholder="Enter some text"
-  --custom-input-border-color="darkred"
-  --custom-input-bg-color="pink"
-  --custom-input-text-color="darkred"
-  --custom-input-placeholder-text-color="gray"
-/>
+<div style="margin-bottom:20px">
+  <Input
+    type="text"
+    bind:value={textValue}
+    placeholder="Enter something"
+    --custom-input-bg-color="pink"
+    --custom-input-border-color="darkred"
+    --custom-input-text-color="darkred"
+    --custom-input-placeholder-text-color="gray"
+  />
+</div>
 ```
 
 ---
 
 ## Props
+
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the input field. If no `label` prop is provided, then the label will not be displayed. |
@@ -262,8 +289,10 @@ You can set the following custom variables:
 | `step` (number input types only) | `string` | Any numeric string value | `"any"` (i.e. no stepping in implied, and any value is allowed) | See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#step |
 
 <br>
+<br>
 
 ## Event Forwarding
+
 | Event | Description |
 | ----- | ----------- |
 | `on:change` | This component forwards the `change` event, so you can call an event handler when a user changes the value in the input field and then the input field loses focus. |

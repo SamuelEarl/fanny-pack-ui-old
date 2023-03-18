@@ -95,8 +95,8 @@
 
 ## Interactive Example
 
-<div class="flex">
-  <div class="h-100 flex-1 flex justify-evenly items-center p-10 border border-solid border-black rounded-l">
+<div class="interactive-example">
+  <div class="light-bg">
     {#if showInteractiveButtons}
       <Button
         btnColor={selectedBtnColor}
@@ -116,7 +116,7 @@
     {/if}
   </div>
 
-  <div class="h-100 flex-1 flex justify-evenly items-center p-10 bg-black rounded-r">
+  <div class="dark-bg">
     {#if showInteractiveButtons}
       <Button
         btnColor={selectedBtnColor}
@@ -252,10 +252,35 @@ There are situations where you might want to tweak (or even completely overhaul)
 <br><br>
 
 ## Style Notes
-Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `theme.cjs` file. These are the class names that you need to look at:
+Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `theme.css` file. These are the class names that you need to look at:
 
 ```
 "text-color-for-bg-primary"
 "text-color-for-bg-secondary"
 "text-color-for-bg-tertiary"
 ```
+
+<style>
+  .interactive-example {
+    display: flex;
+
+    & div {
+      flex: 1;
+      min-height: 150px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 20px;
+    }
+
+    & .light-bg {
+      background-color: var(--neutral-tone-200);
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
+    }
+
+    & .dark-bg {
+      background-color: var(--neutral-tone-black);
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+    }
+  }
+</style>

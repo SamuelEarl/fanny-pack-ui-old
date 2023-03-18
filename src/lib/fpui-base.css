@@ -89,7 +89,7 @@ pre {
   padding: var(--space-sm);
   margin-bottom: var(--space-md);
   border-radius: var(--border-radius);
-  background-color: var(--bg-color-default) !important;
+  background-color: var(--bg-color-element-default) !important;
 }
 
 /* <code> or single backticks. See the comment for the `pre` styles above. */
@@ -97,7 +97,7 @@ code {
   font-family: var(--monospace);
   padding: 0 3px;
   border-radius: var(--border-radius);
-  background-color: var(--bg-color-default) !important;
+  background-color: var(--bg-color-element-default) !important;
 }
 
 /* --------------------------------------------------------------------- */

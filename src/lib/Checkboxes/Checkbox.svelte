@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let checked;
   export let label;

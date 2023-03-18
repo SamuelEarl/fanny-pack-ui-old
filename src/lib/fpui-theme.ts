@@ -22,6 +22,9 @@ export const theme = {
   dropZoneSelectFilesBtnIcon: "lucide:mouse-pointer-2",
   dropZoneDragAndDropIcon: "pixelarticons:drag-and-drop",
   dropZoneUploadFilesBtnIcon: "mdi:cloud-upload",
+  // INPUTS
+  inputDefaultPadding: "sm",
+  inputDefaultFontSize: "md",
   // LABELS
   labelTooltipIcon: "entypo:info-with-circle",
   // TABS

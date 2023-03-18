@@ -16,17 +16,19 @@
 
 ## Example Usage
 
-<CurrencyInput
-  bind:value={amount}
-  valAlign="right"
-  locale={locale}
-  currency={currency}
-  label="Enter a dollar amount"
-  labelAlign="right"
-  size="md"
-  placeholder="Type right here"
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <CurrencyInput
+    bind:value={amount}
+    valAlign="right"
+    locale={locale}
+    currency={currency}
+    label="Enter a dollar amount"
+    labelAlign="right"
+    size="md"
+    placeholder="Type right here"
+    disabled={false}
+  />
+</div>
 
 ```svelte
 <script>
@@ -35,17 +37,19 @@
   let amount = 0;
 </script>
 
-<CurrencyInput
-  bind:value={amount}
-  valAlign="right"
-  locale="en-US"
-  currency="USD"
-  label="Enter a dollar amount"
-  labelAlign="right"
-  size="md"
-  placeholder="Type right here"
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <CurrencyInput
+    bind:value={amount}
+    valAlign="right"
+    locale={locale}
+    currency={currency}
+    label="Enter a dollar amount"
+    labelAlign="right"
+    size="md"
+    placeholder="Type right here"
+    disabled={false}
+  />
+</div>
 ```
 
 <hr>
@@ -99,29 +103,33 @@ The original intention for these custom styles was to set `--custom-input-bg-col
 
 
 You can set the following custom variables:
-* `--custom-input-border-color`
 * `--custom-input-bg-color`
+* `--custom-input-border-color`
 * `--custom-input-text-color`
 * `--custom-input-placeholder-text-color`
 
-<CurrencyInput
-  bind:value={amount}
-  placeholder="Enter an amount"
-  --custom-input-border-color="darkred"
-  --custom-input-bg-color="pink"
-  --custom-input-text-color="darkred"
-  --custom-input-placeholder-text-color="gray"
-/>
+<div style="margin:20px 0">
+  <CurrencyInput
+    bind:value={amount}
+    placeholder="Enter an amount"
+    --custom-input-bg-color="pink"
+    --custom-input-border-color="darkred"
+    --custom-input-text-color="darkred"
+    --custom-input-placeholder-text-color="var(--neutral-tone-500)"
+  />
+</div>
 
 ```svelte
-<CurrencyInput
-  bind:value={amount}
-  placeholder="Enter an amount"
-  --custom-input-border-color="darkred"
-  --custom-input-bg-color="pink"
-  --custom-input-text-color="darkred"
-  --custom-input-placeholder-text-color="gray"
-/>
+<div style="margin:20px 0">
+  <CurrencyInput
+    bind:value={amount}
+    placeholder="Enter an amount"
+    --custom-input-bg-color="pink"
+    --custom-input-border-color="darkred"
+    --custom-input-text-color="darkred"
+    --custom-input-placeholder-text-color="var(--neutral-tone-500)"
+  />
+</div>
 ```
 
 ---
@@ -135,10 +143,13 @@ You can set the following custom variables:
 | `valAlign` | `string` | `left`, `right` | `right` | This prop will align the value in the input field either to left or the right side of the input field. |
 | `locale` | `string` | Any locale identifier string. See [Intl.Locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) for more details. | `en-US` | This prop is the locale identifier string that will format the currency value to the correct format. |
 | `currency` | `string` | Any acceptable currency string. See [Intl.NumberFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details. | `USD` | This prop is the currency to use in currency formatting. |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the input field to give the appearance of a larger or smaller input field. The text size will also increase or decrease based on this `size` prop. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the text size for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
 | `placeholder` (optional) | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
 
+<br>
+<br>
 <br>
 
 ## Event Forwarding

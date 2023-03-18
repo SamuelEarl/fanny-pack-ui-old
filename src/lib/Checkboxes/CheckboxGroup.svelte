@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
 
   // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
   export let componentId = "";

@@ -10,14 +10,17 @@
   import { tick, createEventDispatcher } from "svelte";
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
+  import { paddingSizes, fontSizes } from "../styles";
+  import { theme } from "/src/theme";
 
   export let value = 0;
   export let valAlign = "right";
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
+  export let padding = theme.inputDefaultPadding;
+  export let fontSize = theme.inputDefaultFontSize;
   export let labelAlign = "right";
-  export let size = "md";
   export let placeholder = "";
   export let disabled = false;
 
@@ -26,6 +29,16 @@
   $: formattedValue = formatValue(value);
   let showNumberInput = false;
   let numberInput;
+
+  let paddingStyle = paddingSizes[padding];
+  if (paddingStyle === undefined) {
+    paddingStyle = paddingSizes["sm"];
+  }
+
+  let fontSizeStyle = fontSizes[fontSize];
+  if (fontSizeStyle === undefined) {
+    fontSizeStyle = fontSizes["md"];
+  }
 
   async function handleTextInputFocus() {
     showNumberInput = true;
@@ -79,7 +92,8 @@
   <input
     type="number"
     id={`fpui-input-${componentId}`}
-    class="{`fpui-currency-input ${size} ${valAlign}`}"
+    class={`fpui-currency-input ${valAlign}`}
+    style={`${paddingStyle} ${fontSizeStyle}`}
     step="0.01"
     min="0.00"
     placeholder={placeholder}
@@ -95,7 +109,8 @@
   <input
     type="text"
     id={`fpui-input-${componentId}`}
-    class="{`fpui-currency-input ${size} ${valAlign}`}"
+    class={`fpui-currency-input ${valAlign}`}
+    style={`${paddingStyle} ${fontSizeStyle}`}
     placeholder={placeholder}
     disabled={disabled}
     bind:value={formattedValue}
@@ -121,10 +136,10 @@
     width: 100%;
     outline: none;
     border: 1px solid;
-    border-color: var(--custom-input-border-color, var(--fpui-input-border-color, #c7c7c7));
+    border-color: var(--custom-input-border-color, var(--border-color-default));
     border-radius: var(--border-radius);
-    background-color: var(--custom-input-bg-color, var(--fpui-input-bg-color, white));
-    color: var(--custom-input-text-color, var(--fpui-input-text-color, black));
+    background-color: var(--custom-input-bg-color, var(--bg-color-element-default));
+    color: var(--custom-input-text-color, var(--text-color-default));
 
     &.left {
       text-align: left;
@@ -133,25 +148,12 @@
       text-align: right;
     }
 
-    &.sm {
-      padding: var(--fpui-input-padding-sm, 5px);
-      font-size: var(--font-size-sm, 12px);
-    }
-    &.md {
-      padding: var(--fpui-input-padding-md, 10px);
-      font-size: var(--font-size-md, 16px);
-    }
-    &.lg {
-      padding: var(--fpui-input-padding-lg, 15px);
-      font-size: var(--font-size-lg, 20px);
-    }
-
     &::placeholder {
-      color: var(--custom-input-placeholder-text-color, var(--fpui-input-placeholder-text-color, black));
+      color: var(--custom-input-placeholder-text-color, var(--placeholder-color-default));
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--custom-input-border-color, var(--fpui-input-border-color, #c7c7c7));
+      box-shadow: 0 0 0 1px var(--custom-input-border-color, var(--border-color-default));
     }
 
     &:disabled {

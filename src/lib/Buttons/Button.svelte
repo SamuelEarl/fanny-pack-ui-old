@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
   import { 
     bgColors, 
     borderColors,
@@ -181,7 +181,7 @@
       }
 
       &.non-transparent:disabled {
-        background-color: var(--bg-color-disabled) !important;
+        background-color: var(--bg-color-element-disabled) !important;
         border-color: var(--border-color-disabled) !important;
         color: var(--text-color-disabled) !important;
       }

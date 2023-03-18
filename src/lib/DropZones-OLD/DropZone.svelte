@@ -13,7 +13,7 @@
     onDocumentDragOver,
     TOO_MANY_FILES_REJECTION
   } from "./utils";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
 
   //props
   /**
@@ -351,7 +351,7 @@
     border: 2px dashed;
     border-color: var(--neutral-tone-600);
     border-radius: var(--border-radius);
-    background-color: var(--bg-color-default);
+    background-color: var(--bg-color-element-default);
     color: var(--text-color-default);
     outline: none;
     transition: border 0.25s ease-in-out;

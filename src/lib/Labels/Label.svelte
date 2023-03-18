@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { Tooltip } from "../Tooltips";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
 
   export let label;
   export let forVal;

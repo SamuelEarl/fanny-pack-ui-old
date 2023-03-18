@@ -5,7 +5,7 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
   import { paddingSizes, fontSizes } from "../styles";
 
   export let border = true;

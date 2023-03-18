@@ -147,8 +147,12 @@ These variables are organized in the same way that Tailwind organizes their util
 
 /* BACKGROUNDS */
 :root {
-  --bg-color-default: var(--neutral-tone-200);
-  --bg-color-disabled: var(--neutral-tone-400);
+  /* Page background colors. */
+  --bg-color-default: var(--neutral-tone-white);
+  --bg-color-default-dark: var(--neutral-tone-700);
+  /* Element background colors. */
+  --bg-color-element-default: var(--neutral-tone-200);
+  --bg-color-element-disabled: var(--neutral-tone-400);
 }
 
 
@@ -259,17 +263,9 @@ These variables are organized in the same way that Tailwind organizes their util
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
-/* Grids */
-:root {
-  --fpui-grid-max-content-width: 1140px;
-}
 
 /* Inputs (currency, text, number, email) */
 :root {
-  --fpui-input-border-color: var(--border-color);
-  --fpui-input-bg-color: var(--bg-color);
-  --fpui-input-text-color: var(--text-color);
-  --fpui-input-placeholder-text-color: var(--neutral-medium);
   --fpui-input-padding-sm: var(--padding-sm);
   --fpui-input-padding-md: var(--padding-md);
   --fpui-input-padding-lg: var(--padding-lg);

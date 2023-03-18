@@ -12,7 +12,7 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fpui-utils";
-  import { theme } from "/src/lib/fpui-theme";
+  import { theme } from "/src/theme";
   import { fontSizes, paddingSizes } from "../styles";
 
   export let label = "";
@@ -251,11 +251,11 @@
       overflow: hidden;
 
       &:hover {
-        box-shadow: var(--box-shadow-default);
+        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--border-color-default));
       }
 
       &.showCalendar {
-        box-shadow: var(--box-shadow-default);
+        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--border-color-default));
       }
 
       &.disabled {
@@ -269,7 +269,7 @@
         /* This `border-radius` style along with the `overflow: hidden` style in the `.fpui-date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--border-radius) - 10px) 0 0 calc(var(--border-radius) - 10px);
         outline: none;
-        background-color: var(--custom-date-picker-bg-color, var(--bg-color-default));
+        background-color: var(--custom-date-picker-bg-color, var(--bg-color-element-default));
         color: var(--custom-date-picker-text-color, inherit);
 
         &::placeholder {
