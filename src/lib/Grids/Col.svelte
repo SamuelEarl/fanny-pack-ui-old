@@ -12,8 +12,8 @@
 
   let {
     equalColWidths,
-    colPaddingV,
-    colPaddingH, 
+    colPaddingY,
+    colPaddingX, 
   } = getContext(GRID_KEY);
 
   const breakpointNames = ["xs", "sm", "md", "lg", "xl", "xxl"];
@@ -34,7 +34,7 @@
 <div 
   class={`fpui-col ${columnClasses}`}
   class:fpui-equal-col-widths={equalColWidths}
-  style={`padding: ${colPaddingV}px ${colPaddingH}px`}
+  style={`padding: ${colPaddingY}px ${colPaddingX}px`}
 >
   <slot />
 </div>

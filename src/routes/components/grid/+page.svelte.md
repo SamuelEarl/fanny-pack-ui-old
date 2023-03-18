@@ -5,8 +5,9 @@
 
 
 <script lang="ts">
-  import { Grid, Row, Col } from "/src/lib";
+  import { Grid, Row, Col, TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
 </script>
+
 
 # Grid (layout)
 
@@ -23,11 +24,12 @@ Remember that when working with CSS, the main goal is maintainability. So implem
 ## Example Usage
 
 <Grid
+  colPaddingY={0}
+  colPaddingX={20}
+  rowMarginsY={0}
+  rowMarginsX={-15}
   equalColWidths
-  colPaddingV={0}
-  colPaddingH={20}
-  rowMarginsV={0}
-  rowMarginsH={-20}
+  contain
 >
   <Row>
     <Col><div class="cell red">Auto Column</div></Col>
@@ -37,17 +39,20 @@ Remember that when working with CSS, the main goal is maintainability. So implem
   </Row>
 </Grid>
 
+<br>
+
 ```svelte
 <script lang="ts">
   import { Grid, Row, Col } from "@fanny-pack-ui/svelte-kit";
 </script>
 
 <Grid
+  colPaddingY={0}
+  colPaddingX={20}
+  rowMarginsY={0}
+  rowMarginsX={-20}
   equalColWidths
-  colPaddingV={0}
-  colPaddingH={20}
-  rowMarginsV={0}
-  rowMarginsH={-20}
+  contain
 >
   <Row>
     <Col><div class="cell red">Auto Column</div></Col>
@@ -91,32 +96,34 @@ There are three components: `<Grid>`, `<Row>`, `<Col>`. By default the column wi
 ## Responsive Grid
 
 <Grid
-  colPaddingH={10}
-  rowMarginsH={-10}
+  colPaddingX={10}
+  rowMarginsX={-10}
 >
   <Row>
-    <Col xs={2} md={4} xl={2}><div class="cell red">1</div></Col>
-    <Col xs={4} md={2} xl={6}><div class="cell yellow">2</div></Col>
-    <Col xs={4} md={4} xl={2}><div class="cell blue">3</div></Col>
-    <Col xs={2} md={2} xl={2}><div class="cell green">4</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell red">1</div></Col>
+    <Col xs={12} md={6} xl={6}><div class="cell yellow">2</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell blue">3</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell green">4</div></Col>
   </Row>
 </Grid>
 
+<br>
+
 ```svelte
 <Grid
-  colPaddingH={10}
-  rowMarginsH={-10}
+  colPaddingX={10}
+  rowMarginsX={-10}
 >
   <Row>
-    <Col xs={2} md={4} xl={2}><div class="cell red">1</div></Col>
-    <Col xs={4} md={2} xl={6}><div class="cell yellow">2</div></Col>
-    <Col xs={4} md={4} xl={2}><div class="cell blue">3</div></Col>
-    <Col xs={2} md={2} xl={2}><div class="cell green">4</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell red">1</div></Col>
+    <Col xs={12} md={6} xl={6}><div class="cell yellow">2</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell blue">3</div></Col>
+    <Col xs={12} md={6} xl={2}><div class="cell green">4</div></Col>
   </Row>
 </Grid>
 ```
 
-Within a single row, the column values for each breakpoint should add up to 12. For example, all of the `xs` values add up to 12. The same is true for all of the `md` values and the `xl` values.
+This `<Grid>` component uses a 12-column layout. That means that for each breakpoint any columns that exceed 12 will wrap to the next row. For example, each of the `xs` values equals `12`, so each `<Col>` will take up the entire row on `xs` screens. Each of the `md` values equals `6`, so each `<Col>` will take up half a row on `md` screens. You can probably do the math for how much space each `<Col>` will take up on `xl` screens and above.
 
 <br>
 
@@ -157,11 +164,11 @@ The Fanny Pack `<Grid>` component uses a 12-column layout. A 12-column layout is
 
 You can put multiple rows inside a single `<Grid>` component and the `<Col>` components can have different breakpoint values.
 
-<div class="grid-container">
+<div class="grid-wrapper">
   <Grid
+    colPaddingX={20}
+    rowMarginsY={20}
     equalColWidths
-    colPaddingH={20}
-    rowMarginsV={20}
   >
     <Row>
       <Col><div class="cell red">Auto Column</div></Col>
@@ -179,12 +186,14 @@ You can put multiple rows inside a single `<Grid>` component and the `<Col>` com
   </Grid>
 </div>
 
+<br>
+
 ```svelte
-<div class="grid-container">
+<div class="grid-wrapper">
   <Grid
+    colPaddingX={20}
+    rowMarginsY={20}
     equalColWidths
-    colPaddingH={20}
-    rowMarginsV={20}
   >
     <Row>
       <Col><div class="cell red">Auto Column</div></Col>
@@ -194,17 +203,17 @@ You can put multiple rows inside a single `<Grid>` component and the `<Col>` com
     </Row>
     <hr>
     <Row>
-      <Col xs={1} md={4} xxl={8}><div class="cell red">1</div></Col>
-      <Col xs={1} md={2} xxl={2}><div class="cell yellow">2</div></Col>
-      <Col xs={1} md={1} xxl={1}><div class="cell blue">3</div></Col>
-      <Col xs={1} md={1} xxl={1}><div class="cell green">4</div></Col>
+      <Col xs={2} md={4} xl={2}><div class="cell red">1</div></Col>
+      <Col xs={4} md={2} xl={6}><div class="cell yellow">2</div></Col>
+      <Col xs={4} md={4} xl={2}><div class="cell blue">3</div></Col>
+      <Col xs={2} md={2} xl={2}><div class="cell green">4</div></Col>
     </Row>
   </Grid>
 </div>
 
 <style>
-  .grid-container {
-    border: 1px solid gray;
+  .grid-wrapper {
+    border: 1px solid var(--border-color-default);
   }
 
   ...
@@ -219,7 +228,7 @@ Notice that you can even put `<hr>` element in between rows to provide some sepa
 
 You can move columns up to 11 columns to the right by passing empty `<Col>` components along with breakpoint props that take up the amount of space you want to offset. Then you can simply pass `<Col>` components that have content.
 
-<div class="grid-container">
+<div class="grid-wrapper">
   <Grid>
     <Row>
       <Col xs={3}></Col>
@@ -248,8 +257,10 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
   </Grid>
 </div>
 
+<br>
+
 ```svelte
-<div class="grid-container">
+<div class="grid-wrapper">
   <Grid>
     <Row>
       <Col xs={3}></Col>
@@ -279,41 +290,54 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
 </div>
 ```
 
-<br>
 <hr>
 
 ## Props
 
-### `<Grid>` component props
-`rowMarginsV`: Stands for "row margins vertical".
+<TabsContainer>
+  <TabBar>
+    <Tab>Grid</Tab>
+    <Tab>Col</Tab>
+  </TabBar>
 
-`rowMarginsH`: Stands for "row margins horizontal".
+  <TabPanel>
+    <h2>Grid</h2>
 
-`equalColWidths`: If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component. NOTE: The column breakpoint values will override the `equalColWidths` prop if both are set for a row.
+    <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
+    <div></div>
 
-`colPaddingV`: Stands for "column padding vertical". You probably won't find much use for this property, but it is here in case you need it.
+    | Prop name | Type | Possible values | Default value | Description |
+    | --------- | ---- | --------------- | ------------- | ----------- |
+    | `rowMarginsY` | `number` | Any number | `0` | This stands for "row margins y-axis". This will provide top and bottom margins for each `<Row>` in a `<Grid>`. |
+    | `rowMarginsX` | `number` | Any number | `0` | This stands for "row margins x-axis". This will provide left and right margins for each `<Row>` in a `<Grid>`. |
+    | `colPaddingY` | `number` | Any number | `0` | This stands for "column padding y-axis". This will provide top and bottom padding within the columns of each row. So this will essentially provide top and bottom padding for each cell a `<Grid>`.
+    | `colPaddingX` | `number` | Any number | `0` | This stands for "column padding x-axis". This will provide left and right padding within the columns of each row. So this will essentially provide left and right padding for each cell a `<Grid>`.
+    | `equalColWidths` | `boolean` | `true`, `false` | `false` | If you do not set any column breakpoint values, then the widths of each column will be auto calculated based on the content in each column. However, if you want the column widths to be equal, then you can pass the `equalColWidths` prop to the `<Grid>` component.<br><br>NOTE: The column breakpoint values will override the `equalColWidths` prop if both are set on a row. |
+    | `contain` | `boolean` | `true`, `false` | `false` | The `<Grid>` component references the `container` class from the `layout.css` utility classes file. The `container` class sets the `max-width` of an element to `--width-lg` and it will center the content and provide a 15px padding on the left and right sides. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the `--width-lg` value. |
+  </TabPanel>
 
-`colPaddingH`: Stands for "column padding horizontal".
+  <TabPanel>
+    <h2>Col</h2>
 
-`contain`: The `<Grid>` component references the `--fpui-grid-max-content-width` CSS variable. So if you pass the `contain` prop to a `<Grid>` component, then the content within that `<Grid>` will not spread any wider across the screen than the value that you have placed in `--fpui-grid-max-content-width`.
+    <div></div>
 
-<br>
-
-### `<Col>` component props 
-
-`xs`, `sm`, `md`, `lg`, `xl`, `xxl`: Specify the width of each `<Col>` component for the `xs`, `sm`, `md`, `lg`, `xl`, and/or `xxl` breakpoints. Values can be from `1` to `12`.
+    | Prop name | Type | Possible values | Default value | Description |
+    | --------- | ---- | --------------- | ------------- | ----------- |
+    | `xs`, `sm`, `md`, `lg`, `xl`, `xxl` | `number` | Any number | `0` | Each of these props represents a breakpoint. You can specify the width of each `<Col>` component for the `xs`, `sm`, `md`, `lg`, `xl`, and/or `xxl` breakpoints. Values can be from `1` to `12`.<br><br>This `<Grid>` component uses a 12-column layout. That means that for each breakpoint any columns that exceed 12 will wrap to the next row. See the "Responsive Grid" section above for an explanation and an example of how this works. |
+  </TabPanel>
+</TabsContainer>
 
 
 <style>
-  .grid-container {
-    border: 1px solid var(--docs-neutral-medium);
+  .grid-wrapper {
+    border: 1px solid var(--border-color-default);
   }
 
   .cell {
     height: 100%;
     padding: 10px;
-    border: 1px solid var(--docs-neutral-lightest);
-    color: var(--docs-neutral-lightest);
+    border: 1px solid var(--neutral-tone-white);
+    color: var(--neutral-tone-white);
 
     &.red {
       background-color: var(--dark-red);
@@ -321,7 +345,7 @@ You can move columns up to 11 columns to the right by passing empty `<Col>` comp
 
     &.yellow {
       background-color: var(--yellow);
-      color: var(--docs-neutral-darkest);
+      color: var(--text-color-default);
     }
 
     &.blue {

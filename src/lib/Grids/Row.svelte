@@ -3,14 +3,14 @@
   import { GRID_KEY } from "./grid-utils";
 
   let {
-    rowMarginsV,
-    rowMarginsH,
+    rowMarginsY,
+    rowMarginsX,
   } = getContext(GRID_KEY);
 </script>
 
 <div
   class="fpui-row"
-  style={`margin: ${rowMarginsV}px ${rowMarginsH}px`}
+  style={`margin: ${rowMarginsY}px ${rowMarginsX}px`}
 >
   <slot />
 </div>

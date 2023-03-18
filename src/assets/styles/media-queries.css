@@ -36,7 +36,7 @@ small  : 640px - 767px | Small devices (portrait tablets and large phones, 601px
 medium : 768px - 1023px | Medium devices (landscape tablets, 768px and larger)
 large  : 1024px - 1279px | Large devices (laptops/desktops, 993px and larger)
 xlarge: 1280px - 1535px | Extra large devices (large laptops and desktops, 1200px and larger)
-2xlarge: 1536px and larger
+xxlarge: 1536px and larger
 
 -------------------------------------------------------------------
 For reference, here are the viewport sizes of some common devices:
@@ -75,4 +75,4 @@ NOTES:
 @custom-media --xl-min (min-width: 1280px);
 @custom-media --xl-max (max-width: 1535px);
 
-@custom-media --2xl-up (min-width: 1536px);
+@custom-media --xxl-up (min-width: 1536px);
