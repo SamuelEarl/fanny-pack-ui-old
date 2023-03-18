@@ -264,25 +264,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
 
-/* Modals */
-:root {
-  --fpui-modal-header-footer-border-color: var(--border-color);
-  --fpui-modal-header-footer-bg-color: var(--neutral-lightest);
-  --fpui-modal-header-footer-text-color: var(--text-color);
-  --fpui-modal-border-radius: var(--border-radius);
-  --fpui-modal-body-bg-color: var(--neutral-lightest);
-}
-
-/* Radio Buttons */
-:root {
-  --fpui-radio-unchecked-border-color: var(--border-color);
-  --fpui-radio-unchecked-bg-color: var(--bg-color);
-  --fpui-radio-checked-bg-color: var(--primary-color);
-  --fpui-radio-margin-bottom: 20px;
-  /* The `--fpui-radio-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable could come in handy. */
-  --fpui-radio-vertical-alignment: -2px;
-}
-
 /* Select Boxes (single, multi) */
 :root {
   --fpui-select-border-color: var(--border-color);

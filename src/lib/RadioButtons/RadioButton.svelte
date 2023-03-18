@@ -1,11 +1,19 @@
 <script lang="ts">
+  import { theme } from "/src/theme";
+
   export let group;
   export let value;
   export let disabled = false;
+  export let radioMarginBottom = theme.radioMarginBottom;
+  export let radioVerticalAlignment = theme.radioVerticalAlignment;
 </script>
 
 
-<label class="fpui-radio-label-wrapper" class:disabled>
+<label 
+  class="fpui-radio-label-wrapper" 
+  class:disabled
+  style={`margin-bottom: ${radioMarginBottom}`}
+>
   <input
     type="radio" 
     class="fpui-radio-input" 
@@ -15,7 +23,10 @@
     on:change
     on:input
   > {value}
-  <span class="fpui-radio-checkmark"></span>
+  <span
+    class="fpui-radio-checkmark"
+    style={`top: ${radioVerticalAlignment}`}
+  ></span>
 </label>
 
 
@@ -27,7 +38,6 @@
     display: inline-block;
     position: relative;
     padding-left: 35px;
-    margin-bottom: var(--fpui-radio-margin-bottom, 20px);
     cursor: pointer;
     font-size: 1rem;
     /* -webkit-user-select: none; */
@@ -37,12 +47,12 @@
     
     /* On mouse-over of an unselected radio button, add a thicker outline to the radio button. */
     &:hover .fpui-radio-input ~ .fpui-radio-checkmark {
-      box-shadow: 0 0 0 1px var(--fpui-radio-unchecked-border-color, #c7c7c7);
+      box-shadow: var(--box-shadow-default);
     }
 
     /* On mouse-over of a selected radio button, add a thicker outline to the radio button that matches the background color. */
     &:hover .fpui-radio-input:checked ~ .fpui-radio-checkmark {
-      box-shadow: 0 0 0 1px var(--fpui-radio-checked-bg-color, gray);
+      box-shadow: var(--box-shadow-primary);
     }
   
     /* Hide the browser's default radio button. */
@@ -55,8 +65,8 @@
 
       /* When the radio button is selected, add a colored background. */
       &:checked ~ .fpui-radio-checkmark {
-        border-color: var(--fpui-radio-checked-bg-color, gray);
-        background-color: var(--fpui-radio-checked-bg-color, gray);
+        border-color: var(--primary-color);
+        background-color: var(--primary-color);
       }
 
       /* Show the checkmark when checked. */
@@ -68,13 +78,12 @@
     /* Create a custom radio button. */
     & .fpui-radio-checkmark {
       position: absolute;
-      top: var(--fpui-radio-vertical-alignment, -2px);
       left: 0;
       height: 25px;
       width: 25px;
-      border: 1px solid var(--fpui-radio-unchecked-border-color, #c7c7c7);
+      border: var(--border-default);
       border-radius: 50%;
-      background-color: var(--fpui-radio-unchecked-bg-color, white);
+      background-color: var(--bg-color-element-default);
 
       /* Create the checkmark/indicator. */
       &:after {
@@ -84,10 +93,10 @@
         display: none;
 
         /* Style the checkmark/indicator. */
-        top: 5px;
-        left: 5px;
-        width: 13px;
-        height: 13px;
+        top: 7px;
+        left: 7px;
+        width: 9px;
+        height: 9px;
         border-radius: 50%;
         background: white;
       }
