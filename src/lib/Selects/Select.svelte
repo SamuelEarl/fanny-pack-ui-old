@@ -344,7 +344,7 @@
       border-color: var(--border-color-default);
       border-radius: 0 0 var(--border-radius) var(--border-radius);
       box-shadow: var(--box-shadow-depth);
-      background-color: var(--fpui-select-options-list-bg-color, white);
+      background-color: var(--white);
       color: var(--text-color-default);
       z-index: 100;
 

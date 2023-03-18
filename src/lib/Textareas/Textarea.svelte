@@ -1,6 +1,8 @@
 <script lang="ts">
   import { createId } from "../fpui-utils";
   import { Label } from "../Labels";
+  import { paddingSizes, fontSizes } from "../styles";
+  import { theme } from "/src/theme";
 
   export let label = "";
   export let id = "";
@@ -8,8 +10,20 @@
   export let size = "md";
   export let placeholder = "";
   export let disabled = false;
+  export let padding = theme.textareaDefaultPadding;
+  export let fontSize = theme.textareaDefaultFontSize;
 
   let componentId = createId();
+
+  let paddingStyle = paddingSizes[padding];
+  if (paddingStyle === undefined) {
+    paddingStyle = paddingSizes["sm"];
+  }
+
+  let fontSizeStyle = fontSizes[fontSize];
+  if (fontSizeStyle === undefined) {
+    fontSizeStyle = fontSizes["md"];
+  }
 </script>
 
 
@@ -17,7 +31,8 @@
 <textarea
   bind:value={value}
   {id}
-  class="{`${size}`}"
+  class={`${size}`}
+  style={`${paddingStyle} ${fontSizeStyle}`}
   on:input
   on:keyup
   on:blur
@@ -30,31 +45,19 @@
   textarea {
     width: 100%;
     font-size: 0.75rem;
-    border-color: var(--custom-textarea-border-color, var(--fpui-textarea-border-color, gray));
+    border: var(--border-default);
+    border-color: var(--custom-textarea-border-color, var(--border-color-default));
     border-radius: var(--border-radius, 3px);
-    background-color: var(--custom-textarea-bg-color, var(--fpui-textarea-bg-color, white));
-    color: var(--custom-textarea-text-color, var(--fpui-textarea-text-color, black));
+    background-color: var(--custom-textarea-bg-color, var(--bg-color-element-default));
+    color: var(--custom-textarea-text-color, var(--text-color-default));
     outline: none;
 
-    &.sm {
-      padding: var(--fpui-textarea-padding-sm, 5px);
-      font-size: var(--font-size-sm, 12px);
-    }
-    &.md {
-      padding: var(--fpui-textarea-padding-md, 10px);
-      font-size: var(--font-size-md, 16px);
-    }
-    &.lg {
-      padding: var(--fpui-textarea-padding-lg, 15px);
-      font-size: var(--font-size-lg, 20px);
-    }
-
     &::placeholder {
-      color: var(--custom-textarea-placeholder-text-color, var(--fpui-textarea-placeholder-text-color, lightgray));
+      color: var(--custom-textarea-placeholder-text-color, var(--placeholder-color-default));
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--custom-textarea-border-color, var(--fpui-textarea-border-color, gray));
+      box-shadow: 0 0 0 1px var(--custom-textarea-border-color, var(--border-color-default));
     }
 
     &:disabled {

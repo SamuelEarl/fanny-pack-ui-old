@@ -91,23 +91,10 @@
 :root {
   --primary-color: var(--dark-purple);
   --text-color-for-primary-bg: var(--white);
-  --secondary-color: var(--fpn-210);
+  --secondary-color: var(--neutral-800);
   --text-color-for-secondary-bg: var(--white);
   --tertiary-color: var(--white);
-  --text-color-for-tertiary-bg: var(--fpn-210);
-  /* Neutral Tones */
-  /* --neutral-tone-white: var(--white);
-  --neutral-tone-50: var(--neutral-50);
-  --neutral-tone-100: var(--neutral-100);
-  --neutral-tone-200: var(--neutral-200);
-  --neutral-tone-300: var(--neutral-300);
-  --neutral-tone-400: var(--neutral-400);
-  --neutral-tone-500: var(--neutral-500);
-  --neutral-tone-600: var(--neutral-600);
-  --neutral-tone-700: var(--neutral-700);
-  --neutral-tone-800: var(--neutral-800);
-  --neutral-tone-900: var(--neutral-900);
-  --neutral-tone-black: var(--black); */
+  --text-color-for-tertiary-bg: var(--neutral-800);
   /* --neutral-darkest: var(--fpn-260);
   --neutral-very-dark: var(--fpn-210);
   --neutral-dark: var(--fpn-140);
@@ -278,52 +265,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
-
-/* Select Boxes (single, multi) */
-:root {
-  --fpui-select-btn-padding-sm: var(--padding-sm);
-  --fpui-select-btn-padding-md: var(--padding-md);
-  --fpui-select-btn-padding-lg: var(--padding-lg);
-  /* Styles for the options list (dropdown) of the select box. */
-  --fpui-select-options-list-bg-color: var(--neutral-lightest);
-  --fpui-select-option-padding-sm: var(--padding-sm);
-  --fpui-select-option-padding-md: var(--padding-md);
-  --fpui-select-option-padding-lg: var(--padding-lg);
-  /* Styles for MultiSelect components. */
-  --fpui-select-multi-selected-values-btn-bg-color: var(--primary-color);
-  --fpui-select-multi-selected-values-btn-text-color: var(--fpui-btn-primary-text-color);
-}
-
-/* Tabs */
-:root {
-  /* Fill tab styles */
-  --fpui-tabs-tab-bar-fill-border-color: var(--border-color);
-  --fpui-tabs-tab-bar-fill-bg-color: var(--bg-color);
-  --fpui-tabs-tab-bar-fill-text-color: var(--text-color);
-  /* NOTE: For "fill" tab styles, both the hover background-color and the active tab's background-color inherit the --border-color value.
-  That way the hovered and active tabs will blend with the tab bar's border. */
-  --fpui-tabs-tab-fill-hover-bg-color: var(--border-color);
-  --fpui-tabs-tab-fill-active-bg-color: var(--border-color);
-  --fpui-tabs-tab-fill-active-text-color: var(--text-color);
-
-  /* Line tab styles */
-  --fpui-tabs-tab-bar-line-border-color: var(--border-color);
-  --fpui-tabs-tab-bar-line-text-color: var(--text-color);
-  --fpui-tabs-tab-line-hover-border-color: var(--border-color);
-  --fpui-tabs-tab-line-active-border-color: var(--text-color);
-  --fpui-tabs-tab-line-active-text-color: var(--text-color);
-}
-
-/* Textareas */
-:root {
-  --fpui-textarea-border-color: var(--border-color);
-  --fpui-textarea-bg-color: var(--bg-color);
-  --fpui-textarea-text-color: var(--text-color);
-  --fpui-textarea-placeholder-text-color: var(--neutral-medium);
-  --fpui-textarea-padding-sm: var(--padding-sm);
-  --fpui-textarea-padding-md: var(--padding-md);
-  --fpui-textarea-padding-lg: var(--padding-lg);
-}
 
 /* Toasts */
 :root {

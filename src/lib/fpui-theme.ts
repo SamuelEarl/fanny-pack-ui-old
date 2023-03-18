@@ -39,4 +39,7 @@ export const theme = {
   // TABS
   tabsFontSizeDefault: "md",
   tabsTabStyleDefault: "fill", // Possible values: "line", "fill"
+  // TEXTAREA
+  textareaDefaultPadding: "sm",
+  textareaDefaultFontSize: "md",
 };
