@@ -226,6 +226,21 @@ These variables are organized in the same way that Tailwind organizes their util
   --font-size-8xl: 96px;
   --font-size-9xl: 128px;
 
+  --line-height-xs: 16px;
+  --line-height-sm: 20px;
+  --line-height-base: 24px;
+  --line-height-lg: 28px;
+  --line-height-xl: 28px;
+  --line-height-xxl: 32px;
+  --line-height-3xl: 36px;
+  --line-height-4xl: 40px;
+  --line-height-5xl: 1px;
+  --line-height-6xl: 1px;
+  --line-height-7xl: 1px;
+  --line-height-8xl: 1px;
+  --line-height-9xl: 1px;
+
+
   /* Text Color */
   --text-color-default: var(--neutral-700);
   --text-color-disabled: var(--neutral-900);
@@ -235,24 +250,24 @@ These variables are organized in the same way that Tailwind organizes their util
 }
 
 
-/* SIZE VARIABLES */
-/* -------------- */
+/* SIZE VARIABLES
+--------------
 :root {
-  /* Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.) */
+  Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.)
   --padding-sm: 5px;
   --padding-md: 10px;
   --padding-lg: 15px;
-  /* Borders */
+  Borders
   --border-radius: 3px;
-  /* Font sizes */
+  Font sizes
   --font-size-sm: 12px;
   --font-size-base: 16px;
   --font-size-lg: 20px;
-  /* Font weights */
+  Font weights
   --font-weight-light: 100;
   --font-weight-normal: 400;
   --font-weight-bold: 700;
-}
+} */
 
 
 /* INDIVIDUAL COMPONENT STYLES */
@@ -266,10 +281,6 @@ These variables are organized in the same way that Tailwind organizes their util
 
 /* Select Boxes (single, multi) */
 :root {
-  --fpui-select-border-color: var(--border-color);
-  --fpui-select-border-radius: var(--border-radius);
-  --fpui-select-bg-color: var(--bg-color);
-  --fpui-select-text-color: var(--text-color);
   --fpui-select-btn-padding-sm: var(--padding-sm);
   --fpui-select-btn-padding-md: var(--padding-md);
   --fpui-select-btn-padding-lg: var(--padding-lg);

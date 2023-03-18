@@ -7,6 +7,8 @@
   import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateOptionsListHeight } from "../fpui-utils";
+  import { theme } from "/src/theme";
+  import { spaceVariables, paddingSizes, fontSizes } from "../styles";
 
   export let label = "";
   export let id = "";
@@ -14,8 +16,9 @@
   export let optionLabel = null;
   export let optgroup = null;
   export let value;
-  export let size = "md";
   export let disabled = false;
+  export let padding = theme.selectDefaultPadding;
+  export let fontSize = theme.selectDefaultFontSize;
 
   const dispatch = createEventDispatcher();
   let componentId = createId();
@@ -37,6 +40,21 @@
   let optgroups = {};
   let selectOptionsList;
   let showSelectOptionsList = false;
+
+  let spaceVariable = spaceVariables[padding];
+  if (spaceVariable === undefined) {
+    spaceVariable = spaceVariables["sm"];
+  }
+
+  let paddingStyle = paddingSizes[padding];
+  if (paddingStyle === undefined) {
+    paddingStyle = paddingSizes["sm"];
+  }
+
+  let fontSizeStyle = fontSizes[fontSize];
+  if (fontSizeStyle === undefined) {
+    fontSizeStyle = fontSizes["md"];
+  }
 
   onMount(() => {
     determineOptionsDataType(options);
@@ -168,7 +186,7 @@
   <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-btn` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and then closed the `fpui-select-options-list`. However, the `active` class uses a `pointer-events: none` CSS rule to disable any pointer events on both the `fpui-select-btn` and `fpui-select-btn-overlay` elements when they are active. So the click event will not conflict with the `blur` event. -->  
   <div
     id={`fpui-select-btn-${componentId}`} 
-    class="{`fpui-select-btn ${size}`}" 
+    class="fpui-select-btn" 
     class:active={showSelectOptionsList}
     class:disabled={disabled}
     on:click={() => {
@@ -177,8 +195,9 @@
     }}
   >
     <div 
-      class="{`fpui-select-btn-overlay ${size}`}" 
-      class:active={showSelectOptionsList} 
+      class="fpui-select-btn-overlay" 
+      class:active={showSelectOptionsList}
+      style={`${paddingStyle} ${fontSizeStyle}`}
       title={optionsDataType === "primitive" ? value : value[optionLabel]}
     >
       {#if optionsDataType === "primitive"}
@@ -202,7 +221,8 @@
       {#if optionsDataType === "primitive"}
         {#each options as option}
           <div 
-            class="{`fpui-select-option ${size}`}"
+            class="fpui-select-option"
+            style={`${paddingStyle} ${fontSizeStyle}`}
             on:click={() => setSelectedOption(option)}
             title={option}
           >
@@ -213,10 +233,17 @@
       {:else if optionsDataType === "object"}
         {#if optgroup}
           {#each Object.entries(optgroups) as [key, value]}
-            <div class="{`fpui-select-optgroup-label ${size}`}" title={key}>{key}</div>
+            <div 
+              class="fpui-select-optgroup-label" 
+              style={`${paddingStyle} ${fontSizeStyle}`}
+              title={key}
+            >
+              {key}
+            </div>
             {#each value as option}
               <div 
-                class="{`fpui-select-option ${size} optgroup`}"
+                class="fpui-select-option"
+                style={`${paddingStyle} ${fontSizeStyle} padding-left: calc(2 * ${spaceVariable});`}
                 on:click={() => setSelectedOption(option)}
                 title={option[optionLabel]}
               >
@@ -227,7 +254,8 @@
         {:else}
           {#each options as option}
             <div 
-              class="{`fpui-select-option ${size}`}"
+              class="fpui-select-option"
+              style={`${paddingStyle} ${fontSizeStyle}`}
               on:click={() => setSelectedOption(option)}
               title={option[optionLabel]}
             >
@@ -254,15 +282,15 @@
     }
 
     & .fpui-select-btn {
-      border: 1px solid;
-      border-color: var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
-      border-radius: var(--fpui-select-border-radius);
-      background-color: var(--custom-select-bg-color, var(--fpui-select-bg-color, white));
-      color: var(--custom-select-text-color, var(--fpui-select-text-color, black));
+      border: var(--border-default);
+      border-color: var(--custom-select-border-color, var(--border-color-default));
+      border-radius: var(--border-radius);
+      background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
+      color: var(--custom-select-text-color, var(--text-color-default));
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--fpui-select-border-color, #c7c7c7));
+        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
       }
 
       /* Style the arrow inside the select element */
@@ -275,14 +303,6 @@
         height: 0;
         transform: rotate(90deg);
         font-size: 1.5rem;
-      }
-
-      &.sm:after {
-        top: 40%;
-      }
-
-      &.lg:after {
-        font-size: 2rem;
       }
 
       &.active {
@@ -305,20 +325,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         cursor: pointer;
-
-        /* Change the padding and font-size for different sizes of the <Select> component. */
-        &.sm {
-          padding: var(--fpui-select-btn-padding-sm, 5px);
-          font-size: var(--font-size-sm, 12px);
-        }
-        &.md {
-          padding: var(--fpui-select-btn-padding-md, 10px);
-          font-size: var(--font-size-base, 16px);
-        }
-        &.lg {
-          padding: var(--fpui-select-btn-padding-lg, 15px);
-          font-size: var(--font-size-lg, 20px);
-        }
         
         &.active {
           border-radius: var(--border-radius) var(--border-radius) 0 0;
@@ -335,11 +341,11 @@
       overflow-y: auto;
       outline: none;
       border: 2px solid;
-      border-color: var(--fpui-select-border-color);
-      border-radius: 0 0 var(--fpui-select-border-radius) var(--fpui-select-border-radius);
-      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
+      border-color: var(--border-color-default);
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: var(--box-shadow-depth);
       background-color: var(--fpui-select-options-list-bg-color, white);
-      color: var(--fpui-select-text-color);
+      color: var(--text-color-default);
       z-index: 100;
 
       & .fpui-select-optgroup-label {
@@ -352,19 +358,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-
-        &.sm {
-          padding: var(--fpui-select-option-padding-sm, 5px);
-          font-size: var(--font-size-sm, 12px);
-        }
-        &.md {
-          padding: var(--fpui-select-option-padding-md, 10px);
-          font-size: var(--font-size-base, 16px);
-        }
-        &.lg {
-          padding: var(--fpui-select-option-padding-lg, 15px);
-          font-size: var(--font-size-lg, 20px);
-        }
       }
 
       & .fpui-select-option {
@@ -380,31 +373,6 @@
 
         &:hover {
           background-color: rgba(0, 0, 0, 0.1);
-        }
-
-        &.sm {
-          padding: var(--fpui-select-option-padding-sm, 5px);
-          font-size: var(--font-size-sm, 12px);
-
-          &.optgroup {
-            padding-left: calc(2 * var(--fpui-select-option-padding-sm, 5px));
-          }
-        }
-        &.md {
-          padding: var(--fpui-select-option-padding-md, 10px);
-          font-size: var(--font-size-base, 16px);
-
-          &.optgroup {
-            padding-left: calc(2 * var(--fpui-select-option-padding-md, 10px));
-          }
-        }
-        &.lg {
-          padding: var(--fpui-select-option-padding-lg, 15px);
-          font-size: var(--font-size-lg, 20px);
-
-          &.optgroup {
-            padding-left: calc(2 * var(--fpui-select-option-padding-lg, 15px));
-          }
         }
 
         /* For the last option in the select dropdown, make the bottom border 

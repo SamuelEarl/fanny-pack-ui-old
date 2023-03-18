@@ -280,8 +280,8 @@ You can set the following custom variables:
 | `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
 | `list` | `string` | Any string | `""` (empty string) | See the `<datalist>` example above for details. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the padding in the input field. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the size of the text in the input field. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
 | `min` (number input types only) | `string` | Any numeric string value | `null` (i.e. no `min` value is set by default) | See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#min |

@@ -55,15 +55,18 @@
 
 ### `options` elements with primitive data type
 
-<Select
-  label="Select an option"
-  options={months}  
-  bind:value={selectedMonth}
-  id="primitive-options-id"
-  size="md"
-  on:change={handleChange}
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={months}  
+    bind:value={selectedMonth}
+    id="id-for-select-box"
+    on:change={handleChange}
+    disabled={false}
+    padding="sm"
+    fontSize="md"
+  />
+</div>
 
 Value of `selectedMonth`: <code>{selectedMonth}</code>
 
@@ -93,29 +96,33 @@ Value of `selectedMonth`: <code>{selectedMonth}</code>
   }
 </script>
 
-<Select
-  label="Select an option"
-  options={months}  
-  bind:value={selectedMonth}
-  id="primitive-options-id"
-  size="md"
-  on:change={handleChange}
-  disabled={false}
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={months}  
+    bind:value={selectedMonth}
+    id="id-for-select-box"
+    on:change={handleChange}
+    disabled={false}
+    padding="sm"
+    fontSize="md"
+  />
+</div>
 ```
 
 ---
 
 ### `options` elements with "object" data type
 
-<Select
-  label="Select an option"
-  options={monthObjects}
-  optionLabel="shortMonth"
-  bind:value={selectedMonthObject}
-  id="object-options-id"
-  size="sm"
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={monthObjects}
+    optionLabel="shortMonth"
+    bind:value={selectedMonthObject}
+    id="object-options-id"
+  />
+</div>
 
 Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</code>
 
@@ -141,14 +148,15 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
   let selectedMonthObject = monthObjects[6];
 </script>
 
-<Select
-  label="Select an option"
-  options={monthObjects}
-  optionLabel="shortMonth"
-  bind:value={selectedMonthObject}
-  id="object-options-id"
-  size="sm"
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={monthObjects}
+    optionLabel="shortMonth"
+    bind:value={selectedMonthObject}
+    id="object-options-id"
+  />
+</div>
 ```
 
 ---
@@ -157,15 +165,16 @@ Value of `selectedMonthObject`: <code>{JSON.stringify(selectedMonthObject)}</cod
 
 You can group your options (similar to using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag) by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values.
 
-<Select
-  label="Select an option"
-  options={dinosaurObjects}
-  optionLabel="name"
-  optgroup="group"
-  bind:value={selectedDinosaurObject}
-  id="object-optgroups-id"
-  size="md"
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={dinosaurObjects}
+    optionLabel="name"
+    optgroup="group"
+    bind:value={selectedDinosaurObject}
+    id="object-optgroups-id"
+  />
+</div>
 
 Value of `selectedDinosaurObject`: <code>{JSON.stringify(selectedDinosaurObject)}</code>
 
@@ -185,15 +194,16 @@ Value of `selectedDinosaurObject`: <code>{JSON.stringify(selectedDinosaurObject)
   let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
 </script>
 
-<Select
-  label="Select an option"
-  options={dinosaurObjects}
-  optionLabel="name"
-  optgroup="group"
-  bind:value={selectedDinosaurObject}
-  id="object-optgroups-id"
-  size="md"
-/>
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={dinosaurObjects}
+    optionLabel="name"
+    optgroup="group"
+    bind:value={selectedDinosaurObject}
+    id="object-optgroups-id"
+  />
+</div>
 ```
 
 Note that the `optgroup`s within the `<Select>` component will be sorted based on the first appearance of the property that is passed to the `optgroup` prop. For example, in the `dinosaurObjects` array shown above, the `group` property is passed to the `optgroup` prop, so the `dinosaurObjects` array will be sorted based the `group` property. The first `group` property that appears in the `dinosaurObjects` array has a value of `Theropods`, so that will be the first `optgroup` listed in the `<Select>` component's options list. The second `group` property that appears has a value of `Sauropods`, so that will be the second `optgroup` listed in the `<Select>` component's options list. And so on.
@@ -211,30 +221,30 @@ The original intention for these custom styles was to set `--custom-select-bg-co
 
 
 You can set the following custom variables:
-* `--custom-select-border-color`
 * `--custom-select-bg-color`
+* `--custom-select-border-color`
 * `--custom-select-text-color`
 
-<div class="alt-background">
-  <Select
-    options={months}  
-    bind:value={selectedMonth}
-    id="primitive-options-id"
-    size="lg"
-    --custom-select-border-color="white"
-    --custom-select-bg-color="transparent"
-    --custom-select-text-color="white"
-  />
+<div style="margin-bottom:20px">
+  <div class="alt-background">
+    <Select
+      options={months}  
+      bind:value={selectedMonth}
+      id="id-for-select-box"
+      --custom-select-bg-color="transparent"
+      --custom-select-border-color="white"
+      --custom-select-text-color="white"
+    />
+  </div>
 </div>
 
 ```svelte
 <Select
   options={months}  
   bind:value={selectedMonth}
-  id="primitive-options-id"
-  size="lg"
-  --custom-select-border-color="white"
+  id="id-for-select-box"
   --custom-select-bg-color="transparent"
+  --custom-select-border-color="white"
   --custom-select-text-color="white"
 />
 ```
@@ -251,7 +261,8 @@ You can set the following custom variables:
 | `optgroup` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | You can group your options (similar to using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag) by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
 | `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
 | `id` | `string` | Any string | `""` (an empty string) | You can give your `<Select />` components an `id` attribute. |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for your `<Select />` component to give the appearance of a larger or smaller `<Select />` component. The text size will also increase or decrease based on this `size` prop. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the theme.ts file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the theme.ts file. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select>` component. |
 
 <br><br>
@@ -265,7 +276,7 @@ You can set the following custom variables:
 <style>
   .alt-background {
     padding: 25px;
-    border-radius: var(--docs-border-radius);
-    background-color: var(--docs-secondary-color);
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
   }
 </style>

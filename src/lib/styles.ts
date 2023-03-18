@@ -31,6 +31,14 @@ export const textColorsForColoredBgs = {
 
 // SIZE/SPACE STYLES
 // ------------------
+export const spaceVariables = {
+  xs: "var(--space-xs)",
+  sm: "var(--space-sm)",
+  md: "var(--space-md)",
+  lg: "var(--space-lg)",
+  xl: "var(--space-xl)",
+};
+
 export const paddingSizes = {
   xs: "padding: var(--space-xs);",
   sm: "padding: var(--space-sm);",
@@ -56,9 +64,9 @@ export const marginBottomSizes = {
 };
 
 export const fontSizes = {
-  xs: "font-size: var(--font-size-xs);",
-  sm: "font-size: var(--font-size-sm);",
-  md: "font-size: var(--font-size-base);",
-  lg: "font-size: var(--font-size-lg);",
-  xl: "font-size: var(--font-size-xl);",
+  xs: "font-size: var(--font-size-xs); line-height: var(--line-height-xs);",
+  sm: "font-size: var(--font-size-sm); line-height: var(--line-height-sm);",
+  md: "font-size: var(--font-size-base); line-height: var(--line-height-base);",
+  lg: "font-size: var(--font-size-lg); line-height: var(--line-height-lg);",
+  xl: "font-size: var(--font-size-xl); line-height: var(--line-height-xl);",
 };

@@ -318,15 +318,14 @@
 
     & .fpui-select-btn {
       position: relative;
-      border: 1px solid;
-      border-color: var(--fpui-select-border-color, #c7c7c7);
-      border-radius: var(--fpui-select-border-radius);
-      background-color: var(--fpui-select-bg-color);
-      color: var(--fpui-select-text-color);
+      border: var(--border-default);
+      border-radius: var(--border-radius);
+      background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
+      color: var(--text-color-default);
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--fpui-select-border-color, gray);
+        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
       }
 
       &.active {
@@ -400,9 +399,9 @@
       padding-top: 15px;
       outline: none;
       border: 2px solid;
-      border-color: var(--fpui-select-border-color);
-      border-radius: var(--fpui-select-border-radius, 3px);
-      box-shadow: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
+      border-color: var(--border-color-default);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow-depth);
       background-color: var(--fpui-select-options-list-bg-color, white);
       z-index: 100;
 
