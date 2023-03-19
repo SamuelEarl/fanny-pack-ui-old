@@ -12,15 +12,17 @@
 
 ## Example Usage
 
-<Textarea
-  label="Textarea label"
-  id="textarea-id"
-  bind:value={textValue}
-  size="md"
-  placeholder="Enter description"
-  disabled={isDisabled}
-  on:keyup={() => console.log("EVENT FIRED")}
-/>
+<div style="margin-bottom:20px">
+  <Textarea
+    label="Textarea label"
+    id="textarea-id"
+    bind:value={textValue}
+    size="md"
+    placeholder="Enter description"
+    disabled={isDisabled}
+    on:keyup={() => console.log("EVENT FIRED")}
+  />
+</div>
 
 <p>Entered Text: {textValue}</p>
 
@@ -32,14 +34,16 @@
   let isDisabled = false;
 </script>
 
-<Textarea
-  label="Textarea label"
-  id="textarea-id"
-  bind:value={textValue}
-  size="md"
-  placeholder="Enter description"
-  disabled={isDisabled}
-/>
+<div style="margin-bottom:20px">
+  <Textarea
+    label="Textarea label"
+    id="textarea-id"
+    bind:value={textValue}
+    size="md"
+    placeholder="Enter description"
+    disabled={isDisabled}
+  />
+</div>
 ```
 
 ---
@@ -49,30 +53,33 @@ The original intention for these custom styles was to set `--custom-textarea-bg-
 
 
 You can set the following custom variables:
-* `--custom-textarea-border-color`
+
 * `--custom-textarea-bg-color`
+* `--custom-textarea-border-color`
 * `--custom-textarea-text-color`
 * `--custom-textarea-placeholder-text-color`
 
-<Textarea
-  bind:value={textValue}
-  size="md"
-  placeholder="Write a note"
-  --custom-textarea-border-color="darkred"
-  --custom-textarea-bg-color="pink"
-  --custom-textarea-text-color="darkred"
-  --custom-textarea-placeholder-text-color="gray"
-/>
+<div style="margin-bottom:20px">
+  <Textarea
+    bind:value={textValue}
+    size="md"
+    placeholder="Write a note"
+    --custom-textarea-bg-color="pink"
+    --custom-textarea-border-color="darkred"
+    --custom-textarea-text-color="darkred"
+    --custom-textarea-placeholder-text-color="var(--white)"
+  />
+</div>
 
 ```svelte
 <Textarea
   bind:value={textValue}
   size="md"
   placeholder="Write a note"
-  --custom-textarea-border-color="darkred"
   --custom-textarea-bg-color="pink"
+  --custom-textarea-border-color="darkred"
   --custom-textarea-text-color="darkred"
-  --custom-textarea-placeholder-text-color="gray"
+  --custom-textarea-placeholder-text-color="var(--white)"
 />
 ```
 
@@ -84,7 +91,8 @@ You can set the following custom variables:
 | `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the `textarea` field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Textarea>` components an id value, if necessary, just like you can with regular `<textarea>` elements. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the `textarea` field to be updated with a string value, this component’s value property needs to be bound to a string variable. |
-| `size` | `string` | `sm`, `md`, `lg` | `md` | This prop will set more or less padding for the `textarea` field to give the appearance of a larger or smaller `textarea` field. The text size will also increase or decrease based on this `size` prop. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the `textarea` field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `textarea` field. |
 

@@ -2,6 +2,7 @@
   import { toastContent } from "./toast-store";
 
   export let duration = 7000;
+  export let fontSize = "1.15rem";
 
   $: clearToastAfterDuration($toastContent);
   let timeout;
@@ -42,7 +43,11 @@
 
 
 {#if $toastContent}
-  <div id="toast" class={`${$toastContent.type}`}>
+  <div 
+    id="toast" 
+    class={`${$toastContent.type}`}
+    style={`font-size: ${fontSize};`}
+  >
     <div class="msg">
       {$toastContent.msg}
     </div>
@@ -62,27 +67,25 @@
     left: 0;
     z-index: 10000;
     display: flex;
-    font-size: var(--fpui-toast-font-size, 1.15rem);
-    font-weight: var(--fpui-toast-font-weight, normal);
 
     &.info {
-      background-color: var(--fpui-toast-info-bg-color, #2d89ef); /* blue */
-      color: var(--fpui-toast-info-text-color, white);
+      background-color: var(--info-color);  
+      color: var(--text-color-for-info-bg);
     }
 
     &.success {
-      background-color: var(--fpui-toast-success-bg-color, #00a300); /* green */
-      color: var(--fpui-toast-success-text-color, white);
+      background-color: var(--success-color);
+      color: var(--text-color-for-success-bg);
     }
     
     &.warning {
-      background-color: var(--fpui-toast-warning-bg-color, #ffc40d); /* yellow */
-      color: var(--fpui-toast-warning-text-color, black);
+      background-color: var(--warning-color);
+      color: var(--text-color-for-warning-bg);
     }
 
     &.error {
-      background-color: var(--fpui-toast-error-bg-color, #ee1111); /* red */
-      color: var(--fpui-toast-error-text-color, white);
+      background-color: var(--error-color);
+      color: var(--text-color-for-error-bg);
     }
 
     & .msg {

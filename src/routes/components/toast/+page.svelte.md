@@ -40,7 +40,7 @@ The `<Toast>` component has two parts:
   import { Toast } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<Toast duration={7000} />
+<Toast duration={7000} fontSize="1.15rem" />
 ```
 
 *NOTE: If you want the default `duration` to be `Infinity`, which will keep the toasts displaying indefinitely and will require your users to manually close them by clicking the "x" on the right side of the toasts, then you can set the `duration` prop like this: `<Toast duration={Infinity} />`*
@@ -69,6 +69,8 @@ The `<Toast>` component has two parts:
 
 <Button btnIcon="" on:click={setSuccessToast}>Click to show a "success" notification</Button>
 
+<br>
+
 ```svelte
 <script>
   import { Button, ToastContent } from "@fanny-pack-ui/svelte-kit";
@@ -91,6 +93,8 @@ The `<Toast>` component has two parts:
 
 <Button btnIcon="" on:click={setWarningToast}>Click to show a "warning" notification</Button>
 
+<br>
+
 ```svelte
 <script>
   import { Button, ToastContent } from "@fanny-pack-ui/svelte-kit";
@@ -112,6 +116,8 @@ The `<Toast>` component has two parts:
 ---
 
 <Button btnIcon="" on:click={setErrorToast}>Click to show an "error" notification</Button>
+
+<br>
 
 ```svelte
 <script>
@@ -136,6 +142,7 @@ The `<Toast>` component has two parts:
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `duration` | `number` | Any number or `Infinity` | `7000` | This prop will be used to set the default length of time that the toasts will be displayed. If the default duration is `Infinity`, then the toast will not automatically close and the user will have to close the toast by clicking the "x". If the default duration is a number other than `Infinity`, then the toast will clear after the `duration` has elapsed. |
+| `fontSize` | `string` | Any number followed by a CSS unit length. | `"1.15rem"` | This prop will set the font size property for all the toast messages. |
 
 <br>
 

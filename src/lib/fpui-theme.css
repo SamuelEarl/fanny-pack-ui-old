@@ -266,20 +266,6 @@ These variables are organized in the same way that Tailwind organizes their util
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
 
 
-/* Toasts */
-:root {
-  --fpui-toast-info-bg-color: var(--info-color);
-  --fpui-toast-info-text-color: var(--neutral-lightest);
-  --fpui-toast-success-bg-color: var(--success-color);
-  --fpui-toast-success-text-color: var(--neutral-lightest);
-  --fpui-toast-warning-bg-color: var(--warning-color);
-  --fpui-toast-warning-text-color: var(--neutral-darkest);
-  --fpui-toast-error-bg-color: var(--error-color);
-  --fpui-toast-error-text-color: var(--neutral-lightest);
-  --fpui-toast-font-size: 1.15rem;
-  --fpui-toast-font-weight: var(--font-weight-normal);
-}
-
 /* Tooltips */
 :root {
   --fpui-tooltip-bg-color: var(--neutral-very-dark);
