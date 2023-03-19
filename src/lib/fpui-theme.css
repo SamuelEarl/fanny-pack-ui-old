@@ -111,15 +111,6 @@
   --text-color-for-warning-bg: var(--neutral-900);
   --error-color: var(--dark-red);
   --text-color-for-error-bg: var(--white);
-
-  /* TODO: REPLACE THESE COLORS: */
-  /* Border, Background, & Text Colors */
-  --border-color: var(--neutral-light);
-  --bg-color: var(--neutral-very-light);
-  --text-color: var(--neutral-very-dark);
-  /* Disabled State Colors */
-  --disabled-bg-color: var(--neutral-light);
-  --disabled-text-color: var(--neutral-very-dark);
 }
 
 
@@ -264,33 +255,3 @@ These variables are organized in the same way that Tailwind organizes their util
 /* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
 /* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
 /* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */
-
-
-/* Tooltips */
-:root {
-  --fpui-tooltip-bg-color: var(--neutral-very-dark);
-  --fpui-tooltip-text-color: var(--neutral-lightest);
-  --fpui-tooltip-border-radius: var(--border-radius);
-}
-
-
-/* UTILITY CLASSES */
-/* --------------- */
-/* I don't love using a bunch of utility classes, but a handful of utility classes can be helpful. This section contains utility classes that are used throughout the component library, so do not edit these (but you are welcome to create additional utility classes in your `theme-extras.css` file). */
-
-/* The "fpui-spin" class is used to spin icons during loading states. */
-/* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
-/* Beginning of "fpui-spin" class */
-/* .fpui-spin {
-  animation: fpui-spin var(--fpui-btn-icon-disabled-spin-speed) infinite linear;
-}
-
-@keyframes fpui-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-/* End of "fpui-spin" class */

@@ -17,11 +17,13 @@ This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create too
   </Tooltip>
 </p>
 
-<Tooltip tooltipText="This button displays a tooltip">
-  <Button>
-    Hover over this button
-  </Button>
-</Tooltip>
+<div style="margin-bottom:20px">
+  <Tooltip tooltipText="This button displays a tooltip">
+    <Button>
+      Hover over this button
+    </Button>
+  </Tooltip>
+</div>
 
 ```svelte
 <script lang="ts">
@@ -35,11 +37,13 @@ This component uses [Tippy.js](https://atomiks.github.io/tippyjs/) to create too
   </Tooltip>
 </p>
 
-<Tooltip tooltipText="This button displays a tooltip">
-  <Button>
-    Hover over this button
-  </Button>
-</Tooltip>
+<div style="margin-bottom:20px">
+  <Tooltip tooltipText="This button displays a tooltip">
+    <Button>
+      Hover over this button
+    </Button>
+  </Tooltip>
+</div>
 ```
 
 You can wrap a `<Tooltip>` component around any DOM element or any other component you want. All you need to do is pass the tooltip text that you want to appear when a user hovers over the tooltip.

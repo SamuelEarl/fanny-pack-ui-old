@@ -279,7 +279,7 @@ Depending on the colors that you use as your `primary`, `secondary`, and `tertia
     }
 
     & .dark-bg {
-      background-color: var(--neutral-black);
+      background-color: var(--neutral-900);
       border-radius: 0 var(--border-radius) var(--border-radius) 0;
     }
   }
