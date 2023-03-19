@@ -1,5 +1,3 @@
-// TODO: Add default sizes for all components that currently use CSS variables to set the default sizes.
-
 // You can edit any of the variables in this file. For icon variables (i.e. variables that contain the word "Icon"), the values should come from the Iconify website (https://icon-sets.iconify.design/). When you search for an icon and then select it, you will see a field to the right of your selected icon that is labeled "Selected icon". Copy the value from that field and replace the value in this file with the one that you copied.
 // NOTE: After selecting your icon on the Iconify site, if you scroll down you will see a code example like this:
 // <span class="iconify" data-icon="mdi:account"></span>

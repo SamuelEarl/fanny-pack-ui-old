@@ -34,22 +34,12 @@
   --neutral-100: #f1edf0;
   --neutral-200: #e8e2e7;
   --neutral-300: #d6ccd4;
-  --neutral-400: #b4a1b0;
+  --neutral-400: #bcacb9;
   --neutral-500: #998095;
   --neutral-600: #7c6377;
   --neutral-700: #5b4957;
   --neutral-800: #3a2f38;
   --neutral-900: #1a1419;
-  /* --neutral-50: #f9f8f9;
-  --neutral-100: #f1edf0;
-  --neutral-200: #e8e2e7;
-  --neutral-300: #d6ccd4;
-  --neutral-400: #a28b9e;
-  --neutral-500: #7c6377;
-  --neutral-600: #50404d;
-  --neutral-700: #453743;
-  --neutral-800: #3a2f38;
-  --neutral-900: #1a1419; */
 }
 
 /* FP Neutral Colors */
@@ -95,13 +85,6 @@
   --text-color-for-secondary-bg: var(--white);
   --tertiary-color: var(--white);
   --text-color-for-tertiary-bg: var(--neutral-800);
-  /* --neutral-darkest: var(--fpn-260);
-  --neutral-very-dark: var(--fpn-210);
-  --neutral-dark: var(--fpn-140);
-  --neutral-medium: var(--fpn-100);
-  --neutral-light: var(--fpn-60);
-  --neutral-very-light: var(--fpn-30);
-  --neutral-lightest: var(--white); */
   /* Notification Colors */
   --info-color: var(--dark-blue);
   --text-color-for-info-bg: var(--white);
@@ -204,6 +187,7 @@ These variables are organized in the same way that Tailwind organizes their util
   --font-size-8xl: 96px;
   --font-size-9xl: 128px;
 
+  /* Line Heights */
   --line-height-xs: 16px;
   --line-height-sm: 20px;
   --line-height-base: 24px;
@@ -226,32 +210,3 @@ These variables are organized in the same way that Tailwind organizes their util
   /* Placeholder Text Color */
   --placeholder-color-default: var(--neutral-500);
 }
-
-
-/* SIZE VARIABLES
---------------
-:root {
-  Padding (These values are used to provide the sizes for elements like buttons, input fields, etc.)
-  --padding-sm: 5px;
-  --padding-md: 10px;
-  --padding-lg: 15px;
-  Borders
-  --border-radius: 3px;
-  Font sizes
-  --font-size-sm: 12px;
-  --font-size-base: 16px;
-  --font-size-lg: 20px;
-  Font weights
-  --font-weight-light: 100;
-  --font-weight-normal: 400;
-  --font-weight-bold: 700;
-} */
-
-
-/* INDIVIDUAL COMPONENT STYLES */
-/* --------------------------- */
-/* The Main Colors (above) are used throughout the components. Changing the values for those variables will handle most of the theme customizations for your components. However, there might be some colors or sizes that you want to customize under these "INDIVIDUAL COMPONENT STYLES". */
-/* You can customize any of the individual components by changing the color or size values below. */
-/* WARNING: If you customize too many variables in your individual components, then you will risk losing the global theme that is intended to give your app consistent branding throughout all the components. */
-/* Each component style that can be customized has a fallback value. So, for example, if you do not provide a color for the background of the primary buttons, then the components will still display in your UI, but the colors will probably not match your theme. So it is recommended that you set the values for each Main Color variable (above) to a color variable from your color palette. */
-/* The button text colors might need to be changed if they do not provide enough contrast against the background colors of your primary, secondary, and/or tertiary buttons. */

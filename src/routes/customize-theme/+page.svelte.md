@@ -6,6 +6,19 @@
   import { Button, Checkbox, Input, Modal, Select, TabsContainer, TabBar, Tab, TabPanel, ToastContent } from "/src/lib";
   import themeFile from "/src/lib/fpui-theme.css";
 
+  const neutralColors = [
+    { label: "--neutral-50", value: "#f9f8f9" },
+    { label: "--neutral-100", value: "#f1edf0" },
+    { label: "--neutral-200", value: "#e8e2e7" },
+    { label: "--neutral-300", value: "#d6ccd4" },
+    { label: "--neutral-400", value: "#bcacb9" },
+    { label: "--neutral-500", value: "#998095" },
+    { label: "--neutral-600", value: "#7c6377" },
+    { label: "--neutral-700", value: "#5b4957" },
+    { label: "--neutral-800", value: "#3a2f38" },
+    { label: "--neutral-900", value: "#1a1419" },
+  ];
+
   let theme = {
     fpNonNeutralColors: [],
     fpNeutralColors: [],
@@ -407,7 +420,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
     title="Ideas for creating your set of neutral colors"
     on:closeModal={() => showColorPaletteModal = false}
   >
-    <div slot="modalBody">
+    <div slot="modalBody" style="padding:20px">
       <p>The Fanny Pack UI color palette uses seven neutral colors (black, white, and five shades and tints of <a href="https://www.colorhexa.com/50404d" target="_blank">purple taupe</a>), so you will need to have at least seven neutral colors in your color palette. That might seem like a lot of neutral colors, but it is actually pretty easy to come up with that many. You can either use the neutral colors from the "FP Neutral Colors" or the "Grayscale Neutral Colors" tabs or you can create your own set of custom neutral colors. Here is one idea to create your own set of neutral colors:</p>
       <ol>
         <li>Go to <a href="https://www.colorhexa.com/" target="_blank">ColorHexa</a>.</li>
@@ -467,16 +480,18 @@ In the "Main color variables" section (after this "Color palette" section) you w
         <thead>
           <tr>
             <th>Color variable name</th>
-            <th>Color value</th>
+            <th style="display:flex; justify-content:center;">Color value</th>
           </tr>
         </thead>
         <tbody>
-          {#each theme.fpNeutralColors as color, index}
+          <!-- {#each theme.fpNeutralColors as color, index} -->
+          {#each neutralColors as color, index}
             <tr>
               <td>{color.label}</td>
       <!-- TODO: The <Colorpicker /> component is giving me deployment errors. If I want to use it, then I will probably have to rewrite it with current SvelteKit configs. -->
               <!-- <td><Colorpicker width="88px" height="28px" bind:value={color.value} /></td> -->
-              <td><input type="color" value={color.value} /></td>
+              <td style="display:flex; justify-content:center;"><input type="color" value={color.value} style="width:75px; height:30px;" /></td>
+              <!-- <td><div style={`width:100px; height:50px; background-color:${color.value}`}></div></td> -->
             </tr>
           {/each}
         </tbody>
