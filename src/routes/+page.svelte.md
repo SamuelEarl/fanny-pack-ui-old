@@ -277,8 +277,9 @@ So for example, instead of implementing all the style rules for a button element
   #home {
     
     & #img-container {
+      display: flex;
+      justify-content: center;
       margin-top: 40px;
-      text-align: center;
 
       & img {
         width: 512px;
