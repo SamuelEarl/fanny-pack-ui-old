@@ -9,7 +9,7 @@
 
 ## Example Usage
 
-<AccordionGroup border={true} borderPadding="md" accordionPadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={true} borderPadding="md" accordionPadding="sm" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>
