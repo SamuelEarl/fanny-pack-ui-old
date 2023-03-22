@@ -30,7 +30,7 @@
   import { AccordionGroup, Accordion } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<AccordionGroup border={true} borderPadding="md" accordionPadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={true} borderPadding="md" accordionPadding="sm" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>
@@ -51,7 +51,7 @@ Setting `border={true}` on the `<AccordionGroup>` adds a border around a group o
 
 <br>
 
-<AccordionGroup border={false} borderPadding="xl" accordionPadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={false} borderPadding="xl" accordionPadding="sm" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion title="Accordion 1">
     <p>Accordion content</p>
   </Accordion>
@@ -72,7 +72,7 @@ Setting `border={true}` on the `<AccordionGroup>` adds a border around a group o
   import { Accordion } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<AccordionGroup border={false} borderPadding="xl" accordionPadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={false} borderPadding="xl" accordionPadding="sm" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion title="Accordion 1">
     <p>Accordion content</p>
   </Accordion>
