@@ -128,7 +128,7 @@
     & #title-wrapper {
       font-family: var(--cursive);
       padding: 15px;
-      border-bottom: 1px solid var(--fpn-260);
+      border-bottom: 1px solid var(--neutral-900);
       margin-bottom: 15px;
       font-size: 1.5rem;
       line-height: 1.5;

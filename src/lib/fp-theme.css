@@ -8,7 +8,7 @@
 /* ------------- */
 :root {
   /* Non-Neutral Colors */
-  /* You can change any of these variables, including the names. */
+  /* INSTRUCTIONS: You can change any of these variables, including the names. */
   /* The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
   --light-green: #99b433;
   --green: #00a300;
@@ -28,7 +28,7 @@
   --dark-red: #b91d47;
 
   /* Neutral Colors */
-  /* You can change any of these values, but do not change the variable names. */
+  /* INSTRUCTIONS: You can change any of these values, but do not change the variable names. */
   --white: #ffffff;
   --black: #000000;
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 
@@ -45,42 +45,9 @@
   --neutral-900: #1a1419;
 }
 
-/* FP Neutral Colors */
-/* These are shades and tints of #50404d (i.e. Purple Taupe). See https://www.colorhexa.com/50404d. */
-:root {
-  --black: #000000;
-  --fpn-260: #040304;
-  --fpn-250: #0f0c0e;
-  --fpn-240: #1a1419;
-  --fpn-230: #241d23;
-  --fpn-220: #2f262e;
-  --fpn-210: #3a2f38;
-  --fpn-200: #453743;
-  --fpn-190: #50404d;
-  --fpn-180: #5b4957;
-  --fpn-170: #665162;
-  --fpn-160: #715a6c;
-  --fpn-150: #7c6377;
-  --fpn-140: #866c81;
-  --fpn-130: #91758b;
-  --fpn-120: #998095;
-  --fpn-110: #a28b9e;
-  --fpn-100: #ab96a7;
-  --fpn-90: #b4a1b0;
-  --fpn-80: #bcacb9;
-  --fpn-70: #c5b6c2;
-  --fpn-60: #cec1cb;
-  --fpn-50: #d6ccd4;
-  --fpn-40: #dfd7de;
-  --fpn-30: #e8e2e7;
-  --fpn-20: #f1edf0;
-  --fpn-10: #f9f8f9;
-  --white: #ffffff;
-}
-
 /* MAIN COLORS */
 /* ----------- */
-/* All the color values in this "MAIN COLORS" section should be references to values in the "COLOR PALETTE" section above. */
+/* INSTRUCTIONS: All the color values in this "MAIN COLORS" section should be references to values in the "COLOR PALETTE" section above. */
 :root {
   --primary-color: var(--dark-purple);
   --text-color-for-primary-bg: var(--white);
@@ -101,12 +68,15 @@
 
 
 /* IMPORTANT NOTE */
-/* All the color values in the sections below this line should be references to values in the "MAIN COLORS" section above. Also, references to color values throughout the app should also reference the values in the "MAIN COLORS" section as much as possible. Reference to colors from the "COLOR PALETTE" section should only happen when there is not a "MAIN COLOR" available for what I need. */
+/* All the color values in the sections below this line should be references to values in the "MAIN COLORS" section above. Also, references to color values throughout the app should also reference the values in the "MAIN COLORS" section as much as possible. References to colors from the "COLOR PALETTE" section should only occur when there is not a "MAIN COLOR" available for what you need. */
 
 
 /* The following section contains variables for things like backgrounds, borders, typography.
 These variables are organized in the same way that Tailwind organizes their utility classes. */
 /* See https://tailwindcss.com/docs/installation */
+
+
+/* INSTRUCTIONS: You can change any of the following values, but do not change the variable names. */
 
 
 /* BACKGROUNDS */
@@ -204,7 +174,6 @@ These variables are organized in the same way that Tailwind organizes their util
   --line-height-7xl: 1px;
   --line-height-8xl: 1px;
   --line-height-9xl: 1px;
-
 
   /* Text Color */
   --text-color-default: var(--neutral-700);
