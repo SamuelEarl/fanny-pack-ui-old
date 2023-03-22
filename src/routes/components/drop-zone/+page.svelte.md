@@ -152,7 +152,7 @@ You can use the `accept` prop to limit the acceptable file types. If you do, the
       <div class="file-name">{file.id}</div>
       {#if loading}
         <button class="remove-file-btn" title="Delete file">
-          <Icon icon="icomoon-free:spinner2" width="16" class="fpui-spin" />
+          <Icon icon="icomoon-free:spinner2" width="16" class="fp-spin" />
         </button>
       {:else}
         <button class="remove-file-btn" on:click={() => deleteFile(file.id)} title="Delete file">

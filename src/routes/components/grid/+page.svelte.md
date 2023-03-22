@@ -66,8 +66,8 @@ Remember that when working with CSS, the main goal is maintainability. So implem
   .cell {
     height: 100%;
     padding: 10px;
-    border: 1px solid var(--docs-neutral-lightest);
-    color: var(--docs-neutral-lightest);
+    border: var(--border-default);
+    color: var(--white);
 
     &.red {
       background-color: var(--dark-red);
@@ -75,7 +75,7 @@ Remember that when working with CSS, the main goal is maintainability. So implem
 
     &.yellow {
       background-color: var(--yellow);
-      color: var(--docs-neutral-darkest);
+      color: var(--text-color-default);
     }
 
     &.blue {
@@ -142,7 +142,7 @@ Just like with any other responsive design system, larger breakpoints will inher
 
 6 breakpoints might seem like a lot to work with, but you don't have to set column values for each breakpoint. One idea you can use is to specify column values for only the `xs`, `md`, and `xl` breakpoints and then allow the other breakpoints to inherit the column values from the breakpoints that are smaller than them (e.g. `sm` will inherit from `xs`, `lg` will inherit from `md`, `xxl` will inherit from `xl`).
 
-Note that the value ranges for each breakpoint can be changed in the `fpui-media-queries.css` file.
+Note that the value ranges for each breakpoint can be changed in the `fp-media-queries.css` file.
 
 ---
 

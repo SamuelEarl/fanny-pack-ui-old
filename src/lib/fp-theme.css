@@ -2,12 +2,13 @@
 
 /* Many of the variables in this file are referenced throughout the component library. So the *names* of these variables can NOT be altered at all. For example, you cannot change the name `--primary-color` because `var(--primary-color)` is referenced throughout the components. But you are allowed to change any of the variable values to match the theme you want. */
 
-/* If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`. */
+/* If you change any of the CSS variable values in this file that use a length measurement (e.g. 10px, 20%, 0.5rem), then make sure to include the units after the value (e.g. px, %, rem). Some of the CSS rules in these components use the `calc()` function and they require a unit along with the length value in order to work properly. For example, this will work: `--border-radius: 5px;`, but this could break some styles: `--border-radius: 0;`. */
 
 /* COLOR PALETTE */
 /* ------------- */
 :root {
   /* Non-Neutral Colors */
+  /* You can change any of these variables, including the names. */
   /* The following colors were taken from https://www.w3schools.com/w3css/w3css_color_metro.asp. */
   --light-green: #99b433;
   --green: #00a300;
@@ -25,7 +26,9 @@
   --dark-orange: #da532c;
   --red: #ee1111;
   --dark-red: #b91d47;
+
   /* Neutral Colors */
+  /* You can change any of these values, but do not change the variable names. */
   --white: #ffffff;
   --black: #000000;
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 

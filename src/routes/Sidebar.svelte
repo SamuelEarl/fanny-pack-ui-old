@@ -9,9 +9,9 @@
     <a href="/get-started" class:active={currentPath === "/get-started"}>
       <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
-    <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
+    <!-- <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
       <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Theme
-    </a>
+    </a> -->
     <a href="/update-to-latest-version" class:active={currentPath === "/update-to-latest-version"}>
       <Icon icon="ic:baseline-update" /> &nbsp; Update To Latest Version
     </a>
@@ -122,11 +122,11 @@
   nav {
     min-height: 100%;
     padding-bottom: 50px;
-    background-color: var(--docs-secondary-color);
-    color: var(--docs-tertiary-color);
+    background-color: var(--secondary-color);
+    color: var(--tertiary-color);
 
     & #title-wrapper {
-      font-family: var(--cursive-font-stack);
+      font-family: var(--cursive);
       padding: 15px;
       border-bottom: 1px solid var(--fpn-260);
       margin-bottom: 15px;
@@ -151,14 +151,14 @@
         padding: 10px;
         padding-left: 30px;
         border-bottom: none;
-        color: var(--docs-tertiary-color);
+        color: var(--tertiary-color);
 
         &:hover {
-          background-color: var(--docs-primary-color);
+          background-color: var(--primary-color);
         }
 
         &.active {
-          background-color: var(--docs-primary-color);
+          background-color: var(--primary-color);
         }
       }
     }

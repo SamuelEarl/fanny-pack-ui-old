@@ -1,6 +1,6 @@
 /* This file is copied from Tailwind (https://tailwindcss.com/docs/preflight) and I made the following customizations: */
 /* (1) Removed the 5 `theme()` functions in this file and replaced them with default values. */
-/* (2) Commented out the `::before, ::after` selectors so the default value would be used instead. */
+/* (2) Commented out the second `::before, ::after` selectors so the default value would be used instead. */
 
 
 /*

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { createId } from "../fpui-utils";
+  import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../styles";
+  import { paddingSizes, fontSizes } from "../fp-styles";
   import { theme } from "/src/theme";
 
   export let type = "text";
@@ -30,13 +30,13 @@
 </script>
 
 
-<Label {label} forVal={`fpui-input-${componentId}`} />
+<Label {label} forVal={`fp-input-${componentId}`} />
 {#if type === "text"}
   <input
     type="text"
     bind:value={value}
     {list}
-    class="fpui-input"
+    class="fp-input"
     style={`${paddingStyle} ${fontSizeStyle}`}
     {placeholder}
     {disabled}
@@ -51,7 +51,7 @@
     type="number"
     bind:value={value}
     {list}
-    class="fpui-input"
+    class="fp-input"
     style={`${paddingStyle} ${fontSizeStyle}`}
     {min}
     {max}
@@ -69,7 +69,7 @@
     type="email"
     bind:value={value}
     {list}
-    class="fpui-input"
+    class="fp-input"
     style={`${paddingStyle} ${fontSizeStyle}`}
     {placeholder}
     {disabled}
@@ -83,7 +83,7 @@
 
 
 <style>
-  .fpui-input {
+  .fp-input {
     width: 100%;
     outline: none;
     border: var(--border-default);

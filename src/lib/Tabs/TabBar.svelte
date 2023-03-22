@@ -1,7 +1,7 @@
 <script lang="ts">
   import { setContext } from "svelte";
   import { theme } from "/src/theme";
-  import { marginBottomSizes } from "../styles";
+  import { marginBottomSizes } from "../fp-styles";
 
   export let tabStyle = theme.tabsTabStyleDefault;
   export let marginBottom = "md";
@@ -12,14 +12,14 @@
 </script>
 
 <div 
-  class={`fpui-tabs-tab-bar ${tabStyle}`} 
+  class={`fp-tabs-tab-bar ${tabStyle}`} 
   style={`${marginBottomStyle}`}>
 	<slot></slot>
 </div>
 
 <style>
   @media (--xs-up) {
-    .fpui-tabs-tab-bar {
+    .fp-tabs-tab-bar {
       display: flex;
 
       &.fill {

@@ -15,11 +15,11 @@
 </script>
 
 <!-- Accordion Wrapper -->
-<div class={`fpui-accordion-wrapper`} style={`${marginBottom}`}>
+<div class={`fp-accordion-wrapper`} style={`${marginBottom}`}>
   <!-- Accordion Button -->
   <div
     {id}
-    class="fpui-accordion-btn"
+    class="fp-accordion-btn"
     class:active={open}
     style={`${accordionPaddingStyle} ${fontSizeStyle}`}
     on:click={() => open = !open}
@@ -31,7 +31,7 @@
   <!-- Accordion Panel -->
   {#if open}
     <div 
-      class="fpui-accordion-panel"
+      class="fp-accordion-panel"
       style={`${accordionPaddingStyle} ${fontSizeStyle}`} 
       transition:slide|local
     >
@@ -42,13 +42,13 @@
 
 
 <style>
-  .fpui-accordion-wrapper {
+  .fp-accordion-wrapper {
 
     &:last-child {
       margin-bottom: 0 !important;
     }
 
-    & .fpui-accordion-btn {
+    & .fp-accordion-btn {
       border: var(--border-default);
       border-radius: var(--border-radius);
       background-color: var(--bg-color-element-default);

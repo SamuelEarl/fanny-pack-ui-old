@@ -6,9 +6,9 @@
 <script lang="ts">
   import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
-  import { createId, calculateOptionsListHeight } from "../fpui-utils";
+  import { createId, calculateOptionsListHeight } from "../fp-utils";
   import { theme } from "/src/theme";
-  import { spaceVariables, paddingSizes, fontSizes } from "../styles";
+  import { spaceVariables, paddingSizes, fontSizes } from "../fp-styles";
 
   export let label = "";
   export let id = "";
@@ -155,10 +155,10 @@
 </script>
 
 
-<Label {label} forVal={`fpui-select-btn-${componentId}`} />
+<Label {label} forVal={`fp-select-btn-${componentId}`} />
 <div
   {id}
-  class={`fpui-select-container fpui-select-container-${componentId}`}
+  class={`fp-select-container fp-select-container-${componentId}`}
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
   <select bind:value={value} on:change {disabled}>
@@ -183,10 +183,10 @@
     {/if}
   </select>
 
-  <!-- When the `fpui-select-options-list` element is opened, it receives focus. That allows the `fpui-select-options-list` to respond to the `blur` event and close the `fpui-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fpui-select-btn` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fpui-select-options-list` element to immediately open again after the `blur` event has fired and then closed the `fpui-select-options-list`. However, the `active` class uses a `pointer-events: none` CSS rule to disable any pointer events on both the `fpui-select-btn` and `fpui-select-btn-overlay` elements when they are active. So the click event will not conflict with the `blur` event. -->  
+  <!-- When the `fp-select-options-list` element is opened, it receives focus. That allows the `fp-select-options-list` to respond to the `blur` event and close the `fp-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fp-select-btn` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fp-select-options-list` element to immediately open again after the `blur` event has fired and then closed the `fp-select-options-list`. However, the `active` class uses a `pointer-events: none` CSS rule to disable any pointer events on both the `fp-select-btn` and `fp-select-btn-overlay` elements when they are active. So the click event will not conflict with the `blur` event. -->  
   <div
-    id={`fpui-select-btn-${componentId}`} 
-    class="fpui-select-btn" 
+    id={`fp-select-btn-${componentId}`} 
+    class="fp-select-btn" 
     class:active={showSelectOptionsList}
     class:disabled={disabled}
     on:click={() => {
@@ -195,7 +195,7 @@
     }}
   >
     <div 
-      class="fpui-select-btn-overlay" 
+      class="fp-select-btn-overlay" 
       class:active={showSelectOptionsList}
       style={`${paddingStyle} ${fontSizeStyle}`}
       title={optionsDataType === "primitive" ? value : value[optionLabel]}
@@ -210,8 +210,8 @@
 
   {#if showSelectOptionsList}
     <div
-      id={`fpui-select-options-list-${componentId}`}
-      class="fpui-select-options-list"
+      id={`fp-select-options-list-${componentId}`}
+      class="fp-select-options-list"
       tabindex="-1"
       bind:this={selectOptionsList}
       on:blur={(event) => {
@@ -221,7 +221,7 @@
       {#if optionsDataType === "primitive"}
         {#each options as option}
           <div 
-            class="fpui-select-option"
+            class="fp-select-option"
             style={`${paddingStyle} ${fontSizeStyle}`}
             on:click={() => setSelectedOption(option)}
             title={option}
@@ -234,7 +234,7 @@
         {#if optgroup}
           {#each Object.entries(optgroups) as [key, value]}
             <div 
-              class="fpui-select-optgroup-label" 
+              class="fp-select-optgroup-label" 
               style={`${paddingStyle} ${fontSizeStyle}`}
               title={key}
             >
@@ -242,7 +242,7 @@
             </div>
             {#each value as option}
               <div 
-                class="fpui-select-option"
+                class="fp-select-option"
                 style={`${paddingStyle} ${fontSizeStyle} padding-left: calc(2 * ${spaceVariable});`}
                 on:click={() => setSelectedOption(option)}
                 title={option[optionLabel]}
@@ -254,7 +254,7 @@
         {:else}
           {#each options as option}
             <div 
-              class="fpui-select-option"
+              class="fp-select-option"
               style={`${paddingStyle} ${fontSizeStyle}`}
               on:click={() => setSelectedOption(option)}
               title={option[optionLabel]}
@@ -272,7 +272,7 @@
 
 <style>
   /* The container must be positioned relative */
-  .fpui-select-container {
+  .fp-select-container {
     width: 100%;
     position: relative;
 
@@ -281,7 +281,7 @@
       display: none;
     }
 
-    & .fpui-select-btn {
+    & .fp-select-btn {
       border: var(--border-default);
       border-color: var(--custom-select-border-color, var(--border-color-default));
       border-radius: var(--border-radius);
@@ -318,7 +318,7 @@
       }
 
       /* The overlay contains the text for the selected option. */
-      & .fpui-select-btn-overlay {
+      & .fp-select-btn-overlay {
         /* Cut off any text that overflows the space provided for this Select component: */
         /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
         white-space: nowrap;
@@ -334,7 +334,7 @@
       }
     }
     
-    & .fpui-select-options-list {
+    & .fp-select-options-list {
       position: absolute;
       left: 0;
       right: 0;
@@ -348,7 +348,7 @@
       color: var(--text-color-default);
       z-index: 100;
 
-      & .fpui-select-optgroup-label {
+      & .fp-select-optgroup-label {
         border: 1px solid;
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         font-weight: bold;
@@ -360,7 +360,7 @@
         text-overflow: ellipsis;
       }
 
-      & .fpui-select-option {
+      & .fp-select-option {
         border: 1px solid;
         border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
         color: var(--text-color-default);

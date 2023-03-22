@@ -358,7 +358,7 @@
     cursor: pointer;
 
     &:focus {
-      border-color: var(--fpui-drop-zone-focus-border-color, #343434);
+      border-color: var(--fp-drop-zone-focus-border-color, #343434);
     }
   }
 </style>

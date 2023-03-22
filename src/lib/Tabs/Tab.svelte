@@ -16,7 +16,7 @@
 </script>
 
 <div
-  class={`fpui-tabs-tab ${tabStyle}`}
+  class={`fp-tabs-tab ${tabStyle}`}
   class:active="{$selectedTab === tab}"
   style={`${tabPaddingStyle} ${tabFontSizeStyle}`}
   on:click="{() => selectTab(tab)}"
@@ -27,7 +27,7 @@
 
 <style>
   @media (--xs-up) {
-    .fpui-tabs-tab {
+    .fp-tabs-tab {
       cursor: pointer;
 
       &.fill {

@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { createId } from "../fpui-utils";
+  import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../styles";
+  import { paddingSizes, fontSizes } from "../fp-styles";
   import { theme } from "/src/theme";
 
   export let label = "";
@@ -27,7 +27,7 @@
 </script>
 
 
-<Label {label} forVal={`fpui-textarea-${componentId}`} />
+<Label {label} forVal={`fp-textarea-${componentId}`} />
 <textarea
   bind:value={value}
   {id}

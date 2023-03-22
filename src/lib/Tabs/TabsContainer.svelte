@@ -6,7 +6,7 @@
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
   import { theme } from "/src/theme";
-  import { paddingSizes, fontSizes } from "../styles";
+  import { paddingSizes, fontSizes } from "../fp-styles";
 
   export let border = true;
   export let borderPadding = "md";

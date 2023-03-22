@@ -81,7 +81,7 @@
       padding: 20px;
       border-radius: 20px 0 0 20px;
       background-color: var(--dark-purple);
-      font-family: var(--cursive-font-stack);
+      font-family: var(--cursive);
       font-size: 3rem;
       line-height: 1.5;
       color: var(--white);

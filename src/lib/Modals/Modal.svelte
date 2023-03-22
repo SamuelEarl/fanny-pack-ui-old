@@ -58,7 +58,7 @@
 </div>
 
 <div id="modal">
-  <div id="modal-content-container" class="fpui-animatetop">
+  <div id="modal-content-container" class="fp-animatetop">
     <div id="modal-content">
       {#if title}
         <header id="modal-header">{title}</header>      

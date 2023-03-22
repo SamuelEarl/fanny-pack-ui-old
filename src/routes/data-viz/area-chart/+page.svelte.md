@@ -531,8 +531,8 @@ There are situations where a tooltip might not be the best way to display values
 
   .current-data {
     display: inline-block;
-    border: var(--docs-border);
-    font-family: var(--mono-font-stack);
+    border: var(--border-default);
+    font-family: var(--monospace);
     font-weight: bold;
 
     & .time, & .value {
@@ -541,7 +541,7 @@ There are situations where a tooltip might not be the best way to display values
     }
 
     & .time {
-      border-right: var(--docs-border);
+      border-right: var(--border-default);
     }
   }
 
@@ -550,6 +550,6 @@ There are situations where a tooltip might not be the best way to display values
     padding: 3px 25px;
     font-size: 14px;
     font-style: italic;
-    background-color: var(--docs-neutral-very-light);
+    background-color: var(--bg-color-element-default);
   }
 </style>

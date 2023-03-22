@@ -11,9 +11,9 @@
   import type { FormatToken } from "./parse";
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
-  import { createId } from "../fpui-utils";
+  import { createId } from "../fp-utils";
   import { theme } from "/src/theme";
-  import { fontSizes, paddingSizes } from "../styles";
+  import { fontSizes, paddingSizes } from "../fp-styles";
 
   export let label = "";
   export let size = theme.dateInputDefaultSize;
@@ -170,23 +170,23 @@
    * https://stackoverflow.com/a/15195345/9453009
    */
   function setIconFontSize() {
-    let dateInputField = document.getElementById(`fpui-date-input-${componentId}`);
+    let dateInputField = document.getElementById(`fp-date-input-${componentId}`);
     let style = window.getComputedStyle(dateInputField, null).getPropertyValue("font-size");
     inputFontSize = parseFloat(style);
   }
 </script>
 
 
-<Label {label} forVal={`fpui-date-input-${componentId}`} />
+<Label {label} forVal={`fp-date-input-${componentId}`} />
 <div class="date-picker-container" on:focusout={handleHideCalendar} on:keydown={handleKeydown}>
   <div
-    class="fpui-date-input-container" 
+    class="fp-date-input-container" 
     class:showCalendar 
     class:disabled={disabled}
   >
     <input
-      id={`fpui-date-input-${componentId}`}
-      class="fpui-date-input"
+      id={`fp-date-input-${componentId}`}
+      class="fp-date-input"
       style={`${fontSizeStyle} ${paddingStyle}`}
       type="text"
       bind:value={text}
@@ -206,7 +206,7 @@
       You can use tabindex="-1" to give elements that don't normally receive focus the ability to receive focus. I think the tabindex="-1" attribute on the following <div> will give the <div> focus when a user clicks on it. This allows the user to click the button and then click outside of the button to close the calendar. The focus event will bubble up to the parent element (.date-picker-container) where the `on:focusout` event will call `handleHideCalendar`.
     -->
     <div
-      class="fpui-date-input-btn"
+      class="fp-date-input-btn"
       class:disabled={disabled}
       style={`${paddingStyle}`}
       tabindex="-1"
@@ -214,7 +214,7 @@
         if (disabled) return;
         showCalendar = !showCalendar;
         // For an explanation of this code, see the comment in the
-        // `on:mousedown` event of the `fpui-date-input` element.
+        // `on:mousedown` event of the `fp-date-input` element.
         await tick();
         if (showCalendar) activeCalendar.focus();
       }}
@@ -244,7 +244,7 @@
     position: relative;
     /* width: 100%; */
 
-    & .fpui-date-input-container {
+    & .fp-date-input-container {
       display: flex;
       border: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-border-color, var(--border-color-default));
       border-radius: var(--border-radius);
@@ -262,11 +262,11 @@
         border-color: var(--disabled-bg-color);
       }
 
-      & .fpui-date-input {
+      & .fp-date-input {
         flex: 1;
         width: 100%;
         border: none;
-        /* This `border-radius` style along with the `overflow: hidden` style in the `.fpui-date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
+        /* This `border-radius` style along with the `overflow: hidden` style in the `.fp-date-input-container` element will ensure that the background color goes all the way out to the border no matter how high or low the border radius value is. */
         border-radius: calc(var(--border-radius) - 10px) 0 0 calc(var(--border-radius) - 10px);
         outline: none;
         background-color: var(--custom-date-picker-bg-color, var(--bg-color-element-default));
@@ -282,7 +282,7 @@
         }
       }
 
-      & .fpui-date-input-btn {
+      & .fp-date-input-btn {
         display: flex;
         align-items: center;
         border-left: var(--border-default);

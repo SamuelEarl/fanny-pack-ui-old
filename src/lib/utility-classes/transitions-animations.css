@@ -5,13 +5,13 @@
 /* ----------------------- */
 /* This section will contain all variables and classes that you would find under the Transitions & Animations section of the Tailwind docs: https://tailwindcss.com/docs/transition-property */
 /* ---------- */
-/* You can add an "fpui-spin" class (e.g. class="fpui-spin") to an icon (or any other element) to make it spin. */
-/* Beginning of "fpui-spin" class */
-.fpui-spin {
-  animation: fpui-spin 1.5s infinite linear;
+/* You can add an "fp-spin" class (e.g. class="fp-spin") to an icon (or any other element) to make it spin. */
+/* Beginning of "fp-spin" class */
+.fp-spin {
+  animation: fp-spin 1.5s infinite linear;
 }
 
-@keyframes fpui-spin {
+@keyframes fp-spin {
   from {
     transform: rotate(0deg);
   }
@@ -19,15 +19,15 @@
     transform: rotate(360deg);
   }
 }
-/* End of "fpui-spin" class */
+/* End of "fp-spin" class */
 
-/* Beginning of "fpui-animatetop class */
-.fpui-animatetop {
-  animation: fpui-animatetop 0.5s;
+/* Beginning of "fp-animatetop class */
+.fp-animatetop {
+  animation: fp-animatetop 0.5s;
 }
 
 /* Add Animation */
-@keyframes fpui-animatetop {
+@keyframes fp-animatetop {
   from {
     top: -300px;
     opacity: 0
@@ -37,4 +37,4 @@
     opacity: 1
   }
 }
-/* End of "fpui-animatetop class */
+/* End of "fp-animatetop class */

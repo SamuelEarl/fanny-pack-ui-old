@@ -19,7 +19,7 @@
 </script>
 
 <div 
-  class="fpui-grid"
+  class="fp-grid"
   class:container={contain}
 >
   <slot />

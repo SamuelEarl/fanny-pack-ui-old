@@ -8,20 +8,20 @@
 
 
 <label
-  class="fpui-checkbox-label-wrapper" 
+  class="fp-checkbox-label-wrapper" 
   class:disabled
   style={`margin-bottom: ${theme.checkboxMarginBottom}`}
 >
   <input
     type="checkbox"
-    class="fpui-checkbox-input"
+    class="fp-checkbox-input"
     bind:checked={checked}
     {disabled}
     on:change
     on:input
   > {label}
   <span 
-    class="fpui-checkbox-checkmark" 
+    class="fp-checkbox-checkmark" 
     style={`top: ${theme.checkboxVerticalAlignment}`}
   ></span>
 </label><br>

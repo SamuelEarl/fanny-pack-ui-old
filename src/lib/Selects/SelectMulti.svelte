@@ -16,7 +16,7 @@
 
 <script lang="ts">
   import { onMount, tick } from "svelte";
-  import { createId, calculateOptionsListHeight } from "../fpui-utils";
+  import { createId, calculateOptionsListHeight } from "../fp-utils";
   // import isEqual from "lodash.isequal";
   import { Button } from "../Buttons";
   import { CheckboxGroup } from "../Checkboxes";
@@ -137,10 +137,10 @@
 </script>
 
 
-<Label {label} forVal={`fpui-select-btn-${componentId}`} {tooltipText} />
+<Label {label} forVal={`fp-select-btn-${componentId}`} {tooltipText} />
 <div 
   {id}
-  class="{`fpui-select-multi-container fpui-select-multi-container-${componentId}`}"
+  class="{`fp-select-multi-container fp-select-multi-container-${componentId}`}"
 >
   <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
   <select multiple bind:value={values} on:change>
@@ -168,13 +168,13 @@
   <div
     role="listbox" 
     aria-multiselectable="true" 
-    id={`fpui-select-btn-${componentId}`} 
-    class={"fpui-select-btn"}
+    id={`fp-select-btn-${componentId}`} 
+    class={"fp-select-btn"}
     class:active={showSelectOptionsList}
     tabindex="-1"
     on:click={toggleOptionsList}
   >
-    <div class="{`fpui-select-btn-overlay ${size}`}" class:active={showSelectOptionsList}>
+    <div class="{`fp-select-btn-overlay ${size}`}" class:active={showSelectOptionsList}>
       <!-- This <div class="selected-values-container"> element will display all the options that the user has selected. -->
       <div class="selected-values-container">
         {#if values.length === 0}
@@ -195,14 +195,14 @@
           {/if}
         {/if}
       </div>
-      <span class="fpui-select-btn-arrow">›</span>
+      <span class="fp-select-btn-arrow">›</span>
     </div>
   </div>
 
   {#if showSelectOptionsList}
     <div
-      id={`fpui-select-options-list-${componentId}`} 
-      class="fpui-select-options-list"
+      id={`fp-select-options-list-${componentId}`} 
+      class="fp-select-options-list"
       tabindex="-1"
       bind:this={selectOptionsList}
       on:blur={(event) => {
@@ -210,15 +210,15 @@
         selectOptionsList.focus();
         // The following `if` statement is basically saying that if the user clicks on the select-btn or on one of the select-all-btns or a checkbox, then do not hide the selectOptionsList. If the user clicks the select-btn, then the select-btn's on:click event will hide the selectOptionsList.
         // In a blur event, the "event.target" is the element that has lost focus. When a "blur" event occurs, how can I find out which element received the focus? Use "event.relatedTarget": https://stackoverflow.com/a/33325953.
-        // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fpui-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
-        // **If the user did click on the `#fpui-select-btn-${componentId}` element, then do NOT set `showSelectOptionsList = false` because the `on:click` event in the `#fpui-select-btn-${componentId}` will set `showSelectOptionsList = false`. If the user did NOT click on the `#fpui-select-btn-${componentId}` element, then set `showSelectOptionsList = false`.**
-        // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fpui-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
+        // Keep in mind that the element that is supposed to receive the focus needs to have a tabindex="-1" attribute in order to receive the focus. So in this case, I am trying to see if the user clicked on the `#fp-select-btn-${componentId}` element, so that element has to have a tabindex="-1" attribute in order to receive focus, which will allow me to see if that element was clicked. (If that element did not have a tabindex="-1" attribute, then it would show that the user clicked on the <body> element.) 
+        // **If the user did click on the `#fp-select-btn-${componentId}` element, then do NOT set `showSelectOptionsList = false` because the `on:click` event in the `#fp-select-btn-${componentId}` will set `showSelectOptionsList = false`. If the user did NOT click on the `#fp-select-btn-${componentId}` element, then set `showSelectOptionsList = false`.**
+        // If the event and the event.relatedTarget exist, then see if the id of the relatedTarget (i.e. the id of the element that was clicked) does NOT match the `#fp-select-btn-${componentId}` element. If all those checks return true, then hide the select menu.
         // I have also found that sometimes when I click outside of the selectOptionsList that event.relatedTarget === null. The following `if` statement will check for those scenarios too. So if `event.relatedTarget` does not exist, then set `showSelectOptionsList` to false.
         let elementId = event?.relatedTarget?.id ? event.relatedTarget.id : null;
         if (
-          elementId !== `fpui-select-btn-${componentId}` && 
-          elementId !== `fpui-select-all-btn-${componentId}` && 
-          elementId !== `fpui-checkbox-input-${componentId}`
+          elementId !== `fp-select-btn-${componentId}` && 
+          elementId !== `fp-select-all-btn-${componentId}` && 
+          elementId !== `fp-checkbox-input-${componentId}`
         ) {
           showSelectOptionsList = false;
         }
@@ -230,7 +230,7 @@
         {#if values.length > 0 && values.length < options.length}
           <div class="select-all-btn">
             <Button
-              id={`fpui-select-all-btn-${componentId}`}
+              id={`fp-select-all-btn-${componentId}`}
               size="sm"
               btnIcon=""
               on:click={() => values = [...options]}
@@ -240,7 +240,7 @@
         {:else}
           <div class="select-all-btn">
             <Button
-              id={`fpui-select-all-btn-${componentId}`}
+              id={`fp-select-all-btn-${componentId}`}
               size="sm"
               btnIcon=""
               on:click={() => values = [...options]}
@@ -251,7 +251,7 @@
       {:else}
         <div class="select-all-btn">
           <Button
-            id={`fpui-select-all-btn-${componentId}`}
+            id={`fp-select-all-btn-${componentId}`}
             size="sm"
             btnIcon=""
             on:click={() => values.length = 0}
@@ -308,7 +308,7 @@
 
 
 <style>
-  .fpui-select-multi-container {
+  .fp-select-multi-container {
     position: relative;
 
     /* Hide the <select> element. */
@@ -316,7 +316,7 @@
       display: none;
     }
 
-    & .fpui-select-btn {
+    & .fp-select-btn {
       position: relative;
       border: var(--border-default);
       border-radius: var(--border-radius);
@@ -332,7 +332,7 @@
         pointer-events: none;
       }
 
-      & .fpui-select-btn-overlay {
+      & .fp-select-btn-overlay {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -382,7 +382,7 @@
           }
         }
 
-        & .fpui-select-btn-arrow {
+        & .fp-select-btn-arrow {
           margin-left: 10px;
           transform: rotate(90deg);
           font-size: 1.5rem;
@@ -391,7 +391,7 @@
       }
     }
     
-    & .fpui-select-options-list {
+    & .fp-select-options-list {
       position: absolute;
       width: 100%;
       overflow-y: auto;

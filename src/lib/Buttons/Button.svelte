@@ -7,7 +7,7 @@
     textColors,
     textColorsForColoredBgs, 
     fontSizes, 
-  } from "../styles";
+  } from "../fp-styles";
 
   export let type = "button";
   export let btnColor = "primary";
@@ -120,7 +120,7 @@
 
 <button
   {type}
-  class={`fpui-btn ${btnColor === "transparent" ? "" : "non-transparent"}`}
+  class={`fp-btn ${btnColor === "transparent" ? "" : "non-transparent"}`}
   style={`${colorStyles} ${sizeStyles} ${width === "full" ? "width: 100%" : ""}`}
   {disabled}
   {...$$restProps}
@@ -138,10 +138,10 @@
   {#if btnIcon && btnIconDisabled}
     <!-- If the button is disabled, then... -->
     {#if disabled}
-      <!-- NOTE: You can NOT dynamically bind classes to a component instance, so the <Icon /> component has to be repeated a couple of times - once for the "fpui-spin" class and once without. -->
+      <!-- NOTE: You can NOT dynamically bind classes to a component instance, so the <Icon /> component has to be repeated a couple of times - once for the "fp-spin" class and once without. -->
       {#if btnIconDisabledShouldSpin}
         <!-- ...show a spinning disabled icon. -->
-        <Icon icon={btnIconDisabled} style={`${btnIconStyles}`} class="fpui-spin" />
+        <Icon icon={btnIconDisabled} style={`${btnIconStyles}`} class="fp-spin" />
       {:else}
         <!-- ...or show a non-spinning disabled icon. -->
         <Icon icon={btnIconDisabled} style={`${btnIconStyles} transform:rotate(${rotateBtnIconDisabled});`} />
@@ -155,7 +155,7 @@
 
 <style>
   @media (--xs-up) {
-    .fpui-btn {
+    .fp-btn {
       border-width: 2px;
       font-weight: bold;
       border-radius: var(--border-radius);

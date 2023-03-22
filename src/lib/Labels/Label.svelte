@@ -13,7 +13,7 @@
 
 {#if label && forVal}
   <div
-    class={`fpui-label-container ${labelAlign}`}
+    class={`fp-label-container ${labelAlign}`}
     style={`margin-bottom: ${theme.labelMarginBottom}`}
   >
     <label 
@@ -32,7 +32,7 @@
 
 
 <style>
-  .fpui-label-container {
+  .fp-label-container {
 
     &.left {
       text-align: left;

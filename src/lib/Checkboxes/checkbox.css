@@ -2,23 +2,23 @@
 /* The <Checkbox> and <CheckboxGroup> components use the same exact styles, so this file is simply imported into both components. */
 
 /* Customize the label (the container). */
-.fpui-checkbox-label-wrapper {
+.fp-checkbox-label-wrapper {
   display: inline-block;
   position: relative;
   padding-left: 35px;
   cursor: pointer;
   user-select: none;
 }
-.fpui-checkbox-label-wrapper:last-child {
+.fp-checkbox-label-wrapper:last-child {
   margin-bottom: 10px;
 }
 /* On mouse-over of an unchecked checkbox, add a box-shadow to the checkbox that matches the border color. */
-.fpui-checkbox-label-wrapper:hover .fpui-checkbox-input ~ .fpui-checkbox-checkmark {
+.fp-checkbox-label-wrapper:hover .fp-checkbox-input ~ .fp-checkbox-checkmark {
   box-shadow: var(--box-shadow-default);
 }
 
 /* Hide the browser's default checkbox. */
-.fpui-checkbox-input {
+.fp-checkbox-input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -26,21 +26,21 @@
   width: 0;
 }
 /* When the checkbox is checked, add a background color and change the border color to match the background color. */
-.fpui-checkbox-input:checked ~ .fpui-checkbox-checkmark {
+.fp-checkbox-input:checked ~ .fp-checkbox-checkmark {
   border-color: var(--primary-color);
   background-color: var(--primary-color);
 }
 /* Show the checkmark when checked. */
-.fpui-checkbox-input:checked ~ .fpui-checkbox-checkmark:after {
+.fp-checkbox-input:checked ~ .fp-checkbox-checkmark:after {
   display: block;
 }
 /* On mouse-over of a checked checkbox, add a box-shadow to the checkbox that matches the background color. */
-.fpui-checkbox-label-wrapper:hover .fpui-checkbox-input:checked ~ .fpui-checkbox-checkmark {
+.fp-checkbox-label-wrapper:hover .fp-checkbox-input:checked ~ .fp-checkbox-checkmark {
   box-shadow: var(--box-shadow-primary);
 }
 
 /* Create a custom checkbox. */
-.fpui-checkbox-checkmark {
+.fp-checkbox-checkmark {
   position: absolute;
   left: 0;
   height: 25px;
@@ -49,7 +49,7 @@
   border-radius: var(--border-radius);
   background-color: var(--bg-color-element-default);
 }
-.fpui-checkbox-checkmark:after {
+.fp-checkbox-checkmark:after {
   /* Create the checkmark/indicator (hidden when not checked). */
   content: "";
   position: absolute;
@@ -65,14 +65,14 @@
 }
 
 /* Disabled state */
-.fpui-checkbox-input:disabled ~ .fpui-checkbox-checkmark {
+.fp-checkbox-input:disabled ~ .fp-checkbox-checkmark {
   border-color: var(--disabled-bg-color, black);
   background-color: var(--disabled-bg-color, black);
   cursor: default;
 }
-.fpui-checkbox-label-wrapper .fpui-checkbox-input:disabled ~ .fpui-checkbox-checkmark {
+.fp-checkbox-label-wrapper .fp-checkbox-input:disabled ~ .fp-checkbox-checkmark {
   box-shadow: none;
 }
-.fpui-checkbox-label-wrapper.disabled {
+.fp-checkbox-label-wrapper.disabled {
   cursor: default;
 }

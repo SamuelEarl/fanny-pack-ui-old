@@ -45,7 +45,7 @@ p {
 }
 
 ul, ol {
-  list-style-position: inside;
+  list-style-position: outside;
   margin-bottom: var(--space-md);
   padding-left: 30px;
 }

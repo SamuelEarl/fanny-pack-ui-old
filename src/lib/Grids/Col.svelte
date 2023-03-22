@@ -24,7 +24,7 @@
       let breakpoint = breakpointNames[i];
 
       if (numberOfColumns) {
-        return `fpui-${breakpoint}-${numberOfColumns}`;
+        return `fp-${breakpoint}-${numberOfColumns}`;
       }
     })
     .filter(Boolean)
@@ -32,387 +32,387 @@
 </script>
 
 <div 
-  class={`fpui-col ${columnClasses}`}
-  class:fpui-equal-col-widths={equalColWidths}
+  class={`fp-col ${columnClasses}`}
+  class:fp-equal-col-widths={equalColWidths}
   style={`padding: ${colPaddingY}px ${colPaddingX}px`}
 >
   <slot />
 </div>
 
 <style>
-  .fpui-equal-col-widths {
+  .fp-equal-col-widths {
     flex: 1;
   }
 
-  .fpui-col {
+  .fp-col {
 
     @media (--xs-up) {
-      &.fpui-xs-1 {
+      &.fp-xs-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-xs-2 {
+      &.fp-xs-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-xs-3 {
+      &.fp-xs-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-xs-4 {
+      &.fp-xs-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-xs-5 {
+      &.fp-xs-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-xs-6 {
+      &.fp-xs-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-xs-7 {
+      &.fp-xs-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-xs-8 {
+      &.fp-xs-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-xs-9 {
+      &.fp-xs-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-xs-10 {
+      &.fp-xs-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-xs-11 {
+      &.fp-xs-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-xs-12 {
+      &.fp-xs-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }
     }
 
     @media (--sm-up) {
-      &.fpui-sm-1 {
+      &.fp-sm-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-sm-2 {
+      &.fp-sm-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-sm-3 {
+      &.fp-sm-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-sm-4 {
+      &.fp-sm-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-sm-5 {
+      &.fp-sm-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-sm-6 {
+      &.fp-sm-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-sm-7 {
+      &.fp-sm-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-sm-8 {
+      &.fp-sm-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-sm-9 {
+      &.fp-sm-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-sm-10 {
+      &.fp-sm-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-sm-11 {
+      &.fp-sm-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-sm-12 {
+      &.fp-sm-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }
     }
 
     @media (--md-up) {
-      &.fpui-md-1 {
+      &.fp-md-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-md-2 {
+      &.fp-md-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-md-3 {
+      &.fp-md-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-md-4 {
+      &.fp-md-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-md-5 {
+      &.fp-md-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-md-6 {
+      &.fp-md-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-md-7 {
+      &.fp-md-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-md-8 {
+      &.fp-md-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-md-9 {
+      &.fp-md-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-md-10 {
+      &.fp-md-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-md-11 {
+      &.fp-md-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-md-12 {
+      &.fp-md-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }
     }
 
     @media (--lg-up) {
-      &.fpui-lg-1 {
+      &.fp-lg-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-lg-2 {
+      &.fp-lg-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-lg-3 {
+      &.fp-lg-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-lg-4 {
+      &.fp-lg-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-lg-5 {
+      &.fp-lg-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-lg-6 {
+      &.fp-lg-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-lg-7 {
+      &.fp-lg-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-lg-8 {
+      &.fp-lg-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-lg-9 {
+      &.fp-lg-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-lg-10 {
+      &.fp-lg-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-lg-11 {
+      &.fp-lg-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-lg-12 {
+      &.fp-lg-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }
     }
 
     @media (--xl-up) {
-      &.fpui-xl-1 {
+      &.fp-xl-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-xl-2 {
+      &.fp-xl-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-xl-3 {
+      &.fp-xl-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-xl-4 {
+      &.fp-xl-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-xl-5 {
+      &.fp-xl-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-xl-6 {
+      &.fp-xl-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-xl-7 {
+      &.fp-xl-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-xl-8 {
+      &.fp-xl-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-xl-9 {
+      &.fp-xl-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-xl-10 {
+      &.fp-xl-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-xl-11 {
+      &.fp-xl-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-xl-12 {
+      &.fp-xl-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }
     }
 
     @media (--xxl-up) {
-      &.fpui-xxl-1 {
+      &.fp-xxl-1 {
         max-width: 8.33333%;
         flex: 0 0 8.33333%;
       }
 
-      &.fpui-xxl-2 {
+      &.fp-xxl-2 {
         max-width: 16.66666%;
         flex: 0 0 16.66666%;
       }
 
-      &.fpui-xxl-3 {
+      &.fp-xxl-3 {
         max-width: 24.99999%;
         flex: 0 0 24.99999%;
       }
 
-      &.fpui-xxl-4 {
+      &.fp-xxl-4 {
         max-width: 33.33333%;
         flex: 0 0 33.33333%;
       }
 
-      &.fpui-xxl-5 {
+      &.fp-xxl-5 {
         max-width: 41.66666%;
         flex: 0 0 41.66666%;
       }
 
-      &.fpui-xxl-6 {
+      &.fp-xxl-6 {
         max-width: 49.99999%;
         flex: 0 0 49.99999%;
       }
 
-      &.fpui-xxl-7 {
+      &.fp-xxl-7 {
         max-width: 58.33333%;
         flex: 0 0 58.33333%;
       }
 
-      &.fpui-xxl-8 {
+      &.fp-xxl-8 {
         max-width: 66.66666%;
         flex: 0 0 66.66666%;
       }
 
-      &.fpui-xxl-9 {
+      &.fp-xxl-9 {
         max-width: 74.99999%;
         flex: 0 0 74.99999%;
       }
 
-      &.fpui-xxl-10 {
+      &.fp-xxl-10 {
         max-width: 83.33333%;
         flex: 0 0 83.33333%;
       }
 
-      &.fpui-xxl-11 {
+      &.fp-xxl-11 {
         max-width: 91.66666%;
         flex: 0 0 91.66666%;
       }
 
-      &.fpui-xxl-12 {
+      &.fp-xxl-12 {
         max-width: 99.99999%;
         flex: 0 0 99.99999%;
       }

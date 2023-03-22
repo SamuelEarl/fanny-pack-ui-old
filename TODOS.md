@@ -11,8 +11,8 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * TODOS for the `get-started.svelte.md` page. 
     * I need to test the Get Started instructions in a new app and import the components into that new app.
     * I need to improve the customization instructions and make them more clear. I might need to show some examples to illustrate these steps more clearly. 
-    * I need to test that the components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts - see the commented font stack in the `fpui-theme.css` file).
-    * I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `fpui-theme.css` file to the `theme.css` file so the components will also have the same theme.
+    * I need to test that the components will inherit the font stack that is defined in the user's app and I need to make sure that the components all look good with any font stack (specifically the sizes of large vs small fonts - see the commented font stack in the `fp-theme.css` file).
+    * I Should show a demo of how to create a `theme.css` file and then how to transfer the variables from the `fp-theme.css` file to the `theme.css` file so the components will also have the same theme.
 * Convert these components to TypeScript.
 * I need to test this: (1) Install this library into a test app. (2) Customize the theme in that app following the instructions from the README. (3) Improve the documentation in the README, if necessary. 
 * Should I create documentation similar to what I have done at the top of the Select.svelte component with the Example Usage and descriptions of each prop/slot? This will definitely be easier to create and maintain than a data table.
@@ -22,7 +22,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Figure out how to customize/edit fonts after the component library has been installed.
     * I think I would let users define the fonts they want in their `theme.css` file and they would install those fonts themselves. The components would inherit the fonts that the user had defined.
     * This question asks the same thing: https://dev.to/kevinccbsg/comment/jgpk. I need to explore how this would work. Maybe I would define fonts style rules in the `utils.css` file. I then need to update all styles that reference either "font-family" or "font-stack".
-* Document the media queries and how to use them. The `fpui-media-queries.css` file has some examples that I could use in the documentation.
+* Document the media queries and how to use them. The `fp-media-queries.css` file has some examples that I could use in the documentation.
 
 ## Customize Theme
 * Replace the `<input type="color">` elements with `<ColorPicker>` components after I finish that component. UPDATE: I might not create a custom color picker. I just need users to be able to set their color palettes (without any transparency values) and then I will create transparency values for some of the charts that will use transparent colors (e.g. area charts). If the browser's default color picker is not very easy to use, then I will create a custom color picker.
@@ -69,7 +69,7 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 * Add more custom style options.
 
 ## Select (multi)
-* Implement the `size` prop throughout the entire component. I think it is only on the `fpui-select-btn` part of the component, but not in the options list part of the component.
+* Implement the `size` prop throughout the entire component. I think it is only on the `fp-select-btn` part of the component, but not in the options list part of the component.
 * Try to get event forwarding to work for the `change` event. I have everything coded up for this to work, but it won't work. On this page https://svelte.dev/tutorial/multiple-select-bindings I attached an `on:change` listener to the `<select multiple>` element and it worked. However, when I converted the `<select multiple>` element to a reusable component and imported that component into the App.svelte page, the `change` event did not forward (i.e. it didn't trigger anything in the App.svelte page). So maybe the `change` event cannot be forwarded for `<select multiple>` components. If I need to respond to a `change` event, then it might be better to watch for changes in the array that is passed into the `options` prop and respond to those changes somehow. Or I could dispatch an event that carries the `values` array as a payload, similar to what I did with the `<SelectOld>` component.
 
 ## Select (single)

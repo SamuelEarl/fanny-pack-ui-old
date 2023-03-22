@@ -8,9 +8,9 @@
 
 <script lang="ts">
   import { tick, createEventDispatcher } from "svelte";
-  import { createId } from "../fpui-utils";
+  import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../styles";
+  import { paddingSizes, fontSizes } from "../fp-styles";
   import { theme } from "/src/theme";
 
   export let value = 0;
@@ -86,13 +86,13 @@
 </script>
 
 
-<Label {label} forVal={`fpui-input-${componentId}`} {labelAlign} />
+<Label {label} forVal={`fp-input-${componentId}`} {labelAlign} />
 {#if showNumberInput}
   <!-- Using a "number" input here will allow a user's device to display a numeric virtual keyboard when the user clicks inside this input field. -->
   <input
     type="number"
-    id={`fpui-input-${componentId}`}
-    class={`fpui-currency-input ${valAlign}`}
+    id={`fp-input-${componentId}`}
+    class={`fp-currency-input ${valAlign}`}
     style={`${paddingStyle} ${fontSizeStyle}`}
     step="0.01"
     min="0.00"
@@ -108,8 +108,8 @@
 {:else}
   <input
     type="text"
-    id={`fpui-input-${componentId}`}
-    class={`fpui-currency-input ${valAlign}`}
+    id={`fp-input-${componentId}`}
+    class={`fp-currency-input ${valAlign}`}
     style={`${paddingStyle} ${fontSizeStyle}`}
     placeholder={placeholder}
     disabled={disabled}
@@ -132,7 +132,7 @@
     -moz-appearance: textfield;
   }
 
-  .fpui-currency-input {
+  .fp-currency-input {
     width: 100%;
     outline: none;
     border: 1px solid;

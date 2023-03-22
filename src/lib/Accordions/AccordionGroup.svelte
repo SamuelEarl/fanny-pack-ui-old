@@ -4,7 +4,7 @@
 
 <script lang="ts">
   import { setContext } from "svelte";
-  import { paddingSizes, fontSizes, marginBottomSizes } from "../styles";
+  import { paddingSizes, fontSizes, marginBottomSizes } from "../fp-styles";
 
   export let border = true;
   export let borderPadding = "sm";
@@ -25,14 +25,14 @@
 </script>
 
 <div
-  class={`${border ? 'fpui-accordion-group' : ''}`} 
+  class={`${border ? 'fp-accordion-group' : ''}`} 
   style={`${borderPaddingStyle}`}
 >
   <slot></slot>
 </div>
 
 <style>
-  .fpui-accordion-group {
+  .fp-accordion-group {
     border: 1px solid var(--border-color-default);
     border-radius: var(--border-radius);
   }

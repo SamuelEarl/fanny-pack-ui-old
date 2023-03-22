@@ -9,14 +9,14 @@
 </script>
 
 <div
-  class="fpui-row"
+  class="fp-row"
   style={`margin: ${rowMarginsY}px ${rowMarginsX}px`}
 >
   <slot />
 </div>
 
 <style>
-  .fpui-row {
+  .fp-row {
     display: flex;
     flex-wrap: wrap;
   }

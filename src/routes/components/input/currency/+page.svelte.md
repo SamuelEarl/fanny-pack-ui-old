@@ -212,7 +212,7 @@ You can set the following custom variables:
         width: 100%;
         text-align: right;
         padding-top: 10px;
-        border-top: 1px solid var(--docs-neutral-light);
+        border-top: var(--border-default);
         margin-top: 10px;
       }
     }
