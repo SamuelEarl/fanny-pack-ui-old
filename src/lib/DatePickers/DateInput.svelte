@@ -16,7 +16,8 @@
   import { fontSizes, paddingSizes } from "../fp-styles";
 
   export let label = "";
-  export let size = theme.dateInputDefaultSize;
+  export let padding = theme.dateInputDefaultPadding;
+  export let fontSize = theme.dateInputDefaultFontSize;
   export let dateInputIcon = theme.dateInputIcon;
   export let disabled = false;
 
@@ -30,8 +31,8 @@
     setIconFontSize();
   });
 
-  const paddingStyle = paddingSizes[size];
-  const fontSizeStyle = fontSizes[size];
+  const paddingStyle = paddingSizes[padding];
+  const fontSizeStyle = fontSizes[fontSize];
 
   /** Default date to display in input before value is assigned */
   const currentDate = new Date();

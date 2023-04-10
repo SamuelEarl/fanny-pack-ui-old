@@ -64,9 +64,14 @@ export const marginBottomSizes = {
 };
 
 export const fontSizes = {
-  xs: "font-size: var(--font-size-xs); line-height: var(--line-height-xs);",
-  sm: "font-size: var(--font-size-sm); line-height: var(--line-height-sm);",
-  md: "font-size: var(--font-size-base); line-height: var(--line-height-base);",
-  lg: "font-size: var(--font-size-lg); line-height: var(--line-height-lg);",
-  xl: "font-size: var(--font-size-xl); line-height: var(--line-height-xl);",
+  // xs: "font-size: var(--font-size-xs); line-height: var(--line-height-xs);",
+  // sm: "font-size: var(--font-size-sm); line-height: var(--line-height-sm);",
+  // md: "font-size: var(--font-size-base); line-height: var(--line-height-base);",
+  // lg: "font-size: var(--font-size-lg); line-height: var(--line-height-lg);",
+  // xl: "font-size: var(--font-size-xl); line-height: var(--line-height-xl);",
+  xs: "font-size: var(--font-size-xs);",
+  sm: "font-size: var(--font-size-sm);",
+  md: "font-size: var(--font-size-base);",
+  lg: "font-size: var(--font-size-lg);",
+  xl: "font-size: var(--font-size-xl);",
 };

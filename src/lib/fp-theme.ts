@@ -14,14 +14,16 @@ export const theme = {
   // The `checkboxVerticalAlignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable might come in handy.
   checkboxVerticalAlignment: "-3px",
   // DATE PICKER
-  dateInputDefaultSize: "md",
+  dateInputDefaultPadding: "md",
+  dateInputDefaultFontSize: "md",
+  // dateInputDefaultSize: "md",
   dateInputIcon: "mdi:calendar",
   // DROPZONE
   dropZoneSelectFilesBtnIcon: "lucide:mouse-pointer-2",
   dropZoneDragAndDropIcon: "pixelarticons:drag-and-drop",
   dropZoneUploadFilesBtnIcon: "mdi:cloud-upload",
   // INPUTS (currency, text, number, email)
-  inputDefaultPadding: "sm",
+  inputDefaultPadding: "md",
   inputDefaultFontSize: "md",
   // LABELS
   labelFontSize: "0.8rem",
@@ -32,12 +34,12 @@ export const theme = {
   // The `radioVerticalAlignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable might come in handy.
   radioVerticalAlignment: "-1px",
   // SELECT BOXES
-  selectDefaultPadding: "sm",
+  selectDefaultPadding: "md",
   selectDefaultFontSize: "md",
   // TABS
   tabsFontSizeDefault: "md",
   tabsTabStyleDefault: "fill", // Possible values: "line", "fill"
   // TEXTAREA
-  textareaDefaultPadding: "sm",
+  textareaDefaultPadding: "md",
   textareaDefaultFontSize: "md",
 };

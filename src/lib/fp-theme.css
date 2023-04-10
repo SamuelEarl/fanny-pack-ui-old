@@ -129,11 +129,11 @@ These variables are organized in the same way that Tailwind organizes their util
   like buttons, input fields, etc. or margins for elements.
 */
 :root {
-  --space-xs: 5px;
-  --space-sm: 10px;
-  --space-md: 15px;
-  --space-lg: 20px;  
-  --space-xl: 25px;
+  --space-xs: 1px;
+  --space-sm: 5px;
+  --space-md: 10px;
+  --space-lg: 15px;  
+  --space-xl: 20px;
 }
 
 
