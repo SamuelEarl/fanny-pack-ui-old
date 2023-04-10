@@ -220,6 +220,8 @@ To understand the value of CSS coding standards through the use of utility class
 
 <hr>
 
+## Different Strokes for Different Folks
+
 Libraries like TailwindCSS are awesome and handle a lot of the heavy lifting for you in terms of creating a utility class system. However, they can also be difficult to work with for a few reasons:
 
 * It is one more thing to learn, which may not be around later on. Web standards will be around for a long time, but libraries come and go pretty quickly sometimes. Everytime I get back into a Tailwind project I have to reference the Tailwind docs a lot. That's not necessarily a bad thing, but it is really nice to just use standard CSS, which has a much larger community to lean on when I run into a CSS issue.
@@ -270,7 +272,7 @@ My personal preference is to use CSS variables and create the CSS utility classe
 
 Tailwind is very well organized, so if you wanted to create your own small (or large) set of utility classes, then you could reference what they have done.
 
-Truthfully, there is no sure fire way that will keep your CSS scalable in all situations. Even if you use Tailwind, there are still plenty of situations where you can (and even have to at times) breakout of Tailwind and use plain CSS again. I guess it just comes down to this one true principle: There are different strokes for different folks. If you like Tailwind, then use it. If you prefer something else then go with that. Just decide on something and move forward.
+Truthfully, there is no sure fire way that will keep your CSS scalable in all situations. Even if you use Tailwind, there are still plenty of situations where you can (and even have to at times) breakout of Tailwind and use plain CSS again. I guess it just comes down to this one true principle: **There are different strokes for different folks.** If you like Tailwind, then use it. If you prefer something else then go with that. Just decide on something and move forward.
 
 When we need to style an element, a component, or a page we will sometimes (or often) style those things in isolation, which often leads to a lot of duplicated styles and brittle CSS code. However, **a scalable CSS approach will define styles in one location and then reference those styles wherever they are needed**. Scalable CSS will use some combination of CSS variables, components, and  utility classes. These concepts also keep our styles DRY and more maintainable. These scalable CSS concepts are similar to the concept of "a single source of truth" where you define or store something in a single location and then reference it wherever it is needed.
 
