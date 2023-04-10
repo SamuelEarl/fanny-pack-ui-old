@@ -22,7 +22,7 @@ The CSS theme that you create on the [Customize Theme](/customize-theme) page us
 2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the following files into your `/src/assets/styles` directory:
     1. `fp-preflight.css` : This contains TailwindCSS's [Preflight](https://tailwindcss.com/docs/preflight) code with a few minor modifications. (You can read the comments at the top of the `fp-preflight.css` file for details of the modifications.) Since Preflight is built on top of [modern-normalize](https://github.com/sindresorhus/modern-normalize), this file is used instead of a normalize CSS file.
     2. `fp-theme.css` : This file contains the CSS variables that make up your theme. Follow the instructions in that file to create your theme. You will update the color palette and any other variable values that feel are necessary.
-    3. `fp-utility-classes.css` : This file contains utility classes that are used throughout the components and that can be used in your app. Feel free to add more utility classes as needed, but don't change the class names otherwise you will break styles in the components.
+    3. `fp-utility-classes.css` : This file contains utility classes that are used throughout the components and that can be used in your app. Feel free to add more utility classes as needed, but don't change the existing class names otherwise you will break styles in the components.
     4. `fp-base.css` : This file contains default styles for HTML elements. The `fp-preflight.css` file clears many of the default styles for HTML elements, so you need to define default styles for your HTML elements in this file.
     5. `fp-media-queries.css` : This file contains the media queries that are used in the components and that can be used throughout your app.
 3. Rename each of those files by removing the `fp-` prefix in each filename.
@@ -53,8 +53,6 @@ Import the `/src/assets/styles/main.css` file into the `<script>` tag of the `/s
 
 1. Install `svelte-preprocess` and `@csstools/postcss-global-data` as `devDependencies` :<br>`npm install --save-dev svelte-preprocess @csstools/postcss-global-data`
 2. Open your `svelte.config.js` file and change the code to match this:
-
-<br>
 
 ```js
 import adapter from "@sveltejs/adapter-auto";

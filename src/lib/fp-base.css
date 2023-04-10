@@ -11,7 +11,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-bottom: var(--space-md);
+  margin-bottom: 15px;
   font-family: var(--cursive);
 }
 
@@ -41,12 +41,12 @@ h6 {
 }
 
 p {
-  margin-bottom: var(--space-md);
+  margin-bottom: 15px;
 }
 
 ul, ol {
   list-style-position: outside;
-  margin-bottom: var(--space-md);
+  margin-bottom: 15px;
   padding-left: 30px;
 }
 
@@ -59,7 +59,7 @@ ol {
 }
 
 li {
-  margin-bottom: var(--space-sm);
+  margin-bottom: 10px;
 }
 
 a {
@@ -74,7 +74,7 @@ a:hover {
 }
 
 br {
-  margin: 30px 0;
+  margin-bottom: 15px;
 }
 
 hr {
@@ -86,8 +86,8 @@ hr {
 /* <pre> or triple backticks. The background color might have a conflict with the "prismjs" package, so I have added `!important`. */
 pre {
   font-family: var(--monospace);
-  padding: var(--space-sm);
-  margin-bottom: var(--space-md);
+  padding: 10px;
+  margin-bottom: 15px;
   border-radius: var(--border-radius);
   background-color: var(--bg-color-element-default) !important;
 }
