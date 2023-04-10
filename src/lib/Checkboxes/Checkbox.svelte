@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let checked;
   export let label;
@@ -10,7 +10,7 @@
 <label
   class="fp-checkbox-label-wrapper" 
   class:disabled
-  style={`margin-bottom: ${theme.checkboxMarginBottom}`}
+  style={`margin-bottom: ${defaults.checkboxMarginBottom}`}
 >
   <input
     type="checkbox"
@@ -22,7 +22,7 @@
   > {label}
   <span 
     class="fp-checkbox-checkmark" 
-    style={`top: ${theme.checkboxVerticalAlignment}`}
+    style={`top: ${defaults.checkboxVerticalAlignment}`}
   ></span>
 </label><br>
 

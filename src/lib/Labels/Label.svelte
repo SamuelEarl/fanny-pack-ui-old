@@ -1,12 +1,12 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { Tooltip } from "../Tooltips";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let label;
   export let forVal;
   export let labelAlign = "left";
-  export let tooltipIcon = theme.labelTooltipIcon;
+  export let tooltipIcon = defaults.labelTooltipIcon;
   export let tooltipText = "";
 </script>
 
@@ -14,11 +14,11 @@
 {#if label && forVal}
   <div
     class={`fp-label-container ${labelAlign}`}
-    style={`margin-bottom: ${theme.labelMarginBottom}`}
+    style={`margin-bottom: ${defaults.labelMarginBottom}`}
   >
     <label 
       for={forVal}
-      style={`font-size: ${theme.labelFontSize}`}
+      style={`font-size: ${defaults.labelFontSize}`}
     >
       {label}
     </label>

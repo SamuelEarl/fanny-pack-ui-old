@@ -11,15 +11,15 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let value = 0;
   export let valAlign = "right";
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
-  export let padding = theme.inputDefaultPadding;
-  export let fontSize = theme.inputDefaultFontSize;
+  export let padding = defaults.inputPadding;
+  export let fontSize = defaults.inputFontSize;
   export let labelAlign = "right";
   export let placeholder = "";
   export let disabled = false;

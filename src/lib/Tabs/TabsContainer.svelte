@@ -5,21 +5,21 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
   import { paddingSizes, fontSizes } from "../fp-styles";
 
-  export let border = true;
-  export let borderPadding = "md";
-  export let tabPadding = "sm";
-  export let panelPadding = "";
-  export let tabFontSize = theme.tabsFontSizeDefault;
+  export let border = defaults.tabsContainerBorder;
+  export let containerPadding = defaults.tabsContainerPadding;
+  export let tabPadding = defaults.tabsTabPadding;
+  export let tabFontSize = defaults.tabsTabFontSize;
+  export let panelPadding = defaults.tabsPanelPadding;
 
 	const tabsContainer = [];
 	const panels = [];
 	const selectedTab = writable(null);
 	const selectedPanel = writable(null);
 
-  const borderPaddingStyle = paddingSizes[borderPadding];
+  const containerPaddingStyle = paddingSizes[containerPadding];
   const tabPaddingStyle = paddingSizes[tabPadding];
   const panelPaddingStyle = paddingSizes[panelPadding];
   const tabFontSizeStyle = fontSizes[tabFontSize];
@@ -63,7 +63,7 @@
 
 <!-- If `border` is true, then include the border styles. -->
 <div
-  style={`${border ? "border: var(--border-default); border-radius: var(--border-radius);" : ""} ${borderPaddingStyle}`}
+  style={`${border ? "border: var(--border-default); border-radius: var(--border-radius);" : ""} ${containerPaddingStyle}`}
 >
 	<slot></slot>
 </div>

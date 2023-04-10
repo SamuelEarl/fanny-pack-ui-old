@@ -2,7 +2,7 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let label = "";
   export let id = "";
@@ -10,8 +10,8 @@
   export let size = "md";
   export let placeholder = "";
   export let disabled = false;
-  export let padding = theme.textareaDefaultPadding;
-  export let fontSize = theme.textareaDefaultFontSize;
+  export let padding = defaults.textareaPadding;
+  export let fontSize = defaults.textareaFontSize;
 
   let componentId = createId();
 

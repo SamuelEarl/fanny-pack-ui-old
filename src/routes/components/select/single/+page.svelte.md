@@ -261,8 +261,8 @@ You can set the following custom variables:
 | `optgroup` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | You can group your options (similar to using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag) by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
 | `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
 | `id` | `string` | Any string | `""` (an empty string) | You can give your `<Select />` components an `id` attribute. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the theme.ts file. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the theme.ts file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the defaults.ts file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the defaults.ts file. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select>` component. |
 
 <br><br>

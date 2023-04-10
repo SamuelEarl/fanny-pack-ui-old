@@ -91,8 +91,8 @@ You can set the following custom variables:
 | `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the `textarea` field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Textarea>` components an id value, if necessary, just like you can with regular `<textarea>` elements. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the `textarea` field to be updated with a string value, this component’s value property needs to be bound to a string variable. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `theme.ts` file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the `textarea` field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `textarea` field. |
 

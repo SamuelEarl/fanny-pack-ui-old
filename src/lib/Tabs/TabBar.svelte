@@ -1,10 +1,10 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
   import { marginBottomSizes } from "../fp-styles";
 
-  export let tabStyle = theme.tabsTabStyleDefault;
-  export let marginBottom = "md";
+  export let tabStyle = defaults.tabsTabStyle;
+  export let marginBottom = defaults.tabsTabBarMarginBottom;
 
   const marginBottomStyle = marginBottomSizes[marginBottom];
 

@@ -13,14 +13,14 @@
     onDocumentDragOver,
     TOO_MANY_FILES_REJECTION
   } from "./utils";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   //props
   /**
    * Set accepted file types.
    * See https://github.com/okonet/attr-accept for more information.
    */
-  export let uploadIcon = theme.dropZoneUploadIcon;
+  export let uploadIcon = defaults.dropZoneUploadIcon;
   export let accept; // string or string[]
   export let disabled = false;
   export let getFilesFromEvent = fromEvent;

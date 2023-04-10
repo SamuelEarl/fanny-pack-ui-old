@@ -8,7 +8,7 @@
   export let open = false;
 
   const { 
-    accordionPaddingStyle,
+    accordionTitlePaddingStyle,
     fontSizeStyle,
     marginBottom 
   } = getContext(ACCORDION_KEY);
@@ -16,12 +16,12 @@
 
 <!-- Accordion Wrapper -->
 <div class={`fp-accordion-wrapper`} style={`${marginBottom}`}>
-  <!-- Accordion Button -->
+  <!-- Accordion Title -->
   <div
     {id}
-    class="fp-accordion-btn"
+    class="fp-accordion-title"
     class:active={open}
-    style={`${accordionPaddingStyle} ${fontSizeStyle}`}
+    style={`${accordionTitlePaddingStyle} ${fontSizeStyle}`}
     on:click={() => open = !open}
     on:keyup={() => open = !open}
   >
@@ -32,7 +32,7 @@
   {#if open}
     <div 
       class="fp-accordion-panel"
-      style={`${accordionPaddingStyle} ${fontSizeStyle}`} 
+      style={`${accordionTitlePaddingStyle} ${fontSizeStyle}`} 
       transition:slide|local
     >
       <slot></slot>
@@ -48,7 +48,7 @@
       margin-bottom: 0 !important;
     }
 
-    & .fp-accordion-btn {
+    & .fp-accordion-title {
       border: var(--border-default);
       border-radius: var(--border-radius);
       background-color: var(--bg-color-element-default);

@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
   export let componentId = "";
@@ -52,7 +52,7 @@
     <label
       class="fp-checkbox-label-wrapper" 
       class:disabled
-      style={`margin-bottom: ${theme.checkboxMarginBottom}`}
+      style={`margin-bottom: ${defaults.checkboxMarginBottom}`}
     >
       <input
         type="checkbox"
@@ -66,7 +66,7 @@
       > {item}
       <span
         class="fp-checkbox-checkmark"
-        style={`top: ${theme.checkboxVerticalAlignment}`}
+        style={`top: ${defaults.checkboxVerticalAlignment}`}
       ></span>
     </label><br>
   {/each}
@@ -77,7 +77,7 @@
     <label
       class="fp-checkbox-label-wrapper" 
       class:disabled
-      style={`margin-bottom: ${theme.checkboxMarginBottom}`}
+      style={`margin-bottom: ${defaults.checkboxMarginBottom}`}
     >
       <input
         type="checkbox" 
@@ -91,7 +91,7 @@
       > {obj[valueLabel]}
       <span
         class="fp-checkbox-checkmark"
-        style={`top: ${theme.checkboxVerticalAlignment}`}
+        style={`top: ${defaults.checkboxVerticalAlignment}`}
       ></span>
     </label><br>
   {/each}

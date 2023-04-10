@@ -211,16 +211,16 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 
 <br>
 
-<h2 id="configure-js-vars">Step 6: Configure JavaScript variables</h2>
+<h2 id="configure-default-component-settings">Step 6: Configure Default Component Settings</h2>
 
-1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-theme.js` file into your `/src` directory. (Note the `.js` file extension.)
-2. Rename your `/src/fp-theme.js` file to `theme.ts`.
+1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
+2. Rename your `/src/fp-defaults.js` file to `defaults.ts`.
 
-*NOTE: The components are already referencing the `/src/theme.ts` file, so the values in your `/src/theme.ts` file should work without any additional configurations.*
+*NOTE: The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations.*
 
-You can now edit any of the variables in your `/src/theme.ts` file. You can read the instructions in that file to find out how to customize your JavaScript variables.
+You can now edit any of the variables in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your JavaScript variables.
 
 <br>
 
 ## Conclusion
-Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or your JavaScript variable values following the instructions inside your `theme.ts` file.
+Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or your JavaScript variable values following the instructions inside your `defaults.ts` file.

@@ -2,14 +2,14 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let type = "text";
   export let value = "";
   export let label = "";
   export let list = "";
-  export let padding = theme.inputDefaultPadding;
-  export let fontSize = theme.inputDefaultFontSize;
+  export let padding = defaults.inputPadding;
+  export let fontSize = defaults.inputFontSize;
   export let min = null;
   export let max = null;
   export let step = "any";

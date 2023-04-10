@@ -7,7 +7,7 @@
   import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateOptionsListHeight } from "../fp-utils";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
   import { spaceVariables, paddingSizes, fontSizes } from "../fp-styles";
 
   export let label = "";
@@ -17,8 +17,8 @@
   export let optgroup = null;
   export let value;
   export let disabled = false;
-  export let padding = theme.selectDefaultPadding;
-  export let fontSize = theme.selectDefaultFontSize;
+  export let padding = defaults.selectPadding;
+  export let fontSize = defaults.selectFontSize;
 
   const dispatch = createEventDispatcher();
   let componentId = createId();

@@ -4,21 +4,23 @@
 
 <script lang="ts">
   import { setContext } from "svelte";
+  import { defaults } from "/src/defaults";
   import { paddingSizes, fontSizes, marginBottomSizes } from "../fp-styles";
 
   export let border = true;
-  export let borderPadding = "sm";
-  export let accordionPadding = "sm" 
-  export let fontSize = "md";
-  export let SpaceBetweenAccordions = "xs";  
 
-  const borderPaddingStyle = paddingSizes[borderPadding];
-  const accordionPaddingStyle = paddingSizes[accordionPadding];
+  export let groupPadding = defaults.accordionGroupPadding;
+  export let accordionTitlePadding = defaults.accordionTitlePadding;
+  export let fontSize = defaults.accordionFontSize;
+  export let SpaceBetweenAccordions = defaults.accordionSpaceBetweenAccordions;
+
+  const groupPaddingStyle = paddingSizes[groupPadding];
+  const accordionTitlePaddingStyle = paddingSizes[accordionTitlePadding];
   const fontSizeStyle = fontSizes[fontSize];
   const marginBottom = marginBottomSizes[SpaceBetweenAccordions];
 
   setContext(ACCORDION_KEY, {
-    "accordionPaddingStyle": accordionPaddingStyle,
+    "accordionTitlePaddingStyle": accordionTitlePaddingStyle,
     "fontSizeStyle": fontSizeStyle,
     "marginBottom": marginBottom,
   });
@@ -26,7 +28,7 @@
 
 <div
   class={`${border ? 'fp-accordion-group' : ''}`} 
-  style={`${borderPaddingStyle}`}
+  style={`${groupPaddingStyle}`}
 >
   <slot></slot>
 </div>

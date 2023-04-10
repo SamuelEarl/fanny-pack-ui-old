@@ -74,6 +74,7 @@ a:hover {
 }
 
 br {
+  line-height: 0; /* Firefox adds a line-height to <br> tags, so this removes that. */
   margin-bottom: 15px;
 }
 

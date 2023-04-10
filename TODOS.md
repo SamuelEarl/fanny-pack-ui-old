@@ -84,6 +84,6 @@ NOTE: Maybe I could look at how to theme the Carbon components rather than creat
 
 ## Tooltip
 * Expose the `tooltipText` prop for every component that includes the `<Label>` component. See the MultiSelect component for an example.
-    * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `theme.ts` file.
+    * Make sure to document the `tooltipText` prop for each component. Also mention that the default `labelTooltipIcon` can be changed in the `defaults.ts` file.
 * Remove the old code that is not related to the Tippy.js version of the tooltip.
 * Manually test this component and write automated tests.

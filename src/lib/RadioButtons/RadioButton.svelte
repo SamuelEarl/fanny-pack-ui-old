@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
 
   export let group;
   export let value;
   export let disabled = false;
-  export let radioMarginBottom = theme.radioMarginBottom;
-  export let radioVerticalAlignment = theme.radioVerticalAlignment;
+  export let radioMarginBottom = defaults.radioMarginBottom;
+  export let radioVerticalAlignment = defaults.radioVerticalAlignment;
 </script>
 
 

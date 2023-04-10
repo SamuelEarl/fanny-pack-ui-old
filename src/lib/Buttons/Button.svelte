@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { theme } from "/src/theme";
+  import { defaults } from "/src/defaults";
   import { 
     bgColors, 
     borderColors,
@@ -17,9 +17,9 @@
   export let size = "md";
   export let width = "auto";
   export let disabled = false;
-  export let btnIcon = theme.btnIcon;
-  export let btnIconDisabled = theme.btnIconDisabled;
-  export let btnIconSide = theme.btnIconSide;
+  export let btnIcon = defaults.btnIcon;
+  export let btnIconDisabled = defaults.btnIconDisabled;
+  export let btnIconSide = defaults.btnIconSide;
   export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
   export let rotateBtnIcon = "0deg";
   export let rotateBtnIconDisabled = "0deg";
