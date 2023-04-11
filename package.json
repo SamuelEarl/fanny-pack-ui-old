@@ -1,6 +1,6 @@
 {
 	"name": "@fanny-pack-ui/svelte-kit",
-	"version": "0.0.50",
+	"version": "0.0.51",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -12,11 +12,10 @@
 		"format": "prettier --ignore-path .gitignore --write --plugin-search-dir=. .",
 		"test": "jest"
 	},
-	"dependencies": {
+	"peerDependencies": {
 		"@iconify/svelte": "^2.2.0",
 		"d3": "^7.6.1",
 		"lodash-es": "^4.17.21",
-		"svelte-portal": "^2.2.0",
 		"tippy.js": "^6.3.7"
 	},
 	"devDependencies": {

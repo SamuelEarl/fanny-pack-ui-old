@@ -9,7 +9,7 @@
 
 ## Example Usage
 
-<AccordionGroup border={true} groupPadding="md" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={true} groupPadding="lg" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>
@@ -30,7 +30,7 @@
   import { AccordionGroup, Accordion } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<AccordionGroup border={true} groupPadding="md" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={true} groupPadding="lg" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>

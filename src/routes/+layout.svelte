@@ -47,7 +47,7 @@
 
     & #main {
       flex: 1;
-      padding: 0 20px 100px 20px;
+      padding: 20px 20px 100px 20px;
       overflow-y: auto;
     }
   }
