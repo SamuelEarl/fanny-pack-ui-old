@@ -46,4 +46,4 @@ If you need to update `@fanny-pack-ui/svelte-kit` to the latest version, then yo
 
 **IMPORTANT:**
 
-Before you replace or delete your old `theme.css` and `defaults.ts` files, you should rename those old files to something like `theme-OLD.css` and `theme-OLD.ts` so you can reference any changes that you made to those files and copy those changes to your new `theme.css` and `defaults.ts` files.
+Before you replace or delete your old `theme.css` and `defaults.ts` files, you should rename those old files to something like `theme-OLD.css` and `defaults-OLD.ts` so you can reference any changes that you made to those files and copy those changes to your new `theme.css` and `defaults.ts` files.
