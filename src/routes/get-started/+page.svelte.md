@@ -72,14 +72,14 @@ const config = {
               "src/assets/styles/media-queries.css",
             ],
           }),
-        ]
-      }
+        ],
+      },
     }),
   ],
   
   kit: {
     adapter: adapter(),
-  }
+  },
 };
 
 export default config;
@@ -157,7 +157,7 @@ const config = {
   
   kit: {
     adapter: adapter(),
-  }
+  },
 };
 
 export default config;
@@ -214,7 +214,7 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 <h2 id="configure-default-component-settings">Step 6: Configure Default Component Settings</h2>
 
 1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
-2. Rename your `/src/fp-defaults.js` file to `defaults.ts`.
+2. Rename your `/src/fp-defaults.js` file to `/src/defaults.ts`.
 
 *NOTE: The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations.*
 
@@ -223,4 +223,4 @@ You can now edit any of the variables in your `/src/defaults.ts` file. You can r
 <br>
 
 ## Conclusion
-Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or your JavaScript variable values following the instructions inside your `defaults.ts` file.
+Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or the default component settings following the instructions inside your `defaults.ts` file.
