@@ -146,12 +146,12 @@ const config = {
           postcssPresetEnv({
             stage: 0,
             features: {
-              "nesting-rules": true
+              "nesting-rules": true,
             },
             browsers: "last 2 versions",
           }),
-        ]
-      }
+        ],
+      },
     }),
   ],
   
