@@ -128,8 +128,8 @@ You can use [native CSS nesting](https://kilianvalkhof.com/2021/css-html/css-nes
 import adapter from "@sveltejs/adapter-auto";
 import { vitePreprocess } from "@sveltejs/kit/vite";
 import sveltePreprocess from "svelte-preprocess";
-import postcssPresetEnv from "postcss-preset-env";
 import postcssGlobalData from "@csstools/postcss-global-data";
+import postcssPresetEnv from "postcss-preset-env";
 
 /** @type {import("@sveltejs/kit").Config} */
 const config = {
