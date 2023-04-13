@@ -81,20 +81,26 @@
   let dataIndex;
 
   async function handleMouseMove(event) {
+    // This conditional check prevents the highlighted points and the tooltip from bouncing around in Firefox.
+    if (event.offsetX === 0 || event.offsetY === 0) return;
+
     // Set the mouse's x and y positions.
     let mouseXPos = event.offsetX;
     let mouseYPos = event.offsetY;
+    // console.log("mouseXPos:", event.offsetX);
+    // console.log("mouseYPos:", event.offsetY);
 
     // Set the tooltip's y position. 
     tooltipYPos = mouseYPos;
 
     // Return the point that is closest to the mouse position's current clientX position.
-    dataIndex = bisectCenter(xValuesArray, xScale.invert(event.offsetX));
+    dataIndex = bisectCenter(xValuesArray, xScale.invert(mouseXPos));
     // console.log("dataIndex:", dataIndex);
 
     // Set the highlighted x-values and the x-position of the tooltip.
     if (dataIndex < xValuesArray.length) {
       $hoveredValueXPos = xScale(xValuesArray[dataIndex]);
+      // console.log("hoveredValueXPos:", $hoveredValueXPos);
       // Dispatch the values that are being hovered over.
       dispatch("hoveredData", data[dataIndex]);
     }
@@ -121,18 +127,11 @@
       if (mouseXPos > spaceForTooltipWidth) {
         tooltipXPos = spaceForTooltipWidth;
       }
-      else {
-        tooltipXPos = $hoveredValueXPos;
-      }
 
-      // TODO: I don't think this is working. I need to look into this.
       // If the user hovers too low on the chart, then place the tooltip a little higher.
-      let spaceForTooltipHeight = tooltipBounds.height + 30;
-      if (mouseYPos > chartContainerBounds.bottom - (2 * spaceForTooltipHeight)) {
-        tooltipYPos = chartContainerBounds.bottom - (2 * spaceForTooltipHeight);
-      }
-      else {
-        tooltipYPos = mouseYPos;
+      const spaceForTooltipHeight = chartContainerBounds.height - tooltipBounds.height - margin.bottom - 10;
+      if (mouseYPos > spaceForTooltipHeight) {
+        tooltipYPos = spaceForTooltipHeight;
       }
     }
   }

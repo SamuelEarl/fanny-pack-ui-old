@@ -283,8 +283,9 @@
       {/if} -->
 
       <!--
-        IMPORTANT NOTE:
-        Since the <CheckboxGroup> component works perfectly for the options in the select options list of this component, I am simply using that component here.
+        IMPORTANT NOTES:
+        * Since the <CheckboxGroup> component works perfectly for the options in the select options list of this component, I am simply using that component here.
+        * The `on:change={() => selectOptionsList.focus()}` event is necessary for this component to work in Firefox.
       -->
       {#if optionsDataType === "object"}
         <CheckboxGroup
@@ -293,6 +294,7 @@
           valueLabel={optionLabel}
           bind:selectedValues={values}
           {disabled}
+          on:change={() => selectOptionsList.focus()}
         />
       {:else}
         <CheckboxGroup
@@ -300,6 +302,7 @@
           checkboxGroupValues={options}
           bind:selectedValues={values}
           {disabled}
+          on:change={() => selectOptionsList.focus()}
         />
       {/if}
     </div>
