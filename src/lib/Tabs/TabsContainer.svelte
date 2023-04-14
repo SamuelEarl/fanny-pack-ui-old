@@ -5,7 +5,7 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
-  import { defaults } from "src/defaults";
+  import { defaults } from "/src/defaults";
   import { paddingSizes, fontSizes } from "../fp-styles";
 
   export let border = defaults.tabsContainerBorder;

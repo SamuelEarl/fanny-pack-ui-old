@@ -49,9 +49,9 @@ const config = {
 	kit: {
 		adapter: adapter(),
 
-    alias: {
-      src: "src",
-    },
+    // alias: {
+    //   src: "src",
+    // },
 	}
 };
 
