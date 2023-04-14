@@ -12,7 +12,7 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fp-utils";
-  import { defaults } from "$/defaults";
+  import { defaults } from "src/defaults";
   import { fontSizes, paddingSizes } from "../fp-styles";
 
   export let label = "";

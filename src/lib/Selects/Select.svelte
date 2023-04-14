@@ -7,7 +7,7 @@
   import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateOptionsListHeight } from "../fp-utils";
-  import { defaults } from "$/defaults";
+  import { defaults } from "src/defaults";
   import { spaceVariables, paddingSizes, fontSizes } from "../fp-styles";
 
   export let label = "";

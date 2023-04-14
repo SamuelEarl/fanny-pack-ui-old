@@ -13,7 +13,7 @@
     onDocumentDragOver,
     TOO_MANY_FILES_REJECTION
   } from "./utils";
-  import { defaults } from "$/defaults";
+  import { defaults } from "src/defaults";
 
   //props
   /**

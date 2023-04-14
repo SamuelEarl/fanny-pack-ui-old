@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { defaults } from "$/defaults";
+  import { defaults } from "src/defaults";
 
   export let checked;
   export let label;
