@@ -231,7 +231,7 @@ const config: UserConfig = {
 
   // This alias is necessary so your app will resolve the following
   // import statements in your Fanny Pack components properly:
-  // import { defaults } from "/src/defaults";
+  // import { defaults } from "src/defaults";
   resolve: {
     alias: {
       src: path.resolve("src/"),
@@ -242,9 +242,9 @@ const config: UserConfig = {
 export default config;
 ```
 
-You will need to...
+In order to add an alias you will need to...
 
-1. Add `import path from "path"` at the top of the file.
+1. Add `import path from "path";` at the top of the file.
 2. Add `resolve: { alias: ... }` inside the config object.
 
 *Source: https://stackoverflow.com/a/73754976/9453009*

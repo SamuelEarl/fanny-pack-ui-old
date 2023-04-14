@@ -1,6 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
-  import { defaults } from "/src/defaults";
+  import { defaults } from "src/defaults";
   import { 
     bgColors, 
     borderColors,

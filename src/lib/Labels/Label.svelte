@@ -1,7 +1,7 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { Tooltip } from "../Tooltips";
-  import { defaults } from "/src/defaults";
+  import { defaults } from "src/defaults";
 
   export let label;
   export let forVal;
