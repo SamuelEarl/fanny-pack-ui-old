@@ -1,4 +1,3 @@
-import path from "path";
 import { sveltekit } from "@sveltejs/kit/vite";
 
 /** @type {import("vite").UserConfig} */
@@ -11,12 +10,6 @@ const config = {
     fs: {
       allow: ["package"]
     },
-
-    // resolve: {
-    //   alias: {
-    //     src: path.resolve("src/"),
-    //   },
-    // },
   },
 
   define: {
