@@ -261,6 +261,7 @@
 
       &.disabled {
         border-color: var(--border-color-disabled);
+        pointer-events: none;
       }
 
       & .fp-date-input {
