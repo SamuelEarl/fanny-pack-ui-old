@@ -1,6 +1,6 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { defaults } from "/src/defaults";
+  import { defaults } from "$/defaults";
   import { marginBottomSizes } from "../fp-styles";
 
   export let tabStyle = defaults.tabsTabStyle;

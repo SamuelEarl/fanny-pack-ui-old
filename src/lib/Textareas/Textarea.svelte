@@ -2,7 +2,7 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { defaults } from "/src/defaults";
+  import { defaults } from "$/defaults";
 
   export let label = "";
   export let id = "";
