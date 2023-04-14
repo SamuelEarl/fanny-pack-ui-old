@@ -214,44 +214,30 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 <h2 id="configure-default-component-settings">Step 6: Configure Default Component Settings</h2>
 
 1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
-2. Rename your `src/fp-defaults.js` file to `src/defaults.ts`.
-3. Update your `vite.config.ts` file with an alias:
+2. Rename your `src/fp-defaults.js` file to `/src/defaults.ts`.
+3. Add the following alias to your `svelte.config.ts` file:
 
 ```js
-import path from "path";
-import { sveltekit } from "@sveltejs/kit/vite";
-import type { UserConfig } from "vite";
-
-const config: UserConfig = {
-	plugins: [sveltekit()],
-
-  server: {
-    port: 5000,
-  },
+  ...
 
   // This alias is necessary so your app will resolve the following
   // import statements in your Fanny Pack components properly:
   // import { defaults } from "/src/defaults";
-  resolve: {
+  kit: {
+    adapter: adapter(),
+
     alias: {
-      src: path.resolve("src/"),
+      "/src": "src",
     },
-  },
+  }
 };
 
 export default config;
 ```
 
-In order to add an alias you will need to...
+*NOTE: The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations.*
 
-1. Add `import path from "path";` at the top of the file.
-2. Add `resolve: { alias: ... }` inside the config object.
-
-*Source: https://stackoverflow.com/a/73754976/9453009*
-
-*NOTE: The components are already referencing the `src/defaults.ts` file, so the values in your `src/defaults.ts` file should work without any additional configurations.*
-
-You can now edit any of the variables in your `src/defaults.ts` file. You can read the instructions in that file to find out how to customize your JavaScript variables.
+You can now edit any of the values in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your default component settings.
 
 <br>
 
