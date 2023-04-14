@@ -311,9 +311,9 @@
       }
 
       &.disabled {
-        border-color: var(--disabled-bg-color);
-        background-color: var(--disabled-bg-color);
-        color: var(--disabled-text-color);
+        border-color: var(--border-color-disabled);
+        background-color: var(--bg-color-element-disabled);
+        color: var(--text-color-disabled);
         pointer-events: none;
       }
 

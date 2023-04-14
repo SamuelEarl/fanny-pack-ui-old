@@ -260,7 +260,7 @@
       }
 
       &.disabled {
-        border-color: var(--disabled-bg-color);
+        border-color: var(--border-color-disabled);
       }
 
       & .fp-date-input {
@@ -278,8 +278,8 @@
         }
 
         &:disabled {
-          background-color: var(--disabled-bg-color);
-          color: var(--disabled-text-color);
+          background-color: var(--bg-color-element-disabled);
+          color: var(--text-color-disabled);
         }
       }
 
@@ -293,10 +293,10 @@
         cursor: pointer;
 
         &.disabled {
-          border-color: var(--disabled-bg-color);
-          border-left-color: var(--disabled-text-color);
-          background-color: var(--disabled-bg-color);
-          color: var(--disabled-text-color);
+          border-color: var(--border-color-disabled);
+          border-left-color: var(--text-color-disabled);
+          background-color: var(--bg-color-element-disabled);
+          color: var(--text-color-disabled);
           pointer-events: none;
         }
       }

@@ -61,10 +61,10 @@
     }
 
     &:disabled {
-      border-color: var(--disabled-bg-color);
+      border-color: var(--border-color-disabled);
       box-shadow: none;
-      color: var(--disabled-text-color);
-      background-color: var(--disabled-bg-color);
+      color: var(--text-color-disabled);
+      background-color: var(--bg-color-element-disabled);
       cursor: default;
     }
   }

@@ -104,8 +104,8 @@
 
     /* Disabled radio buttons styles */
     & .fp-radio-input:disabled ~ .fp-radio-checkmark {
-      border-color: var(--disabled-bg-color, black);
-      background-color: var(--disabled-bg-color, black);
+      border-color: var(--border-color-disabled);
+      background-color: var(--bg-color-element-disabled);
       cursor: default;
     }
     /* On mouse-over of an disabled radio button, prevent the thicker outline from appearing around the radio button. */

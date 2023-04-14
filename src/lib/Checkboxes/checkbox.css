@@ -66,8 +66,8 @@
 
 /* Disabled state */
 .fp-checkbox-input:disabled ~ .fp-checkbox-checkmark {
-  border-color: var(--disabled-bg-color, black);
-  background-color: var(--disabled-bg-color, black);
+  border-color: var(--border-color-disabled);
+  background-color: var(--bg-color-element-disabled);
   cursor: default;
 }
 .fp-checkbox-label-wrapper .fp-checkbox-input:disabled ~ .fp-checkbox-checkmark {
