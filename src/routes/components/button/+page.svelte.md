@@ -8,7 +8,8 @@
   let savingData = false;
   let selectedBtnColor = "primary";
   let isHollow = false;
-  let btnSize = "md";
+  let btnPadding = "md";
+  let btnFontSize = "md";
   let btnWidth = "auto";
   let showInteractiveButtons = true;
 
@@ -43,7 +44,8 @@
   btnColor="primary"
   textColor="primary"
   hollow={false}
-  size="md"
+  padding="md"
+  fontSize="md"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -76,7 +78,8 @@
   type="button"
   btnColor="primary"
   hollow={false}
-  size="md"
+  padding="md"
+  fontSize="md"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -101,7 +104,8 @@
       <Button
         btnColor={selectedBtnColor}
         hollow={isHollow}
-        size={btnSize}
+        padding={btnPadding}
+        fontSize={btnFontSize}
         width={btnWidth}
         disabled={creatingAccount}
         btnIcon="bi:person-plus-fill"
@@ -121,7 +125,8 @@
       <Button
         btnColor={selectedBtnColor}
         hollow={isHollow}
-        size={btnSize}
+        padding={btnPadding}
+        fontSize={btnFontSize}
         width={btnWidth}
         disabled={creatingAccount}
         btnIcon="bi:person-plus-fill"
@@ -158,9 +163,18 @@
 <br>
 
 <Select
-  label="Size"
-  options={["xs", "sm","md","lg", "xl"]}
-  bind:value={btnSize}
+  label="Padding"
+  options={["xs","sm","md","lg","xl"]}
+  bind:value={btnPadding}
+  on:change={handleRefreshInteractiveBtns}
+/>
+
+<br>
+
+<Select
+  label="Font Size"
+  options={["xs","sm","md","lg","xl"]}
+  bind:value={btnFontSize}
   on:change={handleRefreshInteractiveBtns}
 />
 
@@ -180,7 +194,8 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 
 <Button
   btnIcon="ion:save-sharp" 
-  size="lg" 
+  padding="lg"
+  fontSize="lg"
   disabled={savingData}
   title="Save File"
   on:click={handleSaveData}
@@ -200,7 +215,8 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 
 <Button
   btnIcon="ion:save-sharp" 
-  size="lg" 
+  padding="lg"
+  fontSize="lg"
   disabled={savingData}
   title="Save File"
   on:click={handleSaveData}
@@ -224,7 +240,8 @@ There are situations where you might want to tweak (or even completely overhaul)
 | `btnColor` | `string` | `primary`, `secondary`, `tertiary`, `transparent` | `primary` | This prop is for the button's main color. For regular buttons, this is the background color. For `hollow` buttons this is the border and text color.<br><br>If you pass `"transparent"` to this prop, then the background and border colors will also be transparent. You can also change the text color of a `"transparent"` button. See the `textColor` prop for color options. |
 | `textColor` (optional) | `string` | `default`, `primary`, `secondary`, `tertiary`, `white`, `black` | `default` (which is the `--text-color-default` color in the `theme.css` file) | This prop will only be applied if you pass `"transparent"` to the `btnColor` prop. |
 | `hollow` | `boolean` | `true`, `false` | `false` | Hollow buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
-| `size` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding and font size of the button. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/defaults.ts` file. | See the heading [Configure JavaScript variables](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |

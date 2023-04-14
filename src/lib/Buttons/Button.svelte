@@ -6,7 +6,7 @@
     borderColors,
     textColors,
     textColorsForColoredBgs, 
-    fontSizes, 
+    fontSizes,
   } from "../fp-styles";
 
   export let type = "button";
@@ -14,7 +14,8 @@
   // The user can change the textColor for transparent buttons.
   export let textColor = "";
   export let hollow = false;
-  export let size = "md";
+  export let padding = defaults.btnPadding;
+  export let fontSize = defaults.btnFontSize;
   export let width = "auto";
   export let disabled = false;
   export let btnIcon = defaults.btnIcon;
@@ -84,7 +85,7 @@
         xl: "padding: 10px 20px;",
       }
     }
-    return `${btnPadding[size]} ${fontSizes[size]}`;
+    return `${btnPadding[padding]} ${fontSizes[fontSize]}`;
   }
   const sizeStyles = getSizeStyles();
 
@@ -100,7 +101,7 @@
           lg: "margin-right: 13px;",
           xl: "margin-right: 15px;",
         }
-        iconStyles = `order: -9999; ${rightMargins[size]}`;
+        iconStyles = `order: -9999; ${rightMargins[fontSize]}`;
       }
       if (btnIconSide === "right") {
         let leftMargins = {
@@ -110,7 +111,7 @@
           lg: "margin-left: 13px;",
           xl: "margin-left: 15px;",
         }
-        iconStyles = `order: 9999; ${leftMargins[size]}`;
+        iconStyles = `order: 9999; ${leftMargins[fontSize]}`;
       }
     }
     return iconStyles;
