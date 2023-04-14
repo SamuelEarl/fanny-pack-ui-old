@@ -12,11 +12,11 @@ const config = {
       allow: ["package"]
     },
 
-    resolve: {
-      alias: {
-        src: path.resolve("src/"),
-      },
-    },
+    // resolve: {
+    //   alias: {
+    //     src: path.resolve("src/"),
+    //   },
+    // },
   },
 
   define: {
