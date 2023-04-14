@@ -231,7 +231,7 @@ const config: UserConfig = {
 
   // This alias is necessary so your app will resolve the following
   // import statements in your Fanny Pack components properly:
-  // import { defaults } from "src/defaults";
+  // import { defaults } from "/src/defaults";
   resolve: {
     alias: {
       src: path.resolve("src/"),
@@ -246,6 +246,8 @@ You will need to...
 
 1. Add `import path from "path"` at the top of the file.
 2. Add `resolve: { alias: ... }` inside the config object.
+
+*Source: https://stackoverflow.com/a/73754976/9453009*
 
 *NOTE: The components are already referencing the `src/defaults.ts` file, so the values in your `src/defaults.ts` file should work without any additional configurations.*
 
