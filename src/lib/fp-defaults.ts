@@ -15,11 +15,14 @@ export const defaults = {
   accordionFontSize: "md",
   accordionSpaceBetweenAccordions: "sm",
   // BUTTONS
+  btnBgColor: "var(--primary-color)",
+  btnBorderColor: "var(--primary-color)",
+  btnTextColor: "var(--white)",
+  btnPadding: "md",
+  btnFontSize: "md",
   btnIcon: "", // "mdi:check-circle"
   btnIconSide: "right",
   btnIconDisabled: "icomoon-free:spinner2",
-  btnPadding: "md",
-  btnFontSize: "md",
   // CHECKBOXES
   checkboxMarginBottom: "20px",
   // The `checkboxVerticalAlignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable might come in handy.

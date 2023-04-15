@@ -31,6 +31,7 @@
   /* INSTRUCTIONS: You can change any of these values, but do not change the variable names. */
   --white: #ffffff;
   --black: #000000;
+  --transparent: transparent;
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 
   See https://www.colorhexa.com/50404d. */
   --neutral-50: #f9f8f9;

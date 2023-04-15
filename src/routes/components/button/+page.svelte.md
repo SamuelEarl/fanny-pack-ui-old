@@ -2,15 +2,25 @@
   // import Prism from "prismjs";
   // // Svelte code highlighting: https://github.com/pngwn/prism-svelte
   // import "prism-svelte";
-  import { Button, Select, Tooltip } from "/src/lib";
+  import { Button, Select, Tooltip, Grid, Row, Col } from "/src/lib";
 
   let creatingAccount = false;
   let savingData = false;
-  let selectedBtnColor = "primary";
-  let isHollow = false;
-  let btnPadding = "md";
-  let btnFontSize = "md";
-  let btnWidth = "auto";
+  const colorOptions = [
+    "var(--primary-color)",
+    "var(--secondary-color)",
+    "var(--tertiary-color)",
+    "var(--white)",
+    "var(--black)",
+    "var(--transparent)"
+  ];
+  const sizeOptions = ["xs","sm","md","lg","xl"];
+  let selectedBgColor = "var(--primary-color)";
+  let selectedBorderColor = "var(--primary-color)";
+  let selectedTextColor = "var(--white)";
+  let selectedBtnPadding = "md";
+  let selectedBtnFontSize = "md";
+  let selectedBtnWidth = "auto";
   let showInteractiveButtons = true;
 
   function handleCreateAccount() {
@@ -41,9 +51,9 @@
 <Button
   id="some-id"
   type="button"
-  btnColor="primary"
-  textColor="primary"
-  hollow={false}
+  bgColor="var(--primary-color)"
+  borderColor="var(--primary-color)"
+  textColor="var(--white)"
   padding="md"
   fontSize="md"
   width="auto"
@@ -76,8 +86,9 @@
 <Button
   id="some-id"
   type="button"
-  btnColor="primary"
-  hollow={false}
+  bgColor="var(--primary-color)"
+  borderColor="var(--primary-color)"
+  textColor="var(--white)"
   padding="md"
   fontSize="md"
   width="auto"
@@ -102,11 +113,12 @@
   <div class="light-bg">
     {#if showInteractiveButtons}
       <Button
-        btnColor={selectedBtnColor}
-        hollow={isHollow}
-        padding={btnPadding}
-        fontSize={btnFontSize}
-        width={btnWidth}
+        bgColor={selectedBgColor}
+        borderColor={selectedBorderColor}
+        textColor={selectedTextColor}
+        padding={selectedBtnPadding}
+        fontSize={selectedBtnFontSize}
+        width={selectedBtnWidth}
         disabled={creatingAccount}
         btnIcon="bi:person-plus-fill"
         btnIconDisabled="bi:gear-wide-connected"
@@ -123,11 +135,12 @@
   <div class="dark-bg">
     {#if showInteractiveButtons}
       <Button
-        btnColor={selectedBtnColor}
-        hollow={isHollow}
-        padding={btnPadding}
-        fontSize={btnFontSize}
-        width={btnWidth}
+        bgColor={selectedBgColor}
+        borderColor={selectedBorderColor}
+        textColor={selectedTextColor}
+        padding={selectedBtnPadding}
+        fontSize={selectedBtnFontSize}
+        width={selectedBtnWidth}
         disabled={creatingAccount}
         btnIcon="bi:person-plus-fill"
         btnIconDisabled="bi:gear-wide-connected"
@@ -144,48 +157,67 @@
 
 <br>
 
-<Select
-  label="Button color"
-  options={["primary", "secondary", "tertiary"]}
-  bind:value={selectedBtnColor}
-  on:change={handleRefreshInteractiveBtns}
-/>
-
-<br>
-
-<Select
-  label="Hollow"
-  options={[false,true]}
-  bind:value={isHollow}
-  on:change={handleRefreshInteractiveBtns}
-/>
-
-<br>
-
-<Select
-  label="Padding"
-  options={["xs","sm","md","lg","xl"]}
-  bind:value={btnPadding}
-  on:change={handleRefreshInteractiveBtns}
-/>
-
-<br>
-
-<Select
-  label="Font Size"
-  options={["xs","sm","md","lg","xl"]}
-  bind:value={btnFontSize}
-  on:change={handleRefreshInteractiveBtns}
-/>
-
-<br>
-
-<Select
-  label="Width"
-  options={["auto","full"]}
-  bind:value={btnWidth}
-  on:change={handleRefreshInteractiveBtns}
-/>
+<Grid
+  colPaddingX={10}
+  colPaddingY={10}
+  rowMarginsX={-10}
+  equalColWidths
+>
+  <Row>
+    <Col>
+      <Select
+        label="Background Color"
+        options={colorOptions}
+        bind:value={selectedBgColor}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+    <Col>
+      <Select
+        label="Font Size"
+        options={sizeOptions}
+        bind:value={selectedBtnFontSize}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <Select
+        label="Border Color"
+        options={colorOptions}
+        bind:value={selectedBorderColor}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+    <Col>
+      <Select
+        label="Padding"
+        options={sizeOptions}
+        bind:value={selectedBtnPadding}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+  </Row>
+  <Row>
+    <Col>
+      <Select
+        label="Text Color"
+        options={colorOptions}
+        bind:value={selectedTextColor}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+    <Col>
+      <Select
+        label="Width"
+        options={["auto","full"]}
+        bind:value={selectedBtnWidth}
+        on:change={handleRefreshInteractiveBtns}
+      />
+    </Col>
+  </Row>
+</Grid>
 
 ---
 
@@ -229,7 +261,7 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 
 There are situations where you might want to tweak (or even completely overhaul) the look of a button. For example, you might need uniquely styled buttons when creating a login page that has buttons for different authentication providers or maybe you want to make some minor modifications to the styles of buttons in your header or footer.
 
-**The buttons in this UI library are not intended to be infinitely customizable. If you need to create a custom button that is outside of the customizability of these buttons, then it is recommneded to create your own custom button.**
+You can customize these buttons almost infinitely by passing different values to the `bgColor`, `borderColor`, `textColor`, `padding`, and `fontSize` props. You can also change or remove the button icons.
 
 ---
 
@@ -237,8 +269,9 @@ There are situations where you might want to tweak (or even completely overhaul)
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
-| `btnColor` | `string` | `primary`, `secondary`, `tertiary`, `transparent` | `primary` | This prop is for the button's main color. For regular buttons, this is the background color. For `hollow` buttons this is the border and text color.<br><br>If you pass `"transparent"` to this prop, then the background and border colors will also be transparent. You can also change the text color of a `"transparent"` button. See the `textColor` prop for color options. |
-| `textColor` (optional) | `string` | `default`, `primary`, `secondary`, `tertiary`, `white`, `black` | `default` (which is the `--text-color-default` color in the `theme.css` file) | This prop will only be applied if you pass `"transparent"` to the `btnColor` prop. |
+| `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. |
+| `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. |
+| `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. |
 | `hollow` | `boolean` | `true`, `false` | `false` | Hollow buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
 | `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. |
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. |
@@ -272,9 +305,9 @@ There are situations where you might want to tweak (or even completely overhaul)
 Depending on the colors that you use as your `primary`, `secondary`, and `tertiary` colors, you might need to change the values for the button text colors in your `theme.css` file. These are the class names that you need to look at:
 
 ```
-"text-color-for-bg-primary"
-"text-color-for-bg-secondary"
-"text-color-for-bg-tertiary"
+"text-color-for-primary-bg"
+"text-color-for-secondary-bg"
+"text-color-for-tertiary-bg"
 ```
 
 <style>

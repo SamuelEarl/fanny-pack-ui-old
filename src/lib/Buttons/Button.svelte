@@ -1,21 +1,15 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { defaults } from "/src/defaults";
-  import { 
-    bgColors, 
-    borderColors,
-    textColors,
-    textColorsForColoredBgs, 
-    fontSizes,
-  } from "../fp-styles";
+  import { fontSizes } from "../fp-styles";
 
   export let type = "button";
-  export let btnColor = "primary";
-  // The user can change the textColor for transparent buttons.
-  export let textColor = "";
-  export let hollow = false;
+  export let bgColor = defaults.btnBgColor;
+  export let borderColor = defaults.btnBorderColor;
+  export let textColor = defaults.btnTextColor;
   export let padding = defaults.btnPadding;
   export let fontSize = defaults.btnFontSize;
+  // export let hollow = false;
   export let width = "auto";
   export let disabled = false;
   export let btnIcon = defaults.btnIcon;
@@ -25,64 +19,32 @@
   export let rotateBtnIcon = "0deg";
   export let rotateBtnIconDisabled = "0deg";
 
-  let bgColor = "";
-  let borderColor = "";
+  // Set the background, border, and text colors.
+  const btnColors = `background-color: ${bgColor}; border-color: ${borderColor}; color: ${textColor};`;
 
   // If no button text slots are passed to this component, then `btnTextSlotsExist` will be `false`.
   let btnTextSlotsExist = Object.keys($$slots).length !== 0;
 
-  /**
-   * Set the background, border, and text colors.
-   */
-  function getColorStyles() {
-    bgColor = bgColors[btnColor];
-    borderColor = borderColors[btnColor];
-    // Only set the textColor if the btnColor is NOT "transparent".
-    // If this `if` statement was not here, then when the btnColor is set to "transparent" the textColor could not be set because `textColorsForColoredBgs[btnColor]` would return undefined. So when the execution gets to the `if (btnColor === "transparent")` conditional statement, `textColor` would be undefined and the textColor would always be set to `--text-color-default` from the `else` clause.
-    if (btnColor !== "transparent") {
-      textColor = textColorsForColoredBgs[btnColor];
-    }
-
-    // Set the textColor value for "transparent" buttons.
-    // NOTE: Since no `disabled` values are set for "transparent" buttons, they will inherit the colors of the regular element states.
-    if (btnColor === "transparent") {
-      if (textColor) {
-        textColor = textColors[textColor];
-      }
-      else {
-        textColor = textColors["default"];
-      }
-    }
-
-    // If `hollow` is `true`, then turn the background color transparent and turn the textColor to the btnColor.
-    if (hollow) {
-      bgColor = bgColors["transparent"];
-      textColor = textColors[btnColor];
-    }
-
-    return `${bgColor} ${borderColor} ${textColor}`;
-  }
-  const colorStyles = getColorStyles();
-
   function getSizeStyles() {
     let btnPadding;
     // If no button text slots are passed to this component, then `btnTextSlotsExist` will be false and this will be treated as an icon button, which has equal padding on all 4 sides.
+    // The following padding sizes are 1px smaller than the other padding sizes in the `theme.css` file to compensate for the 2px border that this Button component has. Other form elements only have 1px borders, which is why their padding sizes are 1px larger that the following padding sizes.
     if (!btnTextSlotsExist) {
       btnPadding = {
-        xs: "padding: 2px;",
+        xs: "padding: 0px;",
         sm: "padding: 4px;",
-        md: "padding: 6px;",
-        lg: "padding: 8px;",
-        xl: "padding: 10px;",
+        md: "padding: 9px;",
+        lg: "padding: 14px;",
+        xl: "padding: 19px;",
       }
     }
     else {
       btnPadding = {
-        xs: "padding: 2px 4px;",
+        xs: "padding: 0px 3px;",
         sm: "padding: 4px 8px;",
-        md: "padding: 6px 12px;",
-        lg: "padding: 8px 16px;",
-        xl: "padding: 10px 20px;",
+        md: "padding: 9px 18px;",
+        lg: "padding: 14px 28px;",
+        xl: "padding: 19px 38px;",
       }
     }
     return `${btnPadding[padding]} ${fontSizes[fontSize]}`;
@@ -117,15 +79,25 @@
     return iconStyles;
   }
   const btnIconStyles = getBtnIconStyles();
+
+  function addBoxShadow(event) {
+    event.target.style.boxShadow = `0 0 0 1px ${borderColor}`;
+  }
+
+  function removeBoxShadow(event) {
+    event.target.style.boxShadow = "none";
+  }
 </script>
 
 <button
   {type}
-  class={`fp-btn ${btnColor === "transparent" ? "" : "non-transparent"}`}
-  style={`${colorStyles} ${sizeStyles} ${width === "full" ? "width: 100%" : ""}`}
+  class={`fp-btn ${borderColor === "var(--transparent)" ? "transparent-border" : "non-transparent-border"}`}
+  style={`${btnColors} ${sizeStyles} ${width === "full" ? "width: 100%" : ""}`}
   {disabled}
   {...$$restProps}
   on:click
+  on:mouseenter={addBoxShadow}
+  on:mouseleave={removeBoxShadow}
 >
   <!-- Button Text -->
   {#if $$slots.btnTextDisabled && disabled}
@@ -158,30 +130,19 @@
   @media (--xs-up) {
     .fp-btn {
       border-width: 2px;
+      border-style: solid;
       font-weight: bold;
       border-radius: var(--border-radius);
       display: flex;
       align-items: center;
       justify-content: center;
 
-      &.primary:hover {
-        box-shadow: 0 0 0 1px var(--primary-color);
-      }
-
-      &.secondary:hover {
-        box-shadow: 0 0 0 1px var(--secondary-color);        
-      }
-
-      &.tertiary:hover {
-        box-shadow: 0 0 0 1px var(--tertiary-color);        
-      }
-
       &:disabled {
         box-shadow: none !important;
         pointer-events: none !important;
       }
 
-      &.non-transparent:disabled {
+      &.non-transparent-border:disabled {
         background-color: var(--bg-color-element-disabled) !important;
         border-color: var(--border-color-disabled) !important;
         color: var(--text-color-disabled) !important;
