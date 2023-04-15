@@ -272,7 +272,6 @@ You can customize these buttons almost infinitely by passing different values to
 | `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. |
 | `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. |
 | `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. |
-| `hollow` | `boolean` | `true`, `false` | `false` | Hollow buttons have a transparent background and their text and border colors are either the `primary`, `secondary`, or `tertiary` colors. |
 | `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. |
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
