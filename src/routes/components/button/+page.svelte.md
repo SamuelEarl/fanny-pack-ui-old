@@ -269,11 +269,11 @@ You can customize these buttons almost infinitely by passing different values to
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
-| `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. |
-| `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. |
-| `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. |
+| `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. The default value can be set in the `/src/defaults.ts` file. |
+| `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. The default value can be set in the `/src/defaults.ts` file. |
+| `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. The default value can be set in the `/src/defaults.ts` file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. The default value can be set in the `/src/defaults.ts` file. |
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. The default value can be set in the `/src/defaults.ts` file. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/defaults.ts` file. | See the heading [Configure JavaScript variables](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
