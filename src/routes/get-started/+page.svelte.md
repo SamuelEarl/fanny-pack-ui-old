@@ -274,7 +274,7 @@ If you have an SVG image of your favicon, then that might be the best image form
 1. Go to [Favicon Generator](https://realfavicongenerator.net/), click the button that says "Select your Favicon image", and follow the instructions.
 2. When you get to the last section titled "Favicon Generator Options," make sure that the option for "I will place favicon files (favicon.ico, apple-touch-icon.png, etc.) at the root of my web site. Recommended." is selected and click the "Generate your Favicons and HTML code".
 3. After downloading your favicon pack, unzip/extract the icons directly into your `/static/` folder. 
-4. Open your `/src/app.html` file and copy/paste the `<link>` and `<meta>` from tags Favicon Generator inside the `<head>` tag.
+4. Open your `/src/app.html` file and replace the `<link rel="icon" href="%sveltekit.assets%/favicon.png" />` tag with the `<link>` and `<meta>` tags from Favicon Generator.
 5. Prefix all of the icon references with `%sveltekit.assets%`. Your `app.html` file should look similar to this:
 
 ```html
