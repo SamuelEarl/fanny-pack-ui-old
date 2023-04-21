@@ -48,7 +48,34 @@ Import the `/src/assets/styles/main.css` file into the `<script>` tag of the `/s
 
 <br>
 
-## Step 3: Configure Media Queries
+## Step 3: Update your Prettier settings (optional)
+
+This is only personal preference, but I like my JavaScript code to use the following style rules:
+
+* Double quotes for strings (because many other statically typed languages use double quotes for strings)
+* Trailing commas
+* Statements are terminated with semicolons
+
+You can see the available options for Prettier [here](https://prettier.io/docs/en/options.html).
+
+```json
+{
+	"useTabs": true,
+	"singleQuote": false,
+	"trailingComma": "es5",
+	"printWidth": 100,
+	"semi": true,
+	"plugins": ["prettier-plugin-svelte"],
+	"pluginSearchDirs": ["."],
+	"overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
+}
+```
+
+Then you can run `npm run lint` to see which files need style formatting and `npm run format` to format those files with Prettier.
+
+<br>
+
+## Step 4: Configure Media Queries
 
 1. Install `svelte-preprocess` and `@csstools/postcss-global-data` as `devDependencies` :<br>`npm install --save-dev svelte-preprocess @csstools/postcss-global-data`
 2. Open your `svelte.config.js` file and change the code to match this:
@@ -116,7 +143,7 @@ Now you can use media queries like this throughout your app:
 
 <br>
 
-## Step 4: Configure Native CSS Nesting Rules (Optional)
+## Step 5: Configure Native CSS Nesting Rules (Optional)
 
 You can use [native CSS nesting](https://kilianvalkhof.com/2021/css-html/css-nesting-specificity-and-you/) by adding the `postcssPresetEnv()` config in your `svelte.config.js` file.
 
@@ -169,7 +196,7 @@ export default config;
 
 <br>
 
-<h2 id="install-fonts">Step 5: Install &amp; Configure Fonts</h2>
+<h2 id="install-fonts">Step 6: Install &amp; Configure Fonts</h2>
 
 No fonts are included in your theme files. However, the components in this library will inherit the fonts that you define for your app. Here is an easy way to install fonts in your app:
 
@@ -210,7 +237,7 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 
 <br>
 
-<h2 id="configure-default-component-settings">Step 6: Configure Default Component Settings</h2>
+<h2 id="configure-default-component-settings">Step 7: Configure Default Component Settings</h2>
 
 1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
 2. Rename your `src/fp-defaults.js` file to `/src/defaults.ts`.
@@ -219,12 +246,12 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 ```js
   ...
 
-  // This alias is necessary so your app will resolve the following
-  // import statements in your Fanny Pack components properly:
-  // import { defaults } from "/src/defaults";
   kit: {
     adapter: adapter(),
 
+    // This alias is necessary so your app will resolve the following
+    // import statements in your Fanny Pack components properly:
+    // import { defaults } from "/src/defaults";
     alias: {
       "/src": "src",
     },
