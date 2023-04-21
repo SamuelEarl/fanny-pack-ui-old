@@ -20,7 +20,7 @@
 
 <div 
   class="fp-grid"
-  class:container={contain}
+  class:fp-container={contain}
 >
   <slot />
 </div>
