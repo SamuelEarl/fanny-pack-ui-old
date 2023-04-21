@@ -267,5 +267,41 @@ You can now edit any of the values in your `/src/defaults.ts` file. You can read
 
 <br>
 
+## Step 8: Add your favicon to your app
+
+If you have an SVG image of your favicon, then that might be the best image format to use.
+
+1. Go to [Favicon Generator](https://realfavicongenerator.net/), click the button that says "Select your Favicon image", and follow the instructions.
+2. When you get to the last section titled "Favicon Generator Options," make sure that the option for "I will place favicon files (favicon.ico, apple-touch-icon.png, etc.) at the root of my web site. Recommended." is selected and click the "Generate your Favicons and HTML code".
+3. After downloading your favicon pack, unzip/extract the icons directly into your `/static/` folder. 
+4. Open your `/src/app.html` file and copy/paste the `<link>` and `<meta>` from tags Favicon Generator inside the `<head>` tag.
+5. Prefix all of the icon references with `%sveltekit.assets%`. Your `app.html` file should look similar to this:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="description" content="Description goes here..." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="%sveltekit.assets%/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png">
+    <link rel="manifest" href="%sveltekit.assets%/site.webmanifest">
+    <link rel="mask-icon" href="%sveltekit.assets%/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+		
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+		%sveltekit.head%
+	</head>
+	<body>
+		<div id="svelte">%sveltekit.body%</div>
+	</body>
+</html>
+```
+
+<br>
+
 ## Conclusion
 Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or the default component settings following the instructions inside your `defaults.ts` file.
