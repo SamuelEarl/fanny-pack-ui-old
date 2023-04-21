@@ -2,6 +2,7 @@
 
 /* The `container` class sets the `max-width` of an element to `--width-lg` and it centers the content. */
 .fp-container {
+  width: var(--width-lg);
   max-width: var(--width-lg);
   margin: 0 auto;
   /* I will not include padding here because a developer would probably put padding around their pages through the layout file or through individual pages. */
