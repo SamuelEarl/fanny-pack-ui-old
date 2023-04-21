@@ -142,7 +142,7 @@ Just like with any other responsive design system, larger breakpoints will inher
 
 6 breakpoints might seem like a lot to work with, but you don't have to set column values for each breakpoint. One idea you can use is to specify column values for only the `xs`, `md`, and `xl` breakpoints and then allow the other breakpoints to inherit the column values from the breakpoints that are smaller than them (e.g. `sm` will inherit from `xs`, `lg` will inherit from `md`, `xxl` will inherit from `xl`).
 
-Note that the value ranges for each breakpoint can be changed in the `fp-media-queries.css` file.
+Note that the value ranges for each breakpoint can be changed in the `media-queries.css` file.
 
 ---
 

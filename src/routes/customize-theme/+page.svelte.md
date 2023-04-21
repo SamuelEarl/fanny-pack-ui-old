@@ -4,7 +4,7 @@
   import { browser } from "$app/environment";
   // import Colorpicker from "@budibase/colorpicker";
   import { Button, Checkbox, Input, Modal, Select, TabsContainer, TabBar, Tab, TabPanel, ToastContent } from "/src/lib";
-  import themeFile from "/src/lib/fp-theme.css";
+  import themeFile from "/src/lib/styles/theme.css";
 
   const neutralColors = [
     { label: "--neutral-50", value: "#f9f8f9" },
@@ -48,7 +48,7 @@
   });
 
   /**
-   * This function will take the name of a block of CSS variables (as defined in the `fp-theme.css` file),
+   * This function will take the name of a block of CSS variables (as defined in the `theme.css` file),
    * find that block in the `themeFile`, and return all the variables that are defined in that block.
    */
   function findMatchingVariableBlock(blockName) {
@@ -120,9 +120,9 @@
   }
 
   /**
-   * This function will parse the `fp-theme.css` file and create a `theme` object based on the CSS variables in that file.
-   * This will allow me to work with a single source of truth (the `fp-theme.css` file) for the theme. 
-   * This way, when I add new components or change something in the theme, I only need to make changes in the `fp-theme.css`
+   * This function will parse the `theme.css` file and create a `theme` object based on the CSS variables in that file.
+   * This will allow me to work with a single source of truth (the `theme.css` file) for the theme. 
+   * This way, when I add new components or change something in the theme, I only need to make changes in the `theme.css`
    * file and both the components and this "Customize Theme" page will be updated.
    */
   function parseThemeFile() {
@@ -665,7 +665,7 @@ To set your main color variables:
           <td>{mainColor.label}</td>
           <td>
             {#if referenceVariables.length > 0}
-              <!-- NOTE: When this page first loads, the `parseThemeFile()` function will populate the `theme` object based on the color and size CSS variables that are defined in the `fp-theme.css` file. So the `theme.mainColors` array will contain the Main Color variables from the `fp-theme.css` file. Since each of the following <Select> components is bound to `theme.mainColors[i].value`, the initial value of each of these <Select> components will be the corresponding Main Color value from the `fp-theme.css` file. -->
+              <!-- NOTE: When this page first loads, the `parseThemeFile()` function will populate the `theme` object based on the color and size CSS variables that are defined in the `theme.css` file. So the `theme.mainColors` array will contain the Main Color variables from the `theme.css` file. Since each of the following <Select> components is bound to `theme.mainColors[i].value`, the initial value of each of these <Select> components will be the corresponding Main Color value from the `theme.css` file. -->
               <Select
                 options={referenceVariables}
                 size="sm"
