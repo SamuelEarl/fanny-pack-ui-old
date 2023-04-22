@@ -255,7 +255,7 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
     alias: {
       "/src": "src",
     },
-  }
+  },
 };
 
 export default config;
