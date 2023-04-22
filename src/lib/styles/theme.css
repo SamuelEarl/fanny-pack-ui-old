@@ -88,6 +88,8 @@ These variables are organized in the same way that Tailwind organizes their util
   /* Element background colors. */
   --bg-color-element-default: var(--neutral-200);
   --bg-color-element-disabled: var(--neutral-300);
+  /* Hover background color. */
+  --bg-color-hover: var(--neutral-200);
 }
 
 
