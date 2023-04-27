@@ -99,6 +99,9 @@ These variables are organized in the same way that Tailwind organizes their util
   --border-style-default: solid;
   --border-color-default: var(--neutral-300);
   --border-default: var(--border-width-default) var(--border-style-default) var(--border-color-default);
+  --border-primary: var(--border-width-default) var(--border-style-default) var(--primary-color);
+  --border-secondary: var(--border-width-default) var(--border-style-default) var(--secondary-color);
+  --border-tertiary: var(--border-width-default) var(--border-style-default) var(--tertiary-color);
   --border-color-disabled: var(--neutral-300);
   --border-radius: 3px;
 }
