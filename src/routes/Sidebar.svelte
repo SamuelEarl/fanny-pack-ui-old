@@ -40,14 +40,17 @@
     <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
       <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
     </a>
+    <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
+      <Icon icon="ph:layout-light" /> &nbsp; FlexGrid (layout)
+    </a>
+    <a href="/components/grid" class:active={currentPath === "/components/grid"}>
+      <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
+    </a>
     <a href="/components/input/currency" class:active={currentPath === "/components/input/currency"}>
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
     <a href="/components/input/misc" class:active={currentPath === "/components/input/misc"}>
       <Icon icon="radix-icons:input" /> &nbsp; Input (text, number, email)
-    </a>
-    <a href="/components/grid" class:active={currentPath === "/components/grid"}>
-      <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
     </a>
     <a href="/components/modal" class:active={currentPath === "/components/modal"}>
       <Icon icon="carbon:popup" /> &nbsp; Modal (popup window)

@@ -1,11 +1,11 @@
 <script lang="ts">
   import { getContext } from "svelte";
-  import { GRID_KEY } from "./grid-utils";
+  import { FLEX_GRID_KEY } from "./flex-grid-utils";
 
   let {
     rowMarginsY,
     rowMarginsX,
-  } = getContext(GRID_KEY);
+  } = getContext(FLEX_GRID_KEY);
 </script>
 
 <div

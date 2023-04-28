@@ -32,7 +32,7 @@
 </script>
 
 <div 
-  class={`fp-col ${columnClasses}`}
+  class={`fp-grid-col ${columnClasses}`}
   class:fp-equal-col-widths={equalColWidths}
   style={`padding: ${colPaddingY}px ${colPaddingX}px`}
 >
@@ -44,7 +44,7 @@
     flex: 1;
   }
 
-  .fp-col {
+  .fp-grid-col {
 
     @media (--xs-up) {
       &.fp-xs-1 {
