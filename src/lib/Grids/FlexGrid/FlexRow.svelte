@@ -9,14 +9,14 @@
 </script>
 
 <div
-  class="fp-row"
+  class="fp-flex-row"
   style={`margin: ${rowMarginsY}px ${rowMarginsX}px`}
 >
   <slot />
 </div>
 
 <style>
-  .fp-row {
+  .fp-flex-row {
     display: flex;
     flex-wrap: wrap;
   }
