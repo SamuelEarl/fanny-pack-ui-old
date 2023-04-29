@@ -40,10 +40,10 @@
     <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
       <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
     </a>
-    <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
+    <!-- <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; FlexGrid (layout)
     </a>
-    <!-- <a href="/components/grid" class:active={currentPath === "/components/grid"}>
+    <a href="/components/grid" class:active={currentPath === "/components/grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
     </a> -->
     <a href="/components/input/currency" class:active={currentPath === "/components/input/currency"}>

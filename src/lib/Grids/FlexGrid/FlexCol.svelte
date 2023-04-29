@@ -11,6 +11,8 @@
   export let xxl = 0;
 
   let {
+    colGutter,
+    rowGutter,
     equalColWidths,
     colPaddingY,
     colPaddingX, 
@@ -31,10 +33,15 @@
     .join(" ");
 </script>
 
-<div 
+<!-- <div 
   class={`fp-flex-col ${columnClasses}`}
   class:fp-equal-col-widths={equalColWidths}
   style={`padding: ${colPaddingY}px ${colPaddingX}px`}
+> -->
+<div 
+  class={`fp-flex-col ${columnClasses}`}
+  class:fp-equal-col-widths={equalColWidths}
+  style={`padding: 0 ${colGutter / 2}px; margin: ${rowGutter}px 0;`}
 >
   <slot />
 </div>

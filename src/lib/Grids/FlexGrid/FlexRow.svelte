@@ -3,14 +3,20 @@
   import { FLEX_GRID_KEY } from "./flex-grid-utils";
 
   let {
+    colGutter,
+    rowGutter,
     rowMarginsY,
     rowMarginsX,
   } = getContext(FLEX_GRID_KEY);
 </script>
 
-<div
+<!-- <div
   class="fp-flex-row"
   style={`margin: ${rowMarginsY}px ${rowMarginsX}px`}
+> -->
+<div
+  class="fp-flex-row"
+  style={`margin: -${rowGutter}px 0`}
 >
   <slot />
 </div>

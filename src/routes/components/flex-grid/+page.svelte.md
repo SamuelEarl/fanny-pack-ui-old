@@ -25,11 +25,17 @@ Remember that when working with CSS, the main goal is maintainability. So implem
 
 ## Example Usage
 
-<FlexGrid
+<!-- <FlexGrid
   colPaddingY={0}
   colPaddingX={20}
   rowMarginsY={0}
-  rowMarginsX={-15}
+  rowMarginsX={-20}
+  equalColWidths
+  contain
+> -->
+<FlexGrid
+  colGutter={20}
+  rowGutter={40}
   equalColWidths
   contain
 >
@@ -39,13 +45,19 @@ Remember that when working with CSS, the main goal is maintainability. So implem
     <FlexCol><div class="cell blue">Auto Column</div></FlexCol>
     <FlexCol><div class="cell green">Auto Column<br><br>This column has more text than the other columns</div></FlexCol>
   </FlexRow>
+  <FlexRow>
+    <FlexCol><div class="cell red">Auto Column</div></FlexCol>
+    <FlexCol><div class="cell yellow">Auto Column<br><br>This column has more text than the other columns</div></FlexCol>
+    <FlexCol><div class="cell blue">Auto Column</div></FlexCol>
+    <FlexCol><div class="cell green">Auto Column</div></FlexCol>
+  </FlexRow>
 </FlexGrid>
 
 <br>
 
 ```svelte
 <script lang="ts">
-  import { Grid, Row, Col } from "@fanny-pack-ui/svelte-kit";
+  import { FlexGrid, FlexRow, FlexCol } from "@fanny-pack-ui/svelte-kit";
 </script>
 
 <FlexGrid
@@ -68,7 +80,7 @@ Remember that when working with CSS, the main goal is maintainability. So implem
   .cell {
     height: 100%;
     padding: 10px;
-    border: var(--border-default);
+    border: 1px solid var(--white);
     color: var(--white);
 
     &.red {
@@ -98,9 +110,15 @@ There are three components: `<FlexGrid>`, `<FlexRow>`, `<FlexCol>`. By default t
 ## Responsive Grid
 
 <FlexGrid
-  colPaddingX={10}
-  rowMarginsX={-10}
+  colGutter={20}
+  rowGutter={40}
 >
+  <FlexRow>
+    <FlexCol xs={12} md={6} xl={2}><div class="cell red">1</div></FlexCol>
+    <FlexCol xs={12} md={6} xl={6}><div class="cell yellow">2</div></FlexCol>
+    <FlexCol xs={12} md={6} xl={2}><div class="cell blue">3</div></FlexCol>
+    <FlexCol xs={12} md={6} xl={2}><div class="cell green">4</div></FlexCol>
+  </FlexRow>
   <FlexRow>
     <FlexCol xs={12} md={6} xl={2}><div class="cell red">1</div></FlexCol>
     <FlexCol xs={12} md={6} xl={6}><div class="cell yellow">2</div></FlexCol>
@@ -337,8 +355,8 @@ You can move columns up to 11 columns to the right by passing empty `<FlexCol>` 
 
   .cell {
     height: 100%;
-    padding: 10px;
-    border: 1px solid var(--white);
+    /* padding: 10px; */
+    /* border: 1px solid var(--white); */
     color: var(--white);
 
     &.red {
