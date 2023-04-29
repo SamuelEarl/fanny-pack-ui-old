@@ -298,12 +298,12 @@ You can move columns up to 11 columns to the right by passing empty `<FlexCol>` 
 
 <TabsContainer>
   <TabBar>
-    <Tab>Grid</Tab>
-    <Tab>Col</Tab>
+    <Tab>FlexGrid</Tab>
+    <Tab>FlexCol</Tab>
   </TabBar>
 
   <TabPanel>
-    <h2>Grid</h2>
+    <h2>FlexGrid</h2>
 
     <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
     <div></div>
@@ -319,7 +319,7 @@ You can move columns up to 11 columns to the right by passing empty `<FlexCol>` 
   </TabPanel>
 
   <TabPanel>
-    <h2>Col</h2>
+    <h2>FlexCol</h2>
 
     <div></div>
 
