@@ -42,10 +42,10 @@
     </a>
     <!-- <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; FlexGrid (layout)
-    </a>
+    </a> -->
     <a href="/components/grid" class:active={currentPath === "/components/grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
-    </a> -->
+    </a>
     <a href="/components/input/currency" class:active={currentPath === "/components/input/currency"}>
       <Icon icon="carbon:currency-dollar" /> &nbsp; Input (currency)
     </a>
