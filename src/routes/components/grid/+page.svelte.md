@@ -1,3 +1,3 @@
 # Grid (layout)
 
-Users should use plain CSS or create their own utility classes for layouts.
+Users should create their own grid components or their own utility classes to layout their pages according to their unique layout needs.
