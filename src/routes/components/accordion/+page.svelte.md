@@ -110,10 +110,10 @@ Note that you can set the `groupPadding` prop to an empty string to have the acc
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
     | `border`<br>*(optional)* | `boolean` | `true`, `false` | `true` | Add a border around a group of accordion menus to give the group a unified appearance. |
-    | `groupPadding`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will be applied as the padding between the border and the accordions. You can pass an empty string (`""`) to remove the padding around the accordions. |
+    | `groupPadding`<br>*(optional)* | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will be applied as the padding between the border and the accordions. You can pass an empty string (`""`) to remove the padding around the accordions. |
     | `accordionTitlePadding`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the accordion buttons. |
     | `fontSize`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the accordion panels. |
-    | `SpaceBetweenAccordions`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will be applied as the margin below each of the accordion buttons. You can pass an empty string (`""`) to remove the space between each of the accordions. |
+    | `SpaceBetweenAccordions`<br>*(optional)* | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will be applied as the margin below each of the accordion buttons. You can pass an empty string (`""`) to remove the space between each of the accordions. |
   </TabPanel>
 
   <TabPanel>
