@@ -15,7 +15,6 @@
   export let SpaceBetweenAccordions = defaults.accordionSpaceBetweenAccordions;
 
   const groupPaddingStyle = paddingSizes[groupPadding];
-  // const accordionTitlePaddingStyle = paddingSizes[accordionTitlePadding];
   const accordionTitlePaddingStyle = `var(--space-${accordionTitlePadding})`;
   const fontSizeStyle = fontSizes[fontSize];
   const marginBottom = marginBottomSizes[SpaceBetweenAccordions];
