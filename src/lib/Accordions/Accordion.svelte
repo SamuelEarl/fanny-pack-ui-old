@@ -12,6 +12,8 @@
     fontSizeStyle,
     marginBottom 
   } = getContext(ACCORDION_KEY);
+
+  const accordionPanelPadding = `padding: calc(2 * ${accordionTitlePaddingStyle}) ${accordionTitlePaddingStyle};`
 </script>
 
 <!-- Accordion Wrapper -->
@@ -21,7 +23,7 @@
     {id}
     class="fp-accordion-title"
     class:active={open}
-    style={`${accordionTitlePaddingStyle} ${fontSizeStyle}`}
+    style={`padding: ${accordionTitlePaddingStyle}; ${fontSizeStyle}`}
     on:click={() => open = !open}
     on:keyup={() => open = !open}
   >
@@ -32,7 +34,7 @@
   {#if open}
     <div 
       class="fp-accordion-panel"
-      style={`${accordionTitlePaddingStyle} ${fontSizeStyle}`} 
+      style={`${accordionPanelPadding} ${fontSizeStyle}`}
       transition:slide|local
     >
       <slot></slot>
