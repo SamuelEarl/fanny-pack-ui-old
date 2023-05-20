@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Icon from "@iconify/svelte";
   // import Prism from "prismjs";
   // // Svelte code highlighting: https://github.com/pngwn/prism-svelte
   // import "prism-svelte";
@@ -255,6 +256,57 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 ></Button>
 ```
 
+<br>
+
+Another option for creating icon buttons is to pass an Iconify icon component to the default slot:
+
+<Button
+  btnIcon=""
+  padding="10px 20px"
+  disabled={savingData}
+  title="Save File"
+  on:click={handleSaveData}
+>
+  <Icon icon="ion:save-sharp" width=40 />
+  <span slot="btnTextDisabled">
+    <Icon icon="icomoon-free:spinner2" class="fp-spin" width=40 />
+  </span>
+</Button>
+
+<br>
+
+```
+<script>
+  import Icon from "@iconify/svelte";
+
+  let savingData = false;
+
+  function handleSaveData() {
+    savingData = true;
+    setTimeout(() => savingData = false, 3000);
+  }
+</script>
+
+<Button
+  btnIcon=""
+  padding="10px 20px"
+  disabled={savingData}
+  title="Save File"
+  on:click={handleSaveData}
+>
+  <Icon icon="ion:save-sharp" width=40 />
+  <span slot="btnTextDisabled">
+    <Icon icon="icomoon-free:spinner2" class="fp-spin" width=40 />
+  </span>
+</Button>
+```
+
+**NOTES:**
+
+* You need to set `btnIcon=""` to remove any other icons that would be displayed as part of this `<Button>` component's props.
+* You can pass another icon to the `btnTextDisabled` slot if you want to display a disabled state.
+* The nice thing about this option is that you can set any Iconify props on the `<Icon>` component (e.g. the `width` prop in the example above.)
+
 ---
 
 ## Custom Button Styles
@@ -272,7 +324,7 @@ You can customize these buttons almost infinitely by passing different values to
 | `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. The default value can be set in the `/src/defaults.ts` file. |
 | `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. The default value can be set in the `/src/defaults.ts` file. |
 | `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. The default value can be set in the `/src/defaults.ts` file. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the button. The default value can be set in the `/src/defaults.ts` file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl`, or any CSS padding value. | `md` | Alter the padding of the button. The default value can be set in the `/src/defaults.ts` file.<br><br>If you pass a custom value (e.g. `"5px"`, `"10px 20px"`, `"var(--btn-padding)"`), then the button will apply that value. |
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. The default value can be set in the `/src/defaults.ts` file. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |

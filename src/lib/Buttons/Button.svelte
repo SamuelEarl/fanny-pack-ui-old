@@ -25,32 +25,31 @@
   // If no button text slots are passed to this component, then `btnTextSlotsExist` will be `false`.
   let btnTextSlotsExist = Object.keys($$slots).length !== 0;
 
-  function getSizeStyles() {
-    let btnPadding;
-    // If no button text slots are passed to this component, then `btnTextSlotsExist` will be false and this will be treated as an icon button, which has equal padding on all 4 sides.
-    // The following padding sizes are 1px smaller than the other padding sizes in the `theme.css` file to compensate for the 2px border that this Button component has. Other form elements only have 1px borders, which is why their padding sizes are 1px larger that the following padding sizes.
-    if (!btnTextSlotsExist) {
-      btnPadding = {
-        xs: "padding: 0px;",
-        sm: "padding: 4px;",
-        md: "padding: 9px;",
-        lg: "padding: 14px;",
-        xl: "padding: 19px;",
-      }
-    }
-    else {
-      btnPadding = {
+  function getPaddingStyle() {
+    // If the user passes a size variable (e.g. "xs") to the `padding` prop, then return the corresponding padding style.
+    // NOTE: Button components have a 2px border and other form elements have a 1px border. The following Button padding sizes are 1px smaller than the other padding sizes in the `theme.css` file to compensate for the 2px border that Button components have.
+    if (["xs","sm","md","lg","xl"].includes(padding)) {
+      const btnPadding = {
         xs: "padding: 0px 3px;",
         sm: "padding: 4px 8px;",
         md: "padding: 9px 18px;",
         lg: "padding: 14px 28px;",
         xl: "padding: 19px 38px;",
-      }
+      };
+      return `${btnPadding[padding]}`;
     }
-    return `${btnPadding[padding]} ${fontSizes[fontSize]}`;
+    // Otherwise return a padding style with the custom value that the user passed to the `padding` prop.
+    else {
+      return `padding: ${padding};`;
+    }
   }
-  const sizeStyles = getSizeStyles();
+  const paddingStyle = getPaddingStyle();
 
+  /**
+   * NOTE: These `btnIconStyles` will only be applied to <Button> 
+   * components that have both a `btnIcon` and `btnIconDisabled` prop.
+   * They will NOT be applied to icons that are passed in a slot.
+   */
   function getBtnIconStyles() {
     let iconStyles = "";
     // Icon Buttons do not have any text. So if no button text slots are passed to this component, then `btnTextSlotsExist` will be false and no `order` or `margin` styles will be set on the icon.
@@ -92,7 +91,7 @@
 <button
   {type}
   class={`fp-btn ${borderColor === "var(--transparent)" ? "transparent-border" : "non-transparent-border"}`}
-  style={`${btnColors} ${sizeStyles} ${width === "full" ? "width: 100%" : ""}`}
+  style={`${btnColors} ${paddingStyle} ${fontSizes[fontSize]} ${width === "full" ? "width: 100%" : ""}`}
   {disabled}
   {...$$restProps}
   on:click

@@ -6,6 +6,7 @@
 // NOTE: After selecting your icon on the Iconify site, if you scroll down you will see a code example like this:
 // <span class="iconify" data-icon="mdi:account"></span>
 // The "Selected icon" field should also match the `data-icon` attribute of that code example.
+
 export const defaults = {
   // ACCORDIONS
   accordionGroupPadding: "md",
