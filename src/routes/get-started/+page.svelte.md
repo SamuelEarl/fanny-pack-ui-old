@@ -58,7 +58,7 @@ This is only personal preference, but I like my JavaScript code to use the follo
 
 You can see the available options for Prettier [here](https://prettier.io/docs/en/options.html).
 
-In your `.prettierrc` file, delete the current format options in the file and paste the following format options in their place:
+In your `.prettierrc` file, delete the current format options and paste the following format options in their place:
 
 ```json
 {
