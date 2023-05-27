@@ -24,7 +24,7 @@
 
 @font-face {
   font-family: "Source Code Pro";
-  src: local("SourceCodePro"),
+  src: local("Source Code Pro"),
     url("../fonts/source-code-pro/SourceCodePro-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;

@@ -204,17 +204,17 @@ No fonts are included in your theme files. However, the components in this libra
 
 1. Go to [Google Fonts](https://fonts.google.com/) and search for the fonts you want to use.
 2. When you select a font there is a button in the top-right of the screen that says "Download family". Click that button.
-3. Create a `/src/assets/fonts/` folder in your SvelteKit project. For each font, create a folder inside of the `/src/assets/fonts/` directory and name each folder after the name of the font. For example, the "Source Code Pro" font would have a folder named `source-code-pro`.
+3. Create a `/src/assets/fonts/` folder in your SvelteKit project. For each font, create a folder inside of the `/src/assets/fonts/` directory and name each folder after the name of the font. For example, the `Helvetica Neue` font would have a folder named `helvetica-neue`.
 4. Unzip/extract the font folders that you downloaded from Google Fonts. When you open the unzipped font folders you should see either a bunch of files with `.ttf` file extensions or a `static` folder. _(You might see some files that have `VariableFont` as part of their name. Those fonts should have a `README` file that might explain more about how the `VariableFonts` can be used. I usually use the static versions because they are better supported right now.)_
 5. For each font, copy all the static font files (they might be directly inside the font folder that you extracted or in the `static` folder) and paste them into their respective font folder that you created inside `/src/assets/fonts/`.
-6. Open your `/src/assets/styles/fonts.css` file and create an `@font-face` style rule for each of your fonts. For example, this is how an `@font-face` rule might look for the "Source Code Pro" font ([read about `@font-face` rules on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)):
+6. Open your `/src/assets/styles/fonts.css` file and create an `@font-face` style rule for each of your fonts. For example, this is how a `@font-face` rule might look for the `Helvetica Neue Bold` font ([read about `@font-face` rules on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)):
 
 ```css
 @font-face {
-  font-family: "Source Code Pro";
-  src: local("SourceCodePro"),
-    url("../fonts/source-code-pro/SourceCodePro-Regular.ttf") format("truetype");
-  font-weight: normal;
+  font-family: "Helvetica Neue";
+  src: local("Helvetica Neue Bold"), local("HelveticaNeue-Bold"),
+    url("../fonts/helvetica-neue/HelveticaNeue-Bold.ttf") format("truetype");
+  font-weight: bold;
   font-style: normal;
 }
 ```
