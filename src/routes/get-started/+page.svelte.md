@@ -11,7 +11,7 @@ These instructions will show you how to install Fanny Pack and configure it to u
 npm install @fanny-pack-ui/svelte-kit
 ```
 
-*NOTE: This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details.*
+_**NOTE:** This will also install the `@iconify/svelte` package. So you can use Iconify icons throughout your SvelteKit app. See [Iconify for Svelte](https://docs.iconify.design/icon-components/svelte/) for more details._
 
 <br>
 
@@ -36,7 +36,7 @@ The CSS theme that you create on the [Customize Theme](/customize-theme) page us
 @import "base.css";
 ```
 
-*NOTE: CSS styles that are declared later will override styles that are declared earlier, so the order of these imports matters.*
+_**NOTE:** CSS styles that are declared later will override styles that are declared earlier, so the order of these imports matters._
 
 Import the `/src/assets/styles/main.css` file into the `<script>` tag of the `/src/routes/+layout.svelte` file, like this:
 
@@ -137,11 +137,11 @@ Now you can use media queries like this throughout your app:
 }
 ```
 
-*NOTES:*
+_**NOTES:**_
 
-* *It is recommended to leave the `@custom-media` variable definitions as they are defined in your `media-queries.css` file. However, if you really need to change any of the `@custom-media` queries, then make sure that you only change the pixel values. If you change any of the variable names or the `min-width` or `max-width` properties, then the component styles could break.*
-* *For more details about `@custom-media` rules see [PostCSS Custom Media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media).*
-* *This link provides an example of how to configure the `svelte-preprocess` config: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md.*
+* _It is recommended to leave the `@custom-media` variable definitions as they are defined in your `media-queries.css` file. However, if you really need to change any of the `@custom-media` queries, then make sure that you only change the pixel values. If you change any of the variable names or the `min-width` or `max-width` properties, then the component styles could break._
+* _For more details about `@custom-media` rules see [PostCSS Custom Media](https://github.com/csstools/postcss-plugins/tree/main/plugins/postcss-custom-media)._
+* _This link provides an example of how to configure the `svelte-preprocess` config: https://github.com/zamkevich/Svelte-preprocess-config/blob/master/README.md._
 
 <br>
 
@@ -191,10 +191,10 @@ const config = {
 export default config;
 ```
 
-*NOTES:*
+_**NOTES:**_
 
-* *Configure nesting rules through the `postcss-preset-env` plugin: [PostCSS Preset Env](https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env)*
-* *If you are using VS Code and would like to configure it to provide syntax highlighting for native CSS nesting rules, then in VS Code disable "Svelte plugin CSS diagnostics" and install the "PostCSS Language Support" extension. This will prevent false error highlighting. See [PostCSS Syntax Highlighting with Svelte in VS Code](https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting)*
+* _Configure nesting rules through the `postcss-preset-env` plugin: [PostCSS Preset Env](https://github.com/csstools/postcss-plugins/tree/main/plugin-packs/postcss-preset-env)_
+* _If you are using VS Code and would like to configure it to provide syntax highlighting for native CSS nesting rules, then in VS Code disable "Svelte plugin CSS diagnostics" and install the "PostCSS Language Support" extension. This will prevent false error highlighting. See [PostCSS Syntax Highlighting with Svelte in VS Code](https://www.ryanfiller.com/blog/tips/svelte-postcss-syntax-highlighting)_
 
 <br>
 
@@ -205,7 +205,7 @@ No fonts are included in your theme files. However, the components in this libra
 1. Go to [Google Fonts](https://fonts.google.com/) and search for the fonts you want to use.
 2. When you select a font there is a button in the top-right of the screen that says "Download family". Click that button.
 3. Create a `/src/assets/fonts/` folder in your SvelteKit project. For each font, create a folder inside of the `/src/assets/fonts/` directory and name each folder after the name of the font. For example, the "Source Code Pro" font would have a folder named `source-code-pro`.
-4. Unzip/extract the font folders that you downloaded from Google Fonts. When you open the unzipped font folders you should see either a bunch of files with `.ttf` file extensions or a `static` folder. *(You might see some files that have `VariableFont` as part of their name. Those fonts should have a `README` file that might explain more about how the `VariableFonts` can be used. I usually use the static versions because they are better supported right now.)*
+4. Unzip/extract the font folders that you downloaded from Google Fonts. When you open the unzipped font folders you should see either a bunch of files with `.ttf` file extensions or a `static` folder. _(You might see some files that have `VariableFont` as part of their name. Those fonts should have a `README` file that might explain more about how the `VariableFonts` can be used. I usually use the static versions because they are better supported right now.)_
 5. For each font, copy all the static font files (they might be directly inside the font folder that you extracted or in the `static` folder) and paste them into their respective font folder that you created inside `/src/assets/fonts/`.
 6. Open your `/src/assets/styles/fonts.css` file and create an `@font-face` style rule for each of your fonts. For example, this is how an `@font-face` rule might look for the "Source Code Pro" font ([read about `@font-face` rules on MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face)):
 
@@ -218,6 +218,9 @@ No fonts are included in your theme files. However, the components in this libra
   font-style: normal;
 }
 ```
+
+_**NOTE:** This article explains how to [use multiple font styles and weights the right way](https://www.hacksoft.io/blog/using-multiple-font-files-the-right-way)._
+
 
 7. In your `theme.css` file, find the `Font Families` variables under the `TYPOGRAPHY` section:
 
@@ -263,7 +266,7 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 export default config;
 ```
 
-*NOTE: The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations.*
+_**NOTE:** The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations._
 
 You can now edit any of the values in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your default component settings.
 
