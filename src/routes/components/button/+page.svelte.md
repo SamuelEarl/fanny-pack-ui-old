@@ -97,7 +97,7 @@
   btnIcon="bi:person-plus-fill"
   btnIconDisabled="icomoon-free:spinner2"
   btnIconDisabledShouldSpin={true}
-  btnIconSide="left"
+  btnIconSide="right"
   on:click={handleCreateAccount}
   rotateBtnIcon="45deg"
 >
