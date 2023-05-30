@@ -38,6 +38,7 @@
   on:blur
   {placeholder}
   {disabled}
+  {...$$restProps}
 ></textarea>
 
 
