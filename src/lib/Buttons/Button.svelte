@@ -12,6 +12,7 @@
   // export let hollow = false;
   export let width = "auto";
   export let disabled = false;
+  export let formIsInvalid = false;
   export let btnIcon = defaults.btnIcon;
   export let btnIconDisabled = defaults.btnIconDisabled;
   export let btnIconSide = defaults.btnIconSide;
@@ -88,9 +89,10 @@
   }
 </script>
 
+<!-- If the button is a "submit" button in a form and if the `formIsInvalid` then disable the button, but do NOT show the disabled icon or text. Just prevent the user from submitting the form. -->
 <button
   {type}
-  class={`fp-btn ${borderColor === "var(--transparent)" ? "transparent-border" : "non-transparent-border"}`}
+  class={`fp-btn ${type === "submit" && formIsInvalid ? "form-is-invalid" : ""} ${borderColor === "var(--transparent)" ? "transparent-border" : "non-transparent-border"}`}
   style={`${btnColors} ${paddingStyle} ${fontSizes[fontSize]} ${width === "full" ? "width: 100%" : ""}`}
   {disabled}
   {...$$restProps}
@@ -108,8 +110,11 @@
   <!-- Button Icon -->
   <!-- If the btnIcon and the btnIconDisabled both exist, then display the icon. If either the btnIcon or btnIconDisabled is an empty string, then no icons will be displayed with the button. See the docs for details. -->
   {#if btnIcon && btnIconDisabled}
+    <!-- If the button is a "submit" button in a form and if the `formIsInvalid` then disable the button, but do NOT show the disabled icon or text. Just prevent the user from submitting the form. -->
+    {#if type === "submit" && formIsInvalid}
+      <Icon icon={btnIcon} style={`${btnIconStyles} transform:rotate(${rotateBtnIcon});`} />
     <!-- If the button is disabled, then... -->
-    {#if disabled}
+    {:else if disabled}
       <!-- NOTE: You can NOT dynamically bind classes to a component instance, so the <Icon /> component has to be repeated a couple of times - once for the "fp-spin" class and once without. -->
       {#if btnIconDisabledShouldSpin}
         <!-- ...show a spinning disabled icon. -->
@@ -142,6 +147,14 @@
       }
 
       &.non-transparent-border:disabled {
+        background-color: var(--bg-color-element-disabled) !important;
+        border-color: var(--border-color-disabled) !important;
+        color: var(--text-color-disabled) !important;
+      }
+
+      &.form-is-invalid {
+        box-shadow: none !important;
+        pointer-events: none !important;
         background-color: var(--bg-color-element-disabled) !important;
         border-color: var(--border-color-disabled) !important;
         color: var(--text-color-disabled) !important;

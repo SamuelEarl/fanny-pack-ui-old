@@ -3,10 +3,35 @@
   // import Prism from "prismjs";
   // // Svelte code highlighting: https://github.com/pngwn/prism-svelte
   // import "prism-svelte";
-  import { Button, Select, Tooltip, Grid, Row, Col } from "/src/lib";
+  import { Button, Input, Select, Textarea, Tooltip, Grid, Row, Col } from "/src/lib";
 
   let creatingAccount = false;
   let savingData = false;
+
+  let sendingForm = false;
+  let name = "";
+  let subject = "";
+  let email = "";
+  let message = "";
+  $: checkValidation = () => {
+    let formIsInvalid = true;
+    if (name && subject && email && message) {
+      formIsInvalid = false;
+    }
+    return formIsInvalid;
+  }
+
+  function handleSubmit() {
+    sendingForm = true;
+    setTimeout(() => {
+      sendingForm = false;
+      name = "";
+      subject = "";
+      email = "";
+      message = "";
+    }, 3000);
+  }
+
   const colorOptions = [
     "var(--primary-color)",
     "var(--secondary-color)",
@@ -104,6 +129,58 @@
   Create Account
   <span slot="btnTextDisabled">Creating Account...</span>
 </Button>
+```
+
+---
+
+## How to use as the submit button in a `<form>`
+
+<form method="POST" on:submit|preventDefault={handleSubmit}>
+  <Input type="text" bind:value={name} label="Your Name" />
+  <Input type="text" bind:value={subject} label="Subject" />
+  <Input type="text" bind:value={email} label="Your Email Address" />
+  <Textarea bind:value={message} label="Message" rows="5" />
+  <Button type="submit" disabled={sendingForm} formIsInvalid={checkValidation()} btnIcon="fa:send">
+    Send
+  </Button>
+</form>
+
+<br><br>
+
+```
+<script>
+  let sendingForm = false;
+  let name = "";
+  let subject = "";
+  let email = "";
+  let message = "";
+
+  // Not an actual form validation.
+  $: checkValidation = () => {
+    let formIsInvalid = true;
+    if (name && subject && email && message) {
+      formIsInvalid = false;
+    }
+    return formIsInvalid;
+  }
+
+  async function handleSubmit(event) {
+    sendingForm = true;
+
+    // Custom event listener goes here.
+    // See https://kit.svelte.dev/docs/form-actions#progressive-enhancement-custom-event-listener
+  }
+</script>
+
+<form method="POST" on:submit|preventDefault={handleSubmit}>
+  <Input type="text" bind:value={name} label="Your Name" />
+  <Input type="text" bind:value={subject} label="Subject" />
+  <Input type="text" bind:value={email} label="Your Email Address" />
+  <Textarea bind:value={message} label="Message" rows="5" />
+  <Button type="submit" disabled={sendingForm} formIsInvalid={checkValidation()} btnIcon="fa:send">
+    Send
+  </Button>
+</form>
 ```
 
 ---
