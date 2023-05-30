@@ -14,11 +14,11 @@
   let email = "";
   let message = "";
   $: checkValidation = () => {
-    let formIsInvalid = true;
+    let isInvalid = true;
     if (name && subject && email && message) {
-      formIsInvalid = false;
+      isInvalid = false;
     }
-    return formIsInvalid;
+    return isInvalid;
   }
 
   function handleSubmit() {
@@ -157,11 +157,11 @@
 
   // Not an actual form validation.
   $: checkValidation = () => {
-    let formIsInvalid = true;
+    let isInvalid = true;
     if (name && subject && email && message) {
-      formIsInvalid = false;
+      isInvalid = false;
     }
-    return formIsInvalid;
+    return isInvalid;
   }
 
   async function handleSubmit(event) {
@@ -405,6 +405,7 @@ You can customize these buttons almost infinitely by passing different values to
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. The default value can be set in the `/src/defaults.ts` file. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
+| `formIsInvalid` | `boolean` | `true`, `false` | `false` | This only applies to `submit` buttons (`<Button type="submit" />`). If `formIsInvalid=true`, then the button will be disabled, but it will NOT show the disabled icon or text. It will just prevent the user from submitting the form. |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/defaults.ts` file. | See the heading [Configure Default Component Settings](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
