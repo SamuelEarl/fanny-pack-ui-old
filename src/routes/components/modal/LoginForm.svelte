@@ -79,7 +79,7 @@
       justify-content: center;
       align-items: center;
       padding: 20px;
-      border-radius: 20px 0 0 20px;
+      border-radius: var(--border-radius) 0 0 var(--border-radius);
       background-color: var(--dark-purple);
       font-family: var(--cursive);
       font-size: 3rem;
@@ -95,7 +95,7 @@
       flex: 3;
       height: 100%;
       flex-direction: column;
-      border-radius: 0 20px 20px 0;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
       background-color: var(--white);
 
       & #top {

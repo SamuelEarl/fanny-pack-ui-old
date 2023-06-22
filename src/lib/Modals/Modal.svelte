@@ -48,10 +48,12 @@
 <div id="close-btn-container">
   <Button
     id="close"
-    btnIcon="fa-solid:times"
-    btnColor="transparent"
+    btnIcon="ic:baseline-close"
+    bgColor="var(--transparent)"
+    borderColor="var(--transparent)"
     textColor="white"
-    size="xl"
+    padding="10px"
+    fontSize="xl"
     {disabled}
     on:click={() => dispatch("closeModal")}
   ></Button>
@@ -89,6 +91,7 @@
       top: 0px;
       right: 0px;
       z-index: 1000;
+      border-radius: var(--border-radius);
       background-color: rgba(0, 0, 0, 0.4);
     }
 
