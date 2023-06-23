@@ -24,7 +24,8 @@
     currency={currency}
     label="Enter a dollar amount"
     labelAlign="right"
-    size="md"
+    padding="md"
+    fontSize="md"
     placeholder="Type right here"
     disabled={false}
   />
@@ -45,7 +46,8 @@
     currency={currency}
     label="Enter a dollar amount"
     labelAlign="right"
-    size="md"
+    padding="md"
+    fontSize="md"
     placeholder="Type right here"
     disabled={false}
   />
@@ -64,7 +66,8 @@
         bind:value={amount1}
         locale={locale}
         currency={currency}
-        size="md"
+        padding="md"
+        fontSize="md"
         placeholder="Type right here"
         disabled={false}
       />
@@ -75,7 +78,8 @@
         bind:value={amount2}
         locale={locale}
         currency={currency}
-        size="md"
+        padding="md"
+        fontSize="md"
         placeholder="Type right here"
         disabled={false}
       />
@@ -143,7 +147,7 @@ You can set the following custom variables:
 | `valAlign` | `string` | `left`, `right` | `right` | This prop will align the value in the input field either to left or the right side of the input field. |
 | `locale` | `string` | Any locale identifier string. See [Intl.Locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) for more details. | `en-US` | This prop is the locale identifier string that will format the currency value to the correct format. |
 | `currency` | `string` | Any acceptable currency string. See [Intl.NumberFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details. | `USD` | This prop is the currency to use in currency formatting. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
 | `placeholder` (optional) | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
