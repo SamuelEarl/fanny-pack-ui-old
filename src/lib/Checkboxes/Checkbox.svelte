@@ -1,6 +1,6 @@
 <script lang="ts">
   import { defaults } from "/src/defaults";
-  // Importing an external CSS file into the <style> block does not work. When this component gets packaged up and then imported into another app the styles will not be included. So the styles need to be imported into the <script> block.
+  // Importing an external CSS file into the style block does not work. When this component gets packaged up and then imported into another app the styles will not be included. So the styles need to be imported into the script block.
   import "./checkbox.css";
 
   export let checked;
