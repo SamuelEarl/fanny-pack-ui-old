@@ -1,6 +1,8 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { defaults } from "/src/defaults";
+  // Importing an external CSS file into the <style> block does not work. When this component gets packaged up and then imported into another app the styles will not be included. So the styles need to be imported into the <script> block.
+  import "./checkbox.css";
 
   // The `<SelectMulti>` component needs to use a componentId, so it passes a componentId into this component.
   export let componentId = "";
@@ -96,8 +98,3 @@
     </label><br>
   {/each}
 {/if}
-
-
-<style>
-  @import "checkbox.css";
-</style>
