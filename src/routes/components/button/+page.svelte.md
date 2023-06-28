@@ -395,6 +395,9 @@ You can customize these buttons almost infinitely by passing different values to
 ---
 
 ## Props
+
+<div class="responsive-table">
+
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
@@ -413,20 +416,32 @@ You can customize these buttons almost infinitely by passing different values to
 | `rotateBtnIcon` (optional) | `string` | Any number with `deg` appended to the end. | `"0deg"` (i.e. no rotation) | You can pass a rotate value to this prop and the icon will be rotated according to the value you pass. For example, `"45deg"` will rotate the icon 45 degrees. |
 | `rotateBtnIconDisabled` (optional) <td colspan=5>Refer to the `rotateBtnIcon` prop above. |
 
+</div>
+
 <br><br>
 
 ## Slots
+
+<div class="responsive-table">
+
 | Slot name | Default value | Description |
 | --------- | ------------- | ----------- |
 | Default slot (optional) | `Button Text` | The text that will be displayed in the button. |
 | `btnTextDisabled` (optional) | `Disabled Button Text` | This is the text that will appear when the button is in a disabled state. If the `btnTextDisabled` slot is not provided, then the text that is passed through the default slot will be used if/when the button is disabled. |
 
+</div>
+
 <br><br>
 
 ## Event Forwarding
+
+<div class="responsive-table">
+
 | Event | Description |
 | ----- | ----------- |
 | `on:click` | This component forwards the `click` event, so you can call an event handler when a user clicks this `<Button>` component. |
+
+</div>
 
 <br><br>
 

@@ -203,7 +203,7 @@ A **byte** is a data type that contains 8 bits. A single character (e.g., `d`, `
 
 Visually, bits and bytes look like this:
 
-<table id="bits">
+<table id="bits" class="responsive-table">
   <tr>
     <td>1</td>
     <td>0</td>
@@ -247,7 +247,7 @@ You can think of a buffer like an array of integers and each integer represents 
 
 So you can imagine a buffer as an array of bytes, like this:
 
-<table id="bits">
+<table id="bits" class="responsive-table">
   <tr>
     <td class="symbol">[</td>
     <td>1</td>

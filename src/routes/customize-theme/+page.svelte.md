@@ -451,7 +451,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
   </TabBar>
 
   <TabPanel>
-    <div id="non-neutral-colors" class="color-set">
+    <div id="non-neutral-colors" class="color-set responsive-table">
       <table>
         <thead>
           <tr>
@@ -475,7 +475,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
   </TabPanel>
 
   <TabPanel>
-    <div id="fp-neutral-colors" class="color-set">
+    <div id="fp-neutral-colors" class="color-set responsive-table">
       <table>
         <thead>
           <tr>
@@ -500,7 +500,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
   </TabPanel>
 
   <TabPanel>
-    <div id="grayscale-neutral-colors" class="color-set">
+    <div id="grayscale-neutral-colors" class="color-set responsive-table">
       <table>
         <thead>
           <tr>
@@ -523,7 +523,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
   </TabPanel>
 
   <TabPanel>
-    <div id="custom-non-neutral-colors" class="color-set">
+    <div id="custom-non-neutral-colors" class="color-set responsive-table">
       <p>Create your own custom set of non-neutral colors.</p>
       <table>
         <thead>
@@ -564,7 +564,7 @@ In the "Main color variables" section (after this "Color palette" section) you w
   </TabPanel>
 
   <TabPanel>
-    <div id="custom-neutral-colors" class="color-set">
+    <div id="custom-neutral-colors" class="color-set responsive-table">
       <p>Create your own custom set of neutral colors.</p>
       <table>
         <thead>
@@ -651,7 +651,7 @@ To set your main color variables:
 
 <br>
 
-<div class="table-container">
+<div class="table-container responsive-table">
   <table>
     <thead>
       <tr>
@@ -687,7 +687,7 @@ The size variables are used to set values for things like padding (for buttons a
 
 <br>
 
-<div class="table-container">
+<div class="table-container responsive-table">
   <table>
     <thead>
       <tr>

@@ -93,6 +93,7 @@ pre {
   margin-bottom: 20px;
   border-radius: var(--border-radius);
   background-color: var(--bg-color-element-default) !important;
+  overflow-x: auto;
 }
 
 /* <code> or single backticks. See the comment for the `pre` styles above. */
@@ -101,12 +102,17 @@ code {
   padding: 0 3px;
   border-radius: var(--border-radius);
   background-color: var(--bg-color-element-default) !important;
+  overflow-x: auto;
 }
 
 /* --------------------------------------------------------------------- */
 /* TABLE STYLES */
 /* TODO: The following table styles should be used in a table component. */
 /* --------------------------------------------------------------------- */
+.responsive-table {
+  overflow-x: auto;
+}
+
 table {
   width: 100%;
   margin-top: 40px;

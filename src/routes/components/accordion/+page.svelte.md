@@ -105,7 +105,9 @@ Note that you can set the `groupPadding` prop to an empty string to have the acc
     <h2>AccordionGroup</h2>
 
     <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
@@ -114,18 +116,24 @@ Note that you can set the `groupPadding` prop to an empty string to have the acc
     | `accordionTitlePadding`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the accordion buttons. |
     | `fontSize`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the accordion panels. |
     | `SpaceBetweenAccordions`<br>*(optional)* | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will be applied as the margin below each of the accordion buttons. You can pass an empty string (`""`) to remove the space between each of the accordions. |
+
+    </div>
   </TabPanel>
 
   <TabPanel>
     <h2>Accordion</h2>
     
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
     | `title` | `string` | Any string | NA | This prop will provide the title text for the `<Accordion>` component's button. |
     | `open`<br>*(optional)* | `boolean` | `true`, `false` | `false` | This prop will cause the `<Accordion>` component's panel to either be open or closed by default. |
     | `id`<br>*(optional)* | `string` | Any string | `""` (empty string) | You can give your `<Accordion>` components an `id` value that will appear on the `<Accordion>` component's button. |
+
+    </div>
   </TabPanel>
 </TabsContainer>
 
@@ -143,20 +151,28 @@ Note that you can set the `groupPadding` prop to an empty string to have the acc
     <h2>AccordionGroup</h2>
 
     <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Slot name | Default value | Description |
     | --------- | ------------- | ----------- |
     | Default slot | NA | You can nest as many `<Accordion>` components as you want in between the opening `<AccordionGroup>` and closing `</AccordionGroup>` tags. |
+
+    </div>
   </TabPanel>
 
   <TabPanel>
     <h2>Accordion</h2>
     
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Slot name | Default value | Description |
     | --------- | ------------- | ----------- |
     | Default slot | NA | The elements you nest in between the opening `<Accordion>` and closing `</Accordion>` tags will appear as the `<Accordion>` component's panel content. You can nest any elements you want in between the opening `<Accordion>` and closing `</Accordion>` tags. |
+
+    </div>
   </TabPanel>
 </TabsContainer>
