@@ -1,17 +1,30 @@
-<nav>
-  <div id="title-wrapper">
-    Fanny Pack UI
+
+<script lang="ts">
+  import { page } from "$app/stores";
+  import Icon from "@iconify/svelte";
+  import MainNav from "./MainNav.svelte";
+
+  $: currentPath = $page.url.pathname;
+</script>
+
+<div class="sidebar">
+  <div class="title-wrapper">
+    <a href="/">Fanny Pack UI</a>
   </div>
-  <div class="nav-links">
+
+  <MainNav />
+</div>
+
+  <!-- <div class="nav-links">
     <a href="/" class:active={currentPath === "/"}>
       <Icon icon="carbon:home" /> &nbsp; Overview
     </a>
     <a href="/get-started" class:active={currentPath === "/get-started"}>
       <Icon icon="carbon:play" /> &nbsp; Get Started
     </a>
-    <!-- <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
+    <a href="/customize-theme" class:active={currentPath === "/customize-theme"}>
       <Icon icon="material-symbols:style-outline-sharp" /> &nbsp; Customize Theme
-    </a> -->
+    </a>
     <a href="/update-to-latest-version" class:active={currentPath === "/update-to-latest-version"}>
       <Icon icon="ic:baseline-update" /> &nbsp; Update To Latest Version
     </a>
@@ -33,16 +46,17 @@
     <a href="/components/date-picker" class:active={currentPath === "/components/date-picker"}>
       <Icon icon="carbon:calendar" /> &nbsp; Date Picker
     </a>
-    <!-- See my comment about a color picker component in the TODOS.md file. -->
-    <!-- <a href="/components/color-picker" class:active={currentPath === "/components/color-picker"}>
+    COLOR PICKER SHOULD BE COMMENTED OUT: See my comment about a color picker component in the TODOS.md file.
+    <a href="/components/color-picker" class:active={currentPath === "/components/color-picker"}>
       <Icon icon="clarity:color-picker-solid" /> &nbsp; Color Picker
-    </a> -->
+    </a>
     <a href="/components/drop-zone" class:active={currentPath === "/components/drop-zone"}>
       <Icon icon="pixelarticons:drop-area" /> &nbsp; Drop Zone (file upload)
     </a>
-    <!-- <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
+    FLEXGRID SHOULD BE COMMENTED OUT
+    <a href="/components/flex-grid" class:active={currentPath === "/components/flex-grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; FlexGrid (layout)
-    </a> -->
+    </a>
     <a href="/components/grid" class:active={currentPath === "/components/grid"}>
       <Icon icon="ph:layout-light" /> &nbsp; Grid (layout)
     </a>
@@ -109,36 +123,28 @@
     <a href="/utility-classes/visibility" class:active={currentPath === "/utility-classes/visibility"}>
       <Icon icon="bx:show" /> &nbsp; Visibility
     </a>
-  </div>
-</nav>
-
-
-<script lang="ts">
-  import { page } from "$app/stores";
-  import Icon from "@iconify/svelte";
-
-  $: currentPath = $page.url.pathname;
-</script>
-
+  </div> -->
 
 <style>
-  nav {
+  .sidebar {
     min-height: 100%;
     padding-bottom: 50px;
     background-color: var(--secondary-color);
-    color: var(--tertiary-color);
 
-    & #title-wrapper {
+    & .title-wrapper {
       font-family: var(--cursive);
       padding: 15px;
-      border-bottom: 1px solid var(--neutral-900);
-      margin-bottom: 15px;
       font-size: 1.5rem;
       line-height: 1.5;
       text-align: center;
+
+      & a {
+        border-bottom: none;
+        color: var(--white);
+      }
     }
 
-    & .section-heading {
+    /* & .section-heading {
       padding: 10px;
       padding-left: 15px;
       font-size: 1.1rem;
@@ -164,6 +170,6 @@
           background-color: var(--primary-color);
         }
       }
-    }
+    } */
   }
 </style>
