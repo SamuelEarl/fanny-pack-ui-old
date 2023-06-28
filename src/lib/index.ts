@@ -9,7 +9,7 @@ export { Grid, Row, Col, FlexGrid, FlexRow, FlexCol } from "./Grids";
 export { Label } from "./Labels";
 export { Modal } from "./Modals";
 export { RadioButton } from "./RadioButtons";
-export { Select, SelectMulti } from "./Selects";
+export { Select, SelectCustom, SelectMulti } from "./Selects";
 export { TabsContainer, TabBar, Tab, TabPanel } from "./Tabs";
 export { Textarea } from "./Textareas";
 export { Toast, ToastContent } from "./Toasts";

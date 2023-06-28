@@ -1,386 +1,287 @@
 <!--
-  I borrowed some ideas from the Custom Select Box on this How To page:
-  https://www.w3schools.com/howto/howto_custom_select.asp
+  Look at these articles:
+  * I like this one because it uses a native select element, which works well on mobile devices, and this approach tries to be as accessible as possible: https://css-tricks.com/striking-a-balance-between-native-and-custom-select-elements/ 
+  * This seems like a good approach, but since ul and li elements are used instead of a native select element, then it won't work as well on mobile devices: https://24ways.org/2019/making-a-better-custom-select-element/
 -->
-
 <script lang="ts">
-  import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
-  import { Label } from "../Labels";
-  import { createId, calculateOptionsListHeight } from "../fp-utils";
-  import { defaults } from "/src/defaults";
-  import { spaceVariables, paddingSizes, fontSizes } from "../fp-styles";
+  import { tick } from "svelte";
+  import { createId } from "$lib/fp-utils";
 
-  export let label = "";
-  export let id = "";
-  export let options;
-  export let optionLabel = null;
-  export let optgroup = null;
-  export let value;
-  export let disabled = false;
-  export let padding = defaults.selectPadding;
-  export let fontSize = defaults.selectFontSize;
-
-  const dispatch = createEventDispatcher();
   let componentId = createId();
-  let optionsDataType;
-  // When the `optgroups` object is created it will look like the following.
-  // This will allow this <Select> component to render properly with <optgroup> elements.
-  // let optgroups = {
-  //   Sauropods: [
-  //     { name: "Diplodocus", group: "Sauropods" },
-  //     { name: "Saltasaurus", group: "Sauropods" },
-  //     { name: "Apatosaurus", group: "Sauropods" },
-  //   ],
-  //   Theropods: [
-  //     { name: "Tyrannosaurus", group: "Theropods" },
-  //     { name: "Velociraptor", group: "Theropods" },
-  //     { name: "Deinonychus", group: "Theropods" },
-  //   ],
-  // };
-  let optgroups = {};
-  let selectOptionsList;
-  let showSelectOptionsList = false;
+  let selectCustom;
 
-  let spaceVariable = spaceVariables[padding];
-  if (spaceVariable === undefined) {
-    spaceVariable = spaceVariables["sm"];
-  }
+	export let options = [
+    "UI/UX Designer",
+    "Frontend Engineer",
+    "Backend Engineer",
+    "QA Engineer",
+    "Unicorn",
+	];
 
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
+	let selectedOption = options[0];
+  $: selectedOptionIndex = options.findIndex(element => element === selectedOption);
 
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
+  let isActive = false;
+  $: console.log("isActive:", isActive);
 
-  onMount(() => {
-    determineOptionsDataType(options);
-    if (optgroup) {
-      sortOptions();
-    }
-  });
+  async function supportKeyboardNavigation(event) {
+    if (document.activeElement === selectCustom) {
+      // press down -> go next
+      if (event.keyCode === 40 && selectedOptionIndex < options.length - 1) {
+        event.preventDefault(); // prevent page scrolling
+        selectedOption = options[selectedOptionIndex + 1]
+      }
 
-  // If a user passes an array of objects to the `options` prop and updates that array of objects later while this `<Select>` component is still mounted, then the functions inside the `onMount()` hook will not run again (since this component is already mounted) and the updates to the array of objects will not be reflected in this component's dropdown. The following `afterUpdate()` hook will run the functions inside of it again, if the previously described scenario occurs, which will cause the updates to the array of objects to be reflected in this component's dropdown.
-  afterUpdate(() => {
-    determineOptionsDataType(options);
-    if (optgroup) {
-      sortOptions();
-    }
-  });
+      // press up -> go previous
+      if (event.keyCode === 38 && selectedOptionIndex > 0) {
+        event.preventDefault(); // prevent page scrolling
+        selectedOption = options[selectedOptionIndex - 1]
+      }
 
-  /**
-   * This function will determine the data type of the data structures that are inside the `options` array.
-   * The result will be either `array`, `object`, or `primitive`.
-   */
-  function determineOptionsDataType(options) {
-    try {
-      if (options?.length > 0) {
-        // NOTE: I am keeping this code here in case I want to support nested arrays as an `options` data structure.
-        // `typeof options[0] === "object"` will return `true` for arrays, so it is necessary to check for arrays with Array.isArray() before checking for objects. Otherwise an `options` array that contains nested arrays will be designated as an array of objects.
-        // if (Array.isArray(options[0])) {
-        //   optionsDataType = "array";
-        // }
-        if (typeof options[0] === "object") {
-          optionsDataType = "object";
-        }
-        else {
-          optionsDataType = "primitive";
-        }
+      // press Enter or space -> select the option
+      if (event.keyCode === 13 || event.keyCode === 32) {
+        console.log("KEYPRESS:", event.keyCode);
+        event.preventDefault();
+        selectedOption = options[selectedOptionIndex];
+        isActive = !isActive;
+      }
+
+      // press ESC -> close selectCustom
+      if (event.keyCode === 27) {
+        isActive = false;
       }
     }
-    catch(err) {
-      console.error("determineOptionsDataType:", err);
-    }
-  }
-
-  /**
-   * This function will group the `options` by the order of first appearance of the `optgroup` prop.
-   * https://stackoverflow.com/questions/44887733/group-array-items-by-order-of-their-first-appearance
-   * 
-   * How does the JavaScript Array.sort() method work?
-   * https://www.javascripttutorial.net/javascript-array-sort/#:~:text=The%20sort()%20method%20allows,first%20and%20largest%20value%20last.
-   */
-  function sortOptions() {
-    try {
-      options.sort(function(a, b) {        
-        // If `(a[optgroup] !== b[optgroup])`, then sort the two elements so that b (the first element) stays in the lower index position (i.e. b comes first).
-        if (a[optgroup] !== b[optgroup]) {
-          let indexA = options.findIndex(option => option[optgroup] === a[optgroup]);
-          let indexB = options.findIndex(option => option[optgroup] === b[optgroup]);
-          return indexA - indexB;
-        }
-        // Otherwise leave them where they are (i.e. do not sort them).
-        else {
-          return 0;
-        }
-      });
-
-      let currentOptgroup = "";
-      // This for loop will loop through the `options` array that is passed into this component and create an `optgroups` object. See the `optgroups` object example above for details.
-      for (let i = 0; i < options.length; i++) {
-        if (currentOptgroup !== options[i][optgroup]) {
-          // Update the currentOptgroup value.
-          currentOptgroup = options[i][optgroup];
-          optgroups[currentOptgroup] = [ options[i] ];
-        }
-        else {
-          optgroups[currentOptgroup].push(options[i]);
-        }
-      }
-    }
-    catch(err) {
-      console.error("sortOptions:", err);
-    }
-  }
-
-  async function toggleOptionsList() {
-    showSelectOptionsList = !showSelectOptionsList;
-    // There is no need to run the following code if the options list is hidden, so only run it if the options list is shown.
-    if (showSelectOptionsList)  {
-      calculateOptionsListHeight(componentId, showSelectOptionsList, tick, window);
-      // Wait for the options list element to be displayed in the DOM before setting `focus()` on it.
-      await tick();
-      selectOptionsList.focus();
-    }
-  }
-
-  function setSelectedOption(option) {
-    value = option;
-    toggleOptionsList();
-    dispatch("change", option);
   }
 </script>
 
+<svelte:window on:keydown={supportKeyboardNavigation} />
 
-<Label {label} forVal={`fp-select-btn-${componentId}`} />
-<div
-  {id}
-  class={`fp-select-container fp-select-container-${componentId}`}
->
-  <!-- The <select> element is kept here, but it is hidden to preserve accessibility. -->
-  <select bind:value={value} on:change {disabled}>
-    {#if optionsDataType === "object"}
-      {#if optgroup}
-        {#each Object.entries(optgroups) as [key, value]}
-          <optgroup label={key}>
-            {#each value as option}
-              <option value={option[optionLabel]}>{option[optionLabel]}</option>
-            {/each}
-          </optgroup>
-        {/each}
-      {:else}
-        {#each options as option}
-          <option value={option[optionLabel]}>{option[optionLabel]}</option>
-        {/each}
-      {/if}
-    {:else}
+<div class="select">
+	<span class="selectLabel" id={componentId}> Main job role</span>
+	<div class="selectWrapper">
+    <!-- elSelectNative -->
+		<select 
+      class="selectNative js-selectNative" 
+      aria-labelledby={componentId}
+      bind:value={selectedOption}
+    >
+			<!-- <option value="sel" disabled="" selected="">
+        {selectedOption}
+      </option> -->
+			<!-- <option value="ds">UI/UX Designer</option>
+			<option value="fe">Frontend Engineer</option>
+			<option value="be">Backend Engineer</option>
+			<option value="qa">QA Engineer</option>
+			<option value="un">Unicorn</option> -->
       {#each options as option}
         <option value={option}>{option}</option>
       {/each}
-    {/if}
-  </select>
+		</select>
 
-  <!-- When the `fp-select-options-list` element is opened, it receives focus. That allows the `fp-select-options-list` to respond to the `blur` event and close the `fp-select-options-list` when the user clicks outside of it. However, if the user clicks on the `fp-select-btn` element, then the `on:click={toggleOptionsList}` listener/handler causes the `fp-select-options-list` element to immediately open again after the `blur` event has fired and then closed the `fp-select-options-list`. However, the `active` class uses a `pointer-events: none` CSS rule to disable any pointer events on both the `fp-select-btn` and `fp-select-btn-overlay` elements when they are active. So the click event will not conflict with the `blur` event. -->  
-  <div
-    id={`fp-select-btn-${componentId}`} 
-    class="fp-select-btn" 
-    class:active={showSelectOptionsList}
-    class:disabled={disabled}
-    on:click={() => {
-      if (disabled) return;
-      toggleOptionsList();
-    }}
-  >
-    <div 
-      class="fp-select-btn-overlay" 
-      class:active={showSelectOptionsList}
-      style={`${paddingStyle} ${fontSizeStyle}`}
-      title={optionsDataType === "primitive" ? value : value[optionLabel]}
-    >
-      {#if optionsDataType === "primitive"}
-        {value}
-      {:else if optionsDataType === "object"}
-        {value[optionLabel]}
-      {/if}
-    </div>
-  </div>
-
-  {#if showSelectOptionsList}
-    <div
-      id={`fp-select-options-list-${componentId}`}
-      class="fp-select-options-list"
+		<!-- Hide the custom select from AT (e.g. SR) using aria-hidden -->
+    <!-- elSelectCustom -->
+    <!-- 
+      In a blur event, the "event.target" is the element that has lost focus.
+      When the `selectCustom` element `isActive` (i.e. opened), it receives focus. That allows the `selectCustom` to respond to the `blur` event and set `isActive` to `false when the user clicks outside of it.
+    -->
+		<div 
+      class="selectCustom js-selectCustom"
+      class:isActive 
+      aria-hidden={isActive}
       tabindex="-1"
-      bind:this={selectOptionsList}
+      bind:this={selectCustom}
       on:blur={(event) => {
-        showSelectOptionsList = false;
+        const selectCustomLostfocus = selectCustom.contains(event.target);
+        if (selectCustomLostfocus) {
+          isActive = false;
+        }
       }}
     >
-      {#if optionsDataType === "primitive"}
+      <!-- elSelectCustomBox -->
+			<div
+        class="selectCustom-trigger"
+        on:click={async () => {
+          isActive = !isActive;
+          await tick();
+          selectCustom.focus();
+        }}
+        on:keydown={async () => {
+          isActive = !isActive;
+          await tick();
+          selectCustom.focus();
+        }}
+      >
+        {selectedOption}
+      </div>
+      <!-- elSelectCustomOpts -->
+			<div class="selectCustom-options">
+				<!-- <div class="selectCustom-option" data-value="ds">UI/UX Designer</div>
+				<div class="selectCustom-option" data-value="fe">Frontend Engineer</div>
+				<div class="selectCustom-option" data-value="be">Backend Engineer</div>
+				<div class="selectCustom-option" data-value="qa">QA Engineer</div>
+				<div class="selectCustom-option" data-value="un">Unicorn</div> -->
         {#each options as option}
-          <div 
-            class="fp-select-option"
-            style={`${paddingStyle} ${fontSizeStyle}`}
-            on:click={() => setSelectedOption(option)}
-            title={option}
+          <div
+            class="selectCustom-option" 
+            class:isHover={option === selectedOption}
+            data-value={option}
+            on:click={() => {
+              selectedOption = option;
+              isActive = false;
+            }}
+            on:keydown={() => {
+              selectedOption = option;
+              isActive = false;
+            }}
           >
             {option}
           </div>
         {/each}
-      
-      {:else if optionsDataType === "object"}
-        {#if optgroup}
-          {#each Object.entries(optgroups) as [key, value]}
-            <div 
-              class="fp-select-optgroup-label" 
-              style={`${paddingStyle} ${fontSizeStyle}`}
-              title={key}
-            >
-              {key}
-            </div>
-            {#each value as option}
-              <div 
-                class="fp-select-option"
-                style={`${paddingStyle} ${fontSizeStyle} padding-left: calc(2 * ${spaceVariable});`}
-                on:click={() => setSelectedOption(option)}
-                title={option[optionLabel]}
-              >
-                {option[optionLabel]}
-              </div>
-            {/each}
-          {/each}
-        {:else}
-          {#each options as option}
-            <div 
-              class="fp-select-option"
-              style={`${paddingStyle} ${fontSizeStyle}`}
-              on:click={() => setSelectedOption(option)}
-              title={option[optionLabel]}
-            >
-              {option[optionLabel]}
-            </div>
-          {/each}
-        {/if}
-
-      {/if}
-    </div>
-  {/if}
+			</div>
+		</div>
+	</div>
 </div>
 
+Value of selectedOption: {selectedOption}
 
 <style>
-  /* The container must be positioned relative */
-  .fp-select-container {
-    width: 100%;
-    position: relative;
+	/* Both native and custom selects must have the same width/height. */
+	.selectNative,
+	.selectCustom {
+		position: relative;
+		width: 22rem;
+		height: 4rem;
+	}
 
-    /* Hide the <select> element. */
-    & select {
-      display: none;
-    }
+	/* Make sure the custom select does not mess with the layout */
+	.selectCustom {
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: none;
+	}
 
-    & .fp-select-btn {
-      border: var(--border-default);
-      border-color: var(--custom-select-border-color, var(--border-color-default));
-      border-radius: var(--border-radius);
-      background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
-      color: var(--custom-select-text-color, var(--text-color-default));
-      cursor: pointer;
+	/* This media query detects devices where the primary */
+	/* input mechanism can hover over elements. (e.g. computers with a mouse) */
+	@media (hover: hover) {
+		/* Since we are using a mouse, it's safe to show the custom select. */
+		.selectCustom {
+			display: block;
+		}
 
-      &:hover {
-        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
-      }
+		/* In a computer using keyboard? Then let's hide back the custom select */
+		/* while the native one is focused: */
+		.selectNative:focus + .selectCustom {
+			display: none;
+		}
+	}
 
-      /* Style the arrow inside the select element */
-      &:after {
-        position: absolute;
-        content: "›";
-        top: 45%;
-        right: 0;
-        width: 0;
-        height: 0;
-        transform: rotate(90deg);
-        font-size: 1.5rem;
-      }
+	/* Add the focus states too, They matter, always! */
+	.selectNative:focus,
+	.selectCustom.isActive .selectCustom-trigger {
+		outline: none;
+		box-shadow: white 0 0 0 0.2rem, #ff821f 0 0 0 0.4rem;
+	}
 
-      &.active {
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
-        pointer-events: none;
-      }
+	/* Rest of the styles to create the custom select. */
+	/* Just make sure the native and the custom have a similar "box" (the trigger). */
 
-      &.disabled {
-        border-color: var(--border-color-disabled);
-        background-color: var(--bg-color-element-disabled);
-        color: var(--text-color-disabled);
-        pointer-events: none;
-      }
+	.select {
+		position: relative;
+	}
 
-      /* The overlay contains the text for the selected option. */
-      & .fp-select-btn-overlay {
-        /* Cut off any text that overflows the space provided for this Select component: */
-        /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        cursor: pointer;
-        
-        &.active {
-          border-radius: var(--border-radius) var(--border-radius) 0 0;
-          background-color: rgba(0, 0, 0, 0.1);
-          pointer-events: none;
-        }
-      }
-    }
-    
-    & .fp-select-options-list {
-      position: absolute;
-      left: 0;
-      right: 0;
-      overflow-y: auto;
-      outline: none;
-      border: 2px solid;
-      border-color: var(--border-color-default);
-      border-radius: 0 0 var(--border-radius) var(--border-radius);
-      box-shadow: var(--box-shadow-depth);
-      background-color: var(--white);
-      color: var(--text-color-default);
-      z-index: 100;
+	.selectLabel {
+		display: block;
+		font-weight: bold;
+		margin-bottom: 0.4rem;
+	}
 
-      & .fp-select-optgroup-label {
-        border: 1px solid;
-        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-        font-weight: bold;
-        pointer-events: none;
-        /* Cut off any text that overflows the space provided for this Select component: */
-        /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
+	.selectWrapper {
+		position: relative;
+	}
 
-      & .fp-select-option {
-        border: 1px solid;
-        border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-        color: var(--text-color-default);
-        /* Cut off any text that overflows the space provided for this Select component: */
-        /* https://www.w3schools.com/cssref/css3_pr_text-overflow.asp */
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        cursor: pointer;
+	.selectNative,
+	.selectCustom-trigger {
+		font-size: 1.6rem;
+		background-color: #fff;
+		border: 1px solid #6f6f6f;
+		border-radius: 0.4rem;
+	}
 
-        &:hover {
-          background-color: rgba(0, 0, 0, 0.1);
-        }
+	.selectNative {
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+		background-repeat: no-repeat;
+		background-position-x: 100%;
+		background-position-y: 0.8rem;
+		padding: 0rem 0.8rem;
+	}
 
-        /* For the last option in the select dropdown, make the bottom border 
-        transparent so it looks hidden and gives a sharper appearance. */
-        &:last-child {
-          border-bottom-color: transparent;
-        }
-      }
-    }
-  }
+	.selectCustom-trigger {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background-color: #fff;
+		padding: 0.8rem 0.8rem;
+		cursor: pointer;
+	}
+
+	.selectCustom-trigger::after {
+		content: '▾';
+		position: absolute;
+		top: 0;
+		line-height: 3.8rem;
+		right: 0.8rem;
+	}
+
+	.selectCustom-trigger:hover {
+		border-color: #8c00ff;
+	}
+
+	.selectCustom-options {
+		position: absolute;
+		top: calc(3.8rem + 0.8rem);
+		left: 0;
+		width: 100%;
+		border: 1px solid #6f6f6f;
+		border-radius: 0.4rem;
+		background-color: #fff;
+		box-shadow: 0 0 4px #e9e1f8;
+		z-index: 1;
+		padding: 0.8rem 0;
+		display: none;
+	}
+
+	.selectCustom.isActive .selectCustom-options {
+		display: block;
+	}
+
+	.selectCustom-option {
+		position: relative;
+		padding: 0.8rem;
+		padding-left: 2.5rem;
+	}
+
+	.selectCustom-option.isHover,
+	.selectCustom-option:hover {
+		background-color: #865bd7; /* contrast AA */
+		color: white;
+		cursor: default;
+	}
+
+	.selectCustom-option:not(:last-of-type)::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		border-bottom: 1px solid #d3d3d3;
+	}
+
+	.selectCustom-option.isActive::before {
+		content: '✓';
+		position: absolute;
+		left: 0.8rem;
+	}
 </style>
