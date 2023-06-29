@@ -5,21 +5,21 @@
 -->
 <script lang="ts">
   import { tick } from "svelte";
+  import { Label } from "../Labels";
   import { createId } from "$lib/fp-utils";
+
+  export let label = "";
+  export let options;
+  // export let optionLabel = null;
+  // export let optgroup = null;
+  export let value;
 
   let componentId = createId();
   let selectCustom;
 
-	export let options = [
-    "UI/UX Designer",
-    "Frontend Engineer",
-    "Backend Engineer",
-    "QA Engineer",
-    "Unicorn",
-	];
-
-	let selectedOption = options[0];
-  $: selectedOptionIndex = options.findIndex(element => element === selectedOption);
+	// let selectedOption = options[0];
+  // $: selectedOptionIndex = options.findIndex(element => element === selectedOption);
+  $: selectedOptionIndex = options.findIndex(element => element === value);
 
   let isActive = false;
   $: console.log("isActive:", isActive);
@@ -29,20 +29,20 @@
       // press down -> go next
       if (event.keyCode === 40 && selectedOptionIndex < options.length - 1) {
         event.preventDefault(); // prevent page scrolling
-        selectedOption = options[selectedOptionIndex + 1]
+        value = options[selectedOptionIndex + 1]
       }
 
       // press up -> go previous
       if (event.keyCode === 38 && selectedOptionIndex > 0) {
         event.preventDefault(); // prevent page scrolling
-        selectedOption = options[selectedOptionIndex - 1]
+        value = options[selectedOptionIndex - 1]
       }
 
       // press Enter or space -> select the option
       if (event.keyCode === 13 || event.keyCode === 32) {
         console.log("KEYPRESS:", event.keyCode);
         event.preventDefault();
-        selectedOption = options[selectedOptionIndex];
+        value = options[selectedOptionIndex];
         isActive = !isActive;
       }
 
@@ -57,13 +57,14 @@
 <svelte:window on:keydown={supportKeyboardNavigation} />
 
 <div class="select">
-	<span class="selectLabel" id={componentId}> Main job role</span>
+	<!-- <span class="selectLabel" id={componentId}> Main job role</span> -->
+  <Label {label} forVal={`fp-select-btn-${componentId}`} id={componentId} />
 	<div class="selectWrapper">
     <!-- elSelectNative -->
 		<select 
       class="selectNative js-selectNative" 
       aria-labelledby={componentId}
-      bind:value={selectedOption}
+      bind:value={value}
     >
 			<!-- <option value="sel" disabled="" selected="">
         {selectedOption}
@@ -111,7 +112,7 @@
           selectCustom.focus();
         }}
       >
-        {selectedOption}
+        {value}
       </div>
       <!-- elSelectCustomOpts -->
 			<div class="selectCustom-options">
@@ -123,14 +124,14 @@
         {#each options as option}
           <div
             class="selectCustom-option" 
-            class:isHover={option === selectedOption}
+            class:isHover={option === value}
             data-value={option}
             on:click={() => {
-              selectedOption = option;
+              value = option;
               isActive = false;
             }}
             on:keydown={() => {
-              selectedOption = option;
+              value = option;
               isActive = false;
             }}
           >
@@ -142,7 +143,7 @@
 	</div>
 </div>
 
-Value of selectedOption: {selectedOption}
+Selected Option: {value}
 
 <style>
 	/* Both native and custom selects must have the same width/height. */
@@ -190,11 +191,11 @@ Value of selectedOption: {selectedOption}
 		position: relative;
 	}
 
-	.selectLabel {
+	/* .selectLabel {
 		display: block;
 		font-weight: bold;
 		margin-bottom: 0.4rem;
-	}
+	} */
 
 	.selectWrapper {
 		position: relative;

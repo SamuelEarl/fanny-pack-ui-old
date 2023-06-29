@@ -5,6 +5,7 @@
 
   export let label;
   export let forVal;
+  export let id = "";
   export let labelAlign = "left";
   export let tooltipIcon = defaults.labelTooltipIcon;
   export let tooltipText = "";
@@ -18,6 +19,7 @@
   >
     <label 
       for={forVal}
+      {id}
       style={`font-size: ${defaults.labelFontSize}`}
     >
       {label}

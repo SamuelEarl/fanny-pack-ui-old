@@ -34,16 +34,16 @@
     console.log("Changed");
   }
 
-  let categories = [
-    "Uncategorized",
-    "Split Transaction",
-    "Food",
-    "Housing",
-    "Insurance",
-  ];
-  let selectedCategory = "Food";
-
   let value = 0;
+
+  const jobOptions = [
+    "UI/UX Designer",
+    "Frontend Engineer",
+    "Backend Engineer",
+    "QA Engineer",
+    "Unicorn",
+	];
+  let selectedJobOption = jobOptions[0];
 </script>
 
 
@@ -53,7 +53,11 @@
 
 ## Example Usage
 
-<Select />
+<Select 
+  label="Main Job Role"
+  options={jobOptions}
+  bind:value={selectedJobOption}
+/>
 
 <!-- <div style="margin-bottom:20px">
   <Select
