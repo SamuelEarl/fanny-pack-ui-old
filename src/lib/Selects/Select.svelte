@@ -1,28 +1,129 @@
+<!-- TODO: Incorporate the calculateOptionsListHeight function. -->
+
 <!--
   Look at these articles:
   * I like this one because it uses a native select element, which works well on mobile devices, and this approach tries to be as accessible as possible: https://css-tricks.com/striking-a-balance-between-native-and-custom-select-elements/ 
   * This seems like a good approach, but since ul and li elements are used instead of a native select element, then it won't work as well on mobile devices: https://24ways.org/2019/making-a-better-custom-select-element/
 -->
 <script lang="ts">
-  import { tick } from "svelte";
+  import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId } from "$lib/fp-utils";
 
   export let label = "";
   export let options;
   // export let optionLabel = null;
-  // export let optgroup = null;
+  export let optgroup = null;
   export let value;
 
-  let componentId = createId();
+  const dispatch = createEventDispatcher();
   let selectCustom;
+  let componentId = createId();
+  let optionsDataType;
+  // When the `optgroups` object is created it will look like the following.
+  // This will allow this <Select> component to render properly with <optgroup> elements.
+  // let optgroups = {
+  //   Sauropods: [
+  //     { name: "Diplodocus", group: "Sauropods" },
+  //     { name: "Saltasaurus", group: "Sauropods" },
+  //     { name: "Apatosaurus", group: "Sauropods" },
+  //   ],
+  //   Theropods: [
+  //     { name: "Tyrannosaurus", group: "Theropods" },
+  //     { name: "Velociraptor", group: "Theropods" },
+  //     { name: "Deinonychus", group: "Theropods" },
+  //   ],
+  // };
+  let optgroups = {};
 
 	// let selectedOption = options[0];
   // $: selectedOptionIndex = options.findIndex(element => element === selectedOption);
   $: selectedOptionIndex = options.findIndex(element => element === value);
+  // This component dispatches a custom event called `change`, so you can call an event handler when a user selects a value in the <Select /> component. The customizations in this <Select /> component won't allow for forwarding the broswer `change` event when someone uses a mouse to interact with this component, but this dispatched custom `change` event will allow you to respond to changes in the <Select /> component's value.
+  $: dispatch("change", value);
 
   let isActive = false;
   $: console.log("isActive:", isActive);
+
+  onMount(() => {
+    determineOptionsDataType(options);
+    if (optgroup) {
+      sortOptions();
+    }
+  });
+
+  // If a user passes an array of objects to the `options` prop and updates that array of objects later while this `<Select>` component is still mounted, then the functions inside the `onMount()` hook will not run again (since this component is already mounted) and the updates to the array of objects will not be reflected in this component's dropdown. The following `afterUpdate()` hook will run the functions inside of it again, if the previously described scenario occurs, which will cause the updates to the array of objects to be reflected in this component's dropdown.
+  afterUpdate(() => {
+    determineOptionsDataType(options);
+    if (optgroup) {
+      sortOptions();
+    }
+  });
+
+  /**
+   * This function will determine the data type of the data structures that are inside the `options` array.
+   * The result will be either `array`, `object`, or `primitive`.
+   */
+   function determineOptionsDataType(options) {
+    try {
+      if (options?.length > 0) {
+        // NOTE: I am keeping this code here in case I want to support nested arrays as an `options` data structure.
+        // `typeof options[0] === "object"` will return `true` for arrays, so it is necessary to check for arrays with Array.isArray() before checking for objects. Otherwise an `options` array that contains nested arrays will be designated as an array of objects.
+        // if (Array.isArray(options[0])) {
+        //   optionsDataType = "array";
+        // }
+        if (typeof options[0] === "object") {
+          optionsDataType = "object";
+        }
+        else {
+          optionsDataType = "primitive";
+        }
+      }
+    }
+    catch(err) {
+      console.error("determineOptionsDataType:", err);
+    }
+  }
+
+  /**
+   * This function will group the `options` by the order of first appearance of the `optgroup` prop.
+   * https://stackoverflow.com/questions/44887733/group-array-items-by-order-of-their-first-appearance
+   * 
+   * How does the JavaScript Array.sort() method work?
+   * https://www.javascripttutorial.net/javascript-array-sort/#:~:text=The%20sort()%20method%20allows,first%20and%20largest%20value%20last.
+   */
+   function sortOptions() {
+    try {
+      options.sort(function(a, b) {        
+        // If `(a[optgroup] !== b[optgroup])`, then sort the two elements so that b (the first element) stays in the lower index position (i.e. b comes first).
+        if (a[optgroup] !== b[optgroup]) {
+          let indexA = options.findIndex(option => option[optgroup] === a[optgroup]);
+          let indexB = options.findIndex(option => option[optgroup] === b[optgroup]);
+          return indexA - indexB;
+        }
+        // Otherwise leave them where they are (i.e. do not sort them).
+        else {
+          return 0;
+        }
+      });
+
+      let currentOptgroup = "";
+      // This for loop will loop through the `options` array that is passed into this component and create an `optgroups` object. See the `optgroups` object example above for details.
+      for (let i = 0; i < options.length; i++) {
+        if (currentOptgroup !== options[i][optgroup]) {
+          // Update the currentOptgroup value.
+          currentOptgroup = options[i][optgroup];
+          optgroups[currentOptgroup] = [ options[i] ];
+        }
+        else {
+          optgroups[currentOptgroup].push(options[i]);
+        }
+      }
+    }
+    catch(err) {
+      console.error("sortOptions:", err);
+    }
+  }
 
   async function supportKeyboardNavigation(event) {
     if (document.activeElement === selectCustom) {
@@ -142,8 +243,6 @@
 		</div>
 	</div>
 </div>
-
-Selected Option: {value}
 
 <style>
 	/* Both native and custom selects must have the same width/height. */

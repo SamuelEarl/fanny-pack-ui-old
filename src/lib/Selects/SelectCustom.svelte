@@ -231,6 +231,7 @@
         {/each}
       
       {:else if optionsDataType === "object"}
+        <!-- List the options under their respective optgroups. -->
         {#if optgroup}
           {#each Object.entries(optgroups) as [key, value]}
             <div 
@@ -251,6 +252,7 @@
               </div>
             {/each}
           {/each}
+          <!-- List the options without optgroups. -->
         {:else}
           {#each options as option}
             <div 

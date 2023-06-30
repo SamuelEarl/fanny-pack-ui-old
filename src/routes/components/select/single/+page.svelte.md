@@ -30,8 +30,8 @@
   ];
   let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
 
-  function handleChange() {
-    console.log("Changed");
+  function handleChange(event) {
+    console.log("Selected Value:", event.detail);
   }
 
   let value = 0;
@@ -57,7 +57,12 @@
   label="Main Job Role"
   options={jobOptions}
   bind:value={selectedJobOption}
+  on:change={handleChange}
 />
+
+<br>
+
+Value of `selectedJobOption`: <code>{selectedJobOption}</code>
 
 <!-- <div style="margin-bottom:20px">
   <Select
