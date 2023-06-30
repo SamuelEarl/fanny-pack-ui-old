@@ -12,6 +12,8 @@
 
   export let label = "";
   export let options;
+  // Native select elements can only handle primitive data types. So I need to rework the <Select /> component so that if an array of objects is passed to it, then it will convert it to an array of primitives. If a user passes an array of objects to this <Select /> component, then they will need to specify which property in each object will be the value for each option and which property will be the label for each option.
+  export let optionValue = null;
   export let optionLabel = null;
   export let optgroup = null;
   export let value;
@@ -34,6 +36,11 @@
   //     { name: "Velociraptor", group: "Theropods" },
   //     { name: "Deinonychus", group: "Theropods" },
   //   ],
+  // };
+  // UPDATE: I need to make optgroups look like the following because native select elements can only work with primitive data types. They won't work with objects as the selected option. And then I need to test this with the native select element (by tabbing to it in the UI) to see if everything renders properly and the correct options get selected accurately.
+  // let optgroups = {
+  //   Sauropods: [ "Diplodocus", "Saltasaurus", "Apatosaurus" ],
+  //   Theropods: [ "Tyrannosaurus", "Velociraptor", "Deinonychus" ],
   // };
   let optgroups = {};
 
@@ -154,6 +161,8 @@
       }
     }
   }
+
+  let selectValue = optionsDataType === "primitive" ? value : value[optionValue];
 </script>
 
 <svelte:window on:keydown={supportKeyboardNavigation} />
@@ -163,29 +172,29 @@
   <Label {label} forVal={`fp-select-btn-${componentId}`} id={componentId} />
 	<div class="selectWrapper">
     <!-- elSelectNative -->
-		<select 
+    <select 
       class="selectNative js-selectNative" 
       aria-labelledby={componentId}
       bind:value={value}
     >
-			<!-- <option value="" disabled="" selected="">
+      <!-- <option value="" disabled="" selected="">
         -- Select An Option --
       </option> -->
-			<!-- <option value="ds">UI/UX Designer</option>
-			<option value="fe">Frontend Engineer</option>
-			<option value="be">Backend Engineer</option>
-			<option value="qa">QA Engineer</option>
-			<option value="un">Unicorn</option> -->
+      <!-- <option value="ds">UI/UX Designer</option>
+      <option value="fe">Frontend Engineer</option>
+      <option value="be">Backend Engineer</option>
+      <option value="qa">QA Engineer</option>
+      <option value="un">Unicorn</option> -->
       {#if optionsDataType === "primitive"}
         {#each options as option}
           <option value={option}>{option}</option>
         {/each}
       {:else if optionsDataType === "object"}
         {#each options as option}
-          <option value={option[optionLabel]}>{option[optionLabel]}</option>
+          <option value={option[optionValue]}>{option[optionLabel]}</option>
         {/each}
       {/if}
-		</select>
+    </select>
 
 		<!-- Hide the custom select from AT (e.g. SR) using aria-hidden -->
     <!-- elSelectCustom -->
@@ -223,7 +232,8 @@
       {#if optionsDataType === "primitive"}
         {value}
       {:else if optionsDataType === "object"}
-        {value[optionLabel]}
+        <!-- When a mouse user selects an option from the selectCustom element, they are setting the `value` prop to equal the `option[optionValue]`. But this needs to display the value of the `option[optionLabel]` property. So this will find the object inside the `options` array whose `optionValue` property matches the value that was set by the user. Then it will pull of the value of the `optionLabel` property. -->
+        {options.find(obj => obj[optionValue] === value)[optionLabel]}
       {/if}
       </div>
       <!-- elSelectCustomOpts -->
@@ -258,14 +268,14 @@
             <div
               class="selectCustom-option" 
               class:isHover={option === value}
-              data-value={option[optionLabel]}
+              data-value={option[optionValue]}
               title={option[optionLabel]}
               on:click={() => {
-                value = option;
+                value = option[optionValue];
                 isActive = false;
               }}
               on:keydown={() => {
-                value = option;
+                value = option[optionValue];
                 isActive = false;
               }}
             >

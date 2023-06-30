@@ -36,23 +36,28 @@
 
   let value = 0;
 
-  // const jobOptions = [
-  //   "UI/UX Designer",
-  //   "Frontend Engineer",
-  //   "Backend Engineer",
-  //   "QA Engineer",
-  //   "Unicorn",
-	// ];
-  const jobOptions = [
-    { shortTitle: "designer", title: "UI/UX Designer" },
-    { shortTitle: "fe", title: "Frontend Engineer" },
-    { shortTitle: "be", title: "Backend Engineer" },
-    { shortTitle: "qa", title: "QA Engineer" },
-    { shortTitle: "u", title: "Unicorn" },
+  const jobOptionsStrings = [
+    "UI/UX Designer",
+    "Frontend Engineer",
+    "Backend Engineer",
+    "QA Engineer",
+    "Unicorn",
 	];
-  let selectedJobOption = jobOptions[0];
 
-  const optionLabel = "title";
+  let selectedJobOptionString = jobOptionsStrings[0];
+
+  const jobOptionsObjects = [
+    { roleVal: "", roleLabel: "-- Select Role --" },
+    { roleVal: "ds", roleLabel: "UI/UX Designer" },
+    { roleVal: "fe", roleLabel: "Frontend Engineer" },
+    { roleVal: "be", roleLabel: "Backend Engineer" },
+    { roleVal: "qa", roleLabel: "QA Engineer" },
+    { roleVal: "un", roleLabel: "Unicorn" },
+	];
+
+  const optionValue = "roleVal";
+  const optionLabel = "roleLabel";
+  let selectedJobOption = jobOptionsObjects[0][optionValue];
 </script>
 
 
@@ -66,8 +71,103 @@
 
 <Select 
   label="Main Job Role"
-  options={jobOptions}
-  optionLabel="title"
+  options={jobOptionsStrings}
+  bind:value={selectedJobOptionString}
+  on:change={handleChange}
+/>
+
+<br>
+
+Value of `selectedJobOptionString`: <code>{JSON.stringify(selectedJobOptionString)}</code>
+
+<br>
+<hr>
+<br>
+
+What if you wanted each option in your `<Select />` component to have different values and labels? For example, this element:
+
+<div>
+  <select>
+    <option value="">-- Select role --</option>
+    <option value="ds">UI/UX Designer</option>
+    <option value="fe">Frontend Engineer</option>
+    <option value="be">Backend Engineer</option>
+    <option value="qa">QA Engineer</option>
+    <option value="un">Unicorn</option>
+  </select>
+</div>
+
+<br>
+
+...would be coded like this:
+
+```
+<select>
+  <option value="">-- Select Role --</option>
+  <option value="ds">UI/UX Designer</option>
+  <option value="fe">Frontend Engineer</option>
+  <option value="be">Backend Engineer</option>
+  <option value="qa">QA Engineer</option>
+  <option value="un">Unicorn</option>
+</select>
+```
+
+Notice how the values for each option are different from the labels in each option. You would probably have to pass an array of objects that looked something like this to the select element:
+
+```
+const jobOptionsObjects = [
+  { roleVal: "", roleLabel: "-- Select Role --" },
+  { roleVal: "ds", roleLabel: "UI/UX Designer" },
+  { roleVal: "fe", roleLabel: "Frontend Engineer" },
+  { roleVal: "be", roleLabel: "Backend Engineer" },
+  { roleVal: "qa", roleLabel: "QA Engineer" },
+  { roleVal: "un", roleLabel: "Unicorn" },
+];
+```
+
+Well, native select elements can only handle primitive data types, so you would have to pass an array of strings to your Svelte select element and just live with that. No separate values or labels. However, you can pass an object to a native select element written with Svelte and just make a few adjustments to your Svelte code, which would look like this:
+
+<div>
+  <select bind:value={selectedJobOption}>
+    {#each jobOptionsObjects as option}
+      <option value={option[optionValue]}>{option[optionLabel]}</option>
+    {/each}
+  </select>
+</div>
+
+<br>
+
+Value of `selectedJobOption`: <code>{selectedJobOption}</code>
+
+```
+const jobOptionsObjects = [
+  { roleVal: "", roleLabel: "-- Select Role --" },
+  { roleVal: "ds", roleLabel: "UI/UX Designer" },
+  { roleVal: "fe", roleLabel: "Frontend Engineer" },
+  { roleVal: "be", roleLabel: "Backend Engineer" },
+  { roleVal: "qa", roleLabel: "QA Engineer" },
+  { roleVal: "un", roleLabel: "Unicorn" },
+];
+
+const optionValue = "roleVal";
+const optionLabel = "roleLabel";
+let selectedJobOption = jobOptionsObjects[0][optionValue];
+
+<select bind:value={selectedJobOption}>
+  {#each jobOptionsObjects as option}
+    <option value={option[optionValue]}>{option[optionLabel]}</option>
+  {/each}
+</select>
+```
+
+
+<br>
+
+<Select 
+  label="Main Job Role"
+  options={jobOptionsObjects}
+  optionValue="roleVal"
+  optionLabel="roleLabel"
   bind:value={selectedJobOption}
   on:change={handleChange}
 />
@@ -77,20 +177,6 @@
 Value of `selectedJobOption`: <code>{JSON.stringify(selectedJobOption)}</code>
 
 <br>
-
-<select bind:value={selectedJobOption}>
-  <!-- <option value="" disabled="" selected="">
-    -- Select An Option --
-  </option>
-  <option value="ds">UI/UX Designer</option>
-  <option value="fe">Frontend Engineer</option>
-  <option value="be">Backend Engineer</option>
-  <option value="qa">QA Engineer</option>
-  <option value="un">Unicorn</option>  -->
-  {#each jobOptions as option}
-    <option value={option[optionLabel]}>{option[optionLabel]}</option>
-  {/each}
-</select>
 
 <!-- <div style="margin-bottom:20px">
   <Select
