@@ -252,7 +252,7 @@
               </div>
             {/each}
           {/each}
-          <!-- List the options without optgroups. -->
+        <!-- List the options without optgroups. -->
         {:else}
           {#each options as option}
             <div 

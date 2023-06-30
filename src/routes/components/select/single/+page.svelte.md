@@ -36,14 +36,23 @@
 
   let value = 0;
 
+  // const jobOptions = [
+  //   "UI/UX Designer",
+  //   "Frontend Engineer",
+  //   "Backend Engineer",
+  //   "QA Engineer",
+  //   "Unicorn",
+	// ];
   const jobOptions = [
-    "UI/UX Designer",
-    "Frontend Engineer",
-    "Backend Engineer",
-    "QA Engineer",
-    "Unicorn",
+    { shortTitle: "designer", title: "UI/UX Designer" },
+    { shortTitle: "fe", title: "Frontend Engineer" },
+    { shortTitle: "be", title: "Backend Engineer" },
+    { shortTitle: "qa", title: "QA Engineer" },
+    { shortTitle: "u", title: "Unicorn" },
 	];
   let selectedJobOption = jobOptions[0];
+
+  const optionLabel = "title";
 </script>
 
 
@@ -53,16 +62,35 @@
 
 ## Example Usage
 
+1st pass with object type options array
+
 <Select 
   label="Main Job Role"
   options={jobOptions}
+  optionLabel="title"
   bind:value={selectedJobOption}
   on:change={handleChange}
 />
 
 <br>
 
-Value of `selectedJobOption`: <code>{selectedJobOption}</code>
+Value of `selectedJobOption`: <code>{JSON.stringify(selectedJobOption)}</code>
+
+<br>
+
+<select bind:value={selectedJobOption}>
+  <!-- <option value="" disabled="" selected="">
+    -- Select An Option --
+  </option>
+  <option value="ds">UI/UX Designer</option>
+  <option value="fe">Frontend Engineer</option>
+  <option value="be">Backend Engineer</option>
+  <option value="qa">QA Engineer</option>
+  <option value="un">Unicorn</option>  -->
+  {#each jobOptions as option}
+    <option value={option[optionLabel]}>{option[optionLabel]}</option>
+  {/each}
+</select>
 
 <!-- <div style="margin-bottom:20px">
   <Select

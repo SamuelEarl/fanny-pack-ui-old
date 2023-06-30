@@ -12,7 +12,7 @@
 
   export let label = "";
   export let options;
-  // export let optionLabel = null;
+  export let optionLabel = null;
   export let optgroup = null;
   export let value;
 
@@ -20,6 +20,7 @@
   let selectCustom;
   let componentId = createId();
   let optionsDataType;
+  $: console.log("optionsDataType:", optionsDataType);
   // When the `optgroups` object is created it will look like the following.
   // This will allow this <Select> component to render properly with <optgroup> elements.
   // let optgroups = {
@@ -43,7 +44,7 @@
   $: dispatch("change", value);
 
   let isActive = false;
-  $: console.log("isActive:", isActive);
+  // $: console.log("isActive:", isActive);
 
   onMount(() => {
     determineOptionsDataType(options);
@@ -167,17 +168,23 @@
       aria-labelledby={componentId}
       bind:value={value}
     >
-			<!-- <option value="sel" disabled="" selected="">
-        {selectedOption}
+			<!-- <option value="" disabled="" selected="">
+        -- Select An Option --
       </option> -->
 			<!-- <option value="ds">UI/UX Designer</option>
 			<option value="fe">Frontend Engineer</option>
 			<option value="be">Backend Engineer</option>
 			<option value="qa">QA Engineer</option>
 			<option value="un">Unicorn</option> -->
-      {#each options as option}
-        <option value={option}>{option}</option>
-      {/each}
+      {#if optionsDataType === "primitive"}
+        {#each options as option}
+          <option value={option}>{option}</option>
+        {/each}
+      {:else if optionsDataType === "object"}
+        {#each options as option}
+          <option value={option[optionLabel]}>{option[optionLabel]}</option>
+        {/each}
+      {/if}
 		</select>
 
 		<!-- Hide the custom select from AT (e.g. SR) using aria-hidden -->
@@ -213,7 +220,11 @@
           selectCustom.focus();
         }}
       >
+      {#if optionsDataType === "primitive"}
         {value}
+      {:else if optionsDataType === "object"}
+        {value[optionLabel]}
+      {/if}
       </div>
       <!-- elSelectCustomOpts -->
 			<div class="selectCustom-options">
@@ -222,23 +233,46 @@
 				<div class="selectCustom-option" data-value="be">Backend Engineer</div>
 				<div class="selectCustom-option" data-value="qa">QA Engineer</div>
 				<div class="selectCustom-option" data-value="un">Unicorn</div> -->
-        {#each options as option}
-          <div
-            class="selectCustom-option" 
-            class:isHover={option === value}
-            data-value={option}
-            on:click={() => {
-              value = option;
-              isActive = false;
-            }}
-            on:keydown={() => {
-              value = option;
-              isActive = false;
-            }}
-          >
-            {option}
-          </div>
-        {/each}
+        {#if optionsDataType === "primitive"}
+          {#each options as option}
+            <div
+              class="selectCustom-option" 
+              class:isHover={option === value}
+              data-value={option}
+              title={option}
+              on:click={() => {
+                value = option;
+                isActive = false;
+              }}
+              on:keydown={() => {
+                value = option;
+                isActive = false;
+              }}
+            >
+              {option}
+            </div>
+          {/each}
+        
+        {:else if optionsDataType === "object"}
+          {#each options as option}
+            <div
+              class="selectCustom-option" 
+              class:isHover={option === value}
+              data-value={option[optionLabel]}
+              title={option[optionLabel]}
+              on:click={() => {
+                value = option;
+                isActive = false;
+              }}
+              on:keydown={() => {
+                value = option;
+                isActive = false;
+              }}
+            >
+              {option[optionLabel]}
+            </div>
+          {/each}
+        {/if}
 			</div>
 		</div>
 	</div>
