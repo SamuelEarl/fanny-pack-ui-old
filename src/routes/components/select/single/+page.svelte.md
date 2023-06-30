@@ -31,7 +31,7 @@
   let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
 
   function handleChange(event) {
-    console.log("Selected Value:", event.detail);
+    // console.log("Selected Value:", event.detail);
   }
 
   let value = 0;
@@ -57,7 +57,8 @@
 
   const optionValue = "roleVal";
   const optionLabel = "roleLabel";
-  let selectedJobOption = jobOptionsObjects[0][optionValue];
+  let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue];
+  $: console.log("selectedValuePropertyFromJobOptionsObject:", selectedValuePropertyFromJobOptionsObject);
 </script>
 
 
@@ -67,7 +68,7 @@
 
 ## Example Usage
 
-1st pass with object type options array
+### `options` elements with primitive data type
 
 <Select 
   label="Main Job Role"
@@ -81,8 +82,12 @@
 Value of `selectedJobOptionString`: <code>{JSON.stringify(selectedJobOptionString)}</code>
 
 <br>
-<hr>
+
+---
+
 <br>
+
+### `options` elements with "object" data type
 
 What if you wanted each option in your `<Select />` component to have different values and labels? For example, this element:
 
@@ -128,7 +133,7 @@ const jobOptionsObjects = [
 Well, native select elements can only handle primitive data types, so you would have to pass an array of strings to your Svelte select element and just live with that. No separate values or labels. However, you can pass an object to a native select element written with Svelte and just make a few adjustments to your Svelte code, which would look like this:
 
 <div>
-  <select bind:value={selectedJobOption}>
+  <select bind:value={selectedValuePropertyFromJobOptionsObject}>
     {#each jobOptionsObjects as option}
       <option value={option[optionValue]}>{option[optionLabel]}</option>
     {/each}
@@ -137,7 +142,7 @@ Well, native select elements can only handle primitive data types, so you would 
 
 <br>
 
-Value of `selectedJobOption`: <code>{selectedJobOption}</code>
+Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValuePropertyFromJobOptionsObject}</code>
 
 ```
 const jobOptionsObjects = [
@@ -151,9 +156,9 @@ const jobOptionsObjects = [
 
 const optionValue = "roleVal";
 const optionLabel = "roleLabel";
-let selectedJobOption = jobOptionsObjects[0][optionValue];
+let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue];
 
-<select bind:value={selectedJobOption}>
+<select bind:value={selectedValuePropertyFromJobOptionsObject}>
   {#each jobOptionsObjects as option}
     <option value={option[optionValue]}>{option[optionLabel]}</option>
   {/each}
@@ -168,13 +173,13 @@ let selectedJobOption = jobOptionsObjects[0][optionValue];
   options={jobOptionsObjects}
   optionValue="roleVal"
   optionLabel="roleLabel"
-  bind:value={selectedJobOption}
+  bind:value={selectedValuePropertyFromJobOptionsObject}
   on:change={handleChange}
 />
 
 <br>
 
-Value of `selectedJobOption`: <code>{JSON.stringify(selectedJobOption)}</code>
+Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValuePropertyFromJobOptionsObject}</code>
 
 <br>
 

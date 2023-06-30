@@ -10,6 +10,7 @@
   const mainNav = [
     {
       sectionHeading: "",
+      sectionUrlPrefix: "",
       sectionItems: [
         {
           icon: "carbon:home",
@@ -35,158 +36,161 @@
     },
     {
       sectionHeading: "Components",
+      sectionUrlPrefix: "/components",
       sectionItems: [
         {
           icon: "carbon:account",
           label: "Accordion",
-          url: "/components/accordion",
+          url: "/accordion",
         },
         {
           icon: "carbon:button-centered",
           label: "Button",
-          url: "/components/button",
+          url: "/button",
         },
         {
           icon: "carbon:checkbox-checked",
           label: "Checkbox (single)",
-          url: "/components/checkbox/single",
+          url: "/checkbox/single",
         },
         {
           icon: "carbon:list-boxes",
           label: "Checkbox (group)",
-          url: "/components/checkbox/group",
+          url: "/checkbox/group",
         },
         {
           icon: "carbon:calendar",
           label: "Date Picker",
-          url: "/components/date-picker",
+          url: "/date-picker",
         },
         // See my comment about a color picker component in the TODOS.md file.
         // {
         //   icon: "clarity:color-picker-solid",
         //   label: "Color Picker",
-        //   url: "/components/color-picker",
+        //   url: "/color-picker",
         // },
         {
           icon: "pixelarticons:drop-area",
           label: "Drop Zone (file upload)",
-          url: "/components/drop-zone",
+          url: "/drop-zone",
         },
         // {
         //   icon: "ph:layout-light",
         //   label: "FlexGrid (layout)",
-        //   url: "/components/flex-grid",
+        //   url: "/flex-grid",
         // },
         {
           icon: "ph:layout-light",
           label: "Grid (layout)",
-          url: "/components/grid",
+          url: "/grid",
         },
         {
           icon: "carbon:currency-dollar",
           label: "Input (currency)",
-          url: "/components/input/currency",
+          url: "/input/currency",
         },
         {
           icon: "radix-icons:input",
           label: "Input (text, number, email)",
-          url: "/components/input/misc",
+          url: "/input/misc",
         },
         {
           icon: "carbon:popup",
           label: "Modal (popup window)",
-          url: "/components/modal",
+          url: "/modal",
         },
         {
           icon: "carbon:radio-button-checked",
           label: "Radio Button",
-          url: "/components/radio-button",
+          url: "/radio-button",
         },
         {
           icon: "icon-park-outline:list-view",
           label: "Select (single)",
-          url: "/components/select/single",
+          url: "/select/single",
         },
         {
           icon: "fluent:multiselect-ltr-20-filled",
           label: "Select (multi)",
-          url: "/components/select/multi",
+          url: "/select/multi",
         },
         {
           icon: "ic:outline-tab",
           label: "Tabs (tabbed content)",
-          url: "/components/tabs",
+          url: "/tabs",
         },
         {
           icon: "bi:textarea-resize",
           label: "Textarea",
-          url: "/components/textarea",
+          url: "/textarea",
         },
         {
           icon: "carbon:information-square",
           label: "Toast (notification pane)",
-          url: "/components/toast",
+          url: "/toast",
         },
         {
           icon: "carbon:chat",
           label: "Tooltip",
-          url: "/components/tooltip",
+          url: "/tooltip",
         },
       ],
     },
     {
       sectionHeading: "Data Viz",
+      sectionUrlPrefix: "/data-viz",
       sectionItems: [
         {
           icon: "tabler:chart-area-line",
           label: "Area Chart",
-          url: "/data-viz/area-chart",
+          url: "/area-chart",
         },
         {
           icon: "bi:bar-chart",
           iconRotate: "90deg",
           label: "Bar Chart (horizontal)",
-          url: "/data-viz/bar-chart/horizontal",
+          url: "/bar-chart/horizontal",
         },
         {
           icon: "bi:bar-chart",
           label: "Bar Chart (vertical)",
-          url: "/data-viz/bar-chart/vertical",
+          url: "/bar-chart/vertical",
         },
         {
           icon: "carbon:chart-bubble",
           label: "Bubble Chart",
-          url: "/data-viz/bubble-chart",
+          url: "/bubble-chart",
         },
         {
           icon: "gis:world-map-alt",
           label: "Geospatial Chart",
-          url: "/data-viz/geospatial-chart",
+          url: "/geospatial-chart",
         },
         {
           icon: "fluent:data-histogram-24-regular",
           label: "Histogram",
-          url: "/data-viz/histogram",
+          url: "/histogram",
         },
         {
           icon: "mdi:chart-line-variant",
           label: "Line Chart",
-          url: "/data-viz/line-chart",
+          url: "/line-chart",
         },
         {
           icon: "carbon:chart-scatter",
           label: "Scatterplot",
-          url: "/data-viz/scatterplot",
+          url: "/scatterplot",
         },
       ],
     },
     {
       sectionHeading: "Utility Classes",
+      sectionUrlPrefix: "/utility-classes",
       sectionItems: [
         {
           icon: "bx:show",
           label: "Visibility",
-          url: "/utility-classes/visibility",
+          url: "/visibility",
         },
       ],
     },
@@ -205,7 +209,7 @@
           <ul class="section-items-list">
             {#each section.sectionItems as item}
               <li class="section-item">
-                <a href={item.url} class:active={currentPath === item.url}>
+                <a href={`${section.sectionUrlPrefix}${item.url}`} class:active={currentPath === item.url}>
                   <Icon icon={item.icon} rotate={item.iconRotate} /> 
                   {item.label}
                 </a>

@@ -120,7 +120,7 @@ function updateCustomSelectChecked(value, text) {
 }
 
 function watchClickOutside(e) {
-  const didClickedOutside = !elSelectCustom.contains(event.target);
+  const didClickedOutside = !elSelectCustom.contains(e.target);
   if (didClickedOutside) {
     closeSelectCustom();
   }
@@ -128,20 +128,19 @@ function watchClickOutside(e) {
 
 function supportKeyboardNavigation(e) {
   // press down -> go next
-  if (event.keyCode === 40 && optionHoveredIndex < optionsCount - 1) {
-    let index = optionHoveredIndex;
+  if (e.keyCode === 40 && optionHoveredIndex < optionsCount - 1) {
     e.preventDefault(); // prevent page scrolling
     updateCustomSelectHovered(optionHoveredIndex + 1);
   }
 
   // press up -> go previous
-  if (event.keyCode === 38 && optionHoveredIndex > 0) {
+  if (e.keyCode === 38 && optionHoveredIndex > 0) {
     e.preventDefault(); // prevent page scrolling
     updateCustomSelectHovered(optionHoveredIndex - 1);
   }
 
   // press Enter or space -> select the option
-  if (event.keyCode === 13 || event.keyCode === 32) {
+  if (e.keyCode === 13 || e.keyCode === 32) {
     e.preventDefault();
 
     const option = elSelectCustomOpts.children[optionHoveredIndex];
@@ -155,7 +154,7 @@ function supportKeyboardNavigation(e) {
   }
 
   // press ESC -> close selectCustom
-  if (event.keyCode === 27) {
+  if (e.keyCode === 27) {
     closeSelectCustom();
   }
 }

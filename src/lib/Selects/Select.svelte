@@ -17,12 +17,12 @@
   export let optionLabel = null;
   export let optgroup = null;
   export let value;
+  $: console.log("VALUE PROP:", value);
 
   const dispatch = createEventDispatcher();
   let selectCustom;
   let componentId = createId();
   let optionsDataType;
-  $: console.log("optionsDataType:", optionsDataType);
   // When the `optgroups` object is created it will look like the following.
   // This will allow this <Select> component to render properly with <optgroup> elements.
   // let optgroups = {
@@ -44,9 +44,6 @@
   // };
   let optgroups = {};
 
-	// let selectedOption = options[0];
-  // $: selectedOptionIndex = options.findIndex(element => element === selectedOption);
-  $: selectedOptionIndex = options.findIndex(element => element === value);
   // This component dispatches a custom event called `change`, so you can call an event handler when a user selects a value in the <Select /> component. The customizations in this <Select /> component won't allow for forwarding the broswer `change` event when someone uses a mouse to interact with this component, but this dispatched custom `change` event will allow you to respond to changes in the <Select /> component's value.
   $: dispatch("change", value);
 
@@ -133,39 +130,53 @@
     }
   }
 
+  let selectedOptionIndex = 0;
+  // $: console.log("selectedOptionIndex:", selectedOptionIndex);
   async function supportKeyboardNavigation(event) {
-    if (document.activeElement === selectCustom) {
-      // press down -> go next
-      if (event.keyCode === 40 && selectedOptionIndex < options.length - 1) {
-        event.preventDefault(); // prevent page scrolling
-        value = options[selectedOptionIndex + 1]
-      }
+    // Set the initial value of `selectedOptionIndex`.
+    if (optionsDataType === "primitive") {
+      selectedOptionIndex = options.findIndex(element => element === value);
+    }
+    if (optionsDataType === "object") {
+      selectedOptionIndex = options.findIndex(element => element[optionValue] === value);
+    }
 
-      // press up -> go previous
-      if (event.keyCode === 38 && selectedOptionIndex > 0) {
-        event.preventDefault(); // prevent page scrolling
-        value = options[selectedOptionIndex - 1]
-      }
+    // Press down -> go next.
+    if (event.keyCode === 40 && selectedOptionIndex < options.length - 1) {
+      event.preventDefault(); // prevent page scrolling
+      selectedOptionIndex = selectedOptionIndex + 1;
+    }
 
-      // press Enter or space -> select the option
-      if (event.keyCode === 13 || event.keyCode === 32) {
-        console.log("KEYPRESS:", event.keyCode);
-        event.preventDefault();
-        value = options[selectedOptionIndex];
-        isActive = !isActive;
-      }
+    // Press up -> go previous.
+    if (event.keyCode === 38 && selectedOptionIndex > 0) {
+      event.preventDefault(); // prevent page scrolling
+      selectedOptionIndex = selectedOptionIndex - 1;
+    }
 
-      // press ESC -> close selectCustom
-      if (event.keyCode === 27) {
-        isActive = false;
-      }
+    // Set the value to equal the option that was selected.
+    if (optionsDataType === "primitive") {
+      value = options[selectedOptionIndex];
+    }
+    if (optionsDataType === "object") {
+      value = options[selectedOptionIndex][optionValue];
+    }
+
+    // Press Enter or space -> select the option.
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      event.preventDefault();
+      isActive = !isActive;
+    }
+
+    // Press ESC -> close selectCustom.
+    if (event.keyCode === 27) {
+      isActive = false;
     }
   }
-
-  let selectValue = optionsDataType === "primitive" ? value : value[optionValue];
 </script>
 
-<svelte:window on:keydown={supportKeyboardNavigation} />
+<!-- If the selectCustom element has focus (i.e. is the `document.activeElement`), 
+  then call the `supportKeyboardNavigation` function on `keydown` events. -->
+<svelte:document on:keydown={document.activeElement === selectCustom ? supportKeyboardNavigation : null} />
 
 <div class="select">
 	<!-- <span class="selectLabel" id={componentId}> Main job role</span> -->
@@ -232,7 +243,7 @@
       {#if optionsDataType === "primitive"}
         {value}
       {:else if optionsDataType === "object"}
-        <!-- When a mouse user selects an option from the selectCustom element, they are setting the `value` prop to equal the `option[optionValue]`. But this needs to display the value of the `option[optionLabel]` property. So this will find the object inside the `options` array whose `optionValue` property matches the value that was set by the user. Then it will pull of the value of the `optionLabel` property. -->
+        <!-- When a mouse user selects an option from the selectCustom element, they are setting the `value` prop to equal the `option[optionValue]` property (which is just a primitive value, not the entire object inside the `options` array). But when `optionsDataType === "object"`, then the property that needs to be displayed is the `option[optionLabel]` property. So the code inside the following curly braces will find the object inside the `options` array whose `optionValue` property matches the value that was selected, then it will pull off the value of the `optionLabel` property and return the `optionLabel` property. -->
         {options.find(obj => obj[optionValue] === value)[optionLabel]}
       {/if}
       </div>
@@ -247,7 +258,7 @@
           {#each options as option}
             <div
               class="selectCustom-option" 
-              class:isHover={option === value}
+              class:isHighlighted={option === value}
               data-value={option}
               title={option}
               on:click={() => {
@@ -267,7 +278,7 @@
           {#each options as option}
             <div
               class="selectCustom-option" 
-              class:isHover={option === value}
+              class:isHighlighted={option[optionValue] === value}
               data-value={option[optionValue]}
               title={option[optionLabel]}
               on:click={() => {
@@ -407,7 +418,7 @@
 		padding-left: 2.5rem;
 	}
 
-	.selectCustom-option.isHover,
+	.selectCustom-option.isHighlighted,
 	.selectCustom-option:hover {
 		background-color: #865bd7; /* contrast AA */
 		color: white;
