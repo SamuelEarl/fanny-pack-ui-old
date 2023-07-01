@@ -1,5 +1,14 @@
 <script lang="ts">
-  import { Select, CurrencyInput } from "/src/lib";
+  import { Select } from "/src/lib";
+
+  const jobOptionsStrings = [
+    "UI/UX Designer",
+    "Frontend Engineer",
+    "Backend Engineer",
+    "QA Engineer",
+    "Unicorn",
+	];
+  let selectedJobOptionString = jobOptionsStrings[0];
 
   let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
   let selectedMonth = "July";
@@ -25,16 +34,6 @@
   }
 
   let value = 0;
-
-  const jobOptionsStrings = [
-    "UI/UX Designer",
-    "Frontend Engineer",
-    "Backend Engineer",
-    "QA Engineer",
-    "Unicorn",
-	];
-
-  let selectedJobOptionString = jobOptionsStrings[0];
 
   const jobOptionsObjects = [
     { roleVal: "", roleLabel: "-- Select Role --" },
@@ -64,60 +63,51 @@
 
 # Select (single)
 
-`<select>` elements are difficult to style while maintaining accessibility. The easiest (and possibly the best) way to create an accessible `<Select />` component is to use the native `<select>` element and simply style the button part while leaving the dropdown alone.
+`<select>` elements are difficult to style while maintaining accessibility. The easiest (and possibly the best) way to create an accessible `<Select />` component is to use the native `<select>` element and simply style the button part while leaving the dropdown as is provided natively by the browser.
 
 ---
 
 ## Example Usage
 
-### Option Groups
-
-<div style="margin-bottom:20px;">
-  <Select
-    label="Select an option"
-    options={dinosaurObjects}
-    optionValue="value"
-    optionLabel="label"
-    optgroup="group"
-    bind:value={selectedDinosaurValue}
-    disabled={true}
-    fontSize="md"
-    padding="md"
-  />
-</div>
-
-<br>
-
-Value of `selectedDinosaurValue`: <code>{selectedDinosaurValue}</code>
-
-<br>
-
----
-
-<br>
-
 ### `options` elements with "primitive" data type
 
-<!-- <Select 
+Most `<Select />` components will probably just use a simple array of string values as in this example:
+
+<Select 
   label="Main Job Role"
   options={jobOptionsStrings}
   bind:value={selectedJobOptionString}
-  on:change={handleChange}
-/> -->
+/>
 
 <br>
 
-Value of `selectedJobOptionString`: <code>{JSON.stringify(selectedJobOptionString)}</code>
+```
+import { Select } from "@fanny-pack-ui/svelte-kit";
 
-<br>
+const jobOptionsStrings = [
+  "UI/UX Designer",
+  "Frontend Engineer",
+  "Backend Engineer",
+  "QA Engineer",
+  "Unicorn",
+];
+
+let selectedJobOptionString = jobOptionsStrings[0];
+
+<Select 
+  label="Main Job Role"
+  options={jobOptionsStrings}
+  bind:value={selectedJobOptionString}
+/>
+```
+
+Value of `selectedJobOptionString`: <code>{selectedJobOptionString}</code>
 
 ---
 
-<br>
-
 ### `options` elements with "object" data type
 
-What if you wanted each option in your `<Select />` component to have different values and labels? For example, this element:
+What if you wanted each option in your `<Select />` component to have values that are different from their labels? For example, this element:
 
 <div>
   <select>
@@ -225,5 +215,31 @@ Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValueProper
 </div> -->
 
 <!-- Value of `selectedMonth`: <code>{selectedMonth}</code> -->
+
+<br>
+
+### Option Groups
+
+<div style="margin-bottom:20px;">
+  <Select
+    label="Select an option"
+    options={dinosaurObjects}
+    optionValue="value"
+    optionLabel="label"
+    optgroup="group"
+    bind:value={selectedDinosaurValue}
+    disabled={false}
+    fontSize="md"
+    padding="md"
+  />
+</div>
+
+<br>
+
+Value of `selectedDinosaurValue`: <code>{selectedDinosaurValue}</code>
+
+<br>
+
+---
 
 <br>

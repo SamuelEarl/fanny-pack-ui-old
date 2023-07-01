@@ -1,4 +1,4 @@
-<!-- <select> elements are difficult to style while maintaining accessibility. The easiest (and possibly the best) way to create an accessible <Select /> component is to use the native <select> element and simply style the button part while leaving the dropdown alone. See https://www.filamentgroup.com/lab/select-css.html -->
+<!-- `<select>` elements are difficult to style while maintaining accessibility. The easiest (and possibly the best) way to create an accessible `<Select />` component is to use the native `<select>` element and simply style the button part while leaving the dropdown as is provided natively by the browser. See https://www.filamentgroup.com/lab/select-css.html -->
 
 <script lang="ts">
 	import { onMount, afterUpdate } from "svelte";
@@ -160,7 +160,9 @@
         {/if}
       {/if}
     </select>
-    <svg width="1em" height="1em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);" class:disabled><path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path></svg>
+    <svg width="1em" height="1em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);" class:disabled>
+      <path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path>
+    </svg>
   </div>
 </div>
 
