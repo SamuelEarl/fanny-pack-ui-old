@@ -178,7 +178,9 @@ You can set the following custom variables:
     <h2>DateInput</h2>
 
     <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
@@ -195,13 +197,17 @@ You can set the following custom variables:
     | `placeholder`<br>*(optional)* | `string` | Any string | `YYYY-MM-DD` | This prop will act as the placeholder when the date value is null (i.e. when the input field is empty). |
     | `dateInputIcon`<br>*(optional)* | `string` | Any icon name from the Iconify library. | The default value can be set in your `/src/defaults.ts` file. | Read [Configure JavaScript variables](/get-started#configure-default-component-settings) for instructions on how to set the default value. |
     | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<DateInput>` component. |
+
+    </div>
   </TabPanel>
 
   <TabPanel>
     <h2>Calendar</h2>
 
     <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <div></div>
+    <!-- <div></div> -->
+
+    <div class="responsive-table">
 
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
@@ -210,6 +216,8 @@ You can set the following custom variables:
     | `min`<br>*(optional)* | See the `min` prop above. |
     | `max`<br>*(optional)* | See the `max` prop above. |
     | `locale`<br>*(optional)* | See the `locale` prop above. |
+
+    </div>
   </TabPanel>
 </TabsContainer>
 

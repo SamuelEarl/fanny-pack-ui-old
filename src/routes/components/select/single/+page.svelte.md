@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Select } from "/src/lib";
+  import { Select, Checkbox } from "/src/lib";
 
   const jobOptionsStrings = [
     "UI/UX Designer",
@@ -10,30 +10,7 @@
 	];
   let selectedJobOptionString = jobOptionsStrings[0];
 
-  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  let selectedMonth = "July";
-
-  let monthObjects = [
-    { shortMonth: "Jan", longMonth: "January" },
-    { shortMonth: "Feb", longMonth: "February" },
-    { shortMonth: "Mar", longMonth: "March" },
-    { shortMonth: "Apr", longMonth: "April" },
-    { shortMonth: "May", longMonth: "May" },
-    { shortMonth: "Jun", longMonth: "June" },
-    { shortMonth: "Jul", longMonth: "July" },
-    { shortMonth: "Aug", longMonth: "August" },
-    { shortMonth: "Sep", longMonth: "September" },
-    { shortMonth: "Oct", longMonth: "October" },
-    { shortMonth: "Nov", longMonth: "November" },
-    { shortMonth: "Dec", longMonth: "December" },
-  ];
-  let selectedMonthObject = monthObjects[6];
-
-  function handleChange(event) {
-    // console.log("Selected Value:", event.detail);
-  }
-
-  let value = 0;
+  let needVacation = false;
 
   const jobOptionsObjects = [
     { roleVal: "", roleLabel: "-- Select Role --" },
@@ -47,17 +24,23 @@
   const optionValue = "roleVal";
   const optionLabel = "roleLabel";
   let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue];
-  $: console.log("selectedValuePropertyFromJobOptionsObject:", selectedValuePropertyFromJobOptionsObject);
 
-  let dinosaurObjects = [
-    { group: "Theropods", value: "tyrannosaurus", label: "Tyrannosaurus" },
-    { group: "Theropods", value: "velociraptor", label: "Velociraptor" },
-    { group: "Sauropods", value: "diplodocus", label: "Diplodocus" },
-    { group: "Sauropods", value: "saltasaurus", label: "Saltasaurus" },
-    { group: "Theropods", value: "deinonychus", label: "Deinonychus" },
-    { group: "Sauropods", value: "apatosaurus", label: "Apatosaurus" },
+  let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  let selectedMonth = "July";
+
+  function handleChange(event) {
+    console.log("Selected Value:", event.target.value);
+  }
+
+  const dinoObjects = [
+    { dinoGroup: "Theropods", dinoValue: "tyrannosaurus", dinoLabel: "Tyrannosaurus" },
+    { dinoGroup: "Theropods", dinoValue: "velociraptor", dinoLabel: "Velociraptor" },
+    { dinoGroup: "Sauropods", dinoValue: "diplodocus", dinoLabel: "Diplodocus" },
+    { dinoGroup: "Sauropods", dinoValue: "saltasaurus", dinoLabel: "Saltasaurus" },
+    { dinoGroup: "Theropods", dinoValue: "deinonychus", dinoLabel: "Deinonychus" },
+    { dinoGroup: "Sauropods", dinoValue: "apatosaurus", dinoLabel: "Apatosaurus" },
   ];
-  let selectedDinosaurValue = dinosaurObjects.find(obj => obj.value === "diplodocus")["value"];
+  let selectedDinoValue = dinoObjects.find(obj => obj.dinoValue === "diplodocus")["dinoValue"];
 </script>
 
 
@@ -73,31 +56,59 @@
 
 Most `<Select />` components will probably just use a simple array of string values as in this example:
 
-<Select 
-  label="Main Job Role"
-  options={jobOptionsStrings}
-  bind:value={selectedJobOptionString}
+<div style="margin-bottom:20px;">
+  <Select 
+    label="What Job Are You Interested In?"
+    options={jobOptionsStrings}
+    bind:value={selectedJobOptionString}
+    fontSize="md"
+    padding="md"
+    disabled={needVacation}
+    on:change={handleChange}
+  />
+</div>
+
+<Checkbox
+  bind:checked={needVacation}
+  label="I need a vacation instead of a job"
 />
 
 <br>
 
 ```
-import { Select } from "@fanny-pack-ui/svelte-kit";
+<script>
+  import { Select, Checkbox } from "@fanny-pack-ui/svelte-kit";
 
-const jobOptionsStrings = [
-  "UI/UX Designer",
-  "Frontend Engineer",
-  "Backend Engineer",
-  "QA Engineer",
-  "Unicorn",
-];
+  const jobOptionsStrings = [
+    "UI/UX Designer",
+    "Frontend Engineer",
+    "Backend Engineer",
+    "QA Engineer",
+    "Unicorn",
+  ];
 
-let selectedJobOptionString = jobOptionsStrings[0];
+  let selectedJobOptionString = jobOptionsStrings[0];
 
-<Select 
-  label="Main Job Role"
-  options={jobOptionsStrings}
-  bind:value={selectedJobOptionString}
+  function handleChange(event) {
+    console.log("Selected Value:", event.target.value);
+  }
+</script>
+
+<div style="margin-bottom:20px;">
+  <Select 
+    label="What Job Are You Interested In?"
+    options={jobOptionsStrings}
+    bind:value={selectedJobOptionString}
+    fontSize="md"
+    padding="md"
+    disabled={needVacation}
+    on:change={handleChange}
+  />
+</div>
+
+<Checkbox
+  bind:checked={needVacation}
+  label="I need a vacation instead of a job"
 />
 ```
 
@@ -107,9 +118,9 @@ Value of `selectedJobOptionString`: <code>{selectedJobOptionString}</code>
 
 ### `options` elements with "object" data type
 
-What if you wanted each option in your `<Select />` component to have values that are different from their labels? For example, this element:
+What if you want each option in your `<Select />` component to have values that are different from their labels? For example, this native select element:
 
-<div>
+<div style="margin-bottom:20px;">
   <select>
     <option value="">-- Select role --</option>
     <option value="ds">UI/UX Designer</option>
@@ -119,8 +130,6 @@ What if you wanted each option in your `<Select />` component to have values tha
     <option value="un">Unicorn</option>
   </select>
 </div>
-
-<br>
 
 ...would be coded like this:
 
@@ -135,7 +144,7 @@ What if you wanted each option in your `<Select />` component to have values tha
 </select>
 ```
 
-Notice how the values for each option are different from the labels in each option. You would probably have to pass an array of objects that looked something like this to the select element:
+Notice how the values for each option are different from their labels? You would probably have to pass an array of objects that looked something like this to the select element:
 
 ```
 const jobOptionsObjects = [
@@ -148,98 +157,214 @@ const jobOptionsObjects = [
 ];
 ```
 
-Well, native select elements can only handle primitive data types, so you would have to pass an array of strings to your Svelte select element and just live with that. No separate values or labels. However, you can pass an object to a native select element written with Svelte and just make a few adjustments to your Svelte code, which would look like this:
+The problem is that native select elements can only handle primitive data types, so you might have to pass an array of strings to your Svelte select element (as in the first example) and just live with that. No separate values or labels. Bummer. However, you can pass an object to a native select element written with Svelte and just make a few adjustments to your Svelte code, which would look like this:
 
-<!-- <div>
+<div style="margin-bottom:20px;">
   <select bind:value={selectedValuePropertyFromJobOptionsObject}>
     {#each jobOptionsObjects as option}
       <option value={option[optionValue]}>{option[optionLabel]}</option>
     {/each}
   </select>
-</div> -->
-
-<br>
+</div>
 
 Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValuePropertyFromJobOptionsObject}</code>
 
 ```
-const jobOptionsObjects = [
-  { roleVal: "", roleLabel: "-- Select Role --" },
-  { roleVal: "ds", roleLabel: "UI/UX Designer" },
-  { roleVal: "fe", roleLabel: "Frontend Engineer" },
-  { roleVal: "be", roleLabel: "Backend Engineer" },
-  { roleVal: "qa", roleLabel: "QA Engineer" },
-  { roleVal: "un", roleLabel: "Unicorn" },
-];
+<script>
+  const jobOptionsObjects = [
+    { roleVal: "", roleLabel: "-- Select Role --" },
+    { roleVal: "ds", roleLabel: "UI/UX Designer" },
+    { roleVal: "fe", roleLabel: "Frontend Engineer" },
+    { roleVal: "be", roleLabel: "Backend Engineer" },
+    { roleVal: "qa", roleLabel: "QA Engineer" },
+    { roleVal: "un", roleLabel: "Unicorn" },
+  ];
 
-const optionValue = "roleVal";
-const optionLabel = "roleLabel";
-let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue];
+  let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0]["roleVal"];
+</script>
 
 <select bind:value={selectedValuePropertyFromJobOptionsObject}>
   {#each jobOptionsObjects as option}
-    <option value={option[optionValue]}>{option[optionLabel]}</option>
+    <option value={option["roleVal"]}>{option["roleLabel"]}</option>
   {/each}
 </select>
 ```
 
+You can do the same with this `<Select />` component. You just have to specify which properties in your data objects should be used as the option values and which should be the option labels:
 
-<br>
+<div style="margin-bottom:20px;">
+  <Select 
+    label="What Job Are You Interested In?"
+    options={jobOptionsObjects}
+    optionValue="roleVal"
+    optionLabel="roleLabel"
+    bind:value={selectedValuePropertyFromJobOptionsObject}
+  />
+</div>
 
-<!-- <Select 
-  label="Main Job Role"
+Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValuePropertyFromJobOptionsObject}</code>
+
+```
+<script>
+  const jobOptionsObjects = [
+    { roleVal: "", roleLabel: "-- Select Role --" },
+    { roleVal: "ds", roleLabel: "UI/UX Designer" },
+    { roleVal: "fe", roleLabel: "Frontend Engineer" },
+    { roleVal: "be", roleLabel: "Backend Engineer" },
+    { roleVal: "qa", roleLabel: "QA Engineer" },
+    { roleVal: "un", roleLabel: "Unicorn" },
+  ];
+
+  let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0]["roleVal"];
+</script>
+
+<Select 
+  label="What Job Are You Interested In?"
   options={jobOptionsObjects}
   optionValue="roleVal"
   optionLabel="roleLabel"
   bind:value={selectedValuePropertyFromJobOptionsObject}
-  on:change={handleChange}
-/> -->
-
-<br>
-
-Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValuePropertyFromJobOptionsObject}</code>
-
-<br>
-
-<!-- <div style="margin-bottom:20px">
-  <Select
-    label="Select an option"
-    options={months}  
-    bind:value={selectedMonth}
-    id="id-for-select-box"
-    on:change={handleChange}
-    disabled={false}
-    padding="sm"
-    fontSize="md"
-  />
-</div> -->
-
-<!-- Value of `selectedMonth`: <code>{selectedMonth}</code> -->
-
-<br>
+/>
+```
 
 ### Option Groups
+
+You can group your options using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values.
 
 <div style="margin-bottom:20px;">
   <Select
     label="Select an option"
-    options={dinosaurObjects}
-    optionValue="value"
-    optionLabel="label"
-    optgroup="group"
-    bind:value={selectedDinosaurValue}
-    disabled={false}
-    fontSize="md"
-    padding="md"
+    options={dinoObjects}
+    optionValue="dinoValue"
+    optionLabel="dinoLabel"
+    optgroup="dinoGroup"
+    bind:value={selectedDinoValue}
   />
 </div>
 
-<br>
+Value of `selectedDinoValue`: <code>{selectedDinoValue}</code>
 
-Value of `selectedDinosaurValue`: <code>{selectedDinosaurValue}</code>
+```
+<script>
+  const dinoObjects = [
+    { dinoGroup: "Theropods", dinoValue: "tyrannosaurus", dinoLabel: "Tyrannosaurus" },
+    { dinoGroup: "Theropods", dinoValue: "velociraptor", dinoLabel: "Velociraptor" },
+    { dinoGroup: "Sauropods", dinoValue: "diplodocus", dinoLabel: "Diplodocus" },
+    { dinoGroup: "Sauropods", dinoValue: "saltasaurus", dinoLabel: "Saltasaurus" },
+    { dinoGroup: "Theropods", dinoValue: "deinonychus", dinoLabel: "Deinonychus" },
+    { dinoGroup: "Sauropods", dinoValue: "apatosaurus", dinoLabel: "Apatosaurus" },
+  ];
 
-<br>
+  let selectedDinoValue = dinoObjects.find(obj => obj.dinoValue === "diplodocus")["dinoValue"];
+</script>
+
+<Select
+  label="Select an option"
+  options={dinoObjects}
+  optgroup="dinoGroup"
+  optionValue="dinoValue"
+  optionLabel="dinoLabel"
+  bind:value={selectedDinoValue}
+/>
+
+Value of `selectedDinoValue`: <code>{selectedDinoValue}</code>
+```
+
+Note that the `optgroup`s within the `<Select />` component will be sorted based on the first appearance of the property that is passed to the `optgroup` prop. For example, in the `dinoObjects` array shown above, the `dinoGroup` property is passed to the `optgroup` prop, so the `dinoObjects` array will be sorted based the `dinoGroup` property. The first `dinoGroup` property that appears in the `dinoObjects` array has a value of `Theropods`, so that will be the first `optgroup` listed in the `<Select />` component's options list. The second `dinoGroup` property that appears has a value of `Sauropods`, so that will be the second `optgroup` listed in the `<Select />` component's options list. And so on.
 
 ---
 
-<br>
+## Note
+* The `<Select />` component will fill the width of its parent element. So if you want a `<Select />` component to be narrower, then you will have to set its parent element to be narrower.
+
+---
+
+## Customize Select Styles
+The original intention for these custom styles was to set `--custom-select-bg-color="transparent"` so the `<Select />` component would blend into the background. A few extra custom style rules have been provided for even more customizability.
+
+You can set the following custom variables:
+
+* `--custom-select-bg-color`
+* `--custom-select-border-color`
+* `--custom-select-text-color`
+* `--custom-option-text-color`
+
+<div style="margin-bottom:20px" class="alt-background">
+  <Select
+    options={months}  
+    bind:value={selectedMonth}
+    --custom-select-bg-color="transparent"
+    --custom-select-border-color="white"
+    --custom-select-text-color="white"
+    --custom-option-text-color="var(--secondary-color)"
+  />
+</div>
+
+```
+<div style="margin-bottom:20px" class="alt-background">
+  <Select
+    options={months}  
+    bind:value={selectedMonth}
+    --custom-select-bg-color="transparent"
+    --custom-select-border-color="white"
+    --custom-select-text-color="white"
+    --custom-option-text-color="var(--secondary-color)"
+  />
+</div>
+
+<style>
+  .alt-background {
+    padding: 25px;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+  }
+</style>
+
+```
+
+---
+
+## Props
+
+<div class="responsive-table">
+
+| Prop name | Type | Possible values | Default value | Description |
+| --------- | ---- | --------------- | ------------- | ----------- |
+| `label`<br>(optional) | `string` | Any string | `""` (an empty string) | The text for the `<label>` element that is displayed above the `<select>` element. If this prop is not provided, then no label will be displayed. |
+| `options` | `Array` | Any array | NA | This should be an array of strings, numbers, booleans, or objects. This array will be used to populate the `<option>` elements in the `<Select />` component's dropdown list. |
+| `optionValue` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | When the `optionValue` prop is used with an array of objects (which are passed to the `options` prop), the `optionValue` prop will provide the property name that will be used as the value for each of the options in the `<Select />` component. |
+| `optionLabel` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | When the `optionLabel` prop is used with an array of objects (which are passed to the `options` prop), the `optionLabel` prop will provide the property name that will be used as the label text for each of the options in the `<Select />` component. |
+| `optgroup` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | You can group your options using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
+| `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
+| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the `defaults.ts` file. |
+| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the `defaults.ts` file. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select />` component. |
+| `{...restProps}` | NA | Any attribute that you can pass to a `<select>` element. | NA | This component does not specify every possible attribute that you can pass to a `<select>` element. However, `restProps` allows you to pass any attributes to this `<select />` component that you could normally pass to a `<select>` element. For example, if you want to specify an `id` for this `<Select>` component, then you could pass the `id` prop, like this: `id="some-id"`.
+
+</div>
+
+---
+
+## Event Forwarding
+
+<div class="responsive-table">
+
+| Event | Description |
+| ----- | ----------- |
+| `on:change` | This component forwards the `change` event, so you can call an event handler when a user selects a value in the `<Select />` component. |
+
+</div>
+
+<style>
+  select {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    background-color: var(--bg-color-element-default);
+  }
+
+  .alt-background {
+    padding: 25px;
+    border-radius: var(--border-radius);
+    background-color: var(--secondary-color);
+  }
+</style>

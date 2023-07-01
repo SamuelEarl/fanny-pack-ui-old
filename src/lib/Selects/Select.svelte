@@ -19,7 +19,7 @@
 
   let isActive = false;
 	let componentId = createId();
-	let optionsDataType;
+	$: optionsDataType = typeof options[0] === "object" ? "object" : "primitive";
 	// When the `optgroups` object is created it will look like the following.
 	// This will allow this <Select> component to render properly with <optgroup> elements.
 	// I need to make optgroups look like the following because native select elements can only work with primitive data types. They won't work with objects as the selected option. And then I need to test this with the native select element (by tabbing to it in the UI) to see if everything renders properly and the correct options get selected accurately.
@@ -36,7 +36,6 @@
 	//   ],
 	// };
 	const optgroups = {};
-	// $: console.log("optgroups:", optgroups);
 
   let paddingStyle = paddingSizes[padding];
   if (paddingStyle === undefined) {
@@ -49,7 +48,6 @@
   }
 
 	onMount(() => {
-		determineOptionsDataType(options);
 		if (optgroup) {
 			sortOptionsIntoOptgroups();
 		}
@@ -57,34 +55,10 @@
 
 	// If a user passes an array of objects to the `options` prop and updates that array of objects later while this `<Select>` component is still mounted, then the functions inside the `onMount()` hook will not run again (since this component is already mounted) and the updates to the array of objects will not be reflected in this component's dropdown. The following `afterUpdate()` hook will run the functions inside of it again, if the previously described scenario occurs, which will cause the updates to the array of objects to be reflected in this component's dropdown.
 	afterUpdate(() => {
-		determineOptionsDataType(options);
 		if (optgroup) {
 			sortOptionsIntoOptgroups();
 		}
 	});
-
-	/**
-	 * This function will determine the data type of the data structures that are inside the `options` array.
-	 * The result will be either `array`, `object`, or `primitive`.
-	 */
-	function determineOptionsDataType(options) {
-		try {
-			if (options?.length > 0) {
-				// NOTE: I am keeping this code here in case I want to support nested arrays as an `options` data structure.
-				// `typeof options[0] === "object"` will return `true` for arrays, so it is necessary to check for arrays with Array.isArray() before checking for objects. Otherwise an `options` array that contains nested arrays will be designated as an array of objects.
-				// if (Array.isArray(options[0])) {
-				//   optionsDataType = "array";
-				// }
-				if (typeof options[0] === "object") {
-					optionsDataType = "object";
-				} else {
-					optionsDataType = "primitive";
-				}
-			}
-		} catch (err) {
-			console.error("determineOptionsDataType:", err);
-		}
-	}
 
 	/**
 	 * This function will group the `options` by the order of first appearance of the `optgroup` prop.
@@ -133,7 +107,7 @@
       class="select-native"
       style={`${paddingStyle} ${fontSizeStyle}`}
       aria-labelledby={componentId} 
-      bind:value
+      bind:value={value}
       on:change
       {...$$restProps}
       {disabled}
@@ -209,6 +183,7 @@
 
         & option {
           font-weight: normal;
+          color: var(--custom-option-text-color, var(--text-color-default));
         }
       }
 

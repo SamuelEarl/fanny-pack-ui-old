@@ -209,7 +209,7 @@
           <ul class="section-items-list">
             {#each section.sectionItems as item}
               <li class="section-item">
-                <a href={`${section.sectionUrlPrefix}${item.url}`} class:active={currentPath === item.url}>
+                <a href={`${section.sectionUrlPrefix}${item.url}`} class:active={currentPath === `${section.sectionUrlPrefix}${item.url}`}>
                   <Icon icon={item.icon} rotate={item.iconRotate} /> 
                   {item.label}
                 </a>

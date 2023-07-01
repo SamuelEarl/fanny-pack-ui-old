@@ -414,7 +414,7 @@ You can customize these buttons almost infinitely by passing different values to
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
 | `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
 | `rotateBtnIcon` (optional) | `string` | Any number with `deg` appended to the end. | `"0deg"` (i.e. no rotation) | You can pass a rotate value to this prop and the icon will be rotated according to the value you pass. For example, `"45deg"` will rotate the icon 45 degrees. |
-| `rotateBtnIconDisabled` (optional) <td colspan=5>Refer to the `rotateBtnIcon` prop above. |
+| `rotateBtnIconDisabled` (optional) | | | | Refer to the `rotateBtnIcon` prop above. |
 
 </div>
 

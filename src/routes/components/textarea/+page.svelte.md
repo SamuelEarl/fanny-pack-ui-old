@@ -95,7 +95,7 @@ You can set the following custom variables:
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the `textarea` field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `textarea` field. |
-| `restProps` | NA | Any attribute that you can pass to a `<textarea>` element. | NA | This component does not specify every possible attribute that you can pass to a `<textarea>` element. However, `restProps` allows you to pass any attributes to this `<Textarea />` component that you could normally pass to a `<textarea>` element. For example, if you want to specify a taller `<Textarea>` component, then you could pass the `rows` prop, like this: `rows="10"`
+| `{...restProps}` | NA | Any attribute that you can pass to a `<textarea>` element. | NA | This component does not specify every possible attribute that you can pass to a `<textarea>` element. However, `restProps` allows you to pass any attributes to this `<Textarea />` component that you could normally pass to a `<textarea>` element. For example, if you want to specify a taller `<Textarea>` component, then you could pass the `rows` prop, like this: `rows="10"`
 
 <br>
 

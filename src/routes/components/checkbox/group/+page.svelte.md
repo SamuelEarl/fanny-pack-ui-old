@@ -100,6 +100,9 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 <hr>
 
 ## Props
+
+<div class="responsive-table">
+
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `checkboxGroupValues` | `array` | Any array | NA | The array that is passed to this prop is the array of values that will be looped over to create the checkboxes. |
@@ -107,13 +110,20 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | `bind:selectedValues` | `array` | Any array | `[]` (an empty array) | The array that is passed to this prop will hold the values that the user will select. This array will usually be an empty array, but if you want any values to be pre-selected, then you could include any of the values from the `checkboxGroupValues` array. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable all the checkboxes in the group. |
 
+</div>
+
 <br>
 
 ## Event Forwarding
+
+<div class="responsive-table">
+
 | Event | Description |
 | ----- | ----------- |
 | `on:change` | This component forwards the `change` event, so you can call an event handler with `on:change={handlerFunction}` when a user checks this `<Checkbox>` component. |
 | `on:input` | This component forwards the `input` event, so you can call an event handler with `on:input={handlerFunction}` when a user checks this `<Checkbox>` component. |
+
+</div>
 
 <br>
 
