@@ -39,10 +39,19 @@
   // };
   // UPDATE: I need to make optgroups look like the following because native select elements can only work with primitive data types. They won't work with objects as the selected option. And then I need to test this with the native select element (by tabbing to it in the UI) to see if everything renders properly and the correct options get selected accurately.
   // let optgroups = {
-  //   Sauropods: [ "Diplodocus", "Saltasaurus", "Apatosaurus" ],
-  //   Theropods: [ "Tyrannosaurus", "Velociraptor", "Deinonychus" ],
+  //   Sauropods: [ 
+  //     { group: "Sauropods", value: "diplodocus", label: "Diplodocus" },
+  //     { group: "Sauropods", value: "saltasaurus", label: "Saltasaurus" },
+  //     { group: "Sauropods", value: "apatosaurus", label: "Apatosaurus" },
+  //   ],
+  //   Theropods: [
+  //     { group: "Theropods", value: "tyrannosaurus", label: "Tyrannosaurus" },
+  //     { group: "Theropods", value: "velociraptor", label: "Velociraptor" },
+  //     { group: "Theropods", value: "deinonychus", label: "Deinonychus" },
+  //   ],
   // };
-  let optgroups = {};
+  const optgroups = {};
+  // $: console.log("optgroups:", optgroups);
 
   // This component dispatches a custom event called `change`, so you can call an event handler when a user selects a value in the <Select /> component. The customizations in this <Select /> component won't allow for forwarding the broswer `change` event when someone uses a mouse to interact with this component, but this dispatched custom `change` event will allow you to respond to changes in the <Select /> component's value.
   $: dispatch("change", value);
@@ -144,13 +153,13 @@
     // Press down -> go next.
     if (event.keyCode === 40 && selectedOptionIndex < options.length - 1) {
       event.preventDefault(); // prevent page scrolling
-      selectedOptionIndex = selectedOptionIndex + 1;
+      selectedOptionIndex += 1;
     }
 
     // Press up -> go previous.
     if (event.keyCode === 38 && selectedOptionIndex > 0) {
       event.preventDefault(); // prevent page scrolling
-      selectedOptionIndex = selectedOptionIndex - 1;
+      selectedOptionIndex -= 1;
     }
 
     // Set the value to equal the option that was selected.
@@ -188,22 +197,24 @@
       aria-labelledby={componentId}
       bind:value={value}
     >
-      <!-- <option value="" disabled="" selected="">
-        -- Select An Option --
-      </option> -->
-      <!-- <option value="ds">UI/UX Designer</option>
-      <option value="fe">Frontend Engineer</option>
-      <option value="be">Backend Engineer</option>
-      <option value="qa">QA Engineer</option>
-      <option value="un">Unicorn</option> -->
       {#if optionsDataType === "primitive"}
         {#each options as option}
           <option value={option}>{option}</option>
         {/each}
       {:else if optionsDataType === "object"}
-        {#each options as option}
-          <option value={option[optionValue]}>{option[optionLabel]}</option>
-        {/each}
+        {#if optgroup}
+          {#each Object.entries(optgroups) as [key, value]}
+            <optgroup label={key}>
+              {#each value as option}
+                <option value={option[optionValue]}>{option[optionLabel]}</option>
+              {/each}
+            </optgroup>
+          {/each}
+        {:else}
+          {#each options as option}
+            <option value={option[optionValue]}>{option[optionLabel]}</option>
+          {/each}
+        {/if}
       {/if}
     </select>
 
@@ -244,16 +255,11 @@
         {value}
       {:else if optionsDataType === "object"}
         <!-- When a mouse user selects an option from the selectCustom element, they are setting the `value` prop to equal the `option[optionValue]` property (which is just a primitive value, not the entire object inside the `options` array). But when `optionsDataType === "object"`, then the property that needs to be displayed is the `option[optionLabel]` property. So the code inside the following curly braces will find the object inside the `options` array whose `optionValue` property matches the value that was selected, then it will pull off the value of the `optionLabel` property and return the `optionLabel` property. -->
-        {options.find(obj => obj[optionValue] === value)[optionLabel]}
+        <!-- {options.find(obj => obj[optionValue] === value)[optionLabel]} -->
       {/if}
       </div>
       <!-- elSelectCustomOpts -->
 			<div class="selectCustom-options">
-				<!-- <div class="selectCustom-option" data-value="ds">UI/UX Designer</div>
-				<div class="selectCustom-option" data-value="fe">Frontend Engineer</div>
-				<div class="selectCustom-option" data-value="be">Backend Engineer</div>
-				<div class="selectCustom-option" data-value="qa">QA Engineer</div>
-				<div class="selectCustom-option" data-value="un">Unicorn</div> -->
         {#if optionsDataType === "primitive"}
           {#each options as option}
             <div
@@ -275,24 +281,57 @@
           {/each}
         
         {:else if optionsDataType === "object"}
-          {#each options as option}
-            <div
-              class="selectCustom-option" 
-              class:isHighlighted={option[optionValue] === value}
-              data-value={option[optionValue]}
-              title={option[optionLabel]}
-              on:click={() => {
-                value = option[optionValue];
-                isActive = false;
-              }}
-              on:keydown={() => {
-                value = option[optionValue];
-                isActive = false;
-              }}
-            >
-              {option[optionLabel]}
-            </div>
-          {/each}
+          <!-- List the options under their respective optgroups. -->
+          {#if optgroup}
+            {#each Object.entries(optgroups) as [key, value]}
+              <div 
+                class="fp-select-optgroup-label"
+                title={key}
+              >
+                {key}
+              </div>
+              {#each value as option}
+                <div 
+                  class="selectCustom-option" 
+                  class:isHighlighted={option[optionValue] === value}
+                  data-value={option[optionValue]}
+                  title={option[optionLabel]}
+                  on:click={() => {
+                    console.log("option value property:", option[optionValue]);
+                    value = option[optionValue];
+                    console.log("value:", value);
+                    isActive = false;
+                  }}
+                  on:keydown={() => {
+                    value = option[optionValue];
+                    isActive = false;
+                  }}
+                >
+                  {option[optionLabel]}
+                </div>
+              {/each}
+            {/each}
+          <!-- List the options without optgroups. -->
+          {:else}
+            {#each options as option}
+              <div
+                class="selectCustom-option" 
+                class:isHighlighted={option[optionValue] === value}
+                data-value={option[optionValue]}
+                title={option[optionLabel]}
+                on:click={() => {
+                  value = option[optionValue];
+                  isActive = false;
+                }}
+                on:keydown={() => {
+                  value = option[optionValue];
+                  isActive = false;
+                }}
+              >
+                {option[optionLabel]}
+              </div>
+            {/each}
+          {/if}
         {/if}
 			</div>
 		</div>

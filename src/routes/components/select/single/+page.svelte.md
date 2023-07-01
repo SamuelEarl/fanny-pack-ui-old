@@ -20,16 +20,6 @@
   ];
   let selectedMonthObject = monthObjects[6];
 
-  let dinosaurObjects = [
-    { name: "Tyrannosaurus", group: "Theropods" },
-    { name: "Velociraptor", group: "Theropods" },
-    { name: "Diplodocus", group: "Sauropods" },
-    { name: "Saltasaurus", group: "Sauropods" },
-    { name: "Deinonychus", group: "Theropods" },
-    { name: "Apatosaurus", group: "Sauropods" },
-  ];
-  let selectedDinosaurObject = dinosaurObjects.find(obj => obj.name === "Diplodocus");
-
   function handleChange(event) {
     // console.log("Selected Value:", event.detail);
   }
@@ -59,6 +49,16 @@
   const optionLabel = "roleLabel";
   let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue];
   $: console.log("selectedValuePropertyFromJobOptionsObject:", selectedValuePropertyFromJobOptionsObject);
+
+  let dinosaurObjects = [
+    { group: "Theropods", value: "tyrannosaurus", label: "Tyrannosaurus" },
+    { group: "Theropods", value: "velociraptor", label: "Velociraptor" },
+    { group: "Sauropods", value: "diplodocus", label: "Diplodocus" },
+    { group: "Sauropods", value: "saltasaurus", label: "Saltasaurus" },
+    { group: "Theropods", value: "deinonychus", label: "Deinonychus" },
+    { group: "Sauropods", value: "apatosaurus", label: "Apatosaurus" },
+  ];
+  let selectedDinosaurValue = dinosaurObjects.find(obj => obj.value === "diplodocus")["value"];
 </script>
 
 
@@ -68,14 +68,33 @@
 
 ## Example Usage
 
-### `options` elements with primitive data type
+### Option Groups
 
-<Select 
+<div style="margin-bottom:20px">
+  <Select
+    label="Select an option"
+    options={dinosaurObjects}
+    optionValue="value"
+    optionLabel="label"
+    optgroup="group"
+    bind:value={selectedDinosaurValue}
+  />
+</div>
+
+<br>
+
+---
+
+<br>
+
+### `options` elements with "primitive" data type
+
+<!-- <Select 
   label="Main Job Role"
   options={jobOptionsStrings}
   bind:value={selectedJobOptionString}
   on:change={handleChange}
-/>
+/> -->
 
 <br>
 
@@ -132,13 +151,13 @@ const jobOptionsObjects = [
 
 Well, native select elements can only handle primitive data types, so you would have to pass an array of strings to your Svelte select element and just live with that. No separate values or labels. However, you can pass an object to a native select element written with Svelte and just make a few adjustments to your Svelte code, which would look like this:
 
-<div>
+<!-- <div>
   <select bind:value={selectedValuePropertyFromJobOptionsObject}>
     {#each jobOptionsObjects as option}
       <option value={option[optionValue]}>{option[optionLabel]}</option>
     {/each}
   </select>
-</div>
+</div> -->
 
 <br>
 
@@ -168,14 +187,14 @@ let selectedValuePropertyFromJobOptionsObject = jobOptionsObjects[0][optionValue
 
 <br>
 
-<Select 
+<!-- <Select 
   label="Main Job Role"
   options={jobOptionsObjects}
   optionValue="roleVal"
   optionLabel="roleLabel"
   bind:value={selectedValuePropertyFromJobOptionsObject}
   on:change={handleChange}
-/>
+/> -->
 
 <br>
 
