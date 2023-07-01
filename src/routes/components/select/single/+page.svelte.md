@@ -64,13 +64,15 @@
 
 # Select (single)
 
+`<select>` elements are difficult to style while maintaining accessibility. The easiest (and possibly the best) way to create an accessible `<Select />` component is to use the native `<select>` element and simply style the button part while leaving the dropdown alone.
+
 ---
 
 ## Example Usage
 
 ### Option Groups
 
-<div style="margin-bottom:20px">
+<div style="margin-bottom:20px;">
   <Select
     label="Select an option"
     options={dinosaurObjects}
@@ -78,8 +80,15 @@
     optionLabel="label"
     optgroup="group"
     bind:value={selectedDinosaurValue}
+    disabled={true}
+    fontSize="md"
+    padding="md"
   />
 </div>
+
+<br>
+
+Value of `selectedDinosaurValue`: <code>{selectedDinosaurValue}</code>
 
 <br>
 

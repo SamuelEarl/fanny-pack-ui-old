@@ -105,6 +105,7 @@
    */
   function sortOptions() {
     try {
+      // This sort() function will loop through the `options` array that is passed into this component and sort the elements so that the elements with the same `optgroup`s are grouped together.
       options.sort(function(a, b) {        
         // If `(a[optgroup] !== b[optgroup])`, then sort the two elements so that b (the first element) stays in the lower index position (i.e. b comes first).
         if (a[optgroup] !== b[optgroup]) {

@@ -87,7 +87,7 @@ These variables are organized in the same way that Tailwind organizes their util
   --bg-color-default-dark: var(--neutral-700);
   /* Element background colors. */
   --bg-color-element-default: var(--neutral-200);
-  --bg-color-element-disabled: var(--neutral-300);
+  --bg-color-element-disabled: var(--neutral-50);
   /* Hover background color. */
   --bg-color-hover: var(--neutral-200);
 }
@@ -183,7 +183,7 @@ These variables are organized in the same way that Tailwind organizes their util
 
   /* Text Color */
   --text-color-default: var(--neutral-700);
-  --text-color-disabled: var(--neutral-700);
+  --text-color-disabled: graytext;
 
   /* Placeholder Text Color */
   --placeholder-color-default: var(--neutral-500);
