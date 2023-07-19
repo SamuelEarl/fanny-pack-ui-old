@@ -48,9 +48,77 @@ Import the `/src/assets/styles/main.css` file into the `<script>` tag of the `/s
 
 <br>
 
-## Step 3: Update your Prettier settings (optional)
+## Step 3: Update your linting and formatting configs (optional)
 
-This is only personal preference, but I like my JavaScript code to use the following style rules:
+This is only my personal preference. You do what works for you.
+
+I am not a big fan of either Prettier or ESLint for formatting. (Maybe I am missing something that would make me really love one of those options.) Prettier has limited customizable options (e.g. no `brace-style` option&mdash;what?!&mdash;and other default formatting that I don't love but am unable to change) and ESLint doesn't format things very well (e.g. the `brace-style` option left `else` and `catch` blocks improperly indented. Ugh! 
+
+The best option (for me at least) might be to create a lint script that uses ESLint to give me warnings about poorly formatted code and then I will just manually fix those issues myself (instead of using the `--fix` flag to auto format my code). 
+
+This is how I do that: 
+
+(1) Add custom linting rules inside the `rules` block in your `.eslintrc.cjs`, like this:
+
+```js
+module.exports = {
+  root: true,
+  parser: "@typescript-eslint/parser",
+  extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
+  plugins: ["svelte3", "@typescript-eslint"],
+  ignorePatterns: ["*.cjs"],
+  overrides: [{ files: ["*.svelte"], processor: "svelte3/svelte3" }],
+  settings: {
+    "svelte3/typescript": () => require("typescript"),
+  },
+  parserOptions: {
+    sourceType: "module",
+    ecmaVersion: 2020,
+  },
+  env: {
+    browser: true,
+    es2017: true,
+    node: true,
+    },
+  rules: {
+    "quotes": ["error", "double"], // This is the default, but making it explicit.
+    "comma-dangle": ["warn", "always-multiline"],
+    "semi": ["error", "always"], // This is the default, but making it explicit.
+    "no-extra-semi": "error",
+    "brace-style": ["error", "stroustrup"],
+  },
+};
+```
+
+_See ESLint's [Rules Reference](https://eslint.org/docs/latest/rules/) for more details._
+
+(2) Create a `lint` script that will check the files in your SvelteKit app, like this:
+
+```
+"scripts": {
+	...
+	"lint": "eslint '**/*.svelte' '**/*.js' '**/*.ts'",
+},
+```
+
+(3) Now you can run `npm run lint` to check your SvelteKit files for poorly formatted code.
+
+---
+
+You _can_ use ESLint to automatically reformat your code with the `--fix` flag, but ESLint's formatting might not work the way you hope. However, I recommend that you test ESLint's formatting on a single file to see if you like it before running ESLint's formatter on all of your files. You can test out a single Svelte file by running `npx eslint src/routes/path/to/file/+page.svelte --fix` from the command line in your project's root directory.
+
+If you like ESLint's automatic formatting, then you could create a script for it that would look like this: 
+
+```
+"scripts": {
+	...
+	"format_with_eslint": "eslint '**/*.svelte' '**/*.js' '**/*.ts' --fix",
+},
+```
+
+---
+
+If I were to use Prettier, these are some of my personal preferences for formatting rules:
 
 * Double quotes for strings (because many other statically typed languages use double quotes for strings)
 * Trailing commas
@@ -58,7 +126,7 @@ This is only personal preference, but I like my JavaScript code to use the follo
 
 You can see the available options for Prettier [here](https://prettier.io/docs/en/options.html).
 
-In your `.prettierrc` file, delete the current format options and paste the following format options in their place:
+In my `.prettierrc` file, I would delete the current formatting options and paste the following formatting options in their place:
 
 ```json
 {
@@ -73,7 +141,7 @@ In your `.prettierrc` file, delete the current format options and paste the foll
 }
 ```
 
-Then you can run `npm run lint` to see which files need style formatting and `npm run format` to format those files with Prettier.
+Then, if I kept the default `lint` and `format` scripts in my `package.json`, I could run `npm run lint` to see which files need style formatting and `npm run format` to format those files with Prettier.
 
 <br>
 
