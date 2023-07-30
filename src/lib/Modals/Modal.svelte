@@ -131,7 +131,6 @@
           width: 100%;
           /* The `border-radius` style will prevent any `modal-content` background styles from spilling outside of the `modal-body`. */
           border-radius: var(--border-radius);
-          /* background-color: transparent; */
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
           & #modal-footer {
