@@ -6,6 +6,8 @@
   export let scrollingBody = false;
   export let disabled = false;
   export let showCloseButton = true;
+  export let contentBgColor = "var(--white)";
+  export let headerFooterBorderColor = "var(--neutral-300)";
 
   const dispatch = createEventDispatcher();
 
@@ -64,16 +66,16 @@
 
 <div id="modal">
   <div id="modal-content-container" class="fp-animatetop">
-    <div id="modal-content">
+    <div id="modal-content" style={`background-color: ${contentBgColor};`}>
       {#if title}
-        <header id="modal-header">{title}</header>      
+        <header id="modal-header" style={`border-color: ${headerFooterBorderColor}`}>{title}</header>      
       {/if}
       <!-- If the header and footer are excluded, then set a rounded border-radius on the `modal-body`. -->
       <div id="modal-body" style={`${bodyBorderRadius}`}>
         <slot name="modalBody"></slot>
       </div>
       {#if $$slots.modalFooterLeft || $$slots.modalFooterRight}
-        <footer id="modal-footer">
+        <footer id="modal-footer" style={`border-color: ${headerFooterBorderColor}`}>
           <div id="modal-footer-left">
             <slot name="modalFooterLeft"></slot>
           </div>
@@ -129,7 +131,7 @@
           width: 100%;
           /* The `border-radius` style will prevent any `modal-content` background styles from spilling outside of the `modal-body`. */
           border-radius: var(--border-radius);
-          background-color: var(--white);
+          /* background-color: transparent; */
           box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 
           & #modal-footer {

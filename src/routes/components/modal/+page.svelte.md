@@ -234,6 +234,8 @@ NOTE: You can dispatch events that will trigger the modal to be closed. For exam
 | `scrollingBody` | `boolean` | `true`, `false` | `false` | If this prop is set to `true`, then the modal will fill the height of the screen. Also, if the content inside the modal body overflows the available space, then a scrollbar will appear and the modal body content will scroll.
 | `disabled` | `boolean` | `true`, `false` | `false` | When this prop is set to `true` then the close button in the top-right corner of the modal will be disabled. You might want to disable the close button in scenarios where a user clicks a button that will save edits to a database and you don't want users to be able to close the modal until after the edits have been saved to a database. |
 | `showCloseButton` | `boolean` | `true`, `false` | `true` | You can set `showCloseButton` to `false` for modals where you don't want to show a close button in the top-right corner. |
+| `contentBgColor` | `string` | Any CSS color value. | `var(--white)` | Set the background color of the modal to any color you want. |
+| `headerFooterBorderColor` | `string` | Any CSS color value. | `var(--neutral-300)` | Set the border color between the modal header and the modal body as well as the border color between the modal footer and the modal body to any color you want. |
 
 <br><br>
 
