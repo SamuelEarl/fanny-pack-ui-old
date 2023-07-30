@@ -3,7 +3,8 @@
 
   let textValue = "Change this text";
   let numberValue = 1;
-  let email = ""
+  let email = "";
+  let password = "";
 
   let browsers = [
     "Chrome",
@@ -19,7 +20,7 @@
 </script>
 
 
-# Input (text, number, email)
+# Input (text, number, email, password)
 
 ---
 
@@ -134,6 +135,42 @@
     padding="sm"
     fontSize="md"
     placeholder="Type email here"
+    disabled={false}
+  />
+</div>
+```
+
+### Password Input
+
+<div style="margin-bottom:20px">
+  <Input
+    type="password"
+    bind:value={password}
+    label="Enter a password"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type password here"
+    disabled={false}
+  />
+</div>
+
+<p>Entered Password: {password}</p>
+
+```svelte
+<script>
+  import { Input } from "@fanny-pack-ui/svelte-kit";
+
+  let password = "";
+</script>
+
+<div style="margin-bottom:20px">
+  <Input
+    type="password"
+    bind:value={password}
+    label="Enter a password"
+    padding="sm"
+    fontSize="md"
+    placeholder="Type password here"
     disabled={false}
   />
 </div>
@@ -277,7 +314,7 @@ You can set the following custom variables:
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `label`<br>(optional) | `string` | Any string | `""` (an empty string) | This prop will provide a label for the input field. If no `label` prop is provided, then the label will not be displayed. |
 | `id` (optional) | `string` | Any string | `""` (empty string) | You can give your `<Input>` components an `id` value, if necessary, just like you can with regular `<input>` elements. |
-| `type` | `string` | `text`, `number`, `email` | `text` | This prop sets the input field type. |
+| `type` | `string` | `text`, `number`, `email`, `password` | `text` | This prop sets the input field type. |
 | `bind:value` | `string` | Any string | `""` (empty string) | In order for the input field to be updated with a `string` value, this component's `value` property needs to be bound to a `string` variable. |
 | `list` | `string` | Any string | `""` (empty string) | See the `<datalist>` example above for details. |
 | `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |

@@ -183,13 +183,14 @@ You can put almost anything inside of a modal body:
 
 {#if showLoginModal}
   <Modal
-    disabled={loggingIn}
+    showCloseButton={false}
     on:closeModal={() => showLoginModal = false}
   >
     <div slot="modalBody">
       <LoginForm 
         on:login={(event) => loggingIn = event.detail} 
-        on:authenticated={() => showLoginModal = false} 
+        on:authenticated={() => showLoginModal = false}
+        on:cancel={() => showLoginModal = false}
       />
     </div>
   </Modal>
@@ -208,18 +209,21 @@ You can put almost anything inside of a modal body:
 
 {#if showLoginModal}
   <Modal
-    disabled={loggingIn}
+    showCloseButton={false}
     on:closeModal={() => showLoginModal = false}
   >
     <div slot="modalBody">
       <LoginForm 
         on:login={(event) => loggingIn = event.detail} 
-        on:authenticated={() => showLoginModal = false} 
+        on:authenticated={() => showLoginModal = false}
+        on:cancel={() => showLoginModal = false}
       />
     </div>
   </Modal>
 {/if}
 ```
+
+NOTE: You can dispatch events that will trigger the modal to be closed. For example, in the code above, a `cancel` event is dispatched with `dispatch("cancel")`. The `<LoginForm>` listens for the `on:cancel` event and closes the modal.
 
 ---
 
@@ -228,7 +232,8 @@ You can put almost anything inside of a modal body:
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `title` | `string` | Any string | `""` (an empty string) | This prop will set the title of the modal.
 | `scrollingBody` | `boolean` | `true`, `false` | `false` | If this prop is set to `true`, then the modal will fill the height of the screen. Also, if the content inside the modal body overflows the available space, then a scrollbar will appear and the modal body content will scroll.
-| `disabled` | `boolean` | `true`, `false` | `false` | When this prop is set to `true` it will disable the close button above the modal so a user could not close the modal until after the close button is no longer disabled. The close button might need to be disable for scenarios where a user clicks a button that will save edits to a database and you don't want users to be able to close the modal until after the edits have been saved to a database. |
+| `disabled` | `boolean` | `true`, `false` | `false` | When this prop is set to `true` then the close button in the top-right corner of the modal will be disabled. You might want to disable the close button in scenarios where a user clicks a button that will save edits to a database and you don't want users to be able to close the modal until after the edits have been saved to a database. |
+| `showCloseButton` | `boolean` | `true`, `false` | `true` | You can set `showCloseButton` to `false` for modals where you don't want to show a close button in the top-right corner. |
 
 <br><br>
 

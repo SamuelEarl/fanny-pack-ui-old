@@ -91,7 +91,7 @@
         },
         {
           icon: "radix-icons:input",
-          label: "Input (text, number, email)",
+          label: "Input (text, number, email, password)",
           url: "/input/misc",
         },
         {

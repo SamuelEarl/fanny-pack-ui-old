@@ -5,6 +5,7 @@
   export let title = "";
   export let scrollingBody = false;
   export let disabled = false;
+  export let showCloseButton = true;
 
   const dispatch = createEventDispatcher();
 
@@ -45,19 +46,21 @@
   }
 </script>
 
-<div id="close-btn-container">
-  <Button
-    id="close"
-    btnIcon="ic:baseline-close"
-    bgColor="var(--transparent)"
-    borderColor="var(--transparent)"
-    textColor="white"
-    padding="10px"
-    fontSize="xl"
-    {disabled}
-    on:click={() => dispatch("closeModal")}
-  ></Button>
-</div>
+{#if showCloseButton}
+  <div id="close-btn-container">
+    <Button
+      id="close"
+      btnIcon="ic:baseline-close"
+      bgColor="var(--transparent)"
+      borderColor="var(--transparent)"
+      textColor="white"
+      padding="10px"
+      fontSize="xl"
+      {disabled}
+      on:click={() => dispatch("closeModal")}
+    ></Button>
+  </div>
+{/if}
 
 <div id="modal">
   <div id="modal-content-container" class="fp-animatetop">

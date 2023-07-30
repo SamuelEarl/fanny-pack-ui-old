@@ -58,6 +58,16 @@
         <br>
         <Button type="submit" btnIcon="ri:login-circle-line" width="full" size="lg" disabled={userIsLoggingIn}>Login</Button>
       </form>
+      <br>
+      <div>
+        <a 
+          href="#"
+          on:click={() => dispatch("cancel")}
+          on:keydown={() => dispatch("cancel")}
+        >
+          Cancel
+        </a>
+      </div>
     </div>
   </div>
 </div>

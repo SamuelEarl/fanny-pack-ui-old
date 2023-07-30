@@ -79,6 +79,20 @@
     on:keyup
     on:blur
   />
+{:else if type === "password"}
+  <input
+    type="password"
+    bind:value={value}
+    class="fp-input"
+    style={`${paddingStyle} ${fontSizeStyle}`}
+    {placeholder}
+    {disabled}
+    {...$$restProps}
+    on:change
+    on:input
+    on:keyup
+    on:blur
+  />
 {/if}
 
 

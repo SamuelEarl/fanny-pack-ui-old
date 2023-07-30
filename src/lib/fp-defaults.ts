@@ -36,7 +36,7 @@ export const defaults = {
   dropZoneSelectFilesBtnIcon: "lucide:mouse-pointer-2",
   dropZoneDragAndDropIcon: "pixelarticons:drag-and-drop",
   dropZoneUploadFilesBtnIcon: "mdi:cloud-upload",
-  // INPUTS (currency, text, number, email)
+  // INPUTS (currency, text, number, email, password)
   inputPadding: "md",
   inputFontSize: "md",
   // LABELS
