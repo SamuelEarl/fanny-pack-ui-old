@@ -10,6 +10,7 @@
   export let list = "";
   export let padding = defaults.inputPadding;
   export let fontSize = defaults.inputFontSize;
+  export let textColor = "var(--text-color-default)";
   export let min = null;
   export let max = null;
   export let step = "any";
@@ -30,6 +31,11 @@
 </script>
 
 
+<!-- 
+  NOTE: If I try to set the `type` attribute to a dynamic prop, then I get this error:
+  "type" attribute cannot be dynamic if input uses two-way binding
+  So I have to repeat a lot of code for each input type.
+-->
 <Label {label} forVal={`fp-input-${componentId}`} />
 {#if type === "text"}
   <input
@@ -37,7 +43,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -52,7 +58,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
     {min}
     {max}
     {step}
@@ -70,7 +76,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -84,7 +90,7 @@
     type="password"
     bind:value={value}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
     {placeholder}
     {disabled}
     {...$$restProps}

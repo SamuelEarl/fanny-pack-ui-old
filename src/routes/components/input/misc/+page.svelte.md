@@ -35,6 +35,7 @@
     label="Enter some text"
     padding=""
     fontSize=""
+    textColor="var(--primary-color)"
     placeholder="Type right here"
     disabled={false}
   />
@@ -56,6 +57,7 @@
     label="Enter some text"
     padding="sm"
     fontSize="md"
+    textColor="var(--primary-color)"
     placeholder="Type right here"
     disabled={false}
   />
@@ -319,6 +321,7 @@ You can set the following custom variables:
 | `list` | `string` | Any string | `""` (empty string) | See the `<datalist>` example above for details. |
 | `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
 | `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `defaults.ts` file. |
+| `textColor` | `string` | Any CSS color, including color variables from your `theme.css` file. |	`var(--text-color-default)` |	You can change the input field's text color with this prop. |
 | `placeholder` | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
 | `min` (number input types only) | `string` | Any numeric string value | `null` (i.e. no `min` value is set by default) | See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number#min |

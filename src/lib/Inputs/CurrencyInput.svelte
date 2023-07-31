@@ -20,6 +20,7 @@
   export let label = "";
   export let padding = defaults.inputPadding;
   export let fontSize = defaults.inputFontSize;
+  export let textColor = "var(--text-color-default)";
   export let labelAlign = "right";
   export let placeholder = "";
   export let disabled = false;
@@ -93,7 +94,7 @@
     type="number"
     id={`fp-input-${componentId}`}
     class={`fp-currency-input ${valAlign}`}
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
     step="0.01"
     min="0.00"
     placeholder={placeholder}
