@@ -51,7 +51,7 @@ export const defaults = {
   selectPadding: "md",
   selectFontSize: "md",
   // TABS
-  tabsTabStyle: "fill", // Possible values: "line", "fill"
+  tabsTabStyle: "fill", // Possible values: "fill", "line"
   tabsContainerBorder: true,
   tabsContainerPadding: "lg",
   tabsTabBarMarginBottom: "md",
