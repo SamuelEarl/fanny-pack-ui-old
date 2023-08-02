@@ -6,3 +6,7 @@ node_modules
 .env
 .env.*
 !.env.example
+
+# Allow the Fanny Pack UI default settings to be checked into Git.
+!/env-vars*
+!/src/lib/.env

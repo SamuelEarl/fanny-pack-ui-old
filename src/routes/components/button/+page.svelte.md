@@ -85,7 +85,6 @@
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
-  btnIconDisabled="icomoon-free:spinner2"
   btnIconDisabledShouldSpin={true}
   btnIconSide="right"
   on:click={handleCreateAccount}

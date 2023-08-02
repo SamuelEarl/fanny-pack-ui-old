@@ -312,6 +312,52 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 
 <h2 id="configure-default-component-settings">Step 7: Configure Default Component Settings</h2>
 
+In order to set and even customize the default values for the components, we need to make use of environment variables. We usually don't check env vars into Git, but since these are just default settings for components and they don't have any sensitive data, there is no harm in checking these into Git. Also, checking these env vars into Git will eliminate the need to store these in your webhost's env vars portal or manually sharing these env vars with other team members.
+
+1. Create a `/src/fp-env-vars` directory.
+2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `.env` file into your `/src/fp-env-vars` directory.
+3. Allow these env vars to be checked into Git by adding this line to the bottom of your `.gitignore` file: `!/env-vars*`
+3. Update your `vite.config.js` file to use the following syntax:
+
+```js
+import path from "path";
+import { sveltekit } from "@sveltejs/kit/vite";
+import { defineConfig, loadEnv } from "vite";
+
+/** @type {import("vite").UserConfig} */
+export default defineConfig(({ command, mode }) => {
+  // Extend "process.env" to include all variables from the root ".env"
+  // file (including any `.env.production` or `.env.development" files)
+  // and the `/fp-env-vars/.env` file.
+  process.env = {
+    ...process.env,
+    // This is Vite's default config, which will load the env vars from the root .env file.
+    ...loadEnv(mode, process.cwd(), ""), 
+    // Extend "process.env" by loading the Fanny Pack UI env vars.
+    ...loadEnv(mode, path.resolve(process.cwd(), "fp-env-vars"), "")
+  };
+  return {
+    plugins: [sveltekit()],
+
+    // This is how other settings in this file would be configured:
+    server: {
+      port: 5000,
+    },
+  };
+});
+```
+
+You can now edit any of the values in your `/src/fp-env-vars/.env` file. You can read the instructions in that file to find out how to customize your default component settings.
+
+NOTES:
+
+* Extending `process.env` to load additional env vars into your app does not affect the security features in SvelteKit's [`$env/dynamic/private`](https://kit.svelte.dev/docs/modules#$env-dynamic-private) module. In other words, SvelteKit will still throw an error if you try to import private environment variables into client-side code.
+* The `vite.config.js` config above was borrowed from this StackOverflow post: [How to load environment variables from .env file using Vite](https://stackoverflow.com/a/70711383/9453009) and this section in the Vite docs: [Using Environment Variables in Config](https://main.vitejs.dev/config/#using-environment-variables-in-config).
+
+<!-- 
+TODO: Delete this old documentation once I have completely switched to using env vars for the default settings.
+---
+
 1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
 2. Rename your `src/fp-defaults.js` file to `/src/defaults.ts`.
 3. Add the following alias to your `svelte.config.ts` file:
@@ -336,7 +382,7 @@ export default config;
 
 _**NOTE:** The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations._
 
-You can now edit any of the values in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your default component settings.
+You can now edit any of the values in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your default component settings. -->
 
 <br>
 
