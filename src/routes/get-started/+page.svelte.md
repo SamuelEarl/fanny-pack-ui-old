@@ -316,7 +316,7 @@ In order to set and even customize the default values for the components, we nee
 
 1. Create a `/src/fp-env-vars` directory.
 2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `.env` file into your `/src/fp-env-vars` directory.
-3. Allow these env vars to be checked into Git by adding this line to the bottom of your `.gitignore` file: `!/env-vars*`
+3. Allow these env vars to be checked into Git by adding this line to the bottom of your `.gitignore` file: `!/src/fp-env-vars/.env`
 3. Update your `vite.config.js` file to use the following syntax:
 
 ```js
@@ -328,13 +328,13 @@ import { defineConfig, loadEnv } from "vite";
 export default defineConfig(({ command, mode }) => {
   // Extend "process.env" to include all variables from the root ".env"
   // file (including any `.env.production` or `.env.development" files)
-  // and the `/fp-env-vars/.env` file.
+  // and the `/src/fp-env-vars/.env` file.
   process.env = {
     ...process.env,
     // This is Vite's default config, which will load the env vars from the root .env file.
     ...loadEnv(mode, process.cwd(), ""), 
     // Extend "process.env" by loading the Fanny Pack UI env vars.
-    ...loadEnv(mode, path.resolve(process.cwd(), "fp-env-vars"), "")
+    ...loadEnv(mode, path.resolve(process.cwd(), "src/fp-env-vars"), "")
   };
   return {
     plugins: [sveltekit()],
