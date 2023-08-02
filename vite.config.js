@@ -12,8 +12,8 @@ export default defineConfig(({ command, mode }) => {
     ...process.env,
     // This is Vite's default config, which will load the env vars from the root .env file.
     // ...loadEnv(mode, process.cwd(), ""),
-    // NOTE: When I try to publish this project to npm the `.env` file in the `/src/lib` directory does not get included. The reason why is because the publish command references the project's `.gitignore` file, which has a reference to `.env`. When the project is published to npm, the `package` directory is the root directory. So the `.env` reference in the `.gitignore file will exclude the `.env` file from the package that gets sent to npm. However, if I change the default location for the project's `.env` file (as opposed to the package's `.env` file) to "/project-env-vars", then I can change the remove all other references to `.env` files in the `.gitignore` file and everything should work the way I need it to.
-    ...loadEnv(mode, path.resolve(process.cwd(), "env-vars"), ""),
+    // NOTE: When I try to publish this project to npm, the `.env` file in the `/src/lib` directory does not get included. The reason why is because the publish command references the project's `.gitignore` file, which has a reference to `.env`. When the project is published to npm, the `package` directory is the root directory. So the `.env` reference in the `.gitignore` file will exclude the `.env` file from the package that gets sent to npm. However, if I change the default location for the project's `.env` file (as opposed to the package's `.env` file) to "/root-env-vars", then I can remove all other references to `.env` files in the `.gitignore` file and everything should work the way I need it to.
+    ...loadEnv(mode, path.resolve(process.cwd(), "root-env-vars"), ""),
     // Extend "process.env" by loading the Fanny Pack UI env vars.
     // ...loadEnv(mode, path.resolve(process.cwd(), "fp-env-vars"), "")
     ...loadEnv(mode, path.resolve(process.cwd(), "src/lib"), "")

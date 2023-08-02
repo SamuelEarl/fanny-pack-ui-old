@@ -3,11 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
-/project-env-vars*
+# See the vite.config.js file for an explanation why these files are commented out.
+# .env
+# .env.*
+/root-env-vars*
 !.env.example
-
-# # Allow the Fanny Pack UI default settings to be checked into Git.
-# !/src/lib/.env
-# !/env-vars*
-# !/package/.env
-# !package/.env
