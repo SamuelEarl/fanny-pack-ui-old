@@ -4,15 +4,15 @@
 
 <script lang="ts">
   import { setContext } from "svelte";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
   import { paddingSizes, fontSizes, marginBottomSizes } from "../fp-styles";
 
   export let border = true;
 
-  export let groupPadding = defaults.accordionGroupPadding;
-  export let accordionTitlePadding = defaults.accordionTitlePadding;
-  export let fontSize = defaults.accordionFontSize;
-  export let SpaceBetweenAccordions = defaults.accordionSpaceBetweenAccordions;
+  export let groupPadding = env.PUBLIC_FP_ACCORDION_GROUP_PADDING;
+  export let accordionTitlePadding = env.PUBLIC_FP_ACCORDION_TITLE_PADDING;
+  export let fontSize = env.PUBLIC_FP_ACCORDION_FONT_SIZE;
+  export let SpaceBetweenAccordions = env.PUBLIC_FP_ACCORDION_SPACE_BETWEEN_ACCORDIONS;
 
   const groupPaddingStyle = paddingSizes[groupPadding];
   const accordionTitlePaddingStyle = `var(--space-${accordionTitlePadding})`;

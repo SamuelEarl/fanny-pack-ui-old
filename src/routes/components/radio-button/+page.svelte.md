@@ -47,7 +47,7 @@
 
 ### Things to note
 * Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option.
-* The `<RadioButton>` components will display inline by default. If you want them to display as block elements (i.e. stack on top of each other), then you will need to wrap them in a block element, like a `<div>`. To create space between stacked radio buttons you can either adjust the `radioMarginBottom` variable in your `defaults.ts` file or set a `margin-bottom` value on the `<div>` element that you use to wrap your `<RadioButton>` elements.
+* The `<RadioButton>` components will display inline by default. If you want them to display as block elements (i.e. stack on top of each other), then you will need to wrap them in a block element, like a `<div>`. To create space between stacked radio buttons you can either adjust the `radioMarginBottom` variable in your `/src/fp-env-vars/.env` file or set a `margin-bottom` value on the `<div>` element that you use to wrap your `<RadioButton>` elements.
 
 ---
 
@@ -96,8 +96,8 @@
 | `bind:group` | `string` | Any string | NA | Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option. |
 | `value` | `string` | Any string | NA | This is the value of the radio button and the text that will be displayed next to the radio button. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the specified radio button. |
-| `radioMarginBottom` | `string` | Any number followed by a CSS length unit. | `20px` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `defaults.ts` file. |
-| `radioVerticalAlignment` | `string` | Any number followed by a CSS length unit. | `-1px` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `defaults.ts` file. |
+| `radioMarginBottom` | `string` | Any number followed by a CSS length unit. | `20px` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `/src/fp-env-vars/.env` file. |
+| `radioVerticalAlignment` | `string` | Any number followed by a CSS length unit. | `-1px` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `/src/fp-env-vars/.env` file. |
 
 <br>
 

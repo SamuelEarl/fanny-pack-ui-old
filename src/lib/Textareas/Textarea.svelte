@@ -2,7 +2,7 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
 
   export let label = "";
   export let id = "";
@@ -10,8 +10,8 @@
   export let size = "md";
   export let placeholder = "";
   export let disabled = false;
-  export let padding = defaults.textareaPadding;
-  export let fontSize = defaults.textareaFontSize;
+  export let padding = env.PUBLIC_FP_TEXTAREA_PADDING;
+  export let fontSize = env.PUBLIC_FP_TEXTAREA_FONT_SIZE;
 
   let componentId = createId();
 

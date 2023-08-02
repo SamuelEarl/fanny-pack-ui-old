@@ -11,15 +11,15 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
 
   export let value = 0;
   export let valAlign = "right";
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
-  export let padding = defaults.inputPadding;
-  export let fontSize = defaults.inputFontSize;
+  export let padding = env.PUBLIC_FP_INPUT_PADDING;
+  export let fontSize = env.PUBLIC_FP_INPUT_FONT_SIZE;
   export let textColor = "var(--text-color-default)";
   export let labelAlign = "right";
   export let placeholder = "";

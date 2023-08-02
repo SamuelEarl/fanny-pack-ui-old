@@ -1,5 +1,6 @@
 <script>
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
+  import { env } from "$env/dynamic/public";
   import { fromEvent } from "file-selector";
   import Icon from "@iconify/svelte";
   import {
@@ -13,14 +14,13 @@
     onDocumentDragOver,
     TOO_MANY_FILES_REJECTION
   } from "./utils";
-  import { defaults } from "/src/defaults";
 
   //props
   /**
    * Set accepted file types.
    * See https://github.com/okonet/attr-accept for more information.
    */
-  export let uploadIcon = defaults.dropZoneUploadIcon;
+  export let uploadIcon = env.PUBLIC_FP_DROP_ZONE_UPLOAD_FILES_BTN_ICON;
   export let accept; // string or string[]
   export let disabled = false;
   export let getFilesFromEvent = fromEvent;

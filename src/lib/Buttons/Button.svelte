@@ -3,9 +3,6 @@
   import { env } from "$env/dynamic/public";
   import { fontSizes } from "../fp-styles";
 
-  // console.log("ENV (Button):", env);
-  // console.log("PROCESS.ENV (Button):", process.env);
-
   export let type = "button";
   export let bgColor = env.PUBLIC_FP_BTN_BG_COLOR;
   export let borderColor = env.PUBLIC_FP_BTN_BORDER_COLOR;

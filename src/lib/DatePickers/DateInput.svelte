@@ -12,13 +12,13 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fp-utils";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
   import { fontSizes, paddingSizes } from "../fp-styles";
 
   export let label = "";
-  export let padding = defaults.dateInputPadding;
-  export let fontSize = defaults.dateInputFontSize;
-  export let dateInputIcon = defaults.dateInputIcon;
+  export let padding = env.PUBLIC_FP_DATE_INPUT_PADDING;
+  export let fontSize = env.PUBLIC_FP_DATE_INPUT_FONT_SIZE;
+  export let dateInputIcon = env.PUBLIC_FP_DATE_INPUT_ICON;
   export let disabled = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();

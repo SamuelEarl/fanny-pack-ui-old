@@ -354,36 +354,6 @@ NOTES:
 * Extending `process.env` to load additional env vars into your app does not affect the security features in SvelteKit's [`$env/dynamic/private`](https://kit.svelte.dev/docs/modules#$env-dynamic-private) module. In other words, SvelteKit will still throw an error if you try to import private environment variables into client-side code.
 * The `vite.config.js` config above was borrowed from this StackOverflow post: [How to load environment variables from .env file using Vite](https://stackoverflow.com/a/70711383/9453009) and this section in the Vite docs: [Using Environment Variables in Config](https://main.vitejs.dev/config/#using-environment-variables-in-config).
 
-<!-- 
-TODO: Delete this old documentation once I have completely switched to using env vars for the default settings.
----
-
-1. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `fp-defaults.js` file into your `/src` directory.
-2. Rename your `src/fp-defaults.js` file to `/src/defaults.ts`.
-3. Add the following alias to your `svelte.config.ts` file:
-
-```js
-  ...
-
-  kit: {
-    adapter: adapter(),
-
-    // This alias is necessary so your app will resolve the following
-    // import statements in your Fanny Pack components properly:
-    // import { defaults } from "/src/defaults";
-    alias: {
-      "/src": "src",
-    },
-  },
-};
-
-export default config;
-```
-
-_**NOTE:** The components are already referencing the `/src/defaults.ts` file, so the values in your `/src/defaults.ts` file should work without any additional configurations._
-
-You can now edit any of the values in your `/src/defaults.ts` file. You can read the instructions in that file to find out how to customize your default component settings. -->
-
 <br>
 
 ## Step 8: Add your favicon to your app

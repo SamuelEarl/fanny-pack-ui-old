@@ -1,11 +1,11 @@
 <script lang="ts">
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
 
   export let group;
   export let value;
   export let disabled = false;
-  export let radioMarginBottom = defaults.radioMarginBottom;
-  export let radioVerticalAlignment = defaults.radioVerticalAlignment;
+  export let radioMarginBottom = env.PUBLIC_FP_RADIO_MARGIN_BOTTOM;
+  export let radioVerticalAlignment = env.PUBLIC_FP_RADIO_VERTICAL_ALIGNMENT;
 </script>
 
 

@@ -2,14 +2,14 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
 
   export let type = "text";
   export let value = "";
   export let label = "";
   export let list = "";
-  export let padding = defaults.inputPadding;
-  export let fontSize = defaults.inputFontSize;
+  export let padding = env.PUBLIC_FP_INPUT_PADDING;
+  export let fontSize = env.PUBLIC_FP_INPUT_FONT_SIZE;
   export let textColor = "var(--text-color-default)";
   export let min = null;
   export let max = null;

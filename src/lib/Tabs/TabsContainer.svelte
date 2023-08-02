@@ -5,14 +5,14 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
-  import { defaults } from "/src/defaults";
+  import { env } from "$env/dynamic/public";
   import { paddingSizes, fontSizes } from "../fp-styles";
 
-  export let border = defaults.tabsContainerBorder;
-  export let containerPadding = defaults.tabsContainerPadding;
-  export let tabPadding = defaults.tabsTabPadding;
-  export let tabFontSize = defaults.tabsTabFontSize;
-  export let panelPadding = defaults.tabsPanelPadding;
+  export let border = env.PUBLIC_FP_TABS_CONTAINER_BORDER;
+  export let containerPadding = env.PUBLIC_FP_TABS_CONTAINER_PADDING;
+  export let tabPadding = env.PUBLIC_FP_TABS_TAB_PADDING;
+  export let tabFontSize = env.PUBLIC_FP_TABS_TAB_FONT_SIZE;
+  export let panelPadding = env.PUBLIC_FP_TABS_PANEL_PADDING;
 
 	const tabsContainer = [];
 	const panels = [];
