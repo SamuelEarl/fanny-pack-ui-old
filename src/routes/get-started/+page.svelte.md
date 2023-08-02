@@ -423,4 +423,4 @@ If you have an SVG image of your favicon, then that might be the best image form
 <br>
 
 ## Conclusion
-Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or the default component settings following the instructions inside your `defaults.ts` file.
+Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or the default component settings following the instructions inside your `/src/fp-env-vars/.env` file.

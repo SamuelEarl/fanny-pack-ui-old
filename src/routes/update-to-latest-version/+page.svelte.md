@@ -42,8 +42,8 @@ The package version in your `node_modules` folder should now be updated.
 
 ## Step 5: Update your theme files
 
-If you need to update `@fanny-pack-ui/svelte-kit` to the latest version, then you might also need to update the `theme.css` and/or `defaults.ts` files. Refer to the instuctions in the [Get Started](/get-started) page for theming details.
+If you need to update `@fanny-pack-ui/svelte-kit` to the latest version, then you might also need to update the `theme.css` and/or `/src/fp-env-vars/.env` files. Refer to the instuctions in the [Get Started](/get-started) page for theming details.
 
 **IMPORTANT:**
 
-Before you replace or delete your old `theme.css` and `defaults.ts` files, you should rename those old files to something like `theme-OLD.css` and `defaults-OLD.ts` so you can reference any changes that you made to those files and copy those changes to your new `theme.css` and `defaults.ts` files.
+Before you replace or delete your old `theme.css` and `/src/fp-env-vars/.env` files, you should rename those old files to something like `theme-OLD.css` and `/src/fp-env-vars/.env-OLD` so you can reference any changes that you made to those files and copy those changes to your new `theme.css` and `/src/fp-env-vars/.env` files.
