@@ -1,3 +1,7 @@
+# Allow the Fanny Pack UI default settings to be checked into Git.
+!/src/lib/.env
+!/env-vars*
+
 .DS_Store
 node_modules
 /build
@@ -6,7 +10,3 @@ node_modules
 .env
 .env.*
 !.env.example
-
-# Allow the Fanny Pack UI default settings to be checked into Git.
-!/src/lib/.env
-# !/env-vars*

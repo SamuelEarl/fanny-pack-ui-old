@@ -1,6 +1,6 @@
 {
 	"name": "@fanny-pack-ui/svelte-kit",
-	"version": "0.0.77",
+	"version": "0.0.78",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -58,6 +58,5 @@
 		"type": "git",
 		"url": "https://github.com/SamuelEarl/fanny-pack-ui.git"
 	},
-	"homepage": "https://fanny-pack-ui.pages.dev/",
-  "files": ["lib"]
+	"homepage": "https://fanny-pack-ui.pages.dev/"
 }
