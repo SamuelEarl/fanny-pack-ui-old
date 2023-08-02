@@ -1,26 +1,24 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { env } from "$env/dynamic/public";
-  import { defaults } from "/src/defaults";
   import { fontSizes } from "../fp-styles";
 
   // console.log("ENV (Button):", env);
   // console.log("PROCESS.ENV (Button):", process.env);
 
   export let type = "button";
-  export let bgColor = defaults.btnBgColor;
-  export let borderColor = defaults.btnBorderColor;
-  export let textColor = defaults.btnTextColor;
-  export let padding = defaults.btnPadding;
-  export let fontSize = defaults.btnFontSize;
+  export let bgColor = env.PUBLIC_FP_BTN_BG_COLOR;
+  export let borderColor = env.PUBLIC_FP_BTN_BORDER_COLOR;
+  export let textColor = env.PUBLIC_FP_BTN_TEXT_COLOR;
+  export let padding = env.PUBLIC_FP_BTN_PADDING;
+  export let fontSize = env.PUBLIC_FP_BTN_FONT_SIZE;
   // export let hollow = false;
   export let width = "auto";
   export let disabled = false;
   export let formIsInvalid = false;
-  export let btnIcon = defaults.btnIcon;
-  // export let btnIconDisabled = defaults.btnIconDisabled;
+  export let btnIcon = env.PUBLIC_FP_BTN_ICON;
   export let btnIconDisabled = env.PUBLIC_FP_BTN_ICON_DISABLED;
-  export let btnIconSide = defaults.btnIconSide;
+  export let btnIconSide = env.PUBLIC_FP_BTN_ICON_SIDE;
   export let btnIconDisabledShouldSpin = true; // A spinning button icon can be used to provide user feedback for loading states (e.g. saving data, loading page content).
   export let rotateBtnIcon = "0deg";
   export let rotateBtnIconDisabled = "0deg";
