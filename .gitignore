@@ -1,12 +1,13 @@
-# Allow the Fanny Pack UI default settings to be checked into Git.
-!/src/lib/.env
-!/env-vars*
-
 .DS_Store
 node_modules
 /build
 /.svelte-kit
 /package
-.env
-.env.*
+/project-env-vars*
 !.env.example
+
+# # Allow the Fanny Pack UI default settings to be checked into Git.
+# !/src/lib/.env
+# !/env-vars*
+# !/package/.env
+# !package/.env
