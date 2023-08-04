@@ -4,31 +4,23 @@
 
 <script lang="ts">
   import { setContext } from "svelte";
-  import { env } from "$env/dynamic/public";
-  import { paddingSizes, fontSizes, marginBottomSizes } from "../fp-styles";
 
   export let border = true;
-
-  export let groupPadding = env.PUBLIC_FP_ACCORDION_GROUP_PADDING;
-  export let accordionTitlePadding = env.PUBLIC_FP_ACCORDION_TITLE_PADDING;
-  export let fontSize = env.PUBLIC_FP_ACCORDION_FONT_SIZE;
-  export let SpaceBetweenAccordions = env.PUBLIC_FP_ACCORDION_SPACE_BETWEEN_ACCORDIONS;
-
-  const groupPaddingStyle = paddingSizes[groupPadding];
-  const accordionTitlePaddingStyle = `var(--space-${accordionTitlePadding})`;
-  const fontSizeStyle = fontSizes[fontSize];
-  const marginBottom = marginBottomSizes[SpaceBetweenAccordions];
+  export let groupPadding = "var(--accordion-default-group-padding)";
+  export let accordionTitlePadding = "var(--accordion-default-title-padding)";
+  export let fontSize = "var(--accordion-default-font-size)";
+  export let spaceBetweenAccordions = "var(--accordion-default-space-between-accordions)";
 
   setContext(ACCORDION_KEY, {
-    "accordionTitlePaddingStyle": accordionTitlePaddingStyle,
-    "fontSizeStyle": fontSizeStyle,
-    "marginBottom": marginBottom,
+    "accordionTitlePadding": accordionTitlePadding,
+    "fontSize": fontSize,
+    "spaceBetweenAccordions": spaceBetweenAccordions,
   });
 </script>
 
 <div
-  class={`${border ? 'fp-accordion-group' : ''}`} 
-  style={`${groupPaddingStyle}`}
+  class={`${border ? "fp-accordion-group" : ""}`} 
+  style={`padding:${groupPadding};`}
 >
   <slot></slot>
 </div>

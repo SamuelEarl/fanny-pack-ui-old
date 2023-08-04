@@ -8,22 +8,22 @@
   export let open = false;
 
   const { 
-    accordionTitlePaddingStyle,
-    fontSizeStyle,
-    marginBottom 
+    accordionTitlePadding,
+    fontSize,
+    spaceBetweenAccordions 
   } = getContext(ACCORDION_KEY);
 
-  const accordionPanelPadding = `padding: calc(2 * ${accordionTitlePaddingStyle}) ${accordionTitlePaddingStyle};`
+  const accordionPanelPadding = `padding: calc(2 * ${accordionTitlePadding}) ${accordionTitlePadding};`
 </script>
 
 <!-- Accordion Wrapper -->
-<div class={`fp-accordion-wrapper`} style={`${marginBottom}`}>
+<div class={`fp-accordion-wrapper`} style={`margin-bottom:${spaceBetweenAccordions}`}>
   <!-- Accordion Title -->
   <div
     {id}
     class="fp-accordion-title"
     class:active={open}
-    style={`padding: ${accordionTitlePaddingStyle}; ${fontSizeStyle}`}
+    style={`padding:${accordionTitlePadding}; font-size:${fontSize};`}
     on:click={() => open = !open}
     on:keyup={() => open = !open}
   >
@@ -34,7 +34,7 @@
   {#if open}
     <div 
       class="fp-accordion-panel"
-      style={`${accordionPanelPadding} ${fontSizeStyle}`}
+      style={`${accordionPanelPadding} font-size:${fontSize};`}
       transition:slide|local
     >
       <slot></slot>

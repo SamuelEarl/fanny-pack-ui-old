@@ -135,7 +135,7 @@ These variables are organized in the same way that Tailwind organizes their util
   like buttons, input fields, etc. or margins for elements.
 */
 :root {
-  --space-xs: 1px;
+  --space-xs: 0px;
   --space-sm: 5px;
   --space-md: 10px;
   --space-lg: 15px;  
@@ -194,25 +194,41 @@ These variables are organized in the same way that Tailwind organizes their util
 /* ------------------------ */
 /* ACCORDIONS */
 :root {
-
+  --accordion-default-group-padding: var(--space-md);
+  --accordion-default-title-padding: var(--space-md);
+  --accordion-default-font-size: var(--font-size-base);
+  --accordion-default-space-between-accordions: var(--space-sm);
 }
 
 /* BUTTONS */
 :root {
-  --default-btn-bg-color: var(--primary-color);
-  --default-btn-border-color: var(--primary-color);
-  --default-btn-text-color: var(--white);
+  --btn-default-bg-color: var(--primary-color);
+  --btn-default-border-color: var(--primary-color);
+  --btn-default-text-color: var(--white);
   /* NOTE: Button components have a 2px border and other form elements have a 1px border. The following Button padding sizes are 1px smaller than the other padding sizes in this `theme.css` file to compensate for the 2px border that Button components have. */
   --btn-padding-xs: 0px 3px;
   --btn-padding-sm: 4px 8px;
   --btn-padding-md: 9px 18px;
   --btn-padding-lg: 14px 28px;
   --btn-padding-xl: 19px 38px;
-  --default-btn-padding: var(--btn-padding-md);
-  --default-btn-font-size: var(--font-size-base);
-  /* Replace the `--default-btn-icon` value with an empty string to have no default icon. */
-  --default-btn-icon: "mdi:check-circle"; /* "mdi:check-circle" */
-  /* Replace the `--default-btn-icon-disabled` value with an empty string to have no default disabled icon. */
-  --default-btn-icon-disabled: "icomoon-free:spinner2";
-  --default-btn-icon-side: "right";
+  --btn-default-padding: var(--btn-padding-md);
+  --btn-default-font-size: var(--font-size-base);
+  /* Replace the `--btn-default-icon` value with an empty string to have no default icon. */
+  --btn-default-icon: "mdi:check-circle"; /* "mdi:check-circle" */
+  /* Replace the `--btn-default-icon-disabled` value with an empty string to have no default disabled icon. */
+  --btn-default-icon-disabled: "icomoon-free:spinner2";
+  --btn-default-icon-side: "right";
 }
+
+/* TABS */
+:root {
+  /* --default-tabs-container-border: true; */
+  --tabs-default-container-padding: var(--space-lg);
+  --tabs-default-tab-padding: var(--space-md);
+  --tabs-default-tab-font-size: var(--font-size-base);
+  --tabs-default-panel-padding: var(--space-xs);
+  /* --default-tabs-tab-style: "fill"; Possible values: "fill", "line" */
+  --tabs-default-tab-bar-margin-bottom: var(--space-md);
+}
+
+/* TODO: Check for any PUBLIC_FP_ env vars. */

@@ -9,7 +9,13 @@
 
 ## Example Usage
 
-<AccordionGroup border={true} groupPadding="lg" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup
+  border={true} 
+  groupPadding="var(--accordion-default-group-padding)" 
+  accordionTitlePadding="var(--accordion-default-title-padding)" 
+  fontSize="var(--accordion-default-font-size)" 
+  spaceBetweenAccordions="var(--accordion-default-space-between-accordions)"
+>
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>
@@ -30,7 +36,13 @@
   import { AccordionGroup, Accordion } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<AccordionGroup border={true} groupPadding="lg" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup
+  border={true} 
+  groupPadding="var(--accordion-default-group-padding)" 
+  accordionTitlePadding="var(--accordion-default-title-padding)" 
+  fontSize="var(--accordion-default-font-size)" 
+  spaceBetweenAccordions="var(--accordion-default-space-between-accordions)"
+>
   <Accordion id="123" title="Accordion 1" open={true}>
     <p>This accordion panel is open by default</p>
   </Accordion>
@@ -51,7 +63,7 @@ Setting `border={true}` on the `<AccordionGroup>` adds a border around a group o
 
 <br>
 
-<AccordionGroup border={false} groupPadding="xl" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={false}>
   <Accordion title="Accordion 1">
     <p>Accordion content</p>
   </Accordion>
@@ -72,7 +84,7 @@ Setting `border={true}` on the `<AccordionGroup>` adds a border around a group o
   import { Accordion } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<AccordionGroup border={false} groupPadding="xl" accordionTitlePadding="md" fontSize="md" SpaceBetweenAccordions="sm">
+<AccordionGroup border={false}>
   <Accordion title="Accordion 1">
     <p>Accordion content</p>
   </Accordion>
@@ -89,7 +101,7 @@ Setting `border={true}` on the `<AccordionGroup>` adds a border around a group o
 
 <br>
 
-Note that you can set the `groupPadding` prop to an empty string to have the accordions stretch to the edges of their parent element.
+Note that you can set the `groupPadding` prop to zero to have the accordions stretch to the edges of their parent element.
 
 <br>
 
@@ -112,10 +124,10 @@ Note that you can set the `groupPadding` prop to an empty string to have the acc
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
     | `border`<br>*(optional)* | `boolean` | `true`, `false` | `true` | Add a border around a group of accordion menus to give the group a unified appearance. |
-    | `groupPadding`<br>*(optional)* | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will be applied as the padding between the border and the accordions. You can pass an empty string (`""`) to remove the padding around the accordions. |
-    | `accordionTitlePadding`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the padding of the accordion buttons. |
-    | `fontSize`<br>*(optional)* | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the accordion panels. |
-    | `SpaceBetweenAccordions`<br>*(optional)* | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `sm` | The value that is passed to this prop will be applied as the margin below each of the accordion buttons. You can pass an empty string (`""`) to remove the space between each of the accordions. |
+    | `groupPadding`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--accordion-default-group-padding)` | The value that is passed to this prop will be applied as the padding between the border and the accordions. |
+    | `accordionTitlePadding`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--accordion-default-title-padding)` | Alter the padding of the accordion buttons. |
+    | `fontSize`<br>*(optional)* | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--accordion-default-font-size)` | Alter the font size of the accordion panels. |
+    | `spaceBetweenAccordions`<br>*(optional)* | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `sm` | The value that is passed to this prop will be applied as the margin below each of the accordion buttons. |
 
     </div>
   </TabPanel>

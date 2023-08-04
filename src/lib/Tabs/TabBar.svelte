@@ -1,19 +1,15 @@
 <script lang="ts">
   import { setContext } from "svelte";
-  import { env } from "$env/dynamic/public";
-  import { marginBottomSizes } from "../fp-styles";
 
-  export let tabStyle = env.PUBLIC_FP_TABS_TAB_STYLE;
-  export let marginBottom = env.PUBLIC_FP_TABS_TAB_BAR_MARGIN_BOTTOM;
-
-  const marginBottomStyle = marginBottomSizes[marginBottom];
+  export let tabStyle = "line"; // Possible values: "fill", "line"
+  export let marginBottom = "var(--tabs-default-tab-bar-margin-bottom)";
 
   setContext("tabStyle", tabStyle);
 </script>
 
 <div 
   class={`fp-tabs-tab-bar ${tabStyle}`} 
-  style={`${marginBottomStyle}`}>
+  style={`margin-bottom:${marginBottom};`}>
 	<slot></slot>
 </div>
 

@@ -15,8 +15,17 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 
 <br>
 
-<TabsContainer border={true} containerPadding="md" tabPadding="sm" panelPadding="" tabFontSize="sm">
-  <TabBar tabStyle="line" marginBottom="md">
+<TabsContainer
+  border={true} 
+  containerPadding="var(--tabs-default-container-padding)" 
+  tabPadding="var(--tabs-default-tab-padding)"  
+  tabFontSize="var(--tabs-default-tab-font-size)"
+  panelPadding="var(--tabs-default-panel-padding)"
+>
+  <TabBar
+    tabStyle="line" 
+    marginBottom="var(--tabs-default-tab-bar-margin-bottom)"
+  >
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -45,14 +54,17 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";  
 </script>
 
-<TabsContainer border={true} containerPadding="md" tabPadding="sm" panelPadding="" tabFontSize="sm">
-  <TabBar tabStyle="line" marginBottom="md">
-    <Tab>First Tab</Tab>
-    <Tab>Second Tab</Tab>
-    <Tab>Third Tab</Tab>
-  </TabBar>
-
-  <TabPanel>
+<TabsContainer
+  border={true} 
+  containerPadding="var(--tabs-default-container-padding)" 
+  tabPadding="var(--tabs-default-tab-padding)"  
+  tabFontSize="var(--tabs-default-tab-font-size)"
+  panelPadding="var(--tabs-default-panel-padding)"
+>
+  <TabBar
+    tabStyle="line" 
+    marginBottom="var(--tabs-default-tab-bar-margin-bottom)"
+  >
     <h2>First Panel</h2>
     <p>This content is inside the first panel...</p>
   </TabPanel>
@@ -73,9 +85,7 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 
 The order of the `<Tab>` and `<TabPanel>` components matters. The first `<Tab>` is associated with the first `<TabPanel>`, the second `<Tab>` is associated with the second `<TabPanel>`, and so on.
 
-There are two different tab styles: `line` and `fill`. The default style is `line`.
-
-*NOTE: The default tab style can be changed in your `/src/fp-env-vars/.env` file. See the heading [Configure JavaScript variables](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value.*
+There are two different tab styles: `fill` and `line`. The default style is `line`.
 
 <br>
 
@@ -232,13 +242,17 @@ This is how a `fill` tab style looks without a border:
     <!-- I don't why, but inserting an element above the markdown table causes the markdown to convert to an HTML table. So, if I remove the following empty <div>, then the markdown table will display as a string of characters instead of a table. Hmmm. -->
     <div></div>
 
+    <div class="responsive-table">
+
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
-    | `border` | `boolean` | `true`, `false` | `true` | This prop will add a border around the tab bar and the tab panels. The default value can be set in the `/src/fp-env-vars/.env` file.
-    | `containerPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `lg` | The value that is passed to this prop will be applied as the padding between the border and the tab contents. An empty string will remove the padding. The default value can be set in the `/src/fp-env-vars/.env` file. |
-    | `tabPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will be applied as the padding for each tab. An empty string will remove the padding. The default value can be set in the `/src/fp-env-vars/.env` file. |
-    | `tabFontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | The value that is passed to this prop will set the font size for the tabs. The default value can be set in the `/src/fp-env-vars/.env` file.<br><br>NOTES: (1) Passing an empty string to this will just set the tab font size to your app's base font size. (2) This will not change the font size inside the panels because you can change the font yourself depending on the elements that you pass in between the `<TabPanel>` and `</TabPanel>` components. |
-    | `panelPadding` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `""` (no padding) | The value that is passed to this prop will be applied as the padding for each panel. An empty string will remove the padding. The default value can be set in the `/src/fp-env-vars/.env` file. |
+    | `border` | `boolean` | `true`, `false` | `true` | This prop will add a border around the tab bar and the tab panels. |
+    | `containerPadding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--tabs-default-container-padding)` | The value that is passed to this prop will be applied as the padding between the border and the tab contents. The default value can be set in the `theme.css` file. |
+    | `tabPadding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--tabs-default-tab-padding)` | The value that is passed to this prop will be applied as the padding for each tab. The default value can be set in the `theme.css` file. |
+    | `tabFontSize` | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--tabs-default-tab-font-size)` | The value that is passed to this prop will set the font size for the tabs. The default value can be set in the `theme.css` file.<br><br>Note that this will not change the font size inside the panels because you can change the font yourself depending on the elements that you pass in between the `<TabPanel>` and `</TabPanel>` components. |
+    | `panelPadding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--tabs-default-panel-padding)` | The value that is passed to this prop will be applied as the padding for each panel. The default value can be set in the `theme.css` file. |
+
+    </div>
 
     ---
 
@@ -250,9 +264,13 @@ This is how a `fill` tab style looks without a border:
     
     <div></div>
 
+    <div class="responsive-table">
+
     | Prop name | Type | Possible values | Default value | Description |
     | --------- | ---- | --------------- | ------------- | ----------- |
-    | `tabStyle` | `string` | `fill`, `line` | `fill` | This prop sets the style of the tab bar and the tabs. The default value can be set in the `/src/fp-env-vars/.env` file.<br><br>See the heading [Configure JavaScript variables](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. |
-    | `marginBottom` | `string` | `""`, `xs`, `sm`, `md`, `lg`, `xl` | `md`	| This prop allows you to set a margin below the `<TabBar>` to give some space between the `<TabBar>` and the `<TabPanel>`s. You can pass an empty string (`""`) to remove the margin. The default value can be set in the `/src/fp-env-vars/.env` file. |
+    | `tabStyle` | `string` | `fill`, `line` | `line` | This prop sets the style of the tab bar and the tabs. |
+    | `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--tabs-default-tab-bar-margin-bottom)`	| This prop allows you to set a margin below the `<TabBar>` to give some space between the `<TabBar>` and the `<TabPanel>`s. The default value can be set in the `theme.css` file. |
+
+    </div>
   </TabPanel>
 </TabsContainer>

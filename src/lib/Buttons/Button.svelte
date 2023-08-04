@@ -2,11 +2,11 @@
   import Icon from "@iconify/svelte";
 
   export let type = "button";
-  export let bgColor = "var(--default-btn-bg-color)";
-  export let borderColor = "var(--default-btn-border-color)";
-  export let textColor = "var(--default-btn-text-color)";
-  export let padding = "var(--default-btn-padding)";
-  export let fontSize = "var(--default-btn-font-size)";
+  export let bgColor = "var(--btn-default-bg-color)";
+  export let borderColor = "var(--btn-default-border-color)";
+  export let textColor = "var(--btn-default-text-color)";
+  export let padding = "var(--btn-default-padding)";
+  export let fontSize = "var(--btn-default-font-size)";
   // export let hollow = false;
   export let width = "auto";
   export let disabled = false;

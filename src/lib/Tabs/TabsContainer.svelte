@@ -5,24 +5,21 @@
 <script>
 	import { setContext, onDestroy } from "svelte";
 	import { writable } from "svelte/store";
-  import { env } from "$env/dynamic/public";
-  import { paddingSizes, fontSizes } from "../fp-styles";
 
-  export let border = env.PUBLIC_FP_TABS_CONTAINER_BORDER;
-  export let containerPadding = env.PUBLIC_FP_TABS_CONTAINER_PADDING;
-  export let tabPadding = env.PUBLIC_FP_TABS_TAB_PADDING;
-  export let tabFontSize = env.PUBLIC_FP_TABS_TAB_FONT_SIZE;
-  export let panelPadding = env.PUBLIC_FP_TABS_PANEL_PADDING;
+  export let border = true;
+  export let containerPadding = "var(--tabs-default-container-padding)";
+  export let tabPadding = "var(--tabs-default-tab-padding)";
+  export let tabFontSize = "var(--tabs-default-tab-font-size)";
+  export let panelPadding = "var(--tabs-default-panel-padding)";
 
 	const tabsContainer = [];
 	const panels = [];
 	const selectedTab = writable(null);
 	const selectedPanel = writable(null);
 
-  const containerPaddingStyle = paddingSizes[containerPadding];
-  const tabPaddingStyle = paddingSizes[tabPadding];
-  const panelPaddingStyle = paddingSizes[panelPadding];
-  const tabFontSizeStyle = fontSizes[tabFontSize];
+  const tabPaddingStyle = `padding: ${tabPadding};`;
+  const panelPaddingStyle = `padding: ${panelPadding};`;
+  const tabFontSizeStyle = `font-size: ${tabFontSize};`;
 
 	setContext(TABS_KEY, {
 		registerTab: tab => {
@@ -63,7 +60,7 @@
 
 <!-- If `border` is true, then include the border styles. -->
 <div
-  style={`${border ? "border: var(--border-default); border-radius: var(--border-radius);" : ""} ${containerPaddingStyle}`}
+  style={`${border ? "border:var(--border-default); border-radius:var(--border-radius);" : ""} padding:${containerPadding};`}
 >
 	<slot></slot>
 </div>
