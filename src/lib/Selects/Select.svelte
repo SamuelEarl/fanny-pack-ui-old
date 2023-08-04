@@ -4,7 +4,6 @@
 	import { onMount, afterUpdate } from "svelte";
 	import { Label } from "../Labels";
 	import { createId } from "$lib/fp-utils";
-  import { paddingSizes, fontSizes } from "../fp-styles";
 
 	export let label = "";
 	export let options;
@@ -13,8 +12,8 @@
 	export let optgroup = null;
 	export let value;
   export let disabled = false;
-  export let padding = env.PUBLIC_FP_SELECT_PADDING;
-  export let fontSize = env.PUBLIC_FP_SELECT_FONT_SIZE;
+  export let padding = "var(--select-default-padding)";
+  export let fontSize = "var(--select-default-font-size)";
 
   let isActive = false;
 	let componentId = createId();
@@ -35,16 +34,6 @@
 	//   ],
 	// };
 	const optgroups = {};
-
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
-
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
 
 	onMount(() => {
 		if (optgroup) {
@@ -104,7 +93,7 @@
   <div class="select-inner-wrapper" class:isActive>
     <select
       class="select-native"
-      style={`${paddingStyle} ${fontSizeStyle}`}
+      style={`padding:${padding}; font-size:${fontSize};`}
       aria-labelledby={componentId} 
       bind:value={value}
       on:change

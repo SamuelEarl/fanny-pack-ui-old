@@ -1,28 +1,16 @@
 <script lang="ts">
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../fp-styles";
   
   export let label = "";
   export let id = "";
   export let value = "";
-  export let size = "md";
   export let placeholder = "";
   export let disabled = false;
-  export let padding = env.PUBLIC_FP_TEXTAREA_PADDING;
-  export let fontSize = env.PUBLIC_FP_TEXTAREA_FONT_SIZE;
+  export let padding = "var(--textarea-default-padding)";
+  export let fontSize = "var(--textarea-default-font-size)";
 
   let componentId = createId();
-
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
-
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
 </script>
 
 
@@ -30,8 +18,7 @@
 <textarea
   bind:value={value}
   {id}
-  class={`${size}`}
-  style={`${paddingStyle} ${fontSizeStyle}`}
+  style={`padding:${padding}; font-size:${fontSize};`}
   on:input
   on:keyup
   on:blur
@@ -44,7 +31,6 @@
 <style>
   textarea {
     width: 100%;
-    font-size: 0.75rem;
     border: var(--border-default);
     border-color: var(--custom-textarea-border-color, var(--border-color-default));
     border-radius: var(--border-radius, 3px);

@@ -16,8 +16,8 @@
   export let optgroup = null;
   export let value;
   export let disabled = false;
-  export let padding = env.PUBLIC_FP_SELECT_PADDING;
-  export let fontSize = env.PUBLIC_FP_SELECT_FONT_SIZE;
+  export let padding = "var(--select-default-padding)";
+  export let fontSize = "var(--select-default-font-size)";
 
   const dispatch = createEventDispatcher();
   let componentId = createId();

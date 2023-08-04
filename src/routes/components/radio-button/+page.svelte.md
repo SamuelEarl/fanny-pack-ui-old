@@ -101,6 +101,9 @@
 ---
 
 ## Props
+
+<div class="responsive-table">
+
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `bind:group` | `string` | Any string | NA | Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option. |
@@ -109,10 +112,17 @@
 | `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--radio-default-margin-bottom)` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |
 | `verticalAlignment` | `string` | Any CSS length value or CSS size variable from your `theme.css` file. | `var(--radio-default-vertical-alignment)` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |
 
+</div>
+
 <br>
 
 ## Event Forwarding
+
+<div class="responsive-table">
+
 | Event | Description |
 | ----- | ----------- |
 | `on:change` | This component forwards the `change` event. You can attach `on:change={handlerFunction}` to your `<RadioButton>` components, which will call an event handler named `handlerFunction` when a user selects a radio button. |
 | `on:input` | This component forwards the `input` event. You can attach `on:input={handlerFunction}` to your `<RadioButton>` components, which will call an event handler named `handlerFunction` when a user selects a radio button. |
+
+</div>

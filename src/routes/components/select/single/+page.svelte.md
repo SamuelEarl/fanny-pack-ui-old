@@ -61,8 +61,8 @@ Most `<Select />` components will probably just use a simple array of string val
     label="What Job Are You Interested In?"
     options={jobOptionsStrings}
     bind:value={selectedJobOptionString}
-    fontSize="md"
-    padding="md"
+    padding="var(--select-default-padding)"
+    fontSize="var(--select-default-font-size)"
     disabled={needVacation}
     on:change={handleChange}
   />
@@ -86,8 +86,8 @@ Most `<Select />` components will probably just use a simple array of string val
     "QA Engineer",
     "Unicorn",
   ];
-
   let selectedJobOptionString = jobOptionsStrings[0];
+  let needVacation = false;
 
   function handleChange(event) {
     console.log("Selected Value:", event.target.value);
@@ -99,8 +99,8 @@ Most `<Select />` components will probably just use a simple array of string val
     label="What Job Are You Interested In?"
     options={jobOptionsStrings}
     bind:value={selectedJobOptionString}
-    fontSize="md"
-    padding="md"
+    padding="var(--select-default-padding)"
+    fontSize="var(--select-default-font-size)"
     disabled={needVacation}
     on:change={handleChange}
   />
@@ -118,7 +118,7 @@ Value of `selectedJobOptionString`: <code>{selectedJobOptionString}</code>
 
 ### `options` elements with "object" data type
 
-What if you want each option in your `<Select />` component to have values that are different from their labels? For example, this native select element:
+What if you want each option in your `<Select />` component to have values that are different from their labels? Take the following native select element as an example. The code for it is below.
 
 <div style="margin-bottom:20px;">
   <select>
@@ -130,8 +130,6 @@ What if you want each option in your `<Select />` component to have values that 
     <option value="un">Unicorn</option>
   </select>
 </div>
-
-...would be coded like this:
 
 ```
 <select>
@@ -190,7 +188,7 @@ Value of `selectedValuePropertyFromJobOptionsObject`: <code>{selectedValueProper
 </select>
 ```
 
-You can do the same with this `<Select />` component. You just have to specify which properties in your data objects should be used as the option values and which should be the option labels:
+You can do the same with this Fanny Pack `<Select />` component. You just have to specify which properties in your data objects should be used as the option values and which should be the option labels:
 
 <div style="margin-bottom:20px;">
   <Select 
@@ -336,8 +334,8 @@ You can set the following custom variables:
 | `optionLabel` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | When the `optionLabel` prop is used with an array of objects (which are passed to the `options` prop), the `optionLabel` prop will provide the property name that will be used as the label text for each of the options in the `<Select />` component. |
 | `optgroup` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `options` array | `null` | You can group your options using the [`<optgroup>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/optgroup) tag by passing a property name to the `optgroup` prop. The property name that you pass should be a property name that exists in the objects that are within your `options` array. The `optgroup` prop is only used with `options` arrays that contain objects, not with `options` arrays that contain primitive values. |
 | `bind:value` | `string`, `number`, `boolean`, `object` | Any element from the `options` array | NA<br><br>There is no default value for this prop. However, you should set `bind:value` to equal a value from the array that you pass to the `options` prop. The value that `bind:value` is equal to will be the default value displayed in the select box. | When a user selects an option from the `<Select />` component, that option will be bound to the variable that is passed to this prop.
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the `/src/fp-env-vars/.env` file. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `sm` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the `/src/fp-env-vars/.env` file. |
+| `fontSize` | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--select-default-font-size)` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the `theme.css` file. |
+| `padding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--select-default-padding)` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the `theme.css` file. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select />` component. |
 | `{...restProps}` | NA | Any attribute that you can pass to a `<select>` element. | NA | This component does not specify every possible attribute that you can pass to a `<select>` element. However, `restProps` allows you to pass any attributes to this `<select />` component that you could normally pass to a `<select>` element. For example, if you want to specify an `id` for this `<Select>` component, then you could pass the `id` prop, like this: `id="some-id"`.
 

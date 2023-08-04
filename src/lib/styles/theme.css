@@ -247,6 +247,12 @@ These variables are organized in the same way that Tailwind organizes their util
   --radio-default-vertical-alignment: "-1px";
 }
 
+/* SELECT BOXES */
+:root {
+  --select-default-padding: var(--space-md);
+  --select-default-font-size: var(--font-size-base);
+}
+
 /* TABS */
 :root {
   /* --default-tabs-container-border: true; */
@@ -256,6 +262,12 @@ These variables are organized in the same way that Tailwind organizes their util
   --tabs-default-panel-padding: var(--space-xs);
   /* --default-tabs-tab-style: "fill"; Possible values: "fill", "line" */
   --tabs-default-tab-bar-margin-bottom: var(--space-md);
+}
+
+/* TEXTAREA */
+:root {
+  --textarea-default-padding: var(--space-md);
+  --textarea-default-font-size: var(--font-size-base);
 }
 
 /* TODO: Check for any PUBLIC_FP_ env vars and any references to `/src/fp-env-vars/.env` or just `.env`. */

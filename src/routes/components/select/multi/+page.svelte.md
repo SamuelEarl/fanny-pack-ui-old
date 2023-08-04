@@ -21,6 +21,15 @@
 
 # Select (multi)
 
+NOTE: I am going to create a new implementation of this component that uses checkboxes inside of a modal. Everything needs to be accessible too. Look at this for ideas: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/.
+
+<!-- 
+I need to study accessibility:
+* https://developer.mozilla.org/en-US/docs/Web/Accessibility
+* https://a11y-101.com/
+-->
+
+
 Because of the different ways of selecting options (depending on the browser), and because you have to inform the user that multiple selection is available, it is more user-friendly to use checkboxes instead of a `<select>` element with the `multiple` attribute. See https://www.w3schools.com/tags/att_select_multiple.asp.
 
 This component is essentially the [`<CheckboxGroup>`](/components/checkbox-group) component inside a dropdown menu.

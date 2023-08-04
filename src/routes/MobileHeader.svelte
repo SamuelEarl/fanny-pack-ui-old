@@ -20,9 +20,8 @@
         <Button
           btnIcon=""
           padding="0px"
-          bgColor="var(--transparent)"
-          borderColor="var(--transparent)"
-          textColor="var(--text-color-default)"
+          bgColor="transparent"
+          borderColor="transparent"
           on:click={() => showMainNav = false}
         >
           <Icon icon="mdi:close" width=40 color="var(--white)" />
@@ -31,9 +30,8 @@
         <Button
           btnIcon=""
           padding="0px"
-          bgColor="var(--transparent)"
-          borderColor="var(--transparent)"
-          textColor="var(--text-color-default)"
+          bgColor="transparent"
+          borderColor="transparent"
           on:click={() => showMainNav = true}
         >
           <Icon icon="mdi:menu" width=40 color="var(--white)" />
