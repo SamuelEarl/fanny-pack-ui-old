@@ -4,7 +4,6 @@
 	import { onMount, afterUpdate } from "svelte";
 	import { Label } from "../Labels";
 	import { createId } from "$lib/fp-utils";
-  import { env } from "$env/dynamic/public";
   import { paddingSizes, fontSizes } from "../fp-styles";
 
 	export let label = "";

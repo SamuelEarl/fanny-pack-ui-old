@@ -12,13 +12,11 @@
   import Calendar from "./Calendar.svelte";
   import { Label } from "../Labels";
   import { createId } from "../fp-utils";
-  import { env } from "$env/dynamic/public";
-  import { fontSizes, paddingSizes } from "../fp-styles";
 
   export let label = "";
-  export let padding = env.PUBLIC_FP_DATE_INPUT_PADDING;
-  export let fontSize = env.PUBLIC_FP_DATE_INPUT_FONT_SIZE;
-  export let dateInputIcon = env.PUBLIC_FP_DATE_INPUT_ICON;
+  export let padding = "var(--date-input-default-padding)";
+  export let fontSize = "var(--date-input-default-font-size)";
+  export let dateInputIcon = "mdi:calendar";
   export let disabled = false;
 
   const dispatch = createEventDispatcher<{ select: undefined }>();
@@ -30,9 +28,6 @@
   onMount(() => {
     setIconFontSize();
   });
-
-  const paddingStyle = paddingSizes[padding];
-  const fontSizeStyle = fontSizes[fontSize];
 
   /** Default date to display in input before value is assigned */
   const currentDate = new Date();
@@ -188,7 +183,7 @@
     <input
       id={`fp-date-input-${componentId}`}
       class="fp-date-input"
-      style={`${fontSizeStyle} ${paddingStyle}`}
+      style={`font-size:${fontSize}; padding:${padding};`}
       type="text"
       bind:value={text}
       bind:this={activeDateInput}
@@ -209,7 +204,7 @@
     <div
       class="fp-date-input-btn"
       class:disabled={disabled}
-      style={`${paddingStyle}`}
+      style={`padding:${padding};`}
       tabindex="-1"
       on:click={async () => {
         if (disabled) return;

@@ -1,18 +1,19 @@
 <script lang="ts">
-  import { env } from "$env/dynamic/public";
   // Importing an external CSS file into the "style" block does not work. When this component gets packaged up and then imported into another app the styles will not be included. So the styles need to be imported into the "script" block.
   import "./checkbox.css";
 
   export let checked;
   export let label;
   export let disabled = false;
+  export let marginBottom = "var(--checkbox-default-margin-bottom)";
+  export let verticalAlignment = "var(--checkbox-default-vertical-alignment)";
 </script>
 
 
 <label
   class="fp-checkbox-label-wrapper" 
   class:disabled
-  style={`margin-bottom: ${env.PUBLIC_FP_CHECKBOX_MARGIN_BOTTOM}`}
+  style={`margin-bottom: ${marginBottom};`}
 >
   <input
     type="checkbox"
@@ -24,6 +25,6 @@
   > {label}
   <span 
     class="fp-checkbox-checkmark" 
-    style={`top: ${env.PUBLIC_FP_CHECKBOX_VERTICAL_ALIGNMENT}`}
+    style={`top: ${verticalAlignment};`}
   ></span>
 </label><br>

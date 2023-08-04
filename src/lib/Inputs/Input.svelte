@@ -1,16 +1,13 @@
 <script lang="ts">
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../fp-styles";
-  import { env } from "$env/dynamic/public";
 
   export let type = "text";
   export let value = "";
   export let label = "";
   export let list = "";
-  export let padding = env.PUBLIC_FP_INPUT_PADDING;
-  export let fontSize = env.PUBLIC_FP_INPUT_FONT_SIZE;
-  export let textColor = "var(--text-color-default)";
+  export let padding = "var(--input-default-padding)";
+  export let fontSize = "var(--input-default-font-size)";
   export let min = null;
   export let max = null;
   export let step = "any";
@@ -19,15 +16,7 @@
 
   let componentId = createId();
 
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
-
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
+  const inputStyles = `padding:${padding}; font-size:${fontSize};`;
 </script>
 
 
@@ -43,7 +32,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
+    style={inputStyles}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -58,7 +47,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
+    style={inputStyles}
     {min}
     {max}
     {step}
@@ -76,7 +65,7 @@
     bind:value={value}
     {list}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
+    style={inputStyles}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -90,7 +79,7 @@
     type="password"
     bind:value={value}
     class="fp-input"
-    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
+    style={inputStyles}
     {placeholder}
     {disabled}
     {...$$restProps}
@@ -106,16 +95,18 @@
   .fp-input {
     width: 100%;
     outline: none;
-    border: var(--border-default);
+    border: 1px solid;
+    border-color: var(--custom-input-border-color, var(--border-color-default));
     border-radius: var(--border-radius);
-    background-color: var(--bg-color-element-default);
+    background-color: var(--custom-input-bg-color, var(--bg-color-element-default));
+    color: var(--custom-input-text-color, var(--text-color-default));
 
     &::placeholder {
-      color: var(--placeholder-color-default);
+      color: var(--custom-input-placeholder-text-color, var(--placeholder-color-default));
     }
 
     &:hover, &:focus {
-      box-shadow: var(--box-shadow-default);
+      box-shadow: 0 0 0 1px var(--custom-input-border-color, var(--border-color-default));
     }
 
     &:disabled {

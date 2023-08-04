@@ -213,11 +213,38 @@ These variables are organized in the same way that Tailwind organizes their util
   --btn-padding-xl: 19px 38px;
   --btn-default-padding: var(--btn-padding-md);
   --btn-default-font-size: var(--font-size-base);
-  /* Replace the `--btn-default-icon` value with an empty string to have no default icon. */
-  --btn-default-icon: "mdi:check-circle"; /* "mdi:check-circle" */
-  /* Replace the `--btn-default-icon-disabled` value with an empty string to have no default disabled icon. */
-  --btn-default-icon-disabled: "icomoon-free:spinner2";
-  --btn-default-icon-side: "right";
+}
+
+/* CHECKBOXES */
+:root {
+  --checkbox-default-margin-bottom: var(--space-xl);
+  /* The `--checkbox-default-vertical-alignment` variable will set the checkbox higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the checkboxes are aligned in relation to the label text of the checkboxes, so this variable might come in handy. */
+  --checkbox-default-vertical-alignment: "-3px";
+}
+
+/* DATE PICKER */
+:root {
+  --date-input-default-padding: var(--space-md);
+  --date-input-default-font-size: var(--font-size-base);
+}
+
+/* LABELS */
+:root {
+  --label-default-font-size: "0.85rem";
+  --label-default-margin-bottom: var(--space-sm);
+}
+
+/* INPUTS */
+:root {
+  --input-default-padding: var(--space-md);
+  --input-default-font-size: var(--font-size-base);
+}
+
+/* RADIO BUTTONS */
+:root {
+  --radio-default-margin-bottom: var(--space-xl);
+  /* The `--radio-default-vertical-alignment` variable will set the radio button higher or lower in relation to the label text. The font family and font size that you set in your app will affect where the radio buttons are aligned in relation to the label text of the radio buttons, so this variable might come in handy. */
+  --radio-default-vertical-alignment: "-1px";
 }
 
 /* TABS */
@@ -231,4 +258,4 @@ These variables are organized in the same way that Tailwind organizes their util
   --tabs-default-tab-bar-margin-bottom: var(--space-md);
 }
 
-/* TODO: Check for any PUBLIC_FP_ env vars. */
+/* TODO: Check for any PUBLIC_FP_ env vars and any references to `/src/fp-env-vars/.env` or just `.env`. */

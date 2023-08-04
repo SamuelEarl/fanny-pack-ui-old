@@ -1,18 +1,16 @@
 <script lang="ts">
-  import { env } from "$env/dynamic/public";
-
   export let group;
   export let value;
   export let disabled = false;
-  export let radioMarginBottom = env.PUBLIC_FP_RADIO_MARGIN_BOTTOM;
-  export let radioVerticalAlignment = env.PUBLIC_FP_RADIO_VERTICAL_ALIGNMENT;
+  export let marginBottom = "var(--radio-default-margin-bottom)";
+  export let verticalAlignment = "var(--radio-default-vertical-alignment)";
 </script>
 
 
 <label 
   class="fp-radio-label-wrapper" 
   class:disabled
-  style={`margin-bottom: ${radioMarginBottom}`}
+  style={`margin-bottom: ${marginBottom}`}
 >
   <input
     type="radio" 
@@ -25,7 +23,7 @@
   > {value}
   <span
     class="fp-radio-checkmark"
-    style={`top: ${radioVerticalAlignment}`}
+    style={`top: ${verticalAlignment}`}
   ></span>
 </label>
 

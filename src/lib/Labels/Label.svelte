@@ -1,13 +1,12 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import { Tooltip } from "../Tooltips";
-  import { env } from "$env/dynamic/public";
 
   export let label;
   export let forVal;
   export let id = "";
   export let labelAlign = "left";
-  export let tooltipIcon = env.PUBLIC_FP_LABEL_TOOLTIP_ICON;
+  export let tooltipIcon = "entypo:info-with-circle";
   export let tooltipText = "";
 </script>
 
@@ -15,12 +14,12 @@
 {#if label && forVal}
   <div
     class={`fp-label-container ${labelAlign}`}
-    style={`margin-bottom: ${env.PUBLIC_FP_LABEL_MARGIN_BOTTOM}`}
+    style="margin-bottom: var(--label-default-margin-bottom);"
   >
     <label 
       for={forVal}
       {id}
-      style={`font-size: ${env.PUBLIC_FP_LABEL_FONT_SIZE}`}
+      style="font-size: var(--label-default-font-size);"
     >
       {label}
     </label>

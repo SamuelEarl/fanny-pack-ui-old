@@ -67,6 +67,8 @@ You can use the `on:change` or `on:input` event like this:
 | `bind:checked` | `boolean` | `true`, `false` | NA | In order for the checkbox to be checked and unchecked, this component's `checked` property needs to be bound to a `boolean` variable. |
 | `label` | `string` | Any string | NA | This is the text that will be displayed next to the checkbox. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the checkbox. |
+| `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--checkbox-default-margin-bottom)` | This prop will set the default `margin-bottom` for the checkbox.<br><br>The default value for all checkboxes can be changed in the `theme.css` file. |
+| `verticalAlignment` | `string` | Any CSS length value or CSS size variable from your `theme.css` file. | `var(--checkbox-default-vertical-alignment)` | This prop will set the default `top` (position) property for the checkbox.<br><br>The default value for all checkboxes can be changed in the `theme.css` file. |
 
 </div>
 

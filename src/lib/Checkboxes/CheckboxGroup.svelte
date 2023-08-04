@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { env } from "$env/dynamic/public";
   // Importing an external CSS file into the "style" block does not work. When this component gets packaged up and then imported into another app the styles will not be included. So the styles need to be imported into the "script" block.
   import "./checkbox.css";
 
@@ -10,7 +9,12 @@
   export let valueLabel = null;
   export let selectedValues = [];
   export let disabled = false;
+  export let marginBottom = "var(--checkbox-default-margin-bottom)";
+  export let verticalAlignment = "var(--checkbox-default-vertical-alignment)";
   let valuesDataType;
+
+  const labelStyles = `margin-bottom: ${marginBottom}`;
+  const checkmarkStyles = `top: ${verticalAlignment}`;
 
   onMount(() => {
     determineValuesDataType(checkboxGroupValues);
@@ -54,7 +58,7 @@
     <label
       class="fp-checkbox-label-wrapper" 
       class:disabled
-      style={`margin-bottom: ${env.PUBLIC_FP_CHECKBOX_MARGIN_BOTTOM}`}
+      style={labelStyles}
     >
       <input
         type="checkbox"
@@ -68,7 +72,7 @@
       > {item}
       <span
         class="fp-checkbox-checkmark"
-        style={`top: ${env.PUBLIC_FP_CHECKBOX_VERTICAL_ALIGNMENT}`}
+        style={checkmarkStyles}
       ></span>
     </label><br>
   {/each}
@@ -79,7 +83,7 @@
     <label
       class="fp-checkbox-label-wrapper" 
       class:disabled
-      style={`margin-bottom: ${env.PUBLIC_FP_CHECKBOX_MARGIN_BOTTOM}`}
+      style={labelStyles}
     >
       <input
         type="checkbox" 
@@ -93,7 +97,7 @@
       > {obj[valueLabel]}
       <span
         class="fp-checkbox-checkmark"
-        style={`top: ${env.PUBLIC_FP_CHECKBOX_VERTICAL_ALIGNMENT}`}
+        style={checkmarkStyles}
       ></span>
     </label><br>
   {/each}

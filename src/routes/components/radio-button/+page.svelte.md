@@ -18,7 +18,12 @@
 
 {#each flavors as flavor}
   <div>
-    <RadioButton bind:group={selectedFlavor} value={flavor} />
+    <RadioButton 
+      bind:group={selectedFlavor} 
+      value={flavor} 
+      marginBottom="var(--radio-default-margin-bottom)" 
+      verticalAlignment="var(--radio-default-vertical-alignment)"
+    />
   </div>
 {/each}
 
@@ -38,7 +43,12 @@
 
 {#each flavors as flavor}
   <div>
-    <RadioButton bind:group={selectedFlavor} value={flavor} />
+    <RadioButton 
+      bind:group={selectedFlavor} 
+      value={flavor} 
+      marginBottom="var(--radio-default-margin-bottom)" 
+      verticalAlignment="var(--radio-default-vertical-alignment)"
+    />
   </div>
 {/each}
 
@@ -47,7 +57,7 @@
 
 ### Things to note
 * Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option.
-* The `<RadioButton>` components will display inline by default. If you want them to display as block elements (i.e. stack on top of each other), then you will need to wrap them in a block element, like a `<div>`. To create space between stacked radio buttons you can either adjust the `radioMarginBottom` variable in your `/src/fp-env-vars/.env` file or set a `margin-bottom` value on the `<div>` element that you use to wrap your `<RadioButton>` elements.
+* The `<RadioButton>` components will display inline by default. If you want them to display as block elements (i.e. stack on top of each other), then you will need to wrap them in a block element, like a `<div>`. To create space between stacked radio buttons you can either adjust the `--radio-default-margin-bottom` variable in your `theme.css` file or set a `margin-bottom` value on the `<div>` element that you use to wrap your `<RadioButton>` elements.
 
 ---
 
@@ -86,7 +96,7 @@
 ### Things to note
 * The selected radio button will match the `selectedSize` variable. You can set the default selection by setting the variable that is bound to the `group` prop (e.g. `selectedSize` in the example above) to equal one of the options from the array that is used to loop over your radio buttons.
 * The example above shows you how to disable radio buttons by passing a boolean or an expression that resolves to a boolean to the `disabled` prop.
-* You can accidentally set a radio button to be `disabled` and to be the default value that is selected, so make sure that you do not do that.
+* You can accidentally set a radio button to be both (1) `disabled` and (2) to be the default value that is selected, so make sure that you do not do that.
 
 ---
 
@@ -96,8 +106,8 @@
 | `bind:group` | `string` | Any string | NA | Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option. |
 | `value` | `string` | Any string | NA | This is the value of the radio button and the text that will be displayed next to the radio button. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the specified radio button. |
-| `radioMarginBottom` | `string` | Any number followed by a CSS length unit. | `20px` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `/src/fp-env-vars/.env` file. |
-| `radioVerticalAlignment` | `string` | Any number followed by a CSS length unit. | `-1px` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `/src/fp-env-vars/.env` file. |
+| `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--radio-default-margin-bottom)` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |
+| `verticalAlignment` | `string` | Any CSS length value or CSS size variable from your `theme.css` file. | `var(--radio-default-vertical-alignment)` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |
 
 <br>
 

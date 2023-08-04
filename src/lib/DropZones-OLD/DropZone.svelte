@@ -1,6 +1,5 @@
 <script>
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
-  import { env } from "$env/dynamic/public";
   import { fromEvent } from "file-selector";
   import Icon from "@iconify/svelte";
   import {
@@ -20,7 +19,7 @@
    * Set accepted file types.
    * See https://github.com/okonet/attr-accept for more information.
    */
-  export let uploadIcon = env.PUBLIC_FP_DROP_ZONE_UPLOAD_FILES_BTN_ICON;
+  export let uploadIcon = "mdi:cloud-upload";
   export let accept; // string or string[]
   export let disabled = false;
   export let getFilesFromEvent = fromEvent;

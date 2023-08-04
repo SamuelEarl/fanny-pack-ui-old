@@ -2,8 +2,7 @@
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
   import { paddingSizes, fontSizes } from "../fp-styles";
-  import { env } from "$env/dynamic/public";
-
+  
   export let label = "";
   export let id = "";
   export let value = "";

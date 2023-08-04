@@ -24,8 +24,8 @@
     currency={currency}
     label="Enter a dollar amount"
     labelAlign="right"
-    padding="md"
-    fontSize="md"
+    padding="var(--input-default-padding)"
+    fontSize="var(--input-default-font-size)"
     placeholder="Type right here"
     disabled={false}
   />
@@ -46,8 +46,8 @@
     currency={currency}
     label="Enter a dollar amount"
     labelAlign="right"
-    padding="md"
-    fontSize="md"
+    padding="var(--input-default-padding)"
+    fontSize="var(--input-default-font-size)"
     placeholder="Type right here"
     disabled={false}
   />
@@ -66,8 +66,6 @@
         bind:value={amount1}
         locale={locale}
         currency={currency}
-        padding="md"
-        fontSize="md"
         placeholder="Type right here"
         disabled={false}
       />
@@ -78,8 +76,6 @@
         bind:value={amount2}
         locale={locale}
         currency={currency}
-        padding="md"
-        fontSize="md"
         placeholder="Type right here"
         disabled={false}
       />
@@ -147,9 +143,8 @@ You can set the following custom variables:
 | `valAlign` | `string` | `left`, `right` | `right` | This prop will align the value in the input field either to left or the right side of the input field. |
 | `locale` | `string` | Any locale identifier string. See [Intl.Locale](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) for more details. | `en-US` | This prop is the locale identifier string that will format the currency value to the correct format. |
 | `currency` | `string` | Any acceptable currency string. See [Intl.NumberFormat() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat) for more details. | `USD` | This prop is the currency to use in currency formatting. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `/src/fp-env-vars/.env` file. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `/src/fp-env-vars/.env` file. |
-| `textColor` | `string` | Any CSS color, including color variables from your `theme.css` file. |	`var(--text-color-default)` |	You can change the input field's text color with this prop. |
+| `padding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--input-default-padding)` | This prop will set the padding for the input field.<br><br>The default value can be changed in the `theme.css` file. |
+| `fontSize` | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--input-default-font-size)` | This prop will set the font size for the input field.<br><br>The default value can be changed in the `theme.css` file. |
 | `placeholder` (optional) | `string` | Any string | NA | This prop will act as the placeholder when the input field is empty. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the input field. |
 

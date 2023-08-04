@@ -11,13 +11,12 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
   import { browser } from "$app/environment";
   import Icon from "@iconify/svelte";
   import { Button } from "../Buttons";
-  import { env } from "$env/dynamic/public";
 
   export let handleFileUploads;
   export let accept = "*";
-  export let dropZoneSelectFilesBtnIcon = env.PUBLIC_FP_DROP_ZONE_SELECT_FILES_BTN_ICON;
-  export let dragAndDropIcon = env.PUBLIC_FP_DROP_ZONE_DRAG_AND_DROP_ICON;
-  export let dropZoneUploadFilesBtnIcon = env.PUBLIC_FP_DROP_ZONE_UPLOAD_FILES_BTN_ICON;
+  export let dropZoneSelectFilesBtnIcon = "lucide:mouse-pointer-2";
+  export let dragAndDropIcon = "pixelarticons:drag-and-drop";
+  export let dropZoneUploadFilesBtnIcon = "mdi:cloud-upload";
 
   // Refer to the FormData API for information on the FormData methods used in this component: https://developer.mozilla.org/en-US/docs/Web/API/FormData/append
   let formData;

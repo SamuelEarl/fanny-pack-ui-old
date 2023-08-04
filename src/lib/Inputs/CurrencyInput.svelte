@@ -10,17 +10,14 @@
   import { tick, createEventDispatcher } from "svelte";
   import { createId } from "../fp-utils";
   import { Label } from "../Labels";
-  import { paddingSizes, fontSizes } from "../fp-styles";
-  import { env } from "$env/dynamic/public";
 
   export let value = 0;
   export let valAlign = "right";
   export let locale = "en-US";
   export let currency = "USD";
   export let label = "";
-  export let padding = env.PUBLIC_FP_INPUT_PADDING;
-  export let fontSize = env.PUBLIC_FP_INPUT_FONT_SIZE;
-  export let textColor = "var(--text-color-default)";
+  export let padding = "var(--input-default-padding)";
+  export let fontSize = "var(--input-default-font-size)";
   export let labelAlign = "right";
   export let placeholder = "";
   export let disabled = false;
@@ -31,15 +28,7 @@
   let showNumberInput = false;
   let numberInput;
 
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
-
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
+  const inputStyles = `padding:${padding}; font-size:${fontSize};`;
 
   async function handleTextInputFocus() {
     showNumberInput = true;
@@ -94,7 +83,7 @@
     type="number"
     id={`fp-input-${componentId}`}
     class={`fp-currency-input ${valAlign}`}
-    style={`${paddingStyle} ${fontSizeStyle} color:${textColor};`}
+    style={inputStyles}
     step="0.01"
     min="0.00"
     placeholder={placeholder}
@@ -111,7 +100,7 @@
     type="text"
     id={`fp-input-${componentId}`}
     class={`fp-currency-input ${valAlign}`}
-    style={`${paddingStyle} ${fontSizeStyle}`}
+    style={inputStyles}
     placeholder={placeholder}
     disabled={disabled}
     bind:value={formattedValue}

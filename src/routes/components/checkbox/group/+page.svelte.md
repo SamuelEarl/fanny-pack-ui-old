@@ -109,6 +109,8 @@ Note that if you pass an array of objects to the `optionsArray` prop, then each 
 | `valueLabel` (only used with arrays of objects) | `string` | Any property name from the objects that are passed to the `checkboxGroupValues` array | `null` | When the `valueLabel` prop is used with an array of objects (which are passed to the `checkboxGroupValues` prop), the `valueLabel` prop will provide the property name that will be used as the label text for the `<CheckboxGroup>` component's values. |
 | `bind:selectedValues` | `array` | Any array | `[]` (an empty array) | The array that is passed to this prop will hold the values that the user will select. This array will usually be an empty array, but if you want any values to be pre-selected, then you could include any of the values from the `checkboxGroupValues` array. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable all the checkboxes in the group. |
+| `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--checkbox-default-margin-bottom)` | This prop will set the default `margin-bottom` for the checkbox.<br><br>The default value for all checkboxes can be changed in the `theme.css` file. |
+| `verticalAlignment` | `string` | Any CSS length value or CSS size variable from your `theme.css` file. | `var(--checkbox-default-vertical-alignment)` | This prop will set the default `top` (position) property for the checkbox.<br><br>The default value for all checkboxes can be changed in the `theme.css` file. |
 
 </div>
 
