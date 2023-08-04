@@ -174,7 +174,7 @@ You can use the `accept` prop to limit the acceptable file types. If you do, the
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `handleFileUploads` | `function` | Any function | NA | In order to get this component to work, you need to pass it a function named `handleFileUploads`. <br><br> The `handleFileUploads` signature needs to be `async function handleFileUploads(formData)`. The `formData` argument is a [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) object that contains a [`FileList`](https://developer.mozilla.org/en-US/docs/Web/API/FileList) object, which contains the list of files that were selected/dropped in the `<DropZone>` component. <br><br> The body of your `handleFileUploads` function should be the API code for uploading files to your cloud storage service. |
 | `accept` | `string` | See the "Description" to the right. | `"*"` (All file types are accepted) | This prop allows you to provide a [unique file type specifier](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers). The `accept` prop in this component works exactly the same as the `accept` attribute in an `<input type="file">` element.<br><br>For details on what you can pass to this prop, see [accept](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept), [Unique file type specifier](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#unique_file_type_specifiers), and [Limiting accepted file types](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#limiting_accepted_file_types). |
-| `dragAndDropIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fp-env-vars/.env` file. | See the heading [Configure JavaScript variables](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. |
+| `dragAndDropIcon` | `string` | Any icon name from the Iconify library. | `pixelarticons:drag-and-drop` | The icon that is passed to this prop will display in the drag and drop area. |
 | `dropZoneSelectFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
 | `dropZoneUploadFilesBtnIcon` | `string` | See `dragAndDropIcon`. | See `dragAndDropIcon`. | See `dragAndDropIcon`. |
 
@@ -336,9 +336,7 @@ Now that we have some of those preliminaries out of the way, let's get into crea
 
 ---
 
-<!-- The `import.meta.env` reference is causing build errors in the following paragraph. I don't know if there is a way around this, but I can test any builds with `npm run build` before I try to deploy this again. -->
-SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `VITE_` and you can access those environment variables in `.svelte` files from Vite's `import[dot]meta[dot]env` object (instead of the `process.env` object).
-<!-- `import.meta.env`  -->
+SvelteKit uses Vite to bundle its files. Vite uses the `dotenv` package to load your environment variables from `.env` files, so you do not need to install the `dotenv` package in order to load environment variables from `.env` files. However, you do need to remember to prefix each environment variable with `PUBLIC_`.
 
 TODOS:
 * At this point in the Quickstart: [Create a SAS connection string](https://docs.microsoft.com/en-us/azure/storage/blobs/quickstart-blobs-javascript-browser#create-a-sas-connection-string) I need to find out if the Azure Storage "Start and expiry date/time" auto-renews or if that expiration permanent?

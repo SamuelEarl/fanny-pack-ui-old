@@ -7,7 +7,6 @@
   import { onMount, afterUpdate, tick, createEventDispatcher } from "svelte";
   import { Label } from "../Labels";
   import { createId, calculateOptionsListHeight } from "../fp-utils";
-  import { spaceVariables, paddingSizes, fontSizes } from "../fp-styles";
 
   export let label = "";
   export let id = "";
@@ -40,20 +39,7 @@
   let selectOptionsList;
   let showSelectOptionsList = false;
 
-  let spaceVariable = spaceVariables[padding];
-  if (spaceVariable === undefined) {
-    spaceVariable = spaceVariables["sm"];
-  }
-
-  let paddingStyle = paddingSizes[padding];
-  if (paddingStyle === undefined) {
-    paddingStyle = paddingSizes["sm"];
-  }
-
-  let fontSizeStyle = fontSizes[fontSize];
-  if (fontSizeStyle === undefined) {
-    fontSizeStyle = fontSizes["md"];
-  }
+  const selectStyles = `padding:${padding}; font-size:${fontSize};`;
 
   onMount(() => {
     determineOptionsDataType(options);
@@ -197,7 +183,7 @@
     <div 
       class="fp-select-btn-overlay" 
       class:active={showSelectOptionsList}
-      style={`${paddingStyle} ${fontSizeStyle}`}
+      style={selectStyles}
       title={optionsDataType === "primitive" ? value : value[optionLabel]}
     >
       {#if optionsDataType === "primitive"}
@@ -222,7 +208,7 @@
         {#each options as option}
           <div 
             class="fp-select-option"
-            style={`${paddingStyle} ${fontSizeStyle}`}
+            style={selectStyles}
             on:click={() => setSelectedOption(option)}
             title={option}
           >
@@ -236,7 +222,7 @@
           {#each Object.entries(optgroups) as [key, value]}
             <div 
               class="fp-select-optgroup-label" 
-              style={`${paddingStyle} ${fontSizeStyle}`}
+              style={selectStyles}
               title={key}
             >
               {key}
@@ -244,7 +230,7 @@
             {#each value as option}
               <div 
                 class="fp-select-option"
-                style={`${paddingStyle} ${fontSizeStyle} padding-left: calc(2 * ${spaceVariable});`}
+                style={`${selectStyles} padding-left: calc(2 * ${padding});`}
                 on:click={() => setSelectedOption(option)}
                 title={option[optionLabel]}
               >
@@ -257,7 +243,7 @@
           {#each options as option}
             <div 
               class="fp-select-option"
-              style={`${paddingStyle} ${fontSizeStyle}`}
+              style={selectStyles}
               on:click={() => setSelectedOption(option)}
               title={option[optionLabel]}
             >

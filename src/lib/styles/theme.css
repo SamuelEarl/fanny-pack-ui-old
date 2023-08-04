@@ -31,7 +31,8 @@
   /* INSTRUCTIONS: You can change any of these values, but do not change the variable names. */
   --white: #ffffff;
   --black: #000000;
-  /* Fanny Pack does not use a transparent variable, like this `--transparent: transparent;`, because that does not make sense. Some people might want their --white or --black variables to be just a little off of pure white or black, so it makes sense to have those variables. But transparent is transparent. There is no such thing as "off transparent". */
+  /* NOTE: Fanny Pack does not use a transparent variable, like this `--transparent: transparent;`, because that does not make sense. Some people might want their --white or --black variables to be just a little off of pure white or black, so it makes sense to have those variables. But transparent is transparent. There is no such thing as "off transparent". */
+
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 
   See https://www.colorhexa.com/50404d. */
   --neutral-50: #f9f8f9;
@@ -56,6 +57,7 @@
   --text-color-for-secondary-bg: var(--white);
   --tertiary-color: var(--white);
   --text-color-for-tertiary-bg: var(--neutral-800);
+
   /* Notification Colors */
   --info-color: var(--dark-blue);
   --text-color-for-info-bg: var(--white);
@@ -85,9 +87,11 @@ These variables are organized in the same way that Tailwind organizes their util
   /* Page background colors. */
   --bg-color-default: var(--white);
   --bg-color-default-dark: var(--neutral-700);
+
   /* Element background colors. */
   --bg-color-element-default: var(--neutral-200);
   --bg-color-element-disabled: var(--neutral-50);
+  
   /* Hover background color. */
   --bg-color-hover: var(--neutral-200);
 }
@@ -255,12 +259,10 @@ These variables are organized in the same way that Tailwind organizes their util
 
 /* TABS */
 :root {
-  /* --default-tabs-container-border: true; */
   --tabs-default-container-padding: var(--space-lg);
   --tabs-default-tab-padding: var(--space-md);
   --tabs-default-tab-font-size: var(--font-size-base);
   --tabs-default-panel-padding: var(--space-xs);
-  /* --default-tabs-tab-style: "fill"; Possible values: "fill", "line" */
   --tabs-default-tab-bar-margin-bottom: var(--space-md);
 }
 
@@ -269,5 +271,3 @@ These variables are organized in the same way that Tailwind organizes their util
   --textarea-default-padding: var(--space-md);
   --textarea-default-font-size: var(--font-size-base);
 }
-
-/* TODO: Check for any PUBLIC_FP_ env vars and any references to `/src/fp-env-vars/.env` or just `.env`. */

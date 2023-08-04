@@ -310,105 +310,38 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 
 <br>
 
-<h2 id="configure-default-component-settings">Step 7: Configure Default Component Settings</h2>
+<h2 id="configure-default-component-styles">Step 7: Configure Default Component Styles</h2>
 
-<!-- 
-Note to self: Maybe I will suggest to the user to create a `fp.configs.js` file (or something like that) and tell them to put these values in it and then reference these values in their components, if they want to set default values globally:
+Toward the bottom of your `theme.css` file are some default styles for various components. Feel free to change those default styles however you would like.
+
+Note that many of the Fanny Pack components have props that are not CSS styles, which makes it a bit more difficult to configure default settings in a global file like the `theme.css` file. The `btnIconDisabled` prop in `<Button>` components is one example. If you want to use global settings and simply reference those in your components, then you could do something like this:
+
+1. Create a `/src/fp.configs.js` file (or name it whatever you want).
+2. Create an object inside that file that will contain default settings for your components.
+3. Reference those values in your components.
+
+That might look something like this:
 
 ```js
-const defaults = {
-  // Set the `btnIcon` value to an empty string to have no default icon.
-  btnIcon: "mdi:check-circle",
-  // Set the `btnIconDisabled` value to an empty string to have no default disabled icon.
+// /src/fp.configs.js
+
+export const defaults = {
   btnIconDisabled: "bi:gear-wide-connected",
-  btnIconSide: "left",
+  ...
 };
 ```
 
 ```js
+// /src/routes/+page.svelte
+
 import { defaults } from "/src/fp.configs.js";
 
-<Button
-  btnIcon={defaults.btnIcon}
-  btnIconDisabled={defaults.btnIconDisabled}
-  btnIconSide={defaults.btnIconSide}
->
-  Create Account
-  <span slot="btnTextDisabled">Creating Account...</span>
+<Button btnIconDisabled={defaults.btnIconDisabled}>
+  My Button Text
 </Button>
 ```
 
-Or they could wrap these components in their own components that set the default props and just import their wrapped components into their pages. (I need to test this out to see if/how it will actually work.) For example:
-
-```js
-// /src/components/ui/Button.svelte
-
-<script lang="ts">
-  import { defaults } from "/src/fp.configs.js";
-
-  export let disabled = false;
-
-  // If no button text slots are passed to this component, then `btnTextSlotsExist` will be `false`.
-  const btnTextSlotsExist = Object.keys($$slots).length !== 0;
-</script>
-
-<Button
-  btnIcon={defaults.btnIcon}
-  btnIconDisabled={defaults.btnIconDisabled}
-  btnIconSide={defaults.btnIconSide}
-  {disabled}
->
-  {#if $$slots.btnTextDisabled && disabled}
-    <slot name="btnTextDisabled">Disabled Button Text</slot>
-  {:else if $$slots.default}
-    <slot>Default Button Text</slot>
-  {/if}
-</Button>
-``` 
--->
-
-
-In order to set and even customize the default values for the components, we need to make use of environment variables. We usually don't check env vars into Git, but since these are just default settings for components and they don't have any sensitive data, there is no harm in checking these into Git. Also, checking these env vars into Git will eliminate the need to store these in your webhost's env vars portal or manually sharing these env vars with other team members.
-
-1. Create a `/src/fp-env-vars` directory.
-2. Open your `node_modules/@fanny-pack-ui/svelte-kit/` directory and copy the `.env` file into your `/src/fp-env-vars` directory.
-3. Allow these env vars to be checked into Git by adding this line to the bottom of your `.gitignore` file: `!/src/fp-env-vars/.env`
-3. Update your `vite.config.js` file to use the following syntax:
-
-```js
-import path from "path";
-import { sveltekit } from "@sveltejs/kit/vite";
-import { defineConfig, loadEnv } from "vite";
-
-/** @type {import("vite").UserConfig} */
-export default defineConfig(({ command, mode }) => {
-  // Extend "process.env" to include all variables from the root ".env"
-  // file (including any `.env.production` or `.env.development" files)
-  // and the `/src/fp-env-vars/.env` file.
-  process.env = {
-    ...process.env,
-    // This is Vite's default config, which will load the env vars from the root .env file.
-    ...loadEnv(mode, process.cwd(), ""), 
-    // Extend "process.env" by loading the Fanny Pack UI env vars.
-    ...loadEnv(mode, path.resolve(process.cwd(), "src/fp-env-vars"), "")
-  };
-  return {
-    plugins: [sveltekit()],
-
-    // This is how other settings in this file would be configured:
-    server: {
-      port: 5000,
-    },
-  };
-});
-```
-
-You can now edit any of the values in your `/src/fp-env-vars/.env` file. You can read the instructions in that file to find out how to customize your default component settings.
-
-NOTES:
-
-* Extending `process.env` to load additional env vars into your app does not affect the security features in SvelteKit's [`$env/dynamic/private`](https://kit.svelte.dev/docs/modules#$env-dynamic-private) module. In other words, SvelteKit will still throw an error if you try to import private environment variables into client-side code.
-* The `vite.config.js` config above was borrowed from this StackOverflow post: [How to load environment variables from .env file using Vite](https://stackoverflow.com/a/70711383/9453009) and this section in the Vite docs: [Using Environment Variables in Config](https://main.vitejs.dev/config/#using-environment-variables-in-config).
+You could also copy and paste any Fanny Pack components from the GitHub repo into your own local `components` directory, set the default props that you want to use, and just import your local UI components into your pages.
 
 <br>
 
@@ -449,4 +382,4 @@ If you have an SVG image of your favicon, then that might be the best image form
 <br>
 
 ## Conclusion
-Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file or the default component settings following the instructions inside your `/src/fp-env-vars/.env` file.
+Your theme should now be enabled when you start your app. You can use the CSS variables from your `theme.css` file and the utility classes throughout your app. When you use the components with the theme that you created, you might decide to change some of your variable values. Feel free to change your CSS variable values following the instructions inside your `theme.css` file.
