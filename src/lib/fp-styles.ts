@@ -1,3 +1,5 @@
+// TODO: Can I repalce all styles that reference this file with CSS variables and get rid of this file?
+
 // COLOR STYLES
 // -------------
 export const bgColors = {

@@ -38,14 +38,15 @@
     "var(--tertiary-color)",
     "var(--white)",
     "var(--black)",
-    "var(--transparent)"
+    "transparent"
   ];
-  const sizeOptions = ["xs","sm","md","lg","xl"];
+  const fontSizeOptions = ["8px","12px","16px","20px","24px"];
+  const paddingSizeOptions = ["0px 5px","5px 10px","10px 15px","15px 20px","20px 25px"];
   let selectedBgColor = "var(--primary-color)";
   let selectedBorderColor = "var(--primary-color)";
   let selectedTextColor = "var(--white)";
-  let selectedBtnPadding = "md";
-  let selectedBtnFontSize = "md";
+  let selectedBtnPadding = "10px 15px";
+  let selectedBtnFontSize = "16px";
   let selectedBtnWidth = "auto";
   let showInteractiveButtons = true;
 
@@ -77,11 +78,11 @@
 <Button
   id="some-id"
   type="button"
-  bgColor="var(--primary-color)"
-  borderColor="var(--primary-color)"
-  textColor="var(--white)"
-  padding="md"
-  fontSize="md"
+  bgColor="var(--default-btn-bg-color)"
+  borderColor="var(--default-btn-border-color)"
+  textColor="var(--default-btn-text-color)"
+  padding="var(--default-btn-padding)"
+  fontSize="var(--default-btn-font-size)"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
@@ -111,15 +112,14 @@
 <Button
   id="some-id"
   type="button"
-  bgColor="var(--primary-color)"
-  borderColor="var(--primary-color)"
-  textColor="var(--white)"
-  padding="md"
-  fontSize="md"
+  bgColor="var(--default-btn-bg-color)"
+  borderColor="var(--default-btn-border-color)"
+  textColor="var(--default-btn-text-color)"
+  padding="var(--default-btn-padding)"
+  fontSize="var(--default-btn-font-size)"
   width="auto"
   disabled={creatingAccount}
   btnIcon="bi:person-plus-fill"
-  btnIconDisabled="icomoon-free:spinner2"
   btnIconDisabledShouldSpin={true}
   btnIconSide="right"
   on:click={handleCreateAccount}
@@ -252,7 +252,7 @@
     <Col>
       <Select
         label="Font Size"
-        options={sizeOptions}
+        options={fontSizeOptions}
         bind:value={selectedBtnFontSize}
         on:change={handleRefreshInteractiveBtns}
       />
@@ -270,7 +270,7 @@
     <Col>
       <Select
         label="Padding"
-        options={sizeOptions}
+        options={paddingSizeOptions}
         bind:value={selectedBtnPadding}
         on:change={handleRefreshInteractiveBtns}
       />
@@ -303,8 +303,8 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 
 <Button
   btnIcon="ion:save-sharp" 
-  padding="lg"
-  fontSize="lg"
+  padding="10px"
+  fontSize="24px"
   disabled={savingData}
   title="Save File"
   on:click={handleSaveData}
@@ -324,8 +324,8 @@ You can create buttons that have only icons (i.e. no text). Do not pass any slot
 
 <Button
   btnIcon="ion:save-sharp" 
-  padding="lg"
-  fontSize="lg"
+  padding="10px"
+  fontSize="24px"
   disabled={savingData}
   title="Save File"
   on:click={handleSaveData}
@@ -400,18 +400,18 @@ You can customize these buttons almost infinitely by passing different values to
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
 | `type` | `string` | `button`, `submit`, `reset` | `button` | Specify the type of button. |
-| `bgColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `background-color`. The default value can be set in the `/src/fp-env-vars/.env` file. |
-| `borderColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--primary-color)` | This prop is for the button's `border-color`. The default value can be set in the `/src/fp-env-vars/.env` file. |
-| `textColor` | `string` | Any CSS variable color from your `theme.css` file. | `var(--white)` | This prop is for the button's `color`. The default value can be set in the `/src/fp-env-vars/.env` file. |
-| `padding` | `string` | `xs`, `sm`, `md`, `lg`, `xl`, or any CSS padding value. | `md` | Alter the padding of the button. The default value can be set in the `/src/fp-env-vars/.env` file.<br><br>If you pass a custom value (e.g. `"5px"`, `"10px 20px"`, `"var(--btn-padding)"`), then the button will apply that value. |
-| `fontSize` | `string` | `xs`, `sm`, `md`, `lg`, `xl` | `md` | Alter the font size of the button. The default value can be set in the `/src/fp-env-vars/.env` file. |
+| `bgColor` | `string` | Any CSS color value or CSS color variable from your `theme.css` file. | `var(--default-btn-bg-color)` | This prop is for the button's `background-color`. The default value can be set in the `theme.css` file. |
+| `borderColor` | `string` | Any CSS color value or CSS color variable from your `theme.css` file. | `var(--default-btn-border-color)` | This prop is for the button's `border-color`. The default value can be set in the `theme.css` file. |
+| `textColor` | `string` | Any CSS color value or CSS color variable from your `theme.css` file. | `var(--default-btn-text-color)` | This prop is for the button's `color`. The default value can be set in the `theme.css` file. |
+| `padding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--default-btn-padding)` | Alter the padding of the button. The default value can be set in the `theme.css` file. |
+| `fontSize` | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--default-btn-font-size)` | Alter the font size of the button. The default value can be set in the `theme.css` file. |
 | `width` | `string` | `auto`, `full` | `auto` | `auto` will be wide enough to fit the contents of the button. `full` will fill the width of the button's parent element. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the button and display the `btnTextDisabled` text and the `btnIconDisabled` (if it has been set). |
 | `formIsInvalid` | `boolean` | `true`, `false` | `false` | This only applies to `submit` buttons (`<Button type="submit" />`). If `formIsInvalid=true`, then the button will be disabled, but it will NOT show the disabled icon or text. It will just prevent the user from submitting the form. |
 | `btnIcon` | `string` | Any icon name from the Iconify library. | The default value can be set in the `/src/fp-env-vars/.env` file. | See the heading [Configure Default Component Settings](/get-started#configure-default-component-settings) on the Get Started page for instructions on how to set the default value. <br><br> You can pass an empty string to remove the button icon. If either the `btnIcon` or `btnIconDisabled` is set to an empty string, then no button icons or disabled button icons will be displayed with the button. This is intentional by design because it could look strange if you have a button icon during a regular state and then no icon during a disabled state and vice versa. If you don't want icons on your buttons, but would like to change the button text when a button is disabled, then refer to the `btnTextDisabled` slot below. |
 | `btnIconDisabled` | `string` | See `btnIcon`. | See `btnIcon`. | See `btnIcon`. |
 | `btnIconDisabledShouldSpin` | `boolean` | `true`, `false` | `true` | A value of `true` will cause the icon on a disabled button to spin which would provide user feedback for loading states (e.g. saving data, loading page content). A value of `false` will prevent the icon on a disabled button from spinning. |
-| `btnIconSide` | `string` | `left`, `right` | `left` | This sets the icon to either the left or right side of the button. |
+| `btnIconSide` | `string` | `left`, `right` | `right` | This sets the icon to either the left or right side of the button. |
 | `rotateBtnIcon` (optional) | `string` | Any number with `deg` appended to the end. | `"0deg"` (i.e. no rotation) | You can pass a rotate value to this prop and the icon will be rotated according to the value you pass. For example, `"45deg"` will rotate the icon 45 degrees. |
 | `rotateBtnIconDisabled` (optional) | | | | Refer to the `rotateBtnIcon` prop above. |
 

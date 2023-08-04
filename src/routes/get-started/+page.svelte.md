@@ -312,6 +312,62 @@ In your `/src/assets/styles/base.css` file, find all the `font-family` rules and
 
 <h2 id="configure-default-component-settings">Step 7: Configure Default Component Settings</h2>
 
+<!-- 
+Note to self: Maybe I will suggest to the user to create a `fp.configs.js` file (or something like that) and tell them to put these values in it and then reference these values in their components, if they want to set default values globally:
+
+```js
+const defaults = {
+  // Set the `btnIcon` value to an empty string to have no default icon.
+  btnIcon: "mdi:check-circle",
+  // Set the `btnIconDisabled` value to an empty string to have no default disabled icon.
+  btnIconDisabled: "bi:gear-wide-connected",
+  btnIconSide: "left",
+};
+```
+
+```js
+import { defaults } from "/src/fp.configs.js";
+
+<Button
+  btnIcon={defaults.btnIcon}
+  btnIconDisabled={defaults.btnIconDisabled}
+  btnIconSide={defaults.btnIconSide}
+>
+  Create Account
+  <span slot="btnTextDisabled">Creating Account...</span>
+</Button>
+```
+
+Or they could wrap these components in their own components that set the default props and just import their wrapped components into their pages. (I need to test this out to see if/how it will actually work.) For example:
+
+```js
+// /src/components/ui/Button.svelte
+
+<script lang="ts">
+  import { defaults } from "/src/fp.configs.js";
+
+  export let disabled = false;
+
+  // If no button text slots are passed to this component, then `btnTextSlotsExist` will be `false`.
+  const btnTextSlotsExist = Object.keys($$slots).length !== 0;
+</script>
+
+<Button
+  btnIcon={defaults.btnIcon}
+  btnIconDisabled={defaults.btnIconDisabled}
+  btnIconSide={defaults.btnIconSide}
+  {disabled}
+>
+  {#if $$slots.btnTextDisabled && disabled}
+    <slot name="btnTextDisabled">Disabled Button Text</slot>
+  {:else if $$slots.default}
+    <slot>Default Button Text</slot>
+  {/if}
+</Button>
+``` 
+-->
+
+
 In order to set and even customize the default values for the components, we need to make use of environment variables. We usually don't check env vars into Git, but since these are just default settings for components and they don't have any sensitive data, there is no harm in checking these into Git. Also, checking these env vars into Git will eliminate the need to store these in your webhost's env vars portal or manually sharing these env vars with other team members.
 
 1. Create a `/src/fp-env-vars` directory.

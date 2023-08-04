@@ -31,7 +31,7 @@
   /* INSTRUCTIONS: You can change any of these values, but do not change the variable names. */
   --white: #ffffff;
   --black: #000000;
-  --transparent: transparent;
+  /* Fanny Pack does not use a transparent variable, like this `--transparent: transparent;`, because that does not make sense. Some people might want their --white or --black variables to be just a little off of pure white or black, so it makes sense to have those variables. But transparent is transparent. There is no such thing as "off transparent". */
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 
   See https://www.colorhexa.com/50404d. */
   --neutral-50: #f9f8f9;
@@ -187,4 +187,32 @@ These variables are organized in the same way that Tailwind organizes their util
 
   /* Placeholder Text Color */
   --placeholder-color-default: var(--neutral-500);
+}
+
+/* ------------------------ */
+/* DEFAULT COMPONENT STYLES */
+/* ------------------------ */
+/* ACCORDIONS */
+:root {
+
+}
+
+/* BUTTONS */
+:root {
+  --default-btn-bg-color: var(--primary-color);
+  --default-btn-border-color: var(--primary-color);
+  --default-btn-text-color: var(--white);
+  /* NOTE: Button components have a 2px border and other form elements have a 1px border. The following Button padding sizes are 1px smaller than the other padding sizes in this `theme.css` file to compensate for the 2px border that Button components have. */
+  --btn-padding-xs: 0px 3px;
+  --btn-padding-sm: 4px 8px;
+  --btn-padding-md: 9px 18px;
+  --btn-padding-lg: 14px 28px;
+  --btn-padding-xl: 19px 38px;
+  --default-btn-padding: var(--btn-padding-md);
+  --default-btn-font-size: var(--font-size-base);
+  /* Replace the `--default-btn-icon` value with an empty string to have no default icon. */
+  --default-btn-icon: "mdi:check-circle"; /* "mdi:check-circle" */
+  /* Replace the `--default-btn-icon-disabled` value with an empty string to have no default disabled icon. */
+  --default-btn-icon-disabled: "icomoon-free:spinner2";
+  --default-btn-icon-side: "right";
 }
