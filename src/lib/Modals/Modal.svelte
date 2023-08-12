@@ -53,8 +53,8 @@
     <Button
       id="close"
       btnIcon="ic:baseline-close"
-      bgColor="var(--transparent)"
-      borderColor="var(--transparent)"
+      bgColor="transparent"
+      borderColor="transparent"
       textColor="white"
       padding="10px"
       fontSize="xl"
