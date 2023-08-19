@@ -13,6 +13,7 @@ This component will create a single checkbox. If you want to create multiple che
 ## Example Usage
 
 <Checkbox
+  id="terms-and-conditions"
   bind:checked={haveRead}
   label={checkboxLabel}
   disabled={false}
@@ -29,6 +30,7 @@ This component will create a single checkbox. If you want to create multiple che
 </script>
 
 <Checkbox
+  id="terms-and-conditions"
   bind:checked={haveRead}
   label={checkboxLabel}
   disabled={false}
@@ -49,6 +51,7 @@ You can use the `on:change` or `on:input` event like this:
 </script>
 
 <Checkbox
+  id="terms-and-conditions"
   bind:checked={haveRead}
   label={checkboxLabel}
   disabled={false}
@@ -64,6 +67,7 @@ You can use the `on:change` or `on:input` event like this:
 
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `id` | `string` | Any string | NA | This is the `id` value of the checkbox and will also be used with the `<label>` element's `for` attribute. |
 | `bind:checked` | `boolean` | `true`, `false` | NA | In order for the checkbox to be checked and unchecked, this component's `checked` property needs to be bound to a `boolean` variable. |
 | `label` | `string` | Any string | NA | This is the text that will be displayed next to the checkbox. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the checkbox. |

@@ -18,7 +18,8 @@
 
 {#each flavors as flavor}
   <div>
-    <RadioButton 
+    <RadioButton
+      id={flavor}
       bind:group={selectedFlavor} 
       value={flavor} 
       marginBottom="var(--radio-default-margin-bottom)" 
@@ -44,6 +45,7 @@
 {#each flavors as flavor}
   <div>
     <RadioButton 
+      id={flavor}
       bind:group={selectedFlavor} 
       value={flavor} 
       marginBottom="var(--radio-default-margin-bottom)" 
@@ -67,7 +69,7 @@
 
 {#each sizes as size}
   <div>
-    <RadioButton bind:group={selectedSize} value={size} disabled={size !== "large"} />
+    <RadioButton id={size} bind:group={selectedSize} value={size} disabled={size !== "large"} />
   </div>
 {/each}
 
@@ -86,7 +88,7 @@
 
 {#each sizes as size}
   <div>
-    <RadioButton bind:group={selectedSize} value={size} disabled={size !== "large"} />
+    <RadioButton id={size} bind:group={selectedSize} value={size} disabled={size !== "large"} />
   </div>
 {/each}
 
@@ -106,8 +108,10 @@
 
 | Prop name | Type | Possible values | Default value | Description |
 | --------- | ---- | --------------- | ------------- | ----------- |
+| `id` | `string` | Any string | NA | This is the `id` value of the radio button and will also be used with the `<label>` element's `for` attribute. |
 | `bind:group` | `string` | Any string | NA | Plain HTML radio buttons are grouped by using the same `name` attribute. In Svelte, you group radio buttons together with the `bind:group` option. |
-| `value` | `string` | Any string | NA | This is the value of the radio button and the text that will be displayed next to the radio button. |
+| `value` | `string` | Any string | NA | This is the value of the radio button. |
+| `label` | `string` | Any string | The same text that is passed to the `value` prop. | This is the label text that will be displayed next to the radio button. If you do not pass any text to this prop, then the text from the `value` prop will be used. If you want to remove the label text, then pass an empty string (`""`) to this prop. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This will disable the specified radio button. |
 | `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--radio-default-margin-bottom)` | This prop will set the default `margin-bottom` for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |
 | `verticalAlignment` | `string` | Any CSS length value or CSS size variable from your `theme.css` file. | `var(--radio-default-vertical-alignment)` | This prop will set the default `top` (position) property for the radio button.<br><br>The default value for all radio buttons can be changed in the `theme.css` file. |

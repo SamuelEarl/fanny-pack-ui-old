@@ -1,26 +1,30 @@
 <script lang="ts">
+  export let id;
   export let group;
   export let value;
+  export let label = value;
   export let disabled = false;
   export let marginBottom = "var(--radio-default-margin-bottom)";
   export let verticalAlignment = "var(--radio-default-vertical-alignment)";
 </script>
 
 
-<label 
+<label
+  for={id}
   class="fp-radio-label-wrapper" 
   class:disabled
   style={`margin-bottom: ${marginBottom}`}
 >
   <input
     type="radio" 
+    {id}
     class="fp-radio-input" 
     bind:group={group} 
     {value} 
     {disabled}
     on:change
     on:input
-  > {value}
+  > {label}
   <span
     class="fp-radio-checkmark"
     style={`top: ${verticalAlignment}`}
