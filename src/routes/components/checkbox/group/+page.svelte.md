@@ -1,10 +1,10 @@
 <script lang="ts">
   import { Checkbox, CheckboxGroup } from "/src/lib";
 
-  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
-  let selectedSuvOptions = [suvOptions[1]];
+  const suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
+  let selectedSuvOptions = [suvOptions[0]];
 
-  let suvOptionsObjects = [
+  const suvOptionsObjects = [
     { displayText: "Oversized Wheels", value: "oversizedWheels" },
     { displayText: "Mud Tires", value: "mudTires" },
     { displayText: "Mud Guards", value: "mudGuards" },
@@ -42,8 +42,8 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 <script>
   import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
-  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
-  let selectedSuvOptions = [suvOptions[1]];
+  const suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
+  let selectedSuvOptions = [suvOptions[0]];
 </script>
 
 <p>Select any of the following options for your SUV:</p>
@@ -74,7 +74,7 @@ You can read more about this component under the "Plain HTML vs Svelte Checkboxe
 <script>
   import { CheckboxGroup } from "@fanny-pack-ui/svelte-kit";
 
-  let suvOptionsObjects = [
+  const suvOptionsObjects = [
     { displayText: "Oversized Wheels", value: "oversizedWheels" },
     { displayText: "Mud Tires", value: "mudTires" },
     { displayText: "Mud Guards", value: "mudGuards" },
@@ -170,8 +170,8 @@ When creating "grouped" checkboxes, you could create them using regular `<Checkb
 
 ```svelte
 <script>
-  let suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
-  let selectedSuvOptions = [];
+  const suvOptions = ["oversized wheels", "mud tires", "mud guards", "trail running boards", "roof rack"];
+  let selectedSuvOptions = [suvOptions[0]];
 </script>
 
 <p>Select any of the following options for your SUV:</p>
@@ -191,6 +191,6 @@ But this is how the above code would actually work:
 
 <br>
 
-You can see that the `selectedSuvOptions` array gets populated, but it gets populated with `true`, `false`, and `null` values instead of the value of the checkbox that was selected. This may or may not work for your situation. There are other ways to work with "grouped" checkboxes and you can read more about this issue here: https://github.com/sveltejs/svelte/issues/2308.)
+You can see that the `selectedSuvOptions` array gets populated, but it gets populated with `true`, `false`, and `null` values instead of the value of the checkbox that was selected. This may or may not work for your situation. Also, binding default checked values might not work. There are other ways to work with "grouped" checkboxes and you can read more about this issue here: https://github.com/sveltejs/svelte/issues/2308.)
 
 In most cases it would probably be best to either create a series of regular `<Checkbox>` components and bind each one to its own variable or use this `<CheckboxGroup>` component, which will bind the checkbox values to an array.
