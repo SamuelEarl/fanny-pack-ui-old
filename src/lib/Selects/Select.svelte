@@ -199,6 +199,7 @@
       & svg {
         position: absolute;
         right: 0.7em;
+        pointer-events: none;
         
         /* Disabled styles */
         &.disabled {
