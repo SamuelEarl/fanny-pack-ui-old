@@ -89,7 +89,7 @@
 </script>
 
 <Label {label} forVal={`fp-select-btn-${componentId}`} id={componentId} />
-<div class="select-outer-wrapper">
+<div class="select-outer-wrapper" class:disabled>
   <div class="select-inner-wrapper" class:isActive>
     <select
       class="select-native"
@@ -132,6 +132,10 @@
   .select-outer-wrapper {
     background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
     border-radius: var(--border-radius);
+
+    &.disabled {
+      background-color: transparent;
+    }
 
     & .select-inner-wrapper {
       position: relative;

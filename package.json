@@ -1,6 +1,6 @@
 {
 	"name": "@fanny-pack-ui/svelte-kit",
-	"version": "0.0.91",
+	"version": "0.0.92",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
