@@ -41,6 +41,8 @@
     { dinoGroup: "Sauropods", dinoValue: "apatosaurus", dinoLabel: "Apatosaurus" },
   ];
   let selectedDinoValue = dinoObjects.find(obj => obj.dinoValue === "diplodocus")["dinoValue"];
+
+  let textValue = "Hello there";
 </script>
 
 

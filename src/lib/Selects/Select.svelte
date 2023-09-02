@@ -89,8 +89,13 @@
 </script>
 
 <Label {label} forVal={`fp-select-btn-${componentId}`} id={componentId} />
-<div class="select-outer-wrapper" class:disabled>
-  <div class="select-inner-wrapper" class:isActive>
+<div class="select-wrapper" class:isActive class:disabled>
+  <!-- For some reason the disabled <select> element doesn't style the background color or text color properly. So when this component is disabled, then the <select> element gets replaced with a <div> element for now - at least until I can figure out what is causing that issue. -->
+  {#if disabled}
+    <div class="disabled-replacement" style={`padding:${padding}; font-size:${fontSize};`}>
+      {value}
+    </div>
+  {:else}
     <select
       class="select-native"
       style={`padding:${padding}; font-size:${fontSize};`}
@@ -122,93 +127,99 @@
         {/if}
       {/if}
     </select>
-    <svg width="1em" height="1em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);" class:disabled>
-      <path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path>
-    </svg>
-  </div>
+  {/if}
+  <svg width="1em" height="1em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);" class:disabled>
+    <path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path>
+  </svg>
 </div>
 
 <style>
-  .select-outer-wrapper {
-    background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
     border-radius: var(--border-radius);
+    background-color: var(--custom-select-bg-color, var(--bg-color-element-default));
 
-    &.disabled {
-      background-color: transparent;
+    &.isActive {
+      background-color: rgba(0, 0, 0, 0.1);
     }
 
-    & .select-inner-wrapper {
-      position: relative;
-      display: flex;
-      align-items: center;
+    &.disabled {
+      border-color: var(--border-color-disabled);
+      background-color: var(--bg-color-element-disabled);
+      color: var(--text-color-disabled);
+    }
+
+    & .disabled-replacement {
+      width: 100%;
+      border: var(--border-default);
+      border-color: var(--border-color-disabled);
       border-radius: var(--border-radius);
+      color: var(--text-color-disabled);
+    }
 
-      &.isActive {
-        background-color: rgba(0, 0, 0, 0.1);
+    & .select-native {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      appearance: none;
+      border: var(--border-default);
+      border-color: var(--custom-select-border-color, var(--border-color-default));
+      border-radius: var(--border-radius);
+      background-color: transparent;
+      color: var(--custom-select-text-color, var(--text-color-default));
+      cursor: pointer;
+      /* background-image: url('data:image/svg+xml,<svg width="1.2em" height="1.2em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);"><path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path></svg>');
+      background-repeat: no-repeat, repeat;
+      background-position: right 0.7em top 50%, 0 0;
+      background-size: 1em auto, 100%; */
+
+      &:hover {
+        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
       }
 
-      & .select-native {
-        display: block;
-        width: 100%;
-        max-width: 100%;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        appearance: none;
-        border: var(--border-default);
-        border-color: var(--custom-select-border-color, var(--border-color-default));
-        border-radius: var(--border-radius);
-        background-color: transparent;
-        color: var(--custom-select-text-color, var(--text-color-default));
-        cursor: pointer;
-        /* background-image: url('data:image/svg+xml,<svg width="1.2em" height="1.2em" fill="var(--custom-select-text-color, var(--text-color-default))" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="transform: rotate(90deg);"><path d="M15.7 11.3l-6-6c-0.4-0.4-1-0.4-1.4 0s-0.4 1 0 1.4l5.3 5.3-5.3 5.3c-0.4 0.4-0.4 1 0 1.4 0.2 0.2 0.4 0.3 0.7 0.3s0.5-0.1 0.7-0.3l6-6c0.4-0.4 0.4-1 0-1.4z"></path></svg>');
-        background-repeat: no-repeat, repeat;
-        background-position: right 0.7em top 50%, 0 0;
-        background-size: 1em auto, 100%; */
-
-        &:hover {
-          box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
-        }
-
-        &:focus {
-          outline: none;
-        }
-
-        & option {
-          font-weight: normal;
-          color: var(--custom-option-text-color, var(--text-color-default));
-        }
+      &:focus {
+        outline: none;
       }
 
-      & .select-native::-ms-expand {
-        display: none;
+      & option {
+        font-weight: normal;
+        color: var(--custom-option-text-color, var(--text-color-default));
       }
+    }
 
-      /* Support for rtl text, explicit support for Arabic and Hebrew */
-      & *[dir="rtl"] .select-native,
-      & :root:lang(ar) .select-native,
-      & :root:lang(iw) .select-native {
-        background-position: left 0.7em top 50%, 0 0;
-        padding: 0.6em 0.8em 0.5em 1.4em;
-      }
+    & .select-native::-ms-expand {
+      display: none;
+    }
 
+    /* Support for rtl text, explicit support for Arabic and Hebrew */
+    & *[dir="rtl"] .select-native,
+    & :root:lang(ar) .select-native,
+    & :root:lang(iw) .select-native {
+      background-position: left 0.7em top 50%, 0 0;
+      padding: 0.6em 0.8em 0.5em 1.4em;
+    }
+
+    /* Disabled styles */
+    & .select-native:disabled,
+    & .select-native[aria-disabled="true"] {
+      border-color: var(--border-color-disabled);
+      background-color: var(--bg-color-element-disabled);
+      color: var(--text-color-disabled);
+      pointer-events: none;
+    }
+
+    & svg {
+      position: absolute;
+      right: 0.7em;
+      pointer-events: none;
+      
       /* Disabled styles */
-      & .select-native:disabled,
-      & .select-native[aria-disabled="true"] {
-        border-color: var(--border-color-disabled);
-        background-color: var(--bg-color-element-disabled);
-        color: var(--text-color-disabled);
-        pointer-events: none;
-      }
-
-      & svg {
-        position: absolute;
-        right: 0.7em;
-        pointer-events: none;
-        
-        /* Disabled styles */
-        &.disabled {
-          fill: var(--text-color-disabled);
-        }
+      &.disabled {
+        fill: var(--text-color-disabled);
       }
     }
   }
