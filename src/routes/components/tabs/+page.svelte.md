@@ -234,6 +234,7 @@ This is how a `fill` tab style looks without a border:
   <TabBar>
     <Tab>TabsContainer</Tab>
     <Tab>TabBar</Tab>
+    <Tab>Tab</Tab>
   </TabBar>
 
   <TabPanel>
@@ -272,5 +273,17 @@ This is how a `fill` tab style looks without a border:
     | `marginBottom` | `string` | Any CSS margin value or CSS size variable from your `theme.css` file. | `var(--tabs-default-tab-bar-margin-bottom)`	| This prop allows you to set a margin below the `<TabBar>` to give some space between the `<TabBar>` and the `<TabPanel>`s. The default value can be set in the `theme.css` file. |
 
     </div>
+  </TabPanel>
+
+  <TabPanel>
+    <h2>Tab</h2>
+
+    <div></div>
+
+    <div class="responsive-table">
+
+    | Prop name | Type | Possible values | Default value | Description |
+    | --------- | ---- | --------------- | ------------- | ----------- |
+    | `{...restProps}` | NA | Any attribute that you might want to pass to a `<Tab>` component, for example an `id` attribute. | NA | This component does not normally have attributes, but if you want to pass something like an `id` attribute to this component, then `restProps` allows you to do that. |
   </TabPanel>
 </TabsContainer>

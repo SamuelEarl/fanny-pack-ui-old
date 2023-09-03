@@ -19,6 +19,7 @@
   class={`fp-tabs-tab ${tabStyle}`}
   class:active="{$selectedTab === tab}"
   style={`${tabPaddingStyle} ${tabFontSizeStyle}`}
+  {...$$restProps}
   on:click="{() => selectTab(tab)}"
   on:keyup="{() => selectTab(tab)}"
 >

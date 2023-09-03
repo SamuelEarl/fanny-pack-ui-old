@@ -339,7 +339,7 @@ You can set the following custom variables:
 | `fontSize` | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--select-default-font-size)` | This prop will set the font size for the `<Select />` component.<br><br>The default value can be changed in the `theme.css` file. |
 | `padding` | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--select-default-padding)` | This prop will set the padding for the `<Select />` component.<br><br>The default value can be changed in the `theme.css` file. |
 | `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<Select />` component. |
-| `{...restProps}` | NA | Any attribute that you can pass to a `<select>` element. | NA | This component does not specify every possible attribute that you can pass to a `<select>` element. However, `restProps` allows you to pass any attributes to this `<select />` component that you could normally pass to a `<select>` element. For example, if you want to specify an `id` for this `<Select>` component, then you could pass the `id` prop, like this: `id="some-id"`.
+| `{...restProps}` | NA | Any attribute that you can pass to a `<select>` element. | NA | This component does not specify every possible attribute that you can pass to a `<select>` element. However, `restProps` allows you to pass any attributes to this `<select />` component that you could normally pass to a `<select>` element. For example, if you want to specify an `id` for this `<Select>` component, then you could pass the `id` prop, like this: `id="some-id"`. |
 
 </div>
 

@@ -187,7 +187,6 @@ These variables are organized in the same way that Tailwind organizes their util
 
   /* Text Color */
   --text-color-default: var(--neutral-700);
-  /* --text-color-disabled: graytext; */
   --text-color-disabled: var(--neutral-100);
 
   /* Placeholder Text Color */
