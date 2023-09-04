@@ -33,25 +33,25 @@
   const currentDate = new Date();
 
   // The `d.getTime()` function throws errors when I try to load a <DateInput /> component with the same data that was entered into the <DateInput /> component. I don't completely understand how the `innerStore` and `store` variables are supposed to work together, but they don't appear to be necessary. So I am replacing them with just a regular writable store.
-  // // inner date value store for preventing value updates (and also
-  // // text updates as a result) when date is unchanged
-  // const innerStore: Writable<Date | null> = writable(null);
-  // const store = (() => {
-  //   return {
-  //     subscribe: innerStore.subscribe,
-  //     set: (d: Date | null) => {
-  //       if (d === null) {
-  //         innerStore.set(null);
-  //         value = d;
-  //       } 
-  //       else if (d.getTime() !== $innerStore?.getTime()) {
-  //         innerStore.set(d);
-  //         value = d;
-  //       }
-  //     },
-  //   }
-  // })();
-  const store: Writable<Date | null> = writable(null);
+  // inner date value store for preventing value updates (and also
+  // text updates as a result) when date is unchanged
+  const innerStore: Writable<Date | null> = writable(null);
+  const store = (() => {
+    return {
+      subscribe: innerStore.subscribe,
+      set: (d: Date | null) => {
+        if (d === null) {
+          innerStore.set(null);
+          value = d;
+        } 
+        else if (d.getTime() !== $innerStore?.getTime()) {
+          innerStore.set(d);
+          value = d;
+        }
+      },
+    }
+  })();
+  // const store: Writable<Date | null> = writable(null);
 
   /** Date value */
   export let value: Date | null = null;
