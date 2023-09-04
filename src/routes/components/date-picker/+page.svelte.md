@@ -40,6 +40,10 @@ The code for this component was taken from this great [date picker component](ht
   />
 </div>
 
+Value that is returned from this component (which can be saved to the database): {date}
+
+Note that the value that is returned is a JavaScript Date object.
+
 ```svelte
 <script>
   import { DateInput } from "@fanny-pack-ui/svelte-kit";

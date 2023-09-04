@@ -32,7 +32,11 @@
   /** Default date to display in input before value is assigned */
   const currentDate = new Date();
 
-  // The `d.getTime()` function throws errors when I try to load a <DateInput /> component with the same data that was entered into the <DateInput /> component. I don't completely understand how the `innerStore` and `store` variables are supposed to work together, but they don't appear to be necessary. So I am replacing them with just a regular writable store.
+  // TODO: Fix this error: The `d.getTime()` function throws errors when I try to load a <DateInput /> component with the same data that was entered into the <DateInput /> component. The problem is that when the date is created it is created as a Date object with this format:
+  // Mon Sep 04 2023 15:06:21 GMT-0700 (Mountain Standard Time)
+  // ...but when that Date object is passed to this component it is reformatted as a string with this format:
+  // 2023-09-04T07:00:00Z
+  // That reformatted string is what gets saved in the database. So when the data is retrieved from the database, that reformatted string is what gets passed to this component instead of a Date object, which is why the `d.getTime()` error occurs. So I need to figure out how to return a Date object from this component instead of that reformatted string.
   // inner date value store for preventing value updates (and also
   // text updates as a result) when date is unchanged
   const innerStore: Writable<Date | null> = writable(null);
@@ -51,7 +55,6 @@
       },
     }
   })();
-  // const store: Writable<Date | null> = writable(null);
 
   /** Date value */
   export let value: Date | null = null;
