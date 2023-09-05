@@ -34,6 +34,7 @@
   // ...but when that Date object gets passed to the endpoint it is JSON stringified, which converts the Date object to an ISO date string with this format:
   // 2023-09-04T07:00:00Z
   // That ISO string is what gets saved in the database. So when the data is retrieved from the database, that ISO string is what gets passed to this component instead of a Date object, which is why the `d.getTime() is not a function` error occurs. So I need to figure out how to convert the ISO string to a Date object in this component.
+  
   // inner date value store for preventing value updates (and also
   // text updates as a result) when date is unchanged
   const innerStore: Writable<Date | null> = writable(null);

@@ -3,6 +3,27 @@
 
   let date = new Date();
   let dateIsValid = false;
+  
+  // I would have used this to easily format the date to ISO format, but it sometimes returns tomorrow's date due to timezone differences.
+  // let currentDateISOString = new Date().toISOString().slice(0, 10);
+
+  /**
+   * Accept a date string in US format (MM/DD/YYYY) and return a date string in ISO format (YYYY-MM-DD).
+   */
+  function formatUStoISO(date) {
+    return `${date.slice(6)}-${date.slice(0, 2)}-${date.slice(3, 5)}`;
+  }
+
+  // Get the current date in US format, which also pads the dates with leading zeros when necessary.
+  // See https://stackoverflow.com/a/47160545/9453009
+  const currentDate = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+  console.log("currentDate:", currentDate);
+  let currentDateISOString = formatUStoISO(currentDate);
+  let newDateObject = new Date(currentDateISOString);
 </script>
 
 
@@ -11,6 +32,18 @@
 The code for this component was taken from this great [date picker component](https://github.com/probablykasper/date-picker-svelte) and has been modified to make it more themable.
 
 ---
+
+<div>
+  <input type="date" bind:value={currentDateISOString} />
+</div>
+<br>
+
+The value that is returned from this component (which can be saved to the database) is a `string` in ISO date format: {currentDateISOString}
+
+You can pass the date string to a `new Date()` constructor to create a Date object: {newDateObject}
+
+NOTE: The `YYYY-MM-DD` format is the ISO date format. Keep in mind that the actual date that is returned from the `new Date(YYYY-MM-DD)` constructor will vary depending on your timezone. So passing an ISO date to the `new Date()` constructor can get confusing. See [JavaScript Date Formats](https://www.w3schools.com/js/js_date_formats.asp) for details. 
+
 
 ## Example Usage
 
