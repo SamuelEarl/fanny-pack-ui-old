@@ -35,7 +35,7 @@
     <div 
       class="fp-accordion-panel"
       style={`${accordionPanelPadding} font-size:${fontSize};`}
-      transition:slide|local
+      transition:slide
     >
       <slot></slot>
     </div>
