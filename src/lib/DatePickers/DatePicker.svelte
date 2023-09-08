@@ -36,41 +36,131 @@
   ];
 
   let showDialog = false;
-  let days = [];
+  // let days = [];
+  // The dates array will have 6 nested arrays, each representing one week.
+  // Each nested week array will 7 objects, each representing a date.
+  let dates = [
+    [
+      { date: "2020-01-26", day: 26, disabled: true },
+      { date: "2020-01-27", day: 27, disabled: true },
+      { date: "2020-01-28", day: 28, disabled: true },
+      { date: "2020-01-29", day: 29, disabled: true },
+      { date: "2020-01-30", day: 30, disabled: true },
+      { date: "2020-01-31", day: 31, disabled: true },
+      { date: "2020-02-01", day: 1, disabled: false },
+    ],
+    [
+      { date: "2020-02-02", day: 2, disabled: false },
+      { date: "2020-02-03", day: 3, disabled: false },
+      { date: "2020-02-04", day: 4, disabled: false },
+      { date: "2020-02-05", day: 5, disabled: false },
+      { date: "2020-02-06", day: 6, disabled: false },
+      { date: "2020-02-07", day: 7, disabled: false },
+      { date: "2020-02-08", day: 8, disabled: false },
+    ],
+    [
+      { date: "2020-02-09", day: 9, disabled: false },
+      { date: "2020-02-10", day: 10, disabled: false },
+      { date: "2020-02-11", day: 11, disabled: false },
+      { date: "2020-02-12", day: 12, disabled: false },
+      { date: "2020-02-13", day: 13, disabled: false },
+      { date: "2020-02-14", day: 14, disabled: false },
+      { date: "2020-02-15", day: 15, disabled: false },
+    ],
+    [
+      { date: "2020-02-16", day: 16, disabled: false },
+      { date: "2020-02-17", day: 17, disabled: false },
+      { date: "2020-02-18", day: 18, disabled: false },
+      { date: "2020-02-19", day: 19, disabled: false },
+      { date: "2020-02-20", day: 20, disabled: false },
+      { date: "2020-02-21", day: 21, disabled: false },
+      { date: "2020-02-22", day: 22, disabled: false },
+    ],
+    [
+      { date: "2020-02-23", day: 23, disabled: false },
+      { date: "2020-02-24", day: 24, disabled: false },
+      { date: "2020-02-25", day: 25, disabled: false },
+      { date: "2020-02-26", day: 26, disabled: false },
+      { date: "2020-02-27", day: 27, disabled: false },
+      { date: "2020-02-28", day: 28, disabled: false },
+      { date: "2020-02-29", day: 29, disabled: false },
+    ],
+    [
+      { date: "2020-03-01", day: 1, disabled: true },
+      { date: "2020-03-02", day: 2, disabled: true },
+      { date: "2020-03-03", day: 3, disabled: true },
+      { date: "2020-03-04", day: 4, disabled: true },
+      { date: "2020-03-05", day: 5, disabled: true },
+      { date: "2020-03-06", day: 6, disabled: true },
+      { date: "2020-03-07", day: 7, disabled: true },
+    ],
+  ];
+  // Set the default focus day to the current day.
   let focusDay = new Date();
-  let selectedDay = new Date(0, 0, 1);
+  // Set the default selected day to the focusDay.
+  let selectedDay = getISODate(focusDay);
   let monthYearHeading = "";
+  let messageCursorKeys = "Cursor keys can navigate dates";
 
-  // After this is implemented, then rename it to `updateCalendar()`.
-  function updateGrid() {
+  /**
+   * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
+   */
+  function getISODate(date) {
+    // Get the current date in US format, which also pads the dates with leading zeros when necessary.
+    // See https://stackoverflow.com/a/47160545/9453009
+    const localeDateString = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+
+    return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
+  }
+
+  // This used to be called `updateGrid()`.
+  function updateCalendar() {
     const fd = focusDay;
 
-    // TODO: Then continue here second.
     monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
+    console.log("monthYearHeading:", monthYearHeading);
 
+    // Create a Date object with the first day of the current month.
     let firstDayOfMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
+    // Get the day of the week as a number. 0 represents Sunday.
     let dayOfWeek = firstDayOfMonth.getDay();
 
+    // Get the date of the Sunday that is before the first day of the month and set `firstDayOfMonth` to that date. If the first day of the month is a Sunday, then `firstDayOfMonth` will remain that date.
+    // Get the first day of the month as a number. Subtract the day of the week (which is a number) from the first day of the month. `setDate()` is the opposite of the `getDate()` - it will set, or change, the date of the Date object it is referencing. If the date that is being set is before or after the month in the Date object, then the month in the Date object will also be changed.
     firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
 
+    // Create a new Date object that represents the Sunday that is before the first day of the month.
     const d = new Date(firstDayOfMonth);
 
-    for (let i = 0; i < days.length; i++) {
-      const flag = d.getMonth() != fd.getMonth();
-      updateDate(
-        days[i],
-        flag,
-        d,
-        isSameDay(d, selectedDay)
-      );
-      d.setDate(d.getDate() + 1);
+    // TODO: Populate the `dates` array.
+    // Clear the `dates` array.
+    dates.length = 0;
+    dates = [];
 
-      // Hide last row if all dates are disabled (e.g. in next month)
-      if (i === 35) {
-        if (flag) {
-          this.lastRowNode.style.visibility = 'hidden';
-        } else {
-          this.lastRowNode.style.visibility = 'visible';
+    // WORK
+    // This for loop will populate the `dates` array with up to 6 nested arrays (representing the weeks of the month) and each nested array will have 7 calendar date objects (representing the days of the week). 
+    // NOTE: If there are no dates in the 6th week of the month, then there will only be 5 nested week arrays.
+    for (let i = 0; i < 6; i++) {
+      dates.push([]);
+      for (let j = 0; j < 7; j++) {
+        // If this is the 6th week of the month and the first day of this 6th week is in the subsequent month, then break out of the loop so no other dates will be populated.
+        if (i === 5 && j === 0 && d.getMonth() !== fd.getMonth()) {
+          break;
+        }
+        // Else, push the calendar date objects to the nested week array.
+        else {
+          dates[i].push({ 
+            date: getISODate(d),
+            day: d.getDate(),
+            // If the date is not in the current month, then set `disabled` to true.
+            disabled: d.getMonth() !== fd.getMonth(),
+          });
+          // Update the date to be next day so the entire calendar of dates will be populated.
+          d.setDate(d.getDate() + 1);
         }
       }
     }
@@ -245,7 +335,7 @@
       );
 
       // Create Grid of Dates
-      // TODO: Continue here first. Create the grid of dates, then return back to the other TODO.
+      // TODO: Create the grid of dates.
       this.tbodyNode.innerHTML = '';
       for (let i = 0; i < 6; i++) {
         const row = this.tbodyNode.insertRow(i);
@@ -984,8 +1074,14 @@
         type="button" 
         class="date-btn" 
         aria-label="Choose Date"
-        on:click={() => showDialog = !showDialog}
-        on:keydown={() => showDialog = !showDialog}
+        on:click={() => {
+          updateCalendar();
+          showDialog = !showDialog;
+        }}
+        on:keydown={() => {
+          updateCalendar();
+          showDialog = !showDialog;
+        }}
       >
         <Icon icon={btnIcon} width={btnIconSize} />
       </button>
@@ -1003,7 +1099,7 @@
           <Icon icon="vaadin:angle-left" width="24" />
         </button>
 
-        <span id="id-grid-label" class="month-year-heading" aria-live="polite">February 2020</span>
+        <span id="id-grid-label" class="month-year-heading" aria-live="polite">{monthYearHeading}</span>
 
         <button type="button" class="next-month" aria-label="next month">
           <Icon icon="vaadin:angle-right" width="24" />
@@ -1028,6 +1124,49 @@
             </tr>
           </thead>
 
+          <!-- TODO: WORK
+          for (let i = 0; i < 6; i++) {
+            const row = this.tbodyNode.insertRow(i);
+            this.lastRowNode = row;
+            for (let j = 0; j < 7; j++) {
+              const cell = document.createElement('td');
+    
+              cell.tabIndex = -1;
+              cell.addEventListener('click', this.handleDayClick.bind(this));
+              cell.addEventListener('keydown', this.handleDayKeyDown.bind(this));
+              cell.addEventListener('focus', this.handleDayFocus.bind(this));
+    
+              cell.textContent = '-1';
+    
+              row.appendChild(cell);
+              this.days.push(cell);
+            }
+          }
+          -->
+          <tbody>
+            {#each dates as week}
+              <tr>
+                {#each week as day}
+                  <td
+                    tabindex="{selectedDay === day.date ? 0 : -1}"
+                    role={selectedDay === day.date ? "gridcell" : null}
+                    aria-selected={selectedDay === day.date ? true : null}
+                    data-date={day.date}
+                    class:disabled={day.disabled}
+                    on:click={() => handleDayClick(day)}
+                    on:keydown={(event) => handleDayKeyDown(event, day)}
+                    on:focus={() => handleDayFocus()}
+                  >
+                    {#if !day.disabled}
+                      {day.day}
+                    {/if}
+                  </td>
+                {/each}
+              </tr>
+            {/each}
+          </tbody>
+
+          <!--
           <tbody>
             <tr>
               <td class="disabled" tabindex="-1"></td>
@@ -1084,6 +1223,7 @@
               <td class="disabled" tabindex="-1"></td>
             </tr>
           </tbody>
+          -->
         </table>
       </div>
 
@@ -1091,7 +1231,7 @@
         <button class="dialog-button" value="cancel">Cancel</button>
         <button class="dialog-button" value="ok">OK</button>
       </div>
-      <div class="dialog-message" aria-live="polite"></div>
+      <div class="dialog-message" aria-live="polite">{ messageCursorKeys }</div>
     </div>
   {/if}
 </div>
@@ -1188,7 +1328,71 @@
     }
 
     & .calendar {
-      width: 320px;
+      /* width: 320px; */
+      margin: 0;
+      padding: 10px;
+      padding-bottom: 0;
+      border: none;
+      border-collapse: separate;
+
+      & tr {
+        border: 1px solid var(--text-color-default);
+      }
+
+      & th, & td {
+        padding: 0;
+        text-align: center;
+        background: var(--white);
+        color: var(--text-color-default);
+        border: none;
+      }
+
+      & td {
+        background-color: var(--neutral-200);
+        padding: 3px;
+        margin: 0;
+        line-height: inherit;
+        height: 40px;
+        /* width: 40px; */
+        border-radius: var(--border-radius);
+        font-size: 15px;
+        background: var(--neutral-200);
+      
+        &.disabled {
+          /* padding: 2px;
+          border: none;
+          height: 41px;
+          width: 41px; */
+          /* pointer-events: none; */
+        }
+
+        &:focus, &:hover {
+          padding: 0;
+          background-color: var(--neutral-600);
+          color: var(--text-color-default);
+        }
+
+        &:focus {
+          padding: 1px;
+          border: 2px solid rgb(100 100 100);
+          outline: 0;
+        }
+      }
+
+      & td[tabindex="0"] {
+        background-color: var(--secondary-color);
+        color: var(--white);
+      }
+
+      & td[aria-selected] {
+        padding: 1px;
+        border: 2px dotted rgb(100 100 100);
+      
+        &:focus {
+          padding: 1px;
+          border: 2px solid rgb(100 100 100);
+        }
+      }
     }
 
     & .dialog-ok-cancel-group {
@@ -1218,84 +1422,13 @@
         }
       }
     }
-  }
 
-  .datepicker-dialog table.calendar {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 1em;
-    border: none;
-    border-collapse: separate;
-  }
-
-  .datepicker-dialog table.calendar th,
-  .datepicker-dialog table.calendar td {
-    text-align: center;
-    background: var(--white);
-    color: var(--text-color-default);
-    border: none;
-  }
-
-  .datepicker-dialog table.calendar tr {
-    border: 1px solid var(--text-color-default);
-  }
-
-  .datepicker-dialog table.calendar td {
-    padding: 3px;
-    margin: 0;
-    line-height: inherit;
-    height: 40px;
-    width: 40px;
-    border-radius: var(--border-radius);
-    font-size: 15px;
-    background: var(--neutral-200);
-  }
-
-  .datepicker-dialog table.calendar td.disabled {
-    padding: 2px;
-    border: none;
-    height: 41px;
-    width: 41px;
-  }
-
-  .datepicker-dialog table.calendar td:focus,
-  .datepicker-dialog table.calendar td:hover {
-    padding: 0;
-    background-color: var(--neutral-200);
-    color: var(--text-color-default);
-  }
-
-  .datepicker-dialog table.calendar td:focus {
-    padding: 1px;
-    border: 2px solid rgb(100 100 100);
-    outline: 0;
-  }
-
-  .datepicker-dialog table.calendar td:not(.disabled):hover {
-    padding: 2px;
-    border: 1px solid rgb(100 100 100);
-  }
-
-  .datepicker-dialog table.calendar td[aria-selected] {
-    padding: 1px;
-    border: 2px dotted rgb(100 100 100);
-  }
-
-  .datepicker-dialog table.calendar td[aria-selected]:focus {
-    padding: 1px;
-    border: 2px solid rgb(100 100 100);
-  }
-
-  .datepicker-dialog table.calendar td[tabindex="0"] {
-    background-color: var(--secondary-color);
-    color: var(--white);
-  }
-
-  .datepicker-dialog .dialog-message {
-    padding-top: 0.25em;
-    padding-left: 1em;
-    height: 1.75em;
-    background: var(--secondary-color);
-    color: var(--white);
+    & .dialog-message {
+      padding-top: 0.25em;
+      padding-left: 1em;
+      height: 1.75em;
+      background: var(--secondary-color);
+      color: var(--white);
+    }
   }
 </style>
