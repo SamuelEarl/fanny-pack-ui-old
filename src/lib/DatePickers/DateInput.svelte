@@ -224,7 +224,7 @@
     </div>
   </div>
   {#if showCalendar}
-    <div class="calendar-container" tabindex="-1" bind:this={activeCalendar} class:showCalendar transition:fly|local>
+    <div class="calendar-container" tabindex="-1" bind:this={activeCalendar} class:showCalendar transition:fly>
       <div class="triangle-up"></div>
       <Calendar
         on:focusout={handleHideCalendar}

@@ -13,6 +13,9 @@ const config = {
 	// Consult https://github.com/sveltejs/svelte-preprocess
 	// for more information about preprocessors
 	preprocess: [
+    // The order of preprocessors matters: 
+    // https://svelte.dev/docs/v4-migration-guide#preprocessors
+    mdsvex(mdsvexConfig),
     vitePreprocess(),
     // You need to also configure the `svelte-preprocess` plugin:
     // https://kit.svelte.dev/docs/integrations#preprocessors-svelte-preprocess
@@ -42,7 +45,6 @@ const config = {
 				]
 			}
 		}),
-		mdsvex(mdsvexConfig)
 	],
 
 	kit: {

@@ -202,7 +202,7 @@
   into and out of the DOM. So I am using a `display: none` style rule instead. 
 -->
 <!-- {#if screenWidth < 1024} -->
-  <nav class="main-nav" transition:fly|local>
+  <nav class="main-nav" transition:fly>
     <ul class="main-nav-list">
       {#each mainNav as section}
         <li class="section-heading">{section.sectionHeading}
