@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Calendar, DateInput, TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
+  import { Calendar, DateInput, DatePicker, TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
 
   let date = new Date();
   let dateIsValid = false;
@@ -30,6 +30,10 @@
 # Date Picker
 
 The code for this component was taken from this great [date picker component](https://github.com/probablykasper/date-picker-svelte) and has been modified to make it more themable.
+
+---
+
+<DatePicker />
 
 ---
 

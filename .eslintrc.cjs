@@ -4,9 +4,6 @@ module.exports = {
   extends: ["eslint:recommended", "plugin:@typescript-eslint/recommended", "plugin:svelte/recommended", "prettier"],
   plugins: ["@typescript-eslint"],
   ignorePatterns: ["*.cjs"],
-  // settings: {
-  //   "svelte3/typescript": () => require("typescript")
-  // },
   parserOptions: {
 		sourceType: "module",
 		ecmaVersion: 2020,
