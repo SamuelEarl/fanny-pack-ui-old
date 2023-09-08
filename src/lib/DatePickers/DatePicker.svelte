@@ -10,7 +10,109 @@
   export let btnIcon = "mdi:calendar";
   export let btnIconSize = "24";
 
+  const dayLabels = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  const monthLabels = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
   let showDialog = false;
+  let days = [];
+  let focusDay = new Date();
+  let selectedDay = new Date(0, 0, 1);
+  let monthYearHeading = "";
+
+  // After this is implemented, then rename it to `updateCalendar()`.
+  function updateGrid() {
+    const fd = focusDay;
+
+    // TODO: Then continue here second.
+    monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
+
+    let firstDayOfMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
+    let dayOfWeek = firstDayOfMonth.getDay();
+
+    firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
+
+    const d = new Date(firstDayOfMonth);
+
+    for (let i = 0; i < days.length; i++) {
+      const flag = d.getMonth() != fd.getMonth();
+      updateDate(
+        days[i],
+        flag,
+        d,
+        isSameDay(d, selectedDay)
+      );
+      d.setDate(d.getDate() + 1);
+
+      // Hide last row if all dates are disabled (e.g. in next month)
+      if (i === 35) {
+        if (flag) {
+          this.lastRowNode.style.visibility = 'hidden';
+        } else {
+          this.lastRowNode.style.visibility = 'visible';
+        }
+      }
+    }
+  }
+
+  function updateDate(domNode, disable, day, selected) {
+    let d = day.getDate().toString();
+    if (day.getDate() <= 9) {
+      d = '0' + d;
+    }
+
+    let m = day.getMonth() + 1;
+    if (day.getMonth() < 9) {
+      m = '0' + m;
+    }
+
+    domNode.tabIndex = -1;
+    domNode.removeAttribute('aria-selected');
+    domNode.setAttribute('data-date', day.getFullYear() + '-' + m + '-' + d);
+
+    if (disable) {
+      domNode.classList.add('disabled');
+      domNode.textContent = '';
+    } else {
+      domNode.classList.remove('disabled');
+      domNode.textContent = day.getDate();
+      if (selected) {
+        domNode.setAttribute('aria-selected', 'true');
+        domNode.tabIndex = 0;
+      }
+    }
+  }
+
+  function isSameDay(day1, day2) {
+    return (
+      day1.getFullYear() == day2.getFullYear() &&
+      day1.getMonth() == day2.getMonth() &&
+      day1.getDate() == day2.getDate()
+    );
+  }
+
+
 
   class DatePickerDialog {
     constructor(cdp) {
@@ -143,7 +245,7 @@
       );
 
       // Create Grid of Dates
-
+      // TODO: Continue here first. Create the grid of dates, then return back to the other TODO.
       this.tbodyNode.innerHTML = '';
       for (let i = 0; i < 6; i++) {
         const row = this.tbodyNode.insertRow(i);
