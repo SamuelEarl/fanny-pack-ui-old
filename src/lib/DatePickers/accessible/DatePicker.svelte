@@ -121,7 +121,6 @@
 
         &:focus {
           outline: none;
-          background-color: var(--white);
         }
       }
     }

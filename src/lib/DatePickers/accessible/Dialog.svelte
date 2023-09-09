@@ -1132,21 +1132,42 @@
   transition:fly
 >
   <div class="header">
-    <button type="button" class="prev-year" aria-label="previous year">
+    <button 
+      type="button" 
+      class="prev-year" 
+      aria-label="previous year"
+      on:click={() => moveToPreviousYear(focusDay)}
+    >
       <Icon icon="vaadin:angle-double-left" width="24" />
     </button>
 
-    <button type="button" class="prev-month" aria-label="previous month">
+    <button
+      type="button" 
+      class="prev-month" 
+      aria-label="previous month"
+      on:click={() => moveToPreviousMonth(focusDay)}
+    >
       <Icon icon="vaadin:angle-left" width="24" />
     </button>
 
-    <span id="id-grid-label" class="month-year-heading" aria-live="polite">{monthYearHeading}</span>
+    <span id="id-grid-label" class="month-year-heading" aria-live="polite">{ monthYearHeading }</span>
 
-    <button type="button" class="next-month" aria-label="next month">
+    <button
+      type="button" 
+      class="next-month" 
+      aria-label="next month"
+      on:click={() => moveToNextMonth(focusDay)}
+    >
       <Icon icon="vaadin:angle-right" width="24" />
     </button>
 
-    <button type="button" class="next-year" aria-label="next year" bind:this={nextYearBtn}>
+    <button
+      type="button" 
+      class="next-year" 
+      aria-label="next year" 
+      bind:this={nextYearBtn}
+      on:click={() => moveToNextYear(focusDay)}
+    >
       <Icon icon="vaadin:angle-double-right" width="24" />
     </button>
   </div>
@@ -1316,6 +1337,7 @@
     padding: 0;
     background-color: var(--white);
     z-index: 2;
+    box-shadow: var(--box-shadow-depth);
 
     & .header {
       cursor: default;
@@ -1418,6 +1440,7 @@
         font-size: 0.85em;
         color: var(--text-color-default);
         outline: none;
+        border: var(--border-default);
         border-radius: var(--border-radius);
 
         &:focus {
