@@ -1,23 +1,18 @@
-<!-- 
-  This content is licensed according to the W3C Software License at
-  https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
--->
-
 <script lang="ts">
-  import { tick } from "svelte";
+  import { onMount, tick, createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import Icon from "@iconify/svelte";
+  import { getDateObjFromISO, getISOFromDateObj } from "./utils";
 
-  export let value = getISOFromDateObj(new Date());
-  export let btnIcon = "mdi:calendar";
-  export let btnIconSize = "24";
+  export let value = "";
 
-  let showDialog = false;
+  const dispatch = createEventDispatcher();
+  $: dispatch("change", value);
+
   let focusDay = value;
-  let calendarDialog;
   let cancelBtn;
+  let okBtn;
   let nextYearBtn;
-  let lastDate = -1;
 
   const dayLabels = [
     "Sunday",
@@ -105,35 +100,16 @@
   let monthYearHeading = "";
   let dialogMessage = "Cursor keys can navigate dates";
 
-  /**
-   * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
-   */
-  function getISOFromDateObj(dateObj: Date) {
-    // Get the current date in US format, which also pads the dates with leading zeros when necessary.
-    // See https://stackoverflow.com/a/47160545/9453009
-    const localeDateString = dateObj.toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-
-    return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
-  }
-
-  /**
-   * Accept a date string in ISO format (YYYY-MM-DD) and return a date object.
-   * NOTE: If I simply pass the ISO string to the `new Date()` constructor, then the date could be off by a day depending on the timezone. However, if I create a new Date object and then parse out the year, month, and day with the getUTC* functions (aka getISO* functions), then the date appears to be accurate. I think the reason for that is because the string that is being passed to this function is an ISO string and when you parse that string into a Date object using the getUTC* functions, then you will get the correct date. I think this is because both the input (ISO string) and output (Date object) are using the same timezone, so there are no one-off errors due to the timezone conversions.
-   */  
-  function getDateObjFromISO(isoDateString: string) {
-    const d = new Date(isoDateString);
-    const utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
-    return utcDate;
-  }
+  onMount(() => {
+    updateCalendar();
+    setFocusDay();
+  });
 
   // This function used to be called `updateGrid()`.
   function updateCalendar() {
     // fd = focus date.
-    const fd = getDateObjFromISO(value);
+    // const fd = getDateObjFromISO(value);
+    const fd = getDateObjFromISO(focusDay);
     console.log("FOCUS DATE:", fd);
 
     monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
@@ -178,24 +154,16 @@
     }
   }
 
-  function showCalendar() {
-    updateCalendar();
-    showDialog = !showDialog;
-    // If the dialog is displaying in the DOM, then give the selected day the focus.
-    if (showDialog) {
-      setFocusDay();
-    }
-  }
-
   async function setFocusDay() {
     await tick();
     const focusedDay = document.querySelector('td[tabindex="0"]');
+    console.log("focusedDay:", focusedDay);
     focusedDay.focus();
   }
 
   function handleDayClick(day) {
     value = day.date;
-    showDialog = false;
+    dispatch("hideDialog");
 
     // console.log("which:", event.which);
     // if (!this.isDayDisabled(event.currentTarget) && event.which !== 3) {
@@ -210,11 +178,12 @@
   async function handleDayKeyDown(event, day, weekIndex, dayIndex) {
     console.log("handleDayKeyDown:", event.key);
     let flag = false;
+    let shouldSetFocusDay = true;
 
     switch (event.key) {
       case "Esc":
       case "Escape":
-        showDialog = false;
+        dispatch("hideDialog");
         break;
 
       case " ":
@@ -224,18 +193,19 @@
 
       case "Enter":
         value = day.date;
-        showDialog = false;
+        dispatch("hideDialog");
         flag = true;
         break;
 
+      // TODO: The Tab key is not working.
       case "Tab":
-        console.log("TAB");
         cancelBtn.focus();
         if (event.shiftKey) {
           nextYearBtn.focus();
         }
         dialogMessage = "";
         flag = true;
+        shouldSetFocusDay = false;
         break;
 
       case "Right":
@@ -294,8 +264,9 @@
     }
 
     // Put the focus on the newly selected date.
-    await tick();
-    setFocusDay();
+    if (shouldSetFocusDay) {
+      setFocusDay();
+    }
 
     if (flag) {
       event.stopPropagation();
@@ -430,89 +401,6 @@
     focusDay = getISOFromDateObj(new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()));
     updateCalendar();
   }
-
-  function moveFocusToDay(day) {
-    const d = focusDay;
-
-    focusDay = day;
-
-    if (
-      d.getMonth() != focusDay.getMonth() ||
-      d.getFullYear() != focusDay.getFullYear()
-    ) {
-      updateCalendar();
-    }
-    setFocusDay();
-  }
-
-  // function setFocusDay(flag) {
-  //   if (typeof flag !== 'boolean') {
-  //     flag = true;
-  //   }
-
-  //   for (let i = 0; i < this.days.length; i++) {
-  //     const dayNode = this.days[i];
-  //     const day = this.getDayFromDataDateAttribute(dayNode);
-
-  //     dayNode.tabIndex = -1;
-  //     if (this.isSameDay(day, this.focusDay)) {
-  //       dayNode.tabIndex = 0;
-  //       if (flag) {
-  //         dayNode.focus();
-  //       }
-  //     }
-  //   }
-
-  //   for (let i = 0; i < dates.length; i++) {
-  //     const date = dates[i];
-  //     const day = getDayFromDataDateAttribute(date);
-
-  //     date.tabIndex = -1;
-  //     if (this.isSameDay(day, this.focusDay)) {
-  //       dayNode.tabIndex = 0;
-  //       if (flag) {
-  //         dayNode.focus();
-  //       }
-  //     }
-  //   }
-  // }
-
-  function updateDate(domNode, disable, day, selected) {
-    let d = day.getDate().toString();
-    if (day.getDate() <= 9) {
-      d = '0' + d;
-    }
-
-    let m = day.getMonth() + 1;
-    if (day.getMonth() < 9) {
-      m = '0' + m;
-    }
-
-    domNode.tabIndex = -1;
-    domNode.removeAttribute('aria-selected');
-    domNode.setAttribute('data-date', day.getFullYear() + '-' + m + '-' + d);
-
-    if (disable) {
-      domNode.classList.add('disabled');
-      domNode.textContent = '';
-    } else {
-      domNode.classList.remove('disabled');
-      domNode.textContent = day.getDate();
-      if (selected) {
-        domNode.setAttribute('aria-selected', 'true');
-        domNode.tabIndex = 0;
-      }
-    }
-  }
-
-  function isSameDay(day1, day2) {
-    return (
-      day1.getFullYear() == day2.getFullYear() &&
-      day1.getMonth() == day2.getMonth() &&
-      day1.getDate() == day2.getDate()
-    );
-  }
-
 
 
   class DatePickerDialog {
@@ -670,21 +558,6 @@
       this.setDateForButtonLabel();
     }
 
-    isSameDay(day1, day2) {
-      return (
-        day1.getFullYear() == day2.getFullYear() &&
-        day1.getMonth() == day2.getMonth() &&
-        day1.getDate() == day2.getDate()
-      );
-    }
-
-    isNotSameMonth(day1, day2) {
-      return (
-        day1.getFullYear() != day2.getFullYear() ||
-        day1.getMonth() != day2.getMonth()
-      );
-    }
-
     updateGrid() {
       const fd = this.focusDay;
 
@@ -719,34 +592,6 @@
       }
     }
 
-    updateDate(domNode, disable, day, selected) {
-      let d = day.getDate().toString();
-      if (day.getDate() <= 9) {
-        d = '0' + d;
-      }
-
-      let m = day.getMonth() + 1;
-      if (day.getMonth() < 9) {
-        m = '0' + m;
-      }
-
-      domNode.tabIndex = -1;
-      domNode.removeAttribute('aria-selected');
-      domNode.setAttribute('data-date', day.getFullYear() + '-' + m + '-' + d);
-
-      if (disable) {
-        domNode.classList.add('disabled');
-        domNode.textContent = '';
-      } else {
-        domNode.classList.remove('disabled');
-        domNode.textContent = day.getDate();
-        if (selected) {
-          domNode.setAttribute('aria-selected', 'true');
-          domNode.tabIndex = 0;
-        }
-      }
-    }
-
     moveFocusToDay(day) {
       const d = this.focusDay;
 
@@ -759,52 +604,6 @@
         this.updateGrid();
       }
       this.setFocusDay();
-    }
-
-    setFocusDay(flag) {
-      if (typeof flag !== 'boolean') {
-        flag = true;
-      }
-
-      for (let i = 0; i < this.days.length; i++) {
-        const dayNode = this.days[i];
-        const day = this.getDayFromDataDateAttribute(dayNode);
-
-        dayNode.tabIndex = -1;
-        if (this.isSameDay(day, this.focusDay)) {
-          dayNode.tabIndex = 0;
-          if (flag) {
-            dayNode.focus();
-          }
-        }
-      }
-    }
-
-    open() {
-      this.dialogNode.style.display = 'block';
-      this.dialogNode.style.zIndex = 2;
-
-      this.getDateFromTextbox();
-      this.updateGrid();
-      this.lastDate = this.focusDay.getDate();
-    }
-
-    isOpen() {
-      return window.getComputedStyle(this.dialogNode).display !== 'none';
-    }
-
-    close(flag) {
-      if (typeof flag !== 'boolean') {
-        // Default is to move focus to combobox
-        flag = true;
-      }
-
-      this.setMessage('');
-      this.dialogNode.style.display = 'none';
-
-      if (flag) {
-        this.buttonNode.focus();
-      }
     }
 
     changeMonth(currentDate, numMonths) {
@@ -929,30 +728,6 @@
       this.textboxNode.value =
         d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
       this.setDateForButtonLabel();
-    }
-
-    getDateFromTextbox() {
-      const parts = this.textboxNode.value.split('/');
-      const month = parseInt(parts[0]);
-      const day = parseInt(parts[1]);
-      let year = parseInt(parts[2]);
-
-      if (
-        parts.length === 3 &&
-        Number.isInteger(month) &&
-        Number.isInteger(day) &&
-        Number.isInteger(year)
-      ) {
-        if (year < 100) {
-          year = 2000 + year;
-        }
-        this.focusDay = new Date(year, month - 1, day);
-        this.selectedDay = new Date(this.focusDay);
-      } else {
-        // If not a valid date (MM/DD/YY) initialize with todays date
-        this.focusDay = new Date();
-        this.selectedDay = new Date(0, 0, 1);
-      }
     }
 
     setDateForButtonLabel() {
@@ -1335,31 +1110,6 @@
         event.preventDefault();
       }
     }
-
-    handleButtonClick(event) {
-      if (this.isOpen()) {
-        this.close();
-      } else {
-        this.open();
-        this.setFocusDay();
-      }
-
-      event.stopPropagation();
-      event.preventDefault();
-    }
-
-    handleBackgroundMouseUp(event) {
-      if (
-        !this.buttonNode.contains(event.target) &&
-        !this.dialogNode.contains(event.target)
-      ) {
-        if (this.isOpen()) {
-          this.close(false);
-          event.stopPropagation();
-          event.preventDefault();
-        }
-      }
-    }
   }
 
   // Initialize menu button date picker
@@ -1373,230 +1123,189 @@
   // });
 </script>
 
-<div class="datepicker">
-  <div class="date">
-    <label for="id-textbox-1">Date</label>
+<div
+  id="id-datepicker-1" 
+  class="datepicker-dialog" 
+  role="dialog" 
+  aria-modal="true" 
+  aria-label="Choose Date" 
+  transition:fly
+>
+  <div class="header">
+    <button type="button" class="prev-year" aria-label="previous year">
+      <Icon icon="vaadin:angle-double-left" width="24" />
+    </button>
 
-    <div class="input-btn-group">
-      <input
-        type="text" 
-        placeholder="YYYY-MM-DD" 
-        id="id-textbox-1" 
-        aria-describedby="id-description-1"
-        bind:value
-      >
-      <span id="id-description-1" class="desc screen-reader-only">date format: YYYY-MM-DD</span>
-      <button
-        type="button" 
-        class="date-btn" 
-        aria-label="Choose Date"
-        on:click={showCalendar}
-        on:keyup={showCalendar}
-      >
-        <Icon icon={btnIcon} width={btnIconSize} />
-      </button>
-    </div>
+    <button type="button" class="prev-month" aria-label="previous month">
+      <Icon icon="vaadin:angle-left" width="24" />
+    </button>
+
+    <span id="id-grid-label" class="month-year-heading" aria-live="polite">{monthYearHeading}</span>
+
+    <button type="button" class="next-month" aria-label="next month">
+      <Icon icon="vaadin:angle-right" width="24" />
+    </button>
+
+    <button type="button" class="next-year" aria-label="next year" bind:this={nextYearBtn}>
+      <Icon icon="vaadin:angle-double-right" width="24" />
+    </button>
   </div>
 
-  {#if showDialog}
-    <div
-      id="id-datepicker-1" 
-      class="datepicker-dialog" 
-      role="dialog" 
-      aria-modal="true" 
-      aria-label="Choose Date" 
-      transition:fly
-      bind:this={calendarDialog}
-    >
-      <div class="header">
-        <button type="button" class="prev-year" aria-label="previous year">
-          <Icon icon="vaadin:angle-double-left" width="24" />
-        </button>
+  <div class="table-wrapper">
+    <table class="calendar" role="grid" aria-labelledby="id-grid-label">
+      <thead>
+        <tr>
+          <th scope="col" abbr="Sunday">Su</th>
+          <th scope="col" abbr="Monday">Mo</th>
+          <th scope="col" abbr="Tuesday">Tu</th>
+          <th scope="col" abbr="Wednesday">We</th>
+          <th scope="col" abbr="Thursday">Th</th>
+          <th scope="col" abbr="Friday">Fr</th>
+          <th scope="col" abbr="Saturday">Sa</th>
+        </tr>
+      </thead>
 
-        <button type="button" class="prev-month" aria-label="previous month">
-          <Icon icon="vaadin:angle-left" width="24" />
-        </button>
-
-        <span id="id-grid-label" class="month-year-heading" aria-live="polite">{monthYearHeading}</span>
-
-        <button type="button" class="next-month" aria-label="next month">
-          <Icon icon="vaadin:angle-right" width="24" />
-        </button>
-
-        <button type="button" class="next-year" aria-label="next year" bind:this={nextYearBtn}>
-          <Icon icon="vaadin:angle-double-right" width="24" />
-        </button>
-      </div>
-
-      <div class="table-wrapper">
-        <table class="calendar" role="grid" aria-labelledby="id-grid-label">
-          <thead>
-            <tr>
-              <th scope="col" abbr="Sunday">Su</th>
-              <th scope="col" abbr="Monday">Mo</th>
-              <th scope="col" abbr="Tuesday">Tu</th>
-              <th scope="col" abbr="Wednesday">We</th>
-              <th scope="col" abbr="Thursday">Th</th>
-              <th scope="col" abbr="Friday">Fr</th>
-              <th scope="col" abbr="Saturday">Sa</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {#each dates as week, weekIndex}
-              <tr>
-                {#each week as day, dayIndex}
-                  <!-- role={focusDay === day.date ? "gridcell" : null} -->
-                  <!-- I think the <td> elements already have the "gridcell" role, so there doesn't appear to be any need to set role="gridcell". -->
-                  <td
-                    tabindex="{focusDay === day.date ? 0 : -1}"
-                    aria-selected={value === day.date ? true : null}
-                    data-date={day.date}
-                    class:disabled={day.disabled}
-                    on:click={() => handleDayClick(day)}
-                    on:keydown={(event) => handleDayKeyDown(event, day, weekIndex, dayIndex)}
-                    on:focus={() => dialogMessage = "Cursor keys can navigate dates"}
-                  >
-                    {#if !day.disabled}
-                      {day.day}
-                    {/if}
-                  </td>
-                {/each}
-              </tr>
+      <tbody>
+        {#each dates as week, weekIndex}
+          <tr>
+            {#each week as day, dayIndex}
+              <!-- role={focusDay === day.date ? "gridcell" : null} -->
+              <!-- I think the <td> elements already have the "gridcell" role, so there doesn't appear to be any need to set role="gridcell". -->
+              <td
+                tabindex="{focusDay === day.date ? 0 : -1}"
+                aria-selected={value === day.date ? true : null}
+                data-date={day.date}
+                class:disabled={day.disabled}
+                on:click={() => handleDayClick(day)}
+                on:keydown={(event) => handleDayKeyDown(event, day, weekIndex, dayIndex)}
+                on:focus={() => dialogMessage = "Cursor keys can navigate dates"}
+              >
+                {#if !day.disabled}
+                  {day.day}
+                {/if}
+              </td>
             {/each}
-          </tbody>
+          </tr>
+        {/each}
+      </tbody>
 
-          <!--
-          <tbody>
-            <tr>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td tabindex="-1" data-date="2020-02-01">1</td>
-            </tr>
-            <tr>
-              <td tabindex="-1" data-date="2020-02-02">2</td>
-              <td tabindex="-1" data-date="2020-02-03">3</td>
-              <td tabindex="-1" data-date="2020-02-04">4</td>
-              <td tabindex="-1" data-date="2020-02-05">5</td>
-              <td tabindex="-1" data-date="2020-02-06">6</td>
-              <td tabindex="-1" data-date="2020-02-07">7</td>
-              <td tabindex="-1" data-date="2020-02-08">8</td>
-            </tr>
-            <tr>
-              <td tabindex="-1" data-date="2020-02-09">9</td>
-              <td tabindex="-1" data-date="2020-02-10">10</td>
-              <td tabindex="-1" data-date="2020-02-11">11</td>
-              <td tabindex="-1" data-date="2020-02-12">12</td>
-              <td tabindex="-1" data-date="2020-02-13">13</td>
-              <td tabindex="0" data-date="2020-02-14" role="gridcell" aria-selected="true">14</td>
-              <td tabindex="-1" data-date="2020-02-15">15</td>
-            </tr>
-            <tr>
-              <td tabindex="-1" data-date="2020-02-16">16</td>
-              <td tabindex="-1" data-date="2020-02-17">17</td>
-              <td tabindex="-1" data-date="2020-02-18">18</td>
-              <td tabindex="-1" data-date="2020-02-19">19</td>
-              <td tabindex="-1" data-date="2020-02-20">20</td>
-              <td tabindex="-1" data-date="2020-02-21">21</td>
-              <td tabindex="-1" data-date="2020-02-22">22</td>
-            </tr>
-            <tr>
-              <td tabindex="-1" data-date="2020-02-23">23</td>
-              <td tabindex="-1" data-date="2020-02-24">24</td>
-              <td tabindex="-1" data-date="2020-02-25">25</td>
-              <td tabindex="-1" data-date="2020-02-26">26</td>
-              <td tabindex="-1" data-date="2020-02-27">27</td>
-              <td tabindex="-1" data-date="2020-02-28">28</td>
-              <td tabindex="-1" data-date="2020-02-29">29</td>
-            </tr>
-            <tr>
-              <td tabindex="-1" data-date="2020-02-30">30</td>
-              <td tabindex="-1" data-date="2020-02-31">31</td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-              <td class="disabled" tabindex="-1"></td>
-            </tr>
-          </tbody>
-          -->
-        </table>
-      </div>
+      <!--
+      <tbody>
+        <tr>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td tabindex="-1" data-date="2020-02-01">1</td>
+        </tr>
+        <tr>
+          <td tabindex="-1" data-date="2020-02-02">2</td>
+          <td tabindex="-1" data-date="2020-02-03">3</td>
+          <td tabindex="-1" data-date="2020-02-04">4</td>
+          <td tabindex="-1" data-date="2020-02-05">5</td>
+          <td tabindex="-1" data-date="2020-02-06">6</td>
+          <td tabindex="-1" data-date="2020-02-07">7</td>
+          <td tabindex="-1" data-date="2020-02-08">8</td>
+        </tr>
+        <tr>
+          <td tabindex="-1" data-date="2020-02-09">9</td>
+          <td tabindex="-1" data-date="2020-02-10">10</td>
+          <td tabindex="-1" data-date="2020-02-11">11</td>
+          <td tabindex="-1" data-date="2020-02-12">12</td>
+          <td tabindex="-1" data-date="2020-02-13">13</td>
+          <td tabindex="0" data-date="2020-02-14" role="gridcell" aria-selected="true">14</td>
+          <td tabindex="-1" data-date="2020-02-15">15</td>
+        </tr>
+        <tr>
+          <td tabindex="-1" data-date="2020-02-16">16</td>
+          <td tabindex="-1" data-date="2020-02-17">17</td>
+          <td tabindex="-1" data-date="2020-02-18">18</td>
+          <td tabindex="-1" data-date="2020-02-19">19</td>
+          <td tabindex="-1" data-date="2020-02-20">20</td>
+          <td tabindex="-1" data-date="2020-02-21">21</td>
+          <td tabindex="-1" data-date="2020-02-22">22</td>
+        </tr>
+        <tr>
+          <td tabindex="-1" data-date="2020-02-23">23</td>
+          <td tabindex="-1" data-date="2020-02-24">24</td>
+          <td tabindex="-1" data-date="2020-02-25">25</td>
+          <td tabindex="-1" data-date="2020-02-26">26</td>
+          <td tabindex="-1" data-date="2020-02-27">27</td>
+          <td tabindex="-1" data-date="2020-02-28">28</td>
+          <td tabindex="-1" data-date="2020-02-29">29</td>
+        </tr>
+        <tr>
+          <td tabindex="-1" data-date="2020-02-30">30</td>
+          <td tabindex="-1" data-date="2020-02-31">31</td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+          <td class="disabled" tabindex="-1"></td>
+        </tr>
+      </tbody>
+      -->
+    </table>
+  </div>
 
-      <div class="dialog-ok-cancel-group">
-        <button 
-          class="dialog-button" 
-          value="cancel" 
-          bind:this={cancelBtn}
-          on:click={() => showDialog = false}
-        >
-          Cancel
-        </button>
-        <button 
-          class="dialog-button" 
-          value="ok"
-          on:click={() => {
-            value = focusDay;
-            showDialog = false;
-          }}
-        >
-          OK
-        </button>
-      </div>
-      <div class="dialog-message" aria-live="polite">{ dialogMessage }</div>
-    </div>
-  {/if}
+  <div class="dialog-ok-cancel-group">
+    <button
+      class="dialog-button" 
+      value="cancel" 
+      bind:this={cancelBtn}
+      on:click={() => dispatch("hideDialog")}
+      on:keydown={(event) => {
+        if (event.key === "Shift") {
+          event.preventDefault();
+        }
+        else if (event.key === "Tab")   {
+          okBtn.focus();
+          event.preventDefault();
+          if (event.shiftKey) {
+            setFocusDay();
+          }
+        }
+        else {
+          dispatch("hideDialog");
+        }
+      }}
+    >
+      Cancel
+    </button>
+    <button 
+      class="dialog-button" 
+      value="ok"
+      bind:this={okBtn}
+      on:click={() => {
+        value = focusDay;
+        dispatch("hideDialog");
+      }}
+      on:keydown={(event) => {
+        console.log("event.key:", event.key);
+        if (event.key === "Shift") {
+          event.preventDefault();
+        }
+        else if (event.key === "Tab") {
+          if (event.shiftKey) {
+            cancelBtn.focus();
+            event.preventDefault();
+          }
+        }
+        else {
+          value = focusDay;
+          dispatch("hideDialog");
+        }
+      }}
+    >
+      OK
+    </button>
+  </div>
+  <div class="dialog-message" aria-live="polite">{ dialogMessage }</div>
 </div>
 
 <style>
-  .screen-reader-only {
-    position: absolute;
-    top: -2000em;
-    left: -3000em;
-  }
-
-  .datepicker {
-    margin-top: 1em;
-    position: relative;
-
-    & .input-btn-group {
-      display: flex;
-      align-items: center;
-
-      & input {
-        padding: 5px;
-        margin: 0;
-        background-color: var(--white);
-        color: var(--text-color-default);
-        border: var(--border-default);
-        border-radius: var(--border-radius) 0 0 var(--border-radius);
-
-        &:focus {
-          outline: 2px solid var(--border-color-default);
-          border-radius: var(--border-radius);
-          /* outline-offset: 1px; */
-        }
-      }
-
-      & .date-btn {
-        padding: 5px;
-        border: var(--border-default);
-        border-left: 0;
-        background-color: var(--custom-date-input-btn-bg-color, var(--border-color-default));
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
-
-        &:focus {
-          outline: none;
-          background-color: var(--white);
-        }
-      }
-    }
-  }
-
   .datepicker-dialog {
     position: absolute;
     width: 320px;
@@ -1643,17 +1352,12 @@
       }
     }
 
-    & .calendar {
-      /* width: 320px; */
+    & table.calendar {
       margin: 0;
       padding: 10px;
       padding-bottom: 0;
       border: none;
       border-collapse: separate;
-
-      & tr {
-        border: 1px solid var(--text-color-default);
-      }
 
       & th, & td {
         padding: 0;
@@ -1670,34 +1374,26 @@
         margin: 0;
         line-height: inherit;
         height: 40px;
-        /* width: 40px; */
+        width: 40px;
         border-radius: var(--border-radius);
         font-size: 15px;
         background: var(--neutral-200);
+        cursor: pointer;
 
         &:focus, &:hover {
-          background-color: var(--neutral-300);
-          /* color: var(--text-color-default); */
+          background-color: var(--neutral-400);
+          border-color: var(--neutral-400);
         }
 
-        /* &:focus {
-          padding: 1px;
-          border: 2px solid rgb(100 100 100);
-          outline: 0;
-        } */
-
         &.disabled {
-          /* padding: 2px;
-          border: none;
-          height: 41px;
-          width: 41px; */
+          border-color: transparent;
           pointer-events: none;
         }
       }
 
       /* Selected date styles */
       & td[aria-selected] {
-        border: 1px dotted var(--secondary-color);
+        border: 2px dotted var(--secondary-color);
       }
 
       /* Focused date styles */
@@ -1726,12 +1422,12 @@
 
         &:focus {
           padding: 4px;
-          border: 2px solid black;
+          border: 2px solid var(--secondary-color);
         }
 
         &:hover {
           padding: 5px;
-          border: 1px solid black;
+          border: 1px solid var(--secondary-color);
         }
       }
     }
