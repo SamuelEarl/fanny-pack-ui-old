@@ -8,13 +8,13 @@
   import { fly } from "svelte/transition";
   import Icon from "@iconify/svelte";
 
-  export let value = getISODate(new Date());
+  export let value = getISOFromDateObj(new Date());
   export let btnIcon = "mdi:calendar";
   export let btnIconSize = "24";
 
   let showDialog = false;
+  let focusDay = value;
   let calendarDialog;
-  let focusedDay;
   let cancelBtn;
   let nextYearBtn;
   let lastDate = -1;
@@ -102,15 +102,13 @@
       { date: "2020-03-07", day: 7, disabled: true },
     ],
   ];
-  // // Set the default focus day to the current day.
-  let focusDay = new Date();
   let monthYearHeading = "";
   let dialogMessage = "Cursor keys can navigate dates";
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
    */
-  function getISODate(dateObj: Date) {
+  function getISOFromDateObj(dateObj: Date) {
     // Get the current date in US format, which also pads the dates with leading zeros when necessary.
     // See https://stackoverflow.com/a/47160545/9453009
     const localeDateString = dateObj.toLocaleDateString("en-US", {
@@ -139,7 +137,6 @@
     console.log("FOCUS DATE:", fd);
 
     monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
-    console.log("monthYearHeading:", monthYearHeading);
 
     // Create a Date object with the first day of the current month.
     let firstDayOfMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
@@ -169,7 +166,7 @@
         // Else, push the calendar date objects to the nested week array.
         else {
           dates[i].push({ 
-            date: getISODate(d),
+            date: getISOFromDateObj(d),
             day: d.getDate(),
             // If the date is not in the current month, then set `disabled` to true.
             disabled: d.getMonth() !== fd.getMonth(),
@@ -181,20 +178,22 @@
     }
   }
 
-  async function showCalendar() {
+  function showCalendar() {
     updateCalendar();
     showDialog = !showDialog;
     // If the dialog is displaying in the DOM, then give the selected day the focus.
     if (showDialog) {
-      await tick();
-      const selectedDateCell = document.querySelector("td[aria-selected]");
-      console.log("selectedDateCell:", selectedDateCell);
-      selectedDateCell.focus();
+      setFocusDay();
     }
   }
 
+  async function setFocusDay() {
+    await tick();
+    const focusedDay = document.querySelector('td[tabindex="0"]');
+    focusedDay.focus();
+  }
+
   function handleDayClick(day) {
-    console.log("handleDayClick Called");
     value = day.date;
     showDialog = false;
 
@@ -208,9 +207,8 @@
     // event.preventDefault();
   }
 
-  function handleDayKeyDown(event, day, weekIndex, dayIndex) {
-    console.log("EVENT:", event.key);
-    
+  async function handleDayKeyDown(event, day, weekIndex, dayIndex) {
+    console.log("handleDayKeyDown:", event.key);
     let flag = false;
 
     switch (event.key) {
@@ -220,7 +218,7 @@
         break;
 
       case " ":
-        value = day.date;
+        focusDay = day.date;
         flag = true;
         break;
 
@@ -231,6 +229,7 @@
         break;
 
       case "Tab":
+        console.log("TAB");
         cancelBtn.focus();
         if (event.shiftKey) {
           nextYearBtn.focus();
@@ -263,36 +262,40 @@
         flag = true;
         break;
 
+      case "Home":
+        moveFocusToFirstDayOfWeek(weekIndex);
+        flag = true;
+        break;
+
+      case "End":
+        moveFocusToLastDayOfWeek(weekIndex);
+        flag = true;
+        break;
+
       case "PageUp":
         if (event.shiftKey) {
-          this.moveToPreviousYear();
-        } else {
-          this.moveToPreviousMonth();
+          moveToPreviousYear(day.date);
+        } 
+        else {
+          moveToPreviousMonth(day.date);
         }
-        this.setFocusDay();
         flag = true;
         break;
 
       case "PageDown":
         if (event.shiftKey) {
-          this.moveToNextYear();
-        } else {
-          this.moveToNextMonth();
+          moveToNextYear(day.date);
         }
-        this.setFocusDay();
-        flag = true;
-        break;
-
-      case "Home":
-        this.moveFocusToFirstDayOfWeek();
-        flag = true;
-        break;
-
-      case "End":
-        this.moveFocusToLastDayOfWeek();
+        else {
+          moveToNextMonth(day.date);
+        }
         flag = true;
         break;
     }
+
+    // Put the focus on the newly selected date.
+    await tick();
+    setFocusDay();
 
     if (flag) {
       event.stopPropagation();
@@ -300,11 +303,10 @@
     }
   }
 
-
   async function moveFocusToNextDay(day, weekIndex, dayIndex) {    
     // If the weekIndex is the last row in the calendar and the next day is the first day of the next month (i.e. the focused day is the last day of the month, but the next day on the calendar is disabled because it is the first day of the next month), then set the `value` to be the first day of the next month and update the calendar to the next month.
     if (weekIndex === dates.length - 1 && dates[weekIndex][dayIndex + 1]?.disabled) {
-      value = dates[weekIndex][dayIndex + 1].date;
+      focusDay = dates[weekIndex][dayIndex + 1].date;
       updateCalendar();
     }
     // If the weekIndex is the last row in the calendar and the dayIndex is the last day in the week (i.e. the focused day is the last day of the month and it is also the last day on the last row and last column in the calendar), then set the `value` to be the first day of the next month and update the calendar to the next month.
@@ -312,27 +314,23 @@
       const d = getDateObjFromISO(day.date);
       // Update the date to be the first day of the next month.
       d.setDate(d.getDate() + 1);
-      value = getISODate(d);
+      focusDay = getISOFromDateObj(d);
       updateCalendar();
     }
     // If the dayIndex is the last day in the week, then add 1 to the weekIndex and set the dayIndex to 0.
     else if (dayIndex === 6) {
-      value = dates[weekIndex + 1][0].date;
+      focusDay = dates[weekIndex + 1][0].date;
     }
     // Else set the value to the next date.
     else {
-      value = dates[weekIndex][dayIndex + 1].date;
+      focusDay = dates[weekIndex][dayIndex + 1].date;
     }
-
-    await tick();
-    const selectedDateCell = document.querySelector("td[aria-selected]");
-    selectedDateCell.focus();
   }
 
-  async function moveFocusToPreviousDay(day, weekIndex, dayIndex) {    
+  function moveFocusToPreviousDay(day, weekIndex, dayIndex) {    
     // If the weekIndex is the first row in the calendar and the previous day is the last day of the previous month (i.e. the focused day is the first day of the month, but the previous day on the calendar is disabled because it is the last day of the previous month), then set the `value` to be the last day of the previous month and update the calendar to the previous month.
     if (weekIndex === 0 && dates[weekIndex][dayIndex - 1]?.disabled) {
-      value = dates[weekIndex][dayIndex - 1].date;
+      focusDay = dates[weekIndex][dayIndex - 1].date;
       updateCalendar();
     }
     // If the weekIndex is the first row in the calendar and the dayIndex is the first day in the week (i.e. the focused day is the first day of the month and it is also the first day on the first row and first column in the calendar), then set the `value` to be the last day of the previous month and update the calendar to the previous month.
@@ -340,27 +338,31 @@
       const d = getDateObjFromISO(day.date);
       // Update the date to be the last day of the previous month.
       d.setDate(d.getDate() - 1);
-      value = getISODate(d);
+      focusDay = getISOFromDateObj(d);
       updateCalendar();
     }
     // If the dayIndex is the first day in the week, then subtract 1 from the weekIndex and set the dayIndex to 6.
     else if (dayIndex === 0) {
-      value = dates[weekIndex - 1][6].date;
+      focusDay = dates[weekIndex - 1][6].date;
     }
     // Else set the value to the previous date.
     else {
-      value = dates[weekIndex][dayIndex - 1].date;
+      focusDay = dates[weekIndex][dayIndex - 1].date;
     }
-
-    await tick();
-    const selectedDateCell = document.querySelector("td[aria-selected]");
-    selectedDateCell.focus();
   }
 
-  async function moveFocusToNextWeek(day, weekIndex, dayIndex) {
+  function moveFocusToFirstDayOfWeek(weekIndex) {
+    focusDay = dates[weekIndex][0].date;
+  }
+
+  function moveFocusToLastDayOfWeek(weekIndex) {
+    focusDay = dates[weekIndex][6].date;
+  }
+
+  function moveFocusToNextWeek(day, weekIndex, dayIndex) {
     // If the day that will be highlighted in the next week is disabled because it is in the next month but the date is not displayed in the calendar (i.e. the weekIndex is the second to last nested array in the `dates` array), then set the `value` to be the focused day of the next month and update the calendar to the next month.
     if (weekIndex === dates.length - 2 && dates[weekIndex + 1][dayIndex]?.disabled) {
-      value = dates[weekIndex + 1][dayIndex].date;
+      focusDay = dates[weekIndex + 1][dayIndex].date;
       updateCalendar();
     }
     // If the day that will be highlighted is one week in the future and does not appear in the calendar (i.e. the focused day's weekIndex is the last row in the calendar), then add 7 days to the date object, set the `value` to be the updated date that is one week in the future, and update the calendar to the next month.
@@ -368,23 +370,19 @@
       const d = getDateObjFromISO(day.date);
       // Update the date to be the first day of the next month.
       d.setDate(d.getDate() + 7);
-      value = getISODate(d);
+      focusDay = getISOFromDateObj(d);
       updateCalendar();
     }
     // Else set the value to the next week's date.
     else {
-      value = dates[weekIndex + 1][dayIndex].date;
+      focusDay = dates[weekIndex + 1][dayIndex].date;
     }
-
-    await tick();
-    const selectedDateCell = document.querySelector("td[aria-selected]");
-    selectedDateCell.focus();
   }
 
-  async function moveFocusToPreviousWeek(day, weekIndex, dayIndex) {
+  function moveFocusToPreviousWeek(day, weekIndex, dayIndex) {
     // If the day that will be highlighted in the previous week is disabled because it is in the previous month but it is displaying in the calendar (i.e. the weekIndex is the second nested array in the `dates` array), then set the `value` to be the focused day of the previous month and update the calendar to the previous month.
     if (weekIndex === 1 && dates[weekIndex - 1][dayIndex]?.disabled) {
-      value = dates[weekIndex - 1][dayIndex].date;
+      focusDay = dates[weekIndex - 1][dayIndex].date;
       updateCalendar();
     }
     // If the day that will be highlighted is one week in the past and does not appear in the calendar (i.e. the focused day's weekIndex is the first row in the calendar), then subtract 7 days from the date object, set the `value` to be the updated date that is one week in the past, and update the calendar to the previous month.
@@ -392,17 +390,45 @@
       const d = getDateObjFromISO(day.date);
       // Update the date to be the first day of the next month.
       d.setDate(d.getDate() - 7);
-      value = getISODate(d);
+      focusDay = getISOFromDateObj(d);
       updateCalendar();
     }
     // Else set the value to the next week's date.
     else {
-      value = dates[weekIndex - 1][dayIndex].date;
+      focusDay = dates[weekIndex - 1][dayIndex].date;
     }
+  }
 
-    await tick();
-    const selectedDateCell = document.querySelector("td[aria-selected]");
-    selectedDateCell.focus();
+  function moveToPreviousMonth(date: string) {
+    // Create a new Date object from the ISO date string.
+    const d = getDateObjFromISO(date);
+    // Update the date to the previous month.
+    focusDay = getISOFromDateObj(new Date(d.getFullYear(), d.getMonth() - 1, d.getDate()));
+    updateCalendar();
+  }
+
+  function moveToNextMonth(date: string) {
+    // Create a new Date object from the ISO date string.
+    const d = getDateObjFromISO(date);
+    // Update the date to the next month.
+    focusDay = getISOFromDateObj(new Date(d.getFullYear(), d.getMonth() + 1, d.getDate()));
+    updateCalendar();
+  }
+
+  function moveToPreviousYear(date: string) {
+    // Create a new Date object from the ISO date string.
+    const d = getDateObjFromISO(date);
+    // Update the date to the previous year.
+    focusDay = getISOFromDateObj(new Date(d.getFullYear() - 1, d.getMonth(), d.getDate()));
+    updateCalendar();
+  }
+
+  function moveToNextYear(date: string) {
+    // Create a new Date object from the ISO date string.
+    const d = getDateObjFromISO(date);
+    // Update the date to the next year.
+    focusDay = getISOFromDateObj(new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()));
+    updateCalendar();
   }
 
   function moveFocusToDay(day) {
@@ -419,39 +445,37 @@
     setFocusDay();
   }
 
-  function setFocusDay(flag) {
-    if (typeof flag !== 'boolean') {
-      flag = true;
-    }
+  // function setFocusDay(flag) {
+  //   if (typeof flag !== 'boolean') {
+  //     flag = true;
+  //   }
 
-    // focusDay = 
+  //   for (let i = 0; i < this.days.length; i++) {
+  //     const dayNode = this.days[i];
+  //     const day = this.getDayFromDataDateAttribute(dayNode);
 
-    // for (let i = 0; i < this.days.length; i++) {
-    //   const dayNode = this.days[i];
-    //   const day = this.getDayFromDataDateAttribute(dayNode);
+  //     dayNode.tabIndex = -1;
+  //     if (this.isSameDay(day, this.focusDay)) {
+  //       dayNode.tabIndex = 0;
+  //       if (flag) {
+  //         dayNode.focus();
+  //       }
+  //     }
+  //   }
 
-    //   dayNode.tabIndex = -1;
-    //   if (this.isSameDay(day, this.focusDay)) {
-    //     dayNode.tabIndex = 0;
-    //     if (flag) {
-    //       dayNode.focus();
-    //     }
-    //   }
-    // }
+  //   for (let i = 0; i < dates.length; i++) {
+  //     const date = dates[i];
+  //     const day = getDayFromDataDateAttribute(date);
 
-    // for (let i = 0; i < dates.length; i++) {
-    //   const date = dates[i];
-    //   const day = getDayFromDataDateAttribute(date);
-
-    //   date.tabIndex = -1;
-    //   if (this.isSameDay(day, this.focusDay)) {
-    //     dayNode.tabIndex = 0;
-    //     if (flag) {
-    //       dayNode.focus();
-    //     }
-    //   }
-    // }
-  }
+  //     date.tabIndex = -1;
+  //     if (this.isSameDay(day, this.focusDay)) {
+  //       dayNode.tabIndex = 0;
+  //       if (flag) {
+  //         dayNode.focus();
+  //       }
+  //     }
+  //   }
+  // }
 
   function updateDate(domNode, disable, day, selected) {
     let d = day.getDate().toString();
@@ -1422,9 +1446,10 @@
             {#each dates as week, weekIndex}
               <tr>
                 {#each week as day, dayIndex}
+                  <!-- role={focusDay === day.date ? "gridcell" : null} -->
+                  <!-- I think the <td> elements already have the "gridcell" role, so there doesn't appear to be any need to set role="gridcell". -->
                   <td
-                    tabindex="{value === day.date ? 0 : -1}"
-                    role={value === day.date ? "gridcell" : null}
+                    tabindex="{focusDay === day.date ? 0 : -1}"
                     aria-selected={value === day.date ? true : null}
                     data-date={day.date}
                     class:disabled={day.disabled}
@@ -1503,8 +1528,24 @@
       </div>
 
       <div class="dialog-ok-cancel-group">
-        <button class="dialog-button" value="cancel" bind:this={cancelBtn}>Cancel</button>
-        <button class="dialog-button" value="ok">OK</button>
+        <button 
+          class="dialog-button" 
+          value="cancel" 
+          bind:this={cancelBtn}
+          on:click={() => showDialog = false}
+        >
+          Cancel
+        </button>
+        <button 
+          class="dialog-button" 
+          value="ok"
+          on:click={() => {
+            value = focusDay;
+            showDialog = false;
+          }}
+        >
+          OK
+        </button>
       </div>
       <div class="dialog-message" aria-live="polite">{ dialogMessage }</div>
     </div>
@@ -1625,6 +1666,7 @@
       & td {
         background-color: var(--neutral-200);
         padding: 3px;
+        border: var(--border-default);
         margin: 0;
         line-height: inherit;
         height: 40px;
@@ -1632,7 +1674,18 @@
         border-radius: var(--border-radius);
         font-size: 15px;
         background: var(--neutral-200);
-      
+
+        &:focus, &:hover {
+          background-color: var(--neutral-300);
+          /* color: var(--text-color-default); */
+        }
+
+        /* &:focus {
+          padding: 1px;
+          border: 2px solid rgb(100 100 100);
+          outline: 0;
+        } */
+
         &.disabled {
           /* padding: 2px;
           border: none;
@@ -1640,33 +1693,18 @@
           width: 41px; */
           pointer-events: none;
         }
-
-        &:focus, &:hover {
-          padding: 0;
-          background-color: var(--neutral-600);
-          color: var(--text-color-default);
-        }
-
-        &:focus {
-          padding: 1px;
-          border: 2px solid rgb(100 100 100);
-          outline: 0;
-        }
       }
 
+      /* Selected date styles */
+      & td[aria-selected] {
+        border: 1px dotted var(--secondary-color);
+      }
+
+      /* Focused date styles */
       & td[tabindex="0"] {
         background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
         color: var(--white);
-      }
-
-      & td[aria-selected] {
-        padding: 1px;
-        border: 2px dotted rgb(100 100 100);
-      
-        &:focus {
-          padding: 1px;
-          border: 2px solid rgb(100 100 100);
-        }
       }
     }
 
