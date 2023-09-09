@@ -2,7 +2,7 @@
   import { onMount, tick, createEventDispatcher } from "svelte";
   import { fly } from "svelte/transition";
   import Icon from "@iconify/svelte";
-  import { getDateObjFromISO, getISOFromDateObj } from "./utils";
+  import { getDateObjFromISO, getISOFromDateObj, isValidDate } from "./utils";
 
   export let value = "";
 
@@ -10,6 +10,13 @@
   $: dispatch("change", value);
 
   let focusDay = value;
+  // If the value that the user enters into the input field is not a valid date, then set `focusDay` to today's date so the calendar will display properly.
+  $: {
+    if (!isValidDate(focusDay)) {
+      focusDay = getISOFromDateObj(new Date());
+    }
+  }
+
   let cancelBtn;
   let okBtn;
   let nextYearBtn;
@@ -1399,12 +1406,10 @@
         width: 40px;
         border-radius: var(--border-radius);
         font-size: 15px;
-        background: var(--neutral-200);
         cursor: pointer;
 
-        &:focus, &:hover {
-          background-color: var(--neutral-400);
-          border-color: var(--neutral-400);
+        &:hover {
+          border-color: var(--secondary-color);
         }
 
         &.disabled {
@@ -1444,13 +1449,12 @@
         border-radius: var(--border-radius);
 
         &:focus {
-          padding: 4px;
+          padding: 5px;
           border: 2px solid var(--secondary-color);
         }
 
         &:hover {
-          padding: 5px;
-          border: 1px solid var(--secondary-color);
+          border-color: var(--secondary-color);
         }
       }
     }

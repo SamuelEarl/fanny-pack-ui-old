@@ -6,6 +6,8 @@
 
   let isoDate = getISODate(new Date());
   $: console.log("isoDate in docs:", isoDate);
+  let isoDateIsValid = false;
+  $: console.log("isoDateIsValid in docs:", isoDateIsValid);
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
@@ -55,9 +57,17 @@ The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD`
 
 ---
 
-<DatePicker 
-  bind:value={isoDate}
-/>
+<div class="date-wrapper">
+  <DatePicker 
+    bind:value={isoDate}
+    bind:isValid={isoDateIsValid}
+  />
+  {#if !isoDateIsValid}
+    <div class="invalid-error-wrapper">
+      <span class="invalid-error-msg">Invalid Date</span>
+    </div>
+  {/if}
+</div>
 
 ---
 
@@ -81,8 +91,8 @@ NOTE: The `YYYY-MM-DD` format is the ISO date format. Keep in mind that the actu
 
 <div class="date-wrapper">
   {#if !dateIsValid}
-    <div class="invalid-wrapper">
-      <span class="invalid">Invalid Date</span>
+    <div class="invalid-error-wrapper">
+      <span class="invalid-error-msg">Invalid Date</span>
     </div>
   {/if}
   <DateInput
@@ -115,8 +125,8 @@ Note that the value that is returned is a JavaScript Date object.
 
 <div class="date-wrapper">
   {#if !dateIsValid}
-    <div class="invalid-wrapper">
-      <span class="invalid">Invalid Date</span>
+    <div class="invalid-error-wrapper">
+      <span class="invalid-error-msg">Invalid Date</span>
     </div>
   {/if}
   <DateInput
@@ -141,8 +151,8 @@ Note that the value that is returned is a JavaScript Date object.
     margin-bottom: 20px;
   }
 
-  .invalid-wrapper {
-    margin-bottom: 5px;
+  .invalid-error-wrapper {
+    margin-top: 5px;
   }
   
   .invalid {
@@ -289,17 +299,19 @@ You can set the following custom variables:
 
 <style>
   .date-wrapper {
-    width: 250px;
+    width: 300px;
     margin-bottom: 20px;
-  }
 
-  .invalid-wrapper {
-    margin-bottom: 5px;
-  }
-  .invalid {
-    padding: 5px;
-    border: 1px solid darkred;
-    background-color: pink;
-    color: darkred;
+    & .invalid-error-wrapper {
+      margin-top: 7px;
+    
+      & .invalid-error-msg {
+        padding: 5px 10px;
+        border-radius: 3px;
+        background-color: var(--dark-red);
+        color: var(--white);
+        font-weight: bold;
+      }
+    }
   }
 </style>

@@ -1,19 +1,42 @@
 <!-- 
+  I converted this component to a SvelteKit component:
+  https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/
+
   This content is licensed according to the W3C Software License at
   https://www.w3.org/Consortium/Legal/2015/copyright-software-and-document
+-->
+
+<!-- 
+  TODOs: 
+  * I want to add the following props to this component, which are already in my old DatePicker component:
+      * label
+      * padding
+      * fontSize
+      * placeholder
+      * disabled
+  * I need to clean up the CSS and make sure that it used accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures.
+  * I need to update the docs for this new accessible component.
 -->
 
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import Dialog from "./Dialog.svelte";
-  import { getDateObjFromISO, getISOFromDateObj } from "./utils";
+  import { getDateObjFromISO, isValidDate } from "./utils";
 
-  export let value = getISOFromDateObj(new Date());
+  export let value = "";
+  /** Checks whether the ISO date string is valid */
+  export let isValid = false;
   export let btnIcon = "mdi:calendar";
   export let btnIconSize = "24";
 
   let showDialog = false;
+
   $: dateObjFromVal = getDateObjFromISO(value);
+
+  // This will update the `isValid` prop when the value changes.
+  $: {
+    isValid = isValidDate(value);
+  }
 
   const dayLabels = [
     "Sunday",
@@ -54,11 +77,6 @@
         bind:value
       >
       <span id="id-description-1" class="desc screen-reader-only">date format: YYYY-MM-DD</span>
-      <!-- let label = this.buttonLabelChange;
-        label += ', ' + this.dayLabels[day.getDay()];
-        label += ' ' + this.monthLabels[day.getMonth()];
-        label += ' ' + day.getDate();
-        label += ', ' + day.getFullYear(); -->
       <button
         type="button" 
         class="date-btn" 
