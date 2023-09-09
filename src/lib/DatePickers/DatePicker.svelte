@@ -208,8 +208,9 @@
     // event.preventDefault();
   }
 
-  function handleDayKeyUp(event, day, weekIndex, dayIndex) {
+  function handleDayKeyDown(event, day, weekIndex, dayIndex) {
     console.log("EVENT:", event.key);
+    
     let flag = false;
 
     switch (event.key) {
@@ -252,13 +253,13 @@
 
       case "Down":
       case "ArrowDown":
-        this.moveFocusToNextWeek();
+        moveFocusToNextWeek(day, weekIndex, dayIndex);
         flag = true;
         break;
 
       case "Up":
       case "ArrowUp":
-        this.moveFocusToPreviousWeek();
+        moveFocusToPreviousWeek(day, weekIndex, dayIndex);
         flag = true;
         break;
 
@@ -293,18 +294,14 @@
         break;
     }
 
-    // if (flag) {
-    //   event.stopPropagation();
-    //   event.preventDefault();
-    // }
+    if (flag) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
   }
 
 
-  async function moveFocusToNextDay(day, weekIndex, dayIndex) {
-    console.log("DAY:", day);
-    console.log("week, day:", `${weekIndex}, ${dayIndex}`);
-    console.log("dates.length:", dates.length);
-    
+  async function moveFocusToNextDay(day, weekIndex, dayIndex) {    
     // If the weekIndex is the last row in the calendar and the next day is the first day of the next month (i.e. the focused day is the last day of the month, but the next day on the calendar is disabled because it is the first day of the next month), then set the `value` to be the first day of the next month and update the calendar to the next month.
     if (weekIndex === dates.length - 1 && dates[weekIndex][dayIndex + 1]?.disabled) {
       value = dates[weekIndex][dayIndex + 1].date;
@@ -332,12 +329,7 @@
     selectedDateCell.focus();
   }
 
-  async function moveFocusToPreviousDay(day, weekIndex, dayIndex) {
-    console.log("Called moveFocusToPreviousDay");
-    console.log("DAY:", day);
-    console.log("week, day:", `${weekIndex}, ${dayIndex}`);
-    console.log("dates.length:", dates.length);
-    
+  async function moveFocusToPreviousDay(day, weekIndex, dayIndex) {    
     // If the weekIndex is the first row in the calendar and the previous day is the last day of the previous month (i.e. the focused day is the first day of the month, but the previous day on the calendar is disabled because it is the last day of the previous month), then set the `value` to be the last day of the previous month and update the calendar to the previous month.
     if (weekIndex === 0 && dates[weekIndex][dayIndex - 1]?.disabled) {
       value = dates[weekIndex][dayIndex - 1].date;
@@ -365,11 +357,52 @@
     selectedDateCell.focus();
   }
 
-  function moveFocusToNextWeek(weekIndex, dayIndex) {
-    // If the weekIndex is the last row in the calendar, then add 7 days to the date and update the calendar to the next month.
-    if (weekIndex === dates.length - 1) {
-
+  async function moveFocusToNextWeek(day, weekIndex, dayIndex) {
+    // If the day that will be highlighted in the next week is disabled because it is in the next month but the date is not displayed in the calendar (i.e. the weekIndex is the second to last nested array in the `dates` array), then set the `value` to be the focused day of the next month and update the calendar to the next month.
+    if (weekIndex === dates.length - 2 && dates[weekIndex + 1][dayIndex]?.disabled) {
+      value = dates[weekIndex + 1][dayIndex].date;
+      updateCalendar();
     }
+    // If the day that will be highlighted is one week in the future and does not appear in the calendar (i.e. the focused day's weekIndex is the last row in the calendar), then add 7 days to the date object, set the `value` to be the updated date that is one week in the future, and update the calendar to the next month.
+    else if (weekIndex === dates.length - 1) {
+      const d = getDateObjFromISO(day.date);
+      // Update the date to be the first day of the next month.
+      d.setDate(d.getDate() + 7);
+      value = getISODate(d);
+      updateCalendar();
+    }
+    // Else set the value to the next week's date.
+    else {
+      value = dates[weekIndex + 1][dayIndex].date;
+    }
+
+    await tick();
+    const selectedDateCell = document.querySelector("td[aria-selected]");
+    selectedDateCell.focus();
+  }
+
+  async function moveFocusToPreviousWeek(day, weekIndex, dayIndex) {
+    // If the day that will be highlighted in the previous week is disabled because it is in the previous month but it is displaying in the calendar (i.e. the weekIndex is the second nested array in the `dates` array), then set the `value` to be the focused day of the previous month and update the calendar to the previous month.
+    if (weekIndex === 1 && dates[weekIndex - 1][dayIndex]?.disabled) {
+      value = dates[weekIndex - 1][dayIndex].date;
+      updateCalendar();
+    }
+    // If the day that will be highlighted is one week in the past and does not appear in the calendar (i.e. the focused day's weekIndex is the first row in the calendar), then subtract 7 days from the date object, set the `value` to be the updated date that is one week in the past, and update the calendar to the previous month.
+    else if (weekIndex === 0) {
+      const d = getDateObjFromISO(day.date);
+      // Update the date to be the first day of the next month.
+      d.setDate(d.getDate() - 7);
+      value = getISODate(d);
+      updateCalendar();
+    }
+    // Else set the value to the next week's date.
+    else {
+      value = dates[weekIndex - 1][dayIndex].date;
+    }
+
+    await tick();
+    const selectedDateCell = document.querySelector("td[aria-selected]");
+    selectedDateCell.focus();
   }
 
   function moveFocusToDay(day) {
@@ -1396,7 +1429,7 @@
                     data-date={day.date}
                     class:disabled={day.disabled}
                     on:click={() => handleDayClick(day)}
-                    on:keyup={(event) => handleDayKeyUp(event, day, weekIndex, dayIndex)}
+                    on:keydown={(event) => handleDayKeyDown(event, day, weekIndex, dayIndex)}
                     on:focus={() => dialogMessage = "Cursor keys can navigate dates"}
                   >
                     {#if !day.disabled}
