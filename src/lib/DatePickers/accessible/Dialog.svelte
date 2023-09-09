@@ -21,15 +21,8 @@
   let okBtn;
   let nextYearBtn;
 
-  const dayLabels = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
+  let monthYearHeading = "";
+  let dialogMessage = "Cursor keys can navigate dates";
 
   const monthLabels = [
     "January",
@@ -46,78 +39,75 @@
     "December",
   ];
 
+  let dates = [];
   // The dates array will have 6 nested arrays, each representing one week.
-  // Each nested week array will 7 objects, each representing a date.
-  let dates = [
-    [
-      { date: "2020-01-26", day: 26, disabled: true },
-      { date: "2020-01-27", day: 27, disabled: true },
-      { date: "2020-01-28", day: 28, disabled: true },
-      { date: "2020-01-29", day: 29, disabled: true },
-      { date: "2020-01-30", day: 30, disabled: true },
-      { date: "2020-01-31", day: 31, disabled: true },
-      { date: "2020-02-01", day: 1, disabled: false },
-    ],
-    [
-      { date: "2020-02-02", day: 2, disabled: false },
-      { date: "2020-02-03", day: 3, disabled: false },
-      { date: "2020-02-04", day: 4, disabled: false },
-      { date: "2020-02-05", day: 5, disabled: false },
-      { date: "2020-02-06", day: 6, disabled: false },
-      { date: "2020-02-07", day: 7, disabled: false },
-      { date: "2020-02-08", day: 8, disabled: false },
-    ],
-    [
-      { date: "2020-02-09", day: 9, disabled: false },
-      { date: "2020-02-10", day: 10, disabled: false },
-      { date: "2020-02-11", day: 11, disabled: false },
-      { date: "2020-02-12", day: 12, disabled: false },
-      { date: "2020-02-13", day: 13, disabled: false },
-      { date: "2020-02-14", day: 14, disabled: false },
-      { date: "2020-02-15", day: 15, disabled: false },
-    ],
-    [
-      { date: "2020-02-16", day: 16, disabled: false },
-      { date: "2020-02-17", day: 17, disabled: false },
-      { date: "2020-02-18", day: 18, disabled: false },
-      { date: "2020-02-19", day: 19, disabled: false },
-      { date: "2020-02-20", day: 20, disabled: false },
-      { date: "2020-02-21", day: 21, disabled: false },
-      { date: "2020-02-22", day: 22, disabled: false },
-    ],
-    [
-      { date: "2020-02-23", day: 23, disabled: false },
-      { date: "2020-02-24", day: 24, disabled: false },
-      { date: "2020-02-25", day: 25, disabled: false },
-      { date: "2020-02-26", day: 26, disabled: false },
-      { date: "2020-02-27", day: 27, disabled: false },
-      { date: "2020-02-28", day: 28, disabled: false },
-      { date: "2020-02-29", day: 29, disabled: false },
-    ],
-    [
-      { date: "2020-03-01", day: 1, disabled: true },
-      { date: "2020-03-02", day: 2, disabled: true },
-      { date: "2020-03-03", day: 3, disabled: true },
-      { date: "2020-03-04", day: 4, disabled: true },
-      { date: "2020-03-05", day: 5, disabled: true },
-      { date: "2020-03-06", day: 6, disabled: true },
-      { date: "2020-03-07", day: 7, disabled: true },
-    ],
-  ];
-  let monthYearHeading = "";
-  let dialogMessage = "Cursor keys can navigate dates";
+  // Each nested week array will have 7 objects, each representing a date.
+  // This is an example:
+  // let dates = [
+  //   [
+  //     { date: "2020-01-26", day: 26, disabled: true },
+  //     { date: "2020-01-27", day: 27, disabled: true },
+  //     { date: "2020-01-28", day: 28, disabled: true },
+  //     { date: "2020-01-29", day: 29, disabled: true },
+  //     { date: "2020-01-30", day: 30, disabled: true },
+  //     { date: "2020-01-31", day: 31, disabled: true },
+  //     { date: "2020-02-01", day: 1, disabled: false },
+  //   ],
+  //   [
+  //     { date: "2020-02-02", day: 2, disabled: false },
+  //     { date: "2020-02-03", day: 3, disabled: false },
+  //     { date: "2020-02-04", day: 4, disabled: false },
+  //     { date: "2020-02-05", day: 5, disabled: false },
+  //     { date: "2020-02-06", day: 6, disabled: false },
+  //     { date: "2020-02-07", day: 7, disabled: false },
+  //     { date: "2020-02-08", day: 8, disabled: false },
+  //   ],
+  //   [
+  //     { date: "2020-02-09", day: 9, disabled: false },
+  //     { date: "2020-02-10", day: 10, disabled: false },
+  //     { date: "2020-02-11", day: 11, disabled: false },
+  //     { date: "2020-02-12", day: 12, disabled: false },
+  //     { date: "2020-02-13", day: 13, disabled: false },
+  //     { date: "2020-02-14", day: 14, disabled: false },
+  //     { date: "2020-02-15", day: 15, disabled: false },
+  //   ],
+  //   [
+  //     { date: "2020-02-16", day: 16, disabled: false },
+  //     { date: "2020-02-17", day: 17, disabled: false },
+  //     { date: "2020-02-18", day: 18, disabled: false },
+  //     { date: "2020-02-19", day: 19, disabled: false },
+  //     { date: "2020-02-20", day: 20, disabled: false },
+  //     { date: "2020-02-21", day: 21, disabled: false },
+  //     { date: "2020-02-22", day: 22, disabled: false },
+  //   ],
+  //   [
+  //     { date: "2020-02-23", day: 23, disabled: false },
+  //     { date: "2020-02-24", day: 24, disabled: false },
+  //     { date: "2020-02-25", day: 25, disabled: false },
+  //     { date: "2020-02-26", day: 26, disabled: false },
+  //     { date: "2020-02-27", day: 27, disabled: false },
+  //     { date: "2020-02-28", day: 28, disabled: false },
+  //     { date: "2020-02-29", day: 29, disabled: false },
+  //   ],
+  //   [
+  //     { date: "2020-03-01", day: 1, disabled: true },
+  //     { date: "2020-03-02", day: 2, disabled: true },
+  //     { date: "2020-03-03", day: 3, disabled: true },
+  //     { date: "2020-03-04", day: 4, disabled: true },
+  //     { date: "2020-03-05", day: 5, disabled: true },
+  //     { date: "2020-03-06", day: 6, disabled: true },
+  //     { date: "2020-03-07", day: 7, disabled: true },
+  //   ],
+  // ];
 
   onMount(() => {
     updateCalendar();
     setFocusDay();
   });
 
-  // This function used to be called `updateGrid()`.
+  // This function is used to update the dates, the selected date (i.e. the `value`), and the focused date in the calendar.
   function updateCalendar() {
-    // fd = focus date.
-    // const fd = getDateObjFromISO(value);
     const fd = getDateObjFromISO(focusDay);
-    console.log("FOCUS DATE:", fd);
 
     monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
 
@@ -164,27 +154,16 @@
   async function setFocusDay() {
     await tick();
     const focusedDay = document.querySelector('td[tabindex="0"]');
-    console.log("focusedDay:", focusedDay);
     focusedDay.focus();
   }
 
   function handleDayClick(day) {
     value = day.date;
     dispatch("hideDialog");
-
-    // console.log("which:", event.which);
-    // if (!this.isDayDisabled(event.currentTarget) && event.which !== 3) {
-    //   this.setTextboxDate(event.currentTarget);
-    //   this.close();
-    // }
-
-    // event.stopPropagation();
-    // event.preventDefault();
   }
 
   async function handleDayKeyDown(event, day, weekIndex, dayIndex) {
-    console.log("handleDayKeyDown:", event.key);
-    let flag = false;
+    let preventDefaultEvents = false;
     let shouldSetFocusDay = true;
 
     switch (event.key) {
@@ -195,13 +174,13 @@
 
       case " ":
         focusDay = day.date;
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "Enter":
         value = day.date;
         dispatch("hideDialog");
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       // TODO: The Tab key is not working.
@@ -211,42 +190,42 @@
           nextYearBtn.focus();
         }
         dialogMessage = "";
-        flag = true;
+        preventDefaultEvents = true;
         shouldSetFocusDay = false;
         break;
 
       case "Right":
       case "ArrowRight":
         moveFocusToNextDay(day, weekIndex, dayIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "Left":
       case "ArrowLeft":
         moveFocusToPreviousDay(day, weekIndex, dayIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "Down":
       case "ArrowDown":
         moveFocusToNextWeek(day, weekIndex, dayIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "Up":
       case "ArrowUp":
         moveFocusToPreviousWeek(day, weekIndex, dayIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "Home":
         moveFocusToFirstDayOfWeek(weekIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "End":
         moveFocusToLastDayOfWeek(weekIndex);
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "PageUp":
@@ -256,7 +235,7 @@
         else {
           moveToPreviousMonth(day.date);
         }
-        flag = true;
+        preventDefaultEvents = true;
         break;
 
       case "PageDown":
@@ -266,7 +245,7 @@
         else {
           moveToNextMonth(day.date);
         }
-        flag = true;
+        preventDefaultEvents = true;
         break;
     }
 
@@ -275,7 +254,7 @@
       setFocusDay();
     }
 
-    if (flag) {
+    if (preventDefaultEvents) {
       event.stopPropagation();
       event.preventDefault();
     }
@@ -408,726 +387,6 @@
     focusDay = getISOFromDateObj(new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()));
     updateCalendar();
   }
-
-
-  class DatePickerDialog {
-    constructor(cdp) {
-      this.buttonLabelChoose = 'Choose Date';
-      this.buttonLabelChange = 'Change Date';
-      this.dayLabels = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
-      ];
-      this.monthLabels = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ];
-
-      this.messageCursorKeys = 'Cursor keys can navigate dates';
-      this.lastMessage = '';
-
-      this.textboxNode = cdp.querySelector('input[type="text"');
-      this.buttonNode = cdp.querySelector('.input-btn-group button');
-      this.dialogNode = cdp.querySelector('[role="dialog"]');
-      this.messageNode = this.dialogNode.querySelector('.dialog-message');
-
-      this.monthYearNode = this.dialogNode.querySelector('.month-year-heading');
-
-      this.prevYearNode = this.dialogNode.querySelector('.prev-year');
-      this.prevMonthNode = this.dialogNode.querySelector('.prev-month');
-      this.nextMonthNode = this.dialogNode.querySelector('.next-month');
-      this.nextYearNode = this.dialogNode.querySelector('.next-year');
-
-      this.okButtonNode = this.dialogNode.querySelector('button[value="ok"]');
-      this.cancelButtonNode = this.dialogNode.querySelector(
-        'button[value="cancel"]'
-      );
-
-      this.tbodyNode = this.dialogNode.querySelector('table.calendar tbody');
-
-      this.lastRowNode = null;
-
-      this.days = [];
-
-      this.focusDay = new Date();
-      this.selectedDay = new Date(0, 0, 1);
-
-      this.lastDate = -1;
-
-      this.isMouseDownOnBackground = false;
-
-      this.textboxNode.addEventListener(
-        'blur',
-        this.setDateForButtonLabel.bind(this)
-      );
-
-      this.buttonNode.addEventListener(
-        'keydown',
-        this.handleButtonKeydown.bind(this)
-      );
-      this.buttonNode.addEventListener(
-        'click',
-        this.handleButtonClick.bind(this)
-      );
-
-      this.okButtonNode.addEventListener('click', this.handleOkButton.bind(this));
-      this.okButtonNode.addEventListener(
-        'keydown',
-        this.handleOkButton.bind(this)
-      );
-
-      this.cancelButtonNode.addEventListener(
-        'click',
-        this.handleCancelButton.bind(this)
-      );
-      this.cancelButtonNode.addEventListener(
-        'keydown',
-        this.handleCancelButton.bind(this)
-      );
-
-      this.prevMonthNode.addEventListener(
-        'click',
-        this.handlePreviousMonthButton.bind(this)
-      );
-      this.nextMonthNode.addEventListener(
-        'click',
-        this.handleNextMonthButton.bind(this)
-      );
-      this.prevYearNode.addEventListener(
-        'click',
-        this.handlePreviousYearButton.bind(this)
-      );
-      this.nextYearNode.addEventListener(
-        'click',
-        this.handleNextYearButton.bind(this)
-      );
-
-      this.prevMonthNode.addEventListener(
-        'keydown',
-        this.handlePreviousMonthButton.bind(this)
-      );
-      this.nextMonthNode.addEventListener(
-        'keydown',
-        this.handleNextMonthButton.bind(this)
-      );
-      this.prevYearNode.addEventListener(
-        'keydown',
-        this.handlePreviousYearButton.bind(this)
-      );
-      this.nextYearNode.addEventListener(
-        'keydown',
-        this.handleNextYearButton.bind(this)
-      );
-
-      document.body.addEventListener(
-        'pointerup',
-        this.handleBackgroundMouseUp.bind(this),
-        true
-      );
-
-      // Create Grid of Dates
-      this.tbodyNode.innerHTML = '';
-      for (let i = 0; i < 6; i++) {
-        const row = this.tbodyNode.insertRow(i);
-        this.lastRowNode = row;
-        for (let j = 0; j < 7; j++) {
-          const cell = document.createElement('td');
-
-          cell.tabIndex = -1;
-          cell.addEventListener('click', this.handleDayClick.bind(this));
-          cell.addEventListener('keydown', this.handleDayKeyDown.bind(this));
-          cell.addEventListener('focus', this.handleDayFocus.bind(this));
-
-          cell.textContent = '-1';
-
-          row.appendChild(cell);
-          this.days.push(cell);
-        }
-      }
-
-      this.updateGrid();
-      this.close(false);
-      this.setDateForButtonLabel();
-    }
-
-    updateGrid() {
-      const fd = this.focusDay;
-
-      this.monthYearNode.textContent =
-        this.monthLabels[fd.getMonth()] + ' ' + fd.getFullYear();
-
-      let firstDayOfMonth = new Date(fd.getFullYear(), fd.getMonth(), 1);
-      let dayOfWeek = firstDayOfMonth.getDay();
-
-      firstDayOfMonth.setDate(firstDayOfMonth.getDate() - dayOfWeek);
-
-      const d = new Date(firstDayOfMonth);
-
-      for (let i = 0; i < this.days.length; i++) {
-        const flag = d.getMonth() != fd.getMonth();
-        this.updateDate(
-          this.days[i],
-          flag,
-          d,
-          this.isSameDay(d, this.selectedDay)
-        );
-        d.setDate(d.getDate() + 1);
-
-        // Hide last row if all dates are disabled (e.g. in next month)
-        if (i === 35) {
-          if (flag) {
-            this.lastRowNode.style.visibility = 'hidden';
-          } else {
-            this.lastRowNode.style.visibility = 'visible';
-          }
-        }
-      }
-    }
-
-    moveFocusToDay(day) {
-      const d = this.focusDay;
-
-      this.focusDay = day;
-
-      if (
-        d.getMonth() != this.focusDay.getMonth() ||
-        d.getFullYear() != this.focusDay.getFullYear()
-      ) {
-        this.updateGrid();
-      }
-      this.setFocusDay();
-    }
-
-    changeMonth(currentDate, numMonths) {
-      const getDays = (year, month) => new Date(year, month, 0).getDate();
-
-      const isPrev = numMonths < 0;
-      const numYears = Math.trunc(Math.abs(numMonths) / 12);
-      numMonths = Math.abs(numMonths) % 12;
-
-      const newYear = isPrev
-        ? currentDate.getFullYear() - numYears
-        : currentDate.getFullYear() + numYears;
-
-      const newMonth = isPrev
-        ? currentDate.getMonth() - numMonths
-        : currentDate.getMonth() + numMonths;
-
-      const newDate = new Date(newYear, newMonth, 1);
-
-      const daysInMonth = getDays(newDate.getFullYear(), newDate.getMonth() + 1);
-
-      // If lastDate is not initialized set to current date
-      this.lastDate = this.lastDate ? this.lastDate : currentDate.getDate();
-
-      if (this.lastDate > daysInMonth) {
-        newDate.setDate(daysInMonth);
-      } else {
-        newDate.setDate(this.lastDate);
-      }
-
-      return newDate;
-    }
-
-    moveToNextYear() {
-      this.focusDay = this.changeMonth(this.focusDay, 12);
-      this.updateGrid();
-    }
-
-    moveToPreviousYear() {
-      this.focusDay = this.changeMonth(this.focusDay, -12);
-      this.updateGrid();
-    }
-
-    moveToNextMonth() {
-      this.focusDay = this.changeMonth(this.focusDay, 1);
-      this.updateGrid();
-    }
-
-    moveToPreviousMonth() {
-      this.focusDay = this.changeMonth(this.focusDay, -1);
-      this.updateGrid();
-    }
-
-    moveFocusToNextDay() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() + 1);
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    moveFocusToNextWeek() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() + 7);
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    moveFocusToPreviousDay() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() - 1);
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    moveFocusToPreviousWeek() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() - 7);
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    moveFocusToFirstDayOfWeek() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() - d.getDay());
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    moveFocusToLastDayOfWeek() {
-      const d = new Date(this.focusDay);
-      d.setDate(d.getDate() + (6 - d.getDay()));
-      this.lastDate = d.getDate();
-      this.moveFocusToDay(d);
-    }
-
-    // Day methods
-
-    isDayDisabled(domNode) {
-      return domNode.classList.contains('disabled');
-    }
-
-    getDayFromDataDateAttribute(domNode) {
-      const parts = domNode.getAttribute('data-date').split('-');
-      return new Date(parts[0], parseInt(parts[1]) - 1, parts[2]);
-    }
-
-    // Textbox methods
-
-    setTextboxDate(domNode) {
-      let d = this.focusDay;
-
-      if (domNode) {
-        d = this.getDayFromDataDateAttribute(domNode);
-        // updated aria-selected
-        this.days.forEach((day) =>
-          day === domNode
-            ? day.setAttribute('aria-selected', 'true')
-            : day.removeAttribute('aria-selected')
-        );
-      }
-
-      this.textboxNode.value =
-        d.getMonth() + 1 + '/' + d.getDate() + '/' + d.getFullYear();
-      this.setDateForButtonLabel();
-    }
-
-    setDateForButtonLabel() {
-      const parts = this.textboxNode.value.split('/');
-
-      if (
-        parts.length === 3 &&
-        Number.isInteger(parseInt(parts[0])) &&
-        Number.isInteger(parseInt(parts[1])) &&
-        Number.isInteger(parseInt(parts[2]))
-      ) {
-        const day = new Date(
-          parseInt(parts[2]),
-          parseInt(parts[0]) - 1,
-          parseInt(parts[1])
-        );
-
-        let label = this.buttonLabelChange;
-        label += ', ' + this.dayLabels[day.getDay()];
-        label += ' ' + this.monthLabels[day.getMonth()];
-        label += ' ' + day.getDate();
-        label += ', ' + day.getFullYear();
-        this.buttonNode.setAttribute('aria-label', label);
-      } else {
-        // If not a valid date, initialize with "Choose Date"
-        this.buttonNode.setAttribute('aria-label', this.buttonLabelChoose);
-      }
-    }
-
-    setMessage(str) {
-      function setMessageDelayed() {
-        this.messageNode.textContent = str;
-      }
-
-      if (str !== this.lastMessage) {
-        setTimeout(setMessageDelayed.bind(this), 200);
-        this.lastMessage = str;
-      }
-    }
-
-    // Event handlers
-
-    handleOkButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Tab':
-              if (!event.shiftKey) {
-                this.prevYearNode.focus();
-                flag = true;
-              }
-              break;
-
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            default:
-              break;
-          }
-          break;
-
-        case 'click':
-          this.setTextboxDate();
-          this.close();
-          flag = true;
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handleCancelButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            default:
-              break;
-          }
-          break;
-
-        case 'click':
-          this.close();
-          flag = true;
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handleNextYearButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            case 'Enter':
-              this.moveToNextYear();
-              this.setFocusDay(false);
-              flag = true;
-              break;
-          }
-
-          break;
-
-        case 'click':
-          this.moveToNextYear();
-          this.setFocusDay(false);
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handlePreviousYearButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Enter':
-              this.moveToPreviousYear();
-              this.setFocusDay(false);
-              flag = true;
-              break;
-
-            case 'Tab':
-              if (event.shiftKey) {
-                this.okButtonNode.focus();
-                flag = true;
-              }
-              break;
-
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            default:
-              break;
-          }
-
-          break;
-
-        case 'click':
-          this.moveToPreviousYear();
-          this.setFocusDay(false);
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handleNextMonthButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            case 'Enter':
-              this.moveToNextMonth();
-              this.setFocusDay(false);
-              flag = true;
-              break;
-          }
-
-          break;
-
-        case 'click':
-          this.moveToNextMonth();
-          this.setFocusDay(false);
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handlePreviousMonthButton(event) {
-      let flag = false;
-
-      switch (event.type) {
-        case 'keydown':
-          switch (event.key) {
-            case 'Esc':
-            case 'Escape':
-              this.close();
-              flag = true;
-              break;
-
-            case 'Enter':
-              this.moveToPreviousMonth();
-              this.setFocusDay(false);
-              flag = true;
-              break;
-          }
-
-          break;
-
-        case 'click':
-          this.moveToPreviousMonth();
-          this.setFocusDay(false);
-          flag = true;
-          break;
-
-        default:
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handleDayKeyDown(event) {
-      let flag = false;
-
-      switch (event.key) {
-        case 'Esc':
-        case 'Escape':
-          this.close();
-          break;
-
-        case ' ':
-          this.setTextboxDate(event.currentTarget);
-          flag = true;
-          break;
-
-        case 'Enter':
-          this.setTextboxDate(event.currentTarget);
-          this.close();
-          flag = true;
-          break;
-
-        case 'Tab':
-          this.cancelButtonNode.focus();
-          if (event.shiftKey) {
-            this.nextYearNode.focus();
-          }
-          this.setMessage('');
-          flag = true;
-          break;
-
-        case 'Right':
-        case 'ArrowRight':
-          this.moveFocusToNextDay();
-          flag = true;
-          break;
-
-        case 'Left':
-        case 'ArrowLeft':
-          this.moveFocusToPreviousDay();
-          flag = true;
-          break;
-
-        case 'Down':
-        case 'ArrowDown':
-          this.moveFocusToNextWeek();
-          flag = true;
-          break;
-
-        case 'Up':
-        case 'ArrowUp':
-          this.moveFocusToPreviousWeek();
-          flag = true;
-          break;
-
-        case 'PageUp':
-          if (event.shiftKey) {
-            this.moveToPreviousYear();
-          } else {
-            this.moveToPreviousMonth();
-          }
-          this.setFocusDay();
-          flag = true;
-          break;
-
-        case 'PageDown':
-          if (event.shiftKey) {
-            this.moveToNextYear();
-          } else {
-            this.moveToNextMonth();
-          }
-          this.setFocusDay();
-          flag = true;
-          break;
-
-        case 'Home':
-          this.moveFocusToFirstDayOfWeek();
-          flag = true;
-          break;
-
-        case 'End':
-          this.moveFocusToLastDayOfWeek();
-          flag = true;
-          break;
-      }
-
-      if (flag) {
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-
-    handleDayClick(event) {
-      if (!this.isDayDisabled(event.currentTarget) && event.which !== 3) {
-        this.setTextboxDate(event.currentTarget);
-        this.close();
-      }
-
-      event.stopPropagation();
-      event.preventDefault();
-    }
-
-    handleDayFocus() {
-      this.setMessage(this.messageCursorKeys);
-    }
-
-    handleButtonKeydown(event) {
-      if (event.key === 'Enter' || event.key === ' ') {
-        this.open();
-        this.setFocusDay();
-
-        event.stopPropagation();
-        event.preventDefault();
-      }
-    }
-  }
-
-  // Initialize menu button date picker
-
-  // window.addEventListener('load', function () {
-  //   const datePickers = document.querySelectorAll('.datepicker');
-
-  //   datePickers.forEach(function (dp) {
-  //     new DatePickerDialog(dp);
-  //   });
-  // });
 </script>
 
 <div
@@ -1144,6 +403,11 @@
       class="prev-year" 
       aria-label="previous year"
       on:click={() => moveToPreviousYear(focusDay)}
+      on:keydown={(event) => {
+        if (event.key === "Esc" || event.key === "Escape") {
+          dispatch("hideDialog");
+        }
+      }}
     >
       <Icon icon="vaadin:angle-double-left" width="24" />
     </button>
@@ -1153,6 +417,11 @@
       class="prev-month" 
       aria-label="previous month"
       on:click={() => moveToPreviousMonth(focusDay)}
+      on:keydown={(event) => {
+        if (event.key === "Esc" || event.key === "Escape") {
+          dispatch("hideDialog");
+        }
+      }}
     >
       <Icon icon="vaadin:angle-left" width="24" />
     </button>
@@ -1164,6 +433,11 @@
       class="next-month" 
       aria-label="next month"
       on:click={() => moveToNextMonth(focusDay)}
+      on:keydown={(event) => {
+        if (event.key === "Esc" || event.key === "Escape") {
+          dispatch("hideDialog");
+        }
+      }}
     >
       <Icon icon="vaadin:angle-right" width="24" />
     </button>
@@ -1174,6 +448,11 @@
       aria-label="next year" 
       bind:this={nextYearBtn}
       on:click={() => moveToNextYear(focusDay)}
+      on:keydown={(event) => {
+        if (event.key === "Esc" || event.key === "Escape") {
+          dispatch("hideDialog");
+        }
+      }}
     >
       <Icon icon="vaadin:angle-double-right" width="24" />
     </button>
@@ -1197,10 +476,8 @@
         {#each dates as week, weekIndex}
           <tr>
             {#each week as day, dayIndex}
-              <!-- role={focusDay === day.date ? "gridcell" : null} -->
-              <!-- I think the <td> elements already have the "gridcell" role, so there doesn't appear to be any need to set role="gridcell". -->
               <td
-                tabindex="{focusDay === day.date ? 0 : -1}"
+                tabindex={focusDay === day.date ? 0 : -1}
                 aria-selected={value === day.date ? true : null}
                 data-date={day.date}
                 class:disabled={day.disabled}
@@ -1216,65 +493,6 @@
           </tr>
         {/each}
       </tbody>
-
-      <!--
-      <tbody>
-        <tr>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td tabindex="-1" data-date="2020-02-01">1</td>
-        </tr>
-        <tr>
-          <td tabindex="-1" data-date="2020-02-02">2</td>
-          <td tabindex="-1" data-date="2020-02-03">3</td>
-          <td tabindex="-1" data-date="2020-02-04">4</td>
-          <td tabindex="-1" data-date="2020-02-05">5</td>
-          <td tabindex="-1" data-date="2020-02-06">6</td>
-          <td tabindex="-1" data-date="2020-02-07">7</td>
-          <td tabindex="-1" data-date="2020-02-08">8</td>
-        </tr>
-        <tr>
-          <td tabindex="-1" data-date="2020-02-09">9</td>
-          <td tabindex="-1" data-date="2020-02-10">10</td>
-          <td tabindex="-1" data-date="2020-02-11">11</td>
-          <td tabindex="-1" data-date="2020-02-12">12</td>
-          <td tabindex="-1" data-date="2020-02-13">13</td>
-          <td tabindex="0" data-date="2020-02-14" role="gridcell" aria-selected="true">14</td>
-          <td tabindex="-1" data-date="2020-02-15">15</td>
-        </tr>
-        <tr>
-          <td tabindex="-1" data-date="2020-02-16">16</td>
-          <td tabindex="-1" data-date="2020-02-17">17</td>
-          <td tabindex="-1" data-date="2020-02-18">18</td>
-          <td tabindex="-1" data-date="2020-02-19">19</td>
-          <td tabindex="-1" data-date="2020-02-20">20</td>
-          <td tabindex="-1" data-date="2020-02-21">21</td>
-          <td tabindex="-1" data-date="2020-02-22">22</td>
-        </tr>
-        <tr>
-          <td tabindex="-1" data-date="2020-02-23">23</td>
-          <td tabindex="-1" data-date="2020-02-24">24</td>
-          <td tabindex="-1" data-date="2020-02-25">25</td>
-          <td tabindex="-1" data-date="2020-02-26">26</td>
-          <td tabindex="-1" data-date="2020-02-27">27</td>
-          <td tabindex="-1" data-date="2020-02-28">28</td>
-          <td tabindex="-1" data-date="2020-02-29">29</td>
-        </tr>
-        <tr>
-          <td tabindex="-1" data-date="2020-02-30">30</td>
-          <td tabindex="-1" data-date="2020-02-31">31</td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-          <td class="disabled" tabindex="-1"></td>
-        </tr>
-      </tbody>
-      -->
     </table>
   </div>
 
@@ -1311,7 +529,6 @@
         dispatch("hideDialog");
       }}
       on:keydown={(event) => {
-        console.log("event.key:", event.key);
         if (event.key === "Shift") {
           event.preventDefault();
         }
