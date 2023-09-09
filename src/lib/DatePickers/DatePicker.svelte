@@ -7,8 +7,14 @@
   import { fly } from "svelte/transition";
   import Icon from "@iconify/svelte";
 
+  export let value = getISODate(new Date());
   export let btnIcon = "mdi:calendar";
   export let btnIconSize = "24";
+
+  let showDialog = false;
+  let cancelBtn;
+  let nextYearBtn;
+  let lastDate = -1;
 
   const dayLabels = [
     "Sunday",
@@ -35,8 +41,6 @@
     "December",
   ];
 
-  let showDialog = false;
-  // let days = [];
   // The dates array will have 6 nested arrays, each representing one week.
   // Each nested week array will 7 objects, each representing a date.
   let dates = [
@@ -95,12 +99,12 @@
       { date: "2020-03-07", day: 7, disabled: true },
     ],
   ];
-  // Set the default focus day to the current day.
+  // // Set the default focus day to the current day.
   let focusDay = new Date();
   // Set the default selected day to the focusDay.
   let selectedDay = getISODate(focusDay);
   let monthYearHeading = "";
-  let messageCursorKeys = "Cursor keys can navigate dates";
+  let dialogMessage = "Cursor keys can navigate dates";
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
@@ -117,7 +121,7 @@
     return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
   }
 
-  // This used to be called `updateGrid()`.
+  // This function used to be called `updateGrid()`.
   function updateCalendar() {
     const fd = focusDay;
 
@@ -136,12 +140,9 @@
     // Create a new Date object that represents the Sunday that is before the first day of the month.
     const d = new Date(firstDayOfMonth);
 
-    // TODO: Populate the `dates` array.
     // Clear the `dates` array.
     dates.length = 0;
-    dates = [];
 
-    // WORK
     // This for loop will populate the `dates` array with up to 6 nested arrays (representing the weeks of the month) and each nested array will have 7 calendar date objects (representing the days of the week). 
     // NOTE: If there are no dates in the 6th week of the month, then there will only be 5 nested week arrays.
     for (let i = 0; i < 6; i++) {
@@ -164,6 +165,168 @@
         }
       }
     }
+  }
+
+  function handleDayClick(day) {
+    value = day.date;
+    showDialog = false;
+
+    // console.log("which:", event.which);
+    // if (!this.isDayDisabled(event.currentTarget) && event.which !== 3) {
+    //   this.setTextboxDate(event.currentTarget);
+    //   this.close();
+    // }
+
+    // event.stopPropagation();
+    // event.preventDefault();
+  }
+
+  function handleDayKeyDown(event, day, weekIndex, dayIndex) {
+    console.log("EVENT:", event.key);
+    let flag = false;
+
+    switch (event.key) {
+      case "Esc":
+      case "Escape":
+        showDialog = false;
+        break;
+
+      case " ":
+        selectedDay = day.date;
+        flag = true;
+        break;
+
+      case "Enter":
+        selectedDay = day.date;
+        showDialog = false;
+        flag = true;
+        break;
+
+      case "Tab":
+        cancelBtn.focus();
+        if (event.shiftKey) {
+          nextYearBtn.focus();
+        }
+        dialogMessage = "";
+        flag = true;
+        break;
+
+      case "Right":
+      case "ArrowRight":
+        moveFocusToNextDay(weekIndex, dayIndex);
+        flag = true;
+        break;
+
+      case "Left":
+      case "ArrowLeft":
+        this.moveFocusToPreviousDay();
+        flag = true;
+        break;
+
+      case "Down":
+      case "ArrowDown":
+        this.moveFocusToNextWeek();
+        flag = true;
+        break;
+
+      case "Up":
+      case "ArrowUp":
+        this.moveFocusToPreviousWeek();
+        flag = true;
+        break;
+
+      case "PageUp":
+        if (event.shiftKey) {
+          this.moveToPreviousYear();
+        } else {
+          this.moveToPreviousMonth();
+        }
+        this.setFocusDay();
+        flag = true;
+        break;
+
+      case "PageDown":
+        if (event.shiftKey) {
+          this.moveToNextYear();
+        } else {
+          this.moveToNextMonth();
+        }
+        this.setFocusDay();
+        flag = true;
+        break;
+
+      case "Home":
+        this.moveFocusToFirstDayOfWeek();
+        flag = true;
+        break;
+
+      case "End":
+        this.moveFocusToLastDayOfWeek();
+        flag = true;
+        break;
+    }
+
+    // if (flag) {
+    //   event.stopPropagation();
+    //   event.preventDefault();
+    // }
+  }
+
+
+  function moveFocusToNextDay(weekIndex, dayIndex) {
+    value = dates[weekIndex][dayIndex].date;
+    // const d = new Date(focusDay);
+    // d.setDate(d.getDate() + 1);
+    // lastDate = d.getDate();
+    // moveFocusToDay(d);
+  }
+
+  function moveFocusToDay(day) {
+    const d = focusDay;
+
+    focusDay = day;
+
+    if (
+      d.getMonth() != focusDay.getMonth() ||
+      d.getFullYear() != focusDay.getFullYear()
+    ) {
+      updateCalendar();
+    }
+    setFocusDay();
+  }
+
+  function setFocusDay(flag) {
+    if (typeof flag !== 'boolean') {
+      flag = true;
+    }
+
+    // focusDay = 
+
+    // for (let i = 0; i < this.days.length; i++) {
+    //   const dayNode = this.days[i];
+    //   const day = this.getDayFromDataDateAttribute(dayNode);
+
+    //   dayNode.tabIndex = -1;
+    //   if (this.isSameDay(day, this.focusDay)) {
+    //     dayNode.tabIndex = 0;
+    //     if (flag) {
+    //       dayNode.focus();
+    //     }
+    //   }
+    // }
+
+    // for (let i = 0; i < dates.length; i++) {
+    //   const date = dates[i];
+    //   const day = getDayFromDataDateAttribute(date);
+
+    //   date.tabIndex = -1;
+    //   if (this.isSameDay(day, this.focusDay)) {
+    //     dayNode.tabIndex = 0;
+    //     if (flag) {
+    //       dayNode.focus();
+    //     }
+    //   }
+    // }
   }
 
   function updateDate(domNode, disable, day, selected) {
@@ -335,7 +498,6 @@
       );
 
       // Create Grid of Dates
-      // TODO: Create the grid of dates.
       this.tbodyNode.innerHTML = '';
       for (let i = 0; i < 6; i++) {
         const row = this.tbodyNode.insertRow(i);
@@ -516,7 +678,7 @@
 
       const daysInMonth = getDays(newDate.getFullYear(), newDate.getMonth() + 1);
 
-      // If lastDat is not initialized set to current date
+      // If lastDate is not initialized set to current date
       this.lastDate = this.lastDate ? this.lastDate : currentDate.getDate();
 
       if (this.lastDate > daysInMonth) {
@@ -1068,7 +1230,13 @@
     <label for="id-textbox-1">Date</label>
 
     <div class="input-btn-group">
-      <input type="text" placeholder="YYYY-MM-DD" id="id-textbox-1" aria-describedby="id-description-1">
+      <input
+        type="text" 
+        placeholder="YYYY-MM-DD" 
+        id="id-textbox-1" 
+        aria-describedby="id-description-1"
+        bind:value
+      >
       <span id="id-description-1" class="desc screen-reader-only">date format: YYYY-MM-DD</span>
       <button
         type="button" 
@@ -1105,7 +1273,7 @@
           <Icon icon="vaadin:angle-right" width="24" />
         </button>
 
-        <button type="button" class="next-year" aria-label="next year">
+        <button type="button" class="next-year" aria-label="next year" bind:this={nextYearBtn}>
           <Icon icon="vaadin:angle-double-right" width="24" />
         </button>
       </div>
@@ -1124,7 +1292,7 @@
             </tr>
           </thead>
 
-          <!-- TODO: WORK
+          <!--
           for (let i = 0; i < 6; i++) {
             const row = this.tbodyNode.insertRow(i);
             this.lastRowNode = row;
@@ -1144,9 +1312,9 @@
           }
           -->
           <tbody>
-            {#each dates as week}
+            {#each dates as week, weekIndex}
               <tr>
-                {#each week as day}
+                {#each week as day, dayIndex}
                   <td
                     tabindex="{selectedDay === day.date ? 0 : -1}"
                     role={selectedDay === day.date ? "gridcell" : null}
@@ -1154,8 +1322,8 @@
                     data-date={day.date}
                     class:disabled={day.disabled}
                     on:click={() => handleDayClick(day)}
-                    on:keydown={(event) => handleDayKeyDown(event, day)}
-                    on:focus={() => handleDayFocus()}
+                    on:keydown={(event) => handleDayKeyDown(event, day, weekIndex, dayIndex)}
+                    on:focus={() => dialogMessage = "Cursor keys can navigate dates"}
                   >
                     {#if !day.disabled}
                       {day.day}
@@ -1228,10 +1396,10 @@
       </div>
 
       <div class="dialog-ok-cancel-group">
-        <button class="dialog-button" value="cancel">Cancel</button>
+        <button class="dialog-button" value="cancel" bind:this={cancelBtn}>Cancel</button>
         <button class="dialog-button" value="ok">OK</button>
       </div>
-      <div class="dialog-message" aria-live="polite">{ messageCursorKeys }</div>
+      <div class="dialog-message" aria-live="polite">{ dialogMessage }</div>
     </div>
   {/if}
 </div>
@@ -1363,7 +1531,7 @@
           border: none;
           height: 41px;
           width: 41px; */
-          /* pointer-events: none; */
+          pointer-events: none;
         }
 
         &:focus, &:hover {

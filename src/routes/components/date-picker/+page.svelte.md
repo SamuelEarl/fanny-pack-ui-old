@@ -3,6 +3,23 @@
 
   let date = new Date();
   let dateIsValid = false;
+
+  let isoDate = getISODate(new Date());
+
+  /**
+   * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
+   */
+  function getISODate(date) {
+    // Get the current date in US format, which also pads the dates with leading zeros when necessary.
+    // See https://stackoverflow.com/a/47160545/9453009
+    const localeDateString = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+
+    return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
+  }
   
   // I would have used this to easily format the date to ISO format, but it sometimes returns tomorrow's date due to timezone differences.
   // let currentDateISOString = new Date().toISOString().slice(0, 10);
@@ -33,7 +50,13 @@ The code for this component was taken from this great [date picker component](ht
 
 ---
 
-<DatePicker />
+The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD` and returns a date string of the same form.
+
+---
+
+<DatePicker 
+  bind:value={isoDate}
+/>
 
 ---
 
