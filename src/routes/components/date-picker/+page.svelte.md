@@ -5,6 +5,7 @@
   let dateIsValid = false;
 
   let isoDate = getISODate(new Date());
+  $: console.log("isoDate in docs:", isoDate);
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).

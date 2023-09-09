@@ -4,6 +4,7 @@
 -->
 
 <script lang="ts">
+  import { tick } from "svelte";
   import { fly } from "svelte/transition";
   import Icon from "@iconify/svelte";
 
@@ -12,6 +13,8 @@
   export let btnIconSize = "24";
 
   let showDialog = false;
+  let calendarDialog;
+  let focusedDay;
   let cancelBtn;
   let nextYearBtn;
   let lastDate = -1;
@@ -101,18 +104,16 @@
   ];
   // // Set the default focus day to the current day.
   let focusDay = new Date();
-  // Set the default selected day to the focusDay.
-  let selectedDay = getISODate(focusDay);
   let monthYearHeading = "";
   let dialogMessage = "Cursor keys can navigate dates";
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
    */
-  function getISODate(date) {
+  function getISODate(dateObj: Date) {
     // Get the current date in US format, which also pads the dates with leading zeros when necessary.
     // See https://stackoverflow.com/a/47160545/9453009
-    const localeDateString = date.toLocaleDateString("en-US", {
+    const localeDateString = dateObj.toLocaleDateString("en-US", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -121,9 +122,21 @@
     return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
   }
 
+  /**
+   * Accept a date string in ISO format (YYYY-MM-DD) and return a date object.
+   * NOTE: If I simply pass the ISO string to the `new Date()` constructor, then the date could be off by a day depending on the timezone. However, if I create a new Date object and then parse out the year, month, and day with the getUTC* functions (aka getISO* functions), then the date appears to be accurate. I think the reason for that is because the string that is being passed to this function is an ISO string and when you parse that string into a Date object using the getUTC* functions, then you will get the correct date. I think this is because both the input (ISO string) and output (Date object) are using the same timezone, so there are no one-off errors due to the timezone conversions.
+   */  
+  function getDateObjFromISO(isoDateString: string) {
+    const d = new Date(isoDateString);
+    const utcDate = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+    return utcDate;
+  }
+
   // This function used to be called `updateGrid()`.
   function updateCalendar() {
-    const fd = focusDay;
+    // fd = focus date.
+    const fd = getDateObjFromISO(value);
+    console.log("FOCUS DATE:", fd);
 
     monthYearHeading = `${monthLabels[fd.getMonth()]} ${fd.getFullYear()}`;
     console.log("monthYearHeading:", monthYearHeading);
@@ -148,8 +161,9 @@
     for (let i = 0; i < 6; i++) {
       dates.push([]);
       for (let j = 0; j < 7; j++) {
-        // If this is the 6th week of the month and the first day of this 6th week is in the subsequent month, then break out of the loop so no other dates will be populated.
+        // If this is the 6th week of the month and the first day of this 6th week is in the following month, then remove the last nested array, which was just inserted and is empty, and break out of the loop so no other dates will be populated.
         if (i === 5 && j === 0 && d.getMonth() !== fd.getMonth()) {
+          dates.pop();
           break;
         }
         // Else, push the calendar date objects to the nested week array.
@@ -167,7 +181,20 @@
     }
   }
 
+  async function showCalendar() {
+    updateCalendar();
+    showDialog = !showDialog;
+    // If the dialog is displaying in the DOM, then give the selected day the focus.
+    if (showDialog) {
+      await tick();
+      const selectedDateCell = document.querySelector("td[aria-selected]");
+      console.log("selectedDateCell:", selectedDateCell);
+      selectedDateCell.focus();
+    }
+  }
+
   function handleDayClick(day) {
+    console.log("handleDayClick Called");
     value = day.date;
     showDialog = false;
 
@@ -181,7 +208,7 @@
     // event.preventDefault();
   }
 
-  function handleDayKeyDown(event, day, weekIndex, dayIndex) {
+  function handleDayKeyUp(event, day, weekIndex, dayIndex) {
     console.log("EVENT:", event.key);
     let flag = false;
 
@@ -192,12 +219,12 @@
         break;
 
       case " ":
-        selectedDay = day.date;
+        value = day.date;
         flag = true;
         break;
 
       case "Enter":
-        selectedDay = day.date;
+        value = day.date;
         showDialog = false;
         flag = true;
         break;
@@ -213,13 +240,13 @@
 
       case "Right":
       case "ArrowRight":
-        moveFocusToNextDay(weekIndex, dayIndex);
+        moveFocusToNextDay(day, weekIndex, dayIndex);
         flag = true;
         break;
 
       case "Left":
       case "ArrowLeft":
-        this.moveFocusToPreviousDay();
+        moveFocusToPreviousDay(day, weekIndex, dayIndex);
         flag = true;
         break;
 
@@ -273,12 +300,76 @@
   }
 
 
-  function moveFocusToNextDay(weekIndex, dayIndex) {
-    value = dates[weekIndex][dayIndex].date;
-    // const d = new Date(focusDay);
-    // d.setDate(d.getDate() + 1);
-    // lastDate = d.getDate();
-    // moveFocusToDay(d);
+  async function moveFocusToNextDay(day, weekIndex, dayIndex) {
+    console.log("DAY:", day);
+    console.log("week, day:", `${weekIndex}, ${dayIndex}`);
+    console.log("dates.length:", dates.length);
+    
+    // If the weekIndex is the last row in the calendar and the next day is the first day of the next month (i.e. the focused day is the last day of the month, but the next day on the calendar is disabled because it is the first day of the next month), then set the `value` to be the first day of the next month and update the calendar to the next month.
+    if (weekIndex === dates.length - 1 && dates[weekIndex][dayIndex + 1]?.disabled) {
+      value = dates[weekIndex][dayIndex + 1].date;
+      updateCalendar();
+    }
+    // If the weekIndex is the last row in the calendar and the dayIndex is the last day in the week (i.e. the focused day is the last day of the month and it is also the last day on the last row and last column in the calendar), then set the `value` to be the first day of the next month and update the calendar to the next month.
+    else if (weekIndex === dates.length - 1 && dayIndex === 6) {
+      const d = getDateObjFromISO(day.date);
+      // Update the date to be the first day of the next month.
+      d.setDate(d.getDate() + 1);
+      value = getISODate(d);
+      updateCalendar();
+    }
+    // If the dayIndex is the last day in the week, then add 1 to the weekIndex and set the dayIndex to 0.
+    else if (dayIndex === 6) {
+      value = dates[weekIndex + 1][0].date;
+    }
+    // Else set the value to the next date.
+    else {
+      value = dates[weekIndex][dayIndex + 1].date;
+    }
+
+    await tick();
+    const selectedDateCell = document.querySelector("td[aria-selected]");
+    selectedDateCell.focus();
+  }
+
+  async function moveFocusToPreviousDay(day, weekIndex, dayIndex) {
+    console.log("Called moveFocusToPreviousDay");
+    console.log("DAY:", day);
+    console.log("week, day:", `${weekIndex}, ${dayIndex}`);
+    console.log("dates.length:", dates.length);
+    
+    // If the weekIndex is the first row in the calendar and the previous day is the last day of the previous month (i.e. the focused day is the first day of the month, but the previous day on the calendar is disabled because it is the last day of the previous month), then set the `value` to be the last day of the previous month and update the calendar to the previous month.
+    if (weekIndex === 0 && dates[weekIndex][dayIndex - 1]?.disabled) {
+      value = dates[weekIndex][dayIndex - 1].date;
+      updateCalendar();
+    }
+    // If the weekIndex is the first row in the calendar and the dayIndex is the first day in the week (i.e. the focused day is the first day of the month and it is also the first day on the first row and first column in the calendar), then set the `value` to be the last day of the previous month and update the calendar to the previous month.
+    else if (weekIndex === 0 && dayIndex === 0) {
+      const d = getDateObjFromISO(day.date);
+      // Update the date to be the last day of the previous month.
+      d.setDate(d.getDate() - 1);
+      value = getISODate(d);
+      updateCalendar();
+    }
+    // If the dayIndex is the first day in the week, then subtract 1 from the weekIndex and set the dayIndex to 6.
+    else if (dayIndex === 0) {
+      value = dates[weekIndex - 1][6].date;
+    }
+    // Else set the value to the previous date.
+    else {
+      value = dates[weekIndex][dayIndex - 1].date;
+    }
+
+    await tick();
+    const selectedDateCell = document.querySelector("td[aria-selected]");
+    selectedDateCell.focus();
+  }
+
+  function moveFocusToNextWeek(weekIndex, dayIndex) {
+    // If the weekIndex is the last row in the calendar, then add 7 days to the date and update the calendar to the next month.
+    if (weekIndex === dates.length - 1) {
+
+    }
   }
 
   function moveFocusToDay(day) {
@@ -1242,14 +1333,8 @@
         type="button" 
         class="date-btn" 
         aria-label="Choose Date"
-        on:click={() => {
-          updateCalendar();
-          showDialog = !showDialog;
-        }}
-        on:keydown={() => {
-          updateCalendar();
-          showDialog = !showDialog;
-        }}
+        on:click={showCalendar}
+        on:keyup={showCalendar}
       >
         <Icon icon={btnIcon} width={btnIconSize} />
       </button>
@@ -1257,7 +1342,15 @@
   </div>
 
   {#if showDialog}
-    <div id="id-datepicker-1" class="datepicker-dialog" role="dialog" aria-modal="true" aria-label="Choose Date" transition:fly>
+    <div
+      id="id-datepicker-1" 
+      class="datepicker-dialog" 
+      role="dialog" 
+      aria-modal="true" 
+      aria-label="Choose Date" 
+      transition:fly
+      bind:this={calendarDialog}
+    >
       <div class="header">
         <button type="button" class="prev-year" aria-label="previous year">
           <Icon icon="vaadin:angle-double-left" width="24" />
@@ -1292,37 +1385,18 @@
             </tr>
           </thead>
 
-          <!--
-          for (let i = 0; i < 6; i++) {
-            const row = this.tbodyNode.insertRow(i);
-            this.lastRowNode = row;
-            for (let j = 0; j < 7; j++) {
-              const cell = document.createElement('td');
-    
-              cell.tabIndex = -1;
-              cell.addEventListener('click', this.handleDayClick.bind(this));
-              cell.addEventListener('keydown', this.handleDayKeyDown.bind(this));
-              cell.addEventListener('focus', this.handleDayFocus.bind(this));
-    
-              cell.textContent = '-1';
-    
-              row.appendChild(cell);
-              this.days.push(cell);
-            }
-          }
-          -->
           <tbody>
             {#each dates as week, weekIndex}
               <tr>
                 {#each week as day, dayIndex}
                   <td
-                    tabindex="{selectedDay === day.date ? 0 : -1}"
-                    role={selectedDay === day.date ? "gridcell" : null}
-                    aria-selected={selectedDay === day.date ? true : null}
+                    tabindex="{value === day.date ? 0 : -1}"
+                    role={value === day.date ? "gridcell" : null}
+                    aria-selected={value === day.date ? true : null}
                     data-date={day.date}
                     class:disabled={day.disabled}
                     on:click={() => handleDayClick(day)}
-                    on:keydown={(event) => handleDayKeyDown(event, day, weekIndex, dayIndex)}
+                    on:keyup={(event) => handleDayKeyUp(event, day, weekIndex, dayIndex)}
                     on:focus={() => dialogMessage = "Cursor keys can navigate dates"}
                   >
                     {#if !day.disabled}
@@ -1425,7 +1499,6 @@
         background-color: var(--white);
         color: var(--text-color-default);
         border: var(--border-default);
-        border-right: 0;
         border-radius: var(--border-radius) 0 0 var(--border-radius);
 
         &:focus {
@@ -1438,6 +1511,7 @@
       & .date-btn {
         padding: 5px;
         border: var(--border-default);
+        border-left: 0;
         background-color: var(--custom-date-input-btn-bg-color, var(--border-color-default));
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
 
