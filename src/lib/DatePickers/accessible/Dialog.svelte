@@ -10,9 +10,10 @@
   $: dispatch("change", value);
 
   let focusDay = value;
-  // If the value that the user enters into the input field is not a valid date, then set `focusDay` to today's date so the calendar will display properly.
+  // If the value that the user enters into the input field is an empty string or is not a valid date, then set `focusDay` to today's date so the calendar will display properly.
+  // NOTE: An empty date field is a valid input.
   $: {
-    if (!isValidDate(focusDay)) {
+    if (value === "" || !isValidDate(focusDay)) {
       focusDay = getISOFromDateObj(new Date());
     }
   }

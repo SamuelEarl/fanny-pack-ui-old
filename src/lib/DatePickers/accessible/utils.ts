@@ -27,7 +27,10 @@ export function getDateObjFromISO(isoDateString: string) {
  * This `isValidDate()` function is borrowed from this post:
  * https://stackoverflow.com/a/35413963/9453009
  */
-export function isValidDate(dateString) {
+export function isValidDate(dateString:string) {
+  // Leaving the date field empty is valid. So if the input is an empty string, then return true.
+  if (!dateString) return true;
+  // Otherwise, run the validation against the string input.
   const regEx = /^\d{4}-\d{2}-\d{2}$/;
   if (!dateString.match(regEx)) return false;  // Invalid format
   const d = new Date(dateString);

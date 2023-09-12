@@ -58,7 +58,12 @@ The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD`
 ---
 
 <div class="date-wrapper">
-  <DatePicker 
+  <DatePicker
+    label="Date"
+    paddingV="10px"
+    paddingH="20px"
+    fontSize="24px"
+    btnIconSize={30}
     bind:value={isoDate}
     bind:isValid={isoDateIsValid}
   />
@@ -99,8 +104,8 @@ NOTE: The `YYYY-MM-DD` format is the ISO date format. Keep in mind that the actu
     bind:value={date}
     bind:valid={dateIsValid}
     label="Set a date"
-    padding="var(--date-input-default-padding)"
-    fontSize="var(--date-input-default-font-size)"
+    padding="var(--date-picker-default-padding)"
+    fontSize="var(--date-picker-default-font-size)"
     showCalendar={false}
     min={new Date(2022, 2, 5)}
     max={new Date(2032, 4, 15)}
@@ -133,8 +138,8 @@ Note that the value that is returned is a JavaScript Date object.
     bind:value={date}
     bind:valid={dateIsValid}
     label="Set a date"
-    padding="var(--date-input-default-padding)"
-    fontSize="var(--date-input-default-font-size)"
+    padding="var(--date-picker-default-padding)"
+    fontSize="var(--date-picker-default-font-size)"
     showCalendar={false}
     min={new Date(2022, 2, 5)}
     max={new Date(2032, 4, 15)}
@@ -147,7 +152,7 @@ Note that the value that is returned is a JavaScript Date object.
 
 <style>
   .date-wrapper {
-    width: 250px;
+    width: 300px;
     margin-bottom: 20px;
   }
 
@@ -262,8 +267,8 @@ You can set the following custom variables:
     | `label`<br>*(optional)* | `string` | Any string | `""` (an empty string) | The text for the `<label>` element. If this prop is not provided, then no label will be displayed. |
     | `bind:value` | `Date` or `null` (`null` if the input field is empty) | Any date | You can define `let date = new Date();` and today's date will be the default value. See the first example above. | The date that is selected will be bound to the variable that is passed to this prop. |
     | `bind:valid`<br>*(optional)* | `boolean` | `true`, `false` | `false` | This prop indicates whether the text that has been entered into the input field is a valid date and/or is formatted correctly. The variable that is bound to this prop will be set to `true` if the date is valid and `false` otherwise. This can be used to display an error message if the date that was entered is not valid, as shown in the example above.<br><br>Note that if you bind the `value` prop to a variable that equals a valid date, for example `new Date()`, then the date that is initially entered into the `<DateInput />` field will be a valid date. That also means that the date will be valid initially even if you set the variable that is bound to `valid` to equal `false`.<br><br>NOTE: Although this will validate the text that is entered into the `<DateInput />` field, it would probably be preferable to run all your validations through a validation library, like Yup. |
-    | `padding`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--date-input-default-padding)` | This prop will set the padding for the input field and input field button.<br><br>You can change the default size in the `theme.css` file. |
-    | `fontSize`<br>*(optional)* | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--date-input-default-font-size)` | This prop will set the text size and button icon size.<br><br>You can change the default size in the `theme.css` file. |
+    | `padding`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--date-picker-default-padding)` | This prop will set the padding for the input field and input field button.<br><br>You can change the default size in the `theme.css` file. |
+    | `fontSize`<br>*(optional)* | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--date-picker-default-font-size)` | This prop will set the text size and button icon size.<br><br>You can change the default size in the `theme.css` file. |
     | `showCalendar`<br>*(optional)* | `boolean` | `true`, `false` | `false` | This prop will allow you to either show or hide the calendar. If you are using the `<DateInput />` component, then clicking the button will toggle the calendar to be shown or hidden. |
     | `min`<br>*(optional)* | `Date` | any Date with `year`, `month`, and `day` arguments | 01 Jan, 10 years before the current year. | This prop defines the earliest date that a user can select. Keep in mind that January is represented with a `0`. |
     | `max`<br>*(optional)* | `Date` | any Date with `year`, `month`, and `day` arguments | 31 Dec, 10 years after the current year. | This prop defines the latest date that a user can select. Keep in mind that January is represented with a `0`. |

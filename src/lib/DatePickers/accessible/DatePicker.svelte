@@ -9,28 +9,34 @@
 <!-- 
   TODOs: 
   * I want to add the following props to this component, which are already in my old DatePicker component:
-      * label
-      * padding
-      * fontSize
       * placeholder
       * disabled
   * I need to add the "Custom Styles" options. I should probably also include custom style options for a few styles in the calendar dialog so users can change the dialog border and the selected date, focused date, and hovered date styles.
-  * I need to clean up the CSS and make sure that it used accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures.
+  * I need to clean up the CSS and make sure that it uses accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures.
   * I need to update the docs for this new accessible component.
   * I need to test the accessibility on the input field and the button to make sure they work they way I want them to.
 -->
 
 <script lang="ts">
+  import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
   import Dialog from "./Dialog.svelte";
   import { getDateObjFromISO, isValidDate } from "./utils";
+  import { Label } from "../../Labels";
+  import { createId } from "../../fp-utils";
 
+  export let label = "";
   export let value = "";
   /** Checks whether the ISO date string is valid */
   export let isValid = false;
   export let btnIcon = "mdi:calendar";
-  export let btnIconSize = "24";
+  export let btnIconSize:number = 0;
+  export let paddingV = "var(--date-picker-default-padding-v)";
+  export let paddingH = "var(--date-picker-default-padding-h)";
+  export let fontSize = "var(--date-picker-default-font-size)";
 
+  let componentId = createId();
+  let focused = false;
   let showDialog = false;
 
   $: dateObjFromVal = getDateObjFromISO(value);
@@ -64,24 +70,46 @@
     "November",
     "December",
   ];
+
+  onMount(() => {
+    // If the user does not pass a value for the `btnIconSize` prop, then set the value for `btnIconSize` by calling `setBtnIconSize()`.
+    if (!btnIconSize) {
+      setBtnIconSize();
+    }
+  });
+
+  /**
+   * Get the input field's font-size, even if that size is set in a stylesheet:
+   * https://stackoverflow.com/a/15195345/9453009
+   */
+  function setBtnIconSize() {
+    let dateInputField = document.getElementById(`fp-date-picker-${componentId}`);
+    let style = window.getComputedStyle(dateInputField, null).getPropertyValue("font-size");
+    btnIconSize = parseFloat(style);
+  }
 </script>
 
 <div class="datepicker">
   <div class="date">
-    <label for="id-textbox-1">Date</label>
+    <!-- <label for="id-textbox-1">Date</label> -->
+    <Label {label} forVal={`fp-date-picker-${componentId}`} />
 
-    <div class="input-btn-group">
+    <div class="input-btn-group" class:focused>
       <input
         type="text" 
         placeholder="YYYY-MM-DD" 
-        id="id-textbox-1" 
+        id={`fp-date-picker-${componentId}`}
+        style={`font-size:${fontSize}; padding:${paddingV} ${paddingH};`}
         aria-describedby="id-description-1"
         bind:value
+        on:focus={() => focused = true}
+        on:blur={() => focused = false}
       >
       <span id="id-description-1" class="desc screen-reader-only">date format: YYYY-MM-DD</span>
       <button
         type="button" 
-        class="date-btn" 
+        class="date-btn"
+        style={`padding:${paddingV} calc(${paddingV} + 3px);`}
         aria-label={`Change Date, ${dayLabels[dateObjFromVal.getDay()]} ${monthLabels[dateObjFromVal.getMonth()]} ${dateObjFromVal.getDate()}, ${dateObjFromVal.getFullYear()}`}
         on:click={() => showDialog = !showDialog}
         on:keyup={() => showDialog = !showDialog}
@@ -115,10 +143,14 @@
 
     & .input-btn-group {
       display: flex;
-      align-items: center;
+
+      &.focused {
+        outline: 2px solid var(--border-color-default);
+        border-radius: var(--border-radius);
+      }
 
       & input {
-        padding: 5px;
+        width: 100%;
         margin: 0;
         background-color: var(--white);
         color: var(--text-color-default);
@@ -126,18 +158,15 @@
         border-radius: var(--border-radius) 0 0 var(--border-radius);
 
         &:focus {
-          outline: 2px solid var(--border-color-default);
-          border-radius: var(--border-radius);
-          /* outline-offset: 1px; */
+          outline: none;
         }
       }
 
       & .date-btn {
-        padding: 5px;
         border: var(--border-default);
         border-left: 0;
-        background-color: var(--custom-date-input-btn-bg-color, var(--border-color-default));
         border-radius: 0 var(--border-radius) var(--border-radius) 0;
+        background-color: var(--custom-date-input-btn-bg-color, var(--border-color-default));
 
         &:focus {
           outline: none;
