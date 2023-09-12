@@ -104,7 +104,7 @@ NOTE: The `YYYY-MM-DD` format is the ISO date format. Keep in mind that the actu
     bind:value={date}
     bind:valid={dateIsValid}
     label="Set a date"
-    padding="var(--date-picker-default-padding)"
+    padding="10px"
     fontSize="var(--date-picker-default-font-size)"
     showCalendar={false}
     min={new Date(2022, 2, 5)}
@@ -138,7 +138,7 @@ Note that the value that is returned is a JavaScript Date object.
     bind:value={date}
     bind:valid={dateIsValid}
     label="Set a date"
-    padding="var(--date-picker-default-padding)"
+    padding="10px"
     fontSize="var(--date-picker-default-font-size)"
     showCalendar={false}
     min={new Date(2022, 2, 5)}

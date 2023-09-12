@@ -14,7 +14,7 @@
   import { createId } from "../fp-utils";
 
   export let label = "";
-  export let padding = "var(--date-picker-default-padding)";
+  export let padding = "var(--date-picker-default-padding-v) var(--date-picker-default-padding-h)";
   export let fontSize = "var(--date-picker-default-font-size)";
   export let dateInputIcon = "mdi:calendar";
   export let disabled = false;

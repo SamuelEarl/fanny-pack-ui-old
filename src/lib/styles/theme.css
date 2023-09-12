@@ -228,7 +228,8 @@ These variables are organized in the same way that Tailwind organizes their util
 
 /* DATE PICKER */
 :root {
-  --date-picker-default-padding: var(--space-md);
+  --date-picker-default-padding-v: var(--space-md);
+  --date-picker-default-padding-h: var(--space-md);
   --date-picker-default-font-size: var(--font-size-base);
 }
 
