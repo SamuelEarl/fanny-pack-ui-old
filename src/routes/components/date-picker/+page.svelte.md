@@ -60,16 +60,18 @@ The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD`
 <div class="date-wrapper">
   <DatePicker
     label="Date"
+    bind:value={isoDate}
+    bind:isValid={isoDateIsValid}
     paddingV="10px"
     paddingH="20px"
     fontSize="24px"
     btnIconSize={30}
-    bind:value={isoDate}
-    bind:isValid={isoDateIsValid}
+    placeholder="YYYY-MM-DD"
+    disabled={true}
   />
   {#if !isoDateIsValid}
     <div class="invalid-error-wrapper">
-      <span class="invalid-error-msg">Invalid Date</span>
+      <span class="invalid-error-msg">Date Format: YYYY-MM-DD</span>
     </div>
   {/if}
 </div>
@@ -214,7 +216,21 @@ You can set the following custom variables:
 * `--custom-date-input-btn-bg-color`
 * `--custom-date-input-btn-icon-color`
 
-<div style="margin-bottom:20px">
+<div class="date-wrapper">
+  <DatePicker
+    bind:value={isoDate}
+    bind:isValid={isoDateIsValid}
+    placeholder="Enter a date"
+    --custom-date-picker-bg-color="var(--secondary-color)"
+    --custom-date-picker-border-color="var(--secondary-color)"
+    --custom-date-picker-text-color="var(--white)"
+    --custom-date-picker-placeholder-text-color="var(--neutral-400)"
+    --custom-date-picker-btn-bg-color="var(--secondary-color)"
+    --custom-date-picker-btn-icon-color="var(--white)"
+  />
+</div>
+
+<!-- <div style="margin-bottom:20px">
   <DateInput
     bind:value={date}
     bind:valid={dateIsValid}
@@ -226,20 +242,20 @@ You can set the following custom variables:
     --custom-date-input-btn-bg-color="var(--secondary-color)"
     --custom-date-input-btn-icon-color="white"
   />
-</div>
+</div> -->
 
 ```svelte
-<div style="margin-bottom:20px">
-  <DateInput
-    bind:value={date}
-    bind:valid={dateIsValid}
+<div class="date-wrapper">
+  <DatePicker
+    bind:value={isoDate}
+    bind:isValid={isoDateIsValid}
     placeholder="Enter a date"
-    --custom-date-picker-bg-color="var(--neutral-200)"
-    --custom-date-picker-border-color="var(--primary-color)"
-    --custom-date-picker-text-color="var(--primary-color)"
-    --custom-date-input-placeholder-text-color="var(--neutral-400)"
-    --custom-date-input-btn-bg-color="var(--primary-color)"
-    --custom-date-input-btn-icon-color="white"
+    --custom-date-picker-bg-color="var(--secondary-color)"
+    --custom-date-picker-border-color="var(--secondary-color)"
+    --custom-date-picker-text-color="var(--white)"
+    --custom-date-picker-placeholder-text-color="var(--neutral-400)"
+    --custom-date-picker-btn-bg-color="var(--secondary-color)"
+    --custom-date-picker-btn-icon-color="var(--white)"
   />
 </div>
 ```
@@ -304,7 +320,7 @@ You can set the following custom variables:
 
 <style>
   .date-wrapper {
-    width: 300px;
+    width: 350px;
     margin-bottom: 20px;
 
     & .invalid-error-wrapper {
