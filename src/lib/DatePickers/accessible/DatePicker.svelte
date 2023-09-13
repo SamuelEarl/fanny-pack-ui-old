@@ -8,8 +8,9 @@
 
 <!-- 
   TODOs: 
-  * I need to add the "Custom Styles" options. (COMPLETE) I should probably also include custom style options for a few styles in the calendar dialog so users can change the dialog border and the selected date, focused date, and hovered date styles.
-  * I need to clean up the CSS and make sure that it uses accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures.
+  * I need to add the "Custom Styles" options. (COMPLETE) I should probably also include custom style options for a few styles in the calendar dialog so users can change the dialog border and the selected date, focused date, and hovered date colors.
+  * I need to clean up the CSS and make sure that it uses accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures. 
+      * I need to change the styles for the other components to also use accessible principles.
   * I need to update the docs for this new accessible component.
   * I need to test the accessibility on the input field and the button. This component focuses on the accessibility of the calendar, but it doesn't talk about the input field or button accessbility. So I need to make sure those have been designed with accessibility in mind too.
 -->
