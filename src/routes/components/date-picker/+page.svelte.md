@@ -5,9 +5,7 @@
   let dateIsValid = false;
 
   let isoDate = getISODate(new Date());
-  $: console.log("isoDate in docs:", isoDate);
   let isoDateIsValid = false;
-  $: console.log("isoDateIsValid in docs:", isoDateIsValid);
 
   /**
    * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
@@ -43,19 +41,19 @@
   });
   console.log("currentDate:", currentDate);
   let currentDateISOString = formatUStoISO(currentDate);
-  let newDateObject = new Date(currentDateISOString);
+  let newDateObject = new Date("2023-09-13");
 </script>
 
 
 # Date Picker
 
-The code for this component was taken from this great [date picker component](https://github.com/probablykasper/date-picker-svelte) and has been modified to make it more themable.
+<!-- The code for this component was taken from this great [date picker component](https://github.com/probablykasper/date-picker-svelte) and has been modified to make it more themable. -->
+
+This `<DatePicker/>` component takes an ISO date string in the form `YYYY-MM-DD` and returns a date string of the same form.
 
 ---
 
-The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD` and returns a date string of the same form.
-
----
+## Example Usage
 
 <div class="date-wrapper">
   <DatePicker
@@ -65,9 +63,10 @@ The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD`
     paddingV="10px"
     paddingH="20px"
     fontSize="24px"
-    btnIconSize={30}
     placeholder="YYYY-MM-DD"
-    disabled={true}
+    btnIcon="mdi:calendar"
+    btnIconSize={30}
+    disabled={false}
   />
   {#if !isoDateIsValid}
     <div class="invalid-error-wrapper">
@@ -76,21 +75,80 @@ The `<DatePicker />` component takes an ISO date string in the form `YYYY-MM-DD`
   {/if}
 </div>
 
----
+```svelte
+<script lang="ts">
+  import { DatePicker } from "@fanny-pack-ui/svelte-kit";
 
-<div>
-  <input type="date" bind:value={currentDateISOString} />
+  let isoDate = getISODate(new Date());
+  let isoDateIsValid = false;
+
+  /**
+   * Accept a date object and return a date string in ISO format (YYYY-MM-DD).
+   */
+  function getISODate(date) {
+    // Get the current date in US format, which also pads the dates with leading zeros when necessary.
+    const localeDateString = date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    });
+    return `${localeDateString.slice(6)}-${localeDateString.slice(0, 2)}-${localeDateString.slice(3, 5)}`;
+  }
+</script>
+
+<div class="date-wrapper">
+  <DatePicker
+    label="Date"
+    bind:value={isoDate}
+    bind:isValid={isoDateIsValid}
+    paddingV="10px"
+    paddingH="20px"
+    fontSize="24px"
+    placeholder="YYYY-MM-DD"
+    btnIcon="mdi:calendar"
+    btnIconSize={30}
+    disabled={false}
+  />
+  {#if !isoDateIsValid}
+    <div class="invalid-error-wrapper">
+      <span class="invalid-error-msg">Date Format: YYYY-MM-DD</span>
+    </div>
+  {/if}
 </div>
+
+<style>
+  .date-wrapper {
+    width: 350px;
+    margin-bottom: 20px;
+  }
+
+  .invalid-error-wrapper {
+    margin-top: 7px;
+  }
+    
+  .invalid-error-msg {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: var(--dark-red);
+    color: var(--white);
+    font-weight: bold;
+  }
+</style>
+```
+
 <br>
 
-The value that is returned from this component (which can be saved to the database) is a `string` in ISO date format: {currentDateISOString}
+NOTES:
 
-You can pass the date string to a `new Date()` constructor to create a Date object: {newDateObject}
+* Be careful about the date string that you pass to this component.
+    * The value that is returned from this component is a `string` in ISO date format. For example: <code>{isoDate}</code>
+    * You can pass an ISO date string to a `new Date()` constructor to create a Date object, like this:  `new Date("2023-09-13")`. That will create a date object like this:<br><code>{newDateObject}</code>
+    * Keep in mind that the actual date that is returned from the `new Date("YYYY-MM-DD")` constructor will vary depending on your timezone. So passing an ISO date string to the `new Date()` constructor may not give you the result you are expecting. See [JavaScript Date Formats](https://www.w3schools.com/js/js_date_formats.asp) for details. 
+    * **If you want to set the default value to today's date, then it is recommended to use a function like the one in the example above.**
+* This `<DatePicker/>` component is designed to fill the entire width of its parent element. So, for example, you can put a wrapper `<div>` element around the `<DatePicker/>` component and put a `width` on the `<div>` and the `<DatePicker/>` component will be as wide as the `<div>` wrapper. See the example above.
 
-NOTE: The `YYYY-MM-DD` format is the ISO date format. Keep in mind that the actual date that is returned from the `new Date(YYYY-MM-DD)` constructor will vary depending on your timezone. So passing an ISO date to the `new Date()` constructor can get confusing. See [JavaScript Date Formats](https://www.w3schools.com/js/js_date_formats.asp) for details. 
 
-
-## Example Usage
+<!-- ## Example Usage
 
 ### Date input field with calendar
 * You can directly enter a date value into the input field or select a date from the calendar that pops up. 
@@ -171,8 +229,6 @@ Note that the value that is returned is a JavaScript Date object.
 </style>
 ```
 
-*NOTE: The `<DateInput />` component is designed to fill the entire width of its parent element. So, for example, you can put a wrapper `<div>` element around the `<DateInput />` component and put a width on the `<div>` and the `<DateInput />` component will be as wide as the `<div>` wrapper.*
-
 <br>
 
 ### Calendar only
@@ -201,12 +257,12 @@ Note that the value that is returned is a JavaScript Date object.
     max={new Date(2032, 4, 15)}
   />
 </div>
-```
+``` -->
 
 ---
 
-## Custom DateInput Styles
-The original intention for these custom styles was to set `--custom-date-picker-bg-color="transparent"` so the `<DateInput>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
+## Custom DatePicker Styles
+The original intention for these custom styles was to set `--custom-date-picker-bg-color="transparent"` so the `<DatePicker>` field would blend into the background. A few extra custom style rules have been provided for even more customizability.
 
 You can set the following custom variables:
 * `--custom-date-picker-bg-color`
@@ -214,21 +270,26 @@ You can set the following custom variables:
 * `--custom-date-picker-text-color`
 * `--custom-date-input-placeholder-text-color`
 * `--custom-date-input-btn-bg-color`
+* `--custom-date-picker-btn-separator-color`
 * `--custom-date-input-btn-icon-color`
 
-<div class="date-wrapper">
-  <DatePicker
-    bind:value={isoDate}
-    bind:isValid={isoDateIsValid}
-    placeholder="Enter a date"
-    --custom-date-picker-bg-color="var(--secondary-color)"
-    --custom-date-picker-border-color="var(--secondary-color)"
-    --custom-date-picker-text-color="var(--white)"
-    --custom-date-picker-placeholder-text-color="var(--neutral-400)"
-    --custom-date-picker-btn-bg-color="var(--secondary-color)"
-    --custom-date-picker-btn-icon-color="var(--white)"
-  />
-</div>
+<br>
+
+<DatePicker
+  bind:value={isoDate}
+  bind:isValid={isoDateIsValid}
+  placeholder="Enter a date"
+  --custom-date-picker-bg-color="var(--secondary-color)"
+  --custom-date-picker-border-color="var(--secondary-color)"
+  --custom-date-picker-text-color="var(--white)"
+  --custom-date-picker-placeholder-text-color="var(--neutral-400)"
+  --custom-date-picker-btn-bg-color="var(--secondary-color)"
+  --custom-date-picker-btn-separator-color="var(--white)"
+  --custom-date-picker-btn-icon-color="var(--white)"
+/>
+
+<br>
+<br>
 
 <!-- <div style="margin-bottom:20px">
   <DateInput
@@ -245,25 +306,42 @@ You can set the following custom variables:
 </div> -->
 
 ```svelte
-<div class="date-wrapper">
-  <DatePicker
-    bind:value={isoDate}
-    bind:isValid={isoDateIsValid}
-    placeholder="Enter a date"
-    --custom-date-picker-bg-color="var(--secondary-color)"
-    --custom-date-picker-border-color="var(--secondary-color)"
-    --custom-date-picker-text-color="var(--white)"
-    --custom-date-picker-placeholder-text-color="var(--neutral-400)"
-    --custom-date-picker-btn-bg-color="var(--secondary-color)"
-    --custom-date-picker-btn-icon-color="var(--white)"
-  />
-</div>
+<DatePicker
+  bind:value={isoDate}
+  bind:isValid={isoDateIsValid}
+  placeholder="Enter a date"
+  --custom-date-picker-bg-color="var(--secondary-color)"
+  --custom-date-picker-border-color="var(--secondary-color)"
+  --custom-date-picker-text-color="var(--white)"
+  --custom-date-picker-placeholder-text-color="var(--neutral-400)"
+  --custom-date-picker-btn-bg-color="var(--secondary-color)"
+  --custom-date-picker-btn-separator-color="var(--white)"
+  --custom-date-picker-btn-icon-color="var(--white)"
+/>
 ```
 
 ---
 
 ## Props
 
+<div class="responsive-table">
+
+| Prop name | Type | Possible values | Default value | Description |
+| --------- | ---- | --------------- | ------------- | ----------- |
+| `label`<br>*(optional)* | `string` | Any string | `""` (an empty string) | The text for the `<label>` element. If this prop is not provided, then no label will be displayed. |
+| `bind:value` | `string` | A string with in ISO date format (`YYYY-MM-DD`) or an empty string (`""`) | Today's date in ISO string format (`YYYY-MM-DD`) | The date that is entered into the input field or that is selected in the calendar will be bound to the variable that is passed to this prop.<br><br>Look at the first example for one way to set the default value to today's date. |
+| `bind:isValid`<br>*(optional)* | `boolean` | `true`, `false` | `false` | This prop indicates whether the text that has been entered into the input field is a valid date and/or is formatted correctly. The variable that is bound to this prop will be set to `true` if the date is valid and `false` otherwise. This can be used to display an error message if the date that was entered is not valid, as shown in the first example.<br><br>Note that if you bind the `value` prop to a variable that equals a valid date, for example `let isoDate = getISODate(new Date())`, then the date that is initially entered into the `<DatePicker/>` input field will be a valid date. That also means that the date will be valid initially, even if you set the variable that is bound to the `isValid` prop to equal `false`.<br><br>NOTE: Although this will validate the text that is entered into the `<DatePicker/>` input field, it would probably be preferable to run all your validations through a validation library, like Superstruct, Zod, or Yup. |
+| `paddingV`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--date-picker-input-default-padding-v)` | This prop will set the top and bottom padding for the `<DatePicker/>` input field and the padding on all sides of the `<DatePicker/>` button.<br><br>You can change the default size in the `theme.css` file. |
+| `paddingH`<br>*(optional)* | `string` | Any CSS padding value or CSS size variable from your `theme.css` file. | `var(--date-picker-input-default-padding-h)` | This prop will set the left and right padding for the `<DatePicker/>` input field.<br><br>You can change the default size in the `theme.css` file. |
+| `fontSize`<br>*(optional)* | `string` | Any CSS font size value or CSS font size variable from your `theme.css` file. | `var(--date-picker-input-default-font-size)` | This prop will set the text size of the `<DatePicker/>` input field.<br><br>You can change the default size in the `theme.css` file. |
+| `placeholder`<br>*(optional)* | `string` | Any string | `YYYY-MM-DD` | This prop will set the placeholder when the date value is an empty string (`""`). |
+| `btnIcon` | `string` | Any icon name from the Iconify library. | `"mdi:calendar"` | This prop will set the icon that is displayed in the `<DatePicker/>` button. |
+| `btnIconSize` | `number` | Any number | The same as the `fontSize` value | This prop will set the size of the icon that is displayd in the `<DatePicker/>` button. Note that the default `btnIconSize` is the same as the `fontSize` value, but the `btnIconSize` is a number data type and the `fontSize` is a string data type with a CSS length unit as the suffix of the string. |
+| `disabled` | `boolean` | `true`, `false` | `false` | This prop will disable the `<DatePicker/>` component. |
+
+</div>
+
+<!--
 <TabsContainer>
   <TabBar>
     <Tab>DateInput</Tab>
@@ -273,8 +351,8 @@ You can set the following custom variables:
   <TabPanel>
     <h2>DateInput</h2>
 
-    <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <!-- <div></div> -->
+    See the comment in the Tabs component props for an explanation of these empty divs.
+    <div></div>
 
     <div class="responsive-table">
 
@@ -300,8 +378,8 @@ You can set the following custom variables:
   <TabPanel>
     <h2>Calendar</h2>
 
-    <!-- See the comment in the Tabs component props for an explanation of these empty divs. -->
-    <!-- <div></div> -->
+    See the comment in the Tabs component props for an explanation of these empty divs.
+    <div></div>
 
     <div class="responsive-table">
 
@@ -316,6 +394,7 @@ You can set the following custom variables:
     </div>
   </TabPanel>
 </TabsContainer>
+-->
 
 
 <style>

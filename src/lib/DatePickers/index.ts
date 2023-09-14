@@ -1,4 +1,4 @@
-export { default as DatePicker } from "./accessible/DatePicker.svelte";
+export { default as DatePicker } from "./accessible/DatePickerInput.svelte";
 
 export { default as Calendar } from "./Calendar.svelte";
 export { default as DateInput } from "./DateInput.svelte";

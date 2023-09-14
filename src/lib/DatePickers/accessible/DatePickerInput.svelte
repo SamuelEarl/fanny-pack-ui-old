@@ -7,18 +7,16 @@
 -->
 
 <!-- 
-  TODOs: 
-  * I need to add the "Custom Styles" options. (COMPLETE) I should probably also include custom style options for a few styles in the calendar dialog so users can change the dialog border and the selected date, focused date, and hovered date colors.
-  * I need to clean up the CSS and make sure that it uses accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures. 
+  TODOs:
+  * I need to clean up the CSS and make sure that it uses accessible principles. See notes about high contrast styles (which is the last bullet point) on this page: https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/datepicker-dialog/#accessibilityfeatures.
       * I need to change the styles for the other components to also use accessible principles.
-  * I need to update the docs for this new accessible component.
   * I need to test the accessibility on the input field and the button. This component focuses on the accessibility of the calendar, but it doesn't talk about the input field or button accessbility. So I need to make sure those have been designed with accessibility in mind too.
 -->
 
 <script lang="ts">
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
-  import Dialog from "./Dialog.svelte";
+  import Calendar from "./DatePickerCalendar.svelte";
   import { getDateObjFromISO, isValidDate } from "./utils";
   import { Label } from "../../Labels";
   import { createId } from "../../fp-utils";
@@ -27,12 +25,12 @@
   export let value = "";
   /** Checks whether the ISO date string is valid */
   export let isValid = false;
+  export let paddingV = "var(--date-picker-input-default-padding-v)";
+  export let paddingH = "var(--date-picker-input-default-padding-h)";
+  export let fontSize = "var(--date-picker-input-default-font-size)";
+  export let placeholder = "YYYY-MM-DD";
   export let btnIcon = "mdi:calendar";
   export let btnIconSize:number = 0;
-  export let paddingV = "var(--date-picker-default-padding-v)";
-  export let paddingH = "var(--date-picker-default-padding-h)";
-  export let fontSize = "var(--date-picker-default-font-size)";
-  export let placeholder = "YYYY-MM-DD";
   export let disabled = false;
 
   let componentId = createId();
@@ -90,7 +88,7 @@
 </script>
 
 <div class="datepicker">
-  <div class="date">
+  <div class="input-btn-group-wrapper">
     <!-- <label for="id-textbox-1">Date</label> -->
     <Label {label} forVal={`fp-date-picker-${componentId}`} />
 
@@ -122,7 +120,7 @@
   </div>
 
   {#if showDialog}
-    <Dialog
+    <Calendar
       {value} 
       on:change={(event) => {
         value = event.detail;
@@ -143,59 +141,63 @@
     margin-top: 1em;
     position: relative;
 
-    & .input-btn-group {
-      display: flex;
-      border: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-border-color, var(--border-color-default));
-      border-radius: var(--border-radius);
-      /* This `overflow: hidden` style will ensure that the background color of the input and button elements goes all the way out to the border no matter how high or low the border radius value is. */
-      overflow: hidden;
+    & .input-btn-group-wrapper {
+      margin-bottom: 1px;
 
-      &:hover, &.focused {
-        box-shadow: 0 0 0 2px var(--custom-date-picker-border-color, var(--border-color-default));
-      }
+      & .input-btn-group {
+        display: flex;
+        border: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-border-color, var(--border-color-default));
+        border-radius: var(--border-radius);
+        /* This `overflow: hidden` style will ensure that the background color of the input and button elements goes all the way out to the border no matter how high or low the border radius value is. */
+        overflow: hidden;
 
-      &.disabled {
-        pointer-events: none;
-      }
-
-      & input {
-        flex: 1;
-        width: 100%;
-        margin: 0;
-        border: none;
-        outline: none;
-        background-color: var(--custom-date-picker-bg-color, var(--bg-color-element-default));
-        color: var(--custom-date-picker-text-color, inherit);
-
-        &::placeholder {
-          color: var(--custom-date-picker-placeholder-text-color, var(--placeholder-color-default));
+        &:hover, &.focused {
+          box-shadow: 0 0 0 2px var(--custom-date-picker-border-color, var(--border-color-default));
         }
 
-        &:focus {
-          outline: none;
-        }
-
-        &:disabled {
-          background-color: var(--bg-color-element-disabled);
-          color: var(--text-color-disabled);
+        &.disabled {
           pointer-events: none;
         }
-      }
 
-      & .date-btn {
-        border-left: var(--border-default);
-        background-color: var(--custom-date-picker-btn-bg-color, var(--border-color-default));
-        color: var(--custom-date-picker-btn-icon-color, inherit);
-
-        &:focus {
+        & input {
+          flex: 1;
+          width: 100%;
+          margin: 0;
+          border: none;
           outline: none;
+          background-color: var(--custom-date-picker-bg-color, var(--bg-color-element-default));
+          color: var(--custom-date-picker-text-color, inherit);
+
+          &::placeholder {
+            color: var(--custom-date-picker-placeholder-text-color, var(--placeholder-color-default));
+          }
+
+          &:focus {
+            outline: none;
+          }
+
+          &:disabled {
+            background-color: var(--bg-color-element-disabled);
+            color: var(--text-color-disabled);
+            pointer-events: none;
+          }
         }
 
-        &:disabled {
-          border-color: var(--text-color-disabled);
-          background-color: var(--bg-color-element-disabled);
-          color: var(--text-color-disabled);
-          pointer-events: none;
+        & .date-btn {
+          border-left: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-btn-separator-color, var(--border-color-default));
+          background-color: var(--custom-date-picker-btn-bg-color, var(--border-color-default));
+          color: var(--custom-date-picker-btn-icon-color, inherit);
+
+          &:focus {
+            outline: none;
+          }
+
+          &:disabled {
+            border-color: var(--text-color-disabled);
+            background-color: var(--bg-color-element-disabled);
+            color: var(--text-color-disabled);
+            pointer-events: none;
+          }
         }
       }
     }

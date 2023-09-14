@@ -48,7 +48,8 @@ p {
 
 ul, ol {
   list-style-position: outside;
-  margin-bottom: 20px;
+  /* This margin style will keep the space between <li> elements equal, even if those <li> elements are nested. */
+  margin: 10px 0;
   padding-left: 30px;
 }
 

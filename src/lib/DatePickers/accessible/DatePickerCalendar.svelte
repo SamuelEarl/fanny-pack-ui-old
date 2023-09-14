@@ -554,9 +554,10 @@
 <style>
   .datepicker-dialog {
     position: absolute;
+    right: 0;
     width: 320px;
     clear: both;
-    border: 3px solid var(--secondary-color);
+    border: 3px solid var(--date-picker-calendar-border-color);
     margin-top: 0.15em;
     border-radius: var(--border-radius);
     padding: 0;
@@ -566,7 +567,7 @@
 
     & .header {
       cursor: default;
-      background-color: var(--secondary-color);
+      background-color: var(--date-picker-calendar-border-color);
       padding: 7px;
       font-weight: bold;
       text-transform: uppercase;
@@ -627,7 +628,7 @@
         cursor: pointer;
 
         &:hover {
-          border-color: var(--secondary-color);
+          border-color: var(--date-picker-calendar-selected-date-bg-color);
         }
 
         &.disabled {
@@ -638,14 +639,15 @@
 
       /* Selected date styles */
       & td[aria-selected] {
-        border: 2px dotted var(--secondary-color);
+        border: 2px dotted var(--date-picker-calendar-selected-date-bg-color);
       }
 
       /* Focused date styles */
       & td[tabindex="0"] {
-        background-color: var(--secondary-color);
-        border-color: var(--secondary-color);
-        color: var(--white);
+        outline: none;
+        background-color: var(--date-picker-calendar-selected-date-bg-color);
+        border-color: var(--date-picker-calendar-selected-date-bg-color);
+        color: var(--date-picker-calendar-selected-date-text-color);
       }
     }
 
@@ -681,7 +683,7 @@
       padding-top: 0.25em;
       padding-left: 1em;
       height: 1.75em;
-      background: var(--secondary-color);
+      background: var(--date-picker-calendar-border-color);
       color: var(--white);
     }
   }
