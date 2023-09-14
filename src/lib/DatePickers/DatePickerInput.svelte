@@ -18,8 +18,8 @@
   import Icon from "@iconify/svelte";
   import Calendar from "./DatePickerCalendar.svelte";
   import { getDateObjFromISO, isValidDate } from "./utils";
-  import { Label } from "../../Labels";
-  import { createId } from "../../fp-utils";
+  import { Label } from "../Labels";
+  import { createId } from "../fp-utils";
 
   export let label = "";
   export let value = "";

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { Calendar, DateInput, DatePicker, TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
+  import { DatePicker, TabsContainer, TabBar, Tab, TabPanel } from "/src/lib";
 
   let date = new Date();
   let dateIsValid = false;
