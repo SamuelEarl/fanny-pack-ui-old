@@ -43,7 +43,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--custom-textarea-border-color, var(--border-color-default));
+      box-shadow: 0 0 0 2px var(--custom-textarea-border-color, var(--border-color-default));
     }
 
     &:disabled {

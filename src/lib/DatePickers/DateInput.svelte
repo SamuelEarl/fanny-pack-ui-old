@@ -252,11 +252,11 @@
       overflow: hidden;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--border-color-default));
+        box-shadow: 0 0 0 2px var(--custom-date-picker-border-color, var(--border-color-default));
       }
 
       &.showCalendar {
-        box-shadow: 0 0 0 1px var(--custom-date-picker-border-color, var(--border-color-default));
+        box-shadow: 0 0 0 2px var(--custom-date-picker-border-color, var(--border-color-default));
       }
 
       &.disabled {

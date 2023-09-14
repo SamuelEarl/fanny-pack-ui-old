@@ -225,7 +225,7 @@
 <style>
   @media (--xs-up) {
     nav {
-      border-top: 2px solid var(--neutral-900);
+      border-top: 2px solid var(--neutral-12);
 
       & ul {
         margin: 0;

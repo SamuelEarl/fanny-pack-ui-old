@@ -245,7 +245,7 @@
       height: 100%;
 
       & .vertical-hover-line line {
-        stroke: var(--neutral-400);
+        stroke: var(--neutral-4);
         stroke-dasharray: 4 4;
       }
     }

@@ -616,7 +616,7 @@
       }
 
       & td {
-        background-color: var(--neutral-200);
+        background-color: var(--bg-color-element-default);
         padding: 3px;
         border: var(--border-default);
         margin: 0;
@@ -661,7 +661,7 @@
         padding: 6px;
         margin-left: 1em;
         width: 5em;
-        background-color: var(--neutral-200);
+        background-color: var(--bg-color-element-default);
         font-size: 0.85em;
         color: var(--text-color-default);
         outline: none;

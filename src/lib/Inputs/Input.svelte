@@ -106,7 +106,7 @@
     }
 
     &:hover, &:focus {
-      box-shadow: 0 0 0 1px var(--custom-input-border-color, var(--border-color-default));
+      box-shadow: 0 0 0 2px var(--custom-input-border-color, var(--border-color-default));
     }
 
     &:disabled {

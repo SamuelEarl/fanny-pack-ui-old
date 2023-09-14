@@ -13,8 +13,6 @@ I have simply restyled that component to match the rest of the Fanny Pack UI com
 
 ## Example Usage
 
-<br>
-
 <TabsContainer
   border={true} 
   containerPadding="var(--tabs-default-container-padding)" 
@@ -91,10 +89,8 @@ There are two different tab styles: `fill` and `line`. The default style is `lin
 
 This is how a `line` tab style looks without a border:
 
-<br>
-
-<TabsContainer border={false} containerPadding="xl">
-  <TabBar tabStyle="line" marginBottom="md">
+<TabsContainer border={false} containerPadding="20px">
+  <TabBar tabStyle="line">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -119,7 +115,7 @@ This is how a `line` tab style looks without a border:
 <br>
 
 ```svelte
-<TabsContainer border={false} containerPadding="xl">
+<TabsContainer border={false} containerPadding="20px">
   ...
 </TabsContainer>
 ```
@@ -130,8 +126,8 @@ The next example shows how to set the tab style to `fill` with the `tabStyle` pr
 
 <br>
 
-<TabsContainer border={true} containerPadding="md">
-  <TabBar tabStyle="fill" marginBottom="md">
+<TabsContainer border={true} containerPadding="10px">
+  <TabBar tabStyle="fill">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -160,8 +156,8 @@ The next example shows how to set the tab style to `fill` with the `tabStyle` pr
   import { TabsContainer, TabBar, Tab, TabPanel } from "@fanny-pack-ui/svelte-kit";
 </script>
 
-<TabsContainer border={true} containerPadding="md">
-  <TabBar tabStyle="fill" marginBottom="md">
+<TabsContainer border={true} containerPadding="10px">
+  <TabBar tabStyle="fill">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -190,8 +186,8 @@ This is how a `fill` tab style looks without a border:
 
 <br>
 
-<TabsContainer border={false} containerPadding="xl">
-  <TabBar tabStyle="fill" marginBottom="md">
+<TabsContainer border={false} containerPadding="0">
+  <TabBar tabStyle="fill">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -216,8 +212,8 @@ This is how a `fill` tab style looks without a border:
 <br>
 
 ```svelte
-<TabsContainer border={false} containerPadding="xl">
-  <TabBar tabStyle="fill" marginBottom="md">
+<TabsContainer border={false} containerPadding="0">
+  <TabBar tabStyle="fill">
     <Tab>First Tab</Tab>
     <Tab>Second Tab</Tab>
     <Tab>Third Tab</Tab>
@@ -226,7 +222,7 @@ This is how a `fill` tab style looks without a border:
 </TabsContainer>
 ```
 
-<br><br>
+<br>
 
 ## Props
 

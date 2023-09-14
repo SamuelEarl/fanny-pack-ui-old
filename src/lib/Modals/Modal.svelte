@@ -7,7 +7,7 @@
   export let disabled = false;
   export let showCloseButton = true;
   export let contentBgColor = "var(--white)";
-  export let headerFooterBorderColor = "var(--neutral-300)";
+  export let headerFooterBorderColor = "var(--neutral-3)";
 
   const dispatch = createEventDispatcher();
 

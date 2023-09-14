@@ -35,16 +35,19 @@
 
   /* These are shades and tints of #50404d (i.e. Purple Taupe). 
   See https://www.colorhexa.com/50404d. */
-  --neutral-50: #f9f8f9;
-  --neutral-100: #f1edf0;
-  --neutral-200: #e8e2e7;
-  --neutral-300: #d6ccd4;
-  --neutral-400: #bcacb9;
-  --neutral-500: #998095;
-  --neutral-600: #7c6377;
-  --neutral-700: #5b4957;
-  --neutral-800: #3a2f38;
-  --neutral-900: #1a1419;
+  --neutral-1: #f9f8f9;
+  --neutral-2: #e8e2e7;
+  --neutral-3: #d6ccd4;
+  --neutral-4: #c5b6c2;
+  --neutral-5: #b4a1b0;
+  --neutral-6: #a28b9e;
+  --neutral-7: #91758b;
+  --neutral-8: #7c6377;
+  --neutral-9: #665162;
+  --neutral-10: #50404d;
+  --neutral-11: #3a2f38;
+  --neutral-12: #241d23;
+  --neutral-13: #0f0c0e;
 }
 
 /* MAIN COLORS */
@@ -53,10 +56,10 @@
 :root {
   --primary-color: var(--dark-purple);
   --text-color-for-primary-bg: var(--white);
-  --secondary-color: var(--neutral-800);
+  --secondary-color: var(--neutral-11);
   --text-color-for-secondary-bg: var(--white);
   --tertiary-color: var(--white);
-  --text-color-for-tertiary-bg: var(--neutral-800);
+  --text-color-for-tertiary-bg: var(--neutral-11);
 
   /* Notification Colors */
   --info-color: var(--dark-blue);
@@ -64,7 +67,7 @@
   --success-color: var(--dark-green);
   --text-color-for-success-bg: var(--white);
   --warning-color: var(--yellow);
-  --text-color-for-warning-bg: var(--neutral-900);
+  --text-color-for-warning-bg: var(--neutral-13);
   --error-color: var(--dark-red);
   --text-color-for-error-bg: var(--white);
 }
@@ -86,14 +89,14 @@ These variables are organized in the same way that Tailwind organizes their util
 :root {
   /* Page background colors. */
   --bg-color-default: var(--white);
-  --bg-color-default-dark: var(--neutral-700);
+  --bg-color-default-dark: var(--neutral-12);
 
   /* Element background colors. */
-  --bg-color-element-default: var(--neutral-200);
-  --bg-color-element-disabled: var(--neutral-400);
+  --bg-color-element-default: var(--neutral-2);
+  --bg-color-element-disabled: var(--neutral-4);
   
   /* Hover background color. */
-  --bg-color-hover: var(--neutral-200);
+  --bg-color-hover: var(--neutral-2);
 }
 
 
@@ -101,22 +104,22 @@ These variables are organized in the same way that Tailwind organizes their util
 :root {
   --border-width-default: 1px;
   --border-style-default: solid;
-  --border-color-default: var(--neutral-300);
+  --border-color-default: var(--neutral-4);
   --border-default: var(--border-width-default) var(--border-style-default) var(--border-color-default);
   --border-primary: var(--border-width-default) var(--border-style-default) var(--primary-color);
   --border-secondary: var(--border-width-default) var(--border-style-default) var(--secondary-color);
   --border-tertiary: var(--border-width-default) var(--border-style-default) var(--tertiary-color);
-  --border-color-disabled: var(--neutral-400);
+  --border-color-disabled: var(--neutral-4);
   --border-radius: 3px;
 }
 
 
 /* BOX SHADOW */
 :root {
-  --box-shadow-default: 0 0 0 1px var(--border-color-default);
-  --box-shadow-primary: 0 0 0 1px var(--primary-color);
-  --box-shadow-secondary: 0 0 0 1px var(--secondary-color);
-  --box-shadow-tertiary: 0 0 0 1px var(--tertiary-color);
+  --box-shadow-default: 0 0 0 2px var(--border-color-default);
+  --box-shadow-primary: 0 0 0 2px var(--primary-color);
+  --box-shadow-secondary: 0 0 0 2px var(--secondary-color);
+  --box-shadow-tertiary: 0 0 0 2px var(--tertiary-color);
   --box-shadow-depth: 0px 3px 3px 3px rgba(0, 0, 0, 0.1);
 }
 
@@ -186,11 +189,11 @@ These variables are organized in the same way that Tailwind organizes their util
   --line-height-9xl: 1px;
 
   /* Text Color */
-  --text-color-default: var(--neutral-700);
-  --text-color-disabled: var(--neutral-100);
+  --text-color-default: var(--neutral-11);
+  --text-color-disabled: var(--neutral-1);
 
   /* Placeholder Text Color */
-  --placeholder-color-default: var(--neutral-500);
+  --placeholder-color-default: var(--neutral-7);
 }
 
 /* ------------------------ */

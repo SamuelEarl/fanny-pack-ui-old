@@ -213,7 +213,7 @@ https://blog.logrocket.com/create-drag-and-drop-component-react-dropzone/ -->
     padding: 20px;
     padding-bottom: 5px;
     border: 2px dashed;
-    border-color: var(--neutral-600);
+    border-color: var(--neutral-8);
     border-radius: var(--border-radius);
     text-align: center;
     background-color: var(--bg-color-element-default);

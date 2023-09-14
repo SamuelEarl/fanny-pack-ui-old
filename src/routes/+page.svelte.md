@@ -227,10 +227,10 @@ Libraries like TailwindCSS are awesome and handle a lot of the heavy lifting for
 * It is one more thing to learn, which may not be around later on. Web standards will be around for a long time, but libraries come and go pretty quickly sometimes. Everytime I get back into a Tailwind project I have to reference the Tailwind docs a lot. That's not necessarily a bad thing, but it is really nice to just use standard CSS, which has a much larger community to lean on when I run into a CSS issue.
 * You have to do things their way, which you might not like or which might not make sense to you.
 * Creating a custom theme can get pretty hairy and confusing. For example, if I want to create a custom `text-color` class in Tailwind, I can define a color like this in the `tailwind.config.cjs` file: `"text-color": "#0f172a"`. But then when I want to use the `text-color` class I can't just reference `"text-color"` in my HTML. I actually have to reference `"text-text-color"`. But I can work around this issue by creating custom classes in the `base` layer of my `main.css` file, like this: `.text-color { @apply text-text-color; }`. But now I am duplicating code just to get the same benefits that I could get by using CSS variables. So why not just use CSS variables? When working on a team (and even when working on solo projects) those custom classes in the `base` layer can often get lost and forgotten, especially if you are defining a lot of custom classes. 
-* Tailwind colors can get pretty confusing when you start to introduce things that are a little more complex. For example, I wanted to add a simple box shadow to some elements when they were hovered. I define a default border color that I could use for certain elements (e.g. input fields, select boxes, checkboxes, radio buttons). I named that custom color value `border-color-default`. After defining that custom color value I was able to use it anywhere if I prefixed it with the corresponding element prefix. For example, I could set a default border color with the `border-border-color-default` or I could color some text with `text-border-color-default` (even though that seems a little confusing). (NOTE: The `border-border` part gets a little confusing, but there is a work around for that, as explained above.) Once that `border-color-default` class was defined I wanted to create a box shadow that basically added a 1px border around elements that were hovered. So I set this utility in the `tailwind.config.cjs` file:<br><br>
+* Tailwind colors can get pretty confusing when you start to introduce things that are a little more complex. For example, I wanted to add a simple box shadow to some elements when they were hovered. I define a default border color that I could use for certain elements (e.g. input fields, select boxes, checkboxes, radio buttons). I named that custom color value `border-color-default`. After defining that custom color value I was able to use it anywhere if I prefixed it with the corresponding element prefix. For example, I could set a default border color with the `border-border-color-default` or I could color some text with `text-border-color-default` (even though that seems a little confusing). (NOTE: The `border-border` part gets a little confusing, but there is a work around for that, as explained above.) Once that `border-color-default` class was defined I wanted to create a box shadow that basically added a 2px border around elements that were hovered. So I set this utility in the `tailwind.config.cjs` file:<br><br>
   ```
   boxShadow: {
-    "hover": "0 0 0 1px",
+    "hover": "0 0 0 2px",
   }
   ```
   
@@ -244,14 +244,14 @@ Libraries like TailwindCSS are awesome and handle a lot of the heavy lifting for
 
   ```
   .element:hover {
-    box-shadow: 0 0 0 1px var(--border-color-default);
+    box-shadow: 0 0 0 2px var(--border-color-default);
   }
   ```
 
   Or better yet:
 
   ```
-  --box-shadow-default: 0 0 0 1px var(--border-color-default);
+  --box-shadow-default: 0 0 0 2px var(--border-color-default);
   ```
   ```
   .element:hover {

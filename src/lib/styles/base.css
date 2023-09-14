@@ -11,8 +11,7 @@ html, body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  margin-top: 40px;
-  margin-bottom: 20px;
+  margin: 20px 0;
   font-family: var(--cursive);
 }
 
@@ -116,8 +115,7 @@ code {
 
 table {
   width: 100%;
-  margin-top: 40px;
-  margin-bottom: 40px;
+  margin: 20px 0;
   border-collapse: collapse;
 }
 

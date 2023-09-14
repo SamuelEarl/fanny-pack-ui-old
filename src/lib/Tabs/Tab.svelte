@@ -44,7 +44,7 @@
 
       &.line {
         margin-bottom: -1px;
-        border-bottom: 3px solid transparent;
+        border-bottom: 4px solid transparent;
 
         &:hover {
           border-color: var(--border-color-default);

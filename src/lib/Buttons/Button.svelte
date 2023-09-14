@@ -47,7 +47,7 @@
   const btnIconStyles = getBtnIconStyles();
 
   function addBoxShadow(event) {
-    event.target.style.boxShadow = `0 0 0 1px ${borderColor}`;
+    event.target.style.boxShadow = `0 0 0 2px ${borderColor}`;
   }
 
   function removeBoxShadow(event) {

@@ -328,7 +328,7 @@
       cursor: pointer;
 
       &:hover {
-        box-shadow: 0 0 0 1px var(--custom-select-border-color, var(--border-color-default));
+        box-shadow: 0 0 0 2px var(--custom-select-border-color, var(--border-color-default));
       }
 
       &.active {

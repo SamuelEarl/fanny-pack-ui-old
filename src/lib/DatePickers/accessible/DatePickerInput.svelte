@@ -185,7 +185,7 @@
 
         & .date-btn {
           border-left: var(--border-width-default) var(--border-style-default) var(--custom-date-picker-btn-separator-color, var(--border-color-default));
-          background-color: var(--custom-date-picker-btn-bg-color, var(--border-color-default));
+          background-color: var(--custom-date-picker-btn-bg-color, var(--neutral-3));
           color: var(--custom-date-picker-btn-icon-color, inherit);
 
           &:focus {

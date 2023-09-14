@@ -26,7 +26,7 @@
         color: var(--text-color-default);
 
         &:hover {
-          box-shadow: var(--box-shadow-default);
+          box-shadow: 0 0 0 1px var(--border-color-default);;
         }
       }
 

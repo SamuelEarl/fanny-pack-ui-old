@@ -348,7 +348,7 @@
     align-items: center;
     padding: 20px;
     border: 2px dashed;
-    border-color: var(--neutral-600);
+    border-color: var(--neutral-8);
     border-radius: var(--border-radius);
     background-color: var(--bg-color-element-default);
     color: var(--text-color-default);
