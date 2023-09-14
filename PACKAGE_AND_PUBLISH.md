@@ -59,13 +59,13 @@ Read how to do login here: http://npm.github.io/installation-setup-docs/installi
 In order to distribute this package to other developers and allow them to install it as an npm package you need to publish it to npm. To publish this as an npm module run the following command from inside the directory that contains your `package.json` file:
 
 ```
-npm publish ./package
+npm publish ./dist
 ```
 
 NOTE: Since this uses a scoped package name, the first time you publish this package you will have to specify that this should be a public package. (If you want this to be a private package with a scoped name, then you can pay for that.)
 
 ```
-npm publish ./package --access=public
+npm publish ./dist --access=public
 ```
 
 Sources:
