@@ -42,11 +42,13 @@ Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub be
 
 Run the following from the root of the project:
 
+NOTE: I need to read up on the changes for packaging code up into a library: https://kit.svelte.dev/docs/packaging
+
 ```
 npm run package
 ```
 
-This command will take all the files that are under the `src/lib` folder and make them available as a package. This command generates a new directory called `package` at the root of your project. Inside of that `package` directory you will notice that there is a new `package.json` file. This file consists of an attribute called `exports`, which consists of all the paths or entry points to the individual components that we have developed.
+This command will take all the files that are under the `src/lib` folder and turn them into a package. This command will generate a new `dist` directory at the root of your project. Inside of that `dist` directory you will notice that there is a new `package.json` file. This file consists of an attribute called `exports`, which consists of all the paths or entry points to the individual components that we have developed.
 
 *https://blog.logrocket.com/build-your-own-component-library-svelte/*
 
@@ -59,13 +61,19 @@ Read how to do login here: http://npm.github.io/installation-setup-docs/installi
 In order to distribute this package to other developers and allow them to install it as an npm package you need to publish it to npm. To publish this as an npm module run the following command from inside the directory that contains your `package.json` file:
 
 ```
-npm publish ./dist
+npm publish
 ```
 
 NOTE: Since this uses a scoped package name, the first time you publish this package you will have to specify that this should be a public package. (If you want this to be a private package with a scoped name, then you can pay for that.)
 
 ```
 npm publish ./dist --access=public
+```
+
+Or maybe you can leave the `./dist` out, like this:
+
+```
+npm publish --access=public
 ```
 
 Sources:
