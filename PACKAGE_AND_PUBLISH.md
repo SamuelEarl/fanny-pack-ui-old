@@ -42,7 +42,9 @@ Make sure to save your code by `add`ing, `commit`ing, and `push`ing to GitHub be
 
 Run the following from the root of the project:
 
+**********
 NOTE: I need to read up on the changes for packaging code up into a library: https://kit.svelte.dev/docs/packaging
+**********
 
 ```
 npm run package
